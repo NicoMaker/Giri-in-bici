@@ -1,0 +1,23 @@
+h1 {
+    color: #ff0d05;
+    font-size: 50px;
+    text-align: center;
+}
+
+table {
+    font-family: Roboto, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid;
+    text-align: center;
+    padding: 8px;
+}
+
+/**classe che mette in grasetto il testo**/
+.grasetto{
+    font-weight: bold;
+}
