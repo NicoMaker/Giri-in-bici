@@ -4,6 +4,11 @@ h1 {
     text-align: center;
 }
 
+p{
+    font-size: 20px;
+    text-align: center;
+}
+
 table {
     font-family: Roboto, sans-serif;
     border-collapse: collapse;
