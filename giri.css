@@ -17,7 +17,22 @@ th {
     padding: 8px;
 }
 
+/**colore riga alternato pari**/
+tr:nth-child(2n) {
+    background-color: #09ff0059;
+}
+
+/**colore riga alternato dispari**/
+tr:nth-child(2n + 3) {
+    background-color: #f0ec067e;
+}
+
+/***colore prima linea tabella**/
+tr:nth-child(-n + 1) {
+    background-color: #0400ff60;
+}
+
 /**classe che mette in grasetto il testo**/
-.grasetto{
+.grasetto {
     font-weight: bold;
 }
