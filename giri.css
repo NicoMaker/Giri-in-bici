@@ -47,4 +47,6 @@ tr:nth-child(-n + 1) {
 
     display: block;
     margin: 0 auto;
+    width:auto;
+    height: 700px;
 }
