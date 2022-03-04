@@ -1,27 +1,34 @@
 
 h1 {
+    font-family: 'Dancing Script', cursive;
     color: #ff0d05;
     font-size: 50px;
     text-align: center;
 }
 
 p{
+    font-family: 'Hubballi', cursive;
     font-size: 30px;
     text-align: center;
 }
 
 table {
-    font-family: Roboto, sans-serif;
-    border-collapse: collapse;
     width: 100%;
 }
 
 td,
 th {
+    font-family: 'Roboto', sans-serif;
     border: 1px solid;
     text-align: center;
     padding: 15px;
 }
+
+tr{
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
 
 /**colore riga alternato pari**/
 tr:nth-child(2n) {
