@@ -22,11 +22,12 @@ th {
     border: 1px solid;
     text-align: center;
     padding: 15px;
+    font-size:30px;
 }
 
 tr{
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 
