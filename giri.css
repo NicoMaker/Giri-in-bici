@@ -1,4 +1,3 @@
-
 h1 {
     font-family: 'Dancing Script', cursive;
     color: #ff0d05;
@@ -57,4 +56,11 @@ tr:nth-child(-n + 1) {
     margin: 0 auto;
     width:auto;
     height: 700px;
+}
+
+.Bandiera-FVG {
+
+    margin:55;
+    width:auto;
+    height: 200px;
 }
