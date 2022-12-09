@@ -64,3 +64,21 @@ tr:nth-child(-n + 1) {
     width:auto;
     height: 200px;
 }
+
+.Titolo{
+    font-size: 100px;
+}
+
+.Estate{
+    background-color: rgb(240, 228, 64);
+}
+
+.Primavera
+{
+    background-color: rgb(120, 240, 64);
+}
+
+.Autunno-Inverno{
+    background-color: rgb(93, 233, 210);
+}
+
