@@ -1,22 +1,25 @@
-h1 {
+h1 
+{
     font-family: 'Dancing Script', cursive;
     color: #ff0d05;
     font-size: 50px;
     text-align: center;
 }
 
-p{
+p
+{
     font-family: 'Hubballi', cursive;
     font-size: 30px;
     text-align: center;
 }
 
-table {
+table 
+{
     width: 100%;
 }
 
-td,
-th {
+td,th 
+{
     font-family: 'Roboto', sans-serif;
     border: 1px solid;
     text-align: center;
@@ -24,52 +27,59 @@ th {
     font-size:30px;
 }
 
-tr{
+tr
+{
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
 }
 
 
 /**colore riga alternato pari**/
-tr:nth-child(2n) {
+tr:nth-child(2n) 
+{
     background-color: #09ff0059;
 }
 
 /**colore riga alternato dispari**/
-tr:nth-child(2n + 3) {
+tr:nth-child(2n + 3) 
+{
     background-color: #f0ec067e;
 }
 
 /***colore prima linea tabella**/
-tr:nth-child(-n + 1) {
+tr:nth-child(-n + 1) 
+{
     background-color: #0400ff60;
 }
 
 /**classe che mette in grasetto il testo**/
-.grasetto {
+.grasetto 
+{
     font-weight: bold;
 }
 
-.immagine {
-
+.immagine 
+{
     display: block;
     margin: 0 auto;
     width:auto;
     height: 700px;
 }
 
-.Bandiera-FVG {
-
+.Bandiera-FVG 
+{
     margin:55;
     width:auto;
     height: 200px;
 }
 
-.Titolo{
+.Titolo
+{
     font-size: 100px;
 }
 
-.Estate{
+.Estate
+{
     background-color: rgb(240, 228, 64);
 }
 
@@ -82,3 +92,8 @@ tr:nth-child(-n + 1) {
     background-color: rgb(93, 233, 210);
 }
 
+a
+{
+    text-decoration: none;
+    color:blue;
+}
