@@ -106,9 +106,18 @@ a
 
 .colore_apertura{
     font-family: 'Dancing Script', cursive;
-    color: green;
+    color: rgb(5, 236, 20);
 }
 
 .corsivo{
     font-family: 'Dancing Script', cursive;
+}
+
+input{
+    position: relative;
+    left : 600px;
+    font-size: 30px;
+    font-family: 'Dancing Script', cursive;
+    color:blue;
+    background-color: yellow;
 }
