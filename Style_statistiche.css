@@ -1,0 +1,237 @@
+h1 
+{
+    font-family: 'Dancing Script', cursive;
+    color: #ff0d05;
+    font-size: 50px;
+    text-align: center;
+}
+
+p
+{
+    font-family: 'Hubballi', cursive;
+    font-size: 30px;
+    text-align: center;
+    color: black;
+}
+
+table 
+{
+    width: 100%;
+}
+
+td,th 
+{
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid;
+    text-align: center;
+    padding: 15px;
+    font-size:30px;
+}
+
+tr
+{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+
+/**colore riga alternato pari**/
+tr:nth-child(2n) 
+{
+    background-color: #0022ff59;
+}
+
+/**colore riga alternato dispari**/
+tr:nth-child(2n + 3) 
+{
+    background-color: #06f05c7e;
+}
+
+/***colore prima linea tabella**/
+tr:nth-child(-n + 1) 
+{
+    background-color: #bbff0060;
+}
+
+/**classe che mette in grasetto il testo**/
+.grasetto 
+{
+    font-weight: bold;
+}
+
+.immagine 
+{
+    display: block;
+    margin:  auto;
+    width: 400px;
+    height: 700px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
+
+.immagine_titolo
+{
+    display: block;
+    margin: 0 auto;
+    width:auto;
+    height: 700px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
+
+.Bandiera-FVG 
+{
+    margin:55;
+    width:auto;
+    height: 200px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
+
+.Titolo
+{
+    font-size: 100px;
+}
+
+.Estate
+{
+    background-color: rgb(240, 228, 64);
+}
+
+.Primavera
+{
+    background-color: rgb(120, 240, 64);
+}
+
+.Autunno-Inverno{
+    background-color: rgb(93, 233, 210);
+}
+
+a
+{
+    text-decoration: none;
+    color:blue;
+}
+
+
+.colore_apertura{
+    font-family: 'Dancing Script', cursive;
+    color: green;
+}
+
+.corsivo{
+    font-family: 'Dancing Script', cursive;
+}
+
+h1 
+{
+    font-family: 'Dancing Script', cursive;
+    color: #ff0d05;
+    font-size: 50px;
+    text-align: center;
+}
+
+p
+{
+    font-family: 'Hubballi', cursive;
+    font-size: 30px;
+    text-align: center;
+    color: black;
+}
+
+table 
+{
+    width: 100%;
+}
+
+td,th 
+{
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid;
+    text-align: center;
+    padding: 15px;
+    font-size:30px;
+    background-color: white;
+}
+
+tr
+{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+tr:nth-child(-n + 1)
+{
+    background-color: red;
+}
+
+tr:nth-child(2n + 3) 
+{
+    background-color: white
+}
+
+/***colore prima linea tabella**/
+tr:nth-child(2n) 
+{
+    background-color: white;
+}
+
+/**classe che mette in grasetto il testo**/
+.grasetto 
+{
+    font-weight: bold;
+}
+
+.immagine 
+{
+    display: block;
+    margin: auto;
+    width:1250px;
+    height: 700px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
+
+.Bandiera-FVG 
+{
+    margin:55;
+    width:auto;
+    height: 200px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
+
+.Titolo
+{
+    font-size: 100px;
+}
+
+.Estate
+{
+    background-color: rgb(240, 228, 64);
+}
+
+.Primavera
+{
+    background-color: rgb(120, 240, 64);
+}
+
+.Autunno-Inverno{
+    background-color: rgb(93, 233, 210);
+}
+
+a
+{
+    text-decoration: none;
+    color:blue;
+}
+
+
+.colore_apertura{
+    font-family: 'Dancing Script', cursive;
+    color: rgb(5, 236, 20);
+}
+
+.corsivo{
+    font-family: 'Dancing Script', cursive;
+}
