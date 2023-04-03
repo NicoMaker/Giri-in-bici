@@ -63,8 +63,8 @@ tr:nth-child(-n + 1)
 {
     display: block;
     margin:  auto;
-    width: 350px;
-    height: 700px;
+    width: 250px;
+    height: 500px;
     border: dashed #00ff9d 10px;
     background-color: yellow;
 }
@@ -194,20 +194,6 @@ tr:nth-child(2n)
 .Titolo
 {
     font-size: 100px;
-}
-
-.Estate
-{
-    background-color: rgb(240, 228, 64);
-}
-
-.Primavera
-{
-    background-color: rgb(120, 240, 64);
-}
-
-.Autunno-Inverno{
-    background-color: rgb(93, 233, 210);
 }
 
 a
