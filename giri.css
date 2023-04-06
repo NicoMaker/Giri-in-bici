@@ -119,4 +119,6 @@ input{
     font-family: 'Dancing Script', cursive;
     color:blue;
     background-color: yellow;
+    display: block;
+    margin: 0 auto;
 }
