@@ -47,3 +47,23 @@ function Primavera2023()
 {
     window.location.href = "Primavera2023.html";
 }
+
+function Statistiche2020()
+{
+    window.location.href = "Statistiche2020.html"
+}
+
+function Statistiche2021()
+{
+    window.location.href = "Statistiche2021.html"
+}
+
+function Statistiche2022()
+{
+    window.location.href = "Statistiche2022.html"
+}
+
+function Statistiche2023()
+{
+    window.location.href = "Statistiche2023.html"
+}
