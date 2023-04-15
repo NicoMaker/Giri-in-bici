@@ -83,20 +83,6 @@ tr:nth-child(-n + 1)
     font-size: 100px;
 }
 
-.Estate
-{
-    background-color: rgb(240, 228, 64);
-}
-
-.Primavera
-{
-    background-color: rgb(120, 240, 64);
-}
-
-.Autunno-Inverno{
-    background-color: rgb(93, 233, 210);
-}
-
 a
 {
     text-decoration: none;
@@ -109,9 +95,6 @@ a
     color: rgb(5, 236, 20);
 }
 
-.corsivo{
-    font-family: 'Dancing Script', cursive;
-}
 
 input{
     position: relative;
