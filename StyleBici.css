@@ -96,15 +96,15 @@ a
 @media all and (max-width: 520px)
 {
     table{
-        width: 50%;
+        width:45 %;
     }
 
     h1{
-        margin: 50px;
+        margin: 70px;
     }
 
     p{
-        margin : 50px;
+        margin : 70px;
     }
 }
 
