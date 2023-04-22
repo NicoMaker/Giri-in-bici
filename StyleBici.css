@@ -98,11 +98,27 @@ a
     table{
         width: 50%;
     }
+
+    h1{
+        margin: 50px;
+    }
+
+    p{
+        margin : 50px;
+    }
 }
 
 @media all and (min-width 521px)
 {
     table{
         width: 100%;
+    }
+
+    h1{
+        text-align: center;
+    }
+
+    p{
+        text-align: center;
     }
 }
