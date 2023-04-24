@@ -55,7 +55,7 @@ function Statistiche2020()
 
 function Statistiche2021()
 {
-    window.location.href = "./StatisticheStatistiche2021.html"
+    window.location.href = "./Statistiche/Statistiche2021.html"
 }
 
 function Statistiche2022()
