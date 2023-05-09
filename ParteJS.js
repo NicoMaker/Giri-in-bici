@@ -1,6 +1,6 @@
-function Statistiche() 
+function Estate()
 {
-    window.location.href = "Statistiche.html";
+    window.location.href = "./Estate.html";
 }
 
 function Estate2020() 
@@ -8,29 +8,9 @@ function Estate2020()
     window.location.href = "./Estate/Estate2020.html";
 }
 
-function Autunno_Inverno2020_2021()
-{
-    window.location.href = "./Autunno_Inverno/Autunno_Inverno2020-2021.html";
-}
-
-function Primavera2021()
-{
-    window.location.href = "./Primavera/Primavera2021.html";
-}
-
 function Estate2021()
 {
     window.location.href ="./Estate/Estate2021.html";
-}
-
-function Autunno_Inverno2021_2022()
-{
-    window.location.href = "./Autunno_Inverno/Autunno_Inverno2021-2022.html";
-}
-
-function Primavera2022()
-{
-    window.location.href = "./Primavera/Primavera2022.html";
 }
 
 function Estate2022() 
@@ -38,14 +18,50 @@ function Estate2022()
     window.location.href = "./Estate/Estate2022.html";
 }
 
+function Autunno_Inverno()
+{
+    window.location.href ="./Autunno_Inverno.html";
+}
+
+function Autunno_Inverno2020_2021()
+{
+    window.location.href = "./Autunno_Inverno/Autunno_Inverno2020-2021.html";
+}
+
+function Autunno_Inverno2021_2022()
+{
+    window.location.href = "./Autunno_Inverno/Autunno_Inverno2021-2022.html";
+}
+
 function Autunno_Inverno2022_2023()
 {
     window.location.href = "./Autunno_Inverno/Autunno_Inverno2022-2023.html";
 }
 
+function Primavera()
+{
+    window.location.href = "./Primavera.html";
+}
+
+function Primavera2021()
+{
+    window.location.href = "./Primavera/Primavera2021.html";
+}
+
+function Primavera2022()
+{
+    window.location.href = "./Primavera/Primavera2022.html";
+}
+
+
 function Primavera2023()
 {
     window.location.href = "./Primavera/Primavera2023.html";
+}
+
+function Statistiche() 
+{
+    window.location.href = "Statistiche.html";
 }
 
 function Statistiche2020()

@@ -94,3 +94,15 @@ a
     font-family: 'Dancing Script', cursive;
     color: rgb(5, 236, 20);
 }
+
+input{
+    position: relative;
+    font-size: 30px;
+    font-family: 'Dancing Script', cursive;
+    color:blue;
+    background-color: yellow;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50px;
+    border: dashed #00ff9d 10px;
+}
