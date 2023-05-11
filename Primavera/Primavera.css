@@ -100,9 +100,9 @@ input{
     font-size: 30px;
     font-family: 'Dancing Script', cursive;
     color:blue;
-    background-color: yellow;
+    background-color: orange;
     display: block;
     margin: 0 auto;
     border-radius: 50px;
-    border: dashed #00ff9d 10px;
+    border: dashed #ff006a 10px;
 }
