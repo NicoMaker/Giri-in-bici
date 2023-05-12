@@ -1,53 +1,57 @@
 .container {
-    width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    text-align: center;
-  }
-  
-  .form-group {
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  label {
-    display: block;
-    text-align: center;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-    padding: 5px;
-    text-align: center;
-    border-radius: 50px;
-  }
-  
-  button[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: coral;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    border-radius: 50px;
-  }
-
-img 
-{
-    display: block;
-    margin: 0 auto;
-    width:auto;
-    height: 300px;
-    border: dashed #00ff9d 10px;
-    background-color: yellow;
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
 }
 
-h2
-{
-    color: red;
-    font-family: 'Dancing Script', cursive;
+.form-group {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="password"] {
+  right: 10px;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+  border-radius: 50px;
+}
+
+button[type="submit"] {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: coral;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 50px;
+}
+
+img {
+  position: relative;
+  display: block;
+  /* left: 0; */
+  /* margin: 0 auto;
+    width:auto; */
+  /* transform: translateX((-50%)); */
+  right: 10px;
+  height: 300px;
+  border: dashed #00ff9d 10px;
+  background-color: yellow;
+}
+
+h2 {
+  color: red;
+  font-family: 'Dancing Script', cursive;
 }
