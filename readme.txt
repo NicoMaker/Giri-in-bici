@@ -5,3 +5,6 @@ statistiche generali -> statistiche.html
 statistiche anno -> statistiche2023.html
 periodo -> nome stagione.html
 periodo interessato -> periodoanno.html
+
+Nome Utente -> NicolaJacopo
+Password -> Giri2023
