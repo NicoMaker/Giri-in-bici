@@ -1,13 +1,21 @@
+var users = [
+  { username: "NicoMaker", password: "Giri2023" },
+  { username: "Jacopo", password: "Giri2023" },
+];
+
 document.getElementById("loginForm").addEventListener("submit", function (event) {
   event.preventDefault(); // Evita il comportamento di default del form
 
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
 
-  // Verifica se le credenziali sono corrette
-  if (username === "NicolaJacopo" && password === "Giri2023") {
-    window.location.href = "giri.html"; // Reindirizza alla pagina home.html
-  } else {
-    alert("Credenziali non valide. Riprova.");
-  }
+  var user = users.find(function(u) {
+    return u.username === username && u.password === password;
+  });
+
+ if (user) {
+      window.location.href = "giri.html";
+    } else {
+      errorElement.innerText = "Nome utente o password non validi!";
+    }
 });
