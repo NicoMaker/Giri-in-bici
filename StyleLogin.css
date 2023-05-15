@@ -1,11 +1,3 @@
-.container {
-  width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  text-align: center;
-}
-
 .form-group {
   margin-bottom: 10px;
   text-align: center;
@@ -52,9 +44,40 @@ img {
 h2 {
   color: red;
   font-family: 'Dancing Script', cursive;
+  font-size: 45px;
 }
 
-body{
+#container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-      background-color: #ffffff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1}
+/* Stile per la pagina di login */
+.loginForm{
+  width: 300px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Stile per la pagina di login */
+.login-page {
+  width: 300px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: solid cyan 10px;
+}
