@@ -16,6 +16,6 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
  if (user) {
       window.location.href = "giri.html";
     } else {
-      errorElement.innerText = "Nome utente o password non validi!";
+      alert("Nome utente o password non validi!");
     }
 });
