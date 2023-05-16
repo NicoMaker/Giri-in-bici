@@ -55,15 +55,6 @@ h2 {
   align-items: center;
 }
 
-/* Stile per la pagina di login */
-.loginForm{
-  width: 300px;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
 #container {
   width: 100%;
   height: 100vh;
