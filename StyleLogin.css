@@ -35,7 +35,7 @@ button[type="submit"] {
 img {
   position: relative;
   display: block;
-  left : 150px;
+  right: 10px;
   height: 300px;
   border: dashed #00ff9d 10px;
   background-color: yellow;
@@ -62,8 +62,5 @@ h2 {
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  height: 90%;
-  width: 50%;
   border: solid cyan 10px;
-  background-color:peachpuff;
 }
