@@ -35,7 +35,7 @@ button[type="submit"] {
 img {
   position: relative;
   display: block;
-  left : 170px;
+  left : 150px;
   height: 300px;
   border: dashed #00ff9d 10px;
   background-color: yellow;
