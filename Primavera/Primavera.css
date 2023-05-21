@@ -106,3 +106,12 @@ input{
     border-radius: 50px;
     border: dashed #ff006a 10px;
 }
+
+.immagini_stagione {
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 250px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
