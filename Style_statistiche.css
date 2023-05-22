@@ -116,4 +116,5 @@ input{
     margin: 0 auto;
     border-radius: 50px;
     border: dashed #00ff9d 10px;
+    cursor: pointer;
 }

@@ -105,6 +105,7 @@ input{
     margin: 0 auto;
     border-radius: 50px;
     border: dashed #ff006a 10px;
+    cursor: pointer;
 }
 
 .immagini_stagione {
