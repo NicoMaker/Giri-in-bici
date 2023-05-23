@@ -18,6 +18,11 @@ function Estate2022()
     window.location.href = "./Estate/Estate2022.html";
 }
 
+function Estate2023() 
+{
+    window.location.href = "./Estate/Estate2023.html";
+}
+
 function Autunno_Inverno()
 {
     window.location.href ="./Autunno_Inverno.html";
