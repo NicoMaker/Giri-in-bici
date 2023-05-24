@@ -14,21 +14,16 @@ p {
 
 table {
     width: 100%;
+    height: calc(100% - 5px);
+    font-family: 'Roboto', sans-serif;
 }
 
 td,
 th {
-    font-family: 'Roboto', sans-serif;
     border: 1px solid;
     text-align: center;
-    padding: 15px;
-    font-size: 20px;
 }
 
-tr {
-    font-family: 'Roboto', sans-serif;
-    font-size: 30px;
-}
 
 
 /**colore riga alternato pari**/
@@ -147,4 +142,24 @@ a {
 {
     width: 150px;
     height: 200px;
+}
+
+.menu table {
+    width: 100%;
+    height: calc(100% - 5px);
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding: 15px;
+    font-size: 30px;
+}
+
+td,
+th {
+    border: 1px solid;
 }
