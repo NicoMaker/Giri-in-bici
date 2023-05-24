@@ -22,7 +22,7 @@ th {
     border: 1px solid;
     text-align: center;
     padding: 15px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 tr {
@@ -108,7 +108,7 @@ input {
 .menu {
     position: fixed;
     width: 20vw;
-    min-width: 640px;
+    min-width: 650px;
     height: 93%;
     list-style: none;
     right: 0;
@@ -145,4 +145,15 @@ a {
 
 .menu tr {
     margin-bottom: 5px;
+}
+
+
+.MenuIcon material-icons
+{
+    font-size: 50px;
+}
+
+.CloseIcon material-icons
+{
+    font-size: 50px;
 }
