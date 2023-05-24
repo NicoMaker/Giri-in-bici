@@ -22,7 +22,7 @@ th {
     border: 1px solid;
     text-align: center;
     padding: 15px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 tr {
@@ -141,10 +141,6 @@ a {
 
 .CloseIcon {
     display: none;
-}
-
-.menu tr, th {
-    font-size: 20px;
 }
 
 .MenuIcon material-icons , .CloseIcon material-icons
