@@ -138,11 +138,6 @@ a {
     display: none;
 }
 
-.MenuIcon material-icons , .CloseIcon material-icons
-{
-    width: 150px;
-    height: 200px;
-}
 
 .menu table {
     width: 100%;
