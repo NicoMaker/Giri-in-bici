@@ -22,12 +22,12 @@ th {
     border: 1px solid;
     text-align: center;
     padding: 15px;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 tr {
     font-family: 'Roboto', sans-serif;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 
@@ -143,20 +143,12 @@ a {
     display: none;
 }
 
-.menu tr {
-    margin-bottom: 5px;
-}
-
-
-i
-{
-    height: 50px;
-    width: 50px;
+.menu tr, th {
+    font-size: 20px;
 }
 
 .MenuIcon material-icons , .CloseIcon material-icons
 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 150px;
+    height: 200px;
 }
