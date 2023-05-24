@@ -148,12 +148,15 @@ a {
 }
 
 
-.MenuIcon material-icons
+i
 {
-    font-size: 50px;
+    height: 50px;
+    width: 50px;
 }
 
-.CloseIcon material-icons
+.MenuIcon material-icons , .CloseIcon material-icons
 {
-    font-size: 50px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
