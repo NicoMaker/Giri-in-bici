@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
 
@@ -30,6 +31,109 @@
     <script src="ParteJS.js"></script>
 
     <img class="Bandiera-FVG" src="imagini Html sito principale/Bandiera FVG.jpg">
+
+    <table class="menu">
+        <tr>
+            <td>
+                Simbolo
+            </td>
+
+            <td>
+                Funzione
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Icone/home.png">
+            </td>
+
+            <td>
+                <a href="Giri.html">Vai alla Home</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Icone/Statistiche.png">
+            </td>
+
+            <td>
+                <a href="Statistiche.html">Vai alla Statistiche
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Icone/bici.png">
+            </td>
+
+            <td>
+                <a href="Bici/Bici.html">Vai alle Bici
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Icone/estate.png">
+            </td>
+
+            <td>
+                <a href="Estate.html">Vai alla pagina Estate
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Icone/inverno.png">
+            </td>
+
+            <td>
+                <a href="Autunno_Inverno.html">Vai alla pagina Autunno - Inverno
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Icone/primavera.png">
+            </td>
+
+            <td>
+                <a href="Primavera.html">Vai alla pagina Primavera
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Icone/freccia.png">
+            </td>
+
+            <td>
+                Torna Indietro alla Pagina Precedente
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Icone/login.png">
+            </td>
+
+            <td>
+                <a href="https://giri-in-bici.netlify.app/">Torna alla pagina di Login</a>
+            </td>
+        </tr>
+
+    </table>
+
+    <button class="hamburger">
+        <i class="MenuIcon material-icons">menu</i>
+        <i class="CloseIcon material-icons">close</i>
+    </button>
 
     <h1 class="Titolo">
         <img src="Icone/bici.png">
@@ -41,16 +145,8 @@
     <img class="immagine" src="imagini Html sito principale/Logo .JPG">
 
     <p>
-        <a class="colore_apertura" href="Legenda.html">
-            <img src="Icone/legenda.png">
-        </a>
-
         <a class="colore_apertura" href="https://giri-in-bici.netlify.app/">
             <img src="Icone/login.png">
-        </a>
-
-        <a class="colore_apertura" href="Bici/Bici.html">
-            <img class="sfondo" src=" Icone/bici.png ">
         </a>
 
     </p>
@@ -114,5 +210,27 @@
     <img class="immagine" src="imagini Html sito principale/JN.JPG">
 
 </body>
+<script>
+    const menu = document.querySelector(".menu");
+    const hamburger = document.querySelector(".hamburger");
+    const closeIcon = document.querySelector(".CloseIcon");
+    const menuIcon = document.querySelector(".MenuIcon");
+
+    function toggleMenu() {
+
+        if (menu.classList.contains("showMwnu")) {
+            menu.classList.remove("showMwnu");
+            closeIcon.style.display = "none";
+            menuIcon.style.display = "block"
+        }
+        else {
+            menu.classList.add("showMwnu");
+            closeIcon.style.display = "block";
+            menuIcon.style.display = "none";
+        }
+    }
+
+    hamburger.addEventListener("click", toggleMenu);
+</script>
 
 </html>
