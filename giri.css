@@ -12,12 +12,6 @@ p {
     color: black;
 }
 
-table {
-    width: 100%;
-    height: calc(100% - 5px);
-    font-family: 'Roboto', sans-serif;
-}
-
 td,
 th {
     border: 1px solid;
