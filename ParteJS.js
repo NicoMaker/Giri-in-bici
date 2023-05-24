@@ -64,10 +64,6 @@ function Primavera2023()
     window.location.href = "./Primavera/Primavera2023.html";
 }
 
-function Statistiche() 
-{
-    window.location.href = "Statistiche.html";
-}
 
 function Statistiche2020()
 {
