@@ -1,106 +1,94 @@
-h1 
-{
+h1 {
     font-family: 'Dancing Script', cursive;
     color: #ff0d05;
     font-size: 50px;
     text-align: center;
 }
 
-p
-{
+p {
     font-family: 'Hubballi', cursive;
     font-size: 30px;
     text-align: center;
     color: black;
 }
 
-table 
-{
+table {
     width: 100%;
 }
 
-td,th 
-{
+td,
+th {
     font-family: 'Roboto', sans-serif;
     border: 1px solid;
     text-align: center;
     padding: 15px;
-    font-size:30px;
+    font-size: 30px;
 }
 
-tr
-{
+tr {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
 }
 
 
 /**colore riga alternato pari**/
-tr:nth-child(2n) 
-{
+tr:nth-child(2n) {
     background-color: #09ff0059;
 }
 
 /**colore riga alternato dispari**/
-tr:nth-child(2n + 3) 
-{
+tr:nth-child(2n + 3) {
     background-color: #f0ec067e;
 }
 
 /***colore prima linea tabella**/
-tr:nth-child(-n + 1) 
-{
+tr:nth-child(-n + 1) {
     background-color: #0400ff60;
 }
 
 /**classe che mette in grasetto il testo**/
-.grasetto 
-{
+.grasetto {
     font-weight: bold;
 }
 
-.immagine 
-{
+.immagine {
     display: block;
     margin: 0 auto;
-    width:auto;
+    width: auto;
     height: 700px;
     border: dashed #00ff9d 10px;
     background-color: yellow;
 }
 
-.Bandiera-FVG 
-{
-    margin:55;
-    width:auto;
+.Bandiera-FVG {
+    margin: 55;
+    width: auto;
     height: 200px;
     border: dashed #00ff9d 10px;
     background-color: yellow;
 }
 
-.Titolo
-{
+.Titolo {
     font-size: 100px;
 }
 
-a
-{
+a {
     text-decoration: none;
-    color:blue;
+    color: blue;
 }
 
 
-.colore_apertura{
+.colore_apertura {
     font-family: 'Dancing Script', cursive;
     color: rgb(5, 236, 20);
 }
 
 
-input{
+input {
     position: relative;
     font-size: 30px;
     font-family: 'Dancing Script', cursive;
-    color:blue;
+    color: blue;
     background-color: yellow;
     display: block;
     margin: 0 auto;
@@ -109,20 +97,18 @@ input{
     cursor: pointer;
 }
 
-.immagine_bici
-{
+.immagine_bici {
     display: block;
     margin: 0 auto;
-    width:auto;
+    width: auto;
     height: 100px;
 }
 
 
-.menu
-{
+.menu {
     position: fixed;
     width: 20vw;
-    min-width:620px;
+    min-width: 640px;
     height: 93%;
     list-style: none;
     right: 0;
@@ -130,39 +116,33 @@ input{
     transition: transform 1.5s;
     bottom: 0;
     background-color: rgb(255, 255, 255);
-    top : 10px;
+    top: 10px;
     z-index: 10;
 }
 
-body
-{
+body {
     margin: 0;
 }
 
-a
-{
+a {
     text-decoration: none;
 }
 
-.hamburger
-{
+.hamburger {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 20;
 }
 
-.showMwnu
-{
+.showMwnu {
     transform: translateX(0);
 }
 
-.CloseIcon
-{
+.CloseIcon {
     display: none;
 }
 
-.menu tr
-{
+.menu tr {
     margin-bottom: 5px;
 }
