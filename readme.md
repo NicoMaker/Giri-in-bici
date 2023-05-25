@@ -6,7 +6,7 @@
 <p>periodo -> nome stagione.html</p>
 <p>periodo interessato -> periodoanno.html</P>
 
-<h1> Credenzili </h1>
+<h1> Credenziali </h1>
 
 <p>Nome Utente -> NicoMaker</p>
 <p>Password -> Giri2023</P>
