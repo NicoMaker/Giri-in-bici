@@ -50,7 +50,7 @@ tr:nth-child(-n + 1) {
 }
 
 .Bandiera-FVG {
-    margin: 55;
+    margin: 10px;
     width: auto;
     height: 200px;
     border: dashed #00ff9d 10px;
