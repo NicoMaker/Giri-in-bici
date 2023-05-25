@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ff7f50, #6495ed);
+    /* Iniziale sfondo sfumato */
+    animation: changeBackground 1.5s infinite;
+}
+
+@keyframes changeBackground {
+    0% {
+        background: linear-gradient(to right, #ff7f50, #6495ed);
+    }
+
+    25% {
+        background: linear-gradient(to right, #ff69b4, #87cefa);
+    }
+
+    50% {
+        background: linear-gradient(to right, #7fffd4, #ff1493);
+    }
+
+    75% {
+        background: linear-gradient(to right, #ffa500, #9932cc);
+    }
+
+    100% {
+        background: linear-gradient(to right, #32cd32, #ffd700);
+    }
+}
+
+.container {
+    width: 80%;
+    height: 130vh;
+    margin: 5vh auto;
+    border: 2px solid black;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: cyan;
+    text-shadow: 2px 2px 4px #000000;
+    background-color: white;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff0d05;
+    font-size: 50px;
+    text-align: center;
+}
+
+.Bandiera-FVG {
+    margin: 55;
+    width: auto;
+    height: 200px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
+
+.immagine{
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 700px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
