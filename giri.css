@@ -109,6 +109,7 @@ input {
     z-index: 10;
 }
 
+
 body {
     margin: 0;
 }
@@ -131,7 +132,6 @@ a {
 .CloseIcon {
     display: none;
 }
-
 
 .menu table {
     width: 100%;
@@ -156,4 +156,13 @@ th {
 button
 {
     background-color: aqua;
+}
+
+.immagini_stagione {
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 250px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
 }
