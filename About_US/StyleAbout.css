@@ -28,20 +28,6 @@ body {
     }
 }
 
-.container {
-    width: 80%;
-    height: 900px;
-    margin: 5vh auto;
-    border: 2px solid black;
-    border-radius: 20px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: cyan;
-    text-shadow: 2px 2px 4px #000000;
-    background-color: white;
-}
-
 h1 {
     font-family: 'Dancing Script', cursive;
     color: #ff0d05;
@@ -66,6 +52,43 @@ h1 {
 
 .colore
 {
+    margin: 10px;
     font-size: 50px;
     background-color: #32cd32;
+}
+
+@media all and (max-width: 1024px) 
+{
+    .container
+    {
+        width: 350px;
+        width: 80%;
+        margin: 5vh auto;
+        border: 2px solid black;
+        border-radius: 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: cyan;
+        text-shadow: 2px 2px 4px #000000;
+        background-color: white;
+    }
+}
+
+@media all and (min-width: 1024px) 
+{
+    .container
+    {
+        width: 900px;
+        width: 80%;
+        margin: 5vh auto;
+        border: 2px solid black;
+        border-radius: 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: cyan;
+        text-shadow: 2px 2px 4px #000000;
+        background-color: white;
+    }
 }
