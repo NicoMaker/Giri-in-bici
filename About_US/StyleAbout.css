@@ -55,6 +55,7 @@ h1 {
     margin: 10px;
     font-size: 50px;
     background-color: #32cd32;
+    border-radius: 50px;
 }
 
 @media all and (max-width: 1024px) 
