@@ -8,7 +8,7 @@
 <p>statistiche anno -> statistiche2023.html </p>
 <br>
 
-<p> Aggionare foto statistiche genrali e dell'anno </p>
+<p> Aggionare foto statistiche generali e dell'anno </p>
 <br>
 
 <p>periodo -> nome stagione.html</p>   
