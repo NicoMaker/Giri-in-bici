@@ -166,3 +166,18 @@ button
     border: dashed #00ff9d 10px;
     background-color: yellow;
 }
+
+.estate
+{
+    background: linear-gradient(to right , yellow,yellow, orange, coral);
+}
+
+.primavera
+{
+    background: linear-gradient(to right, #00ff9d,rgb(4, 121, 4),rgb(227, 125, 173), cyan);
+}
+
+.autunno_inverno
+{
+    background: linear-gradient(to right,brown, lightcyan,cyan,lightblue, blue);
+}
