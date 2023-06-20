@@ -50,14 +50,6 @@ h1 {
     height: 100%;
 }
 
-.colore
-{
-    margin: 10px;
-    font-size: 50px;
-    background-color: #32cd32;
-    border-radius: 50px;
-}
-
 @media all and (max-width: 1024px) 
 {
     .container
@@ -69,7 +61,6 @@ h1 {
         border-radius: 20px;
         text-align: center;
         font-size: 24px;
-        font-weight: bold;
         color: cyan;
         text-shadow: 2px 2px 4px #000000;
         background-color: white;
@@ -87,9 +78,41 @@ h1 {
         border-radius: 20px;
         text-align: center;
         font-size: 24px;
-        font-weight: bold;
         color: cyan;
         text-shadow: 2px 2px 4px #000000;
         background-color: white;
     }
+}
+
+.immagine_avatar {
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 150px;
+}
+
+
+td,
+th {
+    border: 1px solid;
+    text-align: center;
+    color: black;
+}
+
+table {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding: 5px;
+    font-size: 30px;
+}
+
+.titolo
+{
+    font-weight: bold;
+}
+
+.colore
+{
+    color: #ff0d05;
 }
