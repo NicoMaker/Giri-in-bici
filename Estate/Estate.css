@@ -81,6 +81,7 @@ tr:nth-child(-n + 1)
 .Estate
 {
     background-color: rgb(240, 228, 64);
+    border-radius: 50px;
 }
 
 a

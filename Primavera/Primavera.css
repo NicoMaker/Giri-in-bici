@@ -81,6 +81,7 @@ tr:nth-child(-n + 1)
 .Primavera
 {
     background-color: rgb(120, 240, 64);
+    border-radius: 50px;
 }
 
 a
