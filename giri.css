@@ -133,6 +133,11 @@ a {
     display: none;
 }
 
+.CloseIcon span,
+.MenuIcon span {
+    font-size: 3em;
+}
+
 .menu table {
     width: 100%;
     height: calc(100% - 5px);
@@ -169,15 +174,15 @@ button
 
 .estate
 {
-    background: linear-gradient(to right , yellow,yellow, orange, coral);
+    background: linear-gradient(to right , #F6FA70,#FF0060);
 }
 
 .primavera
 {
-    background: linear-gradient(to right, #00ff9d,rgb(4, 121, 4),rgb(227, 125, 173), cyan);
+    background: linear-gradient(to right , #00ff9d, #21b17a);
 }
 
 .autunno_inverno
 {
-    background: linear-gradient(to right,brown, lightcyan,cyan,lightblue, blue);
+    background: linear-gradient(to right , #B8E8FC, #B1AFFF);
 }
