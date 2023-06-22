@@ -18,8 +18,6 @@ th {
     text-align: center;
 }
 
-
-
 /**colore riga alternato pari**/
 tr:nth-child(2n) {
     background-color: #09ff0059;
@@ -151,6 +149,7 @@ table {
     text-align: center;
     padding: 5px;
     font-size: 30px;
+    background-color: white;
 }
 
 td,
@@ -189,5 +188,5 @@ button
 
 body
 {
-    background: linear-gradient(to right , #79E0EE, #B1AFFF);
+    background: linear-gradient(to right , #79E0EE, #B1AFFF, #79E0EE);
 }

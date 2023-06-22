@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right , #79E0EE, #B1AFFF);
+    background: linear-gradient(to right , #79E0EE, #B1AFFF, #79E0EE);
     /* Iniziale sfondo sfumato */
     /* animation: changeBackground 1.5s infinite; */
 }
