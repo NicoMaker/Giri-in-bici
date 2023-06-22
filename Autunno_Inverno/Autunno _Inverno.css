@@ -1,7 +1,7 @@
 h1 
 {
     font-family: 'Dancing Script', cursive;
-    color: #ff0d05;
+    color: white;
     font-size: 50px;
     text-align: center;
 }
@@ -17,6 +17,7 @@ p
 table 
 {
     width: 100%;
+    background-color: white;
 }
 
 td,th 
@@ -80,8 +81,8 @@ tr:nth-child(-n + 1)
 
 
 .Autunno-Inverno{
-    background-color: rgb(93, 233, 210);
-    border-radius: 50px
+    background-color: brown;
+    border-radius: 50px;
 }
 
 a
@@ -116,4 +117,9 @@ input{
     height: 250px;
     border: dashed #00ff9d 10px;
     background-color: yellow;
+}
+
+body
+{
+    background: linear-gradient(to right , #79E0EE, #B1AFFF);
 }

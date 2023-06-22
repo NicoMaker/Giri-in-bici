@@ -17,6 +17,7 @@ p
 table 
 {
     width: 100%;
+    background-color: white;
 }
 
 td,th 
@@ -99,7 +100,7 @@ a
 
 .colore_apertura{
     font-family: 'Dancing Script', cursive;
-    color: rgb(5, 236, 20);
+    color: orangered;
 }
 
 .corsivo{
@@ -117,4 +118,9 @@ input{
     border-radius: 50px;
     border: dashed #00ff9d 10px;
     cursor: pointer;
+}
+
+body
+{
+    background: linear-gradient(to right , #79E0EE, #B1AFFF);
 }

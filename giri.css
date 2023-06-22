@@ -69,7 +69,7 @@ a {
 
 .colore_apertura {
     font-family: 'Dancing Script', cursive;
-    color: rgb(5, 236, 20);
+    color: orangered;
 }
 
 
@@ -185,4 +185,9 @@ button
 .autunno_inverno
 {
     background: linear-gradient(to right , #B8E8FC, #B1AFFF);
+}
+
+body
+{
+    background: linear-gradient(to right , #79E0EE, #B1AFFF);
 }

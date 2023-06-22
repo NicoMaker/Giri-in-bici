@@ -17,6 +17,7 @@ p
 table 
 {
     width: 100%;
+    background-color: white;
 }
 
 td,th 
@@ -80,7 +81,7 @@ tr:nth-child(-n + 1)
 
 .Primavera
 {
-    background-color: rgb(120, 240, 64);
+    background-color: rgb(59, 209, 59);
     border-radius: 50px;
 }
 
@@ -116,4 +117,9 @@ input{
     height: 250px;
     border: dashed #00ff9d 10px;
     background-color: yellow;
+}
+
+body
+{
+    background: linear-gradient(to right , #79E0EE, #B1AFFF);
 }
