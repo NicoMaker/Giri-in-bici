@@ -82,14 +82,6 @@ h1 {
     }
 }
 
-.immagine_avatar {
-    display: block;
-    margin: 0 auto;
-    width: auto;
-    height: 150px;
-    border-radius: 50%;
-}
-
 
 td,
 th {
@@ -135,3 +127,30 @@ table {
     font-family: 'Dancing Script', cursive;
     background-size: 100% 25%;
 }
+
+
+.immagine_avatar {
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+}
+
+.immagine_avatar :hover{
+    border: solid orange 10px;
+}
+
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
