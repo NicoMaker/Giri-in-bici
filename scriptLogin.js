@@ -1,6 +1,6 @@
 var users = [
   { username: "NicoMaker", password: "Giri2023" },
-  { username: "Jacopo", password: "Giri2023" },
+  { username: "Jacoreds", password: "Giri2023" },
 ];
 
 document.getElementById("loginForm").addEventListener("submit", function (event) {
