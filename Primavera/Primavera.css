@@ -136,3 +136,44 @@ body
     font-family: 'Dancing Script', cursive;
     background-size: 100% 25%;
 }
+
+.slideshow-container {
+    position: relative;
+    width: 1500px;
+    margin: 0 auto;
+}
+
+.slideshow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.slideshow img {
+    display: none;
+    margin: 0 auto;
+    width: 700px;
+    height: 700px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
