@@ -139,18 +139,6 @@ table {
     display: inline-block;
 }
 
-.immagine_avatar :hover{
+.immagine_avatar:hover{
     border: solid orange 10px;
 }
-
-.circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-  }
