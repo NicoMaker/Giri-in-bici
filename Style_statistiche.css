@@ -137,3 +137,12 @@ body
     font-family: 'Dancing Script', cursive;
     background-size: 100% 25%;
 }
+
+input:hover{
+    color: red;
+}
+
+tr:hover
+{
+    background: white;
+}

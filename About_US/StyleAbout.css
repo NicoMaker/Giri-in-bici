@@ -88,6 +88,8 @@ th {
     border: 1px solid;
     text-align: center;
     color: black;
+    width: 180px;
+    height: 178px;
 }
 
 table {
@@ -140,5 +142,11 @@ table {
 }
 
 .immagine_avatar:hover{
-    border: solid orange 10px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+}
+
+tr:hover
+{
+    background: cyan;
 }

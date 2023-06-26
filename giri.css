@@ -213,3 +213,18 @@ body {
 .link_apertura:hover {
     background-size: 100% 25%;
 }
+
+input:hover
+{
+    color: red;
+}
+
+.CloseIcon, .MenuIcon :hover
+{
+    color: red;
+}
+
+tr:hover
+{
+    background: white;
+}
