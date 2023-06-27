@@ -63,6 +63,7 @@ tr:nth-child(-n + 1)
 .Titolo
 {
     font-size: 100px;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 a
