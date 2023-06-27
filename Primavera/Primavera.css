@@ -145,3 +145,15 @@ tr:hover
 {
     background: white;
 }
+
+.colore
+{
+    background: linear-gradient(to right, #9BF6FF,#A0C4FF, #9BF6FF);
+    border-radius: 50px;;
+    cursor: pointer;
+}
+
+.colore:hover
+{
+    background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
+}

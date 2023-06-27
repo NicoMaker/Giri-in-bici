@@ -127,7 +127,7 @@ a {
 
 .CloseIcon span,
 .MenuIcon span {
-    font-size: 5em;
+    font-size: 60px;
 }
 
 .menu table {
@@ -173,6 +173,11 @@ button {
 
 .autunno_inverno {
     background: linear-gradient(to right, #B8E8FC, #B1AFFF);
+}
+
+.riga_iniziale
+{
+    background: linear-gradient(to right, #5390D9, #6930C3);
 }
 
 body {
@@ -227,4 +232,16 @@ input:hover
 tr:hover
 {
     background: white;
+}
+
+.colore
+{
+    background: linear-gradient(to right, #9BF6FF,#A0C4FF, #9BF6FF);
+    border-radius: 50px;;
+    cursor: pointer;
+}
+
+.colore:hover
+{
+    background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
