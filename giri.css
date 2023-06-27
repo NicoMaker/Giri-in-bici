@@ -179,6 +179,7 @@ button {
 .riga_iniziale
 {
     background: linear-gradient(to right, #5390D9, #6930C3);
+    color:white;
 }
 
 body {
