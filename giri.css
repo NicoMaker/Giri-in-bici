@@ -248,7 +248,7 @@ tr:hover
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
 
-.titolo_animato
+/* .titolo_animato
 {
     font-size: 100px;
     animation: animazione 1.5s infinite alternate
@@ -278,4 +278,4 @@ tr:hover
         0 0 70px lightcyan,
         0 0 80px lightcyan;
     }
-  }
+  } */
