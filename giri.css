@@ -179,7 +179,7 @@ button {
 .riga_iniziale
 {
     background: linear-gradient(to right, #5390D9, #6930C3);
-    color:white;
+    color: white;
 }
 
 body {
@@ -247,3 +247,35 @@ tr:hover
 {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
+
+.titolo_animato
+{
+    font-size: 100px;
+    animation: animazione 1.5s infinite alternate
+}
+
+
+@keyframes animazione {
+    100% {
+      text-shadow:
+        0 0 4px lightgreen,
+        0 0 11px lightgreen,
+        0 0 19px lightgreen,
+        0 0 40px lightgreen,
+        0 0 80px lightgreen,
+        0 0 90px lightgreen,
+        0 0 100px lightgreen,
+        0 0 150px lightgreen;
+    }
+    0% {
+      text-shadow:
+        0 0 2px lightcyan,
+        0 0 4px lightcyan,
+        0 0 6px lightcyan,
+        0 0 10px lightcyan,
+        0 0 45px lightcyan,
+        0 0 55px lightcyan,
+        0 0 70px lightcyan,
+        0 0 80px lightcyan;
+    }
+  }
