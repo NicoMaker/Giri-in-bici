@@ -243,19 +243,3 @@ tr:hover {
 .colore:hover {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
-
-.titolo_animato {
-    font-size: 100px;
-    animation: animazione 3s infinite alternate
-}
-
-
-@keyframes animazione {
-    100% {
-        text-shadow:
-            0 0 80px yellow,
-            0 0 90px yellow,
-            0 0 100px yellow,
-            0 0 150px yellow;
-    }
-}
