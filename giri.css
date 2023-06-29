@@ -243,3 +243,18 @@ tr:hover {
 .colore:hover {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
+
+.colore_diverso
+{
+    text-shadow: 2px 2px 4px linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, red, orange, yellow, green, blue, indigo, violet);
+    background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    font-size: 120px;
+}
