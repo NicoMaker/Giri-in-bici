@@ -176,8 +176,7 @@ button {
     background: linear-gradient(to right, #B8E8FC, #B1AFFF);
 }
 
-.riga_iniziale
-{
+.riga_iniziale {
     background: linear-gradient(to right, #5390D9, #6930C3);
     color: white;
 }
@@ -190,7 +189,7 @@ body {
     font-size: 2rem;
     color: inherit;
     text-decoration: none;
-    background-image: linear-gradient(cyan,cyan);
+    background-image: linear-gradient(cyan, cyan);
     background-repeat: no-repeat;
     background-position: bottom left;
     background-size: 0% 50%;
@@ -200,7 +199,7 @@ body {
 }
 
 .colore_apertura:hover {
-    
+
     font-family: 'Dancing Script', cursive;
     background-size: 100% 25%;
 }
@@ -209,7 +208,7 @@ body {
     font-size: 2rem;
     color: inherit;
     text-decoration: none;
-    background-image: linear-gradient(cyan,cyan);
+    background-image: linear-gradient(cyan, cyan);
     background-repeat: no-repeat;
     background-position: bottom left;
     background-size: 0% 50%;
@@ -221,61 +220,42 @@ body {
     background-size: 100% 25%;
 }
 
-input:hover
-{
+input:hover {
     color: red;
 }
 
-.CloseIcon, .MenuIcon :hover
-{
+.CloseIcon,
+.MenuIcon :hover {
     color: red;
 }
 
-tr:hover
-{
+tr:hover {
     background: white;
 }
 
-.colore
-{
-    background: linear-gradient(to right, #9BF6FF,#A0C4FF, #9BF6FF);
-    border-radius: 50px;;
+.colore {
+    background: linear-gradient(to right, #9BF6FF, #A0C4FF, #9BF6FF);
+    border-radius: 50px;
+    ;
     cursor: pointer;
 }
 
-.colore:hover
-{
+.colore:hover {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
 
-/* .titolo_animato
-{
+.titolo_animato {
     font-size: 100px;
-    animation: animazione 1.5s infinite alternate
+    animation: animazione 3s infinite alternate
 }
 
 
 @keyframes animazione {
     100% {
-      text-shadow:
-        0 0 4px lightgreen,
-        0 0 11px lightgreen,
-        0 0 19px lightgreen,
-        0 0 40px lightgreen,
-        0 0 80px lightgreen,
-        0 0 90px lightgreen,
-        0 0 100px lightgreen,
-        0 0 150px lightgreen;
+        text-shadow:
+            0 0 80px yellow,
+            0 0 90px yellow,
+            0 0 100px yellow,
+            0 0 150px yellow;
     }
-    0% {
-      text-shadow:
-        0 0 2px lightcyan,
-        0 0 4px lightcyan,
-        0 0 6px lightcyan,
-        0 0 10px lightcyan,
-        0 0 45px lightcyan,
-        0 0 55px lightcyan,
-        0 0 70px lightcyan,
-        0 0 80px lightcyan;
-    }
-  } */
+}
