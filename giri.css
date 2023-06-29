@@ -244,10 +244,11 @@ tr:hover {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
 
-.colore_diverso
+.colore_sfondo_italia
 {
-    text-shadow: 2px 2px 4px linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, red, orange, yellow, green, blue, indigo, violet);
-    background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, red, orange, yellow, green, blue, indigo, violet);
+    text-shadow: 2px 2px 4px linear-gradiennt(to right,green,green,green,green,green,green, white,white,white,red,red,red,red,red,red);
+    background-image: linear-gradient(to right,green,green,green,green,green,green, white,white,white,red,red,red,red,red,red);
+    
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
