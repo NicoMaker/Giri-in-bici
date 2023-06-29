@@ -12,7 +12,7 @@
 <br>
 
 <p>periodo -> nome stagione.html</p>   
-<p>periodo interessato -> periodoanno.html</P> 
+<p>periodo interessato -> periodoanno.html</p> 
 
 <br>
 <h1> Credenziali </h1>
