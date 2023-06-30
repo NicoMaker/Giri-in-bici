@@ -152,7 +152,7 @@ th {
 }
 
 button {
-    background-color: aqua;
+    background: linear-gradient(to right, green,white, white,red);
 }
 
 .immagini_stagione {
@@ -226,7 +226,7 @@ input:hover {
 
 .CloseIcon,
 .MenuIcon :hover {
-    color: red;
+    color: blue;
 }
 
 tr:hover {
