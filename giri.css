@@ -95,7 +95,7 @@ input {
     list-style: none;
     right: 0;
     transform: translateX(+100%);
-    transition: transform 300ms;
+    transition: transform 550ms;
     bottom: 0;
     background-color: yellowgreen;
     top: 10px;
