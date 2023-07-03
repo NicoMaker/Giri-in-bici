@@ -271,3 +271,28 @@ tr:hover {
         background-image: linear-gradient(to right, green, green, green, green, green, green, green, white, white,red, red, red, red, red, red, red);
     }
 }
+
+.animazione-bici {
+
+    font-size: 2rem;
+    color: inherit;
+    text-decoration: none;
+    background-image: linear-gradient(cyan, cyan);
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 0% 50%;
+    transition: background-size 300ms ease-in-out;
+    font-family: 'Dancing Script', cursive;
+    color: orangered;
+    
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 250px;
+}
+
+.animazione-bici:hover
+{
+    font-family: 'Dancing Script', cursive;
+    background-size: 100% 15%;
+}
