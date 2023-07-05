@@ -12,12 +12,6 @@ p {
     color: black;
 }
 
-td,
-th {
-    border: 1px solid;
-    text-align: center;
-}
-
 /**colore riga alternato pari**/
 tr:nth-child(2n) {
     background-color: #09ff0059;
