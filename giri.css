@@ -161,19 +161,28 @@ button {
 
 .estate {
     background: linear-gradient(to right, #F6FA70, #FF0060);
+    border-radius: 50px;
 }
 
 .primavera {
     background: linear-gradient(to right, #00ff9d, #21b17a);
+    border-radius: 50px;
 }
 
 .autunno_inverno {
     background: linear-gradient(to right, #B8E8FC, #B1AFFF);
+    border-radius: 50px;
 }
 
 .riga_iniziale {
     background: linear-gradient(to right, #5390D9, #6930C3);
     color: white;
+    border-radius: 50px;
+}
+
+.coloretabella
+{
+    background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
 
 body {
