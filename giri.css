@@ -91,7 +91,7 @@ input {
     transform: translateX(+100%);
     transition: transform 550ms;
     bottom: 0;
-    background-color: yellowgreen;
+    background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
     top: 10px;
     z-index: 10;
 }
