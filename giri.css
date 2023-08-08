@@ -27,6 +27,11 @@ tr:nth-child(-n + 1) {
     background-color: #0400ff60;
 }
 
+li
+{
+    list-style: none;
+}
+
 /**classe che mette in grasetto il testo**/
 .grasetto {
     font-weight: bold;
