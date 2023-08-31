@@ -43,6 +43,11 @@ function Autunno_Inverno2022_2023()
     window.location.href = "./Autunno_Inverno/Autunno_Inverno2022-2023.html";
 }
 
+function Autunno_Inverno2023_2024()
+{
+    window.location.href = "./Autunno_Inverno/Autunno_Inverno2023-2024.html";
+}
+
 function Primavera()
 {
     window.location.href = "./Primavera.html";
@@ -83,4 +88,9 @@ function Statistiche2022()
 function Statistiche2023()
 {
     window.location.href = "./Statistiche/Statistiche2023.html"
+}
+
+function Statistiche2024()
+{
+    window.location.href = "./Statistiche/Statistiche2024.html"
 }
