@@ -89,7 +89,7 @@ input {
 .menu {
     position: fixed;
     width: 20vw;
-    min-width: 650px;
+    min-width: 600px;
     height: 93%;
     list-style: none;
     right: 0;
@@ -97,10 +97,9 @@ input {
     transition: transform 550ms;
     bottom: 0;
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
-    top: 10px;
+    top: 0px;
     z-index: 10;
 }
-
 
 body {
     margin: 0;
