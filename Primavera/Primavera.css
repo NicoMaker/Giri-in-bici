@@ -68,6 +68,7 @@ tr:nth-child(-n + 1)
     height: 700px;
     border: dashed #00ff9d 10px;
     background-color: yellow;
+    border-radius: 50px;
 }
 
 .Bandiera-FVG 
