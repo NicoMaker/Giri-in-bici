@@ -27,11 +27,6 @@ tr:nth-child(-n + 1) {
     background-color: #0400ff60;
 }
 
-li
-{
-    list-style: none;
-}
-
 /**classe che mette in grasetto il testo**/
 .grasetto {
     font-weight: bold;
@@ -77,14 +72,6 @@ input {
     border: dashed #00ff9d 10px;
     cursor: pointer;
 }
-
-.immagine_bici {
-    display: block;
-    margin: 0 auto;
-    width: auto;
-    height: 100px;
-}
-
 
 .menu {
     position: fixed;
@@ -267,6 +254,16 @@ tr:hover {
         text-shadow: 2px 2px 4px linear-gradiennt(to right, green, green, green, green, green, green, white, white, red, red, red, red, red, red, red);
         background-image: linear-gradient(to right, green, green, green, green, green, green, green, white, white, red, red, red, red, red, red, red);
     }
+
+    .immagine_bici {
+        display: block;
+        margin: 0 auto;
+        width: 500px;
+        height: 350px;
+        float:left;
+        margin: 10px;
+        border-radius: 20%;
+    }
 }
 
 @media all and (min-width: 1024px) 
@@ -275,6 +272,16 @@ tr:hover {
     {
         text-shadow: 2px 2px 4px linear-gradiennt(to right, green,green, green, green, green, green,green, white, white,red, red, red, red, red, red, red);
         background-image: linear-gradient(to right, green, green, green, green, green, green, green, white, white,red, red, red, red, red, red, red);
+    }
+
+    .immagine_bici {
+        display: block;
+        margin: 0 auto;
+        width: 600px;
+        height: 420px;
+        float:left;
+        margin: 10px;
+        border-radius: 50%;
     }
 }
 
@@ -331,4 +338,23 @@ tr:hover {
     border-radius: 50px;
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
     border: white;
+}
+
+.contorno
+{
+    border: 3px solid red;
+    margin:10px;
+    border-radius: 10px;
+}
+
+.contorno:hover
+{
+    background-color: white;
+}
+
+.Titolo2{
+    color: orangered;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
 }
