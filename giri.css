@@ -37,7 +37,7 @@ tr:nth-child(-n + 1) {
     margin: 0 auto;
     width: auto;
     height: 700px;
-    border: dashed #00ff9d 10fpx;
+    border: dashed #00ff9d 10px;
     background-color: yellow;
 }
 
