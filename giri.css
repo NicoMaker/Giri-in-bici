@@ -41,6 +41,17 @@ tr:nth-child(-n + 1) {
     background-color: yellow;
 }
 
+.immmaginejn
+{
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 700px;
+    border: dashed #00ff9d 10px;
+    background-color: yellow;
+    border-radius: 0 50px;
+}
+
 .Bandiera-FVG {
     margin: 10px;
     width: auto;
