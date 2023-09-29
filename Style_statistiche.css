@@ -80,6 +80,7 @@ a
     height: auto;
     border: dashed #00ff9d 10px;
     background-color: yellow;
+    border-radius: 0 50px;
 }
 
 .Bandiera-FVG 
