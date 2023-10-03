@@ -32,8 +32,8 @@ tr:nth-child(-n + 1) {
     font-weight: bold;
 }
 
-.immagine ,
-.immmaginejn{
+.immagine,
+.immmaginejn {
     display: block;
     margin: 0 auto;
     width: auto;
@@ -42,8 +42,7 @@ tr:nth-child(-n + 1) {
     background-color: yellow;
 }
 
-.immmaginejn
-{
+.immmaginejn {
     border-radius: 0 50px;
 }
 
@@ -371,4 +370,13 @@ tr:hover {
     font-weight: bold;
     font-size: 40px;
     text-align: center;
+}
+
+.principale {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
+    border: white;
+    border-radius: 0px;
 }
