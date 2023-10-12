@@ -352,14 +352,18 @@ tr:hover {
     border: white;
 }
 
-.contorno {
+.contornosx, .contornodx {
     border: 3px solid red;
     margin: 10px;
     border-radius: 10px;
 }
 
-.contorno:hover {
+.contornosx:hover {
     background: linear-gradient(600deg, pink, pink,yellow,yellow,red, red);
+}
+
+.contornodx:hover {
+    background: linear-gradient(600deg, red, red, yellow,yellow, pink, pink);
 }
 
 .Titolo2 {
