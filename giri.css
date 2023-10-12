@@ -196,10 +196,6 @@ body {
     background-size: 100% 25%;
 }
 
-input:hover {
-    color: red;
-}
-
 .CloseIcon,
 .MenuIcon :hover {
     color: blue;
