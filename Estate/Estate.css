@@ -130,7 +130,6 @@ tr:hover {
 .colore {
     background: linear-gradient(to right, #9BF6FF, #A0C4FF, #9BF6FF);
     border-radius: 50px;
-    ;
     cursor: pointer;
 }
 
