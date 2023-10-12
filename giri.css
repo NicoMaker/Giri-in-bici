@@ -359,7 +359,7 @@ tr:hover {
 }
 
 .contorno:hover {
-    background-color: white;
+    background: linear-gradient(600deg, pink, pink,yellow,yellow,red, red);
 }
 
 .Titolo2 {
