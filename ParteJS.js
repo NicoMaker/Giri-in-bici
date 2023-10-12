@@ -1,8 +1,3 @@
-function Estate()
-{
-    window.location.href = "./Estate.html";
-}
-
 function Estate2020() 
 {
     window.location.href = "./Estate/Estate2020.html";
@@ -23,11 +18,6 @@ function Estate2023()
     window.location.href = "./Estate/Estate2023.html";
 }
 
-function Autunno_Inverno()
-{
-    window.location.href ="./Autunno_Inverno.html";
-}
-
 function Autunno_Inverno2020_2021()
 {
     window.location.href = "./Autunno_Inverno/Autunno_Inverno2020-2021.html";
@@ -46,11 +36,6 @@ function Autunno_Inverno2022_2023()
 function Autunno_Inverno2023_2024()
 {
     window.location.href = "./Autunno_Inverno/Autunno_Inverno2023-2024.html";
-}
-
-function Primavera()
-{
-    window.location.href = "./Primavera.html";
 }
 
 function Primavera2021()
