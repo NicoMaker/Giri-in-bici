@@ -348,7 +348,7 @@ tr:hover {
     display: block;
     margin: 0 auto;
     border-radius: 50px;
-    background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
+    background: linear-gradient(600deg, pink, pink,yellow,yellow,red, red);
     border: white;
 }
 
