@@ -208,7 +208,6 @@ tr:hover {
 .colore {
     background: linear-gradient(to right, #9BF6FF, #A0C4FF, #9BF6FF);
     border-radius: 50px;
-    ;
     cursor: pointer;
 }
 
@@ -237,22 +236,10 @@ tr:hover {
     text-align: center;
 }
 
-.contornostagionedx,
-.contornostagionesx {
-    color: inherit;
-    text-decoration: none;
-    background-image: linear-gradient(cyan, cyan);
-    background-repeat: no-repeat;
-    background-position: bottom left;
-    background-size: 0% 50%;
-    transition: background-size 300ms ease-in-out;
-}
-
 .contornostagionedx:hover,
 .contornostagionesx:hover {
 
-    font-family: 'Dancing Script', cursive;
-    background-size: 100% 25%;
+    color: black;
 }
 
 .immagine_bicisx,
@@ -280,7 +267,7 @@ tr:hover {
     font-family: 'Dancing Script', cursive;
     color: blue;
     display: block;
-    margin: 0 auto;
+    margin: 5px auto;
 }
 
 @media all and (max-width: 1024px) {

@@ -93,18 +93,6 @@ a
     color:blue;
 }
 
-input{
-    position: relative;
-    font-size: 30px;
-    font-family: 'Dancing Script', cursive;
-    color:blue;
-    background-color: orange;
-    display: block;
-    margin: 0 auto;
-    border-radius: 50px;
-    border: dashed #ff006a 10px;
-    cursor: pointer;
-}
 
 .immagini_stagione {
     display: block;
@@ -139,10 +127,6 @@ body
     background-size: 100% 25%;
 }
 
-input:hover{
-    color: red;
-}
-
 tr:hover
 {
     background: white;
@@ -158,4 +142,32 @@ tr:hover
 .colore:hover
 {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
+}
+
+.primaverasx {
+    background: linear-gradient(to right, #00ff9d, #21b17a);
+    border-radius: 50px;
+}
+
+.primaveradx {
+    background: linear-gradient(to right, #21b17a, #00ff9d);
+    border-radius: 50px;
+}
+
+.contorno {
+    border-radius: 20%;
+    position: relative;
+    cursor: pointer;
+}
+
+.titoli
+{
+    text-align: center;
+    color: blue;
+    font-size: 30px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.titoli:hover {
+    color: black;
 }

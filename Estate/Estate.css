@@ -1,120 +1,94 @@
-h1 
-{
+h1 {
     font-family: 'Dancing Script', cursive;
     color: #ff0d05;
     font-size: 50px;
     text-align: center;
 }
 
-p
-{
+p {
     font-family: 'Hubballi', cursive;
     font-size: 30px;
     text-align: center;
     color: black;
 }
 
-table 
-{
+table {
     width: 100%;
     background-color: white;
 }
 
-td,th 
-{
+td,
+th {
     font-family: 'Roboto', sans-serif;
     border: 1px solid;
     text-align: center;
     padding: 15px;
-    font-size:30px;
+    font-size: 30px;
 }
 
-tr
-{
+tr {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
 }
 
 
 /**colore riga alternato pari**/
-tr:nth-child(2n) 
-{
+tr:nth-child(2n) {
     background-color: #ff8800;
 }
 
 /**colore riga alternato dispari**/
-tr:nth-child(2n + 3) 
-{
+tr:nth-child(2n + 3) {
     background-color: #f6ee00;
 }
 
 /***colore prima linea tabella**/
-tr:nth-child(-n + 1) 
-{
+tr:nth-child(-n + 1) {
     background-color: #ff3700e2;
 }
 
 /**classe che mette in grasetto il testo**/
-.grasetto 
-{
+.grasetto {
     font-weight: bold;
 }
 
-.immagine 
-{
+.immagine {
     display: block;
     margin: 0 auto;
-    width:auto;
+    width: auto;
     height: 700px;
     border: dashed #00ff9d 10px;
     background-color: yellow;
     border-radius: 50px;
 }
 
-.immagineParticolare
-{
+.immagineParticolare {
     display: block;
     margin: 0 auto;
-    width:700px;
+    width: 700px;
     height: auto;
     border: dashed #00ff9d 10px;
     background-color: yellow;
     border-radius: 50px;
 }
 
-.Bandiera-FVG 
-{
-    margin:55;
-    width:auto;
+.Bandiera-FVG {
+    margin: 55;
+    width: auto;
     height: 200px;
     border: dashed #00ff9d 10px;
     background-color: yellow;
 }
 
-.Estate
-{
+.Estate {
     background-color: yellow;
     border-radius: 50px;
     text-shadow: 2px 2px 4px #000000;
 }
 
-a
-{
+a {
     text-decoration: none;
-    color:blue;
-}
-
-input{
-    position: relative;
-    font-size: 30px;
-    font-family: 'Dancing Script', cursive;
-    color:blue;
-    background-color: rgb(50, 255, 47);
-    display: block;
-    margin: 0 auto;
-    border-radius: 50px;
-    border: dashed cyan 10px;
-    cursor: pointer;
+    color: blue;
 }
 
 .immagini_stagione {
@@ -126,16 +100,15 @@ input{
     background-color: yellow;
 }
 
-body
-{
-    background: linear-gradient(to right , #79E0EE, #B1AFFF, #79E0EE);
+body {
+    background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
 
 .colore_apertura {
     font-size: 2rem;
     color: inherit;
     text-decoration: none;
-    background-image: linear-gradient(cyan,cyan);
+    background-image: linear-gradient(cyan, cyan);
     background-repeat: no-repeat;
     background-position: bottom left;
     background-size: 0% 50%;
@@ -145,28 +118,50 @@ body
 }
 
 .colore_apertura:hover {
-    
+
     font-family: 'Dancing Script', cursive;
     background-size: 100% 25%;
 }
 
-input:hover{
-    color: red;
-}
-
-tr:hover
-{
+tr:hover {
     background: white;
 }
 
-.colore
-{
-    background: linear-gradient(to right, #9BF6FF,#A0C4FF, #9BF6FF);
-    border-radius: 50px;;
+.colore {
+    background: linear-gradient(to right, #9BF6FF, #A0C4FF, #9BF6FF);
+    border-radius: 50px;
+    ;
     cursor: pointer;
 }
 
-.colore:hover
-{
+.colore:hover {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
+}
+
+.estatesx {
+    background: linear-gradient(to right, #F6FA70, #FF0060);
+    border-radius: 50px;
+}
+
+.estatedx {
+    background: linear-gradient(to right, #FF0060,#F6FA70);
+    border-radius: 50px;
+}
+
+.contorno {
+    border-radius: 20%;
+    position: relative;
+    cursor: pointer;
+}
+
+.titoli
+{
+    text-align: center;
+    color: blue;
+    font-size: 30px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.titoli:hover {
+    color: black;
 }

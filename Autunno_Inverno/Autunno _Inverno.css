@@ -159,3 +159,31 @@ tr:hover
 {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
+
+.autunno_invernosx {
+    background: linear-gradient(to right, #B8E8FC, #B1AFFF);
+    border-radius: 50px;
+}
+
+.autunno_invernodx {
+    background: linear-gradient(to right, #B1AFFF,#B8E8FC);
+    border-radius: 50px;
+}
+
+.contorno {
+    border-radius: 20%;
+    position: relative;
+    cursor: pointer;
+}
+
+.titoli
+{
+    text-align: center;
+    color: blue;
+    font-size: 30px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.titoli:hover {
+    color: black;
+}
