@@ -227,8 +227,7 @@ tr:hover {
 }
 
 .immagine_bicisx,
-.immagine_bicidx,
-.contornostagionedx .contornostagionesx {
+.immagine_bicidx .contornostagionedx .contornostagionesx {
     display: block;
     margin: 0 auto;
     margin: 10px;
@@ -242,13 +241,13 @@ tr:hover {
     color: black;
 }
 
-.immagine_bicisx,
-.immaginestagionesx {
+.immaginestagionesx,
+.immagine_bicisx {
     float: left;
 }
 
-.immagine_bicidx,
-.immaginestagionedx {
+.immaginestagionedx,
+.immagine_bicidx {
     float: right;
 }
 
@@ -355,18 +354,24 @@ tr:hover {
     border: white;
 }
 
-.contornosx,
-.contornodx {
+.contorno {
     border: 3px solid red;
     margin: 10px;
     border-radius: 10px;
 }
 
-.contornosx:hover {
+/**colore riga alternato pari**/
+.contorno:nth-child(2n):hover {
+    background: linear-gradient(600deg, red, red, yellow, yellow, pink, pink);
+}
+
+/**colore riga alternato dispari**/
+.contorno:nth-child(2n + 3):hover {
     background: linear-gradient(600deg, pink, pink, yellow, yellow, red, red);
 }
 
-.contornodx:hover {
+/***colore prima linea tabella**/
+.contorno:nth-child(-n + 1):h {
     background: linear-gradient(600deg, red, red, yellow, yellow, pink, pink);
 }
 

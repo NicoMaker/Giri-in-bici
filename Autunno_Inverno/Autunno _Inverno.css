@@ -160,13 +160,24 @@ tr:hover
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
 
-.autunno_invernosx {
+/**colore riga alternato pari**/
+.Autunno-Invernocontorno:nth-child(2n) 
+{
+    background: linear-gradient(to right, #B1AFFF,#B8E8FC);
+    border-radius: 50px;
+}
+
+/**colore riga alternato dispari**/
+.Autunno-Invernocontorno:nth-child(2n + 3) 
+{
     background: linear-gradient(to right, #B8E8FC, #B1AFFF);
     border-radius: 50px;
 }
 
-.autunno_invernodx {
-    background: linear-gradient(to right, #B1AFFF,#B8E8FC);
+/***colore prima linea tabella**/
+.Autunno-Invernocontorno:nth-child(-n + 1) 
+{
+    background: linear-gradient(to right, #B8E8FC, #B1AFFF);
     border-radius: 50px;
 }
 

@@ -137,13 +137,21 @@ tr:hover {
     background: linear-gradient(to right, #79E0EE, #B1AFFF, #79E0EE);
 }
 
-.estatesx {
+/**colore riga alternato pari**/
+.Estatecontorno:nth-child(2n) {
+    background: linear-gradient(to right, #FF0060,#F6FA70);
+    border-radius: 50px;
+}
+
+/**colore riga alternato dispari**/
+.Estatecontorno:nth-child(2n + 3) {
     background: linear-gradient(to right, #F6FA70, #FF0060);
     border-radius: 50px;
 }
 
-.estatedx {
-    background: linear-gradient(to right, #FF0060,#F6FA70);
+/***colore prima linea tabella**/
+.Estatecontorno:nth-child(-n + 1) {
+    background: linear-gradient(to right, #F6FA70, #FF0060);
     border-radius: 50px;
 }
 
