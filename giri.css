@@ -283,6 +283,14 @@ tr:hover {
         border-radius: 20%;
     }
 
+    .immagine_bicisx,
+    .immagine_bicidx {
+        width: 500px;
+        height: 350px;
+        margin: 10px;
+        border-radius: 20%;
+    }
+
 }
 
 @media all and (min-width: 1024px) {
@@ -371,7 +379,7 @@ tr:hover {
 }
 
 /***colore prima linea tabella**/
-.contorno:nth-child(-n + 1):h {
+.contorno:nth-child(-n + 1):hover {
     background: linear-gradient(600deg, red, red, yellow, yellow, pink, pink);
 }
 
