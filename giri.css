@@ -131,7 +131,9 @@ th {
 button {
     background: linear-gradient(to right, green, white, white, red);
     border-radius: 50%;
+    text-shadow: 2px 2px 4px black;
 }
+
 
 .immagini_stagione {
     display: block;
