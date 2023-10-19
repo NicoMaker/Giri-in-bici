@@ -147,19 +147,16 @@ button {
 .estate {
     background: linear-gradient(to right, #F6FA70, #FF0060);
     border-radius: 50px;
-    text-shadow: 2px 2px 4px #000000;
 }
 
 .primavera {
     background: linear-gradient(to right, #00ff9d, #21b17a);
     border-radius: 50px;
-    text-shadow: 2px 2px 4px #000000;
 }
 
 .autunno_inverno {
     background: linear-gradient(to right, #B8E8FC, #B1AFFF);
     border-radius: 50px;
-    text-shadow: 2px 2px 4px #000000;
 }
 
 body {
