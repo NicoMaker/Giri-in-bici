@@ -21,13 +21,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+
+    <script src="ScriptBici.js"  defer></script>
 </head>
 
 <body>
     <a href="../Giri.html">
         <img class="Bandiera-FVG" src="../imagini Html sito principale/Logo .jpg">
     </a>
-    
+
     <h1 class="Titolo">
         <img src="../Icone/bici.png">
         <img src="../Icone/bici.png">
@@ -64,89 +66,16 @@
         </a>
     </p>
 
-    <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/La Pantera Nera .jpg">
-        <h1 class="Titolo2"> La Pantera Nera</h1>
-        <p> <b>categoria :</b> MTB</p>
-        <p><b>Tipo Freni :</b> Pattino</p>
-        <p><b>Materiale :</b> Acciaio</p>
-        <p><b>Misura Ruote : </b> 27</p>
-        <p>
-            <b> cambi : </b>3 avanti 7 dietro
-            <br> Totale 21
-        </p>
-        <p> <b> anno di produzione : </b>2016</p>
-    </div>
 
-    <div class="contorno">
-        <img class="immagine_bicidx" src="Le nostre Bici/La Fluo.jpg">
-        <h1 class="Titolo2"> La Fluo</h1>
-        <p> <b>categoria :</b> MTB</p>
-        <p><b>Tipo Freni :</b> Disco</p>
-        <p><b>Materiale :</b> Acciaio</p>
-        <p><b>Misura Ruote : </b> 29</p>
-        <p>
-            <b> cambi : </b>3 avanti 7 dietro
-            <br> Totale 21
-        </p>
-        <p> <b> anno di produzione : </b>2020</p>
-    </div>
+    <button class="stylebuttonbiciMTB" onclick="CalcolaMTB()">MTB</button>
+    <br>
+    <br>
+    <button class="stylebuttonbiciCorsa" onclick="CalcolaCorsa()">Corsa</button>
 
-    <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/La Bianconera .jpg">
-        <h1 class="Titolo2"> La Bianconera</h1>
-        <p> <b>categoria :</b> MTB</p>
-        <p><b>Tipo Freni : </b> Disco</p>
-        <p><b>Materiale :</b> Acciaio</p>
-        <p><b>Misura Ruote : </b> 29</p>
-        <p>
-            <b> cambi : </b>3 avanti 7 dietro
-            <br> Totale 21
-        </p>
-        <p> <b> anno di produzione : </b>2020</p>
-    </div>
+    <br>
+    <br>
 
-    <div class="contorno">
-        <img class="immagine_bicidx" src="Le nostre Bici/La Pimpa.jpg">
-        <h1 class="Titolo2"> La Pimpa</h1>
-        <p> <b>categoria :</b> MTB</p>
-        <p><b>Tipo Freni : </b> Disco</p>
-        <p><b>Materiale :</b> Acciaio</p>
-        <p><b>Misura Ruote : </b> 29</p>
-        <p>
-            <b> cambi : </b>3 avanti 8 dietro
-            <br> Totale 24
-        </p>
-        <p> <b> anno di produzione : </b>2021</p>
-    </div>
-
-    <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/La Splendente.jpg">
-        <h1 class="Titolo2"> La Splendente</h1>
-        <p> <b>categoria :</b> MTB</p>
-        <p><b>Tipo Freni : </b> Disco</p>
-        <p><b>Materiale :</b> Acciaio</p>
-        <p><b>Misura Ruote : </b> 27</p>
-        <p>
-            <b> cambi : </b>3 avanti 7 dietro
-            <br> Totale 21
-        </p>
-        <p> <b> anno di produzione : </b>2022</p>
-    </div>
-
-    <div class="contorno">
-        <img class="immagine_bicidx" src="Le nostre Bici/La Corsara .jpg">
-        <h1 class="Titolo2"> La Corsara</h1>
-        <p> <b>categoria :</b> Corsa</p>
-        <p><b>Tipo Freni : </b> Pattino</p>
-        <p><b>Materiale :</b> Fibra di Carbonio</p>
-        <p><b>Misura Ruote : </b> 28</p>
-        <p>
-            <b> cambi : </b>2 avanti 11 dietro
-            <br> Totale 22
-        </p>
-        <p> <b> anno di produzione : </b>2022</p>
-    </div>
+    <div id="StampaBici"></div>
 
 </body>
 
