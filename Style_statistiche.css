@@ -198,3 +198,8 @@ tr:hover
 .titoli:hover {
     color: black;
 }
+
+canvas
+{
+    background-color: white;
+}
