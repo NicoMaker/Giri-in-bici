@@ -1,7 +1,7 @@
 let dati = {
     labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
     datasets: [{
-        label: 'Km mensili 2023',
+        label: 'km mensili 2023',
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',

@@ -8,7 +8,7 @@
 <p>statistiche anno -> statistiche2023.html </p>
 <br>
 
-<p> Aggionare js periodo indicato corretto </p>
+<p> Aggionare js periodo indicato corretto tutti e solo anno indicato </p>
 <br>
 
 <p>periodo -> nome stagione.html</p>   
