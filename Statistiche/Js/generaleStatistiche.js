@@ -23,7 +23,7 @@ let dati = {
 
 // Configurazione del grafico
 let config = {
-    type: 'pie',
+    type: 'doughnut',
     data: dati,
     options: {
         scales: {
@@ -35,5 +35,5 @@ let config = {
 };
 
 // Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById('pie-chart').getContext('2d');
+let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
