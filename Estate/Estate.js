@@ -1,6 +1,11 @@
 let e2020 = 2021,e2021 = 743, e2022 = 2085, e2023 = 1622;
 let totale = e2020 + e2021 + e2022 + e2023;
 
+let avg2020 = (e2020 / totale) * 100;
+let avg2021 = (e2021 / totale) * 100;
+let avg2022 = (e2022 / totale) * 100;
+let avg2023 = (e2023 / totale) * 100;
+
 let dati = {
     labels: ['2020', '2021', '2022', '2023'],
     datasets: [{
@@ -39,17 +44,17 @@ let config = {
 let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
 
-let stampaE2020 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2020}</p>`
+let stampaE2020 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2020}</p> <p> ${avg2020} % </p>`
 document.getElementById("estate2020").innerHTML = stampaE2020;
 
-let stampaE2021 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2021}</p>`
+let stampaE2021 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2021}</p><p> ${avg2021} % </p>`
 document.getElementById("estate2021").innerHTML = stampaE2021;
 
-let stampaE2022 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2022}</p>`
+let stampaE2022 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2022}</p> <p> ${avg2022} % </p>`
 document.getElementById("estate2022").innerHTML = stampaE2022;
 
-let stampaE2023 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2023}</p>`
+let stampaE2023 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2023}</p> <p> ${avg2023} % </p>`
 document.getElementById("estate2023").innerHTML = stampaE2023;
 
-let stampaE = `Totale km percorsi in Estate ${totale} <img src="Icone/traguardo.png">`;
+let stampaE = `Totale km percorsi in Estate ${totale} <img src="Icone/traguardo.png"> `;
 document.getElementById("totale").innerHTML = stampaE;

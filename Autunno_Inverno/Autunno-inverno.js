@@ -1,6 +1,11 @@
 let AI202021 = 1305,AI202122 = 729, AI202223 = 806, AI202324 = 958;
 let totale = AI202021 + AI202122 + AI202223 + AI202223;
 
+let avg2021 = (AI202021 / totale) * 100;
+let avg2122 = (AI202122 / totale) * 100;
+let avg2223 = (AI202223 / totale) * 100;
+let avg2324 = (AI202324 / totale) * 100;
+
 let dati = {
     labels: ['2020-2021', '2021-2022', '2022-2023', '2023-2024'],
     datasets: [{
@@ -39,16 +44,16 @@ let config = {
 let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
 
-let stampaAI2021 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202021}</p>`
+let stampaAI2021 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202021}</p> <p> ${avg2021} % </p`
 document.getElementById("AI2021").innerHTML = stampaAI2021;
 
-let stampaAI2122 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202122}</p>`
+let stampaAI2122 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202122}</p>  <p> ${avg2122} % </p`
 document.getElementById("AI2122").innerHTML = stampaAI2122;
 
-let stampaAI2223 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202223}</p>`
+let stampaAI2223 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202223}</p>  <p> ${avg2223} % </p`
 document.getElementById("AI2223").innerHTML = stampaAI2223;
 
-let stampaAI2324 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202324}</p>`
+let stampaAI2324 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202324}</p>  <p> ${avg2324} % </p`
 document.getElementById("AI2324").innerHTML = stampaAI2324;
 
 let stampaAI = `Totale km percorsi in Autunno - Inverno ${totale} <img src="Icone/traguardo.png">`;
