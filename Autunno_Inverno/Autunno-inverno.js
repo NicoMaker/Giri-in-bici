@@ -18,7 +18,7 @@ let dati = {
             'rgba(75, 192, 192, 1)'
         ],
         borderWidth: 1,
-        data: [AI202021, AI202122. AI202223m, AI202324]  // Aggiunto un valore per il 2024, correggi se necessario
+        data: [AI202021, AI202122, AI202223, AI202324]  // Aggiunto un valore per il 2024, correggi se necessario
     }]
 };
 
