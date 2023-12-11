@@ -201,3 +201,8 @@ tr:hover
 {
     float: left;
 }
+
+canvas
+{
+    background-color: white;
+}

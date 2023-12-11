@@ -6,6 +6,8 @@
     <link rel="icon" href="Estate/Immagini/Estate.jpg" type="image/jpg">
     <title> Estate </title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Estate/Estate.js" defer></script>
 </head>
 
 <body>
@@ -51,7 +53,7 @@
             <p class="titoli">
                 Estate 2020
 
-                <p>Totale km <img src="Icone/traguardo.png"> 2.021</p>
+                <p id="estate2020"></p>
             </p>
         </a>
 
@@ -64,7 +66,7 @@
             <p class="titoli">
                 Estate 2021
 
-                <p>Totale km <img src="Icone/traguardo.png"> 743</p>
+                <p id="estate2021"></p>
             </p>
         </a>
 
@@ -76,7 +78,7 @@
             <p class="titoli">
                 Estate 2022
 
-                <p>Totale km <img src="Icone/traguardo.png"> 2.085</p>
+                <p id="estate2022"></p>
             </p>
         </a>
 
@@ -91,12 +93,20 @@
             <p class="titoli">
                 Estate 2023
 
-                <p>Totale km <img src="Icone/traguardo.png"> 1.622</p>
+                <p id="estate2023"></p>
             </p>
         </a>
 
     </div>
 
+    <br>
+    <canvas id="doughnut-chart"></canvas>
+    <br>
+
+    <div class="colore">
+        <p id="totale">
+        </p>
+    </div>
 
 </body>
 

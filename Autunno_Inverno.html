@@ -6,7 +6,8 @@
     <link rel="icon" href="Autunno_Inverno/Immagini/Autunno Inverno.jpg" type="image/jpg">
     <title> Autunno - Inverno </title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Autunno_Inverno/Autunno-inverno.js" defer></script>
 </head>
 
 <body>
@@ -50,7 +51,7 @@
         <img class="immaginestagione" src="Icone/inverno.png">
         <a href="Autunno_Inverno/Autunno_Inverno2020-2021.html">
             <p class="titoli">Autunno - Inverno 2020/2021
-                <p>Totale km <img src="Icone/traguardo.png"> 1.305</p>
+                <p id="AI2021"></p>
             </p>
         </a>
     </div>
@@ -59,7 +60,7 @@
         <img class="immaginestagione" src="Icone/inverno.png">
         <a href="Autunno_Inverno/Autunno_Inverno2021-2022.html">
             <p class="titoli">Autunno - Inverno 2021/2022
-                <p>Totale km <img src="Icone/traguardo.png"> 729</p>
+                <p id="AI2122"></p>
             </p>
         </a>
     </div>
@@ -68,7 +69,7 @@
         <img class="immaginestagione" src="Icone/inverno.png">
         <a href="Autunno_Inverno/Autunno_Inverno2022-2023.html">
             <p class="titoli">Autunno - Inverno 2022/2023
-                <p>Totale km <img src="Icone/traguardo.png"> 806</p>
+                <p id="AI2223"></p>
             </p>
         </a>
     </div>
@@ -77,9 +78,18 @@
         <img class="immaginestagione" src="Icone/inverno.png">
         <a href="Autunno_Inverno/Autunno_Inverno2023-2024.html">
             <p class="titoli">Autunno - Inverno 2023/2024
-                <p>Totale km <img src="Icone/traguardo.png"> 958</p>
+                <p id="AI2324"></p>
             </p>
         </a>
+    </div>
+
+    <br>
+    <canvas id="doughnut-chart"></canvas>
+    <br>
+
+    <div class="colore">
+        <p id="totale">
+        </p>
     </div>
 
 </body>

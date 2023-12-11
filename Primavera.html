@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="Primavera/Primavera.css" />
     <link rel="icon" href="Primavera/Immagini/Primavera.jpg" type="image/jpg">
     <title> Primavera </title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Primavera/Primavera.js" defer></script>
 </head>
 
 <body>
@@ -52,7 +53,7 @@
             <p class="titoli">
                 Primavera 2021
 
-                <p>Totale km <img src="Icone/traguardo.png"> 579</p>
+                <p id="primavera2021"></p>
             </p>
         </a>
     </div>
@@ -63,7 +64,7 @@
             <p class="titoli">
                 Primavera 2022
 
-                <p>Totale km <img src="Icone/traguardo.png"> 885</p>
+                <p id="primavera2022"></p>
             </p>
         </a>
     </div>
@@ -74,9 +75,18 @@
             <p class="titoli">
                 Primavera 2023
 
-                <p>Totale km <img src="Icone/traguardo.png"> 742</p>
+                <p id="primavera2023"></p>
             </p>
         </a>
+    </div>
+
+    <br>
+    <canvas id="doughnut-chart"></canvas>
+    <br>
+
+    <div class="colore">
+        <p id="totale">
+        </p>
     </div>
 </body>
 
