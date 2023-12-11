@@ -1,9 +1,6 @@
 <h1>ogni volta aggiornare </h1>
 <br>
 
-<p> aggiornare giri.html ogni volta</p>
-<br>
-
 <p> Aggiornare js stagione corrispondente, statistiche anno interessato e statistiche generale, hamburger con vari km e corse</p>
 <br>
  
