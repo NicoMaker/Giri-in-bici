@@ -1,11 +1,9 @@
 <h1>ogni volta aggiornare </h1>
-
-<p>KM totale ->  giri.html</p> 
-
 <br>
 
-<p>statistiche generali -> statistiche.html</p>
-<p>statistiche anno -> statistiche2023.html </p>
+<p>statistiche generali -> statistiche.html media km</p>
+<p>statistiche anno -> statistiche2023.html media km</p>
+<p> aggiornare giri.html ogni volta</p>
 <br>
 
 <p> Aggiornare js stagione corrispondente, statistiche anno interessato e statistiche generale</p>
