@@ -14,6 +14,10 @@ let avgottobre = (Ottobre / totale) * 100;
 let avgnovembre = (Novembre / totale) * 100;
 let avgdicembre = (Dicembre / totale) * 100;
 
+let corse = 54;
+
+let avgtot = totale / corse;
+
 let dati = {
     labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
     datasets: [{
@@ -104,5 +108,5 @@ document.getElementById("novembre").innerHTML = stampan;
 let stampad = `<td> Dicembre </td> <td>${Dicembre}</td><td>${avgdicembre}%</td>`;
 document.getElementById("dicembre").innerHTML = stampad;
 
-let stampat = `<p>totale km ${totale} <img src="../Icone/traguardo.png"></p>`;
+let stampat = `<p>totale km ${totale} <img src="../Icone/traguardo.png"></p> <p>km medi percorsi ${avgtot}</p>`;
 document.getElementById("totale").innerHTML = stampat;
