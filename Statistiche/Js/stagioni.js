@@ -43,44 +43,50 @@ new Chart(ctx, config);
 
 let stampa = `
 
-<div class="estate">
-    <img class="immaginestagionesx" src="../Icone/estate.png">
-    <p class="contornostagione">
-        Estate
-    </p>
+<a href="../Estate.html">
+    <div class="estate">
+        <img class="immaginestagionesx" src="../Icone/estate.png">
+        <p class="contornostagione">
+            Estate
+        </p>
 
-    <p>km totali 
-        ${e} <img src="../Icone/traguardo.png">
-    </p>
+        <p>km totali 
+            ${e} <img src="../Icone/traguardo.png">
+        </p>
 
-    <p> ${avge} % </p>
-</div>
+        <p> ${avge} % </p>
+    </div>
+</a>
 
-<div class="primavera">
-    <img class="immaginestagionesx" src="../Icone/primavera.png">
-    <p class="contornostagione">
-        Primavera
-    </p>
+<a href="../Primavera.html">
+    <div class="primavera">
+        <img class="immaginestagionesx" src="../Icone/primavera.png">
+        <p class="contornostagione">
+            Primavera
+        </p>
 
-    <p>km totali 
-        ${p} <img src="../Icone/traguardo.png">
-    </p>
+        <p>km totali 
+            ${p} <img src="../Icone/traguardo.png">
+        </p>
 
-    <p> ${avgp} % </p>
-</div>
+        <p> ${avgp} % </p>
+    </div>
+</a>    
 
-<div class="autunno_inverno">
-    <img class="immaginestagionesx" src="../Icone/inverno.png">
-    <p class="contornostagione">
-        Autunno - Inverno
-    </p>
+<a href="../Autunno_Inverno.html">
+    <div class="autunno_inverno">
+        <img class="immaginestagionesx" src="../Icone/inverno.png">
+        <p class="contornostagione">
+            Autunno - Inverno
+        </p>
 
-    <p>km totali 
-        ${ai} <img src="../Icone/traguardo.png">
-    </p>
+        <p>km totali 
+            ${ai} <img src="../Icone/traguardo.png">
+        </p>
 
-    <p> ${avgai} % </p>
-</div>
+        <p> ${avgai} % </p>
+    </div>
+</a> 
 `;
 
 document.getElementById("dati").innerHTML = stampa;

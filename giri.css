@@ -432,6 +432,10 @@ tr:hover {
     font-family: 'Dancing Script', cursive;
     color: blue;
 }
+.contornostagione:hover
+{
+    color: black;
+}
 
 canvas
 {
