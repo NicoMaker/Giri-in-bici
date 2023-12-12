@@ -56,5 +56,5 @@ document.getElementById("estate2022").innerHTML = stampaE2022;
 let stampaE2023 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2023}</p> <p> ${avg2023} % </p>`
 document.getElementById("estate2023").innerHTML = stampaE2023;
 
-let stampaE = `Totale km percorsi in Estate ${totale} <img src="Icone/traguardo.png"> `;
+let stampaE = `Totale km percorsi in Estate ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${totale/4} </p>`;
 document.getElementById("totale").innerHTML = stampaE;

@@ -1,5 +1,5 @@
 let AI202021 = 1305,AI202122 = 729, AI202223 = 806, AI202324 = 958;
-let totale = AI202021 + AI202122 + AI202223 + AI202223;
+let totale = AI202021 + AI202122 + AI202223 + AI202324;
 
 let avg2021 = (AI202021 / totale) * 100;
 let avg2122 = (AI202122 / totale) * 100;
@@ -56,5 +56,5 @@ document.getElementById("AI2223").innerHTML = stampaAI2223;
 let stampaAI2324 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202324}</p>  <p> ${avg2324} % </p`
 document.getElementById("AI2324").innerHTML = stampaAI2324;
 
-let stampaAI = `Totale km percorsi in Autunno - Inverno ${totale} <img src="Icone/traguardo.png">`;
+let stampaAI = `Totale km percorsi in Autunno - Inverno ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${totale/4} </p>`;
 document.getElementById("totale").innerHTML = stampaAI;

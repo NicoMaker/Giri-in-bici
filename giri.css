@@ -425,3 +425,15 @@ tr:hover {
 {
     right: 10px;
 } 
+
+.contornostagione
+{
+    font-size: 50px;
+    font-family: 'Dancing Script', cursive;
+    color: blue;
+}
+
+canvas
+{
+    background-color: white;
+}
