@@ -441,3 +441,12 @@ canvas
 {
     background-color: white;
 }
+
+
+.immaginestagionestat
+{
+    width: 70px;
+    height: 70px;
+    margin: 20px;
+    float: left;
+}
