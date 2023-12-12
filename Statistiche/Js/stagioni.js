@@ -45,7 +45,7 @@ let stampa = `
 
 <a href="../Estate.html">
     <div class="estate">
-        <img class="immaginestagionesx" src="../Icone/estate.png">
+        <img class="immaginestagionestat" src="../Icone/estate.png">
         <p class="contornostagione">
             Estate
         </p>
@@ -60,7 +60,7 @@ let stampa = `
 
 <a href="../Primavera.html">
     <div class="primavera">
-        <img class="immaginestagionesx" src="../Icone/primavera.png">
+        <img class="immaginestagionestat" src="../Icone/primavera.png">
         <p class="contornostagione">
             Primavera
         </p>
@@ -75,7 +75,7 @@ let stampa = `
 
 <a href="../Autunno_Inverno.html">
     <div class="autunno_inverno">
-        <img class="immaginestagionesx" src="../Icone/inverno.png">
+        <img class="immaginestagionestat" src="../Icone/inverno.png">
         <p class="contornostagione">
             Autunno - Inverno
         </p>
