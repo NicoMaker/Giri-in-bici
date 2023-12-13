@@ -15,11 +15,12 @@
 </ul></p>
 <br>
 
-<br>
 <h1> Credenziali </h1>
 
 <p>Nome Utente -> NicoMaker</p>
 <p>Password -> Giri2023</P>
+
+<a href="https://giri-in-bici.netlify.app/" target = "_blank">Apertura sito principale</a>
 
 <br>
 <h1>MAPPA SITO </h1>
