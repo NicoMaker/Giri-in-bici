@@ -1,4 +1,4 @@
-let s2020 = 2456, s2021 = 2614, s2022 = 3808, s2023 = 3664, s2024 = 0;
+let s2020 = 2456, s2021 = 2614, s2022 = 3808, s2023 = 3757, s2024 = 0;
 let totale = s2020 + s2021 + s2022 + s2023 + s2024;
 
 let avg2020 = (s2020 / totale) * 100;
@@ -7,7 +7,7 @@ let avg2022 = (s2022 / totale) * 100;
 let avg2023 = (s2023 / totale) * 100;
 let avg2024 = (s2024 / totale) * 100;
 
-let corse = 179;
+let corse = 180;
 
 let avgtot = totale / corse;
 

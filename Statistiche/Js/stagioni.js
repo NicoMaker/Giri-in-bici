@@ -1,4 +1,4 @@
-let e = 6471, p = 2206 , ai = 3865;
+let e = 6471, p = 2206 , ai = 3958;
 let totale = e + p + ai;
 
 let avge = (e/totale) * 100;
@@ -6,13 +6,13 @@ let avgp = (p/totale) * 100;
 let avgai = (ai/totale) * 100;
 
 let dati = {
-    labels: ['Estate','Autunno-Inverno','Primavera'],
+    labels: ['Estate','Primavera','Autunno-Inverno'],
     datasets: [{
         label: 'km totali stagione',
         backgroundColor: [
             'red',
-            'lightblue',
-            'lightgreen'
+            'lightgreen',
+            'lightblue'
         ],
         borderColor: [
             'rgba(255, 99, 132, 1)',

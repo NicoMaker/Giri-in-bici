@@ -1,4 +1,4 @@
-let Gennaio = 127, Febbraio = 148, Marzo = 194, Aprile = 103, Maggio = 242, Giugno = 265, Luglio = 422, Agosto = 426, Settembre = 712, Ottobre = 420, Novembre = 299, Dicembre = 306;
+let Gennaio = 127, Febbraio = 148, Marzo = 194, Aprile = 103, Maggio = 242, Giugno = 265, Luglio = 422, Agosto = 426, Settembre = 712, Ottobre = 420, Novembre = 299, Dicembre = 399;
 let totale = Gennaio + Febbraio + Marzo + Aprile + Maggio + Giugno + Luglio + Agosto + Settembre + Ottobre + Novembre + Dicembre;
 
 let avggennaio = (Gennaio / totale) * 100;
@@ -14,7 +14,7 @@ let avgottobre = (Ottobre / totale) * 100;
 let avgnovembre = (Novembre / totale) * 100;
 let avgdicembre = (Dicembre / totale) * 100;
 
-let corse = 55;
+let corse = 56;
 
 let avgtot = totale / corse;
 
