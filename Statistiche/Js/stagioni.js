@@ -5,6 +5,8 @@ let avge = (e/totale) * 100;
 let avgp = (p/totale) * 100;
 let avgai = (ai/totale) * 100;
 
+let avgmediastagione = totale / 3;
+
 let dati = {
     labels: ['Estate','Primavera','Autunno-Inverno'],
     datasets: [{
@@ -28,13 +30,6 @@ let dati = {
 let config = {
     type: 'doughnut',
     data: dati,
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
 };
 
 // Ottenere il contesto del canvas e creare il grafico
@@ -92,5 +87,5 @@ let stampa = `
 
 document.getElementById("dati").innerHTML = stampa;
 
-let stampat = `<div class="colore"><p>totale km ${totale} <img src="../Icone/traguardo.png"></p> </div>`;
+let stampat = `<div class="colore"><p>totale km ${totale} <img src="../Icone/traguardo.png"></p>  <p> Media km per Stagione ${avgmediastagione} km</div>`;
 document.getElementById("totale").innerHTML = stampat;

@@ -31,13 +31,6 @@ let dati = {
 let config = {
     type: 'doughnut',
     data: dati,
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
 };
 
 // Ottenere il contesto del canvas e creare il grafico
