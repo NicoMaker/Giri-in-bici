@@ -87,5 +87,9 @@ let stampa = `
 
 document.getElementById("dati").innerHTML = stampa;
 
-let stampat = `<div class="colore"><p>totale km ${totale} <img src="../Icone/traguardo.png"></p>  <p> Media km per Stagione ${avgmediastagione} km</div>`;
+let stampat = `
+<div class="colore">
+    <p>totale km ${totale} 
+        <img src="../Icone/traguardo.png"></p>  
+    <p> Media km per Stagione ${avgmediastagione} km </p> </div>`;
 document.getElementById("totale").innerHTML = stampat;
