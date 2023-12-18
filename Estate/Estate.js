@@ -6,6 +6,7 @@ let avg2021 = (e2021 / totale) * 100;
 let avg2022 = (e2022 / totale) * 100;
 let avg2023 = (e2023 / totale) * 100;
 
+let Aggiunto, iio5tkj;
 let dati = {
     labels: ['2020', '2021', '2022', '2023'],
     datasets: [{
