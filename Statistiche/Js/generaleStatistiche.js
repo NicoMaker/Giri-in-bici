@@ -2,14 +2,24 @@ let s2020 = 2456, s2021 = 2614, s2022 = 3808, s2023 = 3757, s2024 = 0;
 let totale = s2020 + s2021 + s2022 + s2023 + s2024;
 
 let avg2020 = (s2020 / totale) * 100;
+avg2020 = avg2020.toFixed(2);
+
 let avg2021 = (s2021 / totale) * 100;
+avg2021 = avg2021.toFixed(2);
+
 let avg2022 = (s2022 / totale) * 100;
+avg2022 = avg2022.toFixed(2);
+
 let avg2023 = (s2023 / totale) * 100;
+avg2023 = avg2023.toFixed(2);
+
 let avg2024 = (s2024 / totale) * 100;
+avg2024 = avg2024.toFixed(2);
 
 let corse = 180;
 
 let avgtot = totale / corse;
+avgtot = avgtot.toFixed(2);
 
 let dati = {
     labels: ['Statistiche 2020', 'Statistiche 2021', 'Statistiche 2022', 'Statistiche 2023', 'Statistiche 2024'],

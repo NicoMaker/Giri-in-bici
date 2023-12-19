@@ -23,6 +23,7 @@ let totale = 12635;
 let corse = 180;
 
 let avgtot = totale / corse;
+avgtot = parseFloat(avgtot.toFixed(2));
 
 let stampat = `<p>totale km ${totale} <img src="Icone/traguardo.png"></p> <p>km medi percorsi ${avgtot}</p>`;
 document.getElementById("totale").innerHTML = stampat;

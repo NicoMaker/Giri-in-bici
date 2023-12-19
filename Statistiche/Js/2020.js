@@ -2,16 +2,30 @@ let Maggio = 45, Giugno = 367, Luglio = 627, Agosto = 691, Settembre = 291 , Nov
 let totale = Maggio + Giugno + Luglio + Agosto + Settembre + Novembre +Dicembre;
 
 let avgmaggio = (Maggio / totale) * 100;
+avgmaggio= avgmaggio.toFixed(2);
+
 let avggiugno = (Giugno / totale) * 100;
+avggiugno= avggiugno.toFixed(2);
+
 let avgluglio = (Luglio / totale) * 100;
+avgluglio= avgluglio.toFixed(2);
+
 let avgagosto = (Agosto / totale) * 100;
+avgagosto= avgagosto.toFixed(2);
+
 let avgsettembre = (Settembre / totale) * 100;
+avgsettembre= avgsettembre.toFixed(2);
+
 let avgnovembre = (Novembre / totale) * 100;
+avgnovembre = avgnovembre.toFixed(2);
+
 let avgdicembre = (Dicembre / totale) * 100;
+avgdicembre= avgdicembre.toFixed(2);
 
 let corse = 32;
 
 let avgtot = totale / corse;
+avgtot = avgtot.toFixed(2);
 
 let dati = {
     labels: ['Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre','Novembre', 'Dicembre'],

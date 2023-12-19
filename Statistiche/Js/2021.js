@@ -2,21 +2,45 @@ let Gennaio = 152, Febbraio = 315, Marzo = 302, Aprile = 323, Maggio = 180, Giug
 let totale = Gennaio + Febbraio + Marzo + Aprile + Maggio + Giugno + Luglio + Agosto + Settembre + Ottobre + Novembre + Dicembre;
 
 let avggennaio = (Gennaio / totale) * 100;
+avggennaio = avggennaio.toFixed(2);
+
 let avgfebbraio = (Febbraio / totale) * 100;
+avgfebbraio = avgfebbraio.toFixed(2);
+
 let avgmarzo = (Marzo / totale) * 100;
+avgmarzo = avgmarzo.toFixed(2);
+
 let avgaprile = (Aprile / totale) * 100;
+avgaprile = avgaprile.toFixed(2);
+
 let avgmaggio = (Maggio / totale) * 100;
+avgmaggio = avgmaggio.toFixed(2);
+
 let avggiugno = (Giugno / totale) * 100;
+avggiugno = avggiugno.toFixed(2);
+
 let avgluglio = (Luglio / totale) * 100;
+avgluglio = avgluglio.toFixed(2);
+
 let avgagosto = (Agosto / totale) * 100;
+avgagosto = avgagosto.toFixed(2);
+
 let avgsettembre = (Settembre / totale) * 100;
+avgsettembre = avgsettembre.toFixed(2);
+
 let avgottobre = (Ottobre / totale) * 100;
+avgottobre = avgottobre.toFixed(2);
+
 let avgnovembre = (Novembre / totale) * 100;
+avgnovembre = avgnovembre.toFixed(2);
+
 let avgdicembre = (Dicembre / totale) * 100;
+avgdicembre = avgdicembre.toFixed(2);
 
 let corse = 40;
 
 let avgtot = totale / corse;
+avgtot = avgtot.toFixed(2);
 
 let dati = {
     labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],

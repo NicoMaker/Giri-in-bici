@@ -2,9 +2,16 @@ let e2020 = 2021,e2021 = 743, e2022 = 2085, e2023 = 1622;
 let totale = e2020 + e2021 + e2022 + e2023;
 
 let avg2020 = (e2020 / totale) * 100;
+avg2020 = parseFloat(avg2020.toFixed(2));
+
 let avg2021 = (e2021 / totale) * 100;
+avg2021 = parseFloat(avg2021.toFixed(2));
+
 let avg2022 = (e2022 / totale) * 100;
+avg2022 = parseFloat(avg2022.toFixed(2));
+
 let avg2023 = (e2023 / totale) * 100;
+avg2023 = parseFloat(avg2023.toFixed(2));
 
 let dati = {
     labels: ['2020', '2021', '2022', '2023'],
@@ -49,5 +56,8 @@ document.getElementById("estate2022").innerHTML = stampaE2022;
 let stampaE2023 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2023}</p> <p> ${avg2023} % </p>`
 document.getElementById("estate2023").innerHTML = stampaE2023;
 
-let stampaE = `Totale km percorsi in Estate ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${totale/4} </p>`;
+let avge = totale/4;
+avge = avge.toFixed(2);
+
+let stampaE = `Totale km percorsi in Estate ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${avge} </p>`;
 document.getElementById("totale").innerHTML = stampaE;

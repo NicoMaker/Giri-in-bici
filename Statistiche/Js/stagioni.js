@@ -2,10 +2,16 @@ let e = 6471, p = 2206 , ai = 3958;
 let totale = e + p + ai;
 
 let avge = (e/totale) * 100;
+avge = parseFloat(avge.toFixed(2));
+
 let avgp = (p/totale) * 100;
+avgp = parseFloat(avgp.toFixed(2));
+
 let avgai = (ai/totale) * 100;
+avgai = parseFloat(avgai.toFixed(2));
 
 let avgmediastagione = totale / 3;
+avgmediastagione = parseFloat(avgmediastagione .toFixed(2));
 
 let dati = {
     labels: ['Estate','Primavera','Autunno-Inverno'],
