@@ -23,9 +23,9 @@ let dati = {
             'lightblue'
         ],
         borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)'
+            'red',
+            'lightgreen',
+            'lightblue'
         ],
         borderWidth: 1,
         data: [e,p,ai]  // Aggiunto un valore per il 2024, correggi se necessario
