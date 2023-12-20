@@ -77,6 +77,6 @@ document.getElementById("2024").innerHTML = stampa2024;
 let stampat = `
 <p>totale km ${totale} 
     <img src="../Icone/traguardo.png"></p> 
-<p>km medi percorsi ${avgtot}</p>
-<p> km medi per anno ${avganno} </p>`;
+<p>km medi per giro percorsi ${avgtot}</p>
+<p> km medi per anno percorsi ${avganno} </p>`;
 document.getElementById("totale").innerHTML = stampat;
