@@ -44,17 +44,65 @@ let config = {
 let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
 
-let stampaE2020 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2020}</p> <p> ${avg2020} % </p>`
-document.getElementById("estate2020").innerHTML = stampaE2020;
 
-let stampaE2021 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2021}</p><p> ${avg2021} % </p>`
-document.getElementById("estate2021").innerHTML = stampaE2021;
+let stampa = `
+<div class="Estatecontorno">
+    <img class="immaginestagione" src="Icone/estate.png">
+    <a href="Estate/Estate2020.html">
 
-let stampaE2022 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2022}</p> <p> ${avg2022} % </p>`
-document.getElementById("estate2022").innerHTML = stampaE2022;
+        <p class="titoli">
+            Estate 2020
 
-let stampaE2023 = `<p>Totale km <img src="Icone/traguardo.png"> ${e2023}</p> <p> ${avg2023} % </p>`
-document.getElementById("estate2023").innerHTML = stampaE2023;
+            <p>Totale km <img src="Icone/traguardo.png"> 
+            ${e2020}</p> <p> ${avg2020} % </p>
+        </p>
+    </a>
+
+</div>
+
+<div class="Estatecontorno">
+    <img class="immaginestagione" src="Icone/estate.png">
+        <a href="Estate/Estate2021.html">
+
+            <p class="titoli">
+            Estate 2021
+
+            <p>Totale km <img src="Icone/traguardo.png"> 
+            ${e2021}</p> <p> ${avg2021} % </p>
+            </p>
+        </a>
+
+</div>
+
+<div class="Estatecontorno">
+    <img class="immaginestagione" src="Icone/estate.png">
+        <a href="Estate/Estate2022.html">
+
+            <p class="titoli">
+            Estate 2022
+
+            <p>Totale km <img src="Icone/traguardo.png"> 
+            ${e2022}</p> <p> ${avg2022} % </p>
+            </p>
+        </a>
+
+</div>
+
+<div class="Estatecontorno">
+    <img class="immaginestagione" src="Icone/estate.png">
+        <a href="Estate/Estate2023.html">
+
+            <p class="titoli">
+            Estate 2023
+
+            <p>Totale km <img src="Icone/traguardo.png"> 
+            ${e2023}</p> <p> ${avg2023} % </p>
+            </p>
+        </a>
+
+</div>
+`
+document.getElementById("stampa").innerHTML = stampa;
 
 let avge = totale/4;
 avge = avge.toFixed(2);

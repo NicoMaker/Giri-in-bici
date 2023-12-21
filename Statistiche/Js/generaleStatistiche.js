@@ -58,21 +58,48 @@ let config = {
 let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
 
-let stampa2020 = `<p class="titoli"> Statistiche 2020 </p><p> km totali <img src="Icone/traguardo.png"> ${s2020}</p><p>${avg2020} %</p>`;
-document.getElementById("2020").innerHTML = stampa2020;
+let stampa = `
+<div class="Statistiche">
+    <a href="Statistiche/Statistiche2020.html">
+        <p class="titoli"> Statistiche 2020 </p>
+        <p> km totali <img src="Icone/traguardo.png">
+         ${s2020}</p><p>${avg2020} %</p>
+    </a>
+</div>
 
-let stampa2021 = `<p class="titoli"> Statistiche 2021 </p><p>km totali <img src="Icone/traguardo.png"> ${s2021}</p><p>${avg2021} %</p>`;
-document.getElementById("2021").innerHTML = stampa2021;
+<div class="Statistiche">
+    <a href="Statistiche/Statistiche2021.html">
+        <p class="titoli"> Statistiche 2021 </p>
+        <p> km totali <img src="Icone/traguardo.png">
+         ${s2021}</p><p>${avg2021} %</p>
+    </a>
+</div>
 
-let stampa2022 = `<p class="titoli"> Statistiche 2022 </p><p>km totali <img src="Icone/traguardo.png"> ${s2022}</p><p>${avg2022} %</p>`;
-document.getElementById("2022").innerHTML = stampa2022;
+<div class="Statistiche">
+    <a href="Statistiche/Statistiche2022.html">
+        <p class="titoli"> Statistiche 2022 </p>
+        <p> km totali <img src="Icone/traguardo.png">
+         ${s2022}</p><p>${avg2022} %</p>
+    </a>
+</div>
 
-let stampa2023 = `<p class="titoli"> Statistiche 2023 </p><p>km totali <img src="Icone/traguardo.png"> ${s2023}</p><p>${avg2023} %</p>`;
-document.getElementById("2023").innerHTML = stampa2023;
+<div class="Statistiche">
+    <a href="Statistiche/Statistiche2023.html">
+        <p class="titoli"> Statistiche 2023 </p>
+        <p> km totali <img src="Icone/traguardo.png">
+         ${s2023}</p><p>${avg2023} %</p>
+    </a>
+</div>
 
-let stampa2024 = `<p class="titoli"> Statistiche 2024 </p><p>km totali <img src="Icone/traguardo.png"> ${s2024}</p><p>${avg2024} %</p>`;
-document.getElementById("2024").innerHTML = stampa2024;
-
+<div class="Statistiche">
+    <a href="Statistiche/Statistiche2024.html">
+        <p class="titoli"> Statistiche 2024 </p>
+        <p> km totali <img src="Icone/traguardo.png">
+         ${s2024}</p><p>${avg2024} %</p>
+    </a>
+</div>
+`;
+document.getElementById("stampa").innerHTML = stampa;
 
 let stampat = `
 <p>totale km ${totale} 

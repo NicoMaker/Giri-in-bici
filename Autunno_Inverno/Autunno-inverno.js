@@ -44,17 +44,49 @@ let config = {
 let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
 
-let stampaAI2021 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202021}</p> <p> ${avg2021} % </p`
-document.getElementById("AI2021").innerHTML = stampaAI2021;
+let stampa = `
+<div class="Autunno-Invernocontorno">
+    <img class="immaginestagione" src="Icone/inverno.png">
+        <a href="Autunno_Inverno/Autunno_Inverno2020-2021.html">
+            <p class="titoli">Autunno - Inverno 2020/2021
+            <p>Totale km <img src="Icone/traguardo.png"> 
+            ${AI202021}</p> <p> ${avg2021} % </p>
+        </p>
+        </a>
+</div>
 
-let stampaAI2122 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202122}</p>  <p> ${avg2122} % </p`
-document.getElementById("AI2122").innerHTML = stampaAI2122;
+<div class="Autunno-Invernocontorno">
+    <img class="immaginestagione" src="Icone/inverno.png">
+        <a href="Autunno_Inverno/Autunno_Inverno2021-2022.html">
+            <p class="titoli">Autunno - Inverno 2021/2022
+            <p>Totale km <img src="Icone/traguardo.png"> 
+            ${AI202122}</p> <p> ${avg2122} % </p>
+        </p>
+        </a>
+</div>
 
-let stampaAI2223 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202223}</p>  <p> ${avg2223} % </p`
-document.getElementById("AI2223").innerHTML = stampaAI2223;
+<div class="Autunno-Invernocontorno">
+    <img class="immaginestagione" src="Icone/inverno.png">
+        <a href="Autunno_Inverno/Autunno_Inverno2022-2023.html">
+            <p class="titoli">Autunno - Inverno 2022/2023
+            <p>Totale km <img src="Icone/traguardo.png"> 
+            ${AI202223}</p> <p> ${avg2223} % </p>
+        </p>
+        </a>
+</div>
 
-let stampaAI2324 = `<p>Totale km <img src="Icone/traguardo.png"> ${AI202324}</p>  <p> ${avg2324} % </p`
-document.getElementById("AI2324").innerHTML = stampaAI2324;
+<div class="Autunno-Invernocontorno">
+    <img class="immaginestagione" src="Icone/inverno.png">
+        <a href="Autunno_Inverno/Autunno_Inverno2023-2024.html">
+            <p class="titoli">Autunno - Inverno 2023/2024
+            <p>Totale km <img src="Icone/traguardo.png"> 
+            ${AI202324}</p> <p> ${avg2324} % </p>
+        </p>
+        </a>
+</div>
+`;
+document.getElementById("stampa").innerHTML = stampa;
+
 
 let avgai = totale/4;
 avgai = avgai.toFixed(2);

@@ -39,15 +39,45 @@ let config = {
 let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
 
-let stampaP2021 = `<p>Totale km <img src="Icone/traguardo.png"> ${p2021}</p> <p> ${avg2021} % </p>`
-document.getElementById("primavera2021").innerHTML = stampaP2021;
+let stampa = `
 
-let stampaP2022 = `<p>Totale km <img src="Icone/traguardo.png"> ${p2022}</p> <p> ${avg2022} % </p>`
-document.getElementById("primavera2022").innerHTML = stampaP2022;
+<div class="Primaveracontorno">
+    <img class="immaginestagione" src="Icone/primavera.png">
+    <a href="Primavera/Primavera2021.html">
+        <p class="titoli">
+            Primavera 2021
 
-let stampaP2023 = `<p>Totale km <img src="Icone/traguardo.png"> ${p2023}</p> <p> ${avg2023} % </p>`
-document.getElementById("primavera2023").innerHTML = stampaP2023;
+            <p>Totale km <img src="Icone/traguardo.png"> ${p2021}</p> 
+            <p> ${avg2021} % </p>
+        </p>
+    </a>
+</div>
 
+<div class="Primaveracontorno">
+    <img class="immaginestagione" src="Icone/primavera.png">
+    <a href="Primavera/Primavera2022.html">
+        <p class="titoli">
+            Primavera 2022
+
+            <p>Totale km <img src="Icone/traguardo.png"> ${p2022}</p> 
+            <p> ${avg2022} % </p>
+        </p>
+    </a>
+</div>
+
+<div class="Primaveracontorno">
+    <img class="immaginestagione" src="Icone/primavera.png">
+    <a href="Primavera/Primavera2023.html">
+        <p class="titoli">
+            Primavera 2023
+
+            <p>Totale km <img src="Icone/traguardo.png"> ${p2023}</p> 
+            <p> ${avg2023} % </p>
+        </p>
+    </a>
+</div>
+`;
+document.getElementById("stampa").innerHTML = stampa;
 
 let avgp = totale/3;
 avgp = avgp.toFixed(2);

@@ -71,26 +71,58 @@ let config = {
 let ctx = document.getElementById('bar-chart').getContext('2d');
 new Chart(ctx, config);
 
-let stampama = `<td> Maggio </td><td>${Maggio}</td><td>${avgmaggio} %</td>`;
-document.getElementById("maggio").innerHTML = stampama;
+let stampatabella = `
 
-let stampagi = `<td> Giugno </td><td>${Giugno}</td><td>${avggiugno} %</td>`;
-document.getElementById("giugno").innerHTML = stampagi;
+    <tr class="grasetto">
+        <th>Mese</th>
+        <th>km <img src="../Icone/traguardo.png">
+        </th>
+        <th>Percentuale su anno</th>
+    </tr>
 
-let stampal = ` <td> Luglio </td><td>${Luglio}</td><td>${avgluglio} %</td>`;
-document.getElementById("luglio").innerHTML = stampal;
+    <tr>
+        <td> Maggio </td>
+        <td>${Maggio}</td>
+        <td>${avgmaggio} %</td>
+    </tr>
 
-let stampaag = `<td>Agosto </td><td>${Agosto}</td><td>${avgagosto} %</td>`;
-document.getElementById("agosto").innerHTML = stampaag;
+    <tr>
+        <td> Giugno </td>
+        <td>${Giugno}</td>
+        <td>${avggiugno} %</td>
+    </tr>
 
-let stampas = `<td> Settembre </td> <td>${Settembre}</td><td>${avgsettembre} %</td>`;
-document.getElementById("settembre").innerHTML = stampas;
+    <tr>
+        <td> Luglio </td>
+        <td>${Luglio}</td>
+        <td>${avgluglio} %</td>
+    </tr>
 
-let stampan = ` <td> Novembre </td><td>${Novembre}</td><td>${avgnovembre} %</td>`;
-document.getElementById("novembre").innerHTML = stampan;
+    <tr>
+        <td> Agossto </td>
+        <td>${Agosto}</td>
+        <td>${avgagosto} %</td>
+    </tr>
 
-let stampad = `<td> Dicembre </td> <td>${Dicembre}</td><td>${avgdicembre}%</td>`;
-document.getElementById("dicembre").innerHTML = stampad;
+    <tr>
+        <td> Settembre </td>
+        <td>${Settembre}</td>
+        <td>${avgsettembre} %</td>
+    </tr>
+
+    <tr>
+        <td> Novembre </td>
+        <td>${Novembre}</td>
+        <td>${avgnovembre} %</td>
+    </tr>
+
+    <tr>
+        <td> Dicembre </td>
+        <td>${Dicembre}</td>
+        <td>${avgdicembre} %</td>
+    </tr>
+`;
+document.getElementById("mesi").innerHTML = stampatabella;
 
 let stampat = `<p>totale km ${totale} <img src="../Icone/traguardo.png"></p> <p>km medi percorsi ${avgtot}</p>`;
 document.getElementById("totale").innerHTML = stampat;

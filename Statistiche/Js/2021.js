@@ -96,41 +96,88 @@ let config = {
 let ctx = document.getElementById('bar-chart').getContext('2d');
 new Chart(ctx, config);
 
-let stampag = `<td> Gennaio </td><td>${Gennaio}</td><td>${avggennaio} %</td>`;
-document.getElementById("gennaio").innerHTML = stampag;
+let stampatabella = `
 
-let stampaf = ` <td> Febbraio </td><td>${Febbraio}</td><td>${avgfebbraio} %</td>`;
-document.getElementById("febbraio").innerHTML = stampaf;
+    <tr class="grasetto">
+        <th>Mese</th>
+        <th>km <img src="../Icone/traguardo.png">
+        </th>
+        <th>Percentuale su anno</th>
+    </tr>
 
-let stampam = `<td> Marzo </td> <td>${Marzo}</td><td>${avgmarzo} %</td>`;
-document.getElementById("marzo").innerHTML = stampam;
+    <tr>
+        <td> Gennaio </td>
+        <td>${Gennaio}</td>
+        <td>${avggennaio} %</td>
+    </tr>
 
-let stampaa = `<td> Aprile </td><td>${Aprile}</td><td>${avgaprile} %</td>`;
-document.getElementById("aprile").innerHTML = stampaa;
+    <tr>
+        <td> Febbraio </td>
+        <td>${Febbraio}</td>
+        <td>${avgfebbraio} %</td>
+    </tr>
 
-let stampama = `<td> Maggio </td><td>${Maggio}</td><td>${avgmaggio} %</td>`;
-document.getElementById("maggio").innerHTML = stampama;
+    <tr>
+        <td> Marzo </td>
+        <td>${Marzo}</td>
+        <td>${avgmarzo} %</td>
+    </tr>
 
-let stampagi = `<td> Giugno </td><td>${Giugno}</td><td>${avggiugno} %</td>`;
-document.getElementById("giugno").innerHTML = stampagi;
+    <tr>
+        <td> Aprile </td>
+        <td>${Aprile}</td>
+        <td>${avgaprile} %</td>
+    </tr>
 
-let stampal = ` <td> Luglio </td><td>${Luglio}</td><td>${avgluglio} %</td>`;
-document.getElementById("luglio").innerHTML = stampal;
+    <tr>
+        <td> Maggio </td>
+        <td>${Maggio}</td>
+        <td>${avgmaggio} %</td>
+    </tr>
 
-let stampaag = `<td>Agosto </td><td>${Agosto}</td><td>${avgagosto} %</td>`;
-document.getElementById("agosto").innerHTML = stampaag;
+    <tr>
+        <td> Giugno </td>
+        <td>${Giugno}</td>
+        <td>${avggiugno} %</td>
+    </tr>
 
-let stampas = `<td> Settembre </td> <td>${Settembre}</td><td>${avgsettembre} %</td>`;
-document.getElementById("settembre").innerHTML = stampas;
+    <tr>
+        <td> Luglio </td>
+        <td>${Luglio}</td>
+        <td>${avgluglio} %</td>
+    </tr>
 
-let stampao = `<td> Ottobre </td> <td>${Ottobre}</td><td>${avgottobre} %</td>`;
-document.getElementById("ottobre").innerHTML = stampao;
+    <tr>
+        <td> Agossto </td>
+        <td>${Agosto}</td>
+        <td>${avgagosto} %</td>
+    </tr>
 
-let stampan = ` <td> Novembre </td><td>${Novembre}</td><td>${avgnovembre} %</td>`;
-document.getElementById("novembre").innerHTML = stampan;
+    <tr>
+        <td> Settembre </td>
+        <td>${Settembre}</td>
+        <td>${avgsettembre} %</td>
+    </tr>
 
-let stampad = `<td> Dicembre </td> <td>${Dicembre}</td><td>${avgdicembre}%</td>`;
-document.getElementById("dicembre").innerHTML = stampad;
+    <tr>
+        <td> Ottobre </td>
+        <td>${Ottobre}</td>
+        <td>${avgottobre} %</td>
+    </tr>
+
+    <tr>
+        <td> Novembre </td>
+        <td>${Novembre}</td>
+        <td>${avgnovembre} %</td>
+    </tr>
+
+    <tr>
+        <td> Dicembre </td>
+        <td>${Dicembre}</td>
+        <td>${avgdicembre} %</td>
+    </tr>
+`;
+document.getElementById("mesi").innerHTML = stampatabella;
 
 let stampat = `<p>totale km ${totale} <img src="../Icone/traguardo.png"></p> <p>km medi percorsi ${avgtot}</p>`;
 document.getElementById("totale").innerHTML = stampat;
