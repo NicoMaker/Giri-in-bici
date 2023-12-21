@@ -1,5 +1,4 @@
 <h1>ogni volta aggiornare </h1>
-<br>
 
 <p> HTML Pagina corrisponte alla stagioe con l'anno che mi interessa (Autunno Inverno o Primavera o Estate dell'anno interessato)
     Autunno_Inverno2023-2024
@@ -13,16 +12,15 @@
     <li>hamburger con vari km e corse (per pagina home) Hamburger.js</li>
     <li> Aggiornare km stagioni (stagioni.js) stagioni.js</li>
 </ul></p>
-<br>
 
 <h1> Credenziali </h1>
 
 <p>Nome Utente -> NicoMaker</p>
 <p>Password -> Giri2023</P>
 
+<h1>Aperura sito </h1>
 <a href="https://giri-in-bici.netlify.app/" target = "_blank">Apertura sito principale</a>
 
-<br>
 <h1>MAPPA SITO </h1>
 
-<img src = "Mappa.jpg">
+<img src = "About_Us/Mappa.jpg">
