@@ -23,4 +23,4 @@
 
 <h1>MAPPA SITO </h1>
 
-<img src = "About_Us/Mappa.jpg">
+<img src="About_US/Mappa.jpg">
