@@ -134,3 +134,23 @@ table {
 tr:hover {
     background: cyan;
 }
+
+footer
+{
+    background: linear-gradient(to right, green, white, white, red);
+    color: blue;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 25px;
+    text-shadow: 2px 2px 4px black;
+}
+
+@media all and (max-width: 1024px) {
+    footer{
+        padding: 30px;
+        font-size: 35px;
+    }
+}
