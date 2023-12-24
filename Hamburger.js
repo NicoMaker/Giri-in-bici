@@ -19,8 +19,8 @@ function toggleMenu() {
 
 hamburger.addEventListener("click", toggleMenu);
 
-let totale = 12635;
-let corse = 180;
+let totale = 12730;
+let corse = 181;
 
 let avgtot = totale / corse;
 avgtot = parseFloat(avgtot.toFixed(2));
