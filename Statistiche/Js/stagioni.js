@@ -1,4 +1,4 @@
-let e = 6471, p = 2206 , ai = 4053;
+let e = 6471, p = 2206 , ai = 4117;
 let totale = e + p + ai;
 
 let avge = (e/totale) * 100;
