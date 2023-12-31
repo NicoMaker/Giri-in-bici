@@ -7,7 +7,7 @@
 <p> Aggiornare js 
     <ul>
     <li> stagione corrispondente (Autunno Inverno o Primavera o Estate) Estate.js o Autunno-inverno.js o Primavera.js</li>
-    <li> statistiche anno interessato (anno km per mese e numero corse) 2023.js</li>  
+    <li> statistiche anno interessato (anno km per mese e numero corse) 2024.js</li>  
     <li> statistiche generale (dove mettere km anno e numero corse) generaleStatistiche.js</li>  
     <li>hamburger con vari km e corse (per pagina home) Hamburger.js</li>
     <li> Aggiornare km stagioni (stagioni.js) stagioni.js</li>
