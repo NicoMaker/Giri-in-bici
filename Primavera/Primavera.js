@@ -96,7 +96,7 @@ let stampa = `
 `;
 document.getElementById("stampa").innerHTML = stampa;
 
-let avgp = totale/4;
+let avgp = totale/3;
 avgp = avgp.toFixed(2);
 
 let stampaP = `Totale km percorsi in Primavera ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${avgp} </p>`;
