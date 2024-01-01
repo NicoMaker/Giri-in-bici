@@ -1,8 +1,8 @@
 let currentYear = new Date().getFullYear();
 
 let users = [
-  { username: "NicoMaker", password: "Giri"+currentYear },
-  { username: "Jacoreds", password: "Giri"+ currentYear },
+  { username: "NicoMaker", password: `Giri${currentYear}`},
+  { username: "Jacoreds", password:  `Giri${currentYear}`},
 ];
 
 document.getElementById("loginForm").addEventListener("submit", function (event) {
