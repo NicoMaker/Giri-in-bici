@@ -1,4 +1,7 @@
 let annoCorrente = new Date().getFullYear();
 
-let info = `&copy; 2020 - ${annoCorrente} Nico Maker Giri in Bici`;
+let info = `  
+<footer>
+    &copy; 2020 - ${annoCorrente} Nico Maker Giri in Bici
+</footer>`;
 document.getElementById("info").innerHTML = info;
