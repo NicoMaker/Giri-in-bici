@@ -1,15 +1,17 @@
-var users = [
-  { username: "NicoMaker", password: "Giri2023" },
-  { username: "Jacoreds", password: "Giri2023" },
+let currentYear = new Date().getFullYear();
+
+let users = [
+  { username: "NicoMaker", password: "Giri"+currentYear },
+  { username: "Jacoreds", password: "Giri"+ currentYear },
 ];
 
 document.getElementById("loginForm").addEventListener("submit", function (event) {
   event.preventDefault(); // Evita il comportamento di default del form
 
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
 
-  var user = users.find(function (u) {
+  let user = users.find(function (u) {
     return u.username === username && u.password === password;
   });
 
@@ -27,17 +29,17 @@ function getRandomNumber(min, max) {
 
 // Genera un colore casuale in formato RGB
 function getRandomColor() {
-  var red = getRandomNumber(0, 255);
-  var green = getRandomNumber(0, 255);
-  var blue = getRandomNumber(0, 255);
+  let red = getRandomNumber(0, 255);
+  let green = getRandomNumber(0, 255);
+  let blue = getRandomNumber(0, 255);
   return `rgb(${red}, ${green}, ${blue})`;
 }
 
 // Imposta lo sfondo con un'immagine astratta
 function setAbstractBackground() {
-  var container = document.getElementById('container');
-  var backgroundColor = getRandomColor();
-  var backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
+  let container = document.getElementById('container');
+  let backgroundColor = getRandomColor();
+  let backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
   container.style.backgroundColor = backgroundColor;
   container.style.backgroundImage = backgroundImage;
 }

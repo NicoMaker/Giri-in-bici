@@ -16,7 +16,7 @@
 <h1> Credenziali </h1>
 
 <p>Nome Utente -> NicoMaker</p>
-<p>Password -> Giri2023</P>
+<p>Password -> Giri anno corrispondente</P>
 
 <h1>Aperura sito </h1>
 <a href="https://giri-in-bici.netlify.app/" target = "_blank">Apertura sito principale</a>
