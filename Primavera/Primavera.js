@@ -18,16 +18,16 @@ let dati = {
     datasets: [{
         label: 'km Primavera',
         backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
+            'pink',
+            'antiquewhite',
+            'cyan',
             '#97ed86ce'
         ],
         borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'lightgreen'
+            'pink',
+            'antiquewhite',
+            'cyan',
+            '#97ed86ce'
         ],
         borderWidth: 1,
         data: [p2021, p2022, p2023,p2024]  // Aggiunto un valore per il 2024, correggi se necessario

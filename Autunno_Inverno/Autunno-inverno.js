@@ -1,4 +1,4 @@
-let AI202021 = 1305,AI202122 = 729, AI202223 = 806, AI202324 = 1327;
+let AI202021 = 1305, AI202122 = 729, AI202223 = 806, AI202324 = 1327;
 let totale = AI202021 + AI202122 + AI202223 + AI202324;
 
 let avg2021 = (AI202021 / totale) * 100;
@@ -18,16 +18,16 @@ let dati = {
     datasets: [{
         label: 'km Autunno - Inverno',
         backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)'
+            'blue',
+            'skyblue',
+            'yellowgreen',
+            '#ba690c'
         ],
         borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)'
+            'blue',
+            'skyblue',
+            'yellowgreen',
+            '#ba690c'
         ],
         borderWidth: 1,
         data: [AI202021, AI202122, AI202223, AI202324]  // Aggiunto un valore per il 2024, correggi se necessario
@@ -88,7 +88,7 @@ let stampa = `
 document.getElementById("stampa").innerHTML = stampa;
 
 
-let avgai = totale/4;
+let avgai = totale / 4;
 avgai = avgai.toFixed(2);
 
 let stampaAI = `Totale km percorsi in Autunno - Inverno ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${avgai} </p>`;

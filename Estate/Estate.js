@@ -18,16 +18,16 @@ let dati = {
     datasets: [{
         label: 'km Estate',
         backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)'
+            'yellow',
+            'orange',
+            'red',
+            'purple'
         ],
         borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)'
+            'yellow',
+            'orange',
+            'red',
+            'purple'
         ],
         borderWidth: 1,
         data: [e2020,e2021,e2022,e2023]  // Aggiunto un valore per il 2024, correggi se necessario
