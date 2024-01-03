@@ -21,7 +21,7 @@ let corse = 183;
 let avgtot = totale / corse;
 avgtot = avgtot.toFixed(2);
 
-let anno = 4;
+let anno = 5;
 let avganno = totale / anno;
 avganno = avganno.toFixed(2);
 
