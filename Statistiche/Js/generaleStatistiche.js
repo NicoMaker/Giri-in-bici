@@ -37,11 +37,11 @@ let dati = {
             'rgba(153, 102, 255, 0.2)'
         ],
         borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
+            'black',
+            'black',
+            'black',
+            'black',
+            'black'
         ],
         borderWidth: 1,
         data: [s2020,s2021,s2022,s2023,s2024]  // Aggiunto un valore per il 2024, correggi se necessario
