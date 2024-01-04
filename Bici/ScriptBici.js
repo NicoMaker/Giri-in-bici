@@ -65,7 +65,7 @@ function  CalcolaCorsa()
         <h1 class="Titolo2"> La Corsara</h1>
         <p><b>Tipo Freni : </b> Pattino</p>
         <p><b>Materiale :</b> Fibra di Carbonio</p>
-        <p><b>Misura Ruote : </b> 23</p>
+        <p><b>Misura Ruote : </b> 28</p>
         <p>
             <b> cambi : </b>2 avanti 11 dietro
             <br> Totale 22
