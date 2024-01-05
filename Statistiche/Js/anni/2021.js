@@ -179,5 +179,8 @@ let stampatabella = `
 `;
 document.getElementById("mesi").innerHTML = stampatabella;
 
-let stampat = `<p>totale km ${totale} <img src="../Icone/traguardo.png"></p> <p>km medi percorsi ${avgtot}</p>`;
+let stampat = `
+<div class="colore">
+    <p>totale km ${totale} <img src="../Icone/traguardo.png"></p> <p>km medi percorsi ${avgtot}</p>
+</div>`;
 document.getElementById("totale").innerHTML = stampat;

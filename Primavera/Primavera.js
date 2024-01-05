@@ -99,5 +99,9 @@ document.getElementById("stampa").innerHTML = stampa;
 let avgp = totale/3;
 avgp = avgp.toFixed(2);
 
-let stampaP = `Totale km percorsi in Primavera ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${avgp} </p>`;
+let stampaP = `
+<div class="colore">
+    <p>Totale km percorsi in Primavera ${totale} <img src="Icone/traguardo.png"> </p>
+    <p>media km per stagione ${avgp} </p>
+</div>`;
 document.getElementById("totale").innerHTML = stampaP;

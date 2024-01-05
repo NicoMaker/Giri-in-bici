@@ -107,5 +107,9 @@ document.getElementById("stampa").innerHTML = stampa;
 let avge = totale/4;
 avge = avge.toFixed(2);
 
-let stampaE = `Totale km percorsi in Estate ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${avge} </p>`;
+let stampaE = `
+<div class="colore">
+    <p>Totale km percorsi in Estate ${totale} <img src="Icone/traguardo.png"> </p>
+    <p>media km per stagione ${avge} </p>
+</div>`;
 document.getElementById("totale").innerHTML = stampaE;

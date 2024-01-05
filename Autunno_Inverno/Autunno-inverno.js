@@ -91,5 +91,9 @@ document.getElementById("stampa").innerHTML = stampa;
 let avgai = totale / 4;
 avgai = avgai.toFixed(2);
 
-let stampaAI = `Totale km percorsi in Autunno - Inverno ${totale} <img src="Icone/traguardo.png"> <p>media km per stagione ${avgai} </p>`;
+let stampaAI = `
+<div class="colore">
+    <p>Totale km percorsi in Autunno - Inverno ${totale} <img src="Icone/traguardo.png"> </p>
+    <p>media km per stagione ${avgai} </p>
+</div>`;
 document.getElementById("totale").innerHTML = stampaAI;

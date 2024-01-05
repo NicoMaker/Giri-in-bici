@@ -102,8 +102,10 @@ let stampa = `
 document.getElementById("stampa").innerHTML = stampa;
 
 let stampat = `
-<p>totale km ${totale} 
-    <img src="Icone/traguardo.png"></p> 
-<p>km medi per giro percorsi ${avgtot}</p>
-<p> km medi per anno percorsi ${avganno} </p>`;
+<div class="colore">
+    <p>totale km ${totale} 
+        <img src="Icone/traguardo.png"></p> 
+    <p>km medi per giro percorsi ${avgtot}</p>
+    <p> km medi per anno percorsi ${avganno} </p>
+</div>`;
 document.getElementById("totale").innerHTML = stampat;
