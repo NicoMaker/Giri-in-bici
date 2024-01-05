@@ -1,4 +1,4 @@
-let Gennaio = 50, Febbraio = 0, Marzo = 0, Aprile = 0, Maggio = 0, Giugno = 0, Luglio = 0, Agosto = 0, Settembre = 0, Ottobre = 0, Novembre = 0, Dicembre = 0;
+let Gennaio = 127, Febbraio = 0, Marzo = 0, Aprile = 0, Maggio = 0, Giugno = 0, Luglio = 0, Agosto = 0, Settembre = 0, Ottobre = 0, Novembre = 0, Dicembre = 0;
 let totale = Gennaio + Febbraio + Marzo + Aprile + Maggio + Giugno + Luglio + Agosto + Settembre + Ottobre + Novembre + Dicembre;
 
 let avggennaio = (Gennaio / totale) * 100;
@@ -37,7 +37,7 @@ avgnovembre = avgnovembre.toFixed(2);
 let avgdicembre = (Dicembre / totale) * 100;
 avgdicembre = avgdicembre.toFixed(2);
 
-let corse = 1;
+let corse = 2;
 
 let avgtot = totale / corse;
 avgtot = avgtot.toFixed(2);
