@@ -204,12 +204,24 @@
     <img class="immagine" src="Immagini/Autunno-Inverno  2023-2024 1.jpg">
     <br>
 
-    <div class="colore">
-        <p> totale km 1404
-            <img src="../Icone/traguardo.png">
-        </p>
-        <p>km medi percorsi 78.00</p>
-    </div>
+    <div id="km"></div>
+
+    <script>
+        let km = 1404;
+        let corse = 18;
+        let media = km/corse;
+        media = parseFloat(media.toFixed(2));
+
+        stampa = `
+        <div class="colore">
+            <p> totale km ${km}
+                <img src="../Icone/traguardo.png">
+            </p>
+            <p>km medi percorsi ${media} </p>
+        </div>
+        `;
+        document.getElementById("km").innerHTML = stampa;
+    </script>
 </body>
 
 </html>

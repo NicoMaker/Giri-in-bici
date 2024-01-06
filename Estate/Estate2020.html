@@ -227,12 +227,24 @@
     <img class="immagine" src="Immagini/Estate 2020 2.jpg">
     <br>
 
-    <div class="colore">
-        <p>totale km 2021
-            <img src="../Icone/traguardo.png">
-        </p>
-        <p>km medi percorsi 80.84 </p>
-    </div>
+    <div id="km"></div>
+
+    <script>
+        let km = 2021;
+        let corse = 25;
+        let media = km/corse;
+        media = parseFloat(media.toFixed(2));
+
+        stampa = `
+        <div class="colore">
+            <p> totale km ${km}
+                <img src="../Icone/traguardo.png">
+            </p>
+            <p>km medi percorsi ${media} </p>
+        </div>
+        `;
+        document.getElementById("km").innerHTML = stampa;
+    </script>
 
 </body>
 

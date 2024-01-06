@@ -151,12 +151,24 @@
     <img class="immagine" src="Immagini/Autunno-Inverno 2021-2022 2.jpg">
     <br>
 
-    <div class="colore">
-        <p> totale km 729
-            <img src="../Icone/traguardo.png">
-        </p>
-        <p>km medi percorsi 66.27</p>
-    </div>
+    <div id="km"></div>
+
+    <script>
+        let km = 729;
+        let corse = 11;
+        let media = km/corse;
+        media = parseFloat(media.toFixed(2));
+
+        stampa = `
+        <div class="colore">
+            <p> totale km ${km}
+                <img src="../Icone/traguardo.png">
+            </p>
+            <p>km medi percorsi ${media} </p>
+        </div>
+        `;
+        document.getElementById("km").innerHTML = stampa;
+    </script>
 </body>
 
 </html>

@@ -156,12 +156,24 @@
     <img class="immagine" src="Immagini/Primavera 2022 2.jpg">
 
     <br>
-    <div class="colore">
-        <p> totale km 885
-            <img src="../Icone/traguardo.png">
-        </p>
-        <p>km medi percorsi 68.08</p>
-    </div>
+    <div id="km"></div>
+
+    <script>
+        let km = 885;
+        let corse = 13;
+        let media = km/corse;
+        media = parseFloat(media.toFixed(2));
+
+        stampa = `
+        <div class="colore">
+            <p> totale km ${km}
+                <img src="../Icone/traguardo.png">
+            </p>
+            <p>km medi percorsi ${media} </p>
+        </div>
+        `;
+        document.getElementById("km").innerHTML = stampa;
+    </script>
 </body>
 
 </html>

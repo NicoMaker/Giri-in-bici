@@ -381,12 +381,24 @@
     <img class="immagine" src="Immagini/Estate 20223.jpg">
     <br>
 
-    <div class="colore">
-        <p> totale km 2085
-            <img src="../Icone/traguardo.png">
-        </p>
-        <p>km medi percorsi 61.32</p>
-    </div>
+    <div id="km"></div>
+
+    <script>
+        let km = 2085;
+        let corse = 34;
+        let media = km/corse;
+        media = parseFloat(media.toFixed(2));
+
+        stampa = `
+        <div class="colore">
+            <p> totale km ${km}
+                <img src="../Icone/traguardo.png">
+            </p>
+            <p>km medi percorsi ${media} </p>
+        </div>
+        `;
+        document.getElementById("km").innerHTML = stampa;
+    </script>
 </body>
 
 </html>
