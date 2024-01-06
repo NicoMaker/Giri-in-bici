@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="Autunno _Inverno.css" />
     <link rel="icon" href="Immagini/Autunno Inverno.jpg" type="image/jpg">
     <title> Autunno-Inverno 2021-2022 </title>
+    <script src="../calcolmedia.js" defer></script>
+    <script src="../calcolmedia.js" defer></script>
 </head>
 
 <body>
@@ -151,24 +153,9 @@
     <img class="immagine" src="Immagini/Autunno-Inverno 2021-2022 2.jpg">
     <br>
 
-    <div id="km"></div>
+    <div id="km" data-km="729" data-corse="11"></div>
 
-    <script>
-        let km = 729;
-        let corse = 11;
-        let media = km/corse;
-        media = parseFloat(media.toFixed(2));
 
-        stampa = `
-        <div class="colore">
-            <p> totale km ${km}
-                <img src="../Icone/traguardo.png">
-            </p>
-            <p>km medi percorsi ${media} </p>
-        </div>
-        `;
-        document.getElementById("km").innerHTML = stampa;
-    </script>
 </body>
 
 </html>

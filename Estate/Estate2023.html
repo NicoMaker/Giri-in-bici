@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="Estate.css" />
     <link rel="icon" href="Immagini/Estate.jpg" type="image/jpg">
     <title> Estate 2023 </title>
+    <script src="../calcolmedia.js" defer></script>
 </head>
 
 <body>
@@ -281,24 +282,7 @@
     <img class="immagine" src="Immagini/Estate20233.jpg">
     <br>
 
-    <div id="km"></div>
-
-    <script>
-        let km = 1622;
-        let corse = 24;
-        let media = km/corse;
-        media = parseFloat(media.toFixed(2));
-
-        stampa = `
-        <div class="colore">
-            <p> totale km ${km}
-                <img src="../Icone/traguardo.png">
-            </p>
-            <p>km medi percorsi ${media} </p>
-        </div>
-        `;
-        document.getElementById("km").innerHTML = stampa;
-    </script>
+    <div id="km" data-km="1622" data-corse="24"></div>
 </body>
 
 </html>
