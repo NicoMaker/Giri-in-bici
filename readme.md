@@ -1,26 +1,26 @@
-<h1>ogni volta aggiornare </h1>
+# Ogni volta aggiornare
 
-<p> HTML Pagina corrisponte alla stagioe con l'anno che mi interessa (Autunno Inverno o Primavera o Estate dell'anno interessato)
-    Autunno_Inverno2023-2024
-</p>
+## Aggiornare HTML
 
-<p> Aggiornare js 
-    <ul>
-    <li> stagione corrispondente (Autunno Inverno o Primavera o Estate) Estate.js o Autunno-inverno.js o Primavera.js</li>
-    <li> statistiche anno interessato (anno km per mese e numero corse) 2024.js</li>  
-    <li> statistiche generale (dove mettere km anno e numero corse) generaleStatistiche.js</li>  
-    <li>hamburger con vari km e corse (per pagina home) Hamburger.js</li>
-    <li> Aggiornare km stagioni (stagioni.js) stagioni.js</li>
-</ul></p>
+- Pagina corrispondente alla stagione con l'anno che ti interessa (Autunno, Inverno, Primavera o Estate dell'anno interessato) Autunno_Inverno2023-2024
+- stagioni.html
 
-<h1> Credenziali </h1>
+## Aggiornare JS
 
-<p>Nome Utente -> NicoMaker</p>
-<p>Password -> Giri anno corrispondente</P>
+- Stagione corrispondente (Autunno, Inverno, Primavera o Estate) Estate.js o Autunno-inverno.js o Primavera.js
+- Statistiche anno interessato (anno km per mese e numero corse) 2024.js
+- Statistiche generale (dove mettere km anno e numero corse) generaleStatistiche.js
+- Hamburger con vari km e corse (per pagina home) Hamburger.js
 
-<h1>Aperura sito </h1>
-<a href="https://giri-in-bici.netlify.app/" target = "_blank">Apertura sito principale</a>
+# Credenziali
 
-<h1>MAPPA SITO </h1>
+- Nome Utente -> NicoMaker
+- Password -> Giri anno corrispondente
 
-<img src="About_US/Mappa.jpg">
+# Apertura sito
+
+[Apertura sito principale](https://giri-in-bici.netlify.app/) 
+
+# Mappa Sito
+
+![Mappa Sito](About_US/Mappa.jpg)
