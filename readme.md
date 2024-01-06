@@ -12,20 +12,20 @@
 - Statistiche generale (dove mettere km anno e numero corse) generaleStatistiche.js
 - Hamburger con vari km e corse (per pagina home) Hamburger.js
 
-# Credenziali
+## Credenziali
 
 - Nome Utente -> NicoMaker
 - Password -> Giri anno corrispondente
 
-# Logo e Apertura sito
+## Logo e Apertura sito
 
 ![Logo](imagini%20Html%20sito%20principale/Logo%20.jpg)
 [Apertura sito principale](https://giri-in-bici.netlify.app/) 
 
-# Mappa Sito
+## Mappa Sito
 
 ![Mappa Sito](About_US/Mappa.jpg)
 
-# Avatar Partecipanti
+## Avatar Partecipanti
 ![Avatar](About_US/Avatar/AvatarNM.jpg)
 ![Avatar](About_US/Avatar/AvatarJR.png)
