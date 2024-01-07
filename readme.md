@@ -20,6 +20,7 @@
 ## Logo e Apertura sito
 
 ![Logo](imagini%20Html%20sito%20principale/Logo%20.jpg)
+
 [Apertura sito principale](https://giri-in-bici.netlify.app/) 
 
 ## Mappa Sito
