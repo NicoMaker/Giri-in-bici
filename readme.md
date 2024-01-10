@@ -2,7 +2,7 @@
 
 ## Aggiornare HTML
 
-- Pagina corrispondente alla stagione con l'anno che ti interessa (Autunno, Inverno, Primavera o Estate dell'anno interessato) Autunno_Inverno2023-2024
+- Pagina corrispondente alla stagione con l'anno che ti interessa (Autunno - Inverno, Primavera o Estate dell'anno interessato) Autunno_Inverno2023-2024
 - stagioni.html
 
 ## Aggiornare JS
