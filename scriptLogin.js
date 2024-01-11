@@ -1,26 +1,28 @@
 let currentYear = new Date().getFullYear();
 
 let users = [
-  { username: "NicoMaker", password: `Giri${currentYear}`},
-  { username: "Jacoreds", password:  `Giri${currentYear}`},
+  { username: "NicoMaker", password: `Giri${currentYear}` },
+  { username: "Jacoreds", password: `Giri${currentYear}` },
 ];
 
-document.getElementById("loginForm").addEventListener("submit", function (event) {
-  event.preventDefault(); // Evita il comportamento di default del form
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Evita il comportamento di default del form
 
-  let username = document.getElementById("username").value;
-  let password = document.getElementById("password").value;
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
 
-  let user = users.find(function (u) {
-    return u.username === username && u.password === password;
+    let user = users.find(function (u) {
+      return u.username === username && u.password === password;
+    });
+
+    if (user) {
+      window.location.href = "giri.html";
+    } else {
+      alert("Nome utente o password non validi!");
+    }
   });
-
-  if (user) {
-    window.location.href = "giri.html";
-  } else {
-    alert("Nome utente o password non validi!");
-  }
-});
 
 // Genera un numero casuale compreso tra min e max
 function getRandomNumber(min, max) {
@@ -37,7 +39,7 @@ function getRandomColor() {
 
 // Imposta lo sfondo con un'immagine astratta
 function setAbstractBackground() {
-  let container = document.getElementById('container');
+  let container = document.getElementById("container");
   let backgroundColor = getRandomColor();
   let backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
   container.style.backgroundColor = backgroundColor;
@@ -46,6 +48,5 @@ function setAbstractBackground() {
 
 // Chiamata alla funzione per impostare lo sfondo all'avvio
 setAbstractBackground();
-
 
 setInterval(setAbstractBackground, 1500);

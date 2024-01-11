@@ -1,5 +1,7 @@
 let km = parseFloat(document.getElementById("km").getAttribute("data-km"));
-let corse = parseFloat(document.getElementById("km").getAttribute("data-corse"));
+let corse = parseFloat(
+  document.getElementById("km").getAttribute("data-corse")
+);
 
 let mediaValue = km / corse;
 mediaValue = parseFloat(mediaValue.toFixed(2));

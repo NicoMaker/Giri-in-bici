@@ -1,65 +1,69 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <link rel="stylesheet" href="Primavera/Primavera.css" />
-    <link rel="icon" href="Primavera/Immagini/Primavera.jpg" type="image/jpg">
-    <title> Primavera </title>
+    <link rel="icon" href="Primavera/Immagini/Primavera.jpg" type="image/jpg" />
+    <title>Primavera</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="Primavera/Primavera.js" defer></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <button class="graficostagioni">
-        <a href="Statistiche/stagioni.html">
-            <img class="Stagioni" src="https://i.pinimg.com/originals/df/fa/66/dffa66f0986f247746ed52aff4674cf3.jpg">
-        </a>
+      <a href="Statistiche/stagioni.html">
+        <img
+          class="Stagioni"
+          src="https://i.pinimg.com/originals/df/fa/66/dffa66f0986f247746ed52aff4674cf3.jpg"
+        />
+      </a>
     </button>
-    
+
     <a href="Giri.html">
-        <img class="Bandiera-FVG" src="imagini Html sito principale/Logo .jpg">
+      <img class="Bandiera-FVG" src="imagini Html sito principale/Logo .jpg" />
     </a>
 
-    <h1 class="Primavera">Giri in Bici Primavera </h1>
+    <h1 class="Primavera">Giri in Bici Primavera</h1>
 
-    <br>
-    <img class="immagini_stagione " src="Primavera/Immagini/Primavera.jpg">
-    <br>
+    <br />
+    <img class="immagini_stagione" src="Primavera/Immagini/Primavera.jpg" />
+    <br />
 
     <p>
+      <button class="icone">
         <a class="colore_apertura" href="Giri.html">
-            <img src="Icone/home.png">
+          <img src="Icone/home.png" />
         </a>
 
         <a class="colore_apertura" href="Statistiche.html">
-            <img src="Icone/Statistiche.png">
+          <img src="Icone/Statistiche.png" />
         </a>
 
         <a class="colore_apertura" href="Bici/Bici.html">
-            <img src="Icone/bici.png">
+          <img src="Icone/bici.png" />
         </a>
 
         <a class="colore_apertura" href="Estate.html">
-            <img src="Icone/estate.png">
+          <img src="Icone/estate.png" />
         </a>
 
         <a class="colore_apertura" href="Autunno_Inverno.html">
-            <img src="Icone/inverno.png">
+          <img src="Icone/inverno.png" />
         </a>
 
         <a class="colore_apertura" href="https://giri-in-bici.netlify.app/">
-            <img src="Icone/login.png">
+          <img src="Icone/login.png" />
         </a>
+      </button>
     </p>
 
     <div id="stampa"></div>
 
-    <br>
-    <canvas id="doughnut-chart"></canvas>
-    <br>
+    <br />
+    <div class="grafico">
+      <canvas id="doughnut-chart"></canvas>
+    </div>
+    <br />
 
     <div id="totale"></div>
-</body>
-
+  </body>
 </html>

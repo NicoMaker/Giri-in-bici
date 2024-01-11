@@ -21,12 +21,13 @@
 
 ![Logo](imagini%20Html%20sito%20principale/Logo%20.jpg)
 
-[Apertura sito principale](https://giri-in-bici.netlify.app/) 
+[Apertura sito principale](https://giri-in-bici.netlify.app/)
 
 ## Mappa Sito
 
 ![Mappa Sito](About_US/Mappa.jpg)
 
 ## Avatar Partecipanti
+
 ![Avatar](About_US/Avatar/AvatarNM.jpg)
 ![Avatar](About_US/Avatar/AvatarJR.png)
