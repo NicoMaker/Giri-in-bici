@@ -512,7 +512,7 @@ canvas {
 
 .icone {
   position: fixed;
-  top: 5px;
+  top: 30px;
   z-index: 10;
   left: 240px;
   background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
