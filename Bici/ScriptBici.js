@@ -4,7 +4,6 @@ stampabici = `<img class="immagini_stagione" src="Le nostre Bici/Intestazione/ma
 document.getElementById("StampaBici").innerHTML = stampabici;
 
 function CalcolaMTB() {
-    stampabici = "";
 
     stampabici = `
     <img class="immagini_stagione" src="Le nostre Bici/Intestazione/Sonic/SonicMTB.jpg" />
@@ -66,7 +65,6 @@ function CalcolaMTB() {
 
 function  CalcolaCorsa()
 {
-    stampabici = "";
 
     stampabici = `
     <img class="immagini_stagione" src="Le nostre Bici/Intestazione/Sonic/SonicCorsa.jpg" />
