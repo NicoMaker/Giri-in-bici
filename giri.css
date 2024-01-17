@@ -140,12 +140,21 @@ th {
 .immagini_stagione {
   display: block;
   margin: 0 auto;
-  width: 500px;
+  width: 300px;
   height: auto;
   border: dashed #00ff9d 10px;
   background-color: yellow;
 }
 
+.immagini_stagione2 {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+  height: auto;
+  border: dashed #00ff9d 10px;
+  background-color: yellow;
+  display: inline-block;
+}
 
 .estate {
   background: linear-gradient(to right, #f6fa70, #ff0060);

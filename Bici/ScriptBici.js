@@ -6,7 +6,10 @@ document.getElementById("StampaBici").innerHTML = stampabici;
 function CalcolaMTB() {
 
     stampabici = `
-    <img class="immagini_stagione" src="Le nostre Bici/Intestazione/Sonic/SonicMTB.jpg" />
+    <div class="container_stagione">
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/Sonic/SonicMTB.jpg" />
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/Mario_Sonic/MarioSonicMTB.jpg" />
+    </div>
     <br />
     <div class="contorno">
         <img class="immagine_bicisx" src="Le nostre Bici/MTB/La Pantera Nera .jpg">
@@ -67,7 +70,10 @@ function  CalcolaCorsa()
 {
 
     stampabici = `
-    <img class="immagini_stagione" src="Le nostre Bici/Intestazione/Sonic/SonicCorsa.jpg" />
+    <div class="container_stagione">
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/Sonic/SonicCorsa.jpg" />
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/Mario_Sonic/MarioSonicCorsa.jpg" />
+    </div>
     <br />
     <div class="contorno">
         <img class="immagine_bicisx" src="Le nostre Bici/Corsa/La Corsara .jpg">
