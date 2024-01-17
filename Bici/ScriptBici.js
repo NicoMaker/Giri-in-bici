@@ -8,6 +8,7 @@ function CalcolaMTB() {
 
     stampabici = `
     <img class="immagini_stagione" src="Le nostre Bici/Intestazione/Sonic/SonicMTB.jpg" />
+    <br />
     <div class="contorno">
         <img class="immagine_bicisx" src="Le nostre Bici/MTB/La Pantera Nera .jpg">
         <h1 class="Titolo2">La Pantera Nera</h1>
@@ -69,6 +70,7 @@ function  CalcolaCorsa()
 
     stampabici = `
     <img class="immagini_stagione" src="Le nostre Bici/Intestazione/Sonic/SonicCorsa.jpg" />
+    <br />
     <div class="contorno">
         <img class="immagine_bicisx" src="Le nostre Bici/Corsa/La Corsara .jpg">
         <h1 class="Titolo2"> La Corsara</h1>
