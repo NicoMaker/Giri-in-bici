@@ -5,51 +5,51 @@ function CalcolaMTB() {
     <div class="contorno">
         <img class="immagine_bicisx" src="Le nostre Bici/La Pantera Nera .jpg">
         <h1 class="Titolo2">La Pantera Nera</h1>
-        <p><b>Tipo Freni:</b> Pattino</p>
-        <p><b>Materiale:</b> Acciaio</p>
-        <p><b>Misura Ruote:</b> 27</p>
-        <p><b>cambi:</b> 3 avanti 7 dietro<br>Totale 21</p>
-        <p><b>anno di produzione:</b> 2016</p>
+        <p><strong>Tipo Freni:</strong> Pattino</p>
+        <p><strong>Materiale:</strong> Acciaio</p>
+        <p><strong>Misura Ruote:</strong> 27</p>
+        <p><strong>cambi:</strong> 3 avanti 7 dietro<br>Totale 21</p>
+        <p><strong>anno di produzione:</strong> 2016</p>
     </div>
 
     <div class="contorno">
         <img class="immagine_bicidx" src="Le nostre Bici/La Fluo.jpg">
         <h1 class="Titolo2">La Fluo</h1>
-        <p><b>Tipo Freni:</b> Disco</p>
-        <p><b>Materiale:</b> Acciaio</p>
-        <p><b>Misura Ruote:</b> 29</p>
-        <p><b>cambi:</b> 3 avanti 7 dietro<br>Totale 21</p>
-        <p><b>anno di produzione:</b> 2020</p>
+        <p><strong>Tipo Freni:</strong> Disco</p>
+        <p><strong>Materiale:</strong> Acciaio</p>
+        <p><strong>Misura Ruote:</strong> 29</p>
+        <p><strong>cambi:</strong> 3 avanti 7 dietro<br>Totale 21</p>
+        <p><strong>anno di produzione:</strong> 2020</p>
     </div>
 
     <div class="contorno">
         <img class="immagine_bicisx" src="Le nostre Bici/La Bianconera .jpg">
         <h1 class="Titolo2">La Bianconera</h1>
-        <p><b>Tipo Freni:</b> Disco</p>
-        <p><b>Materiale:</b> Acciaio</p>
-        <p><b>Misura Ruote:</b> 29</p>
-        <p><b>cambi:</b> 3 avanti 7 dietro<br>Totale 21</p>
-        <p><b>anno di produzione:</b> 2020</p>
+        <p><strong>Tipo Freni:</strong> Disco</p>
+        <p><strong>Materiale:</strong> Acciaio</p>
+        <p><strong>Misura Ruote:</strong> 29</p>
+        <p><strong>cambi:</strong> 3 avanti 7 dietro<br>Totale 21</p>
+        <p><strong>anno di produzione:</strong> 2020</p>
     </div>
 
     <div class="contorno">
         <img class="immagine_bicidx" src="Le nostre Bici/La Pimpa.jpg">
         <h1 class="Titolo2">La Pimpa</h1>
-        <p><b>Tipo Freni:</b> Disco</p>
-        <p><b>Materiale:</b> Acciaio</p>
-        <p><b>Misura Ruote:</b> 29</p>
-        <p><b>cambi:</b> 3 avanti 8 dietro<br>Totale 24</p>
-        <p><b>anno di produzione:</b> 2021</p>
+        <p><strong>Tipo Freni:</strong> Disco</p>
+        <p><strong>Materiale:</strong> Acciaio</p>
+        <p><strong>Misura Ruote:</strong> 29</p>
+        <p><strong>cambi:</strong> 3 avanti 8 dietro<br>Totale 24</p>
+        <p><strong>anno di produzione:</strong> 2021</p>
     </div>
 
     <div class="contorno">
         <img class="immagine_bicisx" src="Le nostre Bici/La Splendente.jpg">
         <h1 class="Titolo2">La Splendente</h1>
-        <p><b>Tipo Freni:</b> Disco</p>
-        <p><b>Materiale:</b> Acciaio</p>
-        <p><b>Misura Ruote:</b> 27</p>
-        <p><b>cambi:</b> 3 avanti 7 dietro<br>Totale 21</p>
-        <p><b>anno di produzione:</b> 2022</p>
+        <p><strong>Tipo Freni:</strong> Disco</p>
+        <p><strong>Materiale:</strong> Acciaio</p>
+        <p><strong>Misura Ruote:</strong> 27</p>
+        <p><strong>cambi:</strong> 3 avanti 7 dietro<br>Totale 21</p>
+        <p><strong>anno di produzione:</strong> 2022</p>
     </div>
 `;
 
@@ -63,14 +63,14 @@ function  CalcolaCorsa()
     <div class="contorno">
         <img class="immagine_bicisx" src="Le nostre Bici/La Corsara .jpg">
         <h1 class="Titolo2"> La Corsara</h1>
-        <p><b>Tipo Freni : </b> Pattino</p>
-        <p><b>Materiale :</b> Fibra di Carbonio</p>
-        <p><b>Misura Ruote : </b> 28</p>
+        <p><strong>Tipo Freni : </strong> Pattino</p>
+        <p><strong>Materiale :</strong> Fibra di Carbonio</p>
+        <p><strong>Misura Ruote : </strong> 28</p>
         <p>
-            <b> cambi : </b>2 avanti 11 dietro
+            <strong> cambi : </strong>2 avanti 11 dietro
             <br> Totale 22
         </p>
-        <p> <b> anno di produzione : </b>2022</p>
+        <p> <strong> anno di produzione : </strong>2022</p>
     </div>
     `;
 
