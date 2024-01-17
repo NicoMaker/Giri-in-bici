@@ -1,9 +1,15 @@
 let stampabici = "";
 
+stampabici = `<img class="immagini_stagione" src="Le nostre Bici/Intestazione/madonnina_Bici.jpg" />`
+document.getElementById("StampaBici").innerHTML = stampabici;
+
 function CalcolaMTB() {
+    stampabici = "";
+
     stampabici = `
+    <img class="immagini_stagione" src="Le nostre Bici/Intestazione/Sonic/SonicMTB.jpg" />
     <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/La Pantera Nera .jpg">
+        <img class="immagine_bicisx" src="Le nostre Bici/MTB/La Pantera Nera .jpg">
         <h1 class="Titolo2">La Pantera Nera</h1>
         <p><strong>Tipo Freni:</strong> Pattino</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -11,9 +17,9 @@ function CalcolaMTB() {
         <p><strong>cambi:</strong> 3 avanti 7 dietro<br>Totale 21</p>
         <p><strong>anno di produzione:</strong> 2016</p>
     </div>
-
+    
     <div class="contorno">
-        <img class="immagine_bicidx" src="Le nostre Bici/La Fluo.jpg">
+        <img class="immagine_bicidx" src="Le nostre Bici/MTB/La Fluo.jpg">
         <h1 class="Titolo2">La Fluo</h1>
         <p><strong>Tipo Freni:</strong> Disco</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -21,9 +27,9 @@ function CalcolaMTB() {
         <p><strong>cambi:</strong> 3 avanti 7 dietro<br>Totale 21</p>
         <p><strong>anno di produzione:</strong> 2020</p>
     </div>
-
+    
     <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/La Bianconera .jpg">
+        <img class="immagine_bicisx" src="Le nostre Bici/MTB/La Bianconera .jpg">
         <h1 class="Titolo2">La Bianconera</h1>
         <p><strong>Tipo Freni:</strong> Disco</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -31,9 +37,9 @@ function CalcolaMTB() {
         <p><strong>cambi:</strong> 3 avanti 7 dietro<br>Totale 21</p>
         <p><strong>anno di produzione:</strong> 2020</p>
     </div>
-
+    
     <div class="contorno">
-        <img class="immagine_bicidx" src="Le nostre Bici/La Pimpa.jpg">
+        <img class="immagine_bicidx" src="Le nostre Bici/MTB/La Pimpa.jpg">
         <h1 class="Titolo2">La Pimpa</h1>
         <p><strong>Tipo Freni:</strong> Disco</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -41,9 +47,9 @@ function CalcolaMTB() {
         <p><strong>cambi:</strong> 3 avanti 8 dietro<br>Totale 24</p>
         <p><strong>anno di produzione:</strong> 2021</p>
     </div>
-
+    
     <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/La Splendente.jpg">
+        <img class="immagine_bicisx" src="Le nostre Bici/MTB/La Splendente.jpg">
         <h1 class="Titolo2">La Splendente</h1>
         <p><strong>Tipo Freni:</strong> Disco</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -59,9 +65,12 @@ function CalcolaMTB() {
 
 function  CalcolaCorsa()
 {
+    stampabici = "";
+
     stampabici = `
+    <img class="immagini_stagione" src="Le nostre Bici/Intestazione/Sonic/SonicCorsa.jpg" />
     <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/La Corsara .jpg">
+        <img class="immagine_bicisx" src="Le nostre Bici/Corsa/La Corsara .jpg">
         <h1 class="Titolo2"> La Corsara</h1>
         <p><strong>Tipo Freni : </strong> Pattino</p>
         <p><strong>Materiale :</strong> Fibra di Carbonio</p>

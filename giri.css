@@ -442,7 +442,7 @@ tr:hover {
 
 /**colore riga alternato pari**/
 .contorno:nth-child(2n):hover {
-  background: linear-gradient(600deg, red, red, yellow, yellow, pink, pink);
+  background: linear-gradient(600deg, pink, pink,yellow, yellow, red, red);
 }
 
 /**colore riga alternato dispari**/
@@ -452,7 +452,7 @@ tr:hover {
 
 /***colore prima linea tabella**/
 .contorno:nth-child(-n + 1):hover {
-  background: linear-gradient(600deg, pink, pink, yellow, yellow, red, red);
+  background: linear-gradient(600deg, pink, pink,yellow, yellow, red, red);
 }
 
 .Titolo2 {
