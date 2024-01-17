@@ -137,10 +137,14 @@ th {
   border: 1px solid;
 }
 
+.container_stagione{
+  text-align: center;
+}
+
 .immagini_stagione {
   display: block;
   margin: 0 auto;
-  width: 300px;
+  width: 500px;
   height: auto;
   border: dashed #00ff9d 10px;
   background-color: yellow;
@@ -149,7 +153,7 @@ th {
 .immagini_stagione2 {
   display: block;
   margin: 0 auto;
-  width: 300px;
+  width: 350px;
   height: auto;
   border: dashed #00ff9d 10px;
   background-color: yellow;
