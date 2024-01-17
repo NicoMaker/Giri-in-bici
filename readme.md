@@ -19,7 +19,7 @@
 
 ## Logo e Apertura sito
 
-![Logo](imagini%20Html%20sito%20principale/Logo%20.jpg)
+[![Logo](imagini%20Html%20sito%20principale/Logo%20.jpg)](https://giri-in-bici.netlify.app/)
 
 [Apertura sito principale](https://giri-in-bici.netlify.app/)
 
@@ -29,5 +29,6 @@
 
 ## Avatar Partecipanti
 
-![Avatar](About_US/Avatar/AvatarNM.jpg)
-![Avatar](About_US/Avatar/AvatarJR.png)
+[![AvatarNM](About_US/Avatar/AvatarNM.jpg)](https://www.komoot.com/it-it/user/1372754001803)
+
+[![AvatarJR](About_US/Avatar/AvatarJR.png)](https://www.komoot.com/it-it/user/1381372752571)
