@@ -153,8 +153,8 @@ th {
 .immagini_stagione2 {
   display: block;
   margin: 0 auto;
-  width: 350px;
-  height: auto;
+  width: 200px;
+  height: 200px;
   border: dashed #00ff9d 10px;
   background-color: yellow;
   display: inline-block;

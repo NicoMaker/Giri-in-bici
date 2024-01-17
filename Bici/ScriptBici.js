@@ -8,8 +8,9 @@ function CalcolaMTB() {
 
     stampabici = `
     <div class="container_stagione">
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/Sonic/SonicMTB.jpg" />
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/Mario_Sonic/MarioSonicMTB.jpg" />
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/MTB/MarioMTB.jpeg" />
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI//MTB/SonicMTB.jpg" />
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/MTB/MarioSonicMTB.jpg" />
     </div>
     <br />
     <div class="contorno">
@@ -72,8 +73,9 @@ function  CalcolaCorsa()
 
     stampabici = `
     <div class="container_stagione">
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/Sonic/SonicCorsa.jpg" />
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/Mario_Sonic/MarioSonicCorsa.jpg" />
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/SonicCorsa.jpg" />
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/MarioSonicCorsa.jpg" />
+        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/SonicCorsa2.jpg" />
     </div>
     <br />
     <div class="contorno">
