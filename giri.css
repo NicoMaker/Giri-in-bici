@@ -144,8 +144,8 @@ th {
 .immagini_stagione {
   display: block;
   margin: 0 auto;
-  width: 500px;
-  height: auto;
+  width: auto;
+  height: 250px;
   border: dashed #00ff9d 10px;
   background-color: yellow;
 }

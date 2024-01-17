@@ -1,6 +1,7 @@
 let stampabici = "";
 
-stampabici = `<img class="immagini_stagione" src="Le nostre Bici/Intestazione/madonnina_Bici.jpg" />`
+stampabici = `<img class="immagini_stagione" src="Le nostre Bici/Intestazione/madonnina_Bici.jpg" />
+<br />`
 document.getElementById("StampaBici").innerHTML = stampabici;
 
 function CalcolaMTB() {
