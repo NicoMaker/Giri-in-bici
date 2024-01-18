@@ -68,15 +68,6 @@ a {
   color: blue;
 }
 
-.immagine {
-  display: block;
-  margin: auto;
-  width: 800px;
-  height: auto;
-  border: dashed #00ff9d 10px;
-  background-color: yellow;
-}
-
 .Bandiera-FVG {
   margin: 55;
   width: auto;
@@ -92,19 +83,6 @@ a {
 
 .corsivo {
   font-family: "Dancing Script", cursive;
-}
-
-input {
-  position: relative;
-  font-size: 30px;
-  font-family: "Dancing Script", cursive;
-  color: blue;
-  background-color: yellow;
-  display: block;
-  margin: 0 auto;
-  border-radius: 50px;
-  border: dashed #00ff9d 10px;
-  cursor: pointer;
 }
 
 body {
@@ -129,9 +107,6 @@ body {
   background-size: 100% 25%;
 }
 
-input:hover {
-  color: red;
-}
 
 tr:hover {
   background: white;

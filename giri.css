@@ -155,7 +155,7 @@ th {
   margin: 0 auto;
   width: 200px;
   height: 200px;
-  border: dashed #00ff9d 10px;
+  border: dashed #00ff9d 5px;
   background-color: yellow;
   display: inline-block;
 }

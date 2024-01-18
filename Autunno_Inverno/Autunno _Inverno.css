@@ -87,19 +87,6 @@ a {
   color: blue;
 }
 
-input {
-  position: relative;
-  font-size: 30px;
-  font-family: "Dancing Script", cursive;
-  color: blue;
-  background-color: #fbff00;
-  display: block;
-  margin: 0 auto;
-  border-radius: 50px;
-  border: dashed rgb(255, 0, 187) 10px;
-  cursor: pointer;
-}
-
 .immagini_stagione {
   display: block;
   margin: 0 auto;
@@ -129,10 +116,6 @@ body {
 .colore_apertura:hover {
   font-family: "Dancing Script", cursive;
   background-size: 100% 25%;
-}
-
-input:hover {
-  color: red;
 }
 
 tr:hover {
