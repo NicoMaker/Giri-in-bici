@@ -39,8 +39,7 @@ tr:nth-child(-n + 1) {
   font-weight: bold;
 }
 
-.immagine,
-.immmaginejn {
+.immagine{
   display: block;
   margin: 0 auto;
   width: auto;
@@ -50,7 +49,14 @@ tr:nth-child(-n + 1) {
 }
 
 .immmaginejn {
-  border-radius: 0 50px;
+  display: block;
+  margin: 0 auto;
+  width: 450px;
+  height: 450px;
+  border: dashed #00ff9d 10px;
+  background-color: yellow;
+  display: inline-block;
+  border-radius: 50px;
 }
 
 .Bandiera-FVG {
@@ -137,7 +143,7 @@ th {
   border: 1px solid;
 }
 
-.container_stagione{
+.container_stagione {
   text-align: center;
 }
 
@@ -455,7 +461,7 @@ tr:hover {
 
 /**colore riga alternato pari**/
 .contorno:nth-child(2n):hover {
-  background: linear-gradient(600deg, red, red,yellow, yellow, pink,pink);
+  background: linear-gradient(600deg, red, red, yellow, yellow, pink, pink);
 }
 
 /**colore riga alternato dispari**/
@@ -465,7 +471,7 @@ tr:hover {
 
 /***colore prima linea tabella**/
 .contorno:nth-child(-n + 1):hover {
-  background: linear-gradient(600deg, pink, pink,yellow, yellow, red, red);
+  background: linear-gradient(600deg, pink, pink, yellow, yellow, red, red);
 }
 
 .Titolo2 {
