@@ -18,16 +18,16 @@ let dati = {
     datasets: [{
         label: 'km Autunno - Inverno',
         backgroundColor: [
-            'blue',
-            'skyblue',
             'yellowgreen',
-            '#ba690c'
+            'skyblue',
+            '#ba690c',
+            'blue'
         ],
         borderColor: [
-            'blue',
-            'skyblue',
             'yellowgreen',
-            '#ba690c'
+            'skyblue',
+            '#ba690c',
+            'blue'
         ],
         borderWidth: 1,
         data: [AI202021, AI202122, AI202223, AI202324]  // Aggiunto un valore per il 2024, correggi se necessario

@@ -1,6 +1,4 @@
-let e = parseFloat(document.getElementById("dati").getAttribute("Estate"));
-let p = parseFloat(document.getElementById("dati").getAttribute("Primavera"));
-let ai = parseFloat(document.getElementById("dati").getAttribute("Autunno-inverno"));
+let e = 6471, p = 2206, ai = 4508;
 let totale = e + p + ai;
 
 let avge = (e/totale) * 100;
