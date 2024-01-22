@@ -7,7 +7,7 @@
 ## Aggiornare JS
 
 - Stagione corrispondente (Autunno, Inverno, Primavera o Estate) Estate.js o Autunno-inverno.js o Primavera.js
-- Statistiche anno interessato anno(km per mese e numero corse) 2024.js
+- Statistiche anno interessato anno (km per mese e numero corse) 2024.js
 - Statistiche generale (dove mettere km anno e numero corse) generaleStatistiche.js
 - Hamburger con vari km e corse (per pagina home) Hamburger.js
 - stagioni.js
