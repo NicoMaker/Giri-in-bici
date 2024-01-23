@@ -128,8 +128,10 @@ table {
   background-color: yellow;
 }
 
-tr:hover {
-  background: cyan;
+tr:nth-child(2n + 3):hover,
+tr:nth-child(2n):hover
+{
+  background-color: cyan;
 }
 
 footer {

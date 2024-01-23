@@ -108,8 +108,10 @@ body {
 }
 
 
-tr:hover {
-  background: white;
+tr:nth-child(2n + 3):hover,
+tr:nth-child(2n):hover
+{
+  background-color: white;
 }
 
 .colore {
