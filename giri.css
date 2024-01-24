@@ -101,15 +101,18 @@ a {
 
 .showMwnu {
   transform: translateX(0);
+  cursor: pointer;
 }
 
 .CloseIcon {
   display: none;
+  cursor: pointer;
 }
 
 .CloseIcon span,
 .MenuIcon span {
   font-size: 60px;
+  cursor: pointer;
 }
 
 .menu table {
