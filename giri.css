@@ -79,6 +79,7 @@ a {
   background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
   top: 0px;
   z-index: 10;
+  overflow-y: auto; 
 }
 
 body {
