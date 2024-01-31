@@ -40,7 +40,7 @@ let avgtot = totale / corse;
 avgtot = avgtot.toFixed(2);
 
 let dati = {
-    labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+    labels: ['Gennaio','Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
     datasets: [{
         label: 'km mensili 2024',
         backgroundColor: [
