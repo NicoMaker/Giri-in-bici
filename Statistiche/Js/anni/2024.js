@@ -1,11 +1,8 @@
-let Gennaio = 486, Febbraio = 0, Marzo = 0, Aprile = 0, Maggio = 0, Giugno = 0, Luglio = 0, Agosto = 0, Settembre = 0, Ottobre = 0, Novembre = 0, Dicembre = 0;
-let totale = Gennaio + Febbraio + Marzo + Aprile + Maggio + Giugno + Luglio + Agosto + Settembre + Ottobre + Novembre + Dicembre;
+let Gennaio = 486, Marzo = 0, Aprile = 0, Maggio = 0, Giugno = 0, Luglio = 0, Agosto = 0, Settembre = 0, Ottobre = 0, Novembre = 0, Dicembre = 0;
+let totale = Gennaio +  Marzo + Aprile + Maggio + Giugno + Luglio + Agosto + Settembre + Ottobre + Novembre + Dicembre;
 
 let avggennaio = (Gennaio / totale) * 100;
 avggennaio = avggennaio.toFixed(2);
-
-let avgfebbraio = (Febbraio / totale) * 100;
-avgfebbraio = avgfebbraio.toFixed(2);
 
 let avgmarzo = (Marzo / totale) * 100;
 avgmarzo = avgmarzo.toFixed(2);
@@ -48,7 +45,6 @@ let dati = {
         label: 'km mensili 2024',
         backgroundColor: [
             'darkblue',
-            'blue',
             'lightgreen',
             'green',
             'pink',
@@ -71,11 +67,10 @@ let dati = {
             'black',
             'black',
             'black',
-            'black',
             'black'
         ],
         borderWidth: 1,
-        data: [Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,Novembre,Dicembre]
+        data: [Gennaio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,Novembre,Dicembre]
     }]
 };
 
@@ -109,12 +104,6 @@ let stampatabella = `
         <td> Gennaio </td>
         <td>${Gennaio}</td>
         <td>${avggennaio} %</td>
-    </tr>
-
-    <tr>
-        <td> Febbraio </td>
-        <td>${Febbraio}</td>
-        <td>${avgfebbraio} %</td>
     </tr>
 
     <tr>

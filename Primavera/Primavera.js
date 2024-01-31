@@ -82,7 +82,7 @@ let stampa = `
     </a>
 </div>
 
-<!-- <div class="Primaveracontorno">
+<div class="Primaveracontorno">
     <img class="immaginestagione" src="Icone/primavera.png">
     <a href="Primavera/Primavera2024.html">
         <p class="titoli">
@@ -92,7 +92,7 @@ let stampa = `
             <p> ${avg2024} % </p>
         </p>
     </a>
-</div> -->
+</div>
 `;
 document.getElementById("stampa").innerHTML = stampa;
 
