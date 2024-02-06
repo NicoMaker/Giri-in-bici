@@ -400,7 +400,7 @@ tr:nth-child(2n):hover
   .immagine_bicisx,
   .immagine_bicidx {
     width: 600px;
-    height: 420px;
+    height: 400px;
     margin: 10px;
     border-radius: 20%;
   }
