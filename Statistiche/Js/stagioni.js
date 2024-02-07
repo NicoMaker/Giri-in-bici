@@ -44,7 +44,7 @@ new Chart(ctx, config);
 
 let stampa = `
 
-
+<div class="container">
 <div class="estate">
     <img class="immaginestagionestat" src="../Icone/estate.png">
         <a href="../Estate.html">

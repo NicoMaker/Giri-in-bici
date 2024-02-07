@@ -59,44 +59,46 @@ let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
 
 let stampa = `
-<div class="Statistiche">
-    <a href="Statistiche/Statistiche2020.html">
-        <p class="titoli"> Statistiche 2020 </p>
-        <p> km totali <img src="Icone/traguardo.png">
-         ${s2020}</p><p>${avg2020} %</p>
-    </a>
-</div>
+<div class="container">
+    <div class="Statistiche">
+        <a href="Statistiche/Statistiche2020.html">
+            <p class="titoli"> Statistiche 2020 </p>
+            <p> km totali <img src="Icone/traguardo.png">
+            ${s2020}</p><p>${avg2020} %</p>
+        </a>
+    </div>
 
-<div class="Statistiche">
-    <a href="Statistiche/Statistiche2021.html">
-        <p class="titoli"> Statistiche 2021 </p>
-        <p> km totali <img src="Icone/traguardo.png">
-         ${s2021}</p><p>${avg2021} %</p>
-    </a>
-</div>
+    <div class="Statistiche">
+        <a href="Statistiche/Statistiche2021.html">
+            <p class="titoli"> Statistiche 2021 </p>
+            <p> km totali <img src="Icone/traguardo.png">
+            ${s2021}</p><p>${avg2021} %</p>
+        </a>
+    </div>
 
-<div class="Statistiche">
-    <a href="Statistiche/Statistiche2022.html">
-        <p class="titoli"> Statistiche 2022 </p>
-        <p> km totali <img src="Icone/traguardo.png">
-         ${s2022}</p><p>${avg2022} %</p>
-    </a>
-</div>
+    <div class="Statistiche">
+        <a href="Statistiche/Statistiche2022.html">
+            <p class="titoli"> Statistiche 2022 </p>
+            <p> km totali <img src="Icone/traguardo.png">
+            ${s2022}</p><p>${avg2022} %</p>
+        </a>
+    </div>
 
-<div class="Statistiche">
-    <a href="Statistiche/Statistiche2023.html">
-        <p class="titoli"> Statistiche 2023 </p>
-        <p> km totali <img src="Icone/traguardo.png">
-         ${s2023}</p><p>${avg2023} %</p>
-    </a>
-</div>
+    <div class="Statistiche">
+        <a href="Statistiche/Statistiche2023.html">
+            <p class="titoli"> Statistiche 2023 </p>
+            <p> km totali <img src="Icone/traguardo.png">
+            ${s2023}</p><p>${avg2023} %</p>
+        </a>
+    </div>
 
-<div class="Statistiche">
-    <a href="Statistiche/Statistiche2024.html">
-        <p class="titoli"> Statistiche 2024 </p>
-        <p> km totali <img src="Icone/traguardo.png">
-         ${s2024}</p><p>${avg2024} %</p>
-    </a>
+    <div class="Statistiche">
+        <a href="Statistiche/Statistiche2024.html">
+            <p class="titoli"> Statistiche 2024 </p>
+            <p> km totali <img src="Icone/traguardo.png">
+            ${s2024}</p><p>${avg2024} %</p>
+        </a>
+    </div>
 </div>
 `;
 document.getElementById("stampa").innerHTML = stampa;
@@ -109,3 +111,13 @@ let stampat = `
     <p> km medi per anno percorsi ${avganno} </p>
 </div>`;
 document.getElementById("totale").innerHTML = stampat;
+
+document.addEventListener("DOMContentLoaded", function() {
+    let container = document.querySelector('.container');
+    let items = document.querySelectorAll('.Statistiche');
+    let isOdd = items.length % 2 !== 0;
+
+    if (isOdd) {
+        container.classList.add('odd-items');
+    }
+});

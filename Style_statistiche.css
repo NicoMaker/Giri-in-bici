@@ -151,7 +151,7 @@ tr:nth-child(2n):hover
 .titoli {
   text-align: center;
   color: blue;
-  font-size: 30px;
+  font-size: 40px;
   font-family: "Dancing Script", cursive;
 }
 
@@ -195,4 +195,21 @@ canvas {
   height: 1000px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Statistiche {
+  width: calc(50% - 10px);
+  margin: 5px;
+  box-sizing: border-box;
+  border: 2px solid purple;
+}
+
+.odd-items .Statistiche:last-child {
+  width: 100%;
+  margin: 5px;
 }

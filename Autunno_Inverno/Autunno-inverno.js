@@ -45,44 +45,46 @@ let ctx = document.getElementById('doughnut-chart').getContext('2d');
 new Chart(ctx, config);
 
 let stampa = `
-<div class="Autunno-Invernocontorno">
-    <img class="immaginestagione" src="Icone/inverno.png">
-        <a href="Autunno_Inverno/Autunno_Inverno2020-2021.html">
-            <p class="titoli">Autunno - Inverno 2020/2021
-            <p>Totale km <img src="Icone/traguardo.png"> 
-            ${AI202021}</p> <p> ${avg2021} % </p>
-        </p>
-        </a>
-</div>
+<div class="container">
+    <div class="Autunno-Invernocontorno">
+        <img class="immaginestagione" src="Icone/inverno.png">
+            <a href="Autunno_Inverno/Autunno_Inverno2020-2021.html">
+                <p class="titoli">Autunno - Inverno 2020/2021
+                <p>Totale km <img src="Icone/traguardo.png"> 
+                ${AI202021}</p> <p> ${avg2021} % </p>
+            </p>
+            </a>
+    </div>
 
-<div class="Autunno-Invernocontorno">
-    <img class="immaginestagione" src="Icone/inverno.png">
-        <a href="Autunno_Inverno/Autunno_Inverno2021-2022.html">
-            <p class="titoli">Autunno - Inverno 2021/2022
-            <p>Totale km <img src="Icone/traguardo.png"> 
-            ${AI202122}</p> <p> ${avg2122} % </p>
-        </p>
-        </a>
-</div>
+    <div class="Autunno-Invernocontorno">
+        <img class="immaginestagione" src="Icone/inverno.png">
+            <a href="Autunno_Inverno/Autunno_Inverno2021-2022.html">
+                <p class="titoli">Autunno - Inverno 2021/2022
+                <p>Totale km <img src="Icone/traguardo.png"> 
+                ${AI202122}</p> <p> ${avg2122} % </p>
+            </p>
+            </a>
+    </div>
 
-<div class="Autunno-Invernocontorno">
-    <img class="immaginestagione" src="Icone/inverno.png">
-        <a href="Autunno_Inverno/Autunno_Inverno2022-2023.html">
-            <p class="titoli">Autunno - Inverno 2022/2023
-            <p>Totale km <img src="Icone/traguardo.png"> 
-            ${AI202223}</p> <p> ${avg2223} % </p>
-        </p>
-        </a>
-</div>
+    <div class="Autunno-Invernocontorno">
+        <img class="immaginestagione" src="Icone/inverno.png">
+            <a href="Autunno_Inverno/Autunno_Inverno2022-2023.html">
+                <p class="titoli">Autunno - Inverno 2022/2023
+                <p>Totale km <img src="Icone/traguardo.png"> 
+                ${AI202223}</p> <p> ${avg2223} % </p>
+            </p>
+            </a>
+    </div>
 
-<div class="Autunno-Invernocontorno">
-    <img class="immaginestagione" src="Icone/inverno.png">
-        <a href="Autunno_Inverno/Autunno_Inverno2023-2024.html">
-            <p class="titoli">Autunno - Inverno 2023/2024
-            <p>Totale km <img src="Icone/traguardo.png"> 
-            ${AI202324}</p> <p> ${avg2324} % </p>
-        </p>
-        </a>
+    <div class="Autunno-Invernocontorno">
+        <img class="immaginestagione" src="Icone/inverno.png">
+            <a href="Autunno_Inverno/Autunno_Inverno2023-2024.html">
+                <p class="titoli">Autunno - Inverno 2023/2024
+                <p>Totale km <img src="Icone/traguardo.png"> 
+                ${AI202324}</p> <p> ${avg2324} % </p>
+            </p>
+            </a>
+    </div>
 </div>
 `;
 document.getElementById("stampa").innerHTML = stampa;
@@ -97,3 +99,13 @@ let stampaAI = `
     <p>media km per stagione ${avgai} </p>
 </div>`;
 document.getElementById("totale").innerHTML = stampaAI;
+
+document.addEventListener("DOMContentLoaded", function() {
+    let container = document.querySelector('.container');
+    let items = document.querySelectorAll('.Autunno-Invernocontorno');
+    let isOdd = items.length % 2 !== 0;
+
+    if (isOdd) {
+        container.classList.add('odd-items');
+    }
+});

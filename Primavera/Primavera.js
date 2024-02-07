@@ -46,52 +46,54 @@ new Chart(ctx, config);
 
 let stampa = `
 
-<div class="Primaveracontorno">
-    <img class="immaginestagione" src="Icone/primavera.png">
-    <a href="Primavera/Primavera2021.html">
-        <p class="titoli">
-            Primavera 2021
+<div class="container">
+    <div class="Primaveracontorno">
+        <img class="immaginestagione" src="Icone/primavera.png">
+        <a href="Primavera/Primavera2021.html">
+            <p class="titoli">
+                Primavera 2021
 
-            <p>Totale km <img src="Icone/traguardo.png"> ${p2021}</p> 
-            <p> ${avg2021} % </p>
-        </p>
-    </a>
-</div>
+                <p>Totale km <img src="Icone/traguardo.png"> ${p2021}</p> 
+                <p> ${avg2021} % </p>
+            </p>
+        </a>
+    </div>
 
-<div class="Primaveracontorno">
-    <img class="immaginestagione" src="Icone/primavera.png">
-    <a href="Primavera/Primavera2022.html">
-        <p class="titoli">
-            Primavera 2022
+    <div class="Primaveracontorno">
+        <img class="immaginestagione" src="Icone/primavera.png">
+        <a href="Primavera/Primavera2022.html">
+            <p class="titoli">
+                Primavera 2022
 
-            <p>Totale km <img src="Icone/traguardo.png"> ${p2022}</p> 
-            <p> ${avg2022} % </p>
-        </p>
-    </a>
-</div>
+                <p>Totale km <img src="Icone/traguardo.png"> ${p2022}</p> 
+                <p> ${avg2022} % </p>
+            </p>
+        </a>
+    </div>
 
-<div class="Primaveracontorno">
-    <img class="immaginestagione" src="Icone/primavera.png">
-    <a href="Primavera/Primavera2023.html">
-        <p class="titoli">
-            Primavera 2023
+    <div class="Primaveracontorno">
+        <img class="immaginestagione" src="Icone/primavera.png">
+        <a href="Primavera/Primavera2023.html">
+            <p class="titoli">
+                Primavera 2023
 
-            <p>Totale km <img src="Icone/traguardo.png"> ${p2023}</p> 
-            <p> ${avg2023} % </p>
-        </p>
-    </a>
-</div>
+                <p>Totale km <img src="Icone/traguardo.png"> ${p2023}</p> 
+                <p> ${avg2023} % </p>
+            </p>
+        </a>
+    </div>
 
-<div class="Primaveracontorno">
-    <img class="immaginestagione" src="Icone/primavera.png">
-    <a href="Primavera/Primavera2024.html">
-        <p class="titoli">
-            Primavera 2024
+    <div class="Primaveracontorno">
+        <img class="immaginestagione" src="Icone/primavera.png">
+        <a href="Primavera/Primavera2024.html">
+            <p class="titoli">
+                Primavera 2024
 
-            <p>Totale km <img src="Icone/traguardo.png"> ${p2024}</p> 
-            <p> ${avg2024} % </p>
-        </p>
-    </a>
+                <p>Totale km <img src="Icone/traguardo.png"> ${p2024}</p> 
+                <p> ${avg2024} % </p>
+            </p>
+        </a>
+    </div>
 </div>
 `;
 document.getElementById("stampa").innerHTML = stampa;
@@ -105,3 +107,13 @@ let stampaP = `
     <p>media km per stagione ${avgp} </p>
 </div>`;
 document.getElementById("totale").innerHTML = stampaP;
+
+document.addEventListener("DOMContentLoaded", function() {
+    let container = document.querySelector('.container');
+    let items = document.querySelectorAll('.Primaveracontorno');
+    let isOdd = items.length % 2 !== 0;
+
+    if (isOdd) {
+        container.classList.add('odd-items');
+    }
+});
