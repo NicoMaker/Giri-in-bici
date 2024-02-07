@@ -233,7 +233,6 @@ canvas {
   width: calc(50% - 10px);
   margin: 5px;
   box-sizing: border-box;
-  border: 2px solid chocolate;
 }
 
 .odd-items .Estatecontorno:last-child {
