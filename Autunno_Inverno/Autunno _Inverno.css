@@ -119,8 +119,7 @@ body {
 }
 
 tr:nth-child(2n + 3):hover,
-tr:nth-child(2n):hover
-{
+tr:nth-child(2n):hover {
   background-color: white;
 }
 
@@ -172,7 +171,7 @@ tr:nth-child(2n):hover
 .immaginestagione {
   width: 100px;
   height: 100px;
-  margin: 0px;
+  margin: 50px auto 0;
   float: left;
 }
 
@@ -223,7 +222,7 @@ canvas {
   width: calc(50% - 10px);
   margin: 5px;
   box-sizing: border-box;
-  border: 2px solid blue
+  border: 2px solid blue;
 }
 
 .odd-items .Autunno-Invernocontorno:last-child {

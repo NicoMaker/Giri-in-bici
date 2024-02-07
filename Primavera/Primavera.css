@@ -172,7 +172,7 @@ tr:nth-child(2n):hover
 .immaginestagione {
   width: 100px;
   height: 100px;
-  margin: 0px;
+  margin: 50px auto 0;
   float: left;
 }
 
