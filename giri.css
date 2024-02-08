@@ -79,11 +79,12 @@ a {
   background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
   top: 0px;
   z-index: 10;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 body {
   margin: 0;
+  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
 }
 
 a {
@@ -183,10 +184,6 @@ th {
   border-radius: 50px;
 }
 
-body {
-  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
-}
-
 .colore_apertura {
   font-size: 2rem;
   color: inherit;
@@ -227,8 +224,7 @@ body {
 }
 
 tr:nth-child(2n + 3):hover,
-tr:nth-child(2n):hover
-{
+tr:nth-child(2n):hover {
   background-color: white;
 }
 
@@ -262,7 +258,6 @@ tr:nth-child(2n):hover
   border-radius: 20%;
   text-align: center;
 }
-
 
 .contornostagionedx:hover,
 .contornostagionesx:hover {
