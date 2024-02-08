@@ -1,9 +1,11 @@
-document.getElementById("StampaBici").innerHTML = `
+const bici = document.getElementById("StampaBici");
+
+bici.innerHTML = `
 <img class="immagini_stagione" src="Le nostre Bici/Intestazione/madonnina_Bici.jpg" />
 <br />`;
 
 let CalcolaMTB = () =>
-  (document.getElementById("StampaBici").innerHTML = `
+  (bici.innerHTML = `
     <div class="container_stagione">
         <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/MTB/MarioMTB.jpeg" />
         <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI//MTB/SonicMTB.jpg" />
@@ -62,7 +64,7 @@ let CalcolaMTB = () =>
 `);
 
 let CalcolaCorsa = () =>
-  (document.getElementById("StampaBici").innerHTML = `
+  (bici.innerHTML = `
     <div class="container_stagione">
         <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/SonicCorsa.jpg" />
         <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/MarioSonicCorsa.jpg" />
@@ -81,4 +83,4 @@ let CalcolaCorsa = () =>
         </p>
         <p> <strong> anno di produzione : </strong>2022</p>
     </div>
-    `);
+`);

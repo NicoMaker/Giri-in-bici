@@ -13,21 +13,17 @@ document
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
-    let user = users.find(function (u) {
-      return u.username === username && u.password === password;
-    });
+    let user = users.find(
+      (u) => u.username === username && u.password === password
+    );
 
-    if (user) {
-      window.location.href = "giri.html";
-    } else {
-      alert("Nome utente o password non validi!");
-    }
+    if (user) window.location.href = "giri.html";
+    else alert("Nome utente o password non validi!");
   });
 
 // Genera un numero casuale compreso tra min e max
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+let getRandomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
 
 // Genera un colore casuale in formato RGB
 function getRandomColor() {
