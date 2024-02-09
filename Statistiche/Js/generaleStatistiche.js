@@ -1,4 +1,8 @@
-let s2020 = 2456, s2021 = 2614, s2022 = 3808, s2023 = 3916, s2024 = 486;
+let s2020 = 2456,
+  s2021 = 2614,
+  s2022 = 3808,
+  s2023 = 3916,
+  s2024 = 486;
 let totale = s2020 + s2021 + s2022 + s2023 + s2024;
 
 let avg2020 = (s2020 / totale) * 100;
@@ -28,36 +32,32 @@ let avgmese = totale / 44;
 avgmese = avgmese.toFixed(2);
 
 let dati = {
-    labels: ['Statistiche 2020', 'Statistiche 2021', 'Statistiche 2022', 'Statistiche 2023', 'Statistiche 2024'],
-    datasets: [{
-        label: 'km totali',
-        backgroundColor: [
-            'yellow',
-            'lightgreen',
-            'orange',
-            'cyan',
-            'red'
-        ],
-        borderColor: [
-            'black',
-            'black',
-            'black',
-            'black',
-            'black'
-        ],
-        borderWidth: 1,
-        data: [s2020,s2021,s2022,s2023,s2024]  // Aggiunto un valore per il 2024, correggi se necessario
-    }]
+  labels: [
+    "Statistiche 2020",
+    "Statistiche 2021",
+    "Statistiche 2022",
+    "Statistiche 2023",
+    "Statistiche 2024",
+  ],
+  datasets: [
+    {
+      label: "km totali",
+      backgroundColor: ["yellow", "lightgreen", "orange", "cyan", "red"],
+      borderColor: ["black", "black", "black", "black", "black"],
+      borderWidth: 1,
+      data: [s2020, s2021, s2022, s2023, s2024], // Aggiunto un valore per il 2024, correggi se necessario
+    },
+  ],
 };
 
 // Configurazione del grafico
 let config = {
-    type: 'doughnut',
-    data: dati,
+  type: "doughnut",
+  data: dati,
 };
 
 // Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById('doughnut-chart').getContext('2d');
+let ctx = document.getElementById("doughnut-chart").getContext("2d");
 new Chart(ctx, config);
 
 let stampa = `
@@ -115,12 +115,12 @@ let stampat = `
 </div>`;
 document.getElementById("totale").innerHTML = stampat;
 
-document.addEventListener("DOMContentLoaded", function() {
-    let container = document.querySelector('.container');
-    let items = document.querySelectorAll('.Statistiche');
-    let isOdd = items.length % 2 !== 0;
+document.addEventListener("DOMContentLoaded", function () {
+  let container = document.querySelector(".container");
+  let items = document.querySelectorAll(".Statistiche");
+  let isOdd = items.length % 2 !== 0;
 
-    if (isOdd) {
-        container.classList.add('odd-items');
-    }
+  if (isOdd) {
+    container.classList.add("odd-items");
+  }
 });

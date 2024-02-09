@@ -1,5 +1,26 @@
-let Gennaio = 486, Marzo = 0, Aprile = 0, Maggio = 0, Giugno = 0, Luglio = 0, Agosto = 0, Settembre = 0, Ottobre = 0, Novembre = 0, Dicembre = 0;
-let totale = Gennaio +  Marzo + Aprile + Maggio + Giugno + Luglio + Agosto + Settembre + Ottobre + Novembre + Dicembre;
+let Gennaio = 486,
+  Marzo = 0,
+  Aprile = 0,
+  Maggio = 0,
+  Giugno = 0,
+  Luglio = 0,
+  Agosto = 0,
+  Settembre = 0,
+  Ottobre = 0,
+  Novembre = 0,
+  Dicembre = 0;
+let totale =
+  Gennaio +
+  Marzo +
+  Aprile +
+  Maggio +
+  Giugno +
+  Luglio +
+  Agosto +
+  Settembre +
+  Ottobre +
+  Novembre +
+  Dicembre;
 
 let avggennaio = (Gennaio / totale) * 100;
 avggennaio = avggennaio.toFixed(2);
@@ -43,55 +64,81 @@ let avgmese = totale / 1;
 avgmese = avgmese.toFixed(2);
 
 let dati = {
-    labels: ['Gennaio','Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-    datasets: [{
-        label: 'km mensili 2024',
-        backgroundColor: [
-            'darkblue',
-            'lightgreen',
-            'green',
-            'pink',
-            'yellow',
-            'orange',
-            'red',
-            'darkgreen',
-            'brown',
-            'cyan',
-            'blue'
-        ],
-        borderColor: [
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black'
-        ],
-        borderWidth: 1,
-        data: [Gennaio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,Novembre,Dicembre]
-    }]
+  labels: [
+    "Gennaio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
+  ],
+  datasets: [
+    {
+      label: "km mensili 2024",
+      backgroundColor: [
+        "darkblue",
+        "lightgreen",
+        "green",
+        "pink",
+        "yellow",
+        "orange",
+        "red",
+        "darkgreen",
+        "brown",
+        "cyan",
+        "blue",
+      ],
+      borderColor: [
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+      ],
+      borderWidth: 1,
+      data: [
+        Gennaio,
+        Marzo,
+        Aprile,
+        Maggio,
+        Giugno,
+        Luglio,
+        Agosto,
+        Settembre,
+        Ottobre,
+        Novembre,
+        Dicembre,
+      ],
+    },
+  ],
 };
 
 // Configurazione del grafico
 let config = {
-    type: 'bar',
-    data: dati,
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
+  type: "bar",
+  data: dati,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
 };
 
 // Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById('bar-chart').getContext('2d');
+let ctx = document.getElementById("bar-chart").getContext("2d");
 new Chart(ctx, config);
 
 let stampatabella = `

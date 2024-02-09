@@ -1,4 +1,7 @@
-let p2021 = 579, p2022 = 885, p2023 = 742, p2024 = 0;
+let p2021 = 579,
+  p2022 = 885,
+  p2023 = 742,
+  p2024 = 0;
 let totale = p2021 + p2022 + p2023 + p2024;
 
 let avg2021 = (p2021 / totale) * 100;
@@ -14,34 +17,26 @@ let avg2024 = (p2024 / totale) * 100;
 avg2024 = parseFloat(avg2024.toFixed(2));
 
 let dati = {
-    labels: ['2021', '2022', '2023', '2024'],
-    datasets: [{
-        label: 'km Primavera',
-        backgroundColor: [
-            'pink',
-            'antiquewhite',
-            'cyan',
-            '#97ed86ce'
-        ],
-        borderColor: [
-            'black',
-            'black',
-            'black',
-            'black'
-        ],
-        borderWidth: 1,
-        data: [p2021, p2022, p2023,p2024]  // Aggiunto un valore per il 2024, correggi se necessario
-    }]
+  labels: ["2021", "2022", "2023", "2024"],
+  datasets: [
+    {
+      label: "km Primavera",
+      backgroundColor: ["pink", "antiquewhite", "cyan", "#97ed86ce"],
+      borderColor: ["black", "black", "black", "black"],
+      borderWidth: 1,
+      data: [p2021, p2022, p2023, p2024], // Aggiunto un valore per il 2024, correggi se necessario
+    },
+  ],
 };
 
 // Configurazione del grafico
 let config = {
-    type: 'doughnut',
-    data: dati,
+  type: "doughnut",
+  data: dati,
 };
 
 // Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById('doughnut-chart').getContext('2d');
+let ctx = document.getElementById("doughnut-chart").getContext("2d");
 new Chart(ctx, config);
 
 let stampa = `
@@ -98,7 +93,7 @@ let stampa = `
 `;
 document.getElementById("stampa").innerHTML = stampa;
 
-let avgp = totale/4;
+let avgp = totale / 4;
 avgp = avgp.toFixed(2);
 
 let stampaP = `
@@ -108,12 +103,12 @@ let stampaP = `
 </div>`;
 document.getElementById("totale").innerHTML = stampaP;
 
-document.addEventListener("DOMContentLoaded", function() {
-    let container = document.querySelector('.container');
-    let items = document.querySelectorAll('.Primaveracontorno');
-    let isOdd = items.length % 2 !== 0;
+document.addEventListener("DOMContentLoaded", function () {
+  let container = document.querySelector(".container");
+  let items = document.querySelectorAll(".Primaveracontorno");
+  let isOdd = items.length % 2 !== 0;
 
-    if (isOdd) {
-        container.classList.add('odd-items');
-    }
+  if (isOdd) {
+    container.classList.add("odd-items");
+  }
 });

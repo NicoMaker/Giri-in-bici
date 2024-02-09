@@ -1,45 +1,41 @@
-let e = 6471, p = 2206, ai = 4603;
+let e = 6471,
+  p = 2206,
+  ai = 4603;
 let totale = e + p + ai;
 
-let avge = (e/totale) * 100;
+let avge = (e / totale) * 100;
 avge = parseFloat(avge.toFixed(2));
 
-let avgp = (p/totale) * 100;
+let avgp = (p / totale) * 100;
 avgp = parseFloat(avgp.toFixed(2));
 
-let avgai = (ai/totale) * 100;
+let avgai = (ai / totale) * 100;
 avgai = parseFloat(avgai.toFixed(2));
 
 let avgmediastagione = totale / 3;
-avgmediastagione = parseFloat(avgmediastagione .toFixed(2));
+avgmediastagione = parseFloat(avgmediastagione.toFixed(2));
 
 let dati = {
-    labels: ['Estate','Primavera','Autunno-Inverno'],
-    datasets: [{
-        label: 'km totali stagione',
-        backgroundColor: [
-            'red',
-            'lightgreen',
-            'lightblue'
-        ],
-        borderColor: [
-            'black',
-            'black',
-            'black'
-        ],
-        borderWidth: 1,
-        data: [e,p,ai]  // Aggiunto un valore per il 2024, correggi se necessario
-    }]
+  labels: ["Estate", "Primavera", "Autunno-Inverno"],
+  datasets: [
+    {
+      label: "km totali stagione",
+      backgroundColor: ["red", "lightgreen", "lightblue"],
+      borderColor: ["black", "black", "black"],
+      borderWidth: 1,
+      data: [e, p, ai], // Aggiunto un valore per il 2024, correggi se necessario
+    },
+  ],
 };
 
 // Configurazione del grafico
 let config = {
-    type: 'doughnut',
-    data: dati,
+  type: "doughnut",
+  data: dati,
 };
 
 // Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById('doughnut-chart').getContext('2d');
+let ctx = document.getElementById("doughnut-chart").getContext("2d");
 new Chart(ctx, config);
 
 let stampa = `

@@ -1,73 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="Estate/Estate.css" />
-    <link rel="icon" href="Estate/Immagini/Estate.jpg" type="image/jpg" />
-    <title>Estate</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="Estate/Estate.js" defer></script>
-  </head>
 
-  <body>
-    <button class="graficostagioni">
-      <a href="Statistiche/stagioni.html">
-        <img
-          class="Stagioni"
-          src="https://i.pinimg.com/originals/df/fa/66/dffa66f0986f247746ed52aff4674cf3.jpg"
-        />
+<head>
+  <link rel="stylesheet" href="Estate/Estate.css" />
+  <link rel="icon" href="Estate/Immagini/Estate.jpg" type="image/jpg" />
+  <title>Estate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="Estate/Estate.js" defer></script>
+</head>
+
+<body>
+  <button class="graficostagioni">
+    <a href="Statistiche/stagioni.html">
+      <img class="Stagioni" src="https://i.pinimg.com/originals/df/fa/66/dffa66f0986f247746ed52aff4674cf3.jpg" />
+    </a>
+  </button>
+
+  <a href="Giri.html">
+    <img class="Bandiera-FVG" src="imagini Html sito principale/Logo .jpg" />
+  </a>
+
+  <h1 class="Estate">Giri in Bici Estate</h1>
+
+  <br />
+  <img class="immagini_stagione" src="Estate/Immagini/Estate.jpg" />
+  <br />
+
+  <p>
+    <button class="icone">
+      <a class="colore_apertura" href="Giri.html">
+        <img src="Icone/home.png" />
+      </a>
+
+      <a class="colore_apertura" href="Statistiche.html">
+        <img src="Icone/Statistiche.png" />
+      </a>
+
+      <a class="colore_apertura" href="Bici/Bici.html">
+        <img src="Icone/bici.png" />
+      </a>
+
+      <a class="colore_apertura" href="Primavera.html">
+        <img src="Icone/primavera.png" />
+      </a>
+
+      <a class="colore_apertura" href="Autunno_Inverno.html">
+        <img src="Icone/inverno.png" />
+      </a>
+
+      <a class="colore_apertura" href="https://giri-in-bici.netlify.app/">
+        <img src="Icone/login.png" />
       </a>
     </button>
+  </p>
 
-    <a href="Giri.html">
-      <img class="Bandiera-FVG" src="imagini Html sito principale/Logo .jpg" />
-    </a>
+  <div id="stampa"></div>
 
-    <h1 class="Estate">Giri in Bici Estate</h1>
+  <br />
+  <div class="grafico">
+    <canvas id="doughnut-chart"></canvas>
+  </div>
+  <br />
 
-    <br />
-    <img class="immagini_stagione" src="Estate/Immagini/Estate.jpg" />
-    <br />
+  <div id="totale"></div>
+</body>
 
-    <p>
-      <button class="icone">
-        <a class="colore_apertura" href="Giri.html">
-          <img src="Icone/home.png" />
-        </a>
-
-        <a class="colore_apertura" href="Statistiche.html">
-          <img src="Icone/Statistiche.png" />
-        </a>
-
-        <a class="colore_apertura" href="Bici/Bici.html">
-          <img src="Icone/bici.png" />
-        </a>
-
-        <a class="colore_apertura" href="Primavera.html">
-          <img src="Icone/primavera.png" />
-        </a>
-
-        <a class="colore_apertura" href="Autunno_Inverno.html">
-          <img src="Icone/inverno.png" />
-        </a>
-
-        <a class="colore_apertura" href="https://giri-in-bici.netlify.app/">
-          <img src="Icone/login.png" />
-        </a>
-      </button>
-    </p>
-
-    <div id="stampa"></div>
-
-    <br />
-    <div class="grafico">
-      <canvas id="doughnut-chart"></canvas>
-    </div>
-    <br />
-
-    <div id="totale"></div>
-  </body>
 </html>

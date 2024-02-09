@@ -1,5 +1,28 @@
-let Gennaio = 65, Febbraio = 242, Marzo = 244, Aprile = 92, Maggio = 270, Giugno = 279, Luglio = 601, Agosto = 542, Settembre = 604, Ottobre = 627, Novembre = 133, Dicembre = 109;
-let totale = Gennaio + Febbraio + Marzo + Aprile + Maggio + Giugno + Luglio + Agosto + Settembre + Ottobre + Novembre + Dicembre;
+let Gennaio = 65,
+  Febbraio = 242,
+  Marzo = 244,
+  Aprile = 92,
+  Maggio = 270,
+  Giugno = 279,
+  Luglio = 601,
+  Agosto = 542,
+  Settembre = 604,
+  Ottobre = 627,
+  Novembre = 133,
+  Dicembre = 109;
+let totale =
+  Gennaio +
+  Febbraio +
+  Marzo +
+  Aprile +
+  Maggio +
+  Giugno +
+  Luglio +
+  Agosto +
+  Settembre +
+  Ottobre +
+  Novembre +
+  Dicembre;
 
 let avggennaio = (Gennaio / totale) * 100;
 avggennaio = avggennaio.toFixed(2);
@@ -46,57 +69,85 @@ let avgmese = totale / 12;
 avgmese = avgmese.toFixed(2);
 
 let dati = {
-    labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-    datasets: [{
-        label: 'km mensili 2022',
-        backgroundColor: [
-            'darkblue',
-            'blue',
-            'lightgreen',
-            'green',
-            'pink',
-            'yellow',
-            'orange',
-            'red',
-            'darkgreen',
-            'brown',
-            'cyan',
-            'blue'
-        ],
-        borderColor: [
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black',
-            'black'
-        ],
-        borderWidth: 1,
-        data: [Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,Novembre,Dicembre]
-    }]
+  labels: [
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
+  ],
+  datasets: [
+    {
+      label: "km mensili 2022",
+      backgroundColor: [
+        "darkblue",
+        "blue",
+        "lightgreen",
+        "green",
+        "pink",
+        "yellow",
+        "orange",
+        "red",
+        "darkgreen",
+        "brown",
+        "cyan",
+        "blue",
+      ],
+      borderColor: [
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+      ],
+      borderWidth: 1,
+      data: [
+        Gennaio,
+        Febbraio,
+        Marzo,
+        Aprile,
+        Maggio,
+        Giugno,
+        Luglio,
+        Agosto,
+        Settembre,
+        Ottobre,
+        Novembre,
+        Dicembre,
+      ],
+    },
+  ],
 };
 
 // Configurazione del grafico
 let config = {
-    type: 'bar',
-    data: dati,
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
+  type: "bar",
+  data: dati,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
 };
 
 // Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById('bar-chart').getContext('2d');
+let ctx = document.getElementById("bar-chart").getContext("2d");
 new Chart(ctx, config);
 
 let stampatabella = `

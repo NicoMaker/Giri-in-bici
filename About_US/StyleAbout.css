@@ -129,8 +129,7 @@ table {
 }
 
 tr:nth-child(2n + 3):hover,
-tr:nth-child(2n):hover
-{
+tr:nth-child(2n):hover {
   background-color: cyan;
 }
 

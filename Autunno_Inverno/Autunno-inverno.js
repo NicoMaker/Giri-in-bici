@@ -1,4 +1,7 @@
-let AI202021 = 1305, AI202122 = 729, AI202223 = 806, AI202324 = 1763;
+let AI202021 = 1305,
+  AI202122 = 729,
+  AI202223 = 806,
+  AI202324 = 1763;
 let totale = AI202021 + AI202122 + AI202223 + AI202324;
 
 let avg2021 = (AI202021 / totale) * 100;
@@ -14,34 +17,26 @@ let avg2324 = (AI202324 / totale) * 100;
 avg2324 = parseFloat(avg2324.toFixed(2));
 
 let dati = {
-    labels: ['2020-2021', '2021-2022', '2022-2023', '2023-2024'],
-    datasets: [{
-        label: 'km Autunno - Inverno',
-        backgroundColor: [
-            'yellowgreen',
-            'skyblue',
-            '#ba690c',
-            'blue'
-        ],
-        borderColor: [
-            'black',
-            'black',
-            'black',
-            'black'
-        ],
-        borderWidth: 1,
-        data: [AI202021, AI202122, AI202223, AI202324]  // Aggiunto un valore per il 2024, correggi se necessario
-    }]
+  labels: ["2020-2021", "2021-2022", "2022-2023", "2023-2024"],
+  datasets: [
+    {
+      label: "km Autunno - Inverno",
+      backgroundColor: ["yellowgreen", "skyblue", "#ba690c", "blue"],
+      borderColor: ["black", "black", "black", "black"],
+      borderWidth: 1,
+      data: [AI202021, AI202122, AI202223, AI202324], // Aggiunto un valore per il 2024, correggi se necessario
+    },
+  ],
 };
 
 // Configurazione del grafico
 let config = {
-    type: 'doughnut',
-    data: dati,
+  type: "doughnut",
+  data: dati,
 };
 
 // Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById('doughnut-chart').getContext('2d');
+let ctx = document.getElementById("doughnut-chart").getContext("2d");
 new Chart(ctx, config);
 
 let stampa = `
@@ -89,7 +84,6 @@ let stampa = `
 `;
 document.getElementById("stampa").innerHTML = stampa;
 
-
 let avgai = totale / 4;
 avgai = avgai.toFixed(2);
 
@@ -100,12 +94,12 @@ let stampaAI = `
 </div>`;
 document.getElementById("totale").innerHTML = stampaAI;
 
-document.addEventListener("DOMContentLoaded", function() {
-    let container = document.querySelector('.container');
-    let items = document.querySelectorAll('.Autunno-Invernocontorno');
-    let isOdd = items.length % 2 !== 0;
+document.addEventListener("DOMContentLoaded", function () {
+  let container = document.querySelector(".container");
+  let items = document.querySelectorAll(".Autunno-Invernocontorno");
+  let isOdd = items.length % 2 !== 0;
 
-    if (isOdd) {
-        container.classList.add('odd-items');
-    }
+  if (isOdd) {
+    container.classList.add("odd-items");
+  }
 });

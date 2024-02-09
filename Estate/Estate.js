@@ -1,4 +1,7 @@
-let e2020 = 2021,e2021 = 743, e2022 = 2085, e2023 = 1622;
+let e2020 = 2021,
+  e2021 = 743,
+  e2022 = 2085,
+  e2023 = 1622;
 let totale = e2020 + e2021 + e2022 + e2023;
 
 let avg2020 = (e2020 / totale) * 100;
@@ -14,36 +17,27 @@ let avg2023 = (e2023 / totale) * 100;
 avg2023 = parseFloat(avg2023.toFixed(2));
 
 let dati = {
-    labels: ['2020', '2021', '2022', '2023'],
-    datasets: [{
-        label: 'km Estate',
-        backgroundColor: [
-            'yellow',
-            'orange',
-            'red',
-            'purple'
-        ],
-        borderColor: [
-            'black',
-            'black',
-            'black',
-            'black'
-        ],
-        borderWidth: 1,
-        data: [e2020,e2021,e2022,e2023]  // Aggiunto un valore per il 2024, correggi se necessario
-    }]
+  labels: ["2020", "2021", "2022", "2023"],
+  datasets: [
+    {
+      label: "km Estate",
+      backgroundColor: ["yellow", "orange", "red", "purple"],
+      borderColor: ["black", "black", "black", "black"],
+      borderWidth: 1,
+      data: [e2020, e2021, e2022, e2023], // Aggiunto un valore per il 2024, correggi se necessario
+    },
+  ],
 };
 
 // Configurazione del grafico
 let config = {
-    type: 'doughnut',
-    data: dati,
+  type: "doughnut",
+  data: dati,
 };
 
 // Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById('doughnut-chart').getContext('2d');
+let ctx = document.getElementById("doughnut-chart").getContext("2d");
 new Chart(ctx, config);
-
 
 let stampa = `
 <div class="container">
@@ -103,12 +97,14 @@ let stampa = `
 
     </div>
 
+</div>
+
     
 </div>
-`
+`;
 document.getElementById("stampa").innerHTML = stampa;
 
-let avge = totale/4;
+let avge = totale / 4;
 avge = avge.toFixed(2);
 
 let stampaE = `
@@ -118,13 +114,12 @@ let stampaE = `
 </div>`;
 document.getElementById("totale").innerHTML = stampaE;
 
+document.addEventListener("DOMContentLoaded", function () {
+  let container = document.querySelector(".container");
+  let items = document.querySelectorAll(".Estatecontorno");
+  let isOdd = items.length % 2 !== 0;
 
-document.addEventListener("DOMContentLoaded", function() {
-    let container = document.querySelector('.container');
-    let items = document.querySelectorAll('.Estatecontorno');
-    let isOdd = items.length % 2 !== 0;
-
-    if (isOdd) {
-        container.classList.add('odd-items');
-    }
+  if (isOdd) {
+    container.classList.add("odd-items");
+  }
 });
