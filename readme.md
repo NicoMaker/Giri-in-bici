@@ -12,6 +12,8 @@
 - Hamburger con vari km e corse (per pagina home) -> Hamburger.js
 - stagioni.js (mettere a posto somma dei km per stagione Autunno-Inverno, Primavera o Estate) -> Primavera
 
+- Ricordarsi ogni mese di sistemare i mesi totali in generaleStatistiche.js e 2024.js
+
 ## Credenziali
 
 - Nome Utente -> NicoMaker
