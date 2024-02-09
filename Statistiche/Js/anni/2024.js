@@ -39,6 +39,9 @@ let corse = 6;
 let avgtot = totale / corse;
 avgtot = avgtot.toFixed(2);
 
+let avgmese = totale / 1;
+avgmese = avgmese.toFixed(2);
+
 let dati = {
     labels: ['Gennaio','Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
     datasets: [{
@@ -171,5 +174,6 @@ document.getElementById("mesi").innerHTML = stampatabella;
 let stampat = `
 <div class="colore">
     <p>totale km ${totale} <img src="../Icone/traguardo.png"></p> <p>km medi percorsi ${avgtot}</p>
+    <p>km medi per mese ${avgmese}</p>
 </div>`;
 document.getElementById("totale").innerHTML = stampat;

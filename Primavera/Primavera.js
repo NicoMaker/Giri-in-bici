@@ -24,10 +24,10 @@ let dati = {
             '#97ed86ce'
         ],
         borderColor: [
-            'pink',
-            'antiquewhite',
-            'cyan',
-            '#97ed86ce'
+            'black',
+            'black',
+            'black',
+            'black'
         ],
         borderWidth: 1,
         data: [p2021, p2022, p2023,p2024]  // Aggiunto un valore per il 2024, correggi se necessario
@@ -98,7 +98,7 @@ let stampa = `
 `;
 document.getElementById("stampa").innerHTML = stampa;
 
-let avgp = totale/3;
+let avgp = totale/4;
 avgp = avgp.toFixed(2);
 
 let stampaP = `

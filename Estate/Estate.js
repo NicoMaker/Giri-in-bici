@@ -24,10 +24,10 @@ let dati = {
             'purple'
         ],
         borderColor: [
-            'yellow',
-            'orange',
-            'red',
-            'purple'
+            'black',
+            'black',
+            'black',
+            'black'
         ],
         borderWidth: 1,
         data: [e2020,e2021,e2022,e2023]  // Aggiunto un valore per il 2024, correggi se necessario

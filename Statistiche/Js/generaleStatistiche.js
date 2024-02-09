@@ -21,9 +21,11 @@ let corse = 188;
 let avgtot = totale / corse;
 avgtot = avgtot.toFixed(2);
 
-let anno = 5;
-let avganno = totale / anno;
+let avganno = totale / 5;
 avganno = avganno.toFixed(2);
+
+let avgmese = totale / 44;
+avgmese = avgmese.toFixed(2);
 
 let dati = {
     labels: ['Statistiche 2020', 'Statistiche 2021', 'Statistiche 2022', 'Statistiche 2023', 'Statistiche 2024'],
@@ -109,6 +111,7 @@ let stampat = `
         <img src="Icone/traguardo.png"></p> 
     <p>km medi per giro percorsi ${avgtot}</p>
     <p> km medi per anno percorsi ${avganno} </p>
+    <p>km medi per mese ${avgmese}</p>
 </div>`;
 document.getElementById("totale").innerHTML = stampat;
 
