@@ -40,50 +40,43 @@ new Chart(ctx, config);
 
 let stampa = `
 
-<div class="container">
 <div class="estate">
-        <a href="../Estate.html">
-            <img class="immaginestagionestat" src="../Icone/estate.png">
-            <p class="contornostagione">
-                Estate
-            </p>
-
-            <p>km totali
-                ${e} <img src="../Icone/traguardo.png">
-            </p>
-
-            <p> ${avge} % </p>
-        </a>
+    <a href="../Estate.html">
+        <img class="immaginestagionestat" src="../Icone/estate.png">
+        <p class="contornostagione">
+            Estate
+        </p>
+        <p>km totali
+            ${e} <img src="../Icone/traguardo.png">
+        </p>
+        <p> ${avge} % </p>
+    </a>
 </div>
 
 <div class="primavera">
-        <a href="../Primavera.html">
-            <img class="immaginestagionestat" src="../Icone/primavera.png">
-            <p class="contornostagione">
-                Primavera
-            </p>
-
-            <p>km totali
-                ${p} <img src="../Icone/traguardo.png">
-            </p>
-
-            <p> ${avgp} % </p>
-        </a>
+    <a href="../Primavera.html">
+        <img class="immaginestagionestat" src="../Icone/primavera.png">
+        <p class="contornostagione">
+            Primavera
+        </p>
+        <p>km totali
+            ${p} <img src="../Icone/traguardo.png">
+        </p>
+        <p> ${avgp} % </p>
+    </a>
 </div>
 
 <div class="autunno_inverno">
-        <a href="../Autunno_Inverno.html">
-            <img class="immaginestagionestat" src="../Icone/inverno.png">
-            <p class="contornostagione">
-                Autunno - Inverno
-            </p>
-
-            <p>km totali
-                ${ai} <img src="../Icone/traguardo.png">
-            </p>
-
-            <p> ${avgai} % </p>
-        </a>
+    <a href="../Autunno_Inverno.html">
+        <img class="immaginestagionestat" src="../Icone/inverno.png">
+        <p class="contornostagione">
+            Autunno - Inverno
+        </p>
+        <p>km totali
+            ${ai} <img src="../Icone/traguardo.png">
+        </p>
+        <p> ${avgai} % </p>
+    </a>
 </div>
 `;
 
