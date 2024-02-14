@@ -42,8 +42,8 @@ new Chart(ctx, config);
 let stampa = `
 <div class="container">
     <div class="Autunno-Invernocontorno">
-        <img class="immaginestagione" src="Icone/inverno.png">
             <a href="Autunno_Inverno/Autunno_Inverno2020-2021.html">
+                <img class="immaginestagione" src="Icone/inverno.png">
                 <p class="titoli">Autunno - Inverno 2020/2021
                 <p>Totale km <img src="Icone/traguardo.png"> 
                 ${AI202021}</p> <p> ${avg2021} % </p>
@@ -52,8 +52,8 @@ let stampa = `
     </div>
 
     <div class="Autunno-Invernocontorno">
-        <img class="immaginestagione" src="Icone/inverno.png">
             <a href="Autunno_Inverno/Autunno_Inverno2021-2022.html">
+                <img class="immaginestagione" src="Icone/inverno.png">
                 <p class="titoli">Autunno - Inverno 2021/2022
                 <p>Totale km <img src="Icone/traguardo.png"> 
                 ${AI202122}</p> <p> ${avg2122} % </p>
@@ -62,8 +62,8 @@ let stampa = `
     </div>
 
     <div class="Autunno-Invernocontorno">
-        <img class="immaginestagione" src="Icone/inverno.png">
             <a href="Autunno_Inverno/Autunno_Inverno2022-2023.html">
+                <img class="immaginestagione" src="Icone/inverno.png">
                 <p class="titoli">Autunno - Inverno 2022/2023
                 <p>Totale km <img src="Icone/traguardo.png"> 
                 ${AI202223}</p> <p> ${avg2223} % </p>
@@ -72,8 +72,8 @@ let stampa = `
     </div>
 
     <div class="Autunno-Invernocontorno">
-        <img class="immaginestagione" src="Icone/inverno.png">
             <a href="Autunno_Inverno/Autunno_Inverno2023-2024.html">
+                <img class="immaginestagione" src="Icone/inverno.png">
                 <p class="titoli">Autunno - Inverno 2023/2024
                 <p>Totale km <img src="Icone/traguardo.png"> 
                 ${AI202324}</p> <p> ${avg2324} % </p>

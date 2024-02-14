@@ -64,6 +64,7 @@ let stampa = `
 <div class="container">
     <div class="Statistiche">
         <a href="Statistiche/Statistiche2020.html">
+            <img class="immaginestagione" src="Icone/Statistiche.png">
             <p class="titoli"> Statistiche 2020 </p>
             <p> km totali <img src="Icone/traguardo.png">
             ${s2020}</p><p>${avg2020} %</p>
@@ -72,6 +73,7 @@ let stampa = `
 
     <div class="Statistiche">
         <a href="Statistiche/Statistiche2021.html">
+            <img class="immaginestagione" src="Icone/Statistiche.png">
             <p class="titoli"> Statistiche 2021 </p>
             <p> km totali <img src="Icone/traguardo.png">
             ${s2021}</p><p>${avg2021} %</p>
@@ -80,6 +82,7 @@ let stampa = `
 
     <div class="Statistiche">
         <a href="Statistiche/Statistiche2022.html">
+            <img class="immaginestagione" src="Icone/Statistiche.png">
             <p class="titoli"> Statistiche 2022 </p>
             <p> km totali <img src="Icone/traguardo.png">
             ${s2022}</p><p>${avg2022} %</p>
@@ -88,6 +91,7 @@ let stampa = `
 
     <div class="Statistiche">
         <a href="Statistiche/Statistiche2023.html">
+            <img class="immaginestagione" src="Icone/Statistiche.png">
             <p class="titoli"> Statistiche 2023 </p>
             <p> km totali <img src="Icone/traguardo.png">
             ${s2023}</p><p>${avg2023} %</p>
@@ -96,6 +100,7 @@ let stampa = `
 
     <div class="Statistiche">
         <a href="Statistiche/Statistiche2024.html">
+            <img class="immaginestagione" src="Icone/Statistiche.png">
             <p class="titoli"> Statistiche 2024 </p>
             <p> km totali <img src="Icone/traguardo.png">
             ${s2024}</p><p>${avg2024} %</p>

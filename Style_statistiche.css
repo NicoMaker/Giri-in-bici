@@ -211,3 +211,10 @@ canvas {
   width: 100%;
   margin: 5px;
 }
+
+.immaginestagione {
+  width: 100px;
+  height: 100px;
+  margin: 50px auto 0;
+  float: left;
+}

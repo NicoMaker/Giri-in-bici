@@ -43,8 +43,8 @@ let stampa = `
 
 <div class="container">
     <div class="Primaveracontorno">
-        <img class="immaginestagione" src="Icone/primavera.png">
         <a href="Primavera/Primavera2021.html">
+            <img class="immaginestagione" src="Icone/primavera.png">
             <p class="titoli">
                 Primavera 2021
 
@@ -55,8 +55,8 @@ let stampa = `
     </div>
 
     <div class="Primaveracontorno">
-        <img class="immaginestagione" src="Icone/primavera.png">
         <a href="Primavera/Primavera2022.html">
+            <img class="immaginestagione" src="Icone/primavera.png">
             <p class="titoli">
                 Primavera 2022
 
@@ -67,8 +67,8 @@ let stampa = `
     </div>
 
     <div class="Primaveracontorno">
-        <img class="immaginestagione" src="Icone/primavera.png">
         <a href="Primavera/Primavera2023.html">
+            <img class="immaginestagione" src="Icone/primavera.png">
             <p class="titoli">
                 Primavera 2023
 
@@ -79,8 +79,8 @@ let stampa = `
     </div>
 
     <div class="Primaveracontorno">
-        <img class="immaginestagione" src="Icone/primavera.png">
         <a href="Primavera/Primavera2024.html">
+            <img class="immaginestagione" src="Icone/primavera.png">
             <p class="titoli">
                 Primavera 2024
 

@@ -42,12 +42,10 @@ new Chart(ctx, config);
 let stampa = `
 <div class="container">
     <div class="Estatecontorno">
-        <img class="immaginestagione" src="Icone/estate.png">
         <a href="Estate/Estate2020.html">
-
+            <img class="immaginestagione" src="Icone/estate.png">
             <p class="titoli">
                 Estate 2020
-
                 <p>Totale km <img src="Icone/traguardo.png"> 
                 ${e2020}</p> <p> ${avg2020} % </p>
             </p>
@@ -56,12 +54,10 @@ let stampa = `
     </div>
 
     <div class="Estatecontorno">
-        <img class="immaginestagione" src="Icone/estate.png">
             <a href="Estate/Estate2021.html">
-
+                <img class="immaginestagione" src="Icone/estate.png">
                 <p class="titoli">
                 Estate 2021
-
                 <p>Totale km <img src="Icone/traguardo.png"> 
                 ${e2021}</p> <p> ${avg2021} % </p>
                 </p>
@@ -70,12 +66,10 @@ let stampa = `
     </div>
 
     <div class="Estatecontorno">
-        <img class="immaginestagione" src="Icone/estate.png">
             <a href="Estate/Estate2022.html">
-
+                <img class="immaginestagione" src="Icone/estate.png">
                 <p class="titoli">
                 Estate 2022
-
                 <p>Totale km <img src="Icone/traguardo.png"> 
                 ${e2022}</p> <p> ${avg2022} % </p>
                 </p>
@@ -84,12 +78,10 @@ let stampa = `
     </div>
 
     <div class="Estatecontorno">
-        <img class="immaginestagione" src="Icone/estate.png">
             <a href="Estate/Estate2023.html">
-
+                <img class="immaginestagione" src="Icone/estate.png">
                 <p class="titoli">
                 Estate 2023
-
                 <p>Totale km <img src="Icone/traguardo.png"> 
                 ${e2023}</p> <p> ${avg2023} % </p>
                 </p>
