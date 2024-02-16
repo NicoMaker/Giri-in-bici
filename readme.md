@@ -3,13 +3,13 @@
 ## Aggiornare HTML
 
 - Pagina corrispondente alla stagione con l'anno che ti interessa (Autunno - Inverno, Primavera o Estate dell'anno interessato) -> Primavera2024.html
+- Giri con vari km e corse -> Giri.html
 
 ## Aggiornare JS
 
 - Stagione corrispondente (Autunno-Inverno, Primavera o Estate) Estate.js o Autunno-inverno.js o Primavera.js -> Primavera.js
 - Statistiche anno interessato (km per mese e numero corse) -> 2024.js
 - Statistiche generale (km anno e numero corse) -> generaleStatistiche.js
-- Hamburger con vari km e corse (per pagina home) -> Hamburger.js
 - stagioni.js (mettere a posto somma dei km per stagione Autunno-Inverno, Primavera o Estate) -> Primavera
 
 - Ricordarsi ogni mese di sistemare i mesi totali in generaleStatistiche.js e 2024.js

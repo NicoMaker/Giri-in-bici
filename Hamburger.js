@@ -16,16 +16,3 @@ function toggleMenu() {
 }
 
 hamburger.addEventListener("click", toggleMenu);
-
-let totale = 13280;
-let corse = 188;
-
-let avgtot = totale / corse;
-avgtot = parseFloat(avgtot.toFixed(2));
-
-let stampat = `
-<div class="colore">
-    <p>totale km ${totale} <img src="Icone/traguardo.png"></p> 
-    <p>km medi per giro percorsi ${avgtot}</p>
-</div>`;
-document.getElementById("totale").innerHTML = stampat;

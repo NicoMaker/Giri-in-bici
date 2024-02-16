@@ -6,7 +6,21 @@ let corse = parseFloat(
 let mediaValue = km / corse;
 mediaValue = parseFloat(mediaValue.toFixed(2));
 
-let stampa = `
+
+let stampa = ``;
+
+if (document.getElementById("km").hasAttribute("principale"))
+    stampa = `
+    <div class="colore">
+        <p> totale km ${km}
+            <img src="../Icone/traguardo.png">
+        </p>
+        <p>km medi per giro percorsi ${mediaValue} </p>
+    </div>
+    `;
+
+else
+    stampa = `
     <div class="colore">
         <p> totale km ${km}
             <img src="../Icone/traguardo.png">
