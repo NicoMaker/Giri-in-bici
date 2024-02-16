@@ -1,52 +1,25 @@
-let Maggio = 45,
-  Giugno = 367,
-  Luglio = 627,
-  Agosto = 691,
-  Settembre = 291,
-  Novembre = 192,
-  Dicembre = 243;
-let totale =
-  Maggio + Giugno + Luglio + Agosto + Settembre + Novembre + Dicembre;
+const data = {
+  Maggio: 45,
+  Giugno: 367,
+  Luglio: 627,
+  Agosto: 691,
+  Settembre: 291,
+  Novembre: 192,
+  Dicembre: 243,
+};
 
-let avgmaggio = (Maggio / totale) * 100;
-avgmaggio = avgmaggio.toFixed(2);
+const mesi = Object.keys(data);
+const chilometri = Object.values(data);
 
-let avggiugno = (Giugno / totale) * 100;
-avggiugno = avggiugno.toFixed(2);
+const totale = chilometri.reduce((acc, curr) => acc + curr, 0);
+const percentuali = chilometri.map((km) => ((km / totale) * 100).toFixed(2));
 
-let avgluglio = (Luglio / totale) * 100;
-avgluglio = avgluglio.toFixed(2);
+const corse = 32;
+const kmMediPerCorsa = (totale / corse).toFixed(2);
+const kmMediPerMese = (totale / mesi.length).toFixed(2);
 
-let avgagosto = (Agosto / totale) * 100;
-avgagosto = avgagosto.toFixed(2);
-
-let avgsettembre = (Settembre / totale) * 100;
-avgsettembre = avgsettembre.toFixed(2);
-
-let avgnovembre = (Novembre / totale) * 100;
-avgnovembre = avgnovembre.toFixed(2);
-
-let avgdicembre = (Dicembre / totale) * 100;
-avgdicembre = avgdicembre.toFixed(2);
-
-let corse = 32;
-
-let avgtot = totale / corse;
-avgtot = avgtot.toFixed(2);
-
-let avgmese = totale / 7;
-avgmese = avgmese.toFixed(2);
-
-let dati = {
-  labels: [
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Novembre",
-    "Dicembre",
-  ],
+const dati = {
+  labels: mesi,
   datasets: [
     {
       label: "km mensili 2020",
@@ -57,25 +30,16 @@ let dati = {
         "red",
         "darkgreen",
         "cyan",
-        "blue",
+        "blue"
       ],
-      borderColor: [
-        "black",
-        "black",
-        "black",
-        "black",
-        "black",
-        "black",
-        "black",
-      ],
+      borderColor: Array(7).fill("black"),
       borderWidth: 1,
-      data: [Maggio, Giugno, Luglio, Agosto, Settembre, Novembre, Dicembre],
+      data: chilometri,
     },
   ],
 };
 
-// Configurazione del grafico
-let config = {
+const config = {
   type: "bar",
   data: dati,
   options: {
@@ -87,66 +51,33 @@ let config = {
   },
 };
 
-// Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById("bar-chart").getContext("2d");
+const ctx = document.getElementById("bar-chart").getContext("2d");
 new Chart(ctx, config);
 
-let stampatabella = `
-
-    <tr class="grasetto">
-        <th>Mese</th>
-        <th>km <img src="../Icone/traguardo.png">
-        </th>
-        <th>Percentuale su anno</th>
-    </tr>
-
-    <tr>
-        <td> Maggio </td>
-        <td>${Maggio}</td>
-        <td>${avgmaggio} %</td>
-    </tr>
-
-    <tr>
-        <td> Giugno </td>
-        <td>${Giugno}</td>
-        <td>${avggiugno} %</td>
-    </tr>
-
-    <tr>
-        <td> Luglio </td>
-        <td>${Luglio}</td>
-        <td>${avgluglio} %</td>
-    </tr>
-
-    <tr>
-        <td> Agossto </td>
-        <td>${Agosto}</td>
-        <td>${avgagosto} %</td>
-    </tr>
-
-    <tr>
-        <td> Settembre </td>
-        <td>${Settembre}</td>
-        <td>${avgsettembre} %</td>
-    </tr>
-
-    <tr>
-        <td> Novembre </td>
-        <td>${Novembre}</td>
-        <td>${avgnovembre} %</td>
-    </tr>
-
-    <tr>
-        <td> Dicembre </td>
-        <td>${Dicembre}</td>
-        <td>${avgdicembre} %</td>
-    </tr>
+const tabellaDati = `
+<tr class="grassetto">
+  <th>Mese</th>
+  <th>km <img src="../Icone/traguardo.png"></th>
+  <th>Percentuale su anno</th>
+</tr>
+${mesi
+  .map(
+    (mese, index) => `
+<tr>
+    <td>${mese}</td>
+    <td>${chilometri[index]}</td>
+    <td>${percentuali[index]} %</td>
+</tr>`
+  )
+  .join("")}
 `;
-document.getElementById("mesi").innerHTML = stampatabella;
 
-let stampat = `
+const stampat = `
 <div class="colore">
-    <p>totale km ${totale} <img src="../Icone/traguardo.png"></p> <p>km medi percorsi ${avgtot}</p>
-    <p>km medi per mese ${avgmese}</p>
+    <p>totale km ${totale} <img src="../Icone/traguardo.png"></p>
+    <p>km medi percorsi ${kmMediPerCorsa}</p>
+    <p>km medi per mese ${kmMediPerMese}</p>
 </div>`;
+
+document.getElementById("mesi").innerHTML = tabellaDati;
 document.getElementById("totale").innerHTML = stampat;

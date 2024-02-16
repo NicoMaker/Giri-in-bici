@@ -1,32 +1,27 @@
-let km = parseFloat(document.getElementById("km").getAttribute("data-km"));
-let corse = parseFloat(
-  document.getElementById("km").getAttribute("data-corse")
-);
+let kmElement = document.getElementById("km");
+if (!kmElement) {
+  console.error("Elemento non trovato.");
+} else {
+  let km = parseFloat(kmElement.getAttribute("data-km"));
+  let corse = parseFloat(kmElement.getAttribute("data-corse"));
 
-let mediaValue = km / corse;
-mediaValue = parseFloat(mediaValue.toFixed(2));
+  if (!isNaN(km) && !isNaN(corse)) {
+    let mediaValue = (km / corse).toFixed(2);
+    let imgSrc = kmElement.hasAttribute("principale")
+      ? "Icone/traguardo.png"
+      : "../Icone/traguardo.png";
 
+    let stampa = `
+            <div class="colore">
+                <p> totale km ${km} <img src="${imgSrc}"> </p>
+                <p> km medi ${
+                  kmElement.hasAttribute("principale") ? "per giro" : ""
+                } percorsi ${mediaValue} </p>
+            </div>
+        `;
 
-let stampa = ``;
-
-if (document.getElementById("km").hasAttribute("principale"))
-    stampa = `
-    <div class="colore">
-        <p> totale km ${km}
-            <img src="../Icone/traguardo.png">
-        </p>
-        <p>km medi per giro percorsi ${mediaValue} </p>
-    </div>
-    `;
-
-else
-    stampa = `
-    <div class="colore">
-        <p> totale km ${km}
-            <img src="../Icone/traguardo.png">
-        </p>
-        <p>km medi percorsi ${mediaValue} </p>
-    </div>
-    `;
-
-document.getElementById("km").innerHTML = stampa;
+    kmElement.innerHTML = stampa;
+  } else {
+    console.error("Dati non validi.");
+  }
+}

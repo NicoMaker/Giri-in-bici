@@ -12,7 +12,7 @@
 - Statistiche generale (km anno e numero corse) -> generaleStatistiche.js
 - stagioni.js (mettere a posto somma dei km per stagione Autunno-Inverno, Primavera o Estate) -> Primavera
 
-- Ricordarsi ogni mese di sistemare i mesi totali in generaleStatistiche.js e 2024.js
+- Ricordarsi ogni mese di sistemare i mesi totali in generaleStatistiche.js
 
 ## Credenziali
 

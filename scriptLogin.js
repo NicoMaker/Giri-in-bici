@@ -1,6 +1,6 @@
-let currentYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear();
 
-let users = [
+const users = [
   { username: "NicoMaker", password: `Giri${currentYear}` },
   { username: "Jacoreds", password: `Giri${currentYear}` },
 ];
@@ -8,41 +8,39 @@ let users = [
 document
   .getElementById("loginForm")
   .addEventListener("submit", function (event) {
-    event.preventDefault(); // Evita il comportamento di default del form
+    event.preventDefault();
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-    let user = users.find(
+    // Cerca l'utente nella lista degli utenti
+    const user = users.find(
       (u) => u.username === username && u.password === password
     );
 
-    if (user) window.location.href = "giri.html";
-    else alert("Nome utente o password non validi!");
+    if (user) {
+      window.location.href = "giri.html";
+    } else {
+      alert("Nome utente o password non validi!");
+    }
   });
 
-// Genera un numero casuale compreso tra min e max
-let getRandomNumber = (min, max) =>
+const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
-// Genera un colore casuale in formato RGB
-function getRandomColor() {
-  let red = getRandomNumber(0, 255);
-  let green = getRandomNumber(0, 255);
-  let blue = getRandomNumber(0, 255);
-  return `rgb(${red}, ${green}, ${blue})`;
-}
+const getRandomColor = () =>
+  `rgb(${getRandomNumber(0, 255)}, ${getRandomNumber(
+    0,
+    255
+  )}, ${getRandomNumber(0, 255)})`;
 
-// Imposta lo sfondo con un'immagine astratta
 function setAbstractBackground() {
-  let container = document.getElementById("container");
-  let backgroundColor = getRandomColor();
-  let backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
+  const container = document.getElementById("container");
+  const backgroundColor = getRandomColor();
+  const backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
   container.style.backgroundColor = backgroundColor;
   container.style.backgroundImage = backgroundImage;
 }
 
-// Chiamata alla funzione per impostare lo sfondo all'avvio
 setAbstractBackground();
-
 setInterval(setAbstractBackground, 1500);

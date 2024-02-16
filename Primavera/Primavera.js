@@ -1,112 +1,76 @@
-let p2021 = 579,
-  p2022 = 885,
-  p2023 = 742,
-  p2024 = 0;
-let totale = p2021 + p2022 + p2023 + p2024;
-
-let avg2021 = (p2021 / totale) * 100;
-avg2021 = parseFloat(avg2021.toFixed(2));
-
-let avg2022 = (p2022 / totale) * 100;
-avg2022 = parseFloat(avg2022.toFixed(2));
-
-let avg2023 = (p2023 / totale) * 100;
-avg2023 = parseFloat(avg2023.toFixed(2));
-
-let avg2024 = (p2024 / totale) * 100;
-avg2024 = parseFloat(avg2024.toFixed(2));
-
-let dati = {
-  labels: ["2021", "2022", "2023", "2024"],
-  datasets: [
-    {
-      label: "km Primavera",
-      backgroundColor: ["pink", "antiquewhite", "cyan", "#97ed86ce"],
-      borderColor: ["black", "black", "black", "black"],
-      borderWidth: 1,
-      data: [p2021, p2022, p2023, p2024], // Aggiunto un valore per il 2024, correggi se necessario
-    },
-  ],
+const data = {
+  2021: 579,
+  2022: 885,
+  2023: 742,
+  2024: 0,
 };
 
-// Configurazione del grafico
-let config = {
+const labels = Object.keys(data);
+const values = Object.values(data);
+const totale = values.reduce((acc, cur) => acc + cur, 0);
+
+const avgValues = labels.map((label) =>
+  ((data[label] / totale) * 100).toFixed(2)
+);
+
+const datasets = [
+  {
+    label: "km Primavera",
+    backgroundColor: ["pink", "antiquewhite", "cyan", "#97ed86ce"],
+    borderColor: ["black", "black", "black", "black"],
+    borderWidth: 1,
+    data: values,
+  },
+];
+
+const doughnutData = {
+  labels,
+  datasets,
+};
+
+const doughnutConfig = {
   type: "doughnut",
-  data: dati,
+  data: doughnutData,
 };
 
-// Ottenere il contesto del canvas e creare il grafico
-let ctx = document.getElementById("doughnut-chart").getContext("2d");
-new Chart(ctx, config);
+const doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
+new Chart(doughnutCtx, doughnutConfig);
 
-let stampa = `
+const stampa = labels
+  .map(
+    (label, index) => `
+<div class="Primaveracontorno">
+    <a href="Primavera/Primavera${label}.html">
+        <img class="immaginestagione" src="Icone/primavera.png">
+        <p class="titoli">
+            Primavera ${label}
 
-<div class="container">
-    <div class="Primaveracontorno">
-        <a href="Primavera/Primavera2021.html">
-            <img class="immaginestagione" src="Icone/primavera.png">
-            <p class="titoli">
-                Primavera 2021
-
-                <p>Totale km <img src="Icone/traguardo.png"> ${p2021}</p> 
-                <p> ${avg2021} % </p>
-            </p>
-        </a>
-    </div>
-
-    <div class="Primaveracontorno">
-        <a href="Primavera/Primavera2022.html">
-            <img class="immaginestagione" src="Icone/primavera.png">
-            <p class="titoli">
-                Primavera 2022
-
-                <p>Totale km <img src="Icone/traguardo.png"> ${p2022}</p> 
-                <p> ${avg2022} % </p>
-            </p>
-        </a>
-    </div>
-
-    <div class="Primaveracontorno">
-        <a href="Primavera/Primavera2023.html">
-            <img class="immaginestagione" src="Icone/primavera.png">
-            <p class="titoli">
-                Primavera 2023
-
-                <p>Totale km <img src="Icone/traguardo.png"> ${p2023}</p> 
-                <p> ${avg2023} % </p>
-            </p>
-        </a>
-    </div>
-
-    <div class="Primaveracontorno">
-        <a href="Primavera/Primavera2024.html">
-            <img class="immaginestagione" src="Icone/primavera.png">
-            <p class="titoli">
-                Primavera 2024
-
-                <p>Totale km <img src="Icone/traguardo.png"> ${p2024}</p> 
-                <p> ${avg2024} % </p>
-            </p>
-        </a>
-    </div>
+            <p>Totale km <img src="Icone/traguardo.png"> ${data[label]}</p> 
+            <p> ${avgValues[index]} % </p>
+        </p>
+    </a>
 </div>
-`;
-document.getElementById("stampa").innerHTML = stampa;
+`
+  )
+  .join("");
 
-let avgp = totale / 4;
-avgp = avgp.toFixed(2);
+document.getElementById(
+  "stampa"
+).innerHTML = `<div class="container">${stampa}</div>`;
 
-let stampaP = `
+const avgP = (totale / labels.length).toFixed(2);
+
+const stampaP = `
 <div class="colore">
     <p>Totale km percorsi in Primavera ${totale} <img src="Icone/traguardo.png"> </p>
-    <p>media km per stagione ${avgp} </p>
+    <p>media km per stagione ${avgP} </p>
 </div>`;
 document.getElementById("totale").innerHTML = stampaP;
 
 document.addEventListener("DOMContentLoaded", function () {
-  let container = document.querySelector(".container");
-  let items = document.querySelectorAll(".Primaveracontorno");
-  let isOdd = items.length % 2 !== 0;
+  const container = document.querySelector(".container");
+  const items = document.querySelectorAll(".Primaveracontorno");
+  const isOdd = items.length % 2 !== 0;
 
   if (isOdd) {
     container.classList.add("odd-items");
