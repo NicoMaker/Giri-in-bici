@@ -17,7 +17,7 @@ const datasets = [
   {
     label: "km Primavera",
     backgroundColor: ["pink", "antiquewhite", "cyan", "#97ed86ce"],
-    borderColor: ["black", "black", "black", "black"],
+    borderColor: Array(4).fill("black"),
     borderWidth: 1,
     data: values,
   },

@@ -23,7 +23,7 @@ const datasets = [
   {
     label: "km totali",
     backgroundColor: ["yellow", "lightgreen", "orange", "cyan", "red"],
-    borderColor: ["black", "black", "black", "black", "black"],
+    borderColor: Array(5).fill("black"),
     borderWidth: 1,
     data: values,
   },

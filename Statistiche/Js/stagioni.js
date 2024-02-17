@@ -14,7 +14,7 @@ const dati = {
     {
       label: "km totali stagione",
       backgroundColor: ["red", "lightgreen", "lightblue"],
-      borderColor: ["black", "black", "black"],
+      borderColor: Array(3).fill("black"),
       borderWidth: 1,
       data: [e, p, ai],
     },

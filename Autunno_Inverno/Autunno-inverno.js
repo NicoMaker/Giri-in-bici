@@ -17,7 +17,7 @@ const datasets = [
   {
     label: "km Autunno - Inverno",
     backgroundColor: ["yellowgreen", "skyblue", "#ba690c", "blue"],
-    borderColor: ["black", "black", "black", "black"],
+    borderColor: Array(4).fill("black"),
     borderWidth: 1,
     data: values,
   },

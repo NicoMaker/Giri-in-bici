@@ -17,7 +17,7 @@ const datasets = [
   {
     label: "km Estate",
     backgroundColor: ["yellow", "orange", "red", "purple"],
-    borderColor: ["black", "black", "black", "black"],
+    borderColor: Array(4).fill("black"),
     borderWidth: 1,
     data: values,
   },
