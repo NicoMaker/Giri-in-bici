@@ -1,0 +1,173 @@
+{
+  "Dati Bici": {
+    "Stagioni": {
+      "Estate": {
+        "2020": {
+          "km": 2021,
+          "Numero Corse": 25
+        },
+        "2021": {
+          "km": 743,
+          "Numero Corse": 8
+        },
+        "2022": {
+          "km": 2085,
+          "Numero Corse": 24
+        },
+        "2023": {
+          "km": 1622,
+          "Numero Corse": 24
+        },
+        "Totale": {
+          "km": 6471,
+          "Numero Corse": 81
+        }
+      },
+
+      "Autunno - Inverno": {
+        "2020-2021": {
+          "km": 1305,
+          "Numero Corse": 21
+        },
+        "2021-2022": {
+          "km": 729,
+          "Numero Corse": 11
+        },
+        "2022-2023": {
+          "km": 806,
+          "Numero Corse": 16
+        },
+        "2023-2024": {
+          "km": 1763,
+          "Numero Corse": 22
+        },
+
+        "Totale": {
+          "km": 4603,
+          "Numero Corse": 70
+        }
+      },
+      "Primavera": {
+        "2021": {
+          "km": 579,
+          "Numero Corse": 11
+        },
+        "2022": {
+          "km": 885,
+          "Numero Corse": 13
+        },
+        "2023": {
+          "km": 742,
+          "Numero Corse": 13
+        },
+
+        "2024": { "km": 0, "Numero Corse": 0 },
+        "Totale": { "km": 2206, "Numero Corse": 37 }
+      }
+    },
+
+    "Statistiche": {
+      "2020": {
+        "Mesi": {
+          "Maggio": 45,
+          "Giugno": 367,
+          "Luglio": 627,
+          "Agosto": 691,
+          "Settembre": 291,
+          "Novembre": 192,
+          "Dicembre": 243
+        },
+        "Dati": {
+          "Numero Corse": 32,
+          "Totale": 2456
+        }
+      },
+      "2021": {
+        "Mesi": {
+          "Gennaio": 152,
+          "Febbraio": 315,
+          "Marzo": 302,
+          "Aprile": 323,
+          "Maggio": 180,
+          "Giugno": 270,
+          "Luglio": 401,
+          "Agosto": 174,
+          "Settembre": 75,
+          "Ottobre": 216,
+          "Novembre": 66,
+          "Dicembre": 140
+        },
+        "Dati": {
+          "Numero Corse": 40,
+          "Totale": 2614
+        }
+      },
+      "2022": {
+        "Mesi": {
+          "Gennaio": 65,
+          "Febbraio": 242,
+          "Marzo": 244,
+          "Aprile": 92,
+          "Maggio": 270,
+          "Giugno": 279,
+          "Luglio": 601,
+          "Agosto": 542,
+          "Settembre": 604,
+          "Ottobre": 627,
+          "Novembre": 133,
+          "Dicembre": 109
+        },
+        "Dati": {
+          "Numero Corse": 62,
+          "Totale": 3808
+        }
+      },
+      "2023": {
+        "Mesi": {
+          "Gennaio": 127,
+          "Febbraio": 148,
+          "Marzo": 194,
+          "Aprile": 103,
+          "Maggio": 242,
+          "Giugno": 265,
+          "Luglio": 422,
+          "Agosto": 426,
+          "Settembre": 712,
+          "Ottobre": 420,
+          "Novembre": 299,
+          "Dicembre": 558
+        },
+        "Dati": {
+          "Numero Corse": 58,
+          "Totale": 3916
+        }
+      },
+      "2024": {
+        "Mesi": {
+          "Gennaio": 486,
+          "Febbraio": 0,
+          "Marzo": 0,
+          "Aprile": 0,
+          "Maggio": 0,
+          "Giugno": 0,
+          "Luglio": 0,
+          "Agosto": 0,
+          "Settembre": 0,
+          "Ottobre": 0,
+          "Novembre": 0,
+          "Dicembre": 0
+        },
+        "Dati": {
+          "Numero Corse": 6,
+          "Totale": 486
+        }
+      },
+      "Totale": {
+        "Dati": {
+          "km": 13280,
+          "Numero Corse": 188
+        }
+      }
+    }
+  }
+}

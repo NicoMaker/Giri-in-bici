@@ -14,6 +14,12 @@
 
 - Ricordarsi ogni mese di sistemare i mesi totali in generaleStatistiche.js
 
+## Aggiornare Json complessivo
+
+- Dati Stagione e totale stagione e numero corse per stagione
+- Statistcihe mese e totale anno e totale complessivo e numero corse per anno e totali
+
+
 ## Credenziali
 
 - Nome Utente -> NicoMaker
