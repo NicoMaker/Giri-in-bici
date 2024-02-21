@@ -7,16 +7,12 @@ if (!kmElement) {
 
   if (!isNaN(km) && !isNaN(corse)) {
     let mediaValue = (km / corse).toFixed(2);
-    let imgSrc = kmElement.hasAttribute("principale")
-      ? "Icone/traguardo.png"
-      : "../Icone/traguardo.png";
 
     let stampa = `
             <div class="colore">
-                <p> totale km ${km} <img src="${imgSrc}"> </p>
-                <p> km medi ${
-                  kmElement.hasAttribute("principale") ? "per giro" : ""
-                } percorsi ${mediaValue} </p>
+                <p> totale km ${km} <img src="Icone/traguardo.png"> </p>
+                <p> km medi per giro
+                percorsi ${mediaValue} </p>
             </div>
         `;
 
