@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     { date: "30 maggio", number: 1, place: "quasi San Daniele", distance: 45 },
-    { date: "18 giugno", number: 2, place: "San daniele", distance: 52 },
+    { date: "18 giugno", number: 2, place: "San Daniele", distance: 52 },
     { date: "21 giugno", number: 3, place: "Pordenone", distance: 61 },
     { date: "23 giugno", number: 4, place: "San Daniele", distance: 66 },
     { date: "26 giugno", number: 5, place: "Latisana", distance: 55 },
