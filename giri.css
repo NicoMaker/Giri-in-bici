@@ -531,15 +531,3 @@ canvas {
   font-weight: bold;
   font-size: 40px;
 }
-
-.menu li:nth-child(2n){
-  background-color: #00ff9d;
-}
-
-.menu li:nth-child(2n + 3){
-  background-color: #f6fa70;
-}
-
-:nth-child(-n + 1):hover {
-  background-color: #00ff9d;
-}
