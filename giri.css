@@ -49,7 +49,6 @@ a {
   color: blue;
 }
 
-
 body {
   margin: 0;
   background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
@@ -316,7 +315,7 @@ a {
   height: 250px;
 }
 
-.animazione-bici:hover{
+.animazione-bici:hover {
   background-size: 100% 7%;
 }
 
@@ -452,7 +451,7 @@ canvas {
   font-size: 30px;
   border: none;
   cursor: pointer;
-  background: linear-gradient(to right, green, white,white,red);
+  background: linear-gradient(to right, green, white, white, red);
 }
 
 .hamburger .MenuIcon,
@@ -492,7 +491,6 @@ canvas {
   width: 150px;
 }
 
-
 .CloseIcon span,
 .MenuIcon span {
   cursor: pointer;
@@ -509,11 +507,12 @@ canvas {
   color: red;
 }
 
-.MenuIcon:hover,.CloseIcon:hover{
-  color:blue
+.MenuIcon:hover,
+.CloseIcon:hover {
+  color: blue;
 }
 
-.menu a{
+.menu a {
   box-sizing: border-box;
   display: flex;
   justify-content: center;
