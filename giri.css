@@ -18,7 +18,6 @@ p {
   color: black;
 }
 
-/**classe che mette in grasetto il testo**/
 .grasetto {
   font-weight: bold;
 }
@@ -317,27 +316,7 @@ a {
   height: 250px;
 }
 
-.animazione-git {
-  font-size: 2rem;
-  color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(cyan, cyan);
-  background-repeat: no-repeat;
-  background-position: bottom left;
-  background-size: 0% 50%;
-  transition: background-size 300ms ease-in-out;
-  font-family: "Dancing Script", cursive;
-  color: orangered;
-
-  display: block;
-  margin: 0 auto;
-  width: auto;
-  height: 50px;
-}
-
-.animazione-bici:hover,
-.animazione-git:hover {
-  font-family: "Dancing Script", cursive;
+.animazione-bici:hover{
   background-size: 100% 7%;
 }
 
