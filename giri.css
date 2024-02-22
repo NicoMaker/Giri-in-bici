@@ -243,6 +243,10 @@ a {
     margin: 10px;
     border-radius: 20%;
   }
+
+  .menu button {
+    width: 150px;
+  }
 }
 
 @media all and (min-width: 1024px) {
@@ -294,6 +298,10 @@ a {
     height: 400px;
     margin: 10px;
     border-radius: 20%;
+  }
+
+  .menu button {
+    width: 250px;
   }
 }
 
@@ -488,7 +496,6 @@ canvas {
   cursor: pointer;
   font-size: 25px;
   border-radius: 20px;
-  width: 150px;
 }
 
 .CloseIcon span,
