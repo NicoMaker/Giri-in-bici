@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Hubballi&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap");
 
 h1 {
   font-family: "Dancing Script", cursive;
@@ -15,21 +16,6 @@ p {
   font-size: 30px;
   text-align: center;
   color: black;
-}
-
-/**colore riga alternato pari**/
-tr:nth-child(2n) {
-  background-color: #09ff0059;
-}
-
-/**colore riga alternato dispari**/
-tr:nth-child(2n + 3) {
-  background-color: #f0ec067e;
-}
-
-/***colore prima linea tabella**/
-tr:nth-child(-n + 1) {
-  background-color: #0400ff60;
 }
 
 /**classe che mette in grasetto il testo**/
@@ -64,21 +50,6 @@ a {
   color: blue;
 }
 
-.menu {
-  position: fixed;
-  width: 20vw;
-  min-width: 600px;
-  height: 93%;
-  list-style: none;
-  right: 0;
-  transform: translateX(+100%);
-  transition: transform 550ms;
-  bottom: 0;
-  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
-  top: 0px;
-  z-index: 10;
-  overflow-y: auto;
-}
 
 body {
   margin: 0;
@@ -87,52 +58,6 @@ body {
 
 a {
   text-decoration: none;
-}
-
-.hamburger {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 20;
-  background: linear-gradient(to right, green, white, white, red);
-  border-radius: 50%;
-  text-shadow: 2px 2px 4px black;
-}
-
-.showMwnu {
-  transform: translateX(0);
-  cursor: pointer;
-}
-
-.CloseIcon {
-  display: none;
-  cursor: pointer;
-}
-
-.CloseIcon span,
-.MenuIcon span {
-  font-size: 60px;
-  cursor: pointer;
-}
-
-.menu table {
-  width: 100%;
-  height: calc(100% - 5px);
-  font-family: "Roboto", sans-serif;
-  text-align: center;
-}
-
-table {
-  width: 100%;
-  font-family: "Roboto", sans-serif;
-  text-align: center;
-  font-size: 30px;
-  background-color: white;
-}
-
-td,
-th {
-  border: 1px solid;
 }
 
 .container_stagione {
@@ -198,32 +123,6 @@ th {
 .colore_apertura:hover {
   font-family: "Dancing Script", cursive;
   background-size: 100% 25%;
-}
-
-.link_apertura {
-  font-size: 2rem;
-  color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(cyan, cyan);
-  background-repeat: no-repeat;
-  background-position: bottom left;
-  background-size: 0% 50%;
-  transition: background-size 300ms ease-in-out;
-  color: blue;
-}
-
-.link_apertura:hover {
-  background-size: 100% 25%;
-}
-
-.CloseIcon,
-.MenuIcon :hover {
-  color: blue;
-}
-
-tr:nth-child(2n + 3):hover,
-tr:nth-child(2n):hover {
-  background-color: white;
 }
 
 .colore {
@@ -542,4 +441,108 @@ canvas {
   height: 1000px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.menu {
+  position: fixed;
+  width: 20vw;
+  min-width: 200px;
+  height: 100%;
+  list-style: none;
+  right: -100%;
+  transition: right 550ms;
+  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
+  top: 0;
+  z-index: 10;
+  overflow-y: auto;
+  border-radius: 20px;
+}
+
+.menu.showMwnu {
+  right: 0;
+}
+
+.hamburger {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  border-radius: 50%;
+  color: black;
+  text-shadow: 2px 2px 4px black;
+  font-size: 30px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(to right, green, white,white,red);
+}
+
+.hamburger .MenuIcon,
+.hamburger .CloseIcon {
+  display: block;
+  text-align: center;
+}
+
+.hamburger .CloseIcon {
+  display: none;
+}
+
+.hamburger.closeIcon {
+  background: none;
+}
+
+.hamburger.closeIcon .MenuIcon {
+  display: none;
+}
+
+.hamburger.closeIcon .CloseIcon {
+  display: block;
+}
+
+.menu li {
+  padding: 20px;
+}
+
+.menu button {
+  padding: 10px;
+  background: none;
+  border: 2px solid darkblue;
+  color: darkblue;
+  cursor: pointer;
+  font-size: 25px;
+  border-radius: 20px;
+  width: 150px;
+}
+
+
+.CloseIcon span,
+.MenuIcon span {
+  cursor: pointer;
+}
+
+.CloseIcon,
+.MenuIcon,
+.CloseIcon span,
+.MenuIcon span {
+  font-size: 50px;
+}
+
+.menu a:hover {
+  color: red;
+}
+
+.MenuIcon:hover,.CloseIcon:hover{
+  color:blue
+}
+
+.menu a{
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  font-size: 40px;
 }
