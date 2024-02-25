@@ -6,6 +6,8 @@
   <link rel="icon" href="../Icone/bici.png" type="image/png" />
   <title>LE NOSTRE BICI</title>
   <script src="ScriptBici.js" defer></script>
+  <script src="../Hamburger.js" defer></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
@@ -49,8 +51,31 @@
     </button>
   </p>
 
-  <button class="stylebuttonbiciMTB" onclick="CalcolaMTB()">MTB</button>
-  <button class="stylebuttonbiciCorsa" onclick="CalcolaCorsa()">Corsa</button>
+  <ul class="menu">
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h1>Categorie Bici</h1>
+    <li>
+      <button class="bicimenu" onclick="CalcolaMTB()">MTB</button>
+    </li>
+
+    <li>
+      <button class="bicimenu" onclick="CalcolaCorsa()">Corsa</button>
+    </li>
+  </ul>
+
+  <button class="hamburger">
+    <i class="MenuIcon">
+        <span class="material-icons">menu</span>
+    </i>
+    <i class="CloseIcon">
+        <span class="material-icons">close</span>
+    </i>
+</button>
 
   <div id="StampaBici"></div>
 </body>

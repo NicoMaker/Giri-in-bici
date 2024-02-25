@@ -373,22 +373,7 @@ a {
   border-radius: 0px;
 }
 
-.stylebuttonbiciMTB,
-.stylebuttonbiciCorsa {
-  position: fixed;
-  top: 5px;
-  z-index: 10;
-  font-size: 50px;
-  color: red;
-  background-color: #00ff9d;
-  border-radius: 20px;
-  text-align: center;
-  text-shadow: 2px 2px 4px black;
-}
 
-.stylebuttonbiciCorsa {
-  right: 130px;
-}
 .stylebuttonbiciMTB {
   right: 10px;
 }
@@ -530,4 +515,12 @@ canvas {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   font-size: 40px;
+}
+
+.bicimenu{
+  font-size: 50px;
+}
+
+.bicimenu:hover{
+  color: red;
 }
