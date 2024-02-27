@@ -3,7 +3,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
 
-
 body {
   margin: 0;
   padding: 0;
@@ -139,8 +138,7 @@ footer {
   bottom: 0;
   width: 100%;
   text-align: center;
-  padding: 10px;
-  font-size: 25px;
+  left: 0px;
   text-shadow: 2px 2px 4px black;
 }
 
@@ -148,6 +146,13 @@ footer {
   footer {
     padding: 30px;
     font-size: 35px;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  footer {
+    padding: 10px;
+    font-size: 30px;
   }
 }
 
