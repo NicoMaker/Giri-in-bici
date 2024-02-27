@@ -524,3 +524,8 @@ canvas {
 .bicimenu:hover{
   color: red;
 }
+
+.logo{
+  height: 50px;
+  width: 50px;
+}
