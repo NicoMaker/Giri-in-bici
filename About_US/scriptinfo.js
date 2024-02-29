@@ -1,4 +1,5 @@
-const annoCorrente = new Date().getFullYear();
+const currentDate = new Date();
+const annoCorrente = currentDate.getFullYear();
 let nomiMesi = [
   "Gennaio",
   "Febbraio",
@@ -14,8 +15,8 @@ let nomiMesi = [
   "Dicembre",
 ];
 
-let numeroMeseCorrente = new Date().getMonth();
-const numeroGiorno = new Date().getDate();
+let numeroMeseCorrente = currentDate.getMonth();
+const numeroGiorno = currentDate.getDate();
 
 const meseCorrente = nomiMesi[numeroMeseCorrente];
 

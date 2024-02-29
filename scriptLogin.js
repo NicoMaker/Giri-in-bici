@@ -1,17 +1,19 @@
-const currentYear = new Date().getFullYear();
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const numeroMeseCorrente = currentDate.getMonth() + 1;
+const numeroGiorno = currentDate.getDate();
 
-let numeroMeseCorrente = new Date().getMonth();
-numeroMeseCorrente++;
-const numeroGiorno = new Date().getDate();
+const generatePassword = () =>
+  `Giri ${numeroGiorno}/${numeroMeseCorrente}/${currentYear}`;
 
 const users = [
   {
     username: "NicoMaker",
-    password: `Giri ${numeroGiorno}/${numeroMeseCorrente}/${currentYear}`,
+    password: generatePassword(),
   },
   {
     username: "Jacoreds",
-    password: `Giri ${numeroGiorno}/${numeroMeseCorrente}/${currentYear}`,
+    password: generatePassword(),
   },
 ];
 
@@ -23,7 +25,6 @@ document
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    // Cerca l'utente nella lista degli utenti
     const user = users.find(
       (u) => u.username === username && u.password === password
     );
@@ -37,7 +38,6 @@ document
 
 const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
-
 const getRandomColor = () =>
   `rgb(${getRandomNumber(0, 255)}, ${getRandomNumber(
     0,
