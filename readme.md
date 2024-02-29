@@ -17,7 +17,7 @@
 ## Credenziali
 
 - Nome Utente -> NicoMaker
-- Password -> Giri anno corrispondente
+- Password -> cambia ogni giorno con questo stile Giri Giorno/numero mese/numero giorno
 
 ## Logo e Apertura sito
 

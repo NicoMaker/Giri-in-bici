@@ -1,8 +1,18 @@
 const currentYear = new Date().getFullYear();
 
+let numeroMeseCorrente = new Date().getMonth();
+numeroMeseCorrente++;
+const numeroGiorno = new Date().getDate();
+
 const users = [
-  { username: "NicoMaker", password: `Giri${currentYear}` },
-  { username: "Jacoreds", password: `Giri${currentYear}` },
+  {
+    username: "NicoMaker",
+    password: `Giri ${numeroGiorno}/${numeroMeseCorrente}/${currentYear}`,
+  },
+  {
+    username: "Jacoreds",
+    password: `Giri ${numeroGiorno}/${numeroMeseCorrente}/${currentYear}`,
+  },
 ];
 
 document
