@@ -1,23 +1,21 @@
-const currentDate = new Date();
-const annoCorrente = currentDate.getFullYear();
+const currentDate = new Date(),
+  annoCorrente = currentDate.getFullYear(),
+  numeroMeseCorrente = currentDate.getMonth();
 let nomiMesi = [
-  "Gennaio",
-  "Febbraio",
-  "Marzo",
-  "Aprile",
-  "Maggio",
-  "Giugno",
-  "Luglio",
-  "Agosto",
-  "Settembre",
-  "Ottobre",
-  "Novembre",
-  "Dicembre",
-];
-
-
-const numeroMeseCorrente = currentDate.getMonth();
-let numeroGiorno = currentDate.getDate();
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
+  ],
+  numeroGiorno = currentDate.getDate();
 
 if (numeroGiorno < 10) numeroGiorno = `0${numeroGiorno}`;
 

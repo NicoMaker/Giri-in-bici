@@ -1,7 +1,8 @@
-const currentDate = new Date();
-const currentYear = currentDate.getFullYear();
-let numeroMeseCorrente = currentDate.getMonth() + 1;
-let numeroGiorno = currentDate.getDate();
+const currentDate = new Date(),
+  currentYear = currentDate.getFullYear();
+
+let numeroMeseCorrente = currentDate.getMonth() + 1,
+  numeroGiorno = currentDate.getDate();
 
 if (numeroGiorno < 10) numeroGiorno = `0${numeroGiorno}`;
 
