@@ -36,6 +36,5 @@ if (!kmElement) {
         `;
 
     kmElement.innerHTML = stampa;
-  } else
-    console.error("Dati non validi.");
+  } else console.error("Dati non validi.");
 }
