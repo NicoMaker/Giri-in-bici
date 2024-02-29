@@ -15,8 +15,11 @@ let nomiMesi = [
   "Dicembre",
 ];
 
-let numeroMeseCorrente = currentDate.getMonth();
-const numeroGiorno = currentDate.getDate();
+
+const numeroMeseCorrente = currentDate.getMonth();
+let numeroGiorno = currentDate.getDate();
+
+if (numeroGiorno < 10) numeroGiorno = `0${numeroGiorno}`;
 
 const meseCorrente = nomiMesi[numeroMeseCorrente];
 

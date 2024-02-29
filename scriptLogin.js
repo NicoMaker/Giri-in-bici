@@ -1,10 +1,16 @@
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
-const numeroMeseCorrente = currentDate.getMonth() + 1;
-const numeroGiorno = currentDate.getDate();
+let numeroMeseCorrente = currentDate.getMonth() + 1;
+let numeroGiorno = currentDate.getDate();
+
+if (numeroGiorno < 10) numeroGiorno = `0${numeroGiorno}`;
+
+if (numeroMeseCorrente < 10) numeroMeseCorrente = `0${numeroMeseCorrente}`;
 
 const generatePassword = () =>
   `Giri ${numeroGiorno}/${numeroMeseCorrente}/${currentYear}`;
+
+console.log(generatePassword());
 
 const users = [
   {
