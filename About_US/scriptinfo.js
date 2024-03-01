@@ -1,6 +1,5 @@
-const currentDate = new Date(),
-  annoCorrente = currentDate.getFullYear(),
-  numeroMeseCorrente = currentDate.getMonth();
+const numeroMeseCorrente = new Date().getMonth();
+
 let nomiMesi = [
     "Gennaio",
     "Febbraio",
@@ -15,12 +14,10 @@ let nomiMesi = [
     "Novembre",
     "Dicembre",
   ],
-  numeroGiorno = currentDate.getDate();
+  numeroGiorno = (new Date().getDate() < 10 ? "0" : "") + new Date().getDate();
 
-if (numeroGiorno < 10) numeroGiorno = `0${numeroGiorno}`;
-
-const meseCorrente = nomiMesi[numeroMeseCorrente];
-
-const info = `&copy; 30 / Maggio / 2020 - ${numeroGiorno} / ${meseCorrente} / ${annoCorrente} 
+const info = `&copy; 30 / Maggio / 2020 - ${numeroGiorno} / ${
+  nomiMesi[numeroMeseCorrente]
+} / ${new Date().getFullYear()} 
 <br>Nico Maker Giri in Bici`;
 document.getElementById("info").innerHTML = `<footer>${info}</footer>`;
