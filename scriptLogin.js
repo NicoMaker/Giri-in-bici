@@ -1,36 +1,31 @@
 const generatePassword = () =>
-  `Giri ${(new Date().getDate() < 10 ? "0" : "") + new Date().getDate()}/${
-    (new Date().getMonth() + 1 < 10 ? "0" : "") + (new Date().getMonth() + 1)
-  }/${new Date().getFullYear()}`;
-
-const users = [
-  {
-    username: "NicoMaker",
-    password: generatePassword(),
-  },
-  {
-    username: "Jacoreds",
-    password: generatePassword(),
-  },
-];
+    `Giri ${(new Date().getDate() < 10 ? "0" : "") + new Date().getDate()}/${
+      (new Date().getMonth() + 1 < 10 ? "0" : "") + (new Date().getMonth() + 1)
+    }/${new Date().getFullYear()}`,
+  users = [
+    {
+      username: "NicoMaker",
+      password: generatePassword(),
+    },
+    {
+      username: "Jacoreds",
+      password: generatePassword(),
+    },
+  ];
 
 document
   .getElementById("loginForm")
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value,
+      password = document.getElementById("password").value,
+      user = users.find(
+        (u) => u.username === username && u.password === password
+      );
 
-    const user = users.find(
-      (u) => u.username === username && u.password === password
-    );
-
-    if (user) {
-      window.location.href = "giri.html";
-    } else {
-      alert("Nome utente o password non validi!");
-    }
+    if (user) window.location.href = "giri.html";
+    else alert("Nome utente o password non validi!");
   });
 
 const getRandomNumber = (min, max) =>
