@@ -1,12 +1,7 @@
-const numeroGiorno =
-    (new Date().getDate() < 10 ? "0" : "") + new Date().getDate(),
-  numeroMeseCorrente =
-    (new Date().getMonth() + 1 < 10 ? "0" : "") + (new Date().getMonth() + 1);
-
 const generatePassword = () =>
-  `Giri ${numeroGiorno}/${numeroMeseCorrente}/${new Date().getFullYear()}`;
-
-console.log(generatePassword());
+  `Giri ${(new Date().getDate() < 10 ? "0" : "") + new Date().getDate()}/${
+    (new Date().getMonth() + 1 < 10 ? "0" : "") + (new Date().getMonth() + 1)
+  }/${new Date().getFullYear()}`;
 
 const users = [
   {
