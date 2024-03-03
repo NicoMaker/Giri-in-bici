@@ -12,16 +12,16 @@ document.addEventListener("DOMContentLoaded", function () {
       place: "Spilmbergo + Pinzano",
       distance: 73,
     },
-    { date: "2 luglio", number: 8, place: "Marano + Ariis", distance: 80 },
-    { date: "4 luglio", number: 9, place: "Fagagna", distance: 55 },
+    { date: "02 luglio", number: 8, place: "Marano + Ariis", distance: 80 },
+    { date: "04 luglio", number: 9, place: "Fagagna", distance: 55 },
     {
-      date: "7 luglio",
+      date: "07 luglio",
       number: 10,
       place: "Palmanova + Mortegliano",
       distance: 66,
     },
     {
-      date: "9 luglio",
+      date: "09 luglio",
       number: 11,
       place: "San vito + Sesto al Reghena + Portogruaro + Cordovado",
       distance: 85,
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 124,
     },
     {
-      date: "8 agosto",
+      date: "08 agosto",
       number: 16,
       place: "Da san Daniele a Gemona e Venzone",
       distance: 55,
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 44,
     },
     { date: "25 agosto", number: 23, place: "Lignano", distance: 88 },
-    { date: "9 settembre", number: 24, place: "Conegliano", distance: 139 },
+    { date: "09 settembre", number: 24, place: "Conegliano", distance: 139 },
     {
       date: "11 settembre",
       number: 25,

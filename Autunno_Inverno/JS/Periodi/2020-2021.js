@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     {
-      date: "7 novembre",
+      date: "07 novembre",
       number: 1,
       place: "Villalta + Colloredo di Monte Albano",
       distance: 78,
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     { date: "22 dicembre", number: 6, place: "Mortegliano", distance: 42 },
     { date: "30 dicembre", number: 7, place: "Belgrado", distance: 23 },
-    { date: "4 gennaio", number: 8, place: "giro per il comune", distance: 61 },
+    { date: "04 gennaio", number: 8, place: "giro per il comune", distance: 61 },
     {
       date: "17 gennaio",
       number: 9,
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 30,
     },
     {
-      date: "6 febbraio",
+      date: "06 febbraio",
       number: 11,
       place:
         '<a href="https://www.komoot.it/tour/976320205?share_token=azPlZsKaK63TJX2FrR7GoETH2i0eFsj4FW7FTXm7HyXjtCZgd6&ref=wtd" target="_blank">Spilimbergo</a>',
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 76,
     },
     {
-      date: "7 marzo",
+      date: "07 marzo",
       number: 16,
       place:
         '<a href="https://www.komoot.it/tour/976494707?share_token=an6ZgIs8kEbAq0nuR73UwpW5wJ959W6L4YUur8mVcBewNX8nFG&ref=wtd" target="_blank">Latisana per rosta</a>',
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 62,
     },
     {
-      date: "2 aprile",
+      date: "02 aprile",
       number: 21,
       place: '<a href="https://www.komoot.it/tour/679146663?ref=wtd" target="_blank">Clauzetto + Vito d\'Asio + Anduins + Pinzano + San Daniele</a>',
       distance: 101

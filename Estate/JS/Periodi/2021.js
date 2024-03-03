@@ -8,14 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 93,
     },
     {
-      date: "5 luglio",
+      date: "05 luglio",
       number: 2,
       place:
         '<a href="https://www.komoot.it/tour/679148731?share_token=aD5YcgNors82SQBTRg0EJbGC63VgvWCEBKSHnRQ9smeGkT77f8&ref=wtd" target="_blank">Gorizia</a>',
       distance: 121,
     },
     {
-      date: "8 luglio",
+      date: "08 luglio",
       number: 3,
       place:
         '<a href="https://www.komoot.it/tour/679149061?share_token=a9ErvFtwa2Lfpq4YXVpjEfCJUT2J8m6CLA1x4B13h5LENy32vd&ref=wtd" target="_blank">Maniago + Ravedis (Val Cellina)</a>',

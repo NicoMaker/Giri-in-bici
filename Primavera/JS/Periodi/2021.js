@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 93,
     },
     {
-      date: "8 maggio",
+      date: "08 maggio",
       number: 4,
       place: "Cisterna (corsa velocita', solo andata)",
       distance: 19,
@@ -40,15 +40,15 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 52,
     },
     {
-      date: "2 giugno",
+      date: "02 giugno",
       number: 8,
       place:
         '<a href="https://www.komoot.it/tour/976466690?share_token=adXasja1llpovYEyCe4DS4ELiOny8BlYEi1wBO8IZO8NGRYFSW&ref=wtd" target="_blank">San Daniele + San Pietro</a>',
       distance: 65,
     },
-    { date: "5 giugno", number: 9, place: "Virco", distance: 31 },
+    { date: "05 giugno", number: 9, place: "Virco", distance: 31 },
     {
-      date: "9 giugno",
+      date: "09 giugno",
       number: 10,
       place: "Giro per il comune + Belgrado",
       distance: 49,

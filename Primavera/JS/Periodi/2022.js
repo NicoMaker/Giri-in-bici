@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     {
-      date: "6 Marzo",
+      date: "06 Marzo",
       number: 1,
       place:
         '<a href="https://www.komoot.it/tour/693482374?share_token=a6flVOci0pbzosPJUSNWhFa0a97SlfOCDKqo69P5D2WBLp1Oz4&ref=wtd" target="_blank">Susans + Cascate di Cimano</a>',
@@ -57,13 +57,13 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 64,
     },
     {
-      date: "2 giugno",
+      date: "02 giugno",
       number: 10,
       place: "Madrisio + Tagliamento",
       distance: 40,
     },
     {
-      date: "5 giugno",
+      date: "05 giugno",
       number: 11,
       place:
         '<a href="https://www.komoot.it/tour/795420371?ref=avs&share_token=a8NG0kPzcg2q4wb6nwQxV2bMsRDwm67RCmVjF1AC3mC50b16DJ" target="_blank">Lago di Cavazzo</a>',

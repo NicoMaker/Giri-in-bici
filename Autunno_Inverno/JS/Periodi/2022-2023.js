@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 64,
     },
     {
-      date: "5 novembre",
+      date: "05 novembre",
       number: 6,
       place:
         "<a href='https://www.komoot.it/tour/972603263?share_token=aVvrO9K28JJHiI4f4L73y2rJgLGiUSg1KuiEVRZ3LnCm9QCaAP&ref=wtd' target='_blank'>San Daniele</a>",
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 63,
     },
     {
-      date: "4 febbraio",
+      date: "04 febbraio",
       number: 14,
       place:
         "Portogruaro<br><a href='https://www.komoot.it/tour/1024087257?share_token=aj8OobkxUoqk1J3G2Vq1KlTviTV5lvWa3sEsyNPwAiVNfCA2Rq&ref=wtd' target='_blank'>andata</a><br><a href='https://www.komoot.it/tour/1024088913?share_token=ajqREMZwjANr2AJ1Gp8a8koM10TUl78nKjxGibFIojIyUKv6yU&ref=wtd' target='_blank'>ritorno</a>",

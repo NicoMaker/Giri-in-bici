@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     {
-      date: "9 ottobre",
+      date: "09 ottobre",
       number: 1,
       place:
         '<a href="https://www.komoot.it/tour/679150846?share_token=aKQuXqBSBnTXfaLf3YWKKxspOLezZyvhnhpX3gBvJ7BwPzlc9y&ref=wtd" target="_blank">Portogruaro</a>',
@@ -22,13 +22,13 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 71,
     },
     {
-      date: "7 novembre",
+      date: "07 novembre",
       number: 4,
       place:
         '<a href="https://www.komoot.it/tour/679154271?share_token=aGwV3PY1YzIBX39jxCJidJFXQV19c31SqIb9oZoeUjMYv7HzaO&ref=wtd" target="_blank">Santa Margherita del Gruagno</a>',
       distance: 66,
     },
-    { date: "4 dicembre", number: 5, place: "Villaorba", distance: 25 },
+    { date: "04 dicembre", number: 5, place: "Villaorba", distance: 25 },
     {
       date: "11 dicembre",
       number: 6,
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 65,
     },
     {
-      date: "6 febbraio",
+      date: "06 febbraio",
       number: 9,
       place:
         '<a href="https://www.komoot.it/tour/976476180?share_token=aWzVVeJ5i8kt6bn1HOuNTedUukhihBTAAWFI0lZYtClEisBKYf&ref=wtd" target="_blank">Foci dello Stella</a>',

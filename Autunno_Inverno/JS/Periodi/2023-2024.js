@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     {
-      date: "2 ottobre",
+      date: "02 ottobre",
       number: 1,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1333360883?ref=wtd&share_token=aGUgIIWhXbe69V678xoW6dOA53KxwTeEsTJ7m8aPHjdzTVLnce" target="_blank">Ariis + Mortegliano</a>',
       distance: 61,
     },
     {
-      date: "7 ottobre",
+      date: "07 ottobre",
       number: 2,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1339854999?ref=wtd&share_token=apFmAPGBroU8MEblYvx0jOpf6dW6dyYpeYbvfa42jFhd0bb6hu" target="_blank">Colloredo di Monte Albano e Moruzzo</a>',
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 85,
     },
     {
-      date: "1 novembre",
+      date: "01 novembre",
       number: 7,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1364833273?ref=wtd&share_token=a8FKzTDmHt01fJAYxG5p3LsQFddj9zEm9V3iFFzD2YSDL6B2wq" target="_blank">Tarcento</a>',
@@ -64,14 +64,14 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 91,
     },
     {
-      date: "3 dicembre",
+      date: "03 dicembre",
       number: 10,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1386142984?ref=wtd&share_token=a9L4J7iNMDx0B77pMlOzypJkOd9EPc0B0FueO2E59vHspgoPcn" target="_blank">Cordovado (corsa velocità)</a>',
       distance: 80,
     },
     {
-      date: "8 dicembre",
+      date: "08 dicembre",
       number: 11,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1388622349?ref=wtd&share_token=aqrGv614L6e3KKXxLbPFm4my7wGNa0kD8zYND5jh3SvxNmazLP" target="_blank">Pertegada (corsa velocità)</a>',
@@ -113,14 +113,14 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 64,
     },
     {
-      date: "3 gennaio",
+      date: "03 gennaio",
       number: 17,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1406615108?ref=wtd&share_token=aJToUTGApumaCL6mvIGVFe2bPbIbuOCKu1KmnFCjSIaxAXy5NH" target="_blank">Ariis</a>',
       distance: 50,
     },
     {
-      date: "5 gennaio",
+      date: "05 gennaio",
       number: 18,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1408222275?ref=wtd&share_token=a8CLewQ7E3P4LAGLvHRzTcKGyDRVtAaY7N8fPGR5WtxGt8JbkX" target="_blank">Pinzano (corsa velocità)</a>',

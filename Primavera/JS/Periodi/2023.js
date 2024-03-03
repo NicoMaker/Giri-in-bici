@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     {
-      date: "4 marzo",
+      date: "04 marzo",
       number: 1,
       place:
         "Udine <br><a href='https://www.komoot.com/it-it/tour/1044183026?share_token=a53bSgJQLGftvUDUMO2J1NqMGqlTQujgD3UqI5o34bVkKydn9z&ref=wtd' target='_blank'>andata</a><br><a href='https://www.komoot.com/it-it/tour/1044183603?share_token=azFBu0wsRPUvDd8QRxLnEfq3l9TBQt4wiBmQLI2VUfzCgqKeDN&ref=wtd' target='_blank'>ritorno</a>",
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 64,
     },
     {
-      date: "6 Maggio",
+      date: "06 Maggio",
       number: 6,
       place:
         "<a href='https://www.komoot.com/it-it/tour/1107656936?share_token=aUwNts99dlgFka2aLkif14h5Wwb8evCg4LXbQq2dpbRHGV9zdi&ref=wtd' target='_blank'>Flambro + Rivignano</a>",
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 53,
     },
     {
-      date: "9 Giugno",
+      date: "90 Giugno",
       number: 11,
       place:
         "<a href='https://www.komoot.com/it-it/tour/1159971551?share_token=aQTtrnM0Mz8POtUs7DBqDRtdIPRdhnhdQ5XC83OJ1zI2peGF9U&ref=wtd' target='_blank'>Bertiolo + Ariis</a>",

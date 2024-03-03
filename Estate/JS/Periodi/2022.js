@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     {
-      date: "2 Luglio",
+      date: "02 Luglio",
       number: 1,
       place: `<a href="https://www.komoot.it/tour/938194923?share_token=akne9y5h1oCpMwh3n6xO5psV2IWFeAK0bD11Hex7YBPPWw1Zq6&ref=wtd" target="_blank">Cisterna + Beriolo (Corsa Velocita')</a>`,
       distance: 49,
     },
     {
-      date: "9 luglio",
+      date: "09 luglio",
       number: 2,
       place: `<a href="https://www.komoot.it/tour/836647991?ref=avs&share_token=a4gVr49MrKWgpC38XDnXduwmV95H5NP8fAzpipIfm6d9RCss58" target="_blank">Grado</a>`,
       distance: 121,
@@ -49,19 +49,19 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 50,
     },
     {
-      date: "3 agosto",
+      date: "03 agosto",
       number: 9,
       place: `<a href="https://www.komoot.it/tour/869973147?share_token=aHGXEbwTUnd3xwX3uiZ8JFCNNJccVBInvho7oT2HdU5YW5aX7e&ref=wtd" target="_blank">Ariis + Talmassons</a>`,
       distance: 50,
     },
     {
-      date: "5 agosto",
+      date: "05 agosto",
       number: 10,
       place: `<a href="https://www.komoot.it/tour/872525238?ref=avs&share_token=amjgveM5r3373iRo2mQRHdkUMxsXOi60zhx6EhBItTBpha5G3C" target="_blank">San Daniele</a>`,
       distance: 50,
     },
     {
-      date: "9 agosto",
+      date: "09 agosto",
       number: 11,
       place: `<a href="https://www.komoot.it/tour/878712542?ref=avs&share_token=a4qI2w3W596Bx70G4tmwtMi3tcJhND3kwGQT7wh9aSFQ22ZC3i" target="_blank">Rivignano (corsa Velocita')</a>`,
       distance: 31,
@@ -114,32 +114,32 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 62,
     },
     {
-      date: "2 settembre",
+      date: "02 settembre",
       number: 19,
       place: "Varmo",
       distance: 23,
     },
     {
-      date: "3 settembre",
+      date: "03 settembre",
       number: 20,
       place:
         '<a href="https://www.komoot.it/tour/931033544?share_token=a2B69G83RbOHq6y9MqeS0B5BhjNECn4jHq6z1K8RPPe0mA3kQU&ref=wtd" target="_blank">Ariis</a>',
       distance: 37,
     },
     {
-      date: "5 settembre",
+      date: "05 settembre",
       number: 21,
       place: `<a href="https://www.komoot.it/tour/916706801?ref=avs&share_token=aKR93PeWb9RgD1bRsxfH7rcWGIDX4RPLSd8M0YBCZBcf5Vz2Ch" target="_blank">Ariis + Basiliano (corsa velocita')</a>`,
       distance: 57,
     },
     {
-      date: "6 settembre",
+      date: "06 settembre",
       number: 22,
       place: `<a href="https://www.komoot.it/tour/917879653?ref=avs&share_token=aH1hzmVTPbImveOmADjEIYNF2rd6WQrVWZtIGjoAh3ApSgrG96" target="_blank">Ariis + Fraforeano</a>`,
       distance: 48,
     },
     {
-      date: "7 settembre",
+      date: "07 settembre",
       number: 23,
       place: `<a href="https://www.komoot.it/tour/918953440?ref=avs&share_token=a04AZzNDO4JSdHRwryL0mYs929se64U6ZeoRZWrS5xGHaP9v1y" target="_blank">Rive D\'arcano</a>`,
       distance: 54,
@@ -187,28 +187,28 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 46,
     },
     {
-      date: "1 ottobre",
+      date: "01 ottobre",
       number: 31,
       place:
         '<a href="https://www.komoot.it/tour/940890884?share_token=akWLeZfWE43AEjYtJpsp3YWbhHxPr9VG7hKlFyvMQ6PYojDPeJ&ref=wtd" target="_blank">Da Tarvisio a Villach <img src="../Icone/Austria.png">- Velden <img src="../Icone/Austria.png">e Klagenfurt <img src="../Icone/Austria.png"></a>',
       distance: 112,
     },
     {
-      date: "3 ottobre",
+      date: "03 ottobre",
       number: 32,
       place:
         '<a href="https://www.komoot.it/tour/942399651?share_token=a0o6ULmYnMtvlNlYQSzvpNmh0ot3GbvadtRCm4rwTki97eZh12&ref=wtd" target="_blank">Pinzano</a>',
       distance: 71,
     },
     {
-      date: "5 ottobre",
+      date: "05 ottobre",
       number: 33,
       place:
         '<a href="https://www.komoot.it/tour/944318388?share_token=aLhSWsHlZjQwttW5xvd8R1pZtLwqkujfkDY7crNFPTCjbW4402&ref=wtd" target="_blank">Lago di Cornino</a>',
       distance: 81,
     },
     {
-      date: "9 ottobre",
+      date: "09 ottobre",
       number: 34,
       place:
         '<a href="https://www.komoot.it/tour/948509047?share_token=aIY2t8mqdAh3WfzppZhms1hbkJNMcyDxDkOQ6Owg2PA44hhsuZ&ref=wtd" target="_blank">Colloredo di Monte Albano e Castello di Fagagna</a>',

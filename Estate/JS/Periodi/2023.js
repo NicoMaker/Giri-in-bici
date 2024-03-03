@@ -8,14 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 62,
     },
     {
-      date: "1 luglio",
+      date: "01 luglio",
       number: 2,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1192031128?ref=wtd&share_token=aAbmBoHf6FZONGuiaYDYpvErGITO1vpM6mh59FDSSkCEds93vq" target="_blank">Basiliano + Ariis</a>',
       distance: 60,
     },
     {
-      date: "9 luglio",
+      date: "09 luglio",
       number: 3,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1204182945?ref=wtd&share_token=aMpT30J2nwRPNGUJiM581GXgRN52Mdmj1EeW8ot5TanIOx0tKl" target="_blank">Pordenone (Bucato)</a>',
@@ -50,21 +50,21 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 56,
     },
     {
-      date: "7 agosto",
+      date: "07 agosto",
       number: 8,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1247644819?ref=wtd&share_token=a8Oi1RFdRd024nmCndS55ZXqu65W8HRzluuqmvb45NC8rLOXET" target="_blank">Pinzano</a>',
       distance: 88,
     },
     {
-      date: "8 agosto",
+      date: "08 agosto",
       number: 9,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1248947911?ref=wtd&share_token=aO7RNBcPGpk6k4WeuMKcaonQ9XcPiuwWzLSaS4zsqMAYr1UJeT" target="_blank">Ariis + Flambro</a>',
       distance: 51,
     },
     {
-      date: "9 agosto",
+      date: "09 agosto",
       number: 10,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1250480955?ref=wtd" target="_blank">Castello di Fagagna</a>',
@@ -99,21 +99,21 @@ document.addEventListener("DOMContentLoaded", function () {
       distance: 57,
     },
     {
-      date: "1 settembre",
+      date: "01 settembre",
       number: 15,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1287023312?ref=wtd&share_token=asA3e0fdwbSiG2sB73TRkP1i5XzpHJxGzLOfVgdmhx7X8p5A4G" target="_blank">Ariis</a>',
       distance: 39,
     },
     {
-      date: "4 settembre",
+      date: "04 settembre",
       number: 16,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1292940887?ref=wtd&share_token=ayKf4Sj4HNri8WVUFTctM2FOWO5u6VQ5uiStV6ruVU2txjm8KF" target="_blank">Ariis + Passariano</a>',
       distance: 51,
     },
     {
-      date: "7 settembre",
+      date: "07 settembre",
       number: 17,
       place:
         '<a href="https://www.komoot.com/it-it/tour/1297798381?ref=wtd&share_token=abQ6ZvRAamPFhRBjYMuPGSV2gKyTasxlhNMgUPRRhRIV2svo7A" target="_blank">Ariis + Varmo</a>',
