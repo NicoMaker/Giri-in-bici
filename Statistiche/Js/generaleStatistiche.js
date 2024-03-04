@@ -11,7 +11,7 @@ const corse = 188;
 
 const avgTot = (totale / corse).toFixed(2);
 const avgAnno = (totale / statistics.length).toFixed(2);
-const avgMese = (totale / 44).toFixed(2);
+const avgMese = (totale / 45).toFixed(2);
 
 const labels = statistics.map((entry) => `Statistiche ${entry.year}`);
 const values = statistics.map((entry) => entry.km);
