@@ -70,7 +70,5 @@ document.addEventListener("DOMContentLoaded", function () {
   const items = document.querySelectorAll(".Autunno-Invernocontorno");
   const isOdd = items.length % 2 !== 0;
 
-  if (isOdd) {
-    container.classList.add("odd-items");
-  }
+  if (isOdd) container.classList.add("odd-items");
 });
