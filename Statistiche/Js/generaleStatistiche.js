@@ -42,14 +42,14 @@ new Chart(doughnutCtx, doughnutConfig);
 const stampa = statistics
   .map(
     (entry, index) => `
-<div class="Statistiche">
-    <a href="Statistiche/Statistiche${entry.year}.html">
+    <div class="Statistiche">
+      <a href="Statistiche/Statistiche${entry.year}.html">
         <img class="immaginestagione" src="Icone/Statistiche.png">
         <p class="titoli"> Statistiche ${entry.year} </p>
         <p> km totali <img src="Icone/traguardo.png"> ${entry.km}</p>
         <p>${avgValues[index]} %</p>
-    </a>
-</div>
+      </a>
+    </div>
 `
   )
   .join("");

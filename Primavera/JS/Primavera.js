@@ -39,8 +39,8 @@ new Chart(doughnutCtx, doughnutConfig);
 const stampa = labels
   .map(
     (label, index) => `
-<div class="Primaveracontorno">
-    <a href="Primavera/Primavera${label}.html">
+    <div class="Primaveracontorno">
+      <a href="Primavera/Primavera${label}.html">
         <img class="immaginestagione" src="Icone/primavera.png">
         <p class="titoli">
             Primavera ${label}
@@ -48,8 +48,8 @@ const stampa = labels
             <p>Totale km <img src="Icone/traguardo.png"> ${data[label]}</p> 
             <p> ${avgValues[index]} % </p>
         </p>
-    </a>
-</div>
+      </a>
+    </div>
 `
   )
   .join("");

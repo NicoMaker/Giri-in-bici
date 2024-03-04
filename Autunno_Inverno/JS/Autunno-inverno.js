@@ -39,15 +39,15 @@ new Chart(doughnutCtx, doughnutConfig);
 const stampa = labels
   .map(
     (label, index) => `
-<div class="Autunno-Invernocontorno">
-    <a href="Autunno_Inverno/Autunno_Inverno${label}.html">
+    <div class="Autunno-Invernocontorno">
+      <a href="Autunno_Inverno/Autunno_Inverno${label}.html">
         <img class="immaginestagione" src="Icone/inverno.png">
         <p class="titoli">Autunno - Inverno ${label}
-        <p>Totale km <img src="Icone/traguardo.png"> 
-        ${values[index]}</p> <p> ${avgValues[index]} % </p>
-    </p>
-    </a>
-</div>
+          <p>Totale km <img src="Icone/traguardo.png"> 
+            ${values[index]}</p> <p> ${avgValues[index]} % </p>
+        </p>
+      </a>
+    </div>
 `
   )
   .join("");
