@@ -486,6 +486,8 @@ canvas {
 .CloseIcon span,
 .MenuIcon span {
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 
 .CloseIcon,
