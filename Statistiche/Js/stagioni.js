@@ -3,30 +3,27 @@ const e = 6471,
   ai = 4603;
 const totale = e + p + ai;
 
-const avge = ((e / totale) * 100).toFixed(2);
-const avgp = ((p / totale) * 100).toFixed(2);
-const avgai = ((ai / totale) * 100).toFixed(2);
-const avgmediastagione = (totale / 3).toFixed(2);
-
-const dati = {
-  labels: ["Estate", "Primavera", "Autunno-Inverno"],
-  datasets: [
-    {
-      label: "km totali stagione",
-      backgroundColor: ["red", "lightgreen", "lightblue"],
-      borderColor: Array(3).fill("black"),
-      borderWidth: 1,
-      data: [e, p, ai],
-    },
-  ],
-};
-
-const config = {
-  type: "doughnut",
-  data: dati,
-};
-
-const ctx = document.getElementById("doughnut-chart").getContext("2d");
+const avge = ((e / totale) * 100).toFixed(2),
+  avgp = ((p / totale) * 100).toFixed(2),
+  avgai = ((ai / totale) * 100).toFixed(2),
+  avgmediastagione = (totale / 3).toFixed(2),
+  dati = {
+    labels: ["Estate", "Primavera", "Autunno-Inverno"],
+    datasets: [
+      {
+        label: "km totali stagione",
+        backgroundColor: ["red", "lightgreen", "lightblue"],
+        borderColor: Array(3).fill("black"),
+        borderWidth: 1,
+        data: [e, p, ai],
+      },
+    ],
+  },
+  config = {
+    type: "doughnut",
+    data: dati,
+  },
+  ctx = document.getElementById("doughnut-chart").getContext("2d");
 new Chart(ctx, config);
 
 const stampa = `

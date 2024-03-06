@@ -128,17 +128,18 @@ document.addEventListener("DOMContentLoaded", function () {
     tableBody.appendChild(newRow);
   });
 
-  const kmElement = document.getElementById("km");
-  const totalKm = data.reduce((total, row) => total + row.distance, 0);
-  const totalRaces = data.length;
-  const mediaValue = (totalKm / totalRaces).toFixed(2);
+  const kmElement = document.getElementById("km"),
+    totalKm = data.reduce((total, row) => total + row.distance, 0),
+    totalRaces = data.length;
   kmElement.dataset.km = totalKm;
   kmElement.dataset.corse = totalRaces;
 
+  const mediaValue = (totalKm / totalRaces).toFixed(2);
+
   kmElement.innerHTML = `
-          <div class="colore">
-              <p> Totale km percorsi ${totalKm} <img src="../Icone/traguardo.png"> </p>
-              <p> Media km percorsi ${mediaValue} </p>
-          </div>
-      `;
+        <div class="colore">
+            <p> Totale km percorsi ${totalKm} <img src="../Icone/traguardo.png"> </p>
+            <p> Media km percorsi ${mediaValue} </p>
+        </div>
+    `;
 });

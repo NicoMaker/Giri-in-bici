@@ -13,15 +13,14 @@ const data = {
   Dicembre: 140,
 };
 
-const mesi = Object.keys(data);
-const chilometri = Object.values(data);
+const mesi = Object.keys(data),
+  chilometri = Object.values(data),
+  totale = chilometri.reduce((acc, curr) => acc + curr, 0),
+  percentuali = chilometri.map((km) => ((km / totale) * 100).toFixed(2));
 
-const totale = chilometri.reduce((acc, curr) => acc + curr, 0);
-const percentuali = chilometri.map((km) => ((km / totale) * 100).toFixed(2));
-
-const corse = 40;
-const kmMediPerCorsa = (totale / corse).toFixed(2);
-const kmMediPerMese = (totale / mesi.length).toFixed(2);
+const corse = 40,
+  kmMediPerCorsa = (totale / corse).toFixed(2),
+  kmMediPerMese = (totale / mesi.length).toFixed(2);
 
 const dati = {
   labels: mesi,

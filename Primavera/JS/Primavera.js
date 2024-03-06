@@ -5,23 +5,19 @@ const data = {
   2024: 0,
 };
 
-const labels = Object.keys(data);
-const values = Object.values(data);
-const totale = values.reduce((acc, cur) => acc + cur, 0);
-
-const avgValues = labels.map((label) =>
-  ((data[label] / totale) * 100).toFixed(2)
-);
-
-const datasets = [
-  {
-    label: "km Primavera",
-    backgroundColor: ["pink", "antiquewhite", "cyan", "#97ed86ce"],
-    borderColor: Array(4).fill("black"),
-    borderWidth: 1,
-    data: values,
-  },
-];
+const labels = Object.keys(data),
+  values = Object.values(data),
+  totale = values.reduce((acc, cur) => acc + cur, 0),
+  avgValues = labels.map((label) => ((data[label] / totale) * 100).toFixed(2)),
+  datasets = [
+    {
+      label: "km Primavera",
+      backgroundColor: ["pink", "antiquewhite", "cyan", "#97ed86ce"],
+      borderColor: Array(4).fill("black"),
+      borderWidth: 1,
+      data: values,
+    },
+  ];
 
 const doughnutData = {
   labels,
@@ -68,9 +64,9 @@ const stampaP = `
 document.getElementById("totale").innerHTML = stampaP;
 
 document.addEventListener("DOMContentLoaded", function () {
-  const container = document.querySelector(".container");
-  const items = document.querySelectorAll(".Primaveracontorno");
-  const isOdd = items.length % 2 !== 0;
+  const container = document.querySelector(".container"),
+    items = document.querySelectorAll(".Primaveracontorno"),
+    isOdd = items.length % 2 !== 0;
 
   if (isOdd) container.classList.add("odd-items");
 });

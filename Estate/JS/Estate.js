@@ -5,23 +5,19 @@ const data = {
   2023: 1622,
 };
 
-const labels = Object.keys(data);
-const values = Object.values(data);
-const totale = values.reduce((acc, cur) => acc + cur, 0);
-
-const avgValues = labels.map((label) =>
-  ((data[label] / totale) * 100).toFixed(2)
-);
-
-const datasets = [
-  {
-    label: "km Estate",
-    backgroundColor: ["yellow", "orange", "red", "purple"],
-    borderColor: Array(4).fill("black"),
-    borderWidth: 1,
-    data: values,
-  },
-];
+const labels = Object.keys(data),
+  values = Object.values(data),
+  totale = values.reduce((acc, cur) => acc + cur, 0),
+  avgValues = labels.map((label) => ((data[label] / totale) * 100).toFixed(2)),
+  datasets = [
+    {
+      label: "km Estate",
+      backgroundColor: ["yellow", "orange", "red", "purple"],
+      borderColor: Array(4).fill("black"),
+      borderWidth: 1,
+      data: values,
+    },
+  ];
 
 const doughnutData = {
   labels,
@@ -67,9 +63,9 @@ const stampaE = `
 document.getElementById("totale").innerHTML = stampaE;
 
 document.addEventListener("DOMContentLoaded", function () {
-  const container = document.querySelector(".container");
-  const items = document.querySelectorAll(".Estatecontorno");
-  const isOdd = items.length % 2 !== 0;
+  const container = document.querySelector(".container"),
+    items = document.querySelectorAll(".Estatecontorno"),
+    isOdd = items.length % 2 !== 0;
 
   if (isOdd) container.classList.add("odd-items");
 });

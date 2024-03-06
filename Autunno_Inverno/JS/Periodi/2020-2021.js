@@ -28,7 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     { date: "22 dicembre", number: 6, place: "Mortegliano", distance: 42 },
     { date: "30 dicembre", number: 7, place: "Belgrado", distance: 23 },
-    { date: "04 gennaio", number: 8, place: "giro per il comune", distance: 61 },
+    {
+      date: "04 gennaio",
+      number: 8,
+      place: "giro per il comune",
+      distance: 61,
+    },
     {
       date: "17 gennaio",
       number: 9,
@@ -107,10 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       date: "02 aprile",
       number: 21,
-      place: '<a href="https://www.komoot.it/tour/679146663?ref=wtd" target="_blank">Clauzetto + Vito d\'Asio + Anduins + Pinzano + San Daniele</a>',
-      distance: 101
-  }
-  
+      place:
+        '<a href="https://www.komoot.it/tour/679146663?ref=wtd" target="_blank">Clauzetto + Vito d\'Asio + Anduins + Pinzano + San Daniele</a>',
+      distance: 101,
+    },
   ];
 
   const tableBody = document.querySelector("table tbody");
@@ -127,9 +132,9 @@ document.addEventListener("DOMContentLoaded", function () {
     tableBody.appendChild(newRow);
   });
 
-  const kmElement = document.getElementById("km");
-  const totalKm = data.reduce((total, row) => total + row.distance, 0);
-  const totalRaces = data.length;
+  const kmElement = document.getElementById("km"),
+    totalKm = data.reduce((total, row) => total + row.distance, 0),
+    totalRaces = data.length;
   kmElement.dataset.km = totalKm;
   kmElement.dataset.corse = totalRaces;
 

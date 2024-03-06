@@ -70,9 +70,9 @@ document.addEventListener("DOMContentLoaded", function () {
     tableBody.appendChild(newRow);
   });
 
-  const kmElement = document.getElementById("km");
-  const totalKm = data.reduce((total, row) => total + row.distance, 0);
-  const totalRaces = data.length;
+  const kmElement = document.getElementById("km"),
+    totalKm = data.reduce((total, row) => total + row.distance, 0),
+    totalRaces = data.length;
   kmElement.dataset.km = totalKm;
   kmElement.dataset.corse = totalRaces;
 

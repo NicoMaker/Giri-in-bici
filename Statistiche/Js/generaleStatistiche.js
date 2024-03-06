@@ -6,37 +6,31 @@ const statistics = [
   { year: 2024, km: 486 },
 ];
 
-const totale = statistics.reduce((acc, cur) => acc + cur.km, 0);
-const corse = 188;
+const totale = statistics.reduce((acc, cur) => acc + cur.km, 0),
+  corse = 188;
 
-const avgTot = (totale / corse).toFixed(2);
-const avgAnno = (totale / statistics.length).toFixed(2);
-const avgMese = (totale / 45).toFixed(2);
+const avgTot = (totale / corse).toFixed(2),
+  avgAnno = (totale / statistics.length).toFixed(2),
+  avgMese = (totale / 45).toFixed(2),
+  labels = statistics.map((entry) => `Statistiche ${entry.year}`),
+  values = statistics.map((entry) => entry.km),
+  avgValues = statistics.map((entry) => ((entry.km / totale) * 100).toFixed(2)),
+  datasets = [
+    {
+      label: "km totali",
+      backgroundColor: ["yellow", "lightgreen", "orange", "cyan", "red"],
+      borderColor: Array(5).fill("black"),
+      borderWidth: 1,
+      data: values,
+    },
+  ];
 
-const labels = statistics.map((entry) => `Statistiche ${entry.year}`);
-const values = statistics.map((entry) => entry.km);
-const avgValues = statistics.map((entry) =>
-  ((entry.km / totale) * 100).toFixed(2)
-);
-
-const datasets = [
-  {
-    label: "km totali",
-    backgroundColor: ["yellow", "lightgreen", "orange", "cyan", "red"],
-    borderColor: Array(5).fill("black"),
-    borderWidth: 1,
-    data: values,
+const doughnutData = { labels, datasets },
+  doughnutConfig = {
+    type: "doughnut",
+    data: doughnutData,
   },
-];
-
-const doughnutData = { labels, datasets };
-
-const doughnutConfig = {
-  type: "doughnut",
-  data: doughnutData,
-};
-
-const doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
+  doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
 new Chart(doughnutCtx, doughnutConfig);
 
 const stampa = statistics
@@ -68,9 +62,9 @@ const stampat = `
 document.getElementById("totale").innerHTML = stampat;
 
 document.addEventListener("DOMContentLoaded", function () {
-  const container = document.querySelector(".container");
-  const items = document.querySelectorAll(".Statistiche");
-  const isOdd = items.length % 2 !== 0;
+  const container = document.querySelector(".container"),
+    items = document.querySelectorAll(".Statistiche"),
+    isOdd = items.length % 2 !== 0;
 
   if (isOdd) container.classList.add("odd-items");
 });
