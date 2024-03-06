@@ -186,6 +186,11 @@ a {
   margin: 5px auto;
 }
 
+.immagine_bicisx,
+.immagine_bicidx {
+  border-radius: 20%;
+}
+
 @media all and (max-width: 1024px) {
   .colore_sfondo_italia {
     text-shadow: 2px 2px 4px
@@ -233,7 +238,6 @@ a {
     width: 500px;
     height: 350px;
     margin: 10px;
-    border-radius: 20%;
   }
 
   .immagine_bicisx,
@@ -297,7 +301,6 @@ a {
     width: 600px;
     height: 400px;
     margin: 10px;
-    border-radius: 20%;
   }
 
   .menu button {
@@ -372,7 +375,6 @@ a {
   border: white;
   border-radius: 0px;
 }
-
 
 .stylebuttonbiciMTB {
   right: 10px;
@@ -494,7 +496,7 @@ canvas {
 .MenuIcon,
 .CloseIcon span,
 .MenuIcon span {
-  font-size: 50px;
+  font-size: 70px;
 }
 
 .menu a:hover {
@@ -519,15 +521,15 @@ canvas {
   font-size: 40px;
 }
 
-.bicimenu{
+.bicimenu {
   font-size: 50px;
 }
 
-.bicimenu:hover{
+.bicimenu:hover {
   color: red;
 }
 
-.logo{
+.logo {
   height: 50px;
   width: 50px;
 }
