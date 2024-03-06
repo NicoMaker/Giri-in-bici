@@ -1,7 +1,7 @@
-const menu = document.querySelector(".menu");
-const hamburger = document.querySelector(".hamburger");
-const closeIcon = document.querySelector(".CloseIcon");
-const menuIcon = document.querySelector(".MenuIcon");
+const menu = document.querySelector(".menu"),
+  hamburger = document.querySelector(".hamburger"),
+  closeIcon = document.querySelector(".CloseIcon"),
+  menuIcon = document.querySelector(".MenuIcon");
 
 function toggleMenu() {
   if (menu.classList.contains("showMwnu")) {
@@ -20,8 +20,8 @@ hamburger.addEventListener("click", toggleMenu);
 let kmElement = document.getElementById("km");
 
 if (kmElement) {
-  let km = parseFloat(kmElement.getAttribute("data-km"));
-  let corse = parseFloat(kmElement.getAttribute("data-corse"));
+  let km = parseFloat(kmElement.getAttribute("data-km")),
+    corse = parseFloat(kmElement.getAttribute("data-corse"));
 
   if (!isNaN(km) && !isNaN(corse)) {
     let mediaValue = (km / corse).toFixed(2);
