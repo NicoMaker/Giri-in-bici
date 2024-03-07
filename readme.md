@@ -15,7 +15,7 @@
 - Aggiorare periodo della stagione che trovi nella cartella nome della stagione/JS -> Primavera/Primavera.js
 - Mettere a posto i km della stagione nel file che trovi nella cartella Statistiche/JS/Stagioni.js, modifici km stagione -> Primavera
 
-### Parte Statistiche
+### Aggiorna Statistiche
 
 - Ricordarsi di mettere a posto le statistiche dell'anno interessato che trovi nella cartella Statistiche/JS/anni dove metti a posto i km per mese e numero corse nell'anno -> Statistiche/JS/anni/2024.js
 - Ricordarsi di mettere a posto i km dell'anno e le numero corse totali nella cartella Statistiche/JS/generaleStatistiche.js -> in questo caso i dati del 2024
