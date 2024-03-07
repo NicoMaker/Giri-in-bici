@@ -2,7 +2,7 @@
 
 ## Aggiornare JS
 
-### Pagina genrale
+### Pagina generale
 
 - Hamburger.js -> numero di corse e numero km
 
@@ -22,7 +22,6 @@
 - Ricordarsi ogni mese di sistemare i mesi totali corsi nella cartella Statistiche/JS/generaleStatistiche.js
 
 ## Credenziali
-
 
 - Nome Utente -> NicoMaker
 - Password -> cambia ogni giorno con questo stile Giri Numero giorno/numero mese/numero anno
