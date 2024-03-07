@@ -113,7 +113,6 @@ tr:nth-child(2n):hover {
 .colore {
   background: linear-gradient(to right, #9bf6ff, #a0c4ff, #9bf6ff);
   border-radius: 50px;
-  cursor: pointer;
 }
 
 .colore:hover {
