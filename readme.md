@@ -1,18 +1,25 @@
 # Ogni volta aggiornare
 
-## Aggiornare HTML
-
-- Giri con vari km e corse -> Giri.html
-
 ## Aggiornare JS
 
-- js corrispondente alla stagione e al periodo (Autunno - Inverno, Primavera o Estate dell'anno interessato) -> 2024.js in Pimavera (aggiunta corsa)
-- Stagione corrispondente (Autunno-Inverno, Primavera o Estate) Estate.js o Autunno-inverno.js o Primavera.js -> Primavera.js (aggiorni km)
-- Statistiche anno interessato (km per mese e numero corse) -> 2024.js (aggiorni km per mese)
-- Statistiche generale (km anno e numero corse) -> generaleStatistiche.js (aggiorni km anno)
-- stagioni.js (mettere a posto somma dei km per stagione Autunno-Inverno, Primavera o Estate) -> Primavera (aggiorni km per stagione)
+### Pagina genrale
 
-- Ricordarsi ogni mese di sistemare i mesi totali -> generaleStatistiche.js
+- Hamburger.js -> numero di corse e numero km
+
+### Aggiunta Corsa
+
+- Nella stagione corrispondente trovi la cartella JS/Periodi e modifici il js che ti serve con l'ultima corsa -> Primavera/JS/Periodi/2024.js
+
+### Aggiorna Stagione
+
+- Aggiorare periodo della stagione che trovi nella partella nome della stagione/JS -> Primavera/Primavera.js
+- Mettere a posto i km della stagione nel file che trovi nella cartella Statistiche/JS/Stagioni.js, modifici km stagione -> Primavera
+
+### Parte Statistiche
+
+- Ricordarsi di mettere a posto le statistiche dell'anno interessato che trovi nella cartella Statistiche/JS/anni dove metti a posto i km per mese -> Statistiche/JS/anni/2024.js
+- Ricordarsi di mettere a posto i km dell'anno nella cartella Statistiche/JS/generaleStatistiche.js -> in questo caso i dati del 2024
+- Ricordarsi ogni mese di sistemare i mesi totali corsi nella cartella Statistiche/JS/generaleStatistiche.js
 
 ## Credenziali
 

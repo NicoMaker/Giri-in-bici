@@ -17,22 +17,13 @@ function toggleMenu() {
 
 hamburger.addEventListener("click", toggleMenu);
 
-let kmElement = document.getElementById("km");
+const km = 13280,
+  corse = 188,
+  mediavalue = (km / corse).toFixed(2);
 
-if (kmElement) {
-  let km = parseFloat(kmElement.getAttribute("data-km")),
-    corse = parseFloat(kmElement.getAttribute("data-corse"));
-
-  if (!isNaN(km) && !isNaN(corse)) {
-    let mediaValue = (km / corse).toFixed(2);
-
-    let stampa = `
+document.getElementById("km").innerHTML = `
       <div class="colore">
         <p>totale km ${km} <img src="Icone/traguardo.png"></p>
-        <p>km medi per giro percorsi ${mediaValue}</p>
+        <p>km medi per giro percorsi ${mediavalue}</p>
       </div>
     `;
-
-    kmElement.innerHTML = stampa;
-  }
-}
