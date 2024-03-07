@@ -17,8 +17,8 @@
 
 ### Parte Statistiche
 
-- Ricordarsi di mettere a posto le statistiche dell'anno interessato che trovi nella cartella Statistiche/JS/anni dove metti a posto i km per mese -> Statistiche/JS/anni/2024.js
-- Ricordarsi di mettere a posto i km dell'anno nella cartella Statistiche/JS/generaleStatistiche.js -> in questo caso i dati del 2024
+- Ricordarsi di mettere a posto le statistiche dell'anno interessato che trovi nella cartella Statistiche/JS/anni dove metti a posto i km per mese  e corse anno -> Statistiche/JS/anni/2024.js
+- Ricordarsi di mettere a posto i km dell'anno e le corse totali nella cartella Statistiche/JS/generaleStatistiche.js -> in questo caso i dati del 2024
 - Ricordarsi ogni mese di sistemare i mesi totali corsi nella cartella Statistiche/JS/generaleStatistiche.js
 
 ## Credenziali
