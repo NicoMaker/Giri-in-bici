@@ -104,8 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const kmElement = document.getElementById("km"),
     totalKm = data.reduce((total, row) => total + row.distance, 0),
     totalRaces = data.length;
-  kmElement.dataset.km = totalKm;
-  kmElement.dataset.corse = totalRaces;
 
   const mediaValue = (totalKm / totalRaces).toFixed(2);
 
