@@ -37,9 +37,9 @@ const getRandomColor = () =>
   )}, ${getRandomNumber(0, 255)})`;
 
 function setAbstractBackground() {
-  const container = document.getElementById("container");
-  const backgroundColor = getRandomColor();
-  const backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
+  const container = document.getElementById("container"),
+    backgroundColor = getRandomColor(),
+    backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
   container.style.backgroundColor = backgroundColor;
   container.style.backgroundImage = backgroundImage;
 }
