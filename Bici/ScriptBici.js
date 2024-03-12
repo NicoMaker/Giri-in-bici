@@ -1,12 +1,11 @@
 const bici = document.getElementById("StampaBici");
 
 const Home = () =>
-  (bici.innerHTML = `
+    (bici.innerHTML = `
     <img class="immagini_stagione" src="Le nostre Bici/Intestazione/madonnina_Bici.jpg" />
-    <br />`);
-
-const CalcolaMTB = () =>
-  (bici.innerHTML = `
+    <br />`),
+  CalcolaMTB = () =>
+    (bici.innerHTML = `
     <div class="container_stagione">
         <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/MTB/MarioMTB.jpeg" />
         <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI//MTB/SonicMTB.jpg" />
@@ -62,10 +61,9 @@ const CalcolaMTB = () =>
         <p><strong>cambi:</strong> 3 avanti 7 dietro<br>Totale 21</p>
         <p><strong>anno di produzione:</strong> 2022</p>
     </div>
-`);
-
-const CalcolaCorsa = () =>
-  (bici.innerHTML = `
+`),
+  CalcolaCorsa = () =>
+    (bici.innerHTML = `
     <div class="container_stagione">
         <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/SonicCorsa.jpg" />
         <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/MarioSonicCorsa.jpg" />

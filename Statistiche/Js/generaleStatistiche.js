@@ -53,12 +53,14 @@ document.getElementById(
 ).innerHTML = `<div class="container">${stampa}</div>`;
 
 const stampat = `
-<div class="colore">
-    <p>totale km ${totale} <img src="Icone/traguardo.png"></p>
-    <p>km medi per giro percorsi ${avgTot}</p>
-    <p>km medi per anno percorsi ${avgAnno}</p>
-    <p>km medi per mese ${avgMese}</p>
-</div>`;
+<a href="Statistiche/Statistiche_Totali.html">
+  <div class="colore">
+      <p>totale km ${totale} <img src="Icone/traguardo.png"></p>
+      <p>km medi per giro percorsi ${avgTot}</p>
+      <p>km medi per anno percorsi ${avgAnno}</p>
+      <p>km medi per mese ${avgMese}</p>
+  </div>
+</a>`;
 document.getElementById("totale").innerHTML = stampat;
 
 document.addEventListener("DOMContentLoaded", function () {
