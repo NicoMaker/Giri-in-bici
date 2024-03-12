@@ -7,7 +7,7 @@ const statistics = [
 ];
 
 const totale = statistics.reduce((acc, cur) => acc + cur.km, 0),
-  corse = 188;
+  corse = 198;
 
 const avgTot = (totale / corse).toFixed(2),
   avgAnno = (totale / statistics.length).toFixed(2),
