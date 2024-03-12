@@ -52,11 +52,14 @@ document.getElementById(
   "stampa"
 ).innerHTML = `<div class="container">${stampa}</div>`;
 
-const avgAI = (totale / labels.length).toFixed(2);
+const avgAI = (totale / labels.length).toFixed(2),
+  corse = 70,
+  avgcorssa = (totale / corse).toFixed(2);
 
 const stampaAI = `
 <div class="colore">
     <p>Totale km percorsi in Autunno - Inverno ${totale} <img src="Icone/traguardo.png"> </p>
+    <p>km medi per corsa in Autunno-Inverno ${avgcorssa} </p>
     <p>media km per stagione ${avgAI} </p>
 </div>`;
 document.getElementById("totale").innerHTML = stampaAI;
