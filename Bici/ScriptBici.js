@@ -1,6 +1,5 @@
-const bici = document.getElementById("StampaBici");
-
-const Home = () =>
+const bici = document.getElementById("StampaBici"),
+  Home = () =>
     (bici.innerHTML = `
     <img class="immagini_stagione" src="Le nostre Bici/Intestazione/madonnina_Bici.jpg" />
     <br />`),
