@@ -87,7 +87,7 @@ const config = {
   },
 };
 
-const ctx = document.getElementById("bar-chart").getContext("2d");
+const ctx = document.getElementById("line-chart").getContext("2d");
 new Chart(ctx, config);
 
 const tabellaDati = `
