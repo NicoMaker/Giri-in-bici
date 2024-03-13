@@ -109,11 +109,13 @@ const tabellaDati = `
     `;
 
 const stampat = `
-    <div class="colore">
-        <p>totale km ${totale} <img src="../Icone/traguardo.png"></p>
-        <p>km medi percorsi ${kmMediPerCorsa}</p>
-        <p>km medi per mese ${kmMediPerMese}</p>
-    </div>`;
+    <a href="Statistiche_totali_storia_mese_anno.html">
+      <div class="colore">
+          <p>totale km ${totale} <img src="../Icone/traguardo.png"></p>
+          <p>km medi percorsi ${kmMediPerCorsa}</p>
+          <p>km medi per mese ${kmMediPerMese}</p>
+      </div>
+    </a>`;
 
 document.getElementById("mesi").innerHTML = tabellaDati;
 document.getElementById("totale").innerHTML = stampat;
