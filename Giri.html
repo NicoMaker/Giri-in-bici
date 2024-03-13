@@ -6,10 +6,8 @@
     <link rel="icon" href="imagini Html sito principale/Logo .jpg" type="image/jpg">
     <title> GIRI IN BICI </title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
     <script src="Hamburger.js" defer></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"></script>
-
 </head>
 
 <body>
@@ -22,7 +20,6 @@
         <br>
         <br>
         <br>
-
         <h1>Riferimenti parti del sito</h1>
         <div x-data="{
             search: '',
@@ -48,22 +45,23 @@
             }
         }">
             <input x-model="search" placeholder="Cerca nel Menu">
-        
             <template x-for="item in filteredItems" :key="item.name">
                 <li>
                     <button>
                         <img :src="item.icon" :class="{ 'logo': item.name === 'Apertura Account GitHub' }">
-                        <a :href="item.link" :target="item.link.startsWith('http') ? '_blank' : ''"
-                            x-text="item.name"></a>
+                        <template x-if="item.name === 'Pagina Precedente' && item.link === '#'">
+                            <span x-text="item.name"></span>
+                        </template>
+                        <template x-if="item.name !== 'Pagina Precedente' || item.link !== '#'">
+                            <a :href="item.link" :target="item.link.startsWith('http') ? '_blank' : ''"
+                                x-text="item.name"></a>
+                        </template>
                     </button>
                 </li>
             </template>
         </div>
-        
-
         <br>
         <br>
-
     </ul>
 
     <button class="hamburger">
@@ -98,13 +96,10 @@
 
     <button class="bici">
         <br>
-
         <a href="Bici/Bici.html">
             <img class="animazione-bici" src="imagini Html sito principale/AnimazioneBici.gif">
         </a>
-
         <br>
-
     </button>
 
     <br>
@@ -112,9 +107,7 @@
 
     <div class="estate">
         <div class="contornostagionesx">
-
             <img class="immaginestagionesx" src="Icone/estate.png">
-
             <a href="Estate.html">
                 <p class="contornostagionesx"> Estate</p>
             </a>
@@ -123,7 +116,6 @@
 
     <div class="primavera">
         <div class="contornostagionedx">
-
             <img class="immaginestagionedx" src="Icone/primavera.png">
             <a href="Primavera.html">
                 <p class="contornostagionedx"> Primavera</p>
@@ -142,7 +134,6 @@
     </div>
 
     <br>
-
     <br>
     <div class="container_stagione">
         <a href="About_US/About_us.html">
@@ -154,7 +145,6 @@
     </div>
 
     <br>
-
     <a href="Statistiche.html">
         <div id="km"></div>
     </a>
