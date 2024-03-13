@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <script src="Hamburger.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"></script>
 
 </head>
 
@@ -23,81 +24,42 @@
         <br>
 
         <h1>Riferimenti parti del sito</h1>
-        <li>
-            <button>
-                <img src="Icone/home.png">
-                <a href="Giri.html">Home</a>
-            </button>
-        </li>
-
-        <li><button>
-                <img src="Icone/Statistiche.png">
-                <a href="Statistiche.html">Statistiche
-                </a>
-            </button></li>
-
-        <li><button>
-                <img src="Icone/bici.png">
-                <a href="Bici/Bici.html"> Le Nostre Bici
-                </a>
-            </button></li>
-
-        <li><button>
-                <img src="Icone/estate.png">
-                <a href="Estate.html">Estate
-                </a>
-            </button></li>
-
-        <li><button>
-                <img src="Icone/inverno.png">
-                <a href="Autunno_Inverno.html">Autunno - Inverno
-                </a>
-            </button></li>
-
-        <li><button>
-                <img src="Icone/primavera.png">
-                <a href="Primavera.html">Primavera
-                </a>
-            </button></li>
-
-
-        <li><button>
-                <img src="Icone/freccia.png">
-                Pagina Precedente
-            </button></li>
-
-        <li><button>
-                <img src="Icone/login.png">
-                <a href="index.html">
-                    Login</a>
-            </button></li>
-
-        <li><button>
-                <img src="Icone/informazioni.png">
-                <a href="About_US/About_us.html">Informazioni
-                </a>
-            </button></li>
-
-        <li>
-            <button>
-                <img src="Icone/GitHub.png">
-                <a href="https://github.com/NicoMaker/Giri-in-bici" target="_blank">
-                    Apertura Repository Git
-                </a>
-            </button>
-        </li>
-
-        <li><button>
-                <img class="logo" src="Icone/Logo Scuro.jpg">
-                <a href="https://github.com/NicoMaker" target="_blank">Apertura Account GitHub
-                </a>
-            </button></li>
-
-            <li><button>
-                <img src="Icone/qr_code.png">
-                <a href="QR_CODE/Logo.html">QR CODE
-                </a>
-            </button></li>
+        <div x-data="{
+            search: '',
+            items: [
+                { name: 'Home', icon: 'Icone/home.png', link: 'Giri.html' },
+                { name: 'Statistiche', icon: 'Icone/Statistiche.png', link: 'Statistiche.html' },
+                { name: 'Le Nostre Bici', icon: 'Icone/bici.png', link: 'Bici/Bici.html' },
+                { name: 'Estate', icon: 'Icone/estate.png', link: 'Estate.html' },
+                { name: 'Autunno - Inverno', icon: 'Icone/inverno.png', link: 'Autunno_Inverno.html' },
+                { name: 'Primavera', icon: 'Icone/primavera.png', link: 'Primavera.html' },
+                { name: 'Pagina Precedente', icon: 'Icone/freccia.png', link: '#' },
+                { name: 'Login', icon: 'Icone/login.png', link: 'index.html' },
+                { name: 'Informazioni', icon: 'Icone/informazioni.png', link: 'About_US/About_us.html' },
+                { name: 'Apertura Repository Git', icon: 'Icone/GitHub.png', link: 'https://github.com/NicoMaker/Giri-in-bici' },
+                { name: 'Apertura Account GitHub', icon: 'Icone/Logo Scuro.jpg', link: 'https://github.com/NicoMaker' },
+                { name: 'QR CODE', icon: 'Icone/qr_code.png', link: 'QR_CODE/Logo.html' }
+            ],
+        
+            get filteredItems() {
+                return this.items.filter(
+                    i => i.name.toLowerCase().startsWith(this.search.toLowerCase())
+                );
+            }
+        }">
+            <input x-model="search" placeholder="Cerca nel Menu">
+        
+            <template x-for="item in filteredItems" :key="item.name">
+                <li>
+                    <button>
+                        <img :src="item.icon" :class="{ 'logo': item.name === 'Apertura Account GitHub' }">
+                        <a :href="item.link" :target="item.link.startsWith('http') ? '_blank' : ''"
+                            x-text="item.name"></a>
+                    </button>
+                </li>
+            </template>
+        </div>
+        
 
         <br>
         <br>

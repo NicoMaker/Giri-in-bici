@@ -250,6 +250,10 @@ a {
   .menu button {
     width: 150px;
   }
+
+  input{
+    width: 170px;
+  }
 }
 
 @media all and (min-width: 1024px) {
@@ -304,6 +308,10 @@ a {
 
   .menu button {
     width: 250px;
+  }
+
+  input{
+    width: 270px;
   }
 }
 
@@ -531,4 +539,10 @@ canvas {
 .logo {
   height: 50px;
   width: 50px;
+}
+
+input{
+  font-size: 20px;
+  border-radius: 50px;
+  text-align: center;
 }
