@@ -8,7 +8,6 @@
   <script src="ScriptBici.js" defer></script>
   <script src="../Hamburger.js" defer></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"></script>
 </head>
 
 <body>
@@ -61,33 +60,16 @@
 
     <h1>Categorie Bici</h1>
 
-    <div x-data="{
-      search: '',
-      items: [
-          { name: 'Madonnina in Bici', func: Home },
-          { name: 'MTB', func: CalcolaMTB },
-          { name: 'Corsa', func: CalcolaCorsa }
-      ],
-  
-      goToPage: function(func) {
-          func();
-      },
-  
-      get filteredItems() {
-          return this.items.filter(
-              i => i.name.toLowerCase().startsWith(this.search.toLowerCase())
-          );
-      }
-    }">
-      <input x-model="search" placeholder="Cerca nel Menu">
+    <li>
+      <button class="bicimenu" onclick="Home()">Madonnina in Bici</button>
+    </li>
+    <li>
+      <button class="bicimenu" onclick="CalcolaMTB()">MTB</button>
+    </li>
 
-      <template x-for="item in filteredItems" :key="item.name">
-        <li>
-          <button class="bicimenu" @click="goToPage(item.func)" x-text="item.name"></button>
-        </li>
-      </template>
-    </div>
-
+    <li>
+      <button class="bicimenu" onclick="CalcolaCorsa()">Corsa</button>
+    </li>
   </ul>
 
   <button class="hamburger">
