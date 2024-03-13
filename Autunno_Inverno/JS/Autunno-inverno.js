@@ -13,7 +13,7 @@ const labels = Object.keys(data),
     {
       label: "km Autunno - Inverno",
       backgroundColor: ["yellowgreen", "skyblue", "#ba690c", "blue"],
-      borderColor: Array(4).fill("black"),
+      borderColor: ["black"],
       borderWidth: 1,
       data: values,
     },

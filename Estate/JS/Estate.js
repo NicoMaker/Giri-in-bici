@@ -13,7 +13,7 @@ const labels = Object.keys(data),
     {
       label: "km Estate",
       backgroundColor: ["yellow", "orange", "red", "purple"],
-      borderColor: Array(4).fill("black"),
+      borderColor: ["black"],
       borderWidth: 1,
       data: values,
     },

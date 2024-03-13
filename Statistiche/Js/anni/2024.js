@@ -39,7 +39,7 @@ const dati = {
         "cyan",
         "blue"
       ],
-      borderColor: Array(12).fill("black"),
+      borderColor: ["black"],
       borderWidth: 1,
       data: chilometri,
     },

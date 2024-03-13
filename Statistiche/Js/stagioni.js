@@ -13,7 +13,7 @@ const avge = ((e / totale) * 100).toFixed(2),
       {
         label: "km totali stagione",
         backgroundColor: ["red", "lightgreen", "lightblue"],
-        borderColor: Array(3).fill("black"),
+        borderColor: ["black"],
         borderWidth: 1,
         data: [e, p, ai],
       },

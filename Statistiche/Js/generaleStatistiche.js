@@ -19,7 +19,7 @@ const avgTot = (totale / corse).toFixed(2),
     {
       label: "km totali",
       backgroundColor: ["yellow", "lightgreen", "orange", "cyan", "red"],
-      borderColor: Array(5).fill("black"),
+      borderColor: ["black"],
       borderWidth: 1,
       data: values,
     },

@@ -31,7 +31,7 @@ const dati = {
         "cyan",
         "blue",
       ],
-      borderColor: Array(7).fill("black"),
+      borderColor: ["black"],
       borderWidth: 1,
       data: chilometri,
     },

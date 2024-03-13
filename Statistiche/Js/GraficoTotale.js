@@ -69,8 +69,8 @@ const dati = {
   datasets: [
     {
       label: "km mensili totali",
-      backgroundColor:Array(54).fill("blue"),
-      borderColor: Array(54).fill("blue"),
+      backgroundColor:["blue"],
+      borderColor: ["blue"],
       borderWidth: 1,
       data: chilometri,
     },

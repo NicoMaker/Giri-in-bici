@@ -13,7 +13,7 @@ const labels = Object.keys(data),
     {
       label: "km Primavera",
       backgroundColor: ["pink", "antiquewhite", "cyan", "#97ed86ce"],
-      borderColor: Array(4).fill("black"),
+      borderColor: ["black"],
       borderWidth: 1,
       data: values,
     },
