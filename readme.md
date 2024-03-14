@@ -20,7 +20,7 @@
 - Ricordarsi di mettere a posto le statistiche dell'anno interessato che trovi nella cartella Statistiche/JS/anni dove metti a posto i km per mese e numero corse nell'anno -> [Statistiche 2024](Statistiche/Js/anni/2024.js)
 - Ricordarsi di mettere a posto i km dell'anno e le numero corse totali nella cartella [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> in questo caso i dati del 2024
 - Sistemare i km totali per mese e il numero di corse totali dove creea il grafico totale [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> nese interessato
-- Sistamare i km del mese e dell'anno interessato nel grafico genrale dei mesi dell'anno in [Storia Generale Statistiche](Statistiche/Js/Statistiche_totali_storia_mese_anno.js) -> in questo caso nella parte 2024
+- Sistamare i km del mese e dell'anno interessato nel grafico genrale dei mesi dell'anno in [Storico Mese](Statistiche/Js/StoricoMensile.js) -> in questo caso nella parte 2024
 - Ricordarsi ogni mese di sistemare i mesi totali corsi nella cartella [Generale Statistiche](Statistiche/Js/generaleStatistiche.js)
 
 ## Credenziali
