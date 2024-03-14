@@ -4,24 +4,23 @@
 
 ### Pagina generale
 
-- [Pagina Generale](Hamburger.js) -> numero di corse e numero km
+- [Pagina Generale](Hamburger.js) -> numero di corse totali e numero km totali
 
 ### Aggiunta Corsa
 
-- Nella stagione corrispondente trovi la cartella JS/Periodi e modifici il js che ti serve con l'ultima corsa -> [Primavera 2024](Primavera/JS/Periodi/2024.js)
+- [Primavera 2024](Primavera/JS/Periodi/2024.js) -> aggiungi i dettagli della corsa come per le altre
 
 ### Aggiorna Stagione
 
-- Aggiorare periodo della stagione che trovi nella cartella nome della stagione/JS e mettere a posto numero totale corse per stagione -> [Primavera](Primavera/JS/Primavera.js) per esempio per questo periodo la parte 2024
-- Mettere a posto i km della stagione nel file che trovi nella cartella [Statistiche Stagione](Statistiche/Js/stagioni.js), modifici km stagione -> Primavera
+- [Primavera](Primavera/JS/Primavera.js) -> aggiornare parte 2024 e aggiornare corse nella stagione
+- [Statistiche Stagione](Statistiche/Js/stagioni.js) -> modifici i km nella stagione corrispondente Primavera
 
 ### Aggiorna Statistiche
 
-- Ricordarsi di mettere a posto le statistiche dell'anno interessato che trovi nella cartella Statistiche/JS/anni dove metti a posto i km per mese e numero corse nell'anno -> [Statistiche 2024](Statistiche/Js/anni/2024.js)
-- Ricordarsi di mettere a posto i km dell'anno e le numero corse totali nella cartella [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> in questo caso i dati del 2024
-- Sistemare i km totali per mese e il numero di corse totali dove creea il grafico totale [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> nese interessato
-- Sistamare i km del mese e dell'anno interessato nel grafico genrale dei mesi dell'anno in [Storico Mese](Statistiche/Js/StoricoMensile.js) -> in questo caso nella parte 2024
-- Ricordarsi ogni mese di sistemare i mesi totali corsi nella cartella [Generale Statistiche](Statistiche/Js/generaleStatistiche.js)
+- [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese e numero corse totali
+- [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> i km dell'anno e le numero corse totali dell'anno 2024 e alla fine di ogni mese aggiungere un mese
+- [Generale Statistiche](Statistiche/Js/GraficoTotale.js) -> km mese interessato e corse totali
+- [Storico Mese](Statistiche/Js/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024
 
 ## Credenziali
 
