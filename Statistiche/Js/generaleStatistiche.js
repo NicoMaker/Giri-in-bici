@@ -53,7 +53,7 @@ document.getElementById(
 ).innerHTML = `<div class="container">${stampa}</div>`;
 
 const stampat = `
-<a href="Statistiche/Statistiche_Totali.html">
+<a href="Statistiche/Storico/Statistiche_Totali.html">
   <div class="colore">
       <p>totale km ${totale} <img src="Icone/traguardo.png"></p>
       <p>km medi per giro percorsi ${avgTot}</p>
