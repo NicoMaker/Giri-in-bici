@@ -19,8 +19,8 @@
 
 - [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese e numero corse totali
 - [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> i km dell'anno e le numero corse totali dell'anno 2024 e alla fine di ogni mese aggiungere un mese
-- [Generale Statistiche](Statistiche/Js//Storico/GraficoTotale.js) -> km mese interessato e corse totali
-- [Storico Mese](Statistiche/Js//Storico/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024
+- [Grafico Genrale Statistiche](Statistiche/Js//Storico/GraficoTotale.js) -> km mese interessato e corse totali
+- [Grafico Storico Mese](Statistiche/Js//Storico/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024
 
 ## Credenziali
 
