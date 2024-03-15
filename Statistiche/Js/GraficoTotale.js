@@ -71,7 +71,7 @@ const dati = {
       label: "km mensili totali",
       backgroundColor:["blue"],
       borderColor: ["blue"],
-      borderWidth: 3,
+      borderWidth: 1,
       data: chilometri,
     },
   ],
