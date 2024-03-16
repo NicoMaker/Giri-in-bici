@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     {
-      date: "Data",
+      date: "16 Marzo",
       number: 1,
-      place: '<a href="link" target="_blank">Nome</a>',
-      distance: 0,
+      place: '<a href="https://www.komoot.com/it-it/tour/1471505044?ref=wtd&share_token=ao5QJ9VrSHYTASKjAJqoVSVPZhjeLoIDMoNEsD6I7akP5pEPlA" target="_blank">Madrisio + Ariis</a>',
+      distance: 52,
     },
   ];
 

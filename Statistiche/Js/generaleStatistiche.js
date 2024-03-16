@@ -3,11 +3,11 @@ const statistics = [
   { year: 2021, km: 2614 },
   { year: 2022, km: 3808 },
   { year: 2023, km: 3916 },
-  { year: 2024, km: 486 },
+  { year: 2024, km: 538 },
 ];
 
 const totale = statistics.reduce((acc, cur) => acc + cur.km, 0),
-  corse = 198;
+  corse = 199;
 
 const avgTot = (totale / corse).toFixed(2),
   avgAnno = (totale / statistics.length).toFixed(2),

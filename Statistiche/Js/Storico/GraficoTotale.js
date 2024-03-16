@@ -43,7 +43,7 @@ const data = {
   "Novembre 2023": 299,
   "Dicembre 2023": 558,
   "Gennaio 2024": 486,
-  "Marzo 2024":0,
+  "Marzo 2024":52,
   // "Aprile 2024": 0,
   // "Maggio 2024": 0,
   // "Giugno 2024": 0,
@@ -60,7 +60,7 @@ const mesi = Object.keys(data),
   totale = chilometri.reduce((acc, curr) => acc + curr, 0),
   percentuali = chilometri.map((km) => ((km / totale) * 100).toFixed(2));
 
-const corse = 198,
+const corse = 199,
   kmMediPerCorsa = (totale / corse).toFixed(2),
   kmMediPerMese = (totale / mesi.length).toFixed(2);
 

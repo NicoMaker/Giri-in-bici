@@ -47,7 +47,7 @@ const data = [
     backgroundColor: "red",
     borderColor: "red",
     borderWidth: 3,
-    data: [486, 0, 0],
+    data: [486, 0, 52],
   },
 ];
 
