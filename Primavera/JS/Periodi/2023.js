@@ -1,28 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
   const data = [
     {
-      date: "04 marzo",
+      date: "04 Marzo",
       number: 1,
       place:
         "Udine <br><a href='https://www.komoot.com/it-it/tour/1044183026?share_token=a53bSgJQLGftvUDUMO2J1NqMGqlTQujgD3UqI5o34bVkKydn9z&ref=wtd' target='_blank'>andata</a><br><a href='https://www.komoot.com/it-it/tour/1044183603?share_token=azFBu0wsRPUvDd8QRxLnEfq3l9TBQt4wiBmQLI2VUfzCgqKeDN&ref=wtd' target='_blank'>ritorno</a>",
       distance: 64,
     },
     {
-      date: "18 marzo",
+      date: "18 Marzo",
       number: 2,
       place:
         "<a href='https://www.komoot.com/it-it/tour/1053918331?share_token=afWKC6MiXhimmseZvC8uZhb8qrAVY78agop6lhlyGwTf9rFff1&ref=wtd' target='_blank'>Toppo</a>",
       distance: 81,
     },
     {
-      date: "31 marzo",
+      date: "31 Marzo",
       number: 3,
       place:
         "<a href='https://www.komoot.com/it-it/tour/1064630309?share_token=aXh3Fy3s0WLTl0KvMlt2UyEu2ssPjmNvURQcPvsqEMla2YeAzk&ref=wtd' target='_blank'>Flambro + Ariis</a>",
       distance: 49,
     },
     {
-      date: "15 aprile",
+      date: "15 Aprile",
       number: 4,
       place:
         "<a href='https://www.komoot.com/it-it/tour/1081493388?share_token=aMF9Vk3IxG3jUZMVeElCOZwe0Ud8fOWQNhpxS571e8MFefaYCS&ref=wtd' target='_blank'>Ariis</a>",
