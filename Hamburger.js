@@ -17,8 +17,8 @@ function toggleMenu() {
 
 hamburger.addEventListener("click", toggleMenu);
 
-const km = 13332,
-  corse = 199,
+const km = 13438,
+  corse = 200,
   mediavalue = (km / corse).toFixed(2);
 
 document.getElementById("km").innerHTML = `

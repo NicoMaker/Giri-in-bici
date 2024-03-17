@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
       place: '<a href="https://www.komoot.com/it-it/tour/1471505044?ref=wtd&share_token=ao5QJ9VrSHYTASKjAJqoVSVPZhjeLoIDMoNEsD6I7akP5pEPlA" target="_blank">Madrisio + Ariis</a>',
       distance: 52,
     },
+    {
+      date: "17 Marzo",
+      number: 2,
+      place: '<a href="https://www.komoot.com/it-it/tour/1473310700?ref=wtd&share_token=aiAT90TAL2h06WpUHxiKdwR5g3s4Rb4NJuXf4JDi9U4mEaSvSJ" target="_blank">Clauzetto</a>',
+      distance: 106,
+    },
   ];
 
   const tableBody = document.querySelector("table tbody");
