@@ -29,12 +29,12 @@ document
   });
 
 const getRandomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
-const getRandomColor = () =>
-  `rgb(${getRandomNumber(0, 255)}, ${getRandomNumber(
-    0,
-    255
-  )}, ${getRandomNumber(0, 255)})`;
+    Math.floor(Math.random() * (max - min + 1)) + min,
+  getRandomColor = () =>
+    `rgb(${getRandomNumber(0, 255)}, ${getRandomNumber(
+      0,
+      255
+    )}, ${getRandomNumber(0, 255)})`;
 
 function setAbstractBackground() {
   const container = document.getElementById("container"),
