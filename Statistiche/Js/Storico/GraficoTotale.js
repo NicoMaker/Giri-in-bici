@@ -94,7 +94,7 @@ const tabellaDati = `
     <tr class="grassetto">
       <th>Mese</th>
       <th>km <img src="../../Icone/traguardo.png"></th>
-      <th>Percentuale su anno</th>
+      <th>Percentuale su totale</th>
     </tr>
     ${mesi
       .map(
