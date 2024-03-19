@@ -1,6 +1,6 @@
 const data = {
   "Maggio 2020": 45,
-  "Giugno 20202": 367,
+  "Giugno 2020": 367,
   "Luglio 2020 ": 627,
   "Agosto 2020": 691,
   "Settembre 2020": 291,
@@ -94,7 +94,7 @@ const tabellaDati = `
     <tr class="grassetto">
       <th>Mese</th>
       <th>km <img src="../../Icone/traguardo.png"></th>
-      <th>Percentuale su totale</th>
+      <th>Percentuale sul totale</th>
     </tr>
     ${mesi
       .map(
