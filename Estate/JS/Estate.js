@@ -36,7 +36,7 @@ const stampa = labels
   .map(
     (label, index) => `
     <div class="Estatecontorno">
-      <a href="Estate/Estate${label}.html">
+      <a href="Estate/${label}.html">
         <img class="immaginestagione" src="Icone/estate.png">
         <p class="titoli">
             Estate ${label}

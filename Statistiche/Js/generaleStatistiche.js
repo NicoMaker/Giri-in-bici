@@ -37,7 +37,7 @@ const stampa = statistics
   .map(
     (entry, index) => `
     <div class="Statistiche">
-      <a href="Statistiche/Anni/Statistiche${entry.year}.html">
+      <a href="Statistiche/Anni/${entry.year}.html">
         <img class="immaginestagione" src="Icone/Statistiche.png">
         <p class="titoli"> Statistiche ${entry.year} </p>
         <p> km totali <img src="Icone/traguardo.png"> ${entry.km}</p>
