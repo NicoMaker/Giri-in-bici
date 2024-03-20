@@ -39,8 +39,8 @@ const stampa = labels
       <a href="Autunno_Inverno/${label}.html">
         <img class="immaginestagione" src="Icone/inverno.png">
         <p class="titoli">Autunno - Inverno ${label}
-          <p>Totale km <img src="Icone/traguardo.png"> 
-            ${values[index]}</p> <p> ${avgValues[index]} % </p>
+          <p>Totale km 
+            ${values[index]} <img src="Icone/traguardo.png">  </p> <p> ${avgValues[index]} % </p>
         </p>
       </a>
     </div>

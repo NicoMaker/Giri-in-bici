@@ -41,7 +41,7 @@ const stampa = labels
         <p class="titoli">
             Primavera ${label}
 
-            <p>Totale km <img src="Icone/traguardo.png"> ${data[label]}</p> 
+            <p>Totale km  ${data[label]} <img src="Icone/traguardo.png"></p> 
             <p> ${avgValues[index]} % </p>
         </p>
       </a>
