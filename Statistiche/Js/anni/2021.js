@@ -53,7 +53,9 @@ const config = {
   data: dati,
   options: {
     scales: {
-      y: { beginAtZero: true },
+      y: {
+        beginAtZero: true,
+      },
     },
   },
 };
@@ -64,7 +66,7 @@ new Chart(ctx, config);
 const tabellaDati = `
 <tr class="grassetto">
   <th>Mese</th>
-  <th>km <img src="../Icone/traguardo.png"></th>
+  <th>km <img src="../../Icone/traguardo.png"></th>
   <th>Percentuale su anno</th>
 </tr>
 ${mesi
@@ -81,7 +83,7 @@ ${mesi
 
 const stampat = `
   <div class="colore">
-      <p>totale km ${totale} <img src="../Icone/traguardo.png"></p>
+      <p>totale km ${totale} <img src="../../Icone/traguardo.png"></p>
       <p>km medi percorsi ${kmMediPerCorsa}</p>
       <p>km medi per mese ${kmMediPerMese}</p>
   </div>`;
