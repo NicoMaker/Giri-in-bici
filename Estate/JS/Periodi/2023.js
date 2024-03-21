@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
       date: "15 Luglio",
       number: 4,
       place:
-        '<a href="https://www.komoot.com/it-it/tour/1213878803?ref=wtd&share_token=aWgrhlQPtsmFTHAavDF3mGM7n87cVMr0rvpmEQsz3iaxP3ZBZN" target="_blank">Da Tarvisio a Bled <img src="../Icone/Slovenia.png"> e Lubiana <img src="../Icone/Slovenia.png"></a>',
+        '<a href="https://www.komoot.com/it-it/tour/1213878803?ref=wtd&share_token=aWgrhlQPtsmFTHAavDF3mGM7n87cVMr0rvpmEQsz3iaxP3ZBZN" target="_blank">Da Tarvisio a Bled <img src="../../Icone/Slovenia.png"> e Lubiana <img src="../../Icone/Slovenia.png"></a>',
       distance: 117,
     },
     {

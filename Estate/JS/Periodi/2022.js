@@ -21,13 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       date: "16 Luglio",
       number: 4,
-      place: `<a href="https://www.komoot.it/tour/846079933?ref=avs&share_token=aCLjslCJwaRaZIWrk5Pem6aG8rnoCz5mLIv4bu5b8tFsYtjJTJ" target="_blank">Da Carnia a Laghi di Fusine + Bled <img src="../Icone/Slovenia.png"></a>`,
+      place: `<a href="https://www.komoot.it/tour/846079933?ref=avs&share_token=aCLjslCJwaRaZIWrk5Pem6aG8rnoCz5mLIv4bu5b8tFsYtjJTJ" target="_blank">Da Carnia a Laghi di Fusine + Bled <img src="../../Icone/Slovenia.png"></a>`,
       distance: 120,
     },
     {
       date: "17 Luglio",
       number: 5,
-      place: `<a href="https://www.komoot.it/tour/847800771?ref=avs&share_token=asA1BcoizKZ4gpwTeVCx3Z44onDzWNhdYxJeq3kSLons1J2AHf" target="_blank">Da Bled <img src="../Icone/Slovenia.png"> a Carnia</a>`,
+      place: `<a href="https://www.komoot.it/tour/847800771?ref=avs&share_token=asA1BcoizKZ4gpwTeVCx3Z44onDzWNhdYxJeq3kSLons1J2AHf" target="_blank">Da Bled <img src="../../Icone/Slovenia.png"> a Carnia</a>`,
       distance: 111,
     },
     {
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
       date: "01 Ottobre",
       number: 31,
       place:
-        '<a href="https://www.komoot.it/tour/940890884?share_token=akWLeZfWE43AEjYtJpsp3YWbhHxPr9VG7hKlFyvMQ6PYojDPeJ&ref=wtd" target="_blank">Da Tarvisio a Villach <img src="../Icone/Austria.png">- Velden <img src="../Icone/Austria.png">e Klagenfurt <img src="../Icone/Austria.png"></a>',
+        '<a href="https://www.komoot.it/tour/940890884?share_token=akWLeZfWE43AEjYtJpsp3YWbhHxPr9VG7hKlFyvMQ6PYojDPeJ&ref=wtd" target="_blank">Da Tarvisio a Villach <img src="../../Icone/Austria.png">- Velden <img src="../../Icone/Austria.png">e Klagenfurt <img src="../../Icone/Austria.png"></a>',
       distance: 112,
     },
     {

@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       date: "25 Luglio",
       number: 15,
-      place: "Cividale + Dobrovo <img src='../Icone/Slovenia.png' />",
+      place: "Cividale + Dobrovo <img src='../../Icone/Slovenia.png' />",
       distance: 124,
     },
     {
