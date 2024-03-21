@@ -36,12 +36,13 @@ const stampa = labels
   .map(
     (label, index) => `
     <div class="Primaveracontorno">
-      <a href="Primavera/${label}.html">
+      <a href="Primavera/Periodi/${label}.html">
         <img class="immaginestagione" src="Icone/primavera.png">
         <p class="titoli">
             Primavera ${label}
 
-            <p>Totale km  ${data[label]} <img src="Icone/traguardo.png"></p> 
+            <p>Totale km  ${data[label]} 
+            <img src="Icone/traguardo.png"></p> 
             <p> ${avgValues[index]} % </p>
         </p>
       </a>

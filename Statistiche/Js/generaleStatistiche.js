@@ -40,7 +40,8 @@ const stampa = statistics
       <a href="Statistiche/Anni/${entry.year}.html">
         <img class="immaginestagione" src="Icone/Statistiche.png">
         <p class="titoli"> Statistiche ${entry.year} </p>
-        <p> km totali ${entry.km} <img src="Icone/traguardo.png"></p>
+        <p> km totali ${entry.km} 
+        <img src="Icone/traguardo.png"></p>
         <p>${avgValues[index]} %</p>
       </a>
     </div>
