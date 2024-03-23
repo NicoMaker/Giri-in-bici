@@ -13,9 +13,9 @@ h1 {
 
 p {
   font-family: "Hubballi", cursive;
-  font-size: 40px;
   text-align: center;
   color: black;
+  font-size: 30px;
 }
 
 .grasetto {
@@ -126,6 +126,10 @@ a {
 .colore {
   background: linear-gradient(to right, #9bf6ff, #a0c4ff, #9bf6ff);
   border-radius: 50px;
+}
+
+.misuracolre{
+  font-size: 40px;
 }
 
 .colore:hover {

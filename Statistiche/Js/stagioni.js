@@ -30,27 +30,27 @@ const stampa = `
 <div class="estate">
     <a href="../Estate.html">
         <img class="immaginestagionestat" src="../Icone/estate.png">
-        <p class="contornostagione">Estate</p>
-        <p>km totali ${e} <img src="../Icone/traguardo.png"></p>
-        <p>${avge} %</p>
+        <p class="contornostagione","misuracolre">Estate</p>
+        <p class="misuracolre">km totali ${e} <img src="../Icone/traguardo.png"></p>
+        <p class="misuracolre">${avge} %</p>
     </a>
 </div>
 
 <div class="primavera">
     <a href="../Primavera.html">
         <img class="immaginestagionestat" src="../Icone/primavera.png">
-        <p class="contornostagione">Primavera</p>
-        <p>km totali ${p} <img src="../Icone/traguardo.png"></p>
-        <p>${avgp} %</p>
+        <p class="contornostagione","misuracolre">Primavera</p>
+        <p class="misuracolre">km totali ${p} <img src="../Icone/traguardo.png"></p>
+        <p class="misuracolre">${avgp} %</p>
     </a>
 </div>
 
 <div class="autunno_inverno">
     <a href="../Autunno_Inverno.html">
         <img class="immaginestagionestat" src="../Icone/inverno.png">
-        <p class="contornostagione">Autunno - Inverno</p>
-        <p>km totali ${ai} <img src="../Icone/traguardo.png"></p>
-        <p>${avgai} %</p>
+        <p class="contornostagione","misuracolre">Autunno - Inverno</p>
+        <p class="misuracolre">km totali ${ai} <img src="../Icone/traguardo.png"></p>
+        <p class="misuracolre">${avgai} %</p>
     </a>
 </div>
 `;
@@ -59,7 +59,7 @@ document.getElementById("dati").innerHTML = stampa;
 
 const stampat = `
 <div class="colore">
-    <p>totale km ${totale} <img src="../Icone/traguardo.png"></p>
-    <p>Media km per Stagione ${avgmediastagione} km</p>
+    <p class="misuracolre">totale km ${totale} <img src="../Icone/traguardo.png"></p>
+    <p class="misuracolre">Media km per Stagione ${avgmediastagione} km</p>
 </div>`;
 document.getElementById("totale").innerHTML = stampat;

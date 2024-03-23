@@ -23,7 +23,7 @@ const km = 13500,
 
 document.getElementById("km").innerHTML = `
       <div class="colore">
-        <p>totale km ${km} <img src="Icone/traguardo.png"></p>
-        <p>km medi per giro percorsi ${mediavalue}</p>
+        <p class="misuracolre">totale km ${km} <img src="Icone/traguardo.png"></p>
+        <p class="misuracolre">km medi per giro percorsi ${mediavalue}</p>
       </div>
     `;
