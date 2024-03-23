@@ -2,7 +2,7 @@ const data = {
   2021: 579,
   2022: 885,
   2023: 742,
-  2024: 158,
+  2024: 220,
 };
 
 const labels = Object.keys(data),

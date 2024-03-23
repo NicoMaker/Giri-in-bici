@@ -12,6 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
       place: '<a href="https://www.komoot.com/it-it/tour/1473310700?ref=wtd&share_token=aiAT90TAL2h06WpUHxiKdwR5g3s4Rb4NJuXf4JDi9U4mEaSvSJ" target="_blank">Clauzetto</a>',
       distance: 106,
     },
+    {
+      date: "23 Marzo",
+      number: 3,
+      place: '<a href="https://www.komoot.com/it-it/tour/1479919914?share_token=a8pbpPXMzDqonYM6ONM5P4wYue287gBX7uSstLAPW0nRtWi72I&ref=wtd" target="_blank">Cordovado</a>',
+      distance: 62,
+    },
   ];
 
   const tableBody = document.querySelector("table tbody");
