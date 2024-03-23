@@ -56,7 +56,7 @@ document.getElementById(
 ).innerHTML = `<div class="container">${stampa}</div>`;
 
 const avgP = (totale / labels.length).toFixed(2),
-  corse = 39,
+  corse = 40,
   avgcorssa = (totale / corse).toFixed(2);
 
 const stampaP = `
