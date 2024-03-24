@@ -18,6 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
       place: '<a href="https://www.komoot.com/it-it/tour/1479919914?share_token=a8pbpPXMzDqonYM6ONM5P4wYue287gBX7uSstLAPW0nRtWi72I&ref=wtd" target="_blank">Cordovado</a>',
       distance: 62,
     },
+    {
+      date: "24 Marzo",
+      number: 4,
+      place: '<a href="https://www.komoot.com/it-it/tour/1481297447?share_token=a3HKZjvaD2ZQJlZZz7xo7s3DR0RTxnqi5RySu8OlGnHv4hXRF1&ref=wtd" target="_blank">Majano Susans Muris</a>',
+      distance: 94,
+    },
   ];
 
   const tableBody = document.querySelector("table tbody");

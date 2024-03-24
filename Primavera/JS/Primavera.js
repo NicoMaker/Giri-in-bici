@@ -2,7 +2,7 @@ const data = {
   2021: 579,
   2022: 885,
   2023: 742,
-  2024: 220,
+  2024: 314,
 };
 
 const labels = Object.keys(data),
@@ -56,7 +56,7 @@ document.getElementById(
 ).innerHTML = `<div class="container">${stampa}</div>`;
 
 const avgP = (totale / labels.length).toFixed(2),
-  corse = 40,
+  corse = 41,
   avgcorssa = (totale / corse).toFixed(2);
 
 const stampaP = `
