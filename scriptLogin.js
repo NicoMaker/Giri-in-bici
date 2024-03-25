@@ -4,13 +4,13 @@ const generatePassword = () =>
     }/${new Date().getFullYear()}`,
   users = [
     {
-      username: "NicoMaker",
-      password: generatePassword(),
+      username: `NicoMaker`,
+      password: generatePassword()
     },
     {
-      username: "Jacoreds",
-      password: generatePassword(),
-    },
+      username: `Jacoreds`,
+      password: generatePassword()
+    }
   ];
 
 document
