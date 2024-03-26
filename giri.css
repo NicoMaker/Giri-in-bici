@@ -1,8 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Hubballi&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Hubballi&family=Roboto:wght@100;300&family=Poppins:wght@100&display=swap");
 
 h1 {
   font-family: "Dancing Script", cursive;
@@ -128,7 +124,7 @@ a {
   border-radius: 50px;
 }
 
-.misuracolre{
+.misuracolre {
   font-size: 40px;
 }
 
@@ -255,7 +251,7 @@ a {
     width: 150px;
   }
 
-  input{
+  input {
     width: 170px;
   }
 }
@@ -314,7 +310,7 @@ a {
     width: 250px;
   }
 
-  input{
+  input {
     width: 270px;
   }
 }
@@ -545,7 +541,7 @@ canvas {
   width: 50px;
 }
 
-input{
+input {
   font-size: 20px;
   border-radius: 50px;
   text-align: center;

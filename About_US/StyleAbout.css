@@ -1,7 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Hubballi&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Hubballi&family=Roboto:wght@100;300&display=swap");
 
 body {
   margin: 0;
@@ -32,7 +29,6 @@ h1 {
 }
 
 .container {
-  width: 900px;
   width: 80%;
   margin: 5vh auto;
   border: 2px solid black;
@@ -114,7 +110,7 @@ footer {
   bottom: 0;
   width: 100%;
   text-align: center;
-  left: 0px;
+  left: 0;
   text-shadow: 2px 2px 4px black;
 }
 
