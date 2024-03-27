@@ -29,17 +29,17 @@ const data = {
   stampa = labels
     .map(
       (label, index) => `
-    <div class="Estatecontorno">
-      <a href="Estate/Periodi/${label}.html">
-        <img class="immaginestagione" src="Icone/estate.png">
-        <p class="titoli">
-            Estate ${label}
-            <p>Totale km  ${data[label]} 
-            <img src="Icone/traguardo.png"></p> 
-            <p> ${avgValues[index]} % </p>
-        </p>
-      </a>
-    </div>
+      <div class="Estatecontorno">
+        <a href="Estate/Periodi/${label}.html">
+          <img class="immaginestagione" src="Icone/estate.png">
+          <p class="titoli">
+              Estate ${label}
+              <p>Totale km  ${data[label]} 
+              <img src="Icone/traguardo.png"></p> 
+              <p> ${avgValues[index]} % </p>
+          </p>
+        </a>
+      </div>
 `
     )
     .join("");
