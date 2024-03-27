@@ -84,30 +84,30 @@ const data = {
   },
   ctx = document.getElementById("line-chart").getContext("2d"),
   tabellaDati = `
-    <tr class="grassetto">
-      <th>Mese</th>
-      <th>km <img src="../../Icone/traguardo.png"></th>
-      <th>Percentuale sul totale</th>
-    </tr>
-    ${mesi
-      .map(
-        (mese, index) => `
-    <tr>
-        <td>${mese}</td>
-        <td>${chilometri[index]}</td>
-        <td>${percentuali[index]} %</td>
-    </tr>`
-      )
-      .join("")}
-    `,
+  <tr class="grassetto">
+    <th>Mese</th>
+    <th>km <img src="../../Icone/traguardo.png"></th>
+    <th>Percentuale sul totale</th>
+  </tr>
+  ${mesi
+    .map(
+      (mese, index) => `
+  <tr>
+      <td>${mese}</td>
+      <td>${chilometri[index]}</td>
+      <td>${percentuali[index]} %</td>
+  </tr>`
+    )
+    .join("")}
+  `,
   stampat = `
-    <a href="StoricoMensile.html">
-      <div class="colore">
-          <p>totale km ${totale} <img src="../../Icone/traguardo.png"></p>
-          <p>km medi percorsi ${kmMediPerCorsa}</p>
-          <p>km medi per mese ${kmMediPerMese}</p>
-      </div>
-    </a>`;
+  <a href="StoricoMensile.html">
+    <div class="colore">
+        <p>totale km ${totale} <img src="../../Icone/traguardo.png"></p>
+        <p>km medi percorsi ${kmMediPerCorsa}</p>
+        <p>km medi per mese ${kmMediPerMese}</p>
+    </div>
+  </a>`;
 
 new Chart(ctx, config);
 document.getElementById("mesi").innerHTML = tabellaDati;
