@@ -25,7 +25,7 @@
 ## Credenziali
 
 - Nome Utente -> NicoMaker
-- Password -> cambia ogni giorno con questo stile Giri Numero giorno/numero mese/numero anno
+- Password -> cambia ogni giorno con questo stile Giri Numero giorno/numero mese/numero anno -> se il numero del mese o del giorno è minore di 10 allora va messo prima lo 0 e poi il numero del giorno/mese
 
 ## Logo e Apertura sito
 
