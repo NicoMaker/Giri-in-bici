@@ -1,7 +1,10 @@
 const menu = document.querySelector(".menu"),
   hamburger = document.querySelector(".hamburger"),
   closeIcon = document.querySelector(".CloseIcon"),
-  menuIcon = document.querySelector(".MenuIcon");
+  menuIcon = document.querySelector(".MenuIcon"),
+  km = 13594,
+  corse = 202,
+  mediavalue = (km / corse).toFixed(2);
 
 function toggleMenu() {
   if (menu.classList.contains("showMwnu")) {
@@ -17,13 +20,9 @@ function toggleMenu() {
 
 hamburger.addEventListener("click", toggleMenu);
 
-const km = 13594,
-  corse = 202,
-  mediavalue = (km / corse).toFixed(2);
-
 document.getElementById("km").innerHTML = `
-      <div class="colore">
-        <p class="misuracolre">totale km ${km} <img src="Icone/traguardo.png"></p>
-        <p class="misuracolre">km medi per giro percorsi ${mediavalue}</p>
-      </div>
-    `;
+    <div class="colore">
+      <p class="misuracolre">totale km ${km} <img src="Icone/traguardo.png"></p>
+      <p class="misuracolre">km medi per giro percorsi ${mediavalue}</p>
+    </div>
+  `;

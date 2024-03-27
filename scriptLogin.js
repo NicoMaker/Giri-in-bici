@@ -5,13 +5,28 @@ const generatePassword = () =>
   users = [
     {
       username: `NicoMaker`,
-      password: generatePassword()
+      password: generatePassword(),
     },
     {
       username: `Jacoreds`,
-      password: generatePassword()
-    }
-  ];
+      password: generatePassword(),
+    },
+  ],
+  getRandomNumber = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1)) + min,
+  getRandomColor = () =>
+    `rgb(${getRandomNumber(0, 255)}, ${getRandomNumber(
+      0,
+      255
+    )}, ${getRandomNumber(0, 255)})`;
+
+function setAbstractBackground() {
+  const container = document.getElementById("container"),
+    backgroundColor = getRandomColor(),
+    backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
+  container.style.backgroundColor = backgroundColor;
+  container.style.backgroundImage = backgroundImage;
+}
 
 document
   .getElementById("loginForm")
@@ -27,22 +42,6 @@ document
     if (user) window.location.href = "giri.html";
     else alert("Nome utente o password non validi!");
   });
-
-const getRandomNumber = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1)) + min,
-  getRandomColor = () =>
-    `rgb(${getRandomNumber(0, 255)}, ${getRandomNumber(
-      0,
-      255
-    )}, ${getRandomNumber(0, 255)})`;
-
-function setAbstractBackground() {
-  const container = document.getElementById("container"),
-    backgroundColor = getRandomColor(),
-    backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
-  container.style.backgroundColor = backgroundColor;
-  container.style.backgroundImage = backgroundImage;
-}
 
 setAbstractBackground();
 setInterval(setAbstractBackground, 1500);

@@ -1,15 +1,13 @@
 const statistics = [
-  { year: 2020, km: 2456 },
-  { year: 2021, km: 2614 },
-  { year: 2022, km: 3808 },
-  { year: 2023, km: 3916 },
-  { year: 2024, km: 800 },
-];
-
-const totale = statistics.reduce((acc, cur) => acc + cur.km, 0),
-  corse = 202;
-
-const avgTot = (totale / corse).toFixed(2),
+    { year: 2020, km: 2456 },
+    { year: 2021, km: 2614 },
+    { year: 2022, km: 3808 },
+    { year: 2023, km: 3916 },
+    { year: 2024, km: 800 },
+  ],
+  totale = statistics.reduce((acc, cur) => acc + cur.km, 0),
+  corse = 202,
+  avgTot = (totale / corse).toFixed(2),
   avgAnno = (totale / statistics.length).toFixed(2),
   avgMese = (totale / 45).toFixed(2),
   labels = statistics.map((entry) => `Statistiche ${entry.year}`),
@@ -23,45 +21,41 @@ const avgTot = (totale / corse).toFixed(2),
       borderWidth: 1,
       data: values,
     },
-  ];
-
-const doughnutData = { labels, datasets },
+  ],
+  doughnutData = { labels, datasets },
   doughnutConfig = {
     type: "doughnut",
     data: doughnutData,
   },
-  doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
-new Chart(doughnutCtx, doughnutConfig);
+  doughnutCtx = document.getElementById("doughnut-chart").getContext("2d"),
+  stampa = statistics
+    .map(
+      (entry, index) => `
+        <div class="Statistiche">
+          <a href="Statistiche/Anni/${entry.year}.html">
+            <img class="immaginestagione" src="Icone/Statistiche.png">
+            <p class="titoli"> Statistiche ${entry.year} </p>
+            <p> km totali ${entry.km} 
+            <img src="Icone/traguardo.png"></p>
+            <p>${avgValues[index]} %</p>
+          </a>
+        </div>
+        `
+    )
+    .join("");
 
-const stampa = statistics
-  .map(
-    (entry, index) => `
-    <div class="Statistiche">
-      <a href="Statistiche/Anni/${entry.year}.html">
-        <img class="immaginestagione" src="Icone/Statistiche.png">
-        <p class="titoli"> Statistiche ${entry.year} </p>
-        <p> km totali ${entry.km} 
-        <img src="Icone/traguardo.png"></p>
-        <p>${avgValues[index]} %</p>
-      </a>
-    </div>
-`
-  )
-  .join("");
-
-document.getElementById(
+(document.getElementById(
   "stampa"
-).innerHTML = `<div class="container">${stampa}</div>`;
-
-const stampat = `
-<a href="Statistiche/Storico/Statistiche_Totali.html">
-  <div class="colore">
-      <p>totale km ${totale} <img src="Icone/traguardo.png"></p>
-      <p>km medi per giro percorsi ${avgTot}</p>
-      <p>km medi per anno percorsi ${avgAnno}</p>
-      <p>km medi per mese ${avgMese}</p>
-  </div>
-</a>`;
+).innerHTML = `<div class="container">${stampa}</div>`),
+  (stampat = `
+  <a href="Statistiche/Storico/Statistiche_Totali.html">
+    <div class="colore">
+        <p>totale km ${totale} <img src="Icone/traguardo.png"></p>
+        <p>km medi per giro percorsi ${avgTot}</p>
+        <p>km medi per anno percorsi ${avgAnno}</p>
+        <p>km medi per mese ${avgMese}</p>
+    </div>
+  </a>`);
 document.getElementById("totale").innerHTML = stampat;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -71,3 +65,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (isOdd) container.classList.add("odd-items");
 });
+
+new Chart(doughnutCtx, doughnutConfig);
