@@ -50,11 +50,11 @@ const data = {
 ).innerHTML = `<div class="container">${stampa}</div>`),
   (avgP = (totale / labels.length).toFixed(2)),
   (corse = 41),
-  (avgcorssa = (totale / corse).toFixed(2)),
+  (avgcorsa = (totale / corse).toFixed(2)),
   (stampaP = `
   <div class="colore">
       <p>Totale km percorsi in Primavera ${totale} <img src="Icone/traguardo.png"> </p>
-      <p>km medi per corsa in Primavera ${avgcorssa} </p>
+      <p>km medi per corsa in Primavera ${avgcorsa} </p>
       <p>media km per stagione ${avgP} </p>
   </div>`);
 document.getElementById("totale").innerHTML = stampaP;
