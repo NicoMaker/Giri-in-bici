@@ -28,15 +28,28 @@ const data = {
     datasets: [
       {
         label: "km mensili totali",
-        backgroundColor: ["blue"],
-        borderColor: ["blue"],
+        backgroundColor: [
+          "darkblue",
+          "blue",
+          "lightgreen",
+          "green",
+          "pink",
+          "yellow",
+          "orange",
+          "red",
+          "darkgreen",
+          "brown",
+          "cyan",
+          "blue",
+        ],
+        borderColor: ["black"],
         borderWidth: 1,
         data: chilometri,
       },
     ],
   },
   config = {
-    type: "line",
+    type: "bar",
     data: dati,
     options: {
       scales: {
