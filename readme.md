@@ -24,7 +24,7 @@
 
   - [Grafico Generale Statistiche](Statistiche/Js//History/GraficoTotale.js) -> km mese interessato Aprile 2024 e corse totali
   - [Grafico km totali per mese](Statistiche/Js/History/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente Aprile e ricordarsi di mettere il numero totale di mesi percorsi
-  - [Grafico Storico Mese](Statistiche/Js//History/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024
+  - [Grafico Storico Mese](Statistiche/Js//History/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024 e nel mese di Aprile
 
 ## Credenziali
 
