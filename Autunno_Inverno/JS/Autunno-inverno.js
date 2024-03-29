@@ -31,11 +31,11 @@ const data = {
       (label, index) => `
       <div class="Autunno-Invernocontorno">
         <a href="Autunno_Inverno/Periodi/${label}.html">
-          <img class="immaginestagione" src="Icone/inverno.png">
+          <img class="immaginestagione" src="Icons/inverno.png">
           <p class="titoli">Autunno - Inverno ${label}
             <p>Totale km 
               ${values[index]} 
-              <img src="Icone/traguardo.png"> </p> 
+              <img src="Icons/traguardo.png"> </p> 
               <p> ${avgValues[index]} % </p>
           </p>
         </a>
@@ -52,7 +52,7 @@ const data = {
   (avgcorsa = (totale / corse).toFixed(2)),
   (stampaAI = `
   <div class="colore">
-      <p>Totale km percorsi in Autunno - Inverno ${totale} <img src="Icone/traguardo.png"> </p>
+      <p>Totale km percorsi in Autunno - Inverno ${totale} <img src="Icons/traguardo.png"> </p>
       <p>km medi per corsa in Autunno-Inverno ${avgcorsa} </p>
       <p>media km per stagione ${avgAI} </p>
   </div>`);

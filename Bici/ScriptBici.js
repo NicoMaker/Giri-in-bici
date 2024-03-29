@@ -1,18 +1,18 @@
 const bici = document.getElementById("StampaBici"),
   Home = () =>
     (bici.innerHTML = `
-    <img class="immagini_stagione" src="Le nostre Bici/Intestazione/madonnina_Bici.jpg" />
+    <img class="immagini_stagione" src="img/Intestazione/madonnina_Bici.jpg" />
     <br />`),
   CalcolaMTB = () =>
     (bici.innerHTML = `
     <div class="container_stagione">
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/MTB/MarioMTB.jpeg" />
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI//MTB/SonicMTB.jpg" />
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/MTB/MarioSonicMTB.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/MTB/MarioMTB.jpeg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI//MTB/SonicMTB.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/MTB/MarioSonicMTB.jpg" />
     </div>
     <br />
     <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/MTB/La Pantera Nera .jpg">
+        <img class="immagine_bicisx" src="img/MTB/La Pantera Nera .jpg">
         <h1 class="Titolo2">La Pantera Nera</h1>
         <p><strong>Tipo Freni:</strong> Pattino</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -22,7 +22,7 @@ const bici = document.getElementById("StampaBici"),
     </div>
     
     <div class="contorno">
-        <img class="immagine_bicidx" src="Le nostre Bici/MTB/La Fluo.jpg">
+        <img class="immagine_bicidx" src="img/MTB/La Fluo.jpg">
         <h1 class="Titolo2">La Fluo</h1>
         <p><strong>Tipo Freni:</strong> Disco</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -32,7 +32,7 @@ const bici = document.getElementById("StampaBici"),
     </div>
     
     <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/MTB/La Bianconera .jpg">
+        <img class="immagine_bicisx" src="img/MTB/La Bianconera .jpg">
         <h1 class="Titolo2">La Bianconera</h1>
         <p><strong>Tipo Freni:</strong> Disco</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -42,7 +42,7 @@ const bici = document.getElementById("StampaBici"),
     </div>
     
     <div class="contorno">
-        <img class="immagine_bicidx" src="Le nostre Bici/MTB/La Pimpa.jpg">
+        <img class="immagine_bicidx" src="img/MTB/La Pimpa.jpg">
         <h1 class="Titolo2">La Pimpa</h1>
         <p><strong>Tipo Freni:</strong> Disco</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -52,7 +52,7 @@ const bici = document.getElementById("StampaBici"),
     </div>
     
     <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/MTB/La Splendente.jpg">
+        <img class="immagine_bicisx" src="img/MTB/La Splendente.jpg">
         <h1 class="Titolo2">La Splendente</h1>
         <p><strong>Tipo Freni:</strong> Disco</p>
         <p><strong>Materiale:</strong> Acciaio</p>
@@ -64,13 +64,13 @@ const bici = document.getElementById("StampaBici"),
   CalcolaCorsa = () =>
     (bici.innerHTML = `
     <div class="container_stagione">
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/SonicCorsa.jpg" />
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/MarioSonicCorsa.jpg" />
-        <img class="immagini_stagione2" src="Le nostre Bici/Intestazione/AI/Corsa/SonicCorsa2.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/Corsa/SonicCorsa.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/Corsa/MarioSonicCorsa.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/Corsa/SonicCorsa2.jpg" />
     </div>
     <br />
     <div class="contorno">
-        <img class="immagine_bicisx" src="Le nostre Bici/Corsa/La Corsara .jpg">
+        <img class="immagine_bicisx" src="img/Corsa/La Corsara .jpg">
         <h1 class="Titolo2"> La Corsara</h1>
         <p><strong>Tipo Freni : </strong> Pattino</p>
         <p><strong>Materiale :</strong> Fibra di Carbonio</p>

@@ -31,12 +31,12 @@ const data = {
       (label, index) => `
       <div class="Primaveracontorno">
         <a href="Primavera/Periodi/${label}.html">
-          <img class="immaginestagione" src="Icone/primavera.png">
+          <img class="immaginestagione" src="Icons/primavera.png">
           <p class="titoli">
               Primavera ${label}
 
               <p>Totale km  ${data[label]} 
-              <img src="Icone/traguardo.png"></p> 
+              <img src="Icons/traguardo.png"></p> 
               <p> ${avgValues[index]} % </p>
           </p>
         </a>
@@ -53,7 +53,7 @@ const data = {
   (avgcorsa = (totale / corse).toFixed(2)),
   (stampaP = `
   <div class="colore">
-      <p>Totale km percorsi in Primavera ${totale} <img src="Icone/traguardo.png"> </p>
+      <p>Totale km percorsi in Primavera ${totale} <img src="Icons/traguardo.png"> </p>
       <p>km medi per corsa in Primavera ${avgcorsa} </p>
       <p>media km per stagione ${avgP} </p>
   </div>`);

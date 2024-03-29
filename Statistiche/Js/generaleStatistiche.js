@@ -33,10 +33,10 @@ const statistics = [
       (entry, index) => `
       <div class="Statistiche">
         <a href="Statistiche/Anni/${entry.year}.html">
-          <img class="immaginestagione" src="Icone/Statistiche.png">
+          <img class="immaginestagione" src="Icons/Statistiche.png">
           <p class="titoli"> Statistiche ${entry.year} </p>
           <p> km totali ${entry.km} 
-          <img src="Icone/traguardo.png"></p>
+          <img src="Icons/traguardo.png"></p>
           <p>${avgValues[index]} %</p>
         </a>
       </div>
@@ -48,9 +48,9 @@ const statistics = [
   "stampa"
 ).innerHTML = `<div class="container">${stampa}</div>`),
   (stampat = `
-  <a href="Statistiche/Storico/Statistiche_Totali.html">
+  <a href="Statistiche/History/Statistiche_Totali.html">
     <div class="colore">
-        <p>totale km ${totale} <img src="Icone/traguardo.png"></p>
+        <p>totale km ${totale} <img src="Icons/traguardo.png"></p>
         <p>km medi per giro percorsi ${avgTot}</p>
         <p>km medi per anno percorsi ${avgAnno}</p>
         <p>km medi per mese ${avgMese}</p>

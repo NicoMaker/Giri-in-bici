@@ -22,9 +22,9 @@
 
 - ### Parte Storica statistiche
 
-  - [Grafico Generale Statistiche](Statistiche/Js//Storico/GraficoTotale.js) -> km mese interessato Aprile 2024 e corse totali
-  - [Grafico km totali per mese](Statistiche/Js/Storico/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente Aprile e ricordarsi di mettere il numero totale di mesi percorsi
-  - [Grafico Storico Mese](Statistiche/Js//Storico/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024
+  - [Grafico Generale Statistiche](Statistiche/Js//History/GraficoTotale.js) -> km mese interessato Aprile 2024 e corse totali
+  - [Grafico km totali per mese](Statistiche/Js/History/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente Aprile e ricordarsi di mettere il numero totale di mesi percorsi
+  - [Grafico Storico Mese](Statistiche/Js//History/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024
 
 ## Credenziali
 
@@ -33,19 +33,19 @@
 
 ## Logo e Apertura sito
 
-[![Logo](imagini%20Html%20sito%20principale/Logo%20.jpg)](https://giri-in-bici.netlify.app/)
+[![Logo](Img/Logo%20.jpg)](https://giri-in-bici.netlify.app/)
 
 [Apertura sito principale](https://giri-in-bici.netlify.app/)
 
 ## Mappa Sito
 
-![Mappa Sito](About_US/Mappa.jpg)
+![Mappa Sito](About_US/Img/Mappa.jpg)
 
 ## Avatar Partecipanti
 
-[![AvatarNM](About_US/Avatar/AvatarNM.jpg)][NM]
+[![AvatarNM](About_US/Img//AvatarNM.jpg)][NM]
 
-[![AvatarJR](About_US/Avatar/AvatarJR.png)][JR]
+[![AvatarJR](About_US/Img/AvatarJR.png)][JR]
 
 [NM]:https://www.komoot.com/it-it/user/1372754001803
 [JR]:https://www.komoot.com/it-it/user/1381372752571

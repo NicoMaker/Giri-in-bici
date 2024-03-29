@@ -86,7 +86,7 @@ const data = {
   tabellaDati = `
   <tr class="grassetto">
     <th>Mese</th>
-    <th>km <img src="../../Icone/traguardo.png"></th>
+    <th>km <img src="../../Icons/traguardo.png"></th>
     <th>Percentuale sul totale</th>
   </tr>
   ${mesi
@@ -103,7 +103,7 @@ const data = {
   stampat = `
   <a href="Statistiche_Mensili.html">
     <div class="colore">
-        <p>totale km ${totale} <img src="../../Icone/traguardo.png"></p>
+        <p>totale km ${totale} <img src="../../Icons/traguardo.png"></p>
         <p>km medi percorsi ${kmMediPerCorsa}</p>
         <p>km medi per mese ${kmMediPerMese}</p>
     </div>

@@ -61,10 +61,10 @@ const data = {
   tabellaDati = `
   <tr class="grassetto">
     <th>Mese</th>
-    <th>km <img src="../../Icone/traguardo.png"></th>
+    <th>km <img src="../../Icons/traguardo.png"></th>
     <th>Percentuale sul totale</th>
     <th>Mesi di Corsa</th>
-    <th>km <img src="../../Icone/traguardo.png"> medi mensili</th>
+    <th>km <img src="../../Icons/traguardo.png"> medi mensili</th>
   </tr>
   ${kmPerMese
     .map(
@@ -82,7 +82,7 @@ const data = {
   stampat = `
   <a href="StoricoMensile.html">
     <div class="colore">
-        <p>totale km ${totale} <img src="../../Icone/traguardo.png"></p>
+        <p>totale km ${totale} <img src="../../Icons/traguardo.png"></p>
         <p>km totali medi per mese ${mediaComplessiva}</p>
     </div>
   </a>

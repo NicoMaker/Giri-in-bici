@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         date: "25 Luglio",
         number: 15,
-        place: "Cividale + Dobrovo <img src='../../Icone/Slovenia.png' />",
+        place: "Cividale + Dobrovo <img src='../../Icons/Slovenia.png' />",
         distance: 124,
       },
       {
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
   kmElement.innerHTML = `
         <div class="colore">
             <p> Totale km percorsi ${totalKm} 
-            <img src="../../Icone/traguardo.png"> </p>
+            <img src="../../Icons/traguardo.png"> </p>
             <p> Media km percorsi ${mediaValue} </p>
         </div>
     `;

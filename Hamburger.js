@@ -22,7 +22,7 @@ hamburger.addEventListener("click", toggleMenu);
 
 document.getElementById("km").innerHTML = `
     <div class="colore">
-      <p class="misuracolre">totale km ${km} <img src="Icone/traguardo.png"></p>
+      <p class="misuracolre">totale km ${km} <img src="Icons/traguardo.png"></p>
       <p class="misuracolre">km medi per giro percorsi ${mediavalue}</p>
     </div>
   `;
