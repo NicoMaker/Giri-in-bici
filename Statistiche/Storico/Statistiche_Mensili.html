@@ -4,10 +4,10 @@
 <head>
   <link rel="stylesheet" href="../Style_statistiche.css" />
   <link rel="icon" href="../Logo_statistiche.jpg" type="image/jpg" />
-  <title>Statistiche Storiche Mensili</title>
+  <title>Statistiche Totali km per Mese</title>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../js/Storico/StoricoMensile.js" defer></script>
+  <script src="../js/Storico/GraficoTotaleMensile.js" defer></script>
 </head>
 
 <body>
@@ -17,16 +17,20 @@
 
   <p>
     <button class="icone">
-      <a class="colore_apertura" href="Statistiche_Mensili.html">
+      <a class="colore_apertura" href="Statistiche_Totali.html">
         <img src="../../Icone/freccia.png" />
       </a>
     </button>
   </p>
 
-  <h1 class="colore_apertura, Titolo">Statistiche Storiche Mensili</h1>
+  <h1 class="colore_apertura, Titolo">Statistiche Totali km per Mese</h1>
+
+  <table id="mesi"></table>
 
   <br />
-  <div id="Grafici"></div>
+  <canvas id="line-chart"></canvas>
+  <br />
+  <div id="totale"></div>
   <br />
 </body>
 

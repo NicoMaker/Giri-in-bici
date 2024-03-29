@@ -65,7 +65,7 @@ const data = {
     labels: mesi,
     datasets: [
       {
-        label: "km mensili totali",
+        label: "km mensili per periodo totali",
         backgroundColor: ["blue"],
         borderColor: ["blue"],
         borderWidth: 1,
@@ -101,7 +101,7 @@ const data = {
     .join("")}
   `,
   stampat = `
-  <a href="StoricoMensile.html">
+  <a href="Statistiche_Mensili.html">
     <div class="colore">
         <p>totale km ${totale} <img src="../../Icone/traguardo.png"></p>
         <p>km medi percorsi ${kmMediPerCorsa}</p>
