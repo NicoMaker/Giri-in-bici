@@ -16,7 +16,13 @@ const data = {
   chilometri = Object.values(data),
   totale = chilometri.reduce((acc, curr) => acc + curr, 0),
   percentuali = chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
-  kmMediPerMese = (totale / mesi.length).toFixed(2),
+  mesi_percorsi = [4, 3, 4, 3, 4, 4, 4, 4, 4, 4, 3, 4],
+  kmPerMese = mesi.map((mese, index) => {
+    const numMesiPeriodo = mesi_percorsi[index],
+      kmMediMese = (chilometri[index] / numMesiPeriodo).toFixed(2);
+    return { mese, kmMediMese };
+  }),
+  mediaComplessiva = (totale / mesi.length).toFixed(2),
   dati = {
     labels: mesi,
     datasets: [
@@ -40,29 +46,34 @@ const data = {
   },
   ctx = document.getElementById("line-chart").getContext("2d"),
   tabellaDati = `
-    <tr class="grassetto">
-      <th>Mese</th>
-      <th>km <img src="../../Icone/traguardo.png"></th>
-      <th>Percentuale sul totale</th>
-    </tr>
-    ${mesi
-      .map(
-        (mese, index) => `
+  <tr class="grassetto">
+    <th>Mese</th>
+    <th>km <img src="../../Icone/traguardo.png"></th>
+    <th>Percentuale sul totale</th>
+    <th>Mesi di Corsa</th>
+    <th>km <img src="../../Icone/traguardo.png"> medi mensili</th>
+  </tr>
+  ${kmPerMese
+    .map(
+      ({ mese, kmMediMese }, index) => `
     <tr>
-        <td>${mese}</td>
-        <td>${chilometri[index]}</td>
-        <td>${percentuali[index]} %</td>
+      <td>${mese}</td>
+      <td>${chilometri[index]}</td>
+      <td>${percentuali[index]} %</td>
+      <td>${mesi_percorsi[index]}
+      <td>${kmMediMese}</td>
     </tr>`
-      )
-      .join("")}
-    `,
+    )
+    .join("")}
+`,
   stampat = `
-    <a href="StoricoMensile.html">
-      <div class="colore">
-          <p>totale km ${totale} <img src="../../Icone/traguardo.png"></p>
-          <p>km totali medi per mese ${kmMediPerMese}</p>
-      </div>
-    </a>`;
+  <a href="StoricoMensile.html">
+    <div class="colore">
+        <p>totale km ${totale} <img src="../../Icone/traguardo.png"></p>
+        <p>km totali medi per mese ${mediaComplessiva}</p>
+    </div>
+  </a>
+`;
 
 new Chart(ctx, config);
 document.getElementById("mesi").innerHTML = tabellaDati;
