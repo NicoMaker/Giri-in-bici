@@ -12,18 +12,18 @@
 
 ### Aggiorna Stagione
 
-- [Primavera](Primavera/JS/Primavera.js) -> aggiornare parte 2024 e aggiornare corse nella stagione
+- [Primavera](Primavera/JS/Primavera.js) -> aggiornare parte 2024
 - [Statistiche Stagione](Statistiche/Js/stagioni.js) -> modifici i km nella stagione corrispondente Primavera
 
 ### Aggiorna Statistiche
 
-- [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese (Aprile) e numero corse totali anno
-- [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> i km dell'anno (2024) e il numero corse totali dell'anno 2024 e alla fine di ogni mese aggiungere un mese
+- [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese Aprile e numero corse totali anno
+- [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> i km dell'anno 2024 e il numero corse totali dell'anno 2024 e alla fine di ogni mese aggiungere un mese
 
 - ### Parte Storica statistiche
 
-  - [Grafico Generale Statistiche](Statistiche/Js//Storico/GraficoTotale.js) -> km mese interessato (Aprile 2024) e corse totali
-  - [Grafico km totali per mese](Statistiche/Js/Storico/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente (Aprile)
+  - [Grafico Generale Statistiche](Statistiche/Js//Storico/GraficoTotale.js) -> km mese interessato Aprile 2024 e corse totali
+  - [Grafico km totali per mese](Statistiche/Js/Storico/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente Aprile
   - [Grafico Storico Mese](Statistiche/Js//Storico/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024
 
 ## Credenziali
