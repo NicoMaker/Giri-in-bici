@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         distance: 53,
       },
       {
-        date: "90 Giugno",
+        date: "09 Giugno",
         number: 11,
         place:
           "<a href='https://www.komoot.com/it-it/tour/1159971551?share_token=aQTtrnM0Mz8POtUs7DBqDRtdIPRdhnhdQ5XC83OJ1zI2peGF9U&ref=wtd' target='_blank'>Bertiolo + Ariis</a>",
