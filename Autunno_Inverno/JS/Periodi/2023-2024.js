@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         date: "19 Novembre",
         number: 9,
         place:
-          '<a href="https://www.komoot.com/it-it/tour/1377798163?ref=wtd&share_token=aQnC5VdWP4I5iUgtCl9yfhYBK2L3i5NcGR6mzxy3lU2cRrfl2c" target="_blank">Colloredo di Monte Albano + Buia (corsa velocità)</a>',
+          '<a href="https://www.komoot.com/it-it/tour/1377798163?ref=wtd&share_token=aQnC5VdWP4I5iUgtCl9yfhYBK2L3i5NcGR6mzxy3lU2cRrfl2c" target="_blank">Colloredo di Monte Albano + Buja (corsa velocità)</a>',
         distance: 91,
       },
       {
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
         date: "28 Gennaio",
         number: 22,
         place:
-          '<a href="https://www.komoot.com/it-it/tour/1425256859?ref=wtd&share_token=alqO48JvzcTgkiWri7JtfhA00QJ6v7115oyoXGXk1v2ay2oZPZ" target="_blank">Colloredo di Monte Albano + Buia</a>',
+          '<a href="https://www.komoot.com/it-it/tour/1425256859?ref=wtd&share_token=alqO48JvzcTgkiWri7JtfhA00QJ6v7115oyoXGXk1v2ay2oZPZ" target="_blank">Colloredo di Monte Albano + Buja</a>',
         distance: 95,
       },
     ],
