@@ -28,6 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
           '<a href="https://www.komoot.com/it-it/tour/1481297447?share_token=a3HKZjvaD2ZQJlZZz7xo7s3DR0RTxnqi5RySu8OlGnHv4hXRF1&ref=wtd" target="_blank">Majano Susans Muris</a>',
         distance: 94,
       },
+      {
+        date: "30 Marzo",
+        number: 5,
+        place:
+          '<a href="https://www.komoot.com/it-it/tour/1489013489?share_token=aIseuEPlp450T99uPGN13FH0BhCppw8C4W15m2JLFVoJXHzXXt&ref=wtd" target="_blank">Castello di Fagagna + Moruzzo</a>',
+        distance: 72,
+      },
     ],
     tableBody = document.querySelector("table tbody");
 
