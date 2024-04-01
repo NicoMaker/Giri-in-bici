@@ -44,7 +44,7 @@ const data = {
     "Dicembre 2023": 558,
     "Gennaio 2024": 486,
     "Marzo 2024": 386,
-    // "Aprile 2024": 0,
+    "Aprile 2024": 0,
     // "Maggio 2024": 0,
     // "Giugno 2024": 0,
     // "Luglio 2024": 0,

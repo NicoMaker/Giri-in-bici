@@ -16,7 +16,7 @@ const data = {
   chilometri = Object.values(data),
   totale = chilometri.reduce((acc, curr) => acc + curr, 0),
   percentuali = chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
-  mesi_percorsi = [4, 3, 4, 3, 4, 4, 4, 4, 4, 4, 3, 4],
+  mesi_percorsi = [4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4],
   kmPerMese = mesi.map((mese, index) => {
     const numMesiPeriodo = mesi_percorsi[index],
       kmMediMese = (chilometri[index] / numMesiPeriodo).toFixed(2);
