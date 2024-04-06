@@ -42,6 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
           '<a href="https://www.komoot.com/it-it/tour/1494432977?share_token=avMQdjlcsgPsbKb642suG6Hqmk80OWff5ddY8BX2RTqWlM7ew1&ref=wtd" target="_blank">Pocenia + Palazzolo dello Stella</a>',
         distance: 81,
       },
+      {
+        data: "06 Aprile",
+        number: 7,
+        place:
+        '<a href="https://www.komoot.com/it-it/tour/1499160557?share_token=aaZZ37mhpxR3CcSSwYaB5MRtD25n7Nd8abdLatKcUufY56CGgf&ref=wtd" target="_blank">Castello di Buttrio</a>',
+        distance: 80
+      }
     ],
     tableBody = document.querySelector("table tbody");
 
