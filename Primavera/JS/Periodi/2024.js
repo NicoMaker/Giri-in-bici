@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         distance: 81,
       },
       {
-        data: "06 Aprile",
+        date: "06 Aprile",
         number: 7,
         place:
         '<a href="https://www.komoot.com/it-it/tour/1499160557?share_token=aaZZ37mhpxR3CcSSwYaB5MRtD25n7Nd8abdLatKcUufY56CGgf&ref=wtd" target="_blank">Castello di Buttrio</a>',
