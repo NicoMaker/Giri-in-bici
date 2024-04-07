@@ -48,6 +48,13 @@ document.addEventListener("DOMContentLoaded", function () {
         place:
         '<a href="https://www.komoot.com/it-it/tour/1499160557?share_token=aaZZ37mhpxR3CcSSwYaB5MRtD25n7Nd8abdLatKcUufY56CGgf&ref=wtd" target="_blank">Castello di Buttrio</a>',
         distance: 80
+      },
+      {
+        date: "07 Aprile",
+        number: 8,
+        place: 
+        '<a href="https://www.komoot.com/it-it/tour/1501477483?share_token=a6zwBLTOfHodxLdI8dGClGK7CoDCX4aWQUrrYDDnFJ75g6YlSV&ref=wtd"  target="_blank">Monte di Ragogna + Forgaria</a>',
+        distance: 103
       }
     ],
     tableBody = document.querySelector("table tbody");

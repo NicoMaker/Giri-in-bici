@@ -1,7 +1,7 @@
 const data = {
     Gennaio: 486,
     Marzo: 386,
-    Aprile: 161,
+    Aprile: 264,
     // Maggio: 0,
     // Giugno: 0,
     // Luglio: 0,
@@ -15,7 +15,7 @@ const data = {
   chilometri = Object.values(data),
   totale = chilometri.reduce((acc, curr) => acc + curr, 0),
   percentuali = chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
-  corse = 13,
+  corse = 14,
   kmMediPerCorsa = (totale / corse).toFixed(2),
   kmMediPerMese = (totale / mesi.length).toFixed(2),
   dati = {
