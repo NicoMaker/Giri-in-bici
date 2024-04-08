@@ -12,7 +12,7 @@
 
 ### Aggiorna Stagione
 
-- [Primavera](Primavera/JS/Primavera.js) -> aggiornare parte 2024
+- [Primavera](Primavera/JS/Primavera.js) -> aggiornare parte 2024 e numero corse per quella stagione
 - [Statistiche Stagione](Statistiche/Js/stagioni.js) -> modifici i km nella stagione corrispondente Primavera
 
 ### Aggiorna Statistiche
