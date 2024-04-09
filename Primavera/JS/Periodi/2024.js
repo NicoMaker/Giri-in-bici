@@ -53,8 +53,15 @@ document.addEventListener("DOMContentLoaded", function () {
         date: "07 Aprile",
         number: 8,
         place: 
-        '<a href="https://www.komoot.com/it-it/tour/1501477483?share_token=a6zwBLTOfHodxLdI8dGClGK7CoDCX4aWQUrrYDDnFJ75g6YlSV&ref=wtd"  target="_blank">Monte di Ragogna + Forgaria</a>',
+        '<a href="https://www.komoot.com/it-it/tour/1501477483?share_token=a6zwBLTOfHodxLdI8dGClGK7CoDCX4aWQUrrYDDnFJ75g6YlSV&ref=wtd" target="_blank">Monte di Ragogna + Forgaria</a>',
         distance: 103
+      },
+      {
+        date: "09 Aprile",
+        number: 9,
+        place:
+        '<a href="https://www.komoot.com/it-it/tour/1504735937?share_token=aBnnwifB8NL29d4Pgpyrig5ZTNLJDOScPmLNZIBdDWOo6pmP2W&ref=wtd" target="_blank">San Daniele + Castello di Fagagna</a>',
+        distance: 71
       }
     ],
     tableBody = document.querySelector("table tbody");
