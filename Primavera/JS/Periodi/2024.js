@@ -62,6 +62,13 @@ document.addEventListener("DOMContentLoaded", function () {
         place:
         '<a href="https://www.komoot.com/it-it/tour/1504735937?share_token=aBnnwifB8NL29d4Pgpyrig5ZTNLJDOScPmLNZIBdDWOo6pmP2W&ref=wtd" target="_blank">San Daniele + Castello di Fagagna</a>',
         distance: 71
+      },
+      {
+        date: "13 Aprile",
+        number: 10,
+        place:
+        '<a href="https://www.komoot.com/it-it/tour/1511248569?share_token=aNaWuIuHwLCKyXo19w9skh8llBizyce4hKDk1DliB0tE6molYY&ref=wtd" target="_blank">Osoppo</a>',
+        distance: 94
       }
     ],
     tableBody = document.querySelector("table tbody");
