@@ -69,6 +69,13 @@ document.addEventListener("DOMContentLoaded", function () {
         place:
         '<a href="https://www.komoot.com/it-it/tour/1511248569?share_token=aNaWuIuHwLCKyXo19w9skh8llBizyce4hKDk1DliB0tE6molYY&ref=wtd" target="_blank">Osoppo</a>',
         distance: 94
+      },
+      {
+        date: "14 Aprile",
+        number: 11,
+        place:
+        '<a href="https://www.komoot.com/it-it/tour/1514056161?share_token=apJ44sci3k5o6hruOwXv1pqDa2Wl1RgQbUVLHNEWgQDote9sX4&ref=wtd" target="_blank">Anduins</a>',
+        distance: 101
       }
     ],
     tableBody = document.querySelector("table tbody");
