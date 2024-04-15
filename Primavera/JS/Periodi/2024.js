@@ -76,6 +76,13 @@ document.addEventListener("DOMContentLoaded", function () {
         place:
         '<a href="https://www.komoot.com/it-it/tour/1514056161?share_token=apJ44sci3k5o6hruOwXv1pqDa2Wl1RgQbUVLHNEWgQDote9sX4&ref=wtd" target="_blank">Anduins</a>',
         distance: 101
+      },
+      {
+        date: "15 Aprile",
+        number: 12,
+        place:
+        '<a href="https://www.komoot.com/it-it/tour/1516257343?share_token=aP1iHBCFw2pLWw4RlEkdN7ep35pW4n1ngCxmXlgepjKfkM24oa&ref=wtd" target="_blank">Udine</a>',
+        distance: 58
       }
     ],
     tableBody = document.querySelector("table tbody");
