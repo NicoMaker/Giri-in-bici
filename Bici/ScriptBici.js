@@ -7,8 +7,14 @@ const bici = document.getElementById("StampaBici"),
     (bici.innerHTML = `
     <div class="container_stagione">
         <img class="immagini_stagione2" src="img/Intestazione/AI/MTB/MarioMTB.jpeg" />
-        <img class="immagini_stagione2" src="img/Intestazione/AI//MTB/SonicMTB.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/MTB/SonicMTB.jpg" />
         <img class="immagini_stagione2" src="img/Intestazione/AI/MTB/MarioSonicMTB.jpg" />
+    </div>
+    <br />
+    <div class="container_stagione">
+        <img class="immagini_stagione2" src="img/Intestazione/AI/MTB/Sonichu01.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/MTB/Sonichu02.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/MTB/Sonichu03.jpg" />
     </div>
     <br />
     <div class="contorno">
