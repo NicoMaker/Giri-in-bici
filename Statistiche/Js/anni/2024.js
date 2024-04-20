@@ -58,7 +58,7 @@ const data = {
   <tr class="grassetto">
     <th>Mese</th>
     <th>km <img src="../../Icons/traguardo.png"></th>
-    <th>Percentuale su anno</th>
+    <th>Percentuale sull'anno</th>
   </tr>
 ${mesi
   .map(
