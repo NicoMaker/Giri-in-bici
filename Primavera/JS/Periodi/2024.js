@@ -83,6 +83,13 @@ document.addEventListener("DOMContentLoaded", function () {
         place:
         '<a href="https://www.komoot.com/it-it/tour/1516257343?share_token=aP1iHBCFw2pLWw4RlEkdN7ep35pW4n1ngCxmXlgepjKfkM24oa&ref=wtd" target="_blank">Udine</a>',
         distance: 58
+      },
+      {
+        date: "20 Aprile",
+        number: 13,
+        place:
+        '<a href="https://www.komoot.com/it-it/tour/1523421310?share_token=a69B4518xjniO3P8O1pTStspmITYN5Hk41xs1OFkVB9SmnkcDG&ref=wtd" target="_blank">Nimis Attimis Faedis</a>',
+        distance: 108
       }
     ],
     tableBody = document.querySelector("table tbody");
