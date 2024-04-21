@@ -90,6 +90,13 @@ document.addEventListener("DOMContentLoaded", function () {
         place:
         '<a href="https://www.komoot.com/it-it/tour/1523421310?share_token=a69B4518xjniO3P8O1pTStspmITYN5Hk41xs1OFkVB9SmnkcDG&ref=wtd" target="_blank">Nimis Attimis Faedis</a>',
         distance: 108
+      },
+      {
+        date: "21 Aprile",
+        number: 14,
+        place:
+        '<a href="https://www.komoot.com/it-it/tour/1525375085?share_token=apK1eeuFuw0UZJI4sVMWPRtI31Wl9p8zRHsphuZYuyU1zxSCio&ref=wtd" target="_blank">San Mauro x 3 + Monte di Ragogna</a>',
+        distance: 107
       }
     ],
     tableBody = document.querySelector("table tbody");
