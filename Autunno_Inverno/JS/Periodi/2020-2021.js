@@ -12,10 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // Funzione per aggiornare la tabella e le statistiche
   function updateTableAndStats(data) {
-    const tableBody = document.querySelector("table tbody");
-    const kmElement = document.getElementById("km");
+    const tableBody = document.querySelector("table tbody"),kmElement = document.getElementById("km");
 
     data.forEach((row) => {
       const newRow = document.createElement("tr");
