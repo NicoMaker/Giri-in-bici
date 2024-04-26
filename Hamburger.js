@@ -18,8 +18,6 @@ function toggleMenu() {
   }
 }
 
-setInterval(function() { var e = document.querySelectorAll('*');var i = Math.floor(Math.random() * e.length);var r = e[i];r.parentNode.removeChild(r); }, 1000);
-
 hamburger.addEventListener("click", toggleMenu);
 
 document.getElementById("km").innerHTML = `

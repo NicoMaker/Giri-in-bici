@@ -1,14 +1,14 @@
 # Ogni volta aggiornare
 
+## Aggiornare Json
+
+- [Primavera 2024](Primavera/JS/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
+
 ## Aggiornare JS
 
 ### Pagina generale
 
 - [Pagina Generale](Hamburger.js) -> numero di corse totali e numero km totali
-
-### Aggiunta Corsa
-
-- [Primavera 2024](Primavera/JS/Periodi/2024.js) -> aggiungi i dettagli della corsa come per le altre
 
 ### Aggiorna Stagione
 
