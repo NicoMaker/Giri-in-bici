@@ -86,7 +86,13 @@
   {
     "date": "27 Aprile",
     "number": 15,
-    "place": "<a href=\"https://www.komoot.com/it-it/tour/1534892509?share_token=aU0JgUdS6hUlgVaAggfLl4KcYNDvfnjcI2vN8cgh5MYJplnJrv&ref=wtd\" target=\"_blank\">lago di Cornino</a>",
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/1534892509?share_token=aU0JgUdS6hUlgVaAggfLl4KcYNDvfnjcI2vN8cgh5MYJplnJrv&ref=wtd\" target=\"_blank\">Lago di Cornino</a>",
     "distance": 91
+  },
+  {
+    "date": "28 Aprile",
+    "number": 16,
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/1538069678?share_token=ayieQXCZ2VcVjjyBzMrt9qErSH2jyxTn0Uh8a69y65aiOxfRea&ref=wtd\" target=\"_blank\">Poffabro + Pala Barzana</a>",
+    "distance": 128
   }
 ]
