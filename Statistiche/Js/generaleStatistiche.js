@@ -9,7 +9,7 @@ const statistics = [
   corse = 214,
   avgTot = (totale / corse).toFixed(2),
   avgAnno = (totale / statistics.length).toFixed(2),
-  avgMese = (totale / 46).toFixed(2),
+  avgMese = (totale / 47).toFixed(2),
   labels = statistics.map((entry) => `${entry.year}`),
   values = statistics.map((entry) => entry.km),
   avgValues = statistics.map((entry) => ((entry.km / totale) * 100).toFixed(2)),

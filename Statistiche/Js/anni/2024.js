@@ -2,7 +2,7 @@ const data = {
     Gennaio: 486,
     Marzo: 386,
     Aprile: 1022,
-    // Maggio: 0,
+    Maggio: 0,
     // Giugno: 0,
     // Luglio: 0,
     // Agosto: 0,

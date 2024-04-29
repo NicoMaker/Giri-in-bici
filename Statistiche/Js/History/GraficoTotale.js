@@ -45,7 +45,7 @@ const data = {
     "Gennaio 2024": 486,
     "Marzo 2024": 386,
     "Aprile 2024": 1022,
-    // "Maggio 2024": 0,
+    "Maggio 2024": 0,
     // "Giugno 2024": 0,
     // "Luglio 2024": 0,
     // "Agosto 2024": 0,
