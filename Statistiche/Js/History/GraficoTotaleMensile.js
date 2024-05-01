@@ -3,7 +3,7 @@ const data = {
     Febbraio: 705,
     Marzo: 1126,
     Aprile: 1540,
-    Maggio: 737,
+    Maggio: 860,
     Giugno: 1181,
     Luglio: 2051,
     Agosto: 1833,
