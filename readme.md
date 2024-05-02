@@ -2,7 +2,7 @@
 
 ## Aggiornare Json
 
-- [Primavera 2024](Primavera/JS/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
+- [Primavera 2024](Primavera/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
 
 ## Aggiornare JS
 
