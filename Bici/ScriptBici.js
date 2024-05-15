@@ -75,6 +75,12 @@ const bici = document.getElementById("StampaBici"),
         <img class="immagini_stagione2" src="img/Intestazione/AI/Corsa/SonicCorsa2.jpg" />
     </div>
     <br />
+    <div class="container_stagione">
+        <img class="immagini_stagione2" src="img/Intestazione/AI/Corsa/SonicPikaku1.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/Corsa/SonicPikaku2.jpg" />
+        <img class="immagini_stagione2" src="img/Intestazione/AI/Corsa/SonicPikaku3.jpg" />
+    </div>
+    <br />
     <div class="contorno">
         <img class="immagine_bicisx" src="img/Corsa/La Corsara .jpg">
         <h1 class="Titolo2"> La Corsara</h1>
