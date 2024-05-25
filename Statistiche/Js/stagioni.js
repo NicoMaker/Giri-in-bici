@@ -1,5 +1,5 @@
 const e = 6471,
-  p = 4204,
+  p = 4304,
   ai = 4603,
   totale = e + p + ai,
   avge = ((e / totale) * 100).toFixed(2),
