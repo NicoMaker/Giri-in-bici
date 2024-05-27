@@ -3,6 +3,7 @@ const data = {
     2021: 743,
     2022: 2085,
     2023: 1622,
+    //2024: 0
   },
   labels = Object.keys(data),
   values = Object.values(data),
@@ -11,7 +12,7 @@ const data = {
   datasets = [
     {
       label: "km Estate",
-      backgroundColor: ["yellow", "orange", "red", "purple"],
+      backgroundColor: ["yellow", "orange", "red", "purple","#ff0060"],
       borderColor: ["black"],
       borderWidth: 1,
       data: values,
