@@ -148,5 +148,11 @@
     "number": 25,
     "place": "<a href=\"https://www.komoot.com/it-it/tour/1619874884?share_token=aordgDi520LKqLHIw7UmqTQ8oNC6Jg5hwMpBNju0DM1yR6N73c&ref=wtd\" target=\"_blank\">Monte Prat</a>",
     "distance": 67
+  },
+  {
+    "date": "08 Giugno",
+    "number": 26,
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/1635206997?share_token=awtIavRLp3FhKb3Corm1M4Py33FnPQ7dKnTqAib8kx2SehvYQW&ref=wtd\" target=\"_blank\">Da Tarvisio a Bled <img src=\"../../Icons/Slovenia.png\"></a>",
+    "distance": 111
   }
 ]
