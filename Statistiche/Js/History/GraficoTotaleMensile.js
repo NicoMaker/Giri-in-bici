@@ -4,7 +4,7 @@ const data = {
     Marzo: 1126,
     Aprile: 1540,
     Maggio: 1499,
-    Giugno: 1359,
+    Giugno: 1410,
     Luglio: 2051,
     Agosto: 1833,
     Settembre: 1682,

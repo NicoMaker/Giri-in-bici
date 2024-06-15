@@ -36,7 +36,7 @@ const mesi = [
     {
       label: "2024",
       color: "red",
-      data: [486, 0, 386, 1022, 762, 178],
+      data: [486, 0, 386, 1022, 762, 229],
     },
   ],
   configline = {

@@ -2,7 +2,7 @@ const data = {
     2021: 579,
     2022: 885,
     2023: 742,
-    2024: 2348
+    2024: 2399
   },
   labels = Object.keys(data),
   values = Object.values(data),
@@ -49,7 +49,7 @@ const data = {
   "stampa"
 ).innerHTML = `<div class="container">${stampa}</div>`),
   (avgP = (totale / labels.length).toFixed(2)),
-  (corse = 63),
+  (corse = 64),
   (avgcorsa = (totale / corse).toFixed(2)),
   (stampaP = `
   <div class="colore">
