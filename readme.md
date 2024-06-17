@@ -2,7 +2,7 @@
 
 ## Aggiornare JSON
 
-- [Primavera 2024](Primavera/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
+- [Estate 2024](Estate/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
 
 ## Aggiornare JS
 
@@ -12,8 +12,8 @@
 
 ### Aggiorna Stagione
 
-- [Primavera](Primavera/Primavera.js) -> aggiornare parte 2024 e numero corse per quella stagione
-- [Statistiche Stagione](Statistiche/Js/stagioni.js) -> modifici i km nella stagione corrispondente Primavera
+- [Estate](Estate/Estate.js) -> aggiornare parte 2024 e numero corse per quella stagione
+- [Statistiche Stagione](Statistiche/Js/stagioni.js) -> modifici i km nella stagione corrispondente Estate
 
 ### Aggiorna Statistiche
 
