@@ -3,7 +3,7 @@ const data = {
     2021: 743,
     2022: 2085,
     2023: 1622,
-    //2024: 0
+    2024: 0
   },
   labels = Object.keys(data),
   values = Object.values(data),
