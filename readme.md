@@ -17,14 +17,14 @@
 
 ### Aggiorna Statistiche
 
-- [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese Giugno e numero corse totali anno
+- [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese Luglio e numero corse totali anno
 - [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> i km dell'anno 2024 e il numero corse totali dell'anno 2024 e alla fine di ogni mese aggiungere un mese
 
 - ### Parte Storica statistiche
 
-  - [Grafico Generale Statistiche](Statistiche/Js//History/GraficoTotale.js) -> km mese interessato Giugno 2024 e corse totali
-  - [Grafico km totali per mese](Statistiche/Js/History/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente Giugno e ricordarsi di mettere il numero totale di mesi percorsi
-  - [Grafico Storico Mese](Statistiche/Js//History/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024 e nel mese di Giugno
+  - [Grafico Generale Statistiche](Statistiche/Js//History/GraficoTotale.js) -> km mese interessato Luglio 2024 e corse totali
+  - [Grafico km totali per mese](Statistiche/Js/History/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente Luglio e ricordarsi di mettere il numero totale di mesi percorsi
+  - [Grafico Storico Mese](Statistiche/Js//History/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024 e nel mese di Luglio
 
 ## Credenziali
 
