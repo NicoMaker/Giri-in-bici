@@ -23,7 +23,7 @@ const data = {
     labels: mesi,
     datasets: [
       {
-        label: "km mensili 2021",
+        label: "km mensili 2023",
         backgroundColor: [
           "darkblue",
           "blue",

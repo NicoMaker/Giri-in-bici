@@ -4,7 +4,7 @@ const data = {
     Aprile: 1022,
     Maggio: 762,
     Giugno: 623,
-    Luglio: 204,
+    Luglio: 255,
     // Agosto: 0,
     // Settembre: 0,
     // Ottobre: 0,
@@ -15,14 +15,14 @@ const data = {
   chilometri = Object.values(data),
   totale = chilometri.reduce((acc, curr) => acc + curr, 0),
   percentuali = chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
-  corse = 40,
+  corse = 41,
   kmMediPerCorsa = (totale / corse).toFixed(2),
   kmMediPerMese = (totale / mesi.length).toFixed(2),
   dati = {
     labels: mesi,
     datasets: [
       {
-        label: "km mensili 2021",
+        label: "km mensili 2024",
         backgroundColor: [
           "darkblue",
           "lightgreen",

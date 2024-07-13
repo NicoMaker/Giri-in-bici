@@ -1,4 +1,4 @@
-const e = 6893,
+const e = 6944,
   p = 4781,
   ai = 4603,
   totale = e + p + ai,
