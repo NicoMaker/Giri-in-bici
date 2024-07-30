@@ -4,6 +4,7 @@
 
 - [Estate 2024](Estate/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
 - [Estate](Estate/Estate.json) -> aggiornare parte 2024 e numero corse per quella stagione
+- [Statistiche 2024](Statistiche/Js/anni/2024.json) -> km mese Agosto e numero corse totali anno
 
 ## Aggiornare JS
 
@@ -17,7 +18,6 @@
 
 ### Aggiorna Statistiche
 
-- [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese Agosto e numero corse totali anno
 - [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> i km dell'anno 2024 e il numero corse totali dell'anno 2024 e alla fine di ogni mese aggiungere un mese
 
 - ### Parte Storica statistiche

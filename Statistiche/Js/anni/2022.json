@@ -1,0 +1,32 @@
+{
+  "year": "2022",
+  "numberOfRaces": 62,
+  "data": {
+    "Gennaio": 65,
+    "Febbraio": 242,
+    "Marzo": 244,
+    "Aprile": 92,
+    "Maggio": 270,
+    "Giugno": 279,
+    "Luglio": 601,
+    "Agosto": 542,
+    "Settembre": 604,
+    "Ottobre": 627,
+    "Novembre": 133,
+    "Dicembre": 109
+  },
+  "colors": [
+    "darkblue",
+    "blue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
+  ]
+}

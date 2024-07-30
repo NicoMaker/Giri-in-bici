@@ -1,0 +1,26 @@
+{
+  "year": "2023",
+  "numberOfRaces": 46,
+  "data": {
+    "Gennaio": 486,
+    "Marzo": 386,
+    "Aprile": 1022,
+    "Maggio": 762,
+    "Giugno": 623,
+    "Luglio": 607,
+    "Agosto": 0
+  },
+  "colors": [
+    "darkblue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
+  ]
+}

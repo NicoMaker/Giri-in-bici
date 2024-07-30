@@ -1,0 +1,32 @@
+{
+  "year": "2023",
+  "numberOfRaces": 58,
+  "data": {
+    "Gennaio": 127,
+    "Febbraio": 148,
+    "Marzo": 194,
+    "Aprile": 103,
+    "Maggio": 242,
+    "Giugno": 265,
+    "Luglio": 422,
+    "Agosto": 426,
+    "Settembre": 712,
+    "Ottobre": 420,
+    "Novembre": 299,
+    "Dicembre": 558
+  },
+  "colors": [
+    "darkblue",
+    "blue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
+  ]
+}
