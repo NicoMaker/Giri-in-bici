@@ -5,7 +5,7 @@
 ### Satgione
 
 - [Estate 2024](Estate/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
-- [Estate](Estate/Estate.json) -> aggiornare parte 2024 e numero corse per quella stagione
+- [Estate](Estate/estate.json) -> aggiornare parte 2024 e numero corse per quella stagione
 
 ### Statistiche
 
