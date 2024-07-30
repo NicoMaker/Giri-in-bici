@@ -38,7 +38,7 @@
 
 ## Logo e Apertura sito
 
-[![Logo](Img/Logo%20.jpg)](https://giri-in-bici.netlify.app/)
+[![Logo](Img/logo.jpg)](https://giri-in-bici.netlify.app/)
 
 [Apertura sito principale](https://giri-in-bici.netlify.app/)
 
