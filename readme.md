@@ -3,6 +3,7 @@
 ## Aggiornare JSON
 
 - [Estate 2024](Estate/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
+- [Estate](Estate/Estate.json) -> aggiornare parte 2024 e numero corse per quella stagione
 
 ## Aggiornare JS
 
@@ -12,19 +13,18 @@
 
 ### Aggiorna Stagione
 
-- [Estate](Estate/Estate.js) -> aggiornare parte 2024 e numero corse per quella stagione
 - [Statistiche Stagione](Statistiche/Js/stagioni.js) -> modifici i km nella stagione corrispondente Estate
 
 ### Aggiorna Statistiche
 
-- [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese Luglio e numero corse totali anno
+- [Statistiche 2024](Statistiche/Js/anni/2024.js) -> km mese Agosto e numero corse totali anno
 - [Generale Statistiche](Statistiche/Js/generaleStatistiche.js) -> i km dell'anno 2024 e il numero corse totali dell'anno 2024 e alla fine di ogni mese aggiungere un mese
 
 - ### Parte Storica statistiche
 
-  - [Grafico Generale Statistiche](Statistiche/Js//History/GraficoTotale.js) -> km mese interessato Luglio 2024 e corse totali
-  - [Grafico km totali per mese](Statistiche/Js/History/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente Luglio e ricordarsi di mettere il numero totale di mesi percorsi
-  - [Grafico Storico Mese](Statistiche/Js//History/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024 e nel mese di Luglio
+  - [Grafico Generale Statistiche](Statistiche/Js//History/GraficoTotale.js) -> km mese interessato Agosto 2024 e corse totali
+  - [Grafico km totali per mese](Statistiche/Js/History/GraficoTotaleMensile.js) -> aggiornare i km aggiuntivi nel mese corrispondente Agosto e ricordarsi di mettere il numero totale di mesi percorsi
+  - [Grafico Storico Mese](Statistiche/Js//History/StoricoMensile.js) -> Sistemare km mese dell'anno interessato 2024 e nel mese di Agosto
 
 ## Credenziali
 

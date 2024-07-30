@@ -1,0 +1,14 @@
+{
+  "season": "Primavera",
+  "image": "primavera.png",
+  "path":"Primavera",
+  "contorno":"Primavera",
+  "data": {
+    "2021": 579,
+    "2022": 885,
+    "2023": 742,
+    "2024": 2575
+  },
+  "colors": ["pink", "antiquewhite", "cyan", "#97ed86ce"],
+  "numberOfRaces": 66
+}

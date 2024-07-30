@@ -213,7 +213,7 @@ canvas {
 }
 
 .Primaveracontorno {
-  width: calc(50% - 10px);
+  flex: 1 1 calc(50% - 10px);
   margin: 5px;
   box-sizing: border-box;
   border: 2px solid green;
@@ -222,4 +222,5 @@ canvas {
 .odd-items .Primaveracontorno:last-child {
   width: 100%;
   margin: 5px;
+  flex: 1 1 100%;
 }
