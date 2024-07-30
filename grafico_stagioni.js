@@ -59,16 +59,16 @@ document.addEventListener("DOMContentLoaded", function () {
         "stampa"
       ).innerHTML = `<div class="container">${stampa}</div>`;
 
-      const avgP = (totale / labels.length).toFixed(2),
+      const avgseason = (totale / labels.length).toFixed(2),
         avgcorsa = (totale / numberOfRaces).toFixed(2),
-        stampaP = `
+        stampaseason = `
           <div class="colore">
             <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
             <p>km medi per corsa in ${season} ${avgcorsa} </p>
-            <p>media km per stagione ${avgP} </p>
+            <p>media km per stagione ${avgseason} </p>
           </div>
         `;
-      document.getElementById("totale").innerHTML = stampaP;
+      document.getElementById("totale").innerHTML = stampaseason;
 
       const container = document.querySelector(".container"),
         items = document.querySelectorAll(".Primaveracontorno"),

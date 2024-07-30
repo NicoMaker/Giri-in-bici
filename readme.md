@@ -2,8 +2,13 @@
 
 ## Aggiornare JSON
 
+### Satgione
+
 - [Estate 2024](Estate/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
 - [Estate](Estate/Estate.json) -> aggiornare parte 2024 e numero corse per quella stagione
+
+### Statistiche
+
 - [Statistiche 2024](Statistiche/Js/anni/2024.json) -> km mese Agosto e numero corse totali anno
 
 ## Aggiornare JS
@@ -47,8 +52,8 @@
 
 [![AvatarJR](About_US/Img/AvatarJR.png)][JR]
 
-[NM]:https://www.komoot.com/it-it/user/1372754001803
-[JR]:https://www.komoot.com/it-it/user/1381372752571
+[NM]: https://www.komoot.com/it-it/user/1372754001803
+[JR]: https://www.komoot.com/it-it/user/1381372752571
 
 # Linguaggi utilizzati
 
