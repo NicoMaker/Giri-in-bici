@@ -2,7 +2,7 @@
 
 ## Aggiornare JSON
 
-### Satgione
+### Stagione
 
 - [Estate 2024](Estate/Periodi/Json/2024.json) -> aggiungi i dettagli della corsa come per le altre
 - [Estate](Estate/estate.json) -> aggiornare parte 2024 e numero corse per quella stagione
