@@ -6,7 +6,7 @@ const data = {
     Maggio: 1499,
     Giugno: 1804,
     Luglio: 2658,
-    Agosto: 1833,
+    Agosto: 1890,
     Settembre: 1682,
     Ottobre: 1263,
     Novembre: 690,

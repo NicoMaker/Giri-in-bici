@@ -2,8 +2,8 @@ const menu = document.querySelector(".menu"),
   hamburger = document.querySelector(".hamburger"),
   closeIcon = document.querySelector(".CloseIcon"),
   menuIcon = document.querySelector(".MenuIcon"),
-  km = 16680,
-  corse = 238
+  km = 16737,
+  corse = 239
   mediavalue = (km / corse).toFixed(2);
 
 function toggleMenu() {
