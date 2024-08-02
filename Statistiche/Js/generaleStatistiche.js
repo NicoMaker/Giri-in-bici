@@ -1,69 +1,105 @@
-const statistics = [
-    { year: 2020, km: 2456 },
-    { year: 2021, km: 2614 },
-    { year: 2022, km: 3808 },
-    { year: 2023, km: 3916 },
-    { year: 2024, km: 3943 },
-  ],
-  totale = statistics.reduce((acc, cur) => acc + cur.km, 0),
-  corse = 239,
-  avgTot = (totale / corse).toFixed(2),
-  avgAnno = (totale / statistics.length).toFixed(2),
-  avgMese = (totale / 50).toFixed(2),
-  labels = statistics.map((entry) => `${entry.year}`),
-  values = statistics.map((entry) => entry.km),
-  avgValues = statistics.map((entry) => ((entry.km / totale) * 100).toFixed(2)),
-  datasets = [
-    {
-      label: "km totali",
-      backgroundColor: ["yellow", "lightgreen", "orange", "cyan", "red"],
-      borderColor: ["black"],
-      borderWidth: 1,
-      data: values,
-    },
-  ],
-  doughnutData = { labels, datasets },
-  doughnutConfig = {
-    type: "doughnut",
-    data: doughnutData,
-  },
-  doughnutCtx = document.getElementById("doughnut-chart").getContext("2d"),
-  stampa = statistics
-    .map(
-      (entry, index) => `
-      <div class="Statistiche">
-        <a href="Statistiche/Anni/${entry.year}.html">
-          <img class="immaginestagione" src="Icons/Statistiche.png">
-          <p class="titoli"> Statistiche ${entry.year} </p>
-          <p> km totali ${entry.km} 
-          <img src="Icons/traguardo.png"></p>
-          <p>${avgValues[index]} %</p>
-        </a>
-      </div>
+document.addEventListener("DOMContentLoaded", async () => {
+  async function fetchData() {
+    try {
+      const response = await fetch("Statistiche/Js/History/JSON/Generale.json"),
+        jsonData = await response.json();
+      return jsonData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  }
+
+  function calculateAverages(statistics, corse, totalMonths) {
+    const totale = statistics.reduce((acc, cur) => acc + cur.km, 0);
+    return {
+      totale,
+      avgTot: (totale / corse).toFixed(2),
+      avgAnno: (totale / statistics.length).toFixed(2),
+      avgMese: (totale / totalMonths).toFixed(2),
+      avgValues: statistics.map((entry) =>
+        ((entry.km / totale) * 100).toFixed(2)
+      ),
+    };
+  }
+
+  function createChartConfig(labels, data, colors) {
+    return {
+      type: "doughnut",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "km totali",
+            backgroundColor: colors,
+            borderColor: ["black"],
+            borderWidth: 1,
+            data,
+          },
+        ],
+      },
+    };
+  }
+
+  function renderStampa(statistics, avgValues) {
+    const stampa = statistics
+      .map(
+        (entry, index) => `
+        <div class="Statistiche">
+          <a href="Statistiche/Anni/${entry.year}.html">
+            <img class="immaginestagione" src="Icons/Statistiche.png">
+            <p class="titoli">Statistiche ${entry.year}</p>
+            <p>km totali ${entry.km} 
+            <img src="Icons/traguardo.png"></p>
+            <p>${avgValues[index]} %</p>
+          </a>
+        </div>
       `
-    )
-    .join("");
+      )
+      .join("");
 
-(document.getElementById(
-  "stampa"
-).innerHTML = `<div class="container">${stampa}</div>`),
-  (stampat = `
-  <a href="Statistiche/History/Statistiche_Totali.html">
-    <div class="colore">
-        <p>totale km ${totale} <img src="Icons/traguardo.png"></p>
-        <p>km medi per giro percorsi ${avgTot}</p>
-        <p>km medi per anno percorsi ${avgAnno}</p>
-        <p>km medi per mese ${avgMese}</p>
-    </div>
-  </a>`);
-document.getElementById("totale").innerHTML = stampat;
+    document.getElementById(
+      "stampa"
+    ).innerHTML = `<div class="container">${stampa}</div>`;
+  }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const container = document.querySelector(".container"),
-    items = document.querySelectorAll(".Statistiche"),
-    isOdd = items.length % 2 !== 0;
+  function renderSummary(totale, avgTot, avgAnno, avgMese) {
+    const summary = `
+      <a href="Statistiche/History/Statistiche_Totali.html">
+        <div class="colore">
+            <p>totale km ${totale} <img src="Icons/traguardo.png"></p>
+            <p>km medi per giro percorsi ${avgTot}</p>
+            <p>km medi per anno percorsi ${avgAnno}</p>
+            <p>km medi per mese ${avgMese}</p>
+        </div>
+      </a>`;
+    document.getElementById("totale").innerHTML = summary;
+  }
 
-  if (isOdd) container.classList.add("odd-items");
+  function adjustContainerLayout() {
+    const container = document.querySelector(".container"),
+      items = document.querySelectorAll(".Statistiche"),
+      isOdd = items.length % 2 !== 0;
+    if (isOdd) container.classList.add("odd-items");
+  }
+
+  // Carica i dati e inizializza la pagina
+  const data = await fetchData();
+  if (data) {
+    const { statistics, colors, corse, totalMonths } = data,
+      { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
+        statistics,
+        corse,
+        totalMonths
+      ),
+      labels = statistics.map((entry) => `${entry.year}`),
+      values = statistics.map((entry) => entry.km),
+      doughnutConfig = createChartConfig(labels, values, colors),
+      doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
+
+    renderStampa(statistics, avgValues);
+    renderSummary(totale, avgTot, avgAnno, avgMese);
+    adjustContainerLayout();
+    new Chart(doughnutCtx, doughnutConfig);
+  } else console.error("Nessun dato ricevuto");
 });
-
-new Chart(doughnutCtx, doughnutConfig);
