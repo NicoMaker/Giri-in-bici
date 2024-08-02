@@ -2,7 +2,7 @@
   "season": "Primavera",
   "image": "primavera.png",
   "path":"Primavera",
-  "contorno":"Primavera",
+  "cssclass":"Primavera",
   "data": {
     "2021": 579,
     "2022": 885,

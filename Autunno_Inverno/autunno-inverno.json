@@ -2,7 +2,7 @@
   "season": "Autunno - Inverno",
   "image": "inverno.png",
   "path":"Autunno_Inverno",
-  "contorno":"Autunno-Inverno",
+  "cssclass":"Autunno-Inverno",
   "data": {
     "2020-2021": 1305,
     "2021-2022": 729,

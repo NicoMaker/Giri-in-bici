@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const season = json.season,
         image = json.image,
         path = json.path,
-        contorno = json.contorno,
+        cssclass = json.cssclass,
         data = json.data,
         colors = json.colors,
         numberOfRaces = json.numberOfRaces,
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
         stampa = labels
           .map(
             (label, index) => `
-              <div class="${contorno}contorno">
+              <div class="${cssclass}contorno">
                 <a href="${path}/Periodi/${label}.html">
                    <img class="immaginestagione" src="Icons/${image}">
                   <p class="titoli">
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("totale").innerHTML = stampaseason;
 
       const container = document.querySelector(".container"),
-        items = document.querySelectorAll(".Primaveracontorno"),
+        items = document.querySelectorAll(`.${cssclass}contorno`),
         isOdd = items.length % 2 !== 0;
 
       if (isOdd) container.classList.add("odd-items");
