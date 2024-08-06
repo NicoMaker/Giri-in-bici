@@ -95,9 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
           createStampat(calculatedData);
         const chartConfig = createChartConfig(labels, chartData);
         new Chart(ctx, chartConfig);
-      } else {
-        console.error("Nessun dato ricevuto");
-      }
+      } else console.error("Nessun dato ricevuto");
     })
     .catch((error) => {
       console.error("Errore durante il fetch:", error);
