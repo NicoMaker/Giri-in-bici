@@ -22,10 +22,6 @@
 - [Grafico km totali per mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json) -> aggiornare i km aggiuntivi nel mese corrispondente Agosto e ricordarsi di mettere il numero totale di mesi percorsi
 - [Grafico Storico Mese](Statistiche/Js/History/JSON/StoricoMensile.json) -> Sistemare km mese dell'anno interessato 2024 e nel mese di Agosto
 
-### Pagina generale
-
-- [Pagina Generale](Hamburger.js) -> numero di corse totali e numero km totali
-
 ## Credenziali
 
 - Nome Utente -> NicoMaker
