@@ -8,34 +8,46 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.error("Error loading data:", error));
   }
 
-  function updateTableAndStats(data) {
-    const tableBody = document.querySelector("table tbody"),
-      kmElement = document.getElementById("km");
+  function createTableRow(row) {
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${row.date}</td>
+      <td>${row.number}</td>
+      <td>${row.place}</td>
+      <td>${row.distance}</td>
+      <td>km</td>
+    `;
+    return newRow;
+  }
 
-    data.forEach((row) => {
-      const newRow = document.createElement("tr");
-      newRow.innerHTML = `
-          <td>${row.date}</td>
-          <td>${row.number}</td>
-          <td>${row.place}</td>
-          <td>${row.distance}</td>
-          <td>km</td>
-        `;
-      tableBody.appendChild(newRow);
-    });
+  function appendRowToTable(tableBody, row) {
+    tableBody.appendChild(row);
+  }
 
+  function calculateAndDisplayStats(data) {
     const totalKm = data.reduce((total, row) => total + row.distance, 0),
       totalRaces = data.length,
-      mediaValue = (totalKm / totalRaces).toFixed(2);
-
+      mediaValue = (totalKm / totalRaces).toFixed(2),
+      kmElement = document.getElementById("km");
     kmElement.innerHTML = `
-        <div class="colore">
-          <p> Totale km percorsi ${totalKm} 
-            <img src="../../Icons/traguardo.png"> 
-          </p>
-          <p> Media km percorsi ${mediaValue} </p>
-        </div>
-      `;
+      <div class="colore">
+        <p> Totale km percorsi ${totalKm} 
+          <img src="../../Icons/traguardo.png"> 
+        </p>
+        <p> Media km percorsi ${mediaValue} </p>
+      </div>
+    `;
+  }
+
+  function updateTableAndStats(data) {
+    const tableBody = document.querySelector("table tbody");
+
+    data.forEach((row) => {
+      const newRow = createTableRow(row);
+      appendRowToTable(tableBody, newRow);
+    });
+
+    calculateAndDisplayStats(data);
   }
 
   const jsonUrl = document.getElementById("json").getAttribute("link");

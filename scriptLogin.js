@@ -1,18 +1,12 @@
-const generatePassword = () =>
-    `Giri ${(new Date().getDate() < 10 ? "0" : "") + new Date().getDate()}/${
-      (new Date().getMonth() + 1 < 10 ? "0" : "") + (new Date().getMonth() + 1)
-    }/${new Date().getFullYear()}`,
-  users = [
-    {
-      username: `NicoMaker`,
-      password: generatePassword(),
-    },
-    {
-      username: `Jacoreds`,
-      password: generatePassword(),
-    },
-  ],
-  getRandomNumber = (min, max) =>
+function generatePassword() {
+  const date = new Date(),
+    day = (date.getDate() < 10 ? "0" : "") + date.getDate(),
+    month = (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1),
+    year = date.getFullYear();
+  return `Giri ${day}/${month}/${year}`;
+}
+
+const getRandomNumber = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min,
   getRandomColor = () =>
     `rgb(${getRandomNumber(0, 255)}, ${getRandomNumber(
@@ -28,20 +22,33 @@ function setAbstractBackground() {
   container.style.backgroundImage = backgroundImage;
 }
 
-document
-  .getElementById("loginForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
+function handleLoginSubmit(event) {
+  event.preventDefault();
 
-    const username = document.getElementById("username").value,
-      password = document.getElementById("password").value,
-      user = users.find(
-        (u) => u.username === username && u.password === password
-      );
+  const username = document.getElementById("username").value,
+    password = document.getElementById("password").value,
+    user = users.find(
+      (u) => u.username === username && u.password === password
+    );
 
-    if (user) window.location.href = "giri.html";
-    else alert("Nome utente o password non validi!");
-  });
+  if (user) window.location.href = "giri.html";
+  else alert("Nome utente o password non validi!");
+}
+
+const users = [
+  {
+    username: "NicoMaker",
+    password: generatePassword(),
+  },
+  {
+    username: "Jacoreds",
+    password: generatePassword(),
+  },
+];
 
 setAbstractBackground();
 setInterval(setAbstractBackground, 1500);
+
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", handleLoginSubmit);
