@@ -14,7 +14,7 @@ const calcolaTotaleKm = (kmData) =>
   StampaDati = (totaleKm, mediaKm) =>
     (document.getElementById("km").innerHTML = `
       <div class="colore">
-        <p class="misuracolre">Totale km ${totaleKm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
-        <p class="misuracolre">Km medi per giro percorsi ${mediaKm}</p>
+        <p class="misuracolore">Totale km ${totaleKm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
+        <p class="misuracolore">Km medi per giro percorsi ${mediaKm}</p>
       </div>
     `);

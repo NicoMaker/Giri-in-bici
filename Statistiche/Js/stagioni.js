@@ -51,33 +51,33 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="estate">
         <a href="../Estate.html">
             <img class="immaginestagionestat" src="../Icons/estate.png">
-            <p class="contornostagione misuracolre">Estate</p>
-            <p class="misuracolre">km totali ${data.e} <img src="../Icons/traguardo.png"></p>
-            <p class="misuracolre">${data.avge} %</p>
+            <p class="contornostagione misuracolore">Estate</p>
+            <p class="misuracolore">km totali ${data.e} <img src="../Icons/traguardo.png"></p>
+            <p class="misuracolore">${data.avge} %</p>
         </a>
     </div>
     <div class="primavera">
         <a href="../Primavera.html">
             <img class="immaginestagionestat" src="../Icons/primavera.png">
-            <p class="contornostagione misuracolre">Primavera</p>
-            <p class="misuracolre">km totali ${data.p} <img src="../Icons/traguardo.png"></p>
-            <p class="misuracolre">${data.avgp} %</p>
+            <p class="contornostagione misuracolore">Primavera</p>
+            <p class="misuracolore">km totali ${data.p} <img src="../Icons/traguardo.png"></p>
+            <p class="misuracolore">${data.avgp} %</p>
         </a>
     </div>
     <div class="autunno_inverno">
         <a href="../Autunno_Inverno.html">
             <img class="immaginestagionestat" src="../Icons/inverno.png">
-            <p class="contornostagione misuracolre">Autunno - Inverno</p>
-            <p class="misuracolre">km totali ${data.ai} <img src="../Icons/traguardo.png"></p>
-            <p class="misuracolre">${data.avgai} %</p>
+            <p class="contornostagione misuracolore">Autunno - Inverno</p>
+            <p class="misuracolore">km totali ${data.ai} <img src="../Icons/traguardo.png"></p>
+            <p class="misuracolore">${data.avgai} %</p>
         </a>
     </div>
   `;
 
   const createStampat = (data) => `
     <div class="colore">
-        <p class="misuracolre">totale km ${data.totale} <img src="../Icons/traguardo.png"></p>
-        <p class="misuracolre">Media km per Stagione ${data.avgmediastagione} km</p>
+        <p class="misuracolore">totale km ${data.totale} <img src="../Icons/traguardo.png"></p>
+        <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
     </div>
   `;
 
