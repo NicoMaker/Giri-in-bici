@@ -96,9 +96,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         statistics,
         corseData,
         totalMonths
-      );
-
-    const labels = statistics.map((entry) => `${entry.year}`),
+      ),
+      labels = statistics.map((entry) => `${entry.year}`),
       values = statistics.map((entry) => entry.km),
       doughnutConfig = createChartConfig(labels, values, colors),
       doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
