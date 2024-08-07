@@ -10,7 +10,7 @@
 ### Statistiche
 
 - **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: Aggiorna i km per il mese di agosto e il numero totale di corse dell'anno.
-- **[Statistiche Generali](Statistiche/Js/History/JSON/Generale.json)**: Aggiorna i km per l'anno 2024 e il numero totale di corse dell'anno 2024, e il numero corretto di mesi totali corsi.
+- **[Statistiche Generali](Statistiche/Js/History/JSON/Generale.json)**: Aggiorna i km per l'anno 2024, e il numero corretto di mesi totali corsi.
 
 #### Stagioni
 

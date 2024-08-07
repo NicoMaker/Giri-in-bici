@@ -1,11 +1,24 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  async function fetchData() {
+  async function fetchMainData() {
     try {
       const response = await fetch("Statistiche/Js/History/JSON/Generale.json"),
         jsonData = await response.json();
       return jsonData;
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching main data:", error);
+      return null;
+    }
+  }
+
+  async function fetchCorseData() {
+    try {
+      const response = await fetch(
+          "Statistiche/Js/History/JSON/GraficoTotale.json"
+        ),
+        jsonData = await response.json();
+      return jsonData.corse;
+    } catch (error) {
+      console.error("Error fetching corse data:", error);
       return null;
     }
   }
@@ -83,16 +96,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (isOdd) container.classList.add("odd-items");
   }
 
-  // Carica i dati e inizializza la pagina
-  const data = await fetchData();
-  if (data) {
-    const { statistics, colors, corse, totalMonths } = data,
-      { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
-        statistics,
-        corse,
-        totalMonths
-      ),
-      labels = statistics.map((entry) => `${entry.year}`),
+  const mainData = await fetchMainData(),
+    corse = await fetchCorseData();
+
+  if (mainData && corse) {
+    const { statistics, colors, totalMonths } = mainData;
+    const { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
+      statistics,
+      corse,
+      totalMonths
+    );
+    const labels = statistics.map((entry) => `${entry.year}`),
       values = statistics.map((entry) => entry.km),
       doughnutConfig = createChartConfig(labels, values, colors),
       doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");

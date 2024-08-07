@@ -7,6 +7,5 @@
     { "year": 2024, "km": 4016 }
   ],
   "colors": ["yellow", "lightgreen", "orange", "cyan", "red"],
-  "corse": 240,
   "totalMonths": 50
 }
