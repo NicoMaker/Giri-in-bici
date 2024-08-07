@@ -1,26 +1,23 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  async function fetchMainData() {
+  async function fetchJSON(url) {
     try {
-      const response = await fetch("Statistiche/Js/History/JSON/Generale.json"),
-        jsonData = await response.json();
-      return jsonData;
+      const response = await fetch(url);
+      return await response.json();
     } catch (error) {
-      console.error("Error fetching main data:", error);
+      console.error(`Error fetching data from ${url}:`, error);
       return null;
     }
   }
 
-  async function fetchCorseData() {
-    try {
-      const response = await fetch(
-          "Statistiche/Js/History/JSON/GraficoTotale.json"
-        ),
-        jsonData = await response.json();
-      return jsonData.corse;
-    } catch (error) {
-      console.error("Error fetching corse data:", error);
-      return null;
-    }
+  async function fetchData() {
+    const mainData = await fetchJSON(
+        "Statistiche/Js/History/JSON/Generale.json"
+      ),
+      corseData = await fetchJSON(
+        "Statistiche/Js/History/JSON/GraficoTotale.json"
+      );
+
+    return { mainData, corseData: corseData ? corseData.corse : null };
   }
 
   function calculateAverages(statistics, corse, totalMonths) {
@@ -54,40 +51,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-  function renderStampa(statistics, avgValues) {
-    const stampa = statistics
-      .map(
-        (entry, index) => `
-        <div class="Statistiche">
-          <a href="Statistiche/Anni/${entry.year}.html">
-            <img class="immaginestagione" src="Icons/Statistiche.png">
-            <p class="titoli">Statistiche ${entry.year}</p>
-            <p>km totali ${entry.km} 
-            <img src="Icons/traguardo.png"></p>
-            <p>${avgValues[index]} %</p>
-          </a>
-        </div>
-      `
-      )
-      .join("");
-
-    document.getElementById(
-      "stampa"
-    ).innerHTML = `<div class="container">${stampa}</div>`;
-  }
-
-  function renderSummary(totale, avgTot, avgAnno, avgMese) {
-    const summary = `
-      <a href="Statistiche/History/Statistiche_Totali.html">
-        <div class="colore">
-            <p>totale km ${totale} <img src="Icons/traguardo.png"></p>
-            <p>km medi per giro percorsi ${avgTot}</p>
-            <p>km medi per anno percorsi ${avgAnno}</p>
-            <p>km medi per mese ${avgMese}</p>
-        </div>
-      </a>`;
-    document.getElementById("totale").innerHTML = summary;
-  }
+  const renderStampa = (statistics, avgValues) =>
+      (document.getElementById(
+        "stampa"
+      ).innerHTML = `<div class="container">${statistics
+        .map(
+          (entry, index) => `
+          <div class="Statistiche">
+            <a href="Statistiche/Anni/${entry.year}.html">
+              <img class="immaginestagione" src="Icons/Statistiche.png">
+              <p class="titoli">Statistiche ${entry.year}</p>
+              <p>km totali ${entry.km} 
+              <img src="Icons/traguardo.png"></p>
+              <p>${avgValues[index]} %</p>
+            </a>
+          </div>
+        `
+        )
+        .join("")};
+    </div>`),
+    renderSummary = (totale, avgTot, avgAnno, avgMese) =>
+      (document.getElementById("totale").innerHTML = `
+        <a href="Statistiche/History/Statistiche_Totali.html">
+          <div class="colore">
+              <p>totale km ${totale} <img src="Icons/traguardo.png"></p>
+              <p>km medi per giro percorsi ${avgTot}</p>
+              <p>km medi per anno percorsi ${avgAnno}</p>
+              <p>km medi per mese ${avgMese}</p>
+          </div>
+        </a>`);
 
   function adjustContainerLayout() {
     const container = document.querySelector(".container"),
@@ -96,16 +88,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (isOdd) container.classList.add("odd-items");
   }
 
-  const mainData = await fetchMainData(),
-    corse = await fetchCorseData();
+  const { mainData, corseData } = await fetchData();
 
-  if (mainData && corse) {
-    const { statistics, colors, totalMonths } = mainData;
-    const { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
-      statistics,
-      corse,
-      totalMonths
-    );
+  if (mainData && corseData !== null) {
+    const { statistics, colors, totalMonths } = mainData,
+      { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
+        statistics,
+        corseData,
+        totalMonths
+      );
+
     const labels = statistics.map((entry) => `${entry.year}`),
       values = statistics.map((entry) => entry.km),
       doughnutConfig = createChartConfig(labels, values, colors),
