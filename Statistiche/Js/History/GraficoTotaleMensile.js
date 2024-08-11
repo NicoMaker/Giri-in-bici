@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const numMesiPeriodo = mesi_percorsi[index],
           kmMediMese = (chilometri[index] / numMesiPeriodo).toFixed(2);
         return { mese, kmMediMese };
-      });
-  const getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
+      }),
+    getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
     createChartConfig = (labels, data) => ({
       type: "bar",
       data: {
@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
           y: { beginAtZero: true },
         },
       },
-    });
-  const renderChart = (config, ctx) => new Chart(ctx, config),
+    }),
+    renderChart = (config, ctx) => new Chart(ctx, config),
     createTableHTML = (kmPerMese, chilometri, percentuali, mesi_percorsi) => `
     <tr class="grassetto">
       <th>Mese</th>
