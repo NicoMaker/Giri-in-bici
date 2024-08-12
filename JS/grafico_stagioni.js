@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         numberOfRaces = json.numberOfRaces,
         labels = Object.keys(data),
         values = Object.values(data),
-        totale = values.reduce((acc, cur) => acc + cur, 0),
+        totale = calculateTotal(values),
         avgValues = calculateAverageValues(labels, data, totale);
 
       renderDoughnutChart(labels, values, colors, season);
@@ -23,33 +23,83 @@ document.addEventListener("DOMContentLoaded", function () {
       adjustContainerLayout(cssclass);
     })
     .catch((error) => console.error("Error loading the JSON data:", error));
-}),
-  (calculateAverageValues = (labels, data, totale) =>
-    labels.map((label) => ((data[label] / totale) * 100).toFixed(2)));
+});
+
+const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
+  calculateAverageValues = (labels, data, totale) =>
+    labels.map((label) => ((data[label] / totale) * 100).toFixed(2));
 
 function renderDoughnutChart(labels, values, colors, season) {
-  const datasets = [
-      {
-        label: `km ${season}`,
-        backgroundColor: colors,
-        borderColor: ["black"],
-        borderWidth: 1,
-        data: values,
-      },
-    ],
-    doughnutData = {
-      labels,
-      datasets,
-    },
-    doughnutConfig = {
-      type: "doughnut",
-      data: doughnutData,
-    },
-    doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
+  const datasets = createDatasets(values, colors, season),
+    doughnutData = createDoughnutData(labels, datasets),
+    doughnutConfig = createDoughnutConfig(doughnutData),
+    doughnutCtx = getDoughnutContext();
 
   new Chart(doughnutCtx, doughnutConfig);
 }
 
+function createDatasets(values, colors, season) {
+  return [
+    {
+      label: `km ${season}`,
+      backgroundColor: colors,
+      borderColor: ["black"],
+      borderWidth: 1,
+      data: values,
+    },
+  ];
+}
+
+function createDoughnutData(labels, datasets) {
+  return {
+    labels,
+    datasets,
+  };
+}
+
+function createDoughnutConfig(doughnutData) {
+  return {
+    type: "doughnut",
+    data: doughnutData,
+  };
+}
+
+const getDoughnutContext = () =>
+    document.getElementById("doughnut-chart").getContext("2d"),
+  createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
+    labels
+      .map(
+        (label, index) => `
+          <div class="${cssclass}contorno">
+            <a href="${path}/Periodi/${label}.html">
+              <img class="immaginestagione" src="Icons/${image}">
+              <p class="titoli">
+                ${season} ${label}
+                <p>Totale km ${data[label]} 
+                  <img src="Icons/traguardo.png">
+                </p> 
+                <p> ${avgValues[index]} % </p>
+              </p>
+            </a>
+          </div>
+        `
+      )
+      .join(""),
+  updateStampa = (stampa) =>
+    (document.getElementById(
+      "stampa"
+    ).innerHTML = `<div class="container">${stampa}</div>`),
+  calculateAvgSeason = (totale, numberOfLabels) =>
+    (totale / numberOfLabels).toFixed(2),
+  calculateAvgCorsa = (totale, numberOfRaces) =>
+    (totale / numberOfRaces).toFixed(2),
+  getContainer = () => document.querySelector(".container"),
+  getItems = (cssclass) => document.querySelectorAll(`.${cssclass}contorno`),
+  checkIsOdd = (length) => length % 2 !== 0,
+  addOddItemsClass = (container) => container.classList.add("odd-items"),
+  updateTotale = (stampaseason) =>
+    (document.getElementById("totale").innerHTML = stampaseason);
+  
 function renderDataList(
   labels,
   data,
@@ -59,48 +109,40 @@ function renderDataList(
   cssclass,
   avgValues
 ) {
-  const stampa = labels
-    .map(
-      (label, index) => `
-        <div class="${cssclass}contorno">
-          <a href="${path}/Periodi/${label}.html">
-            <img class="immaginestagione" src="Icons/${image}">
-            <p class="titoli">
-              ${season} ${label}
-              <p>Totale km ${data[label]} 
-                <img src="Icons/traguardo.png">
-              </p> 
-              <p> ${avgValues[index]} % </p>
-            </p>
-          </a>
-        </div>
-      `
-    )
-    .join("");
-
-  document.getElementById(
-    "stampa"
-  ).innerHTML = `<div class="container">${stampa}</div>`;
+  const stampa = createStampa(
+    labels,
+    data,
+    path,
+    image,
+    season,
+    cssclass,
+    avgValues
+  );
+  updateStampa(stampa);
 }
 
 function renderSeasonSummary(season, totale, numberOfLabels, numberOfRaces) {
-  const avgseason = (totale / numberOfLabels).toFixed(2),
-    avgcorsa = (totale / numberOfRaces).toFixed(2),
-    stampaseason = `
+  const avgseason = calculateAvgSeason(totale, numberOfLabels),
+    avgcorsa = calculateAvgCorsa(totale, numberOfRaces),
+    stampaseason = createStampaseason(season, totale, avgseason, avgcorsa);
+
+  updateTotale(stampaseason);
+}
+
+function createStampaseason(season, totale, avgseason, avgcorsa) {
+  return `
     <div class="colore">
       <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
       <p>km medi per corsa in ${season} ${avgcorsa} </p>
       <p>media km per stagione ${avgseason} </p>
     </div>
   `;
-
-  document.getElementById("totale").innerHTML = stampaseason;
 }
 
 function adjustContainerLayout(cssclass) {
-  const container = document.querySelector(".container"),
-    items = document.querySelectorAll(`.${cssclass}contorno`),
-    isOdd = items.length % 2 !== 0;
+  const container = getContainer(),
+    items = getItems(cssclass),
+    isOdd = checkIsOdd(items.length);
 
-  if (isOdd) container.classList.add("odd-items");
+  if (isOdd) addOddItemsClass(container);
 }
