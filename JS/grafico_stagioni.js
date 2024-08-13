@@ -98,8 +98,16 @@ const getDoughnutContext = () =>
   checkIsOdd = (length) => length % 2 !== 0,
   addOddItemsClass = (container) => container.classList.add("odd-items"),
   updateTotale = (stampaseason) =>
-    (document.getElementById("totale").innerHTML = stampaseason);
-  
+    (document.getElementById("totale").innerHTML = stampaseason),
+  createStampaseason = (season, totale, avgseason, avgcorsa) =>
+    `
+        <div class="colore">
+          <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
+          <p>km medi per corsa in ${season} ${avgcorsa} </p>
+          <p>media km per stagione ${avgseason} </p>
+        </div>
+      `;
+
 function renderDataList(
   labels,
   data,
@@ -127,16 +135,6 @@ function renderSeasonSummary(season, totale, numberOfLabels, numberOfRaces) {
     stampaseason = createStampaseason(season, totale, avgseason, avgcorsa);
 
   updateTotale(stampaseason);
-}
-
-function createStampaseason(season, totale, avgseason, avgcorsa) {
-  return `
-    <div class="colore">
-      <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
-      <p>km medi per corsa in ${season} ${avgcorsa} </p>
-      <p>media km per stagione ${avgseason} </p>
-    </div>
-  `;
 }
 
 function adjustContainerLayout(cssclass) {
