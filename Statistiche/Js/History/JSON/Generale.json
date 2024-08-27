@@ -4,7 +4,7 @@
     { "year": 2021, "km": 2614 },
     { "year": 2022, "km": 3808 },
     { "year": 2023, "km": 3916 },
-    { "year": 2024, "km": 4126 }
+    { "year": 2024, "km": 4188 }
   ],
   "colors": ["yellow", "lightgreen", "orange", "cyan", "red"],
   "totalMonths": 50
