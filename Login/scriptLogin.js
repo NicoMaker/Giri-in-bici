@@ -5,7 +5,6 @@ function generatePassword() {
     year = date.getFullYear();
   return `Giri ${day}/${month}/${year}`;
 }
-
 const getRandomNumber = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min,
   getRandomColor = () =>
@@ -18,15 +17,31 @@ function setAbstractBackground() {
   const container = document.getElementById("container"),
     backgroundColor = getRandomColor(),
     backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
+
   container.style.backgroundColor = backgroundColor;
   container.style.backgroundImage = backgroundImage;
 }
 
-function handleLoginSubmit(event) {
+async function loadUsers() {
+  try {
+    const response = await fetch("Login/users.json");
+    const data = await response.json();
+    return data.users.map((user) => ({
+      username: user.username,
+      password: generatePassword(),
+    }));
+  } catch (error) {
+    console.error("Error loading users:", error);
+    return [];
+  }
+}
+
+async function handleLoginSubmit(event) {
   event.preventDefault();
 
   const username = document.getElementById("username").value,
     password = document.getElementById("password").value,
+    users = await loadUsers(),
     user = users.find(
       (u) => u.username === username && u.password === password
     );
@@ -35,20 +50,13 @@ function handleLoginSubmit(event) {
   else alert("Nome utente o password non validi!");
 }
 
-const users = [
-  {
-    username: "NicoMaker",
-    password: generatePassword(),
-  },
-  {
-    username: "Jacoreds",
-    password: generatePassword(),
-  },
-];
+function initialize() {
+  setAbstractBackground();
+  setInterval(setAbstractBackground, 1500);
 
-setAbstractBackground();
-setInterval(setAbstractBackground, 1500);
+  document
+    .getElementById("loginForm")
+    .addEventListener("submit", handleLoginSubmit);
+}
 
-document
-  .getElementById("loginForm")
-  .addEventListener("submit", handleLoginSubmit);
+window.onload = initialize;
