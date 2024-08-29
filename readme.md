@@ -24,7 +24,7 @@
 
 ## Credenziali
 
-- **Nome Utente**: NicoMaker
+- **Nome Utente**: **[Nomi utenti Users](Login/user.json)**
 - **Password**: Cambia ogni giorno con il formato `Giri DD/MM/YYYY`, dove DD è il giorno, MM è il mese e YYYY è l'anno. I numeri del giorno e del mese devono essere preceduti da uno zero se sono minori di 10.
 
 ## Logo e Apertura Sito
