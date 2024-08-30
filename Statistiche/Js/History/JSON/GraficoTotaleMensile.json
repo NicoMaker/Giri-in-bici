@@ -7,11 +7,11 @@
     "Maggio": 1499,
     "Giugno": 1804,
     "Luglio": 2658,
-    "Agosto": 2135,
+    "Agosto": 2186,
     "Settembre": 1682,
     "Ottobre": 1263,
     "Novembre": 690,
     "Dicembre": 1050
   },
-  "mesi_percorsi": [4, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 4]
+  "mesi_percorsi": [4, 3, 4, 4, 5, 5, 5, 5, 5, 4, 3, 4]
 }
