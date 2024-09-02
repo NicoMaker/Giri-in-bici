@@ -20,9 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return newRow;
   }
 
-  function appendRowToTable(tableBody, row) {
-    tableBody.appendChild(row);
-  }
+  const appendRowToTable = (tableBody, row) => tableBody.appendChild(row);
 
   function calculateAndDisplayStats(data) {
     const totalKm = data.reduce((total, row) => total + row.distance, 0),
