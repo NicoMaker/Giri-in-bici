@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         "Statistiche/Js/History/JSON/GraficoTotale.json"
       );
 
-    return { mainData, corseData: corseData ? corseData.corse : null };
+    return { mainData, corseData: corseData ? corseData : null };
   }
 
   function calculateAverages(statistics, corse, totalMonths) {
@@ -91,10 +91,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   const { mainData, corseData } = await fetchData();
 
   if (mainData && corseData !== null) {
-    const { statistics, colors, totalMonths } = mainData,
+    const { statistics, colors } = mainData,
+      corse = corseData.corse,
+      kmData = corseData.kmData,
+      totalMonths = Object.keys(kmData).length,
       { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
         statistics,
-        corseData,
+        corse,
         totalMonths
       ),
       labels = statistics.map((entry) => `${entry.year}`),
