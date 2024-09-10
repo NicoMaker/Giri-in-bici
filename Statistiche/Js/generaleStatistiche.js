@@ -93,8 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (mainData && corseData !== null) {
     const { statistics, colors } = mainData,
       corse = corseData.corse,
-      kmData = corseData.kmData,
-      totalMonths = Object.keys(kmData).length,
+      totalMonths = Object.keys(corseData.kmData).length,
       { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
         statistics,
         corse,
