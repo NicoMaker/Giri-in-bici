@@ -12,10 +12,6 @@
 - **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: Aggiorna i km per il mese di Settembre e il numero totale di corse dell'anno.
 - **[Statistiche Generali](Statistiche/Js/History/JSON/Generale.json)**: Aggiorna i km per l'anno 2024.
 
-#### Stagioni
-
-- **[Statistiche per Stagione](Statistiche/Js/anni/Stagioni.json)**: Modifica i km per la stagione corrispondente, Estate.
-
 #### Storico
 
 - **[Grafico Statistiche Generali](Statistiche/Js/History/JSON/GraficoTotale.json)**: Aggiorna i km per il mese di Settembre 2024 e il numero totale di corse.
