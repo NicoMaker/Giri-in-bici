@@ -14,7 +14,7 @@
 
 #### Storico
 
-- **[Grafico Statistiche Generali](Statistiche/Js/History/JSON/GraficoTotale.json)**: Aggiorna i km per il mese di Settembre 2024 e il numero totale di corse.
+- **[Grafico Statistiche Generali](Statistiche/Js/History/JSON/GraficoTotale.json)**: Aggiorna i km per il mese di Settembre 2024.
 - **[Grafico km Totali per Mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json)**: Aggiorna i km per il mese di Settembre e assicurati di includere il numero totale di mesi percorsi a Settembre dentro nel vettore del json.
 - **[Grafico Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Sistema i km per il mese dell'anno 2024 e per il mese di Settembre.
 

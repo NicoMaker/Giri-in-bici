@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         "Statistiche/Js/History/JSON/GraficoTotale.json"
       );
 
-    return { mainData, corseData: corseData ? corseData : null };
+    return {
+      mainData: mainData ? mainData : null,
+      corseData: corseData ? corseData : null,
+    };
   }
 
   function calculateAverages(statistics, corse, totalMonths) {
@@ -79,7 +82,8 @@ document.addEventListener("DOMContentLoaded", async () => {
               <p>km medi per anno percorsi ${avgAnno}</p>
               <p>km medi per mese ${avgMese}</p>
           </div>
-        </a>`);
+        </a>`),
+    { mainData, corseData } = await fetchData();
 
   function adjustContainerLayout() {
     const container = document.querySelector(".container"),
@@ -88,12 +92,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (isOdd) container.classList.add("odd-items");
   }
 
-  const { mainData, corseData } = await fetchData();
-
   if (mainData && corseData !== null) {
     const { statistics, colors } = mainData,
       corse = corseData.corse,
-      totalMonths = Object.keys(corseData.kmData).length,
+      totalMonths = Object.keys(corseData.kmData).length, // Calcola i mesi dalla lunghezza di kmData
       { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
         statistics,
         corse,
