@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (mainData && corseData !== null) {
     const { statistics, colors } = mainData,
       corse = corseData.corse,
-      totalMonths = Object.keys(corseData.kmData).length, // Calcola i mesi dalla lunghezza di kmData
+      totalMonths = Object.keys(corseData.kmData).length,
       { totale, avgTot, avgAnno, avgMese, avgValues } = calculateAverages(
         statistics,
         corse,
