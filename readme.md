@@ -4,19 +4,19 @@
 
 ### Stagione
 
-- **[Estate 2024](Estate/Periodi/Json/2024.json)**: Aggiungi i dettagli della corsa come per le altre.
-- **[Estate](Estate/estate.json)**: Aggiorna i dati relativi al 2024 e il numero di corse per quella stagione.
+- **[Autunno Inverno 2024-2025](Autunno_Inverno/Periodi/Json/2024-2025.json)**: Aggiungi i dettagli della corsa come per le altre.
+- **[Autunno Inverno](Autunno_Inverno/autunno-inverno.json)**: Aggiorna i dati relativi al 2024 e il numero di corse per quella stagione.
 
 ### Statistiche
 
-- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: Aggiorna i km per il mese di Settembre e il numero totale di corse dell'anno.
+- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: Aggiorna i km per il mese di Ottobre e il numero totale di corse dell'anno.
 - **[Statistiche Generali](Statistiche/Js/History/JSON/Generale.json)**: Aggiorna i km per l'anno 2024.
 
 #### Storico
 
-- **[Grafico Statistiche Generali](Statistiche/Js/History/JSON/GraficoTotale.json)**: Aggiorna i km per il mese di Settembre 2024.
-- **[Grafico km Totali per Mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json)**: Aggiorna i km per il mese di Settembre e assicurati di includere il numero totale di mesi percorsi a Settembre dentro nel vettore del json.
-- **[Grafico Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Sistema i km per il mese dell'anno 2024 e per il mese di Settembre.
+- **[Grafico Statistiche Generali](Statistiche/Js/History/JSON/GraficoTotale.json)**: Aggiorna i km per il mese di Ottobre 2024.
+- **[Grafico km Totali per Mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json)**: Aggiorna i km per il mese di Ottobre e assicurati di includere il numero totale di mesi percorsi a Ottobre dentro nel vettore del json.
+- **[Grafico Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Sistema i km per il mese dell'anno 2024 e per il mese di Ottobre.
 
 ## Credenziali
 
