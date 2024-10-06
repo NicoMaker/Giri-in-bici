@@ -8,8 +8,8 @@
     "2021-2022": 729,
     "2022-2023": 806,
     "2023-2024": 1763,
-    "2024-2025": 0
+    "2024-2025": 112
   },
   "colors": ["yellowgreen", "skyblue", "#ba690c", "blue", "lightblue"],
-  "numberOfRaces": 70
+  "numberOfRaces": 71
 }

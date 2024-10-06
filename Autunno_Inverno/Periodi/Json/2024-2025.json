@@ -1,9 +1,8 @@
 [
-    {
-      "date": "data",
-      "number": 1,
-      "place": "<a href=\"link\" target=\"_blank\">luogo</a>",
-      "distance": "distanza"
-    }
-  ]
-  
+  {
+    "date": "06 Ottobre",
+    "number": 1,
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/1899364064?share_token=aqeuknGf9wgj1ldUSLaKViWlGSPRM0ulicaVT3XzPr7SFEDul3&ref=wtd\" target=\"_blank\">Castello Cecconi Clauzetto Vito D'Asio</a>",
+    "distance": 112
+  }
+]
