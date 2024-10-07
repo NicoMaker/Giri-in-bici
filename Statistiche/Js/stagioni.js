@@ -1,17 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
-  async function fetchDataForSeason(seasonFile) {
+  async function fetchData(file) {
     try {
-      const response = await fetch(seasonFile);
+      const response = await fetch(file);
       return await response.json();
     } catch (error) {
-      console.error(`Error fetching data for ${seasonFile}:`, error);
+      console.error(`Error fetching data from ${file}:`, error);
       return null;
     }
   }
 
-  const sumData = (data) =>
-      Object.values(data).reduce((total, km) => total + km, 0),
-    renderStampa = (data) => `
+  const sumData = (data) => {
+    if (!Array.isArray(data)) {
+      console.error("Data is not an array:", data);
+      return 0;
+    }
+
+    return data.reduce((total, km) => {
+      const distanceValue = km.distance || 0; 
+      return total + distanceValue;
+    }, 0);
+  };
+
+  const renderStampa = (data) => `
       <div class="estate">
           <a href="../Estate.html">
               <img class="immaginestagionestat" src="../Icons/estate.png">
@@ -35,18 +45,18 @@ document.addEventListener("DOMContentLoaded", () => {
               <p class="misuracolore">km totali ${data.ai} <img src="../Icons/traguardo.png"></p>
               <p class="misuracolore">${data.avgai} %</p>
           </a>
-      </div>`,
-    createStampat = (data) => `
+      </div>`;
+
+  const createStampat = (data) => `
       <div class="colore">
           <p class="misuracolore">totale km ${data.totale} <img src="../Icons/traguardo.png"></p>
           <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
-      </div>
-    `;
+      </div>`;
 
   function calculateData(estateData, primaveraData, autunnoInvernoData) {
-    const estate = sumData(estateData.data),
-      primavera = sumData(primaveraData.data),
-      autunno_inverno = sumData(autunnoInvernoData.data),
+    const estate = sumData(estateData),
+      primavera = sumData(primaveraData),
+      autunno_inverno = sumData(autunnoInvernoData),
       totale = estate + primavera + autunno_inverno;
 
     return {
@@ -84,28 +94,44 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function loadAndRenderData() {
-    const estateData = await fetchDataForSeason("../Estate/estate.json"),
-      primaveraData = await fetchDataForSeason("../Primavera/primavera.json"),
-      autunnoInvernoData = await fetchDataForSeason(
-        "../Autunno_Inverno/autunno-inverno.json"
+    const seasonsData = await fetchData("Js/anni/stagioni.json");
+
+    if (!seasonsData || !Array.isArray(seasonsData.seasons)) {
+      console.error("Invalid seasons data");
+      return;
+    }
+
+
+    const seasonDataPromises = seasonsData.seasons.map(async (season) => {
+      const subPeriodsData = await Promise.all(
+        Object.entries(season.subPeriods).map(async ([year, subFile]) => {
+          const subData = await fetchData(subFile);
+          console.log(`Data for ${year}:`, subData);
+          return subData ? subData : [];
+        })
       );
 
+      return {
+        name: season.name,
+        data: subPeriodsData.flat(),
+      };
+    });
+
+    const [estateData, primaveraData, autunnoInvernoData] = await Promise.all(seasonDataPromises);
+
     if (estateData && primaveraData && autunnoInvernoData) {
-      const calculatedData = calculateData(
-          estateData,
-          primaveraData,
-          autunnoInvernoData
-        ),
+      const calculatedData = calculateData(estateData.data, primaveraData.data, autunnoInvernoData.data),
         labels = ["Estate", "Primavera", "Autunno-Inverno"],
         chartData = [calculatedData.e, calculatedData.p, calculatedData.ai],
         ctx = document.getElementById("doughnut-chart").getContext("2d");
 
       document.getElementById("dati").innerHTML = renderStampa(calculatedData);
-      document.getElementById("totale").innerHTML =
-        createStampat(calculatedData);
+      document.getElementById("totale").innerHTML = createStampat(calculatedData);
       const chartConfig = createChartConfig(labels, chartData);
       new Chart(ctx, chartConfig);
-    } else console.error("Errore durante il caricamento dei dati");
+    } else {
+      console.error("Errore durante il caricamento dei dati");
+    }
   }
 
   loadAndRenderData();

@@ -3,12 +3,11 @@
   "image": "primavera.png",
   "path":"Primavera",
   "cssclass":"Primavera",
-  "data": {
-    "2021": 579,
-    "2022": 885,
-    "2023": 742,
-    "2024": 2575
+  "subPeriods": {
+    "2021": "Primavera/Periodi/Json/2021.json",
+    "2022": "Primavera/Periodi/Json/2022.json",
+    "2023": "Primavera/Periodi/Json/2023.json",
+    "2024": "Primavera/Periodi/Json/2024.json"
   },
-  "colors": ["pink", "antiquewhite", "cyan", "#97ed86ce"],
-  "numberOfRaces": 66
+  "colors": ["pink", "antiquewhite", "cyan", "#97ed86ce"]
 }

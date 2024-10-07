@@ -1,15 +1,14 @@
 {
   "season": "Estate",
   "image": "estate.png",
-  "path":"Estate",
-  "cssclass":"Estate",
-  "data": {
-    "2020": 2021,
-    "2021": 743,
-    "2022": 2085,
-    "2023": 1622,
-    "2024": 1953
+  "path": "Estate",
+  "cssclass": "Estate",
+  "subPeriods": {
+    "2020": "Estate/Periodi/Json/2020.json",
+    "2021": "Estate/Periodi/Json/2021.json",
+    "2022": "Estate/Periodi/Json/2022.json",
+    "2023": "Estate/Periodi/Json/2023.json",
+    "2024": "Estate/Periodi/Json/2024.json"
   },
-  "colors": ["yellow", "orange", "red", "purple", "#ff0060"],
-  "numberOfRaces": 117
+  "colors": ["yellow", "orange", "red", "purple", "#ff0060"]
 }

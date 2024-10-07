@@ -5,7 +5,6 @@
 ### Stagione
 
 - **[Autunno Inverno 2024-2025](Autunno_Inverno/Periodi/Json/2024-2025.json)**: Aggiungi i dettagli della corsa come per le altre.
-- **[Autunno Inverno](Autunno_Inverno/autunno-inverno.json)**: Aggiorna i dati relativi al 2024 e il numero di corse per quella stagione.
 
 ### Statistiche
 

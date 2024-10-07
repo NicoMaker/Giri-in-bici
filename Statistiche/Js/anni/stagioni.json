@@ -1,0 +1,33 @@
+{
+  "seasons": [
+    {
+      "name": "Estate",
+      "subPeriods": {
+        "2020": "../Estate/Periodi/Json/2020.json",
+        "2021": "../Estate/Periodi/Json/2021.json",
+        "2022": "../Estate/Periodi/Json/2022.json",
+        "2023": "../Estate/Periodi/Json/2023.json",
+        "2024": "../Estate/Periodi/Json/2024.json"
+      }
+    },
+    {
+      "name": "Primavera",
+      "subPeriods": {
+        "2021": "../Primavera/Periodi/Json/2021.json",
+        "2022": "../Primavera/Periodi/Json/2022.json",
+        "2023": "../Primavera/Periodi/Json/2023.json",
+        "2024": "../Primavera/Periodi/Json/2024.json"
+      }
+    },
+    {
+      "name": "Autunno_Inverno",
+      "subPeriods": {
+        "2020-2021": "../Autunno_Inverno/Periodi/Json/2020-2021.json",
+        "2021-2022": "../Autunno_Inverno/Periodi/Json/2021-2022.json",
+        "2022-2023": "../Autunno_Inverno/Periodi/Json/2022-2023.json",
+        "2023-2024": "../Autunno_Inverno/Periodi/Json/2023-2024.json",
+        "2024-2025": "../Autunno_Inverno/Periodi/Json/2024-2025.json"
+      }
+    }
+  ]
+}

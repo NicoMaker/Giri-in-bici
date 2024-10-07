@@ -3,31 +3,60 @@ document.addEventListener("DOMContentLoaded", function () {
 
   fetch(jsonUrl)
     .then((response) => response.json())
-    .then((json) => {
-      const season = json.season,
-        image = json.image,
-        path = json.path,
-        cssclass = json.cssclass,
-        data = json.data,
-        colors = json.colors,
-        numberOfRaces = json.numberOfRaces,
-        labels = Object.keys(data),
-        values = Object.values(data),
+    .then(async (seasonData) => {
+      const season = seasonData.season,
+        image = seasonData.image,
+        path = seasonData.path,
+        cssclass = seasonData.cssclass,
+        colors = seasonData.colors,
+        subPeriodData = await fetchSubPeriods(seasonData.subPeriods),
+        labels = Object.keys(subPeriodData),
+        values = labels.map((label) => subPeriodData[label].totalDistance),
         totale = calculateTotal(values),
-        avgValues = calculateAverageValues(labels, data, totale);
+        totalRaces = calculateTotalRaces(labels, subPeriodData),
+        avgValues = calculateAverageValues(labels, subPeriodData, totale);
 
       renderDoughnutChart(labels, values, colors, season);
-      renderDataList(labels, data, path, image, season, cssclass, avgValues);
-      renderSeasonSummary(season, totale, labels.length, numberOfRaces);
+      renderDataList(
+        labels,
+        subPeriodData,
+        path,
+        image,
+        season,
+        cssclass,
+        avgValues
+      );
+      renderSeasonSummary(season, totale, labels.length, totalRaces); // Passa anche il numero totale di corse
 
       adjustContainerLayout(cssclass);
     })
     .catch((error) => console.error("Error loading the JSON data:", error));
 });
 
+async function fetchSubPeriods(subPeriods) {
+  const promises = Object.entries(subPeriods).map(([period, file]) =>
+    fetch(file)
+      .then((response) => response.json())
+      .then((data) => {
+        const totalDistance = calculateTotal(
+          data.map((entry) => entry.distance)
+        );
+        const numberOfRaces = data.length; // Assume che ogni entry rappresenti una corsa
+        return { [period]: { totalDistance, numberOfRaces } };
+      })
+  );
+
+  const results = await Promise.all(promises);
+  return results.reduce((acc, curr) => Object.assign(acc, curr), {});
+}
+
 const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
+  calculateTotalRaces = (labels, data) =>
+    labels.reduce((acc, label) => acc + data[label].numberOfRaces, 0),
   calculateAverageValues = (labels, data, totale) =>
-    labels.map((label) => ((data[label] / totale) * 100).toFixed(2));
+    labels.map((label) =>
+      ((data[label].totalDistance / totale) * 100).toFixed(2)
+    );
 
 function renderDoughnutChart(labels, values, colors, season) {
   const datasets = createDatasets(values, colors, season),
@@ -70,26 +99,27 @@ const getDoughnutContext = () =>
     labels
       .map(
         (label, index) => `
-          <div class="${cssclass}contorno">
-            <a href="${path}/Periodi/${label}.html">
-              <img class="immaginestagione" src="Icons/${image}">
-              <p class="titoli">
-                ${season} ${label}
-                <p>Totale km ${data[label]} 
-                  <img src="Icons/traguardo.png">
-                </p> 
-                <p> ${avgValues[index]} % </p>
-              </p>
-            </a>
-          </div>
-        `
+      <div class="${cssclass}contorno">
+        <a href="${path}/Periodi/${label}.html">
+          <img class="immaginestagione" src="Icons/${image}">
+          <p class="titoli">
+            ${season} ${label}
+            <p>Totale km ${data[label].totalDistance} 
+              <img src="Icons/traguardo.png">
+            </p> 
+            <p>${avgValues[index]} %</p>
+          </p>
+        </a>
+      </div>
+    `
       )
       .join(""),
   updateStampa = (stampa) =>
     (document.getElementById(
       "stampa"
-    ).innerHTML = `<div class="container">${stampa}</div>`),
-  calculateAvgSeason = (totale, numberOfLabels) =>
+    ).innerHTML = `<div class="container">${stampa}</div>`);
+
+const calculateAvgSeason = (totale, numberOfLabels) =>
     (totale / numberOfLabels).toFixed(2),
   calculateAvgCorsa = (totale, numberOfRaces) =>
     (totale / numberOfRaces).toFixed(2),
@@ -101,12 +131,12 @@ const getDoughnutContext = () =>
     (document.getElementById("totale").innerHTML = stampaseason),
   createStampaseason = (season, totale, avgseason, avgcorsa) =>
     `
-        <div class="colore">
-          <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
-          <p>km medi per corsa in ${season} ${avgcorsa} </p>
-          <p>media km per stagione ${avgseason} </p>
-        </div>
-      `;
+      <div class="colore">
+        <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
+        <p>km medi per corsa in ${season} ${avgcorsa} </p>
+        <p>media km per stagione ${avgseason} </p>
+      </div>
+    `;
 
 function renderDataList(
   labels,
@@ -129,9 +159,9 @@ function renderDataList(
   updateStampa(stampa);
 }
 
-function renderSeasonSummary(season, totale, numberOfLabels, numberOfRaces) {
+function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
   const avgseason = calculateAvgSeason(totale, numberOfLabels),
-    avgcorsa = calculateAvgCorsa(totale, numberOfRaces),
+    avgcorsa = calculateAvgCorsa(totale, totalRaces), // Usa il totale delle corse
     stampaseason = createStampaseason(season, totale, avgseason, avgcorsa);
 
   updateTotale(stampaseason);
