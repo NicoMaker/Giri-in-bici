@@ -9,13 +9,11 @@
 ### Statistiche
 
 - **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: Aggiorna i km per il mese di Ottobre e il numero totale di corse dell'anno.
-- **[Statistiche Generali](Statistiche/Js/History/JSON/Generale.json)**: Aggiorna i km per l'anno 2024.
 
 #### Storico
 
 - **[Grafico Statistiche Generali](Statistiche/Js/History/JSON/GraficoTotale.json)**: Aggiorna i km per il mese di Ottobre 2024.
 - **[Grafico km Totali per Mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json)**: Aggiorna i km per il mese di Ottobre e assicurati di includere il numero totale di mesi percorsi a Ottobre dentro nel vettore del json.
-- **[Grafico Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Sistema i km per il mese dell'anno 2024 e per il mese di Ottobre.
 
 ## Credenziali
 

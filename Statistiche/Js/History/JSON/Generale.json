@@ -1,10 +1,10 @@
 {
-  "statistics": [
-    { "year": 2020, "km": 2456 },
-    { "year": 2021, "km": 2614 },
-    { "year": 2022, "km": 3808 },
-    { "year": 2023, "km": 3916 },
-    { "year": 2024, "km": 5126 }
-  ],
+  "statistics": {
+    "2020": "Statistiche/Js/anni/2020.json",
+    "2021": "Statistiche/Js/anni/2021.json",
+    "2022": "Statistiche/Js/anni/2022.json",
+    "2023": "Statistiche/Js/anni/2023.json",
+    "2024": "Statistiche/Js/anni/2024.json"
+  },
   "colors": ["yellow", "lightgreen", "orange", "cyan", "red"]
 }

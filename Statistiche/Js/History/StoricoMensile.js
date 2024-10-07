@@ -14,13 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
     "Dicembre",
   ];
 
-  function createDataset(data) {
+  function createDataset(yearData, yearLabel, yearColor) {
+    const data = new Array(12).fill(0); 
+
+    for (const [month, value] of Object.entries(yearData.data)) {
+      const monthIndex = mesi.indexOf(month);
+      if (monthIndex !== -1) {
+        data[monthIndex] = value;
+      }
+    }
+
     return {
-      label: data.label,
-      backgroundColor: data.color,
-      borderColor: data.color,
+      label: yearLabel,
+      backgroundColor: yearColor,
+      borderColor: yearColor,
       borderWidth: 3,
-      data: data.data,
+      data: data,
     };
   }
 
@@ -57,8 +66,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetch("../Js/History/JSON/StoricoMensile.json")
     .then((response) => response.json())
-    .then((data) => {
-      const datasets = Object.values(data).map(createDataset);
+    .then((yearsData) => {
+      const datasetsPromises = Object.values(yearsData).map(yearInfo =>
+        fetch(yearInfo.data)
+          .then((response) => response.json())
+          .then((yearData) => createDataset(yearData, yearInfo.label, yearInfo.color))
+      );
+
+      return Promise.all(datasetsPromises);
+    })
+    .then((datasets) => {
       renderCharts(datasets);
     })
     .catch((error) => console.error("Error loading the data:", error));
