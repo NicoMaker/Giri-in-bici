@@ -8,7 +8,8 @@
 
 ### Statistiche
 
-- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: Aggiorna i km per il mese di ottobre e il numero totale di corse dell'anno.
+- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: 
+    - Aggiorna i km per il mese di ottobre e il numero totale di corse dell'anno.
 
 #### Storico
 
