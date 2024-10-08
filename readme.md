@@ -8,11 +8,38 @@
 
 ### Statistiche
 
-- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: Aggiorna i km per il mese di Ottobre e il numero totale di corse dell'anno.
+- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: Aggiorna i km per il mese di ottobre e il numero totale di corse dell'anno.
 
 #### Storico
 
-- **[Grafico km Totali per Mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json)**: Aggiorna i km per il mese di Ottobre e assicurati di includere il numero totale di mesi percorsi a Ottobre dentro nel vettore del json.
+- **[Grafico km Totali per Mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json)**:
+  - Aggiorna i km per il mese di ottobre.
+  - Assicurati di includere il numero totale di mesi percorsi fino ad ottobre nel vettore del JSON.
+
+## Inizio Nuova Stagione
+
+### Aggiornamenti Stagionali
+
+- creare il nuovo file json della nuova stagione e anche il nuovo html come gli altri
+
+- **[Autunno Inverno](Autunno_Inverno/autunno-inverno.json)**: Aggiorna il percorso della sottostagione.
+- **[Primavera](Primavera/primavera.json)**: Aggiorna il percorso della sottostagione.
+- **[Estate](Estate/estate.json)**: Aggiorna il percorso della sottostagione.
+
+## Creazione di Nuove Stagioni
+
+- **[Stagione](Statistiche/Js/anni/stagioni.json)**:
+  - Aggiorna l'opzione della stagione corretta con il percorso corretto della sottostagione nuova.
+
+## Creazione Nuovo Anno
+
+### Aggiornamenti Generali
+
+- Creare il nuovo file json della nuovo anno e anche il nuovo html come gli altri
+
+- **[Generale](Statistiche/Js/History/JSON/Generale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
+- **[Grafico Totale](Statistiche/Js/History/JSON/GraficoTotale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
+- **[Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Crea in modo corretto i dati per l'anno nuovo.
 
 ## Credenziali
 
