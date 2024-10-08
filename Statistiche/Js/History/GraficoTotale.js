@@ -5,18 +5,39 @@ document.addEventListener("DOMContentLoaded", () => {
         jsonData = await response.json();
       return jsonData;
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Errore nel caricamento dei dati:", error);
       return null;
     }
   }
 
-  function calculateTotals(data) {
-    const chilometri = Object.values(data);
-    return {
-      totale: chilometri.reduce((acc, curr) => acc + curr, 0),
-      chilometri,
-      mesi: Object.keys(data),
-    };
+  async function fetchYearData(url) {
+    try {
+      const response = await fetch(url),
+        data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(`Errore nel caricamento dei dati da ${url}:`, error);
+      return null;
+    }
+  }
+
+  function calculateTotals(yearlyData) {
+    let totale = 0,
+      chilometri = [],
+      mesi = [],
+      anni = [];
+
+    yearlyData.forEach(({ data, year }) => {
+      for (let mese in data) {
+        chilometri.push(data[mese]);
+        mesi.push(mese);
+        anni.push(year);
+      }
+    });
+
+    totale = chilometri.reduce((acc, curr) => acc + curr, 0);
+
+    return { totale, chilometri, mesi, anni }; // Restituisci anche gli anni
   }
 
   function calculateAverages(totale, corse, chilometri, mesi) {
@@ -29,11 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function createChartConfig(labels, data) {
+  function createChartConfig(labels, data, anni) {
     return {
       type: "line",
       data: {
-        labels,
+        labels: labels.map((mese, index) => `${mese} (${anni[index]})`),
         datasets: [
           {
             label: "km mensili per periodo totali",
@@ -54,12 +75,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderChart = (config, ctx) => new Chart(ctx, config);
 
-  function createTable(mesi, chilometri, percentuali) {
+  function createTable(mesi, chilometri, percentuali, anni) {
     return `
       <tr class="grassetto">
         <th>Mese</th>
         <th>km <img src="../../Icons/traguardo.png"></th>
         <th>Percentuale sul totale</th>
+        <th>Anno</th> <!-- Nuova colonna per l'anno -->
       </tr>
       ${mesi
         .map(
@@ -68,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${mese}</td>
           <td>${chilometri[index]}</td>
           <td>${percentuali[index]} %</td>
+          <td>${anni[index]}</td> <!-- Mostra l'anno -->
       </tr>`
         )
         .join("")}
@@ -78,40 +101,51 @@ document.addEventListener("DOMContentLoaded", () => {
     return `
       <a href="Statistiche_Mensili.html">
         <div class="colore">
-            <p>totale km ${totale} <img src="../../Icons/traguardo.png"></p>
-            <p>km medi percorsi ${kmMediPerCorsa}</p>
-            <p>km medi per mese ${kmMediPerMese}</p>
+            <p>Totale km ${totale} <img src="../../Icons/traguardo.png"></p>
+            <p>Km medi percorsi ${kmMediPerCorsa}</p>
+            <p>Km medi per mese ${kmMediPerMese}</p>
         </div>
       </a>`;
   }
 
-  fetchData().then((data) => {
+  fetchData().then(async (data) => {
     if (data) {
-      const { kmData, corse } = data;
-      if (!kmData || !corse) {
-        console.error("Struttura dei dati non valida");
-        return;
-      }
+      const { statistics } = data;
+      let yearlyData = [],
+        totaleCorse = 0;
 
-      const { totale, chilometri, mesi } = calculateTotals(kmData), { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages(
-        totale,
-        corse,
-        chilometri,
-        mesi
-      ),chartConfig = createChartConfig(mesi, chilometri),ctx = document.getElementById("line-chart").getContext("2d");
+      const fetchPromises = Object.values(statistics).map((url) =>
+        fetchYearData(url).then((yearData) => {
+          if (yearData) {
+            yearlyData.push(yearData);
+            totaleCorse += yearData.numberOfRaces || 0;
+          }
+        })
+      );
 
-      if (ctx)
-        renderChart(chartConfig, ctx);
-     else 
-        console.error("Contesto del canvas non trovato");
-      
+      await Promise.all(fetchPromises);
 
-      const tableHTML = createTable(mesi, chilometri, percentuali), summaryHTML = createSummary(totale, kmMediPerCorsa, kmMediPerMese);
+      const { totale, chilometri, mesi, anni } = calculateTotals(yearlyData),
+        { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages(
+          totale,
+          totaleCorse,
+          chilometri,
+          mesi
+        ),
+        chartConfig = createChartConfig(mesi, chilometri, anni),
+        ctx = document.getElementById("line-chart").getContext("2d");
+
+      if (ctx) renderChart(chartConfig, ctx);
+      else console.error("Contesto del canvas non trovato");
+
+      const tableHTML = createTable(mesi, chilometri, percentuali, anni),
+        summaryHTML = createSummary(totale, kmMediPerCorsa, kmMediPerMese);
 
       document.getElementById("mesi").innerHTML = tableHTML;
       document.getElementById("totale").innerHTML = summaryHTML;
-    } else
+    } else {
       console.error("Nessun dato ricevuto");
+    }
   }).catch(error => {
     console.error("Errore durante il fetch:", error);
   });
