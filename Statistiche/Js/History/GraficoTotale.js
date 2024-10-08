@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchData() {
     try {
       const response = await fetch("../Js/History/JSON/GraficoTotale.json"),
-        jsonData = await response.json();
+            jsonData = await response.json();
       return jsonData;
     } catch (error) {
       console.error("Errore nel caricamento dei dati:", error);
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchYearData(url) {
     try {
       const response = await fetch(url),
-        data = await response.json();
+            data = await response.json();
       return data;
     } catch (error) {
       console.error(`Errore nel caricamento dei dati da ${url}:`, error);
@@ -23,30 +23,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function calculateTotals(yearlyData) {
     let totale = 0,
-      chilometri = [],
-      mesi = [],
-      anni = [];
-
+        chilometri = [], 
+        mesi = [],
+        anni = [];
+  
+    const combinedData = [];
     yearlyData.forEach(({ data, year }) => {
       for (let mese in data) {
-        chilometri.push(data[mese]);
-        mesi.push(mese);
-        anni.push(year);
+        combinedData.push({ mese, chilometri: data[mese], year });
       }
     });
-
+  
+    combinedData.sort((a, b) => {
+      if (a.year !== b.year) 
+        return a.year - b.year; 
+      return new Date(`1 ${a.mese} 2000`) - new Date(`1 ${b.mese} 2000`); 
+    });
+  
+    combinedData.forEach(({ chilometri: chilometriMensili, mese, year }) => { // Usa un altro nome per evitare conflitti
+      chilometri.push(chilometriMensili); // Aggiungi i chilometri mensili all'array
+      mesi.push(mese);
+      anni.push(year);
+    });
+  
     totale = chilometri.reduce((acc, curr) => acc + curr, 0);
-
-    return { totale, chilometri, mesi, anni }; // Restituisci anche gli anni
+  
+    return { totale, chilometri, mesi, anni };
   }
+  
 
   function calculateAverages(totale, corse, chilometri, mesi) {
     return {
       percentuali: mesi.map((mese, index) =>
         ((chilometri[index] / totale) * 100).toFixed(2)
       ),
-      kmMediPerCorsa: (totale / corse).toFixed(2),
-      kmMediPerMese: (totale / mesi.length).toFixed(2),
+      kmMediPerCorsa: corse > 0 ? (totale / corse).toFixed(2) : 0,
+      kmMediPerMese: mesi.length > 0 ? (totale / mesi.length).toFixed(2) : 0,
     };
   }
 
@@ -112,13 +124,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data) {
       const { statistics } = data;
       let yearlyData = [],
-        totaleCorse = 0;
+          totaleCorse = 0;
 
       const fetchPromises = Object.values(statistics).map((url) =>
         fetchYearData(url).then((yearData) => {
           if (yearData) {
             yearlyData.push(yearData);
-            totaleCorse += yearData.numberOfRaces || 0;
+            totaleCorse += yearData.numberOfRaces || 0; // Assicurati che `numberOfRaces` esista in yearData
           }
         })
       );
@@ -126,20 +138,20 @@ document.addEventListener("DOMContentLoaded", () => {
       await Promise.all(fetchPromises);
 
       const { totale, chilometri, mesi, anni } = calculateTotals(yearlyData),
-        { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages(
-          totale,
-          totaleCorse,
-          chilometri,
-          mesi
-        ),
-        chartConfig = createChartConfig(mesi, chilometri, anni),
-        ctx = document.getElementById("line-chart").getContext("2d");
+            { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages(
+              totale,
+              totaleCorse,
+              chilometri,
+              mesi
+            ),
+            chartConfig = createChartConfig(mesi, chilometri, anni),
+            ctx = document.getElementById("line-chart").getContext("2d");
 
       if (ctx) renderChart(chartConfig, ctx);
       else console.error("Contesto del canvas non trovato");
 
       const tableHTML = createTable(mesi, chilometri, percentuali, anni),
-        summaryHTML = createSummary(totale, kmMediPerCorsa, kmMediPerMese);
+            summaryHTML = createSummary(totale, kmMediPerCorsa, kmMediPerMese);
 
       document.getElementById("mesi").innerHTML = tableHTML;
       document.getElementById("totale").innerHTML = summaryHTML;
