@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return new Date(`1 ${a.mese} 2000`) - new Date(`1 ${b.mese} 2000`); 
     });
   
-    combinedData.forEach(({ chilometri: chilometriMensili, mese, year }) => { // Usa un altro nome per evitare conflitti
-      chilometri.push(chilometriMensili); // Aggiungi i chilometri mensili all'array
+    combinedData.forEach(({ chilometri: chilometriMensili, mese, year }) => {
+      chilometri.push(chilometriMensili);
       mesi.push(mese);
       anni.push(year);
     });
