@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     return data.reduce((total, km) => {
-      const distanceValue = km.distance || 0; 
+      const distanceValue = km.distance || 0;
       return total + distanceValue;
     }, 0);
   };
@@ -101,32 +101,37 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-
     const seasonDataPromises = seasonsData.seasons.map(async (season) => {
-      const subPeriodsData = await Promise.all(
-        Object.entries(season.subPeriods).map(async ([year, subFile]) => {
-          const subData = await fetchData(subFile);
-          console.log(`Data for ${year}:`, subData);
-          return subData ? subData : [];
-        })
+        const subPeriodsData = await Promise.all(
+          Object.entries(season.subPeriods).map(async ([year, subFile]) => {
+            const subData = await fetchData(subFile);
+            console.log(`Data for ${year}:`, subData);
+            return subData ? subData : [];
+          })
+        );
+
+        return {
+          name: season.name,
+          data: subPeriodsData.flat(),
+        };
+      }),
+      [estateData, primaveraData, autunnoInvernoData] = await Promise.all(
+        seasonDataPromises
       );
 
-      return {
-        name: season.name,
-        data: subPeriodsData.flat(),
-      };
-    });
-
-    const [estateData, primaveraData, autunnoInvernoData] = await Promise.all(seasonDataPromises);
-
     if (estateData && primaveraData && autunnoInvernoData) {
-      const calculatedData = calculateData(estateData.data, primaveraData.data, autunnoInvernoData.data),
+      const calculatedData = calculateData(
+          estateData.data,
+          primaveraData.data,
+          autunnoInvernoData.data
+        ),
         labels = ["Estate", "Primavera", "Autunno-Inverno"],
         chartData = [calculatedData.e, calculatedData.p, calculatedData.ai],
         ctx = document.getElementById("doughnut-chart").getContext("2d");
 
       document.getElementById("dati").innerHTML = renderStampa(calculatedData);
-      document.getElementById("totale").innerHTML = createStampat(calculatedData);
+      document.getElementById("totale").innerHTML =
+        createStampat(calculatedData);
       const chartConfig = createChartConfig(labels, chartData);
       new Chart(ctx, chartConfig);
     } else {
