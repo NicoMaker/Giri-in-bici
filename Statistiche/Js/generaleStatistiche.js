@@ -137,7 +137,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderSummary(totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth);
     adjustContainerLayout();
     new Chart(doughnutCtx, doughnutConfig);
-  } else {
+  } else 
     console.error("Nessun dato ricevuto");
-  }
 });

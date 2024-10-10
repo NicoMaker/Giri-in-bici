@@ -13,5 +13,19 @@
     "Novembre": 690,
     "Dicembre": 1050
   },
-  "mesi_percorsi": [4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 3, 4]
+  "mesi_percorsi": [4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 3, 4],
+  "colori": [
+    "darkblue",
+    "blue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
+  ]
 }

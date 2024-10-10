@@ -11,27 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return { mese, kmMediMese };
       }),
     getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
-    createChartConfig = (labels, data) => ({
+    createChartConfig = (labels, data, colori) => ({
       type: "bar",
       data: {
         labels,
         datasets: [
           {
             label: "km mensili totali",
-            backgroundColor: [
-              "darkblue",
-              "blue",
-              "lightgreen",
-              "green",
-              "pink",
-              "yellow",
-              "orange",
-              "red",
-              "darkgreen",
-              "brown",
-              "cyan",
-              "blue",
-            ],
+            backgroundColor: colori,
             borderColor: ["black"],
             borderWidth: 1,
             data,
@@ -45,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     }),
     renderChart = (config, ctx) => new Chart(ctx, config),
-    createTableHTML = (kmPerMese, chilometri, percentuali, mesi_percorsi) => `
+    createTableHTML = (kmPerMese, chilometri, percentuali, mesi_percorsi) => ` 
     <tr class="grassetto">
       <th>Mese</th>
       <th>km <img src="../../Icons/traguardo.png"></th>
@@ -73,18 +60,20 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>km totali medi per mese ${mediaComplessiva}</p>
       </div>
     </a>`;
+
   fetch("../Js/History/JSON/GraficoTotaleMensile.json")
     .then((response) => response.json())
     .then((json) => {
       const data = json.data,
         mesi_percorsi = json.mesi_percorsi,
+        colori = json.colori,
         mesi = getMesi(data),
         chilometri = getChilometri(data),
         totale = getTotale(chilometri),
         percentuali = getPercentuali(chilometri, totale),
         kmPerMese = getKmPerMese(mesi, chilometri, mesi_percorsi),
         mediaComplessiva = getMediaComplessiva(totale, mesi.length),
-        chartConfig = createChartConfig(mesi, chilometri),
+        chartConfig = createChartConfig(mesi, chilometri, colori),
         ctx = document.getElementById("line-chart").getContext("2d");
 
       renderChart(chartConfig, ctx);

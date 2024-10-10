@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchYearData(url).then((yearData) => {
           if (yearData) {
             yearlyData.push(yearData);
-            totaleCorse += yearData.numberOfRaces || 0; // Assicurati che `numberOfRaces` esista in yearData
+            totaleCorse += yearData.numberOfRaces || 0; 
           }
         })
       );
