@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <th>Mese</th>
         <th>km <img src="../../Icons/traguardo.png"></th>
         <th>Percentuale sul totale</th>
-        <th>Anno</th> <!-- Nuova colonna per l'anno -->
+        <th>Anno</th>
       </tr>
       ${mesi
         .map(
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${mese}</td>
           <td>${chilometri[index]}</td>
           <td>${percentuali[index]} %</td>
-          <td>${anni[index]}</td> <!-- Mostra l'anno -->
+          <td>${anni[index]}</td>
       </tr>`
         )
         .join("")}
