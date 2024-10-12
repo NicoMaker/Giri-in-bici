@@ -28,7 +28,7 @@ function renderChart(mesi, chilometri, colors, year) {
       labels: mesi,
       datasets: [
         {
-          label: `km mensili ${year}`,
+          label: `km mensili`,
           backgroundColor: colors,
           borderColor: "black",
           borderWidth: 1,
