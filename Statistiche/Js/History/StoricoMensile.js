@@ -19,9 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const [month, value] of Object.entries(yearData.data)) {
       const monthIndex = mesi.indexOf(month);
-      if (monthIndex !== -1) {
+      if (monthIndex !== -1)
         data[monthIndex] = value;
-      }
     }
 
     return {
