@@ -15,12 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   function createDataset(yearData, yearLabel, yearColor) {
-    const data = new Array(12).fill(0); 
+    const data = new Array(12).fill(0);
 
     for (const [month, value] of Object.entries(yearData.data)) {
       const monthIndex = mesi.indexOf(month);
-      if (monthIndex !== -1)
-        data[monthIndex] = value;
+      if (monthIndex !== -1) data[monthIndex] = value;
     }
 
     return {
@@ -66,10 +65,12 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch("../Js/History/JSON/StoricoMensile.json")
     .then((response) => response.json())
     .then((yearsData) => {
-      const datasetsPromises = Object.values(yearsData).map(yearInfo =>
+      const datasetsPromises = Object.values(yearsData).map((yearInfo) =>
         fetch(yearInfo.data)
           .then((response) => response.json())
-          .then((yearData) => createDataset(yearData, yearInfo.label, yearInfo.color))
+          .then((yearData) =>
+            createDataset(yearData, yearInfo.label, yearInfo.color)
+          )
       );
 
       return Promise.all(datasetsPromises);
