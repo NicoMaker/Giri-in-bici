@@ -1,90 +1,89 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="../giri.css" />
+    <link rel="icon" href="../Icons/bici.png" type="image/png" />
+    <title>LE NOSTRE BICI</title>
+    <script src="ScriptBici.js" defer></script>
+    <script src="../JS/Hamburger.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+  </head>
 
-<head>
-  <link rel="stylesheet" href="../giri.css" />
-  <link rel="icon" href="../Icons/bici.png" type="image/png" />
-  <title>LE NOSTRE BICI</title>
-  <script src="ScriptBici.js" defer></script>
-  <script src="../JS/Hamburger.js" defer></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-</head>
+  <body>
+    <a href="../Giri.html">
+      <img class="Bandiera-FVG" src="../Img/logo.jpg" />
+    </a>
 
-<body>
-  <a href="../Giri.html">
-    <img class="Bandiera-FVG" src="../Img/logo.jpg" />
-  </a>
+    <h1 class="Titolo">
+      <img src="../Icons/bici.png" />
+      <img src="../Icons/bici.png" />
+      Le Nostre Bici
+      <img src="../Icons/bici.png" />
+      <img src="../Icons/bici.png" />
+    </h1>
 
-  <h1 class="Titolo">
-    <img src="../Icons/bici.png" />
-    <img src="../Icons/bici.png" />
-    Le Nostre Bici
-    <img src="../Icons/bici.png" />
-    <img src="../Icons/bici.png" />
-  </h1>
+    <p>
+      <button class="Icons">
+        <a class="colore_apertura" href="../Giri.html">
+          <img src="../Icons/home.png" />
+        </a>
 
-  <p>
-    <button class="Icons">
-      <a class="colore_apertura" href="../Giri.html">
-        <img src="../Icons/home.png" />
-      </a>
+        <a class="colore_apertura" href="../Statistiche.html">
+          <img src="../Icons/Statistiche.png" />
+        </a>
 
-      <a class="colore_apertura" href="../Statistiche.html">
-        <img src="../Icons/Statistiche.png" />
-      </a>
+        <a class="colore_apertura" href="../Estate.html">
+          <img src="../Icons/estate.png" />
+        </a>
 
-      <a class="colore_apertura" href="../Estate.html">
-        <img src="../Icons/estate.png" />
-      </a>
+        <a class="colore_apertura" href="../Primavera.html">
+          <img src="../Icons/primavera.png" />
+        </a>
 
-      <a class="colore_apertura" href="../Primavera.html">
-        <img src="../Icons/primavera.png" />
-      </a>
+        <a class="colore_apertura" href="../Autunno_Inverno.html">
+          <img src="../Icons/inverno.png" />
+        </a>
 
-      <a class="colore_apertura" href="../Autunno_Inverno.html">
-        <img src="../Icons/inverno.png" />
-      </a>
+        <a class="colore_apertura" href="../index.html">
+          <img src="../Icons/login.png" />
+        </a>
+      </button>
+    </p>
 
-      <a class="colore_apertura" href="../index.html">
-        <img src="../Icons/login.png" />
-      </a>
+    <ul class="menu">
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <h1>Categorie Bici</h1>
+
+      <li>
+        <button class="bicimenu" onclick="Home()">Madonnina in Bici</button>
+      </li>
+      <li>
+        <button class="bicimenu" onclick="CalcolaMTB()">MTB</button>
+      </li>
+
+      <li>
+        <button class="bicimenu" onclick="CalcolaCorsa()">Corsa</button>
+      </li>
+    </ul>
+
+    <button class="hamburger">
+      <i class="MenuIcon">
+        <span class="material-icons">directions_bike</span>
+      </i>
+      <i class="CloseIcon">
+        <span class="material-icons">close</span>
+      </i>
     </button>
-  </p>
 
-  <ul class="menu">
-
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h1>Categorie Bici</h1>
-
-    <li>
-      <button class="bicimenu" onclick="Home()">Madonnina in Bici</button>
-    </li>
-    <li>
-      <button class="bicimenu" onclick="CalcolaMTB()">MTB</button>
-    </li>
-
-    <li>
-      <button class="bicimenu" onclick="CalcolaCorsa()">Corsa</button>
-    </li>
-  </ul>
-
-  <button class="hamburger">
-    <i class="MenuIcon">
-      <span class="material-icons">directions_bike</span>
-    </i>
-    <i class="CloseIcon">
-      <span class="material-icons">close</span>
-    </i>
-  </button>
-
-  <div id="StampaBici"></div>
-  <br>
-  <br>
-
-</body>
-
+    <div id="StampaBici"></div>
+    <br />
+    <br />
+  </body>
 </html>
