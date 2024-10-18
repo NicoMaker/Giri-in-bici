@@ -24,8 +24,8 @@ function setAbstractBackground() {
 
 async function loadUsers() {
   try {
-    const response = await fetch("Login/users.json");
-    const data = await response.json();
+    const response = await fetch("Login/users.json"),
+      data = await response.json();
     return data.users.map((user) => ({
       username: user.username,
       password: generatePassword(),
