@@ -1,20 +1,12 @@
 {
-  "data": {
-    "Gennaio": 830,
-    "Febbraio": 705,
-    "Marzo": 1126,
-    "Aprile": 1540,
-    "Maggio": 1499,
-    "Giugno": 1804,
-    "Luglio": 2658,
-    "Agosto": 2186,
-    "Settembre": 2457,
-    "Ottobre": 1558,
-    "Novembre": 690,
-    "Dicembre": 1050
+  "statistics": {
+    "2020": "../Js/anni/2020.json",
+    "2021": "../Js/anni/2021.json",
+    "2022": "../Js/anni/2022.json",
+    "2023": "../Js/anni/2023.json",
+    "2024": "../Js/anni/2024.json"
   },
-  "mesi_percorsi": [4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 3, 4],
-  "colori": [
+  "colors": [
     "darkblue",
     "blue",
     "lightgreen",

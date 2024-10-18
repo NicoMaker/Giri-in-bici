@@ -8,14 +8,8 @@
 
 ### Statistiche
 
-- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**: 
-    - Aggiorna i km per il mese di ottobre e il numero totale di corse dell'anno.
-
-#### Storico
-
-- **[Grafico km Totali per Mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json)**:
-  - Aggiorna i km per il mese di ottobre.
-  - Assicurati di includere il numero totale di mesi percorsi fino ad ottobre nel vettore del JSON.
+- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**:
+  - Aggiorna i km per il mese di ottobre e il numero totale di corse dell'anno.
 
 ## Inizio Nuova Stagione
 
@@ -41,6 +35,7 @@
 - **[Generale](Statistiche/Js/History/JSON/Generale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
 - **[Grafico Totale](Statistiche/Js/History/JSON/GraficoTotale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
 - **[Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Crea in modo corretto i dati per l'anno nuovo.
+- **[Grafico km Totali per Mese](Statistiche/Js/History/JSON/GraficoTotaleMensile.json)**:Inserisci il percorso corretto del JSON del nuovo anno
 
 ## Credenziali
 
