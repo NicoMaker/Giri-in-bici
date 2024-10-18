@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </a>`;
 
-  fetch("../Js/History/JSON/GraficoTotaleMensile.json")
+  fetch("../Js/History/JSON/GraficoTotale.json")
     .then((response) => response.json())
     .then((statistics) => {
       const allDataPromises = [];
