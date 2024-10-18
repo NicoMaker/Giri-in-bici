@@ -33,6 +33,9 @@
 - Creare il nuovo file json della nuovo anno e anche il nuovo html come gli altri
 
 - **[Generale](Statistiche/Js/History/JSON/Generale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
+
+- **[Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Inserisci i dati corretti del nuovo anno 
+
 - **[Grafico Totale](Statistiche/Js/History/JSON/GraficoTotale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
 
 ## Credenziali
