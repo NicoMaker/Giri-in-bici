@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Chart(ctxbar, configbar);
   }
 
-  fetch("../Js/History/JSON/GraficoTotale.json")
+  fetch("../Js/History/JSON/StoricoMensile.json")
     .then((response) => response.json())
     .then((yearsData) => {
       const datasetsPromises = Object.values(yearsData).map((yearInfo) =>
