@@ -5,5 +5,19 @@
     "2022": "../Js/anni/2022.json",
     "2023": "../Js/anni/2023.json",
     "2024": "../Js/anni/2024.json"
-  }
+  },
+    "colors": [
+    "darkblue",
+    "blue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
+  ]
 }
