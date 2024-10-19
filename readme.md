@@ -36,8 +36,7 @@
 
 - **[Grafico Totale](Statistiche/Js/History/JSON/GraficoTotale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
 
-- **[Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Inserisci i dati corretti del nuovo anno 
-
+- **[Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Crea in modo corretto i dati per l'anno nuovo.
 
 ## Credenziali
 
