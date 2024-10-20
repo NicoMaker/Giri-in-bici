@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cssclass,
         avgValues
       );
-      renderSeasonSummary(season, totale, labels.length, totalRaces); // Passa anche il numero totale di corse
+      renderSeasonSummary(season, totale, labels.length, totalRaces);
 
       adjustContainerLayout(cssclass);
     })
