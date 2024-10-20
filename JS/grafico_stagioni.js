@@ -41,7 +41,7 @@ async function fetchSubPeriods(subPeriods) {
         const totalDistance = calculateTotal(
           data.map((entry) => entry.distance)
         );
-        const numberOfRaces = data.length; // Assume che ogni entry rappresenti una corsa
+        const numberOfRaces = data.length;
         return { [period]: { totalDistance, numberOfRaces } };
       })
   );
@@ -161,7 +161,7 @@ function renderDataList(
 
 function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
   const avgseason = calculateAvgSeason(totale, numberOfLabels),
-    avgcorsa = calculateAvgCorsa(totale, totalRaces), // Usa il totale delle corse
+    avgcorsa = calculateAvgCorsa(totale, totalRaces),
     stampaseason = createStampaseason(season, totale, avgseason, avgcorsa);
 
   updateTotale(stampaseason);
