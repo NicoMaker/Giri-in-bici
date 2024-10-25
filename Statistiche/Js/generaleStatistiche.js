@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgKmPerYear:
         statistics.length > 0 ? (totaleKm / statistics.length).toFixed(2) : 0,
       avgKmPerMonth:
-        totalMonths > 0 ? (totalMonthlyKm / totalMonths).toFixed(2) : 0, // Calcola la media mensile
+        totalMonths > 0 ? (totalMonthlyKm / totalMonths).toFixed(2) : 0,
       avgValues: statistics.map((entry) =>
         ((entry.km / totaleKm) * 100).toFixed(2)
       ),
