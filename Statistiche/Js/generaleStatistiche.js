@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return acc + monthlySum;
       }, 0),
       totalMonths = statistics.reduce((acc, cur) => {
-        return acc + Object.keys(cur.monthlyData).length; // Conta i mesi non vuoti
+        return acc + Object.keys(cur.monthlyData).length;
       }, 0);
 
     return {
