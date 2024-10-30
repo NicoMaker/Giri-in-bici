@@ -17,9 +17,9 @@
 
 - creare il nuovo file json della nuova stagione e anche il nuovo html come gli altri
 
-- **[Autunno Inverno](Autunno_Inverno/autunno-inverno.json)**: Aggiorna il percorso della sottostagione.
-- **[Primavera](Primavera/primavera.json)**: Aggiorna il percorso della sottostagione.
-- **[Estate](Estate/estate.json)**: Aggiorna il percorso della sottostagione.
+- **[Autunno Inverno](Autunno_Inverno/autunno-inverno.json)**: Aggiorna il percorso della sottostagione e il colore della nuovo periodo.
+- **[Primavera](Primavera/primavera.json)**: Aggiorna il percorso della sottostagione e il colore della nuovo periodo.
+- **[Estate](Estate/estate.json)**: Aggiorna il percorso della sottostagione e il colore della nuovo periodo.
 
 ## Creazione di Nuove Stagioni
 
@@ -32,7 +32,7 @@
 
 - Creare il nuovo file json della nuovo anno e anche il nuovo html come gli altri
 
-- **[Generale](Statistiche/Js/History/JSON/Generale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
+- **[Generale](Statistiche/Js/History/JSON/Generale.json)**: Inserisci il percorso corretto del JSON del nuovo anno e il colore della nuovo anno.
 
 - **[Grafico Totale](Statistiche/Js/History/JSON/GraficoTotale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
 
