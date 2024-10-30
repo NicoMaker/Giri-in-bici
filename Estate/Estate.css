@@ -234,3 +234,12 @@ canvas {
   margin: 5px;
   flex: 1 1 100%;
 }
+
+.principale {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
+  border: white;
+  border-radius: 0px;
+}
