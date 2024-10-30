@@ -32,7 +32,7 @@
 
 - Creare il nuovo file json della nuovo anno e anche il nuovo html come gli altri
 
-- **[Generale](Statistiche/Js/History/JSON/Generale.json)**: Inserisci il percorso corretto del JSON del nuovo anno e il colore della nuovo anno.
+- **[Generale](Statistiche/Js/History/JSON/Generale.json)**: Inserisci il percorso corretto del JSON del nuovo anno e il colore del nuovo anno.
 
 - **[Grafico Totale](Statistiche/Js/History/JSON/GraficoTotale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
 
