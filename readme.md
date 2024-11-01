@@ -9,7 +9,7 @@
 ### Statistiche
 
 - **[Statistiche 2024](Statistiche/Js/anni/2024.json)**:
-  - Aggiorna i km per il mese di ottobre e il numero totale di corse dell'anno.
+  - Aggiorna i km per il mese di novembre e il numero totale di corse dell'anno.
 
 ## Inizio Nuova Stagione
 
