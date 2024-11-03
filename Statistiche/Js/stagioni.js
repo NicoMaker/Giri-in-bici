@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       datasets: [
         {
           label: "km totali stagione",
-          backgroundColor: ["red", "lightgreen", "lightblue"],
+          backgroundColor: ["lightgreen",red", "lightblue"],
           borderColor: ["black"],
           borderWidth: 1,
           data,
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
           primaveraData.data,
           autunnoInvernoData.data
         ),
-        labels = ["Estate", "Primavera", "Autunno-Inverno"],
+        labels = ["Primavera,"Estate","Autunno-Inverno"],
         chartData = [calculatedData.e, calculatedData.p, calculatedData.ai],
         ctx = document.getElementById("doughnut-chart").getContext("2d");
 
