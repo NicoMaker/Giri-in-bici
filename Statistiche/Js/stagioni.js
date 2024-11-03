@@ -19,9 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const distanceValue = km.distance || 0;
       return total + distanceValue;
     }, 0);
-  };
-
-  const renderStampa = (data) => `
+  }, renderStampa = (data) => `
            <div class="primavera">
           <a href="../Primavera.html">
               <img class="immaginestagionestat" src="../Icons/primavera.png">
@@ -123,8 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
           primaveraData.data,
           autunnoInvernoData.data
         ),
-        labels = ["Primavera,"Estate","Autunno-Inverno"],
-        chartData = [calculatedData.e, calculatedData.p, calculatedData.ai],
+        labels = ["Primavera","Estate","Autunno-Inverno"],
+        chartData = [calculatedData.p, calculatedData.e, calculatedData.ai],
         ctx = document.getElementById("doughnut-chart").getContext("2d");
 
       document.getElementById("dati").innerHTML = renderStampa(calculatedData);
