@@ -45,9 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <p class="misuracolore">km totali ${data.ai} <img src="../Icons/traguardo.png"></p>
               <p class="misuracolore">${data.avgai} %</p>
           </a>
-      </div>`;
-
-  const createStampat = (data) => `
+      </div>`,createStampat = (data) => `
       <div class="colore">
           <p class="misuracolore">totale km ${data.totale} <img src="../Icons/traguardo.png"></p>
           <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
