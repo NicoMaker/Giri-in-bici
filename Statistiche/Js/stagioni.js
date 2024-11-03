@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       datasets: [
         {
           label: "km totali stagione",
-          backgroundColor: ["lightgreen",red", "lightblue"],
+          backgroundColor: ["lightgreen","red","lightblue"],
           borderColor: ["black"],
           borderWidth: 1,
           data,
