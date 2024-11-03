@@ -22,20 +22,20 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const renderStampa = (data) => `
-      <div class="estate">
-          <a href="../Estate.html">
-              <img class="immaginestagionestat" src="../Icons/estate.png">
-              <p class="contornostagione misuracolore">Estate</p>
-              <p class="misuracolore">km totali ${data.e} <img src="../Icons/traguardo.png"></p>
-              <p class="misuracolore">${data.avge} %</p>
-          </a>
-      </div>
-      <div class="primavera">
+           <div class="primavera">
           <a href="../Primavera.html">
               <img class="immaginestagionestat" src="../Icons/primavera.png">
               <p class="contornostagione misuracolore">Primavera</p>
               <p class="misuracolore">km totali ${data.p} <img src="../Icons/traguardo.png"></p>
               <p class="misuracolore">${data.avgp} %</p>
+          </a>
+      </div>
+ <div class="estate">
+          <a href="../Estate.html">
+              <img class="immaginestagionestat" src="../Icons/estate.png">
+              <p class="contornostagione misuracolore">Estate</p>
+              <p class="misuracolore">km totali ${data.e} <img src="../Icons/traguardo.png"></p>
+              <p class="misuracolore">${data.avge} %</p>
           </a>
       </div>
       <div class="autunno_inverno">
