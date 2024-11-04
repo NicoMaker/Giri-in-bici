@@ -10,17 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const sumData = (data) => {
-    if (!Array.isArray(data)) {
-      console.error("Data is not an array:", data);
-      return 0;
-    }
+      if (!Array.isArray(data)) {
+        console.error("Data is not an array:", data);
+        return 0;
+      }
 
-    return data.reduce((total, km) => {
-      const distanceValue = km.distance || 0;
-      return total + distanceValue;
-    }, 0);
-  }, renderStampa = (data) => `
-           <div class="primavera">
+      return data.reduce((total, km) => {
+        const distanceValue = km.distance || 0;
+        return total + distanceValue;
+      }, 0);
+    },
+    renderStampa = (data) => `
+      <div class="primavera">
           <a href="../Primavera.html">
               <img class="immaginestagionestat" src="../Icons/primavera.png">
               <p class="contornostagione misuracolore">Primavera</p>
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <p class="misuracolore">${data.avgp} %</p>
           </a>
       </div>
- <div class="estate">
+      <div class="estate">
           <a href="../Estate.html">
               <img class="immaginestagionestat" src="../Icons/estate.png">
               <p class="contornostagione misuracolore">Estate</p>
@@ -43,7 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
               <p class="misuracolore">km totali ${data.ai} <img src="../Icons/traguardo.png"></p>
               <p class="misuracolore">${data.avgai} %</p>
           </a>
-      </div>`,createStampat = (data) => `
+      </div>`,
+    createStampat = (data) => `
       <div class="colore">
           <p class="misuracolore">totale km ${data.totale} <img src="../Icons/traguardo.png"></p>
           <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
@@ -73,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       datasets: [
         {
           label: "km totali stagione",
-          backgroundColor: ["lightgreen","red","lightblue"],
+          backgroundColor: ["lightgreen", "red", "lightblue"],
           borderColor: ["black"],
           borderWidth: 1,
           data,
@@ -121,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
           primaveraData.data,
           autunnoInvernoData.data
         ),
-        labels = ["Primavera","Estate","Autunno-Inverno"],
+        labels = ["Primavera", "Estate", "Autunno-Inverno"],
         chartData = [calculatedData.p, calculatedData.e, calculatedData.ai],
         ctx = document.getElementById("doughnut-chart").getContext("2d");
 
