@@ -396,11 +396,19 @@ a {
   color: black;
 }
 
-.immaginestagionestat {
+.immaginestagionestat,
+.immaginestagionestatsx {
   width: 180px;
   height: 180px;
   margin: 10px;
+}
+
+.immaginestagionestat{
   float: left;
+}
+
+.immaginestagionestatsx{
+  float: right;
 }
 
 .Icons {

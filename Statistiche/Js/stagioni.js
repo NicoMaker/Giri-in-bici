@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="estate">
           <a href="../Estate.html">
-              <img class="immaginestagionestat" src="../Icons/estate.png">
+              <img class="immaginestagionestatsx" src="../Icons/estate.png">
               <p class="contornostagione misuracolore">Estate</p>
               <p class="misuracolore">km totali ${data.e} <img src="../Icons/traguardo.png"></p>
               <p class="misuracolore">${data.avge} %</p>
