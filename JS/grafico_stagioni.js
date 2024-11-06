@@ -117,9 +117,8 @@ const getDoughnutContext = () =>
   updateStampa = (stampa) =>
     (document.getElementById(
       "stampa"
-    ).innerHTML = `<div class="container">${stampa}</div>`);
-
-const calculateAvgSeason = (totale, numberOfLabels) =>
+    ).innerHTML = `<div class="container">${stampa}</div>`),
+  calculateAvgSeason = (totale, numberOfLabels) =>
     (totale / numberOfLabels).toFixed(2),
   calculateAvgCorsa = (totale, numberOfRaces) =>
     (totale / numberOfRaces).toFixed(2),
