@@ -1,65 +1,114 @@
-# Aggiornamenti e Manutenzione
 
-## Aggiornare JSON
+--- 
+
+# 📋 Aggiornamenti e Manutenzione
+
+Questa guida descrive come aggiornare file e creare nuove stagioni e anni per mantenere il sito sempre aggiornato. È pensata per essere semplice e comprensibile anche per chi non ha esperienza di programmazione.
+
+---
+
+## 📂 Aggiornare i Dati JSON
 
 ### Stagione
 
-- **[Autunno Inverno 2024-2025](Autunno_Inverno/Periodi/Json/2024-2025.json)**: Aggiungi i dettagli della corsa come per le altre.
+1. **Aggiorna il file JSON per la stagione Autunno Inverno 2024-2025**  
+   - [Percorso: `Autunno_Inverno/Periodi/Json/2024-2025.json`](Autunno_Inverno/Periodi/Json/2024-2025.json)
+   - Aggiungi i dettagli delle corse, come per le altre stagioni.
 
 ### Statistiche
 
-- **[Statistiche 2024](Statistiche/Js/anni/2024.json)**:
-  - Aggiorna i km per il mese di novembre e il numero totale di corse dell'anno.
+1. **Aggiorna le statistiche per il 2024**  
+   - [Percorso: `Statistiche/Js/anni/2024.json`](Statistiche/Js/anni/2024.json)
+   - Modifica i chilometri (km) di novembre e aggiorna il numero totale di corse dell'anno.
 
-## Inizio Nuova Stagione
+---
 
-### Aggiornamenti Stagionali
+## 🗓 Inizio Nuova Stagione
 
-- creare il nuovo file json della nuova stagione e anche il nuovo html come gli altri
+### Creare la Nuova Stagione
 
-- **[Autunno Inverno](Autunno_Inverno/autunno-inverno.json)**: Aggiorna il percorso della sottostagione e il colore della nuovo periodo.
-- **[Primavera](Primavera/primavera.json)**: Aggiorna il percorso della sottostagione e il colore della nuovo periodo.
-- **[Estate](Estate/estate.json)**: Aggiorna il percorso della sottostagione e il colore della nuovo periodo.
+#### Struttura HTML
 
-## Creazione di Nuove Stagioni
+Crea i file HTML e JSON per la stagione nelle cartelle di riferimento, seguendo i percorsi qui sotto e inserendo l'anno della stagione:
 
-- **[Stagione](Statistiche/Js/anni/stagioni.json)**:
-  - Aggiorna l'opzione della stagione corretta con il percorso corretto della sottostagione nuova.
+- **Primavera**: [`Primavera/Periodi/`](Primavera/Periodi/)
+- **Estate**: [`Estate/Periodi/`](Estate/Periodi/)
+- **Autunno Inverno**: [`Autunno_Inverno/Periodi/`](Autunno_Inverno/Periodi/)
 
-## Creazione Nuovo Anno
+#### File JSON per la Nuova Stagione
 
-### Aggiornamenti Generali
+Crea un file JSON per ogni nuova stagione all'interno delle cartelle di riferimento qui sotto:
 
-- Creare il nuovo file json della nuovo anno e anche il nuovo html come gli altri
+- **Primavera**: [`Primavera/Periodi/Json`](Primavera/Periodi/Json)
+- **Estate**: [`Estate/Periodi/Json`](Estate/Periodi/Json)
+- **Autunno Inverno**: [`Autunno_Inverno/Periodi/Json`](Autunno_Inverno/Periodi/Json)
 
-- **[Generale](Statistiche/Js/History/JSON/Generale.json)**: Inserisci il percorso corretto del JSON del nuovo anno e il colore del nuovo anno.
+#### Aggiornamento File Principale Stagione
 
-- **[Grafico Totale](Statistiche/Js/History/JSON/GraficoTotale.json)**: Inserisci il percorso corretto del JSON del nuovo anno.
+Aggiorna i file principali di ogni stagione, specificando il percorso e il colore del nuovo periodo come per gli altri:
 
-- **[Storico Mensile](Statistiche/Js/History/JSON/StoricoMensile.json)**: Crea in modo corretto i dati per l'anno nuovo.
+- **Primavera**: [`Primavera/primavera.json`](Primavera/primavera.json)
+- **Estate**: [`Estate/estate.json`](Estate/estate.json)
+- **Autunno Inverno**: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
 
-## Credenziali
+---
 
-- **Nome Utente**: **[Nomi utenti](Login/users.json)**
-- **Password**: Cambia ogni giorno con il formato `Giri DD/MM/YYYY`, dove DD è il giorno, MM è il mese e YYYY è l'anno. I numeri del giorno e del mese devono essere preceduti da uno zero se sono minori di 10.
+## 📅 Creazione di un Nuovo Anno
 
-## Logo e Apertura Sito
+### Passaggi da Seguire
 
-[![Logo](Img/logo.jpg)](https://giri-in-bici.netlify.app/)
+1. **Creare Struttura HTML**  
+   - Crea un nuovo file HTML per il nuovo anno nella cartella: [`Statistiche/Anni/`](Statistiche/Anni/) con il nome del nuovo anno.
 
-**[Apertura sito principale](https://giri-in-bici.netlify.app/)**
+2. **Creare File JSON**  
+   - Crea un nuovo file JSON per l'anno nella cartella: [`Statistiche/Js/anni/`](Statistiche/Js/anni/) con il nome del nuovo anno.
 
-## Mappa del Sito
+3. **Aggiornare Immagini**  
+   - Aggiungi un’immagine per il nuovo anno nella cartella: [`Statistiche/Anni/Img/`](Statistiche/Anni/Img/) con il nome del nuovo anno.
 
-![Mappa Sito](About_US/Img/Mappa.jpg)
+4. **Aggiornare File di Storia Generale**  
+   - **Generale**: Modifica [`Statistiche/Js/History/JSON/Generale.json`](Statistiche/Js/History/JSON/Generale.json) aggiungendo il percorso e il colore del nuovo anno.
+   - **Grafico Totale**: Modifica [`Statistiche/Js/History/JSON/GraficoTotale.json`](Statistiche/Js/History/JSON/GraficoTotale.json) aggiungendo il percorso corretto del nuovo anno.
+   - **Storico Mensile**: Aggiungi un nuovo record con i dati del nuovo anno in [`Statistiche/Js/History/JSON/StoricoMensile.json`](Statistiche/Js/History/JSON/StoricoMensile.json) con il percorso corretto.
 
-## Avatar Partecipanti
+---
 
-[![AvatarNM](About_US/Img/AvatarNM.jpg)](https://www.komoot.com/it-it/user/1372754001803)
+## 🔐 Credenziali
 
-[![AvatarJR](About_US/Img/AvatarJR.png)](https://www.komoot.com/it-it/user/1381372752571)
+1. **Nome Utente**  
+   - [Percorso: `Login/users.json`](Login/users.json)
 
-## Linguaggi Utilizzati
+2. **Password Giornaliera**  
+   - Formato della password: `Giri DD/MM/YYYY`  
+   - `DD` è il giorno, `MM` il mese e `YYYY` l'anno.  
+   - I numeri di giorno e mese devono essere preceduti da uno zero se minori di 10 (es. 09 per il 9).
+
+---
+
+## 🌐 Logo e Apertura Sito
+
+![Logo](Img/logo.jpg)
+- Link al sito: [Vai al sito principale](https://giri-in-bici.netlify.app/)
+
+---
+
+## 🗺 Mappa del Sito
+
+![Mappa del Sito](About_US/Img/Mappa.jpg)
+
+---
+
+## 👥 Avatar dei Partecipanti
+
+- [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
+  ![Avatar NM](About_US/Img/AvatarNM.jpg)
+
+- [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)
+  ![Avatar JR](About_US/Img/AvatarJR.png)
+
+---
+
+## 💻 Linguaggi Utilizzati
 
 <p align="left">
   <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank" rel="noreferrer">
@@ -71,4 +120,6 @@
   <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="36" height="36" alt="JavaScript" />
   </a>
-</p>
+</p> 
+
+---
