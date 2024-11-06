@@ -29,9 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const combinedData = [];
     yearlyData.forEach(({ data, year }) => {
-      for (let mese in data) {
+      for (let mese in data)
         combinedData.push({ mese, chilometri: data[mese], year });
-      }
     });
 
     combinedData.sort((a, b) => {
