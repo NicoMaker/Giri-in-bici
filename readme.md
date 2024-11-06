@@ -1,5 +1,3 @@
-
-
 # 📋 Aggiornamenti e Manutenzione
 
 Questa guida descrive come aggiornare file e creare nuove stagioni e anni per mantenere il sito sempre aggiornato. È pensata per essere semplice e comprensibile anche per chi non ha esperienza di programmazione.
@@ -10,13 +8,13 @@ Questa guida descrive come aggiornare file e creare nuove stagioni e anni per ma
 
 ### Stagione
 
-1. **Aggiorna il file JSON per la stagione Autunno Inverno 2024-2025**  
+1. **Aggiorna il file JSON per la stagione Autunno Inverno 2024-2025**
    - [Percorso: `Autunno_Inverno/Periodi/Json/2024-2025.json`](Autunno_Inverno/Periodi/Json/2024-2025.json)
    - Aggiungi i dettagli delle corse, come per le altre stagioni.
 
 ### Statistiche
 
-1. **Aggiorna le statistiche per il 2024**  
+1. **Aggiorna le statistiche per il 2024**
    - [Percorso: `Statistiche/Js/anni/2024.json`](Statistiche/Js/anni/2024.json)
    - Modifica i chilometri (km) di novembre e aggiorna il numero totale di corse dell'anno.
 
@@ -36,19 +34,22 @@ Crea i file HTML e JSON per la stagione nelle cartelle di riferimento, seguendo 
 
 #### File JSON per la Nuova Stagione
 
-Crea un file JSON per ogni nuova stagione all'interno delle cartelle di riferimento qui sotto:
+Crea un file JSON per ogni nuova stagione all'interno delle cartelle di riferimento qui sotto con il nome della anno che ti interessa:
 
 - **Primavera** 🌸: [`Primavera/Periodi/Json`](Primavera/Periodi/Json)
 - **Estate** 🌞: [`Estate/Periodi/Json`](Estate/Periodi/Json)
 - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/Json`](Autunno_Inverno/Periodi/Json)
 
-#### Aggiornamento File Principale Stagione
+#### Aggiornamento File Principale Stagione 🌸🌞🍁❄️
 
 Aggiorna i file principali di ogni stagione, specificando il percorso e il colore del nuovo periodo come per gli altri:
 
 - **Primavera** 🌸: [`Primavera/primavera.json`](Primavera/primavera.json)
 - **Estate** 🌞: [`Estate/estate.json`](Estate/estate.json)
 - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
+  -- **Stagione Generale** 🌸🌞🍁❄️ : [`Statistiche/Js/anni/stagioni.json`](Statistiche/Js/anni/stagioni.json) 8aggiornare il percorso del nuovo anno nella stagione interessata dentro i vari subperiods della stagione di riferimento)
+
+  
 
 ---
 
@@ -56,16 +57,19 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
 
 ### Passaggi da Seguire
 
-1. **Creare Struttura HTML**  
+1. **Creare Struttura HTML**
+
    - Crea un nuovo file HTML per il nuovo anno nella cartella: [`Statistiche/Anni/`](Statistiche/Anni/) con il nome del nuovo anno.
 
-2. **Creare File JSON**  
+2. **Creare File JSON**
+
    - Crea un nuovo file JSON per l'anno nella cartella: [`Statistiche/Js/anni/`](Statistiche/Js/anni/) con il nome del nuovo anno.
 
-3. **Aggiornare Immagini**  
+3. **Aggiornare Immagini**
+
    - Aggiungi un’immagine per il nuovo anno nella cartella: [`Statistiche/Anni/Img/`](Statistiche/Anni/Img/) con il nome del nuovo anno.
 
-4. **Aggiornare File di Storia Generale**  
+4. **Aggiornare File di Storia Generale**
    - **Generale**: Modifica [`Statistiche/Js/History/JSON/Generale.json`](Statistiche/Js/History/JSON/Generale.json) aggiungendo il percorso e il colore del nuovo anno.
    - **Grafico Totale**: Modifica [`Statistiche/Js/History/JSON/GraficoTotale.json`](Statistiche/Js/History/JSON/GraficoTotale.json) aggiungendo il percorso corretto del nuovo anno.
    - **Storico Mensile**: Aggiungi un nuovo record con i dati del nuovo anno in [`Statistiche/Js/History/JSON/StoricoMensile.json`](Statistiche/Js/History/JSON/StoricoMensile.json) con il percorso corretto.
@@ -74,12 +78,13 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
 
 ## 🔐 Credenziali
 
-1. **Nome Utente**  
+1. **Nome Utente**
+
    - [Percorso: `Login/users.json`](Login/users.json)
 
-2. **Password Giornaliera**  
-   - Formato della password: `Giri DD/MM/YYYY`  
-   - `DD` è il giorno, `MM` il mese e `YYYY` l'anno.  
+2. **Password Giornaliera**
+   - Formato della password: `Giri DD/MM/YYYY`
+   - `DD` è il giorno, `MM` il mese e `YYYY` l'anno.
    - I numeri di giorno e mese devono essere preceduti da uno zero se minori di 10 (es. 09 per il 9).
 
 ---
@@ -87,6 +92,7 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
 ## 🌐 Logo e Apertura Sito
 
 ![Logo](Img/logo.jpg)
+
 - Link al sito: [Vai al sito](https://giri-in-bici.netlify.app/)
 
 ---
@@ -121,4 +127,4 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
   <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="36" height="36" alt="JavaScript" />
   </a>
-</p> 
+</p>
