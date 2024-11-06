@@ -1,5 +1,4 @@
 
---- 
 
 # 📋 Aggiornamenti e Manutenzione
 
@@ -31,25 +30,25 @@ Questa guida descrive come aggiornare file e creare nuove stagioni e anni per ma
 
 Crea i file HTML e JSON per la stagione nelle cartelle di riferimento, seguendo i percorsi qui sotto e inserendo l'anno della stagione:
 
-- **Primavera**: [`Primavera/Periodi/`](Primavera/Periodi/)
-- **Estate**: [`Estate/Periodi/`](Estate/Periodi/)
-- **Autunno Inverno**: [`Autunno_Inverno/Periodi/`](Autunno_Inverno/Periodi/)
+- **Primavera** 🌸: [`Primavera/Periodi/`](Primavera/Periodi/)
+- **Estate** 🌞: [`Estate/Periodi/`](Estate/Periodi/)
+- **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/`](Autunno_Inverno/Periodi/)
 
 #### File JSON per la Nuova Stagione
 
 Crea un file JSON per ogni nuova stagione all'interno delle cartelle di riferimento qui sotto:
 
-- **Primavera**: [`Primavera/Periodi/Json`](Primavera/Periodi/Json)
-- **Estate**: [`Estate/Periodi/Json`](Estate/Periodi/Json)
-- **Autunno Inverno**: [`Autunno_Inverno/Periodi/Json`](Autunno_Inverno/Periodi/Json)
+- **Primavera** 🌸: [`Primavera/Periodi/Json`](Primavera/Periodi/Json)
+- **Estate** 🌞: [`Estate/Periodi/Json`](Estate/Periodi/Json)
+- **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/Json`](Autunno_Inverno/Periodi/Json)
 
 #### Aggiornamento File Principale Stagione
 
 Aggiorna i file principali di ogni stagione, specificando il percorso e il colore del nuovo periodo come per gli altri:
 
-- **Primavera**: [`Primavera/primavera.json`](Primavera/primavera.json)
-- **Estate**: [`Estate/estate.json`](Estate/estate.json)
-- **Autunno Inverno**: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
+- **Primavera** 🌸: [`Primavera/primavera.json`](Primavera/primavera.json)
+- **Estate** 🌞: [`Estate/estate.json`](Estate/estate.json)
+- **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
 
 ---
 
@@ -88,7 +87,7 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
 ## 🌐 Logo e Apertura Sito
 
 ![Logo](Img/logo.jpg)
-- Link al sito: [Vai al sito principale](https://giri-in-bici.netlify.app/)
+- Link al sito: [Vai al sito](https://giri-in-bici.netlify.app/)
 
 ---
 
@@ -102,11 +101,9 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
 
 - [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
 
-
   ![Avatar NM](About_US/Img/AvatarNM.jpg)
 
 - [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)
-
 
   ![Avatar JR](About_US/Img/AvatarJR.png)
 
@@ -125,5 +122,3 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
     <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="36" height="36" alt="JavaScript" />
   </a>
 </p> 
-
----
