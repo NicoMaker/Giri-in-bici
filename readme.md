@@ -101,9 +101,13 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
 ## 👥 Avatar dei Partecipanti
 
 - [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
+
+
   ![Avatar NM](About_US/Img/AvatarNM.jpg)
 
 - [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)
+
+
   ![Avatar JR](About_US/Img/AvatarJR.png)
 
 ---
