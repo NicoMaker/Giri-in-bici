@@ -9,13 +9,13 @@ Questa guida descrive come aggiornare file e creare nuove stagioni e anni per ma
 ### Stagione
 
 1. **Aggiorna il file JSON per la stagione Autunno Inverno 2024-2025**
-   - [Percorso: `Autunno_Inverno/Periodi/Json/2024-2025.json`](Autunno_Inverno/Periodi/Json/2024-2025.json)
+   - Percorso: [`Autunno_Inverno/Periodi/Json/2024-2025.json`](Autunno_Inverno/Periodi/Json/2024-2025.json)
    - Aggiungi i dettagli delle corse, come per le altre stagioni.
 
 ### Statistiche
 
 1. **Aggiorna le statistiche per il 2024**
-   - [Percorso: `Statistiche/Js/anni/2024.json`](Statistiche/Js/anni/2024.json)
+   - Percorso: [`Statistiche/Js/anni/2024.json`](Statistiche/Js/anni/2024.json)
    - Modifica i chilometri (km) di novembre e aggiorna il numero totale di corse dell'anno.
 
 ---
