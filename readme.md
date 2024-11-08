@@ -80,7 +80,7 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
 
 1. **Nome Utente**
 
-   - [Percorso: `Login/users.json`](Login/users.json)
+   - **Percorso:** [`Login/users.json`](Login/users.json)
 
 2. **Password Giornaliera**
    - Formato della password: `Giri DD/MM/YYYY`
