@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.error("Error loading data:", error));
   }
 
-  function createTableRow(row) {
+  function createTableRow(row, index) {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
       <td>${row.date}</td>
-      <td>${row.number}</td>
+      <td>${index + 1}</td>
       <td>${row.place}</td>
       <td>${row.distance}</td>
       <td>km</td>
@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateTableAndStats(data) {
     const tableBody = document.querySelector("table tbody");
 
-    data.forEach((row) => {
-      const newRow = createTableRow(row);
+    data.forEach((row, index) => {
+      const newRow = createTableRow(row, index);
       appendRowToTable(tableBody, newRow);
     });
 
