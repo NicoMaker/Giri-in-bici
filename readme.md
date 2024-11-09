@@ -47,7 +47,7 @@ Aggiorna i file principali di ogni stagione, specificando il percorso e il color
 - **Primavera** 🌸: [`Primavera/primavera.json`](Primavera/primavera.json)
 - **Estate** 🌞: [`Estate/estate.json`](Estate/estate.json)
 - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
-- **Stagione Generale** 🌸🌞🍁❄️ : [`Statistiche/Js/anni/stagioni.json`](Statistiche/Js/anni/stagioni.json) 8aggiornare il percorso del nuovo anno nella stagione interessata dentro i vari subperiods della stagione di riferimento)
+- **Stagione Generale** 🌸🌞🍁❄️ : [`Statistiche/Js/anni/stagioni.json`](Statistiche/Js/anni/stagioni.json) Aggiornare il percorso del nuovo anno nella stagione interessata dentro i vari subperiods della stagione di riferimento)
 
   
 
