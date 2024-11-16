@@ -1,6 +1,6 @@
 {
   "year": "2024",
-  "numberOfRaces": 68,
+  "numberOfRaces": 69,
   "data": {
     "Gennaio": 486,
     "Marzo": 386,
@@ -11,7 +11,7 @@
     "Agosto": 353,
     "Settembre": 775,
     "Ottobre": 531,
-    "Novembre": 208
+    "Novembre": 270
   },
   "colors": [
     "darkblue",
