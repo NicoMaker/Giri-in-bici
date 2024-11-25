@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             mesiOrdinati.forEach((mese, index) => {
               if (data[mese]) {
                 chilometriTotali[index] += data[mese];
-                mesiPercorsi[index] += 1; // Incrementa il conteggio dei mesi di corsa
+                mesiPercorsi[index] += 1;
               }
             });
           });
