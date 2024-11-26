@@ -138,10 +138,7 @@ function renderDataListPaginated(
       currentData = currentLabels.reduce((acc, label) => {
         acc[label] = data[label];
         return acc;
-      }, {});
-
-    const currentAvgValues = avgValues.slice(startIndex, endIndex);
-    const stampa = createStampa(
+      }, {}),currentAvgValues = avgValues.slice(startIndex, endIndex),stampa = createStampa(
       currentLabels,
       currentData,
       path,
