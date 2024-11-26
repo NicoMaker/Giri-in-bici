@@ -158,7 +158,7 @@ function renderDataListPaginated(
       <button id="prev" ${currentPage === 1 ? 'disabled' : ''}>
         <span class="material-icons">arrow_back</span>
       </button>
-      <span id="page-indicator">Sezione Dati ${currentPage} di ${totalPages}</span>
+      <span id="page-indicator">Dati  ${season} ${currentPage} di ${totalPages}</span>
       <button id="next" ${currentPage === totalPages ? 'disabled' : ''}>
         <span class="material-icons">arrow_forward</span>
       </button>
