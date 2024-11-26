@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
         avgValues
       );
       renderSeasonSummary(season, totale, labels.length, totalRaces);
-
       adjustContainerLayout(cssclass);
     })
     .catch((error) => console.error("Error loading the JSON data:", error));
@@ -117,27 +116,9 @@ const getDoughnutContext = () =>
   updateStampa = (stampa) =>
     (document.getElementById(
       "stampa"
-    ).innerHTML = `<div class="container">${stampa}</div>`),
-  calculateAvgSeason = (totale, numberOfLabels) =>
-    (totale / numberOfLabels).toFixed(2),
-  calculateAvgCorsa = (totale, numberOfRaces) =>
-    (totale / numberOfRaces).toFixed(2),
-  getContainer = () => document.querySelector(".container"),
-  getItems = (cssclass) => document.querySelectorAll(`.${cssclass}contorno`),
-  checkIsOdd = (length) => length % 2 !== 0,
-  addOddItemsClass = (container) => container.classList.add("odd-items"),
-  updateTotale = (stampaseason) =>
-    (document.getElementById("totale").innerHTML = stampaseason),
-  createStampaseason = (season, totale, avgseason, avgcorsa) =>
-    `
-      <div class="colore">
-        <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
-        <p>km medi per corsa in ${season} ${avgcorsa} </p>
-        <p>media km per stagione ${avgseason} </p>
-      </div>
-    `;
+    ).innerHTML = `<div class="container">${stampa}</div>`);
 
-function renderDataList(
+function renderDataListPaginated(
   labels,
   data,
   path,
@@ -146,7 +127,71 @@ function renderDataList(
   cssclass,
   avgValues
 ) {
-  const stampa = createStampa(
+  const itemsPerPage = 2;
+  let currentPage = 1;
+  const totalPages = Math.ceil(labels.length / itemsPerPage);
+
+  function updatePage() {
+    const startIndex = (currentPage - 1) * itemsPerPage,
+      endIndex = startIndex + itemsPerPage,
+      currentLabels = labels.slice(startIndex, endIndex),
+      currentData = currentLabels.reduce((acc, label) => {
+        acc[label] = data[label];
+        return acc;
+      }, {});
+
+    const currentAvgValues = avgValues.slice(startIndex, endIndex);
+    const stampa = createStampa(
+      currentLabels,
+      currentData,
+      path,
+      image,
+      season,
+      cssclass,
+      currentAvgValues
+    );
+
+    updateStampa(stampa);
+
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = `
+      <button id="prev" ${currentPage === 1 ? 'disabled' : ''}>
+        <span class="material-icons">arrow_back</span>
+      </button>
+      <span id="page-indicator">Sezione Dati ${currentPage} di ${totalPages}</span>
+      <button id="next" ${currentPage === totalPages ? 'disabled' : ''}>
+        <span class="material-icons">arrow_forward</span>
+      </button>
+    `;
+
+    document.getElementById("prev").addEventListener("click", () => {
+      if (currentPage === 1) currentPage = totalPages; // Vai all'ultima pagina
+      else currentPage--;
+      updatePage();
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      if (currentPage === totalPages)
+        currentPage = 1; // Torna alla prima pagina
+      else currentPage++;
+
+      updatePage();
+    });
+  }
+
+  updatePage();
+}
+
+const renderDataList = (
+  labels,
+  data,
+  path,
+  image,
+  season,
+  cssclass,
+  avgValues
+) =>
+  renderDataListPaginated(
     labels,
     data,
     path,
@@ -155,21 +200,25 @@ function renderDataList(
     cssclass,
     avgValues
   );
-  updateStampa(stampa);
-}
 
 function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
-  const avgseason = calculateAvgSeason(totale, numberOfLabels),
-    avgcorsa = calculateAvgCorsa(totale, totalRaces),
-    stampaseason = createStampaseason(season, totale, avgseason, avgcorsa);
+  const avgseason = (totale / numberOfLabels).toFixed(2),
+    avgcorsa = (totale / totalRaces).toFixed(2),
+    stampaseason = `
+      <div class="colore">
+        <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
+        <p>km medi per corsa in ${season} ${avgcorsa} </p>
+        <p>media km per stagione ${avgseason} </p>
+      </div>
+    `;
 
-  updateTotale(stampaseason);
+  document.getElementById("totale").innerHTML = stampaseason;
 }
 
 function adjustContainerLayout(cssclass) {
-  const container = getContainer(),
-    items = getItems(cssclass),
-    isOdd = checkIsOdd(items.length);
+  const container = document.querySelector(".container"),
+    items = document.querySelectorAll(`.${cssclass}contorno`),
+    isOdd = items.length % 2 !== 0;
 
-  if (isOdd) addOddItemsClass(container);
+  if (isOdd) container.classList.add("odd-items");
 }

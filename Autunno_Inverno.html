@@ -1,70 +1,84 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="Autunno_Inverno/Autunno_Inverno.css" />
+    <link
+      rel="icon"
+      href="Autunno_Inverno/Img/Autunno Inverno.jpg"
+      type="image/jpg"
+    />
+    <title>Autunno - Inverno</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="JS/grafico_stagioni.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <link rel="stylesheet" href="Autunno_Inverno/Autunno_Inverno.css"/>
-  <link rel="icon" href="Autunno_Inverno/Img/Autunno Inverno.jpg" type="image/jpg" />
-  <title>Autunno - Inverno</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="JS/grafico_stagioni.js" defer></script>
-</head>
-
-<body>
-  <div id="json" link="Autunno_Inverno/autunno-inverno.json"></div>
-  <button class="graficostagioni">
-    <a href="Statistiche/stagioni.html">
-      <img class="Stagioni" src="https://i.pinimg.com/originals/df/fa/66/dffa66f0986f247746ed52aff4674cf3.jpg" />
-    </a>
-  </button>
-
-  <a href="Giri.html">
-    <img class="Bandiera-FVG" src="Img/logo.jpg" />
-  </a>
-
-  <h1 class="Autunno-Inverno">Giri in Bici Autunno - Inverno</h1>
-
-  <br />
-  <img class="immagini_stagione" src="Autunno_Inverno/Img/Autunno Inverno.jpg" />
-  <br />
-
-  <p>
-    <button class="Icons">
-      <a class="colore_apertura" href="Giri.html">
-        <img src="Icons/home.png" />
-      </a>
-
-      <a class="colore_apertura" href="Statistiche.html">
-        <img src="Icons/Statistiche.png" />
-      </a>
-
-      <a class="colore_apertura" href="Bici/Bici.html">
-        <img src="Icons/bici.png" />
-      </a>
-
-      <a class="colore_apertura" href="Estate.html">
-        <img src="Icons/estate.png" />
-      </a>
-      
-      <a class="colore_apertura" href="Primavera.html">
-        <img src="Icons/primavera.png" />
-      </a>
-
-      <a class="colore_apertura" href="index.html">
-        <img src="Icons/login.png" />
+  <body>
+    <div id="json" link="Autunno_Inverno/autunno-inverno.json"></div>
+    <button class="graficostagioni">
+      <a href="Statistiche/stagioni.html">
+        <img
+          class="Stagioni"
+          src="https://i.pinimg.com/originals/df/fa/66/dffa66f0986f247746ed52aff4674cf3.jpg"
+        />
       </a>
     </button>
-  </p>
 
-  <div id="stampa"></div>
+    <a href="Giri.html">
+      <img class="Bandiera-FVG" src="Img/logo.jpg" />
+    </a>
 
-  <br />
+    <h1 class="Autunno-Inverno">Giri in Bici Autunno - Inverno</h1>
 
-  <div class="grafico">
-    <canvas id="doughnut-chart"></canvas>
-  </div>
-  <br />
+    <br />
+    <img
+      class="immagini_stagione"
+      src="Autunno_Inverno/Img/Autunno Inverno.jpg"
+    />
+    <br />
 
-  <div id="totale"></div>
-</body>
+    <p>
+      <button class="Icons">
+        <a class="colore_apertura" href="Giri.html">
+          <img src="Icons/home.png" />
+        </a>
 
+        <a class="colore_apertura" href="Statistiche.html">
+          <img src="Icons/Statistiche.png" />
+        </a>
+
+        <a class="colore_apertura" href="Bici/Bici.html">
+          <img src="Icons/bici.png" />
+        </a>
+
+        <a class="colore_apertura" href="Estate.html">
+          <img src="Icons/estate.png" />
+        </a>
+
+        <a class="colore_apertura" href="Primavera.html">
+          <img src="Icons/primavera.png" />
+        </a>
+
+        <a class="colore_apertura" href="index.html">
+          <img src="Icons/login.png" />
+        </a>
+      </button>
+    </p>
+
+    <div id="pagination"></div>
+    <br />
+    <div id="stampa"></div>
+
+    <br />
+
+    <div class="grafico">
+      <canvas id="doughnut-chart"></canvas>
+    </div>
+    <br />
+
+    <div id="totale"></div>
+  </body>
 </html>

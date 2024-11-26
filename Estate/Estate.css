@@ -243,3 +243,31 @@ canvas {
   border: white;
   border-radius: 0px;
 }
+
+#pagination {
+  display: flex;
+  justify-content: center; /* Centra gli elementi in orizzontale */
+  align-items: center; /* Centra gli elementi in verticale */
+  gap: 10px; /* Spaziatura tra frecce e testo */
+  margin-top: 20px; /* Distanza dall'elemento precedente */
+}
+
+#pagination button {
+  background: none; /* Rimuove il colore di sfondo */
+  border: none; /* Rimuove i bordi */
+  color: #333; /* Colore del testo delle frecce */
+  cursor: pointer; /* Cambia il cursore al passaggio */
+  font-size: 30px; /* Dimensione delle frecce */
+}
+
+#pagination button:disabled {
+  color: #ccc; /* Colore per i bottoni disabilitati */
+  cursor: not-allowed; /* Stile del cursore per i bottoni disabilitati */
+}
+
+#page-indicator {
+  font-size: 30px; /* Dimensione del testo della pagina */
+  font-weight: bold; /* Grassetto per maggiore visibilità */
+  color: #333; /* Colore del testo */
+  text-align: center; /* Centra il testo */
+}
