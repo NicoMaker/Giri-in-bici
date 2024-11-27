@@ -231,8 +231,12 @@ canvas {
 }
 
 #page-indicator {
-  font-size: 30px; /* Dimensione del testo della pagina */
+  font-size: 40px; /* Dimensione del testo della pagina */
   font-weight: bold; /* Grassetto per maggiore visibilità */
   color: #333; /* Colore del testo */
   text-align: center; /* Centra il testo */
+}
+
+.material-icons{
+  font-size: 70px;
 }
