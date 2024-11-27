@@ -139,10 +139,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     (document.getElementById("totale").innerHTML = `
       <a href="Statistiche/History/Statistiche_Totali.html">
         <div class="colore">
-            <p>Totale km: ${totaleKm} <img src="Icons/traguardo.png"></p>
-            <p>Km medi per corsa: ${avgKmPerRace}</p>
-            <p>Km medi per anno: ${avgKmPerYear}</p>
-            <p>Km medi per mese: ${avgKmPerMonth}</p>
+            <p>Totale km ${totaleKm} <img src="Icons/traguardo.png"></p>
+            <p>Km medi per corsa ${avgKmPerRace}</p>
+            <p>Km medi per anno ${avgKmPerYear}</p>
+            <p>Km medi per mese ${avgKmPerMonth}</p>
         </div>
       </a>`);
   const renderChart = (labels, data, colors) => {
