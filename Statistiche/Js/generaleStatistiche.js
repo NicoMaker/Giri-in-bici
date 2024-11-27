@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <button id="prev" ${currentPage === 1 ? "disabled" : ""}>
         <span class="material-icons">arrow_back</span>
       </button>
-      <span id="page-indicator">Dati Statistiche${currentPage} di ${lastPage}</span>
+      <span id="page-indicator">Dati Anno ${currentPage} di ${lastPage}</span>
       <button id="next" ${currentPage === lastPage ? "disabled" : ""}>
         <span class="material-icons">arrow_forward</span>
       </button>
