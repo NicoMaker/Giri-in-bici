@@ -1,107 +1,81 @@
 <!DOCTYPE html>
-<html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Statistiche Giri in Bici</title>
+<html>
 
-    <!-- CSS -->
+<head>
     <link rel="stylesheet" href="Statistiche/Style_statistiche.css" />
-    <link rel="icon" href="Statistiche/Logo_statistiche.jpg" type="image/jpg" />
-
-    <!-- Google Icons -->
-    <link
+    <link rel="icon" href="statistiche/Logo_statistiche.jpg" type="image/jpg">
+    <title> Statistiche </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Statistiche/Js/generaleStatistiche.js" defer></script>
+      <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+</head>
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<body>
 
-    <!-- JavaScript -->
-    <script src="Statistiche/Js/generaleStatistiche.js" defer></script>
-  </head>
-
-  <body>
-    <!-- Bottone con immagine per Stagioni -->
     <button class="graficostagioni">
-      <a href="Statistiche/stagioni.html">
-        <img
-          class="Stagioni"
-          src="https://i.pinimg.com/originals/df/fa/66/dffa66f0986f247746ed52aff4674cf3.jpg"
-          alt="Stagioni"
-        />
-      </a>
+        <a href="Statistiche/stagioni.html">
+            <img class="Stagioni" src="https://i.pinimg.com/originals/df/fa/66/dffa66f0986f247746ed52aff4674cf3.jpg">
+        </a>
     </button>
-
-    <!-- Link con logo FVG -->
     <a href="Giri.html">
-      <img class="Bandiera-FVG" src="Img/logo.jpg" alt="Logo FVG" />
+        <img class="Bandiera-FVG" src="Img/logo.jpg">
     </a>
 
-    <!-- Titolo principale -->
-    <h1 class="Titolo">Statistiche Giri in Bici</h1>
+    <h1 class="Titolo"> Statistiche Giri in Bici </h1>
 
-    <!-- Navigazione con icone -->
-    <nav>
-      <ul class="Icons">
-        <li>
-          <a class="colore_apertura" href="Giri.html"
-            ><img src="Icons/home.png" alt="Home"
-          /></a>
-        </li>
-        <li>
-          <a class="colore_apertura" href="Bici/Bici.html"
-            ><img src="Icons/bici.png" alt="Bici"
-          /></a>
-        </li>
-        <li>
-          <a class="colore_apertura" href="Estate.html"
-            ><img src="Icons/estate.png" alt="Estate"
-          /></a>
-        </li>
-        <li>
-          <a class="colore_apertura" href="Primavera.html"
-            ><img src="Icons/primavera.png" alt="Primavera"
-          /></a>
-        </li>
-        <li>
-          <a class="colore_apertura" href="Autunno_Inverno.html"
-            ><img src="Icons/inverno.png" alt="Autunno/Inverno"
-          /></a>
-        </li>
-        <li>
-          <a class="colore_apertura" href="index.html"
-            ><img src="Icons/login.png" alt="Login"
-          /></a>
-        </li>
-      </ul>
-    </nav>
+    <p>
+        <button class="Icons">
+            <a class="colore_apertura" href="Giri.html">
+                <img src="Icons/home.png">
+            </a>
 
-    <!-- Contenitori per contenuti dinamici -->
+            <a class="colore_apertura" href="Bici/Bici.html">
+                <img src="Icons/bici.png">
+            </a>
+
+            <a class="colore_apertura" href="Estate.html">
+                <img src="Icons/estate.png">
+            </a>
+
+            <a class="colore_apertura" href="Primavera.html">
+                <img src="Icons/primavera.png">
+            </a>
+
+            <a class="colore_apertura" href="Autunno_Inverno.html">
+                <img src="Icons/inverno.png">
+            </a>
+
+            <a class="colore_apertura" href="index.html">
+                <img src="Icons/login.png">
+            </a>
+        </button>
+    </p>
+
+
     <div id="pagination"></div>
+    <br />
     <div id="stampa"></div>
 
-    <!-- Grafico a ciambella -->
+    <br>
     <div class="grafico">
-      <canvas
-        id="doughnut-chart"
-        aria-label="Grafico delle statistiche"
-        role="img"
-      ></canvas>
+        <canvas id="doughnut-chart"></canvas>
     </div>
-
-    <!-- Totale delle statistiche -->
+    <br>
     <div id="totale"></div>
 
-    <!-- Link al documento Excel -->
     <p class="corsivo">
-      <a
-        class="colore_apertura"
-        href="https://docs.google.com/spreadsheets/d/1dUGdKxiREe10hoMMoICgA66q5asMdZEs/edit?usp=sharing&ouid=112974977248567050919&rtpof=true&sd=true"
-        target="_blank"
-      >
-        <img src="Icons/excel.png" alt="Scarica Excel" />
-      </a>
+        <a class="colore_apertura"
+            href=https://docs.google.com/spreadsheets/d/1dUGdKxiREe10hoMMoICgA66q5asMdZEs/edit?usp=sharing&ouid=112974977248567050919&rtpof=true&sd=true
+            target="_blank">
+            <img src="Icons/excel.png">
+        </a>
     </p>
-  </body>
+
+</body>
+
+</body>
+
 </html>
