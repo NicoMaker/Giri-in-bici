@@ -46,7 +46,7 @@ const calcolaTotaleKm = (kmData) => kmData.reduce((total, km) => total + km, 0),
     document.getElementById("km").innerHTML = `
     <div class="colore">
       <p class="misuracolore">Totale km ${totaleKm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
-      <p class="misuracolore">Km medi per giro percorsi ${mediaKm}</p>
+      <p class="misuracolore">Km medi per corsa ${mediaKm}</p>
     </div>
   `;
   };
