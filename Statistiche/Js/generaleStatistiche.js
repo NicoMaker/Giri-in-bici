@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mainData = await fetchJSON(
       "Statistiche/Js/History/JSON/Generale.json"
     );
-
     if (!mainData || !mainData.statistics) {
       console.error("Main data not available or statistics field missing");
       return null;
@@ -44,16 +43,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   function calculateAverages(statistics) {
     const totaleKm = statistics.reduce((acc, cur) => acc + cur.km, 0),
       totaleCorse = statistics.reduce((acc, cur) => acc + cur.numberOfRaces, 0),
-      totalMonthlyKm = statistics.reduce((acc, cur) => {
-        const monthlySum = Object.values(cur.monthlyData).reduce(
-          (sum, val) => sum + val,
-          0
-        );
-        return acc + monthlySum;
-      }, 0),
-      totalMonths = statistics.reduce((acc, cur) => {
-        return acc + Object.keys(cur.monthlyData).length;
-      }, 0);
+      totalMonthlyKm = statistics.reduce(
+        (acc, cur) =>
+          acc +
+          Object.values(cur.monthlyData).reduce((sum, val) => sum + val, 0),
+        0
+      ),
+      totalMonths = statistics.reduce(
+        (acc, cur) => acc + Object.keys(cur.monthlyData).length,
+        0
+      );
 
     return {
       totaleKm,
@@ -86,43 +85,73 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-  const renderStampa = (statistics, avgValues) =>
-      (document.getElementById(
-        "stampa"
-      ).innerHTML = `<div class="container">${statistics
+  const renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {
+    const startIndex = (currentPage - 1) * itemsPerPage,
+      endIndex = startIndex + itemsPerPage,
+      currentStatistics = statistics.slice(startIndex, endIndex),
+      lastPage = Math.ceil(statistics.length / itemsPerPage),
+      isOdd = currentStatistics.length === 1;
+
+    const containerClass = isOdd ? "container odd-items" : "container";
+
+    document.getElementById(
+      "stampa"
+    ).innerHTML = `<div class="${containerClass}">
+      ${currentStatistics
         .map(
           (entry, index) => `
-        <div class="Statistiche">
-          <a href="Statistiche/Anni/${entry.year}.html">
-            <img class="immaginestagione" src="Icons/Statistiche.png">
-            <p class="titoli">Statistiche ${entry.year}</p>
-            <p>km totali ${entry.km} 
-            <img src="Icons/traguardo.png"></p>
-            <p>${avgValues[index]} %</p>
-          </a>
-        </div>
-      `
+          <div class="Statistiche">
+            <a href="Statistiche/Anni/${entry.year}.html">
+              <img class="immaginestagione" src="Icons/Statistiche.png">
+              <p class="titoli">Statistiche ${entry.year}</p>
+              <p>km totali ${entry.km} <img src="Icons/traguardo.png"></p>
+              <p>${avgValues[startIndex + index]} %</p>
+            </a>
+          </div>
+        `
         )
         .join("")}
-    </div>`),
-    renderSummary = (totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth) =>
-      (document.getElementById("totale").innerHTML = `
+    </div>`;
+
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = `
+      <button id="prev" ${currentPage === 1 ? "disabled" : ""}>
+        <span class="material-icons">arrow_back</span>
+      </button>
+      <span id="page-indicator">Pagina ${currentPage} di ${lastPage}</span>
+      <button id="next" ${currentPage === lastPage ? "disabled" : ""}>
+        <span class="material-icons">arrow_forward</span>
+      </button>
+    `;
+
+    document.getElementById("prev").addEventListener("click", () => {
+      if (currentPage > 1)
+        renderStampa(statistics, avgValues, itemsPerPage, currentPage - 1);
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      if (currentPage < lastPage)
+        renderStampa(statistics, avgValues, itemsPerPage, currentPage + 1);
+    });
+  };
+
+  const renderSummary = (totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth) =>
+    (document.getElementById("totale").innerHTML = `
       <a href="Statistiche/History/Statistiche_Totali.html">
         <div class="colore">
-            <p>totale km ${totaleKm} <img src="Icons/traguardo.png"></p>
-            <p>km medi per giro percorsi ${avgKmPerRace}</p>
-            <p>km medi per anno percorsi ${avgKmPerYear}</p>
-            <p>km medi per mese ${avgKmPerMonth}</p>
+            <p>Totale km: ${totaleKm} <img src="Icons/traguardo.png"></p>
+            <p>Km medi per corsa: ${avgKmPerRace}</p>
+            <p>Km medi per anno: ${avgKmPerYear}</p>
+            <p>Km medi per mese: ${avgKmPerMonth}</p>
         </div>
-      </a>`),
-    { mainData, statistics } = await fetchData();
+      </a>`);
+  const renderChart = (labels, data, colors) => {
+    const doughnutConfig = createChartConfig(labels, data, colors),
+      doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
+    new Chart(doughnutCtx, doughnutConfig);
+  };
 
-  function adjustContainerLayout() {
-    const container = document.querySelector(".container"),
-      items = document.querySelectorAll(".Statistiche"),
-      isOdd = items.length % 2 !== 0;
-    if (isOdd) container.classList.add("odd-items");
-  }
+  const { mainData, statistics } = await fetchData();
 
   if (mainData) {
     const { colors } = mainData,
@@ -130,12 +159,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         calculateAverages(statistics),
       labels = statistics.map((entry) => `${entry.year}`),
       values = statistics.map((entry) => entry.km),
-      doughnutConfig = createChartConfig(labels, values, colors),
-      doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
+      itemsPerPage = 2;
 
-    renderStampa(statistics, avgValues);
+    renderChart(labels, values, colors);
     renderSummary(totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth);
-    adjustContainerLayout();
-    new Chart(doughnutCtx, doughnutConfig);
-  } else console.error("Nessun dato ricevuto");
+    renderStampa(statistics, avgValues, itemsPerPage, 1);
+  } else {
+    console.error("Nessun dato ricevuto");
+  }
 });

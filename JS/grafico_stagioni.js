@@ -138,25 +138,27 @@ function renderDataListPaginated(
       currentData = currentLabels.reduce((acc, label) => {
         acc[label] = data[label];
         return acc;
-      }, {}),currentAvgValues = avgValues.slice(startIndex, endIndex),stampa = createStampa(
-      currentLabels,
-      currentData,
-      path,
-      image,
-      season,
-      cssclass,
-      currentAvgValues
-    );
+      }, {}),
+      currentAvgValues = avgValues.slice(startIndex, endIndex),
+      stampa = createStampa(
+        currentLabels,
+        currentData,
+        path,
+        image,
+        season,
+        cssclass,
+        currentAvgValues
+      );
 
     updateStampa(stampa);
 
     const pagination = document.getElementById("pagination");
     pagination.innerHTML = `
-      <button id="prev" ${currentPage === 1 ? 'disabled' : ''}>
+      <button id="prev" ${currentPage === 1 ? "disabled" : ""}>
         <span class="material-icons">arrow_back</span>
       </button>
       <span id="page-indicator">Dati  ${season} ${currentPage} di ${totalPages}</span>
-      <button id="next" ${currentPage === totalPages ? 'disabled' : ''}>
+      <button id="next" ${currentPage === totalPages ? "disabled" : ""}>
         <span class="material-icons">arrow_forward</span>
       </button>
     `;
