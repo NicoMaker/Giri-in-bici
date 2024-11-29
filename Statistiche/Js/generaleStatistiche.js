@@ -115,23 +115,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const pagination = document.getElementById("pagination");
     pagination.innerHTML = `
-      <button id="prev" ${currentPage === 1 ? "disabled" : ""}>
+      <button id="prev">
         <span class="material-icons">arrow_back</span>
       </button>
       <span id="page-indicator">Dati Anno ${currentPage} di ${lastPage}</span>
-      <button id="next" ${currentPage === lastPage ? "disabled" : ""}>
+      <button id="next">
         <span class="material-icons">arrow_forward</span>
       </button>
     `;
 
     document.getElementById("prev").addEventListener("click", () => {
-      if (currentPage > 1)
-        renderStampa(statistics, avgValues, itemsPerPage, currentPage - 1);
+      const newPage = currentPage === 1 ? lastPage : currentPage - 1;
+      renderStampa(statistics, avgValues, itemsPerPage, newPage);
     });
 
     document.getElementById("next").addEventListener("click", () => {
-      if (currentPage < lastPage)
-        renderStampa(statistics, avgValues, itemsPerPage, currentPage + 1);
+      const newPage = currentPage === lastPage ? 1 : currentPage + 1;
+      renderStampa(statistics, avgValues, itemsPerPage, newPage);
     });
   };
 
@@ -145,6 +145,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <p>Km medi per mese ${avgKmPerMonth}</p>
         </div>
       </a>`);
+
   const renderChart = (labels, data, colors) => {
     const doughnutConfig = createChartConfig(labels, data, colors),
       doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");

@@ -154,26 +154,22 @@ function renderDataListPaginated(
 
     const pagination = document.getElementById("pagination");
     pagination.innerHTML = `
-      <button id="prev" ${currentPage === 1 ? "disabled" : ""}>
+      <button id="prev">
         <span class="material-icons">arrow_back</span>
       </button>
       <span id="page-indicator">Dati  ${season} ${currentPage} di ${totalPages}</span>
-      <button id="next" ${currentPage === totalPages ? "disabled" : ""}>
+      <button id="next">
         <span class="material-icons">arrow_forward</span>
       </button>
     `;
 
     document.getElementById("prev").addEventListener("click", () => {
-      if (currentPage === 1) currentPage = totalPages; // Vai all'ultima pagina
-      else currentPage--;
+      currentPage = currentPage === 1 ? totalPages : currentPage - 1; // Navigazione ciclica
       updatePage();
     });
 
     document.getElementById("next").addEventListener("click", () => {
-      if (currentPage === totalPages)
-        currentPage = 1; // Torna alla prima pagina
-      else currentPage++;
-
+      currentPage = currentPage === totalPages ? 1 : currentPage + 1; // Navigazione ciclica
       updatePage();
     });
   }

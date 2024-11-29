@@ -238,30 +238,75 @@ canvas {
   display: flex;
   justify-content: center; /* Centra gli elementi in orizzontale */
   align-items: center; /* Centra gli elementi in verticale */
-  gap: 10px; /* Spaziatura tra frecce e testo */
-  margin-top: 20px; /* Distanza dall'elemento precedente */
+  gap: 20px; /* Spaziatura tra frecce e indicatore */
+  margin-top: 30px; /* Distanza dall'elemento precedente */
+  padding: 10px; /* Spaziatura interna */
+  background-color: transparent; /* Rimuove lo sfondo bianco */
 }
 
 #pagination button {
-  background: none; /* Rimuove il colore di sfondo */
+  background: none; /* Nessun sfondo */
   border: none; /* Rimuove i bordi */
-  color: #333; /* Colore del testo delle frecce */
+  color: white; /* Colore del testo */
   cursor: pointer; /* Cambia il cursore al passaggio */
-  font-size: 30px; /* Dimensione delle frecce */
+  font-size: 30px; /* Dimensione del testo */
+  padding: 10px 20px; /* Spaziatura interna */
+  transition: transform 0.3s, color 0.3s; /* Effetti di transizione */
 }
 
-#pagination button:disabled {
-  color: #ccc; /* Colore per i bottoni disabilitati */
-  cursor: not-allowed; /* Stile del cursore per i bottoni disabilitati */
+#pagination button:hover {
+  color: #ff6347; /* Colore arancione per hover */
+  transform: scale(1.2); /* Effetto zoom al passaggio */
+}
+
+#pagination .prev::before,
+#pagination .next::before {
+  font-family: "Material Icons"; /* Usa il font delle Material Icons */
+  content: ""; /* Contenuto vuoto per la freccia */
+  font-size: 72px; /* Aumenta la dimensione delle frecce */
+  display: inline-block;
+  transition: transform 0.3s, color 0.3s; /* Effetti di transizione */
+}
+
+#pagination .prev::before {
+  content: "navigate_before"; /* Freccia indietro */
+}
+
+#pagination .next::before {
+  content: "navigate_next"; /* Freccia avanti */
+}
+
+#pagination .prev:hover::before,
+#pagination .next:hover::before {
+  color: #ff6347; /* Colore delle frecce in hover */
+  transform: scale(1.2); /* Effetto zoom sulle frecce */
 }
 
 #page-indicator {
-  font-size: 40px; /* Dimensione del testo della pagina */
+  font-size: 36px; /* Dimensione del testo della pagina */
   font-weight: bold; /* Grassetto per maggiore visibilità */
   color: #333; /* Colore del testo */
   text-align: center; /* Centra il testo */
 }
 
-.material-icons{
-  font-size: 100px;
+.material-icons {
+  font-size: 100px; /* Dimensione icone */
+  color: #333; /* Colore di default */
+  background: linear-gradient(
+    45deg,
+    #ff6347,
+    #ff4500
+  ); /* Sfondo gradiente per le icone */
+  border-radius: 50%; /* Forma circolare */
+  padding: 15px; /* Spaziatura interna */
+  transition: transform 0.3s, box-shadow 0.3s; /* Effetti al passaggio */
+}
+
+.material-icons:hover {
+  transform: scale(1.2); /* Effetto zoom al passaggio */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Effetto ombra */
+}
+
+.material-icons {
+  color: white;
 }
