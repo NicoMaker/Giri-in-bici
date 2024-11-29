@@ -164,12 +164,12 @@ function renderDataListPaginated(
     `;
 
     document.getElementById("prev").addEventListener("click", () => {
-      currentPage = currentPage === 1 ? totalPages : currentPage - 1; // Navigazione ciclica
+      currentPage = currentPage === 1 ? totalPages : currentPage - 1;
       updatePage();
     });
 
     document.getElementById("next").addEventListener("click", () => {
-      currentPage = currentPage === totalPages ? 1 : currentPage + 1; // Navigazione ciclica
+      currentPage = currentPage === totalPages ? 1 : currentPage + 1;
       updatePage();
     });
   }

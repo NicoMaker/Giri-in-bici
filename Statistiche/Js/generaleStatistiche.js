@@ -90,9 +90,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       endIndex = startIndex + itemsPerPage,
       currentStatistics = statistics.slice(startIndex, endIndex),
       lastPage = Math.ceil(statistics.length / itemsPerPage),
-      isOdd = currentStatistics.length === 1;
-
-    const containerClass = isOdd ? "container odd-items" : "container";
+      isOdd = currentStatistics.length === 1,
+      containerClass = isOdd ? "container odd-items" : "container";
 
     document.getElementById(
       "stampa"
@@ -118,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <button id="prev">
         <span class="material-icons">arrow_back</span>
       </button>
-      <span id="page-indicator">Dati Anno ${currentPage} di ${lastPage}</span>
+      <span id="page-indicator">Dati Statistiche Anni ${currentPage} di ${lastPage}</span>
       <button id="next">
         <span class="material-icons">arrow_forward</span>
       </button>
@@ -136,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const renderSummary = (totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth) =>
-    (document.getElementById("totale").innerHTML = `
+      (document.getElementById("totale").innerHTML = `
       <a href="Statistiche/History/Statistiche_Totali.html">
         <div class="colore">
             <p>Totale km ${totaleKm} <img src="Icons/traguardo.png"></p>
@@ -144,15 +143,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             <p>Km medi per anno ${avgKmPerYear}</p>
             <p>Km medi per mese ${avgKmPerMonth}</p>
         </div>
-      </a>`);
-
-  const renderChart = (labels, data, colors) => {
-    const doughnutConfig = createChartConfig(labels, data, colors),
-      doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
-    new Chart(doughnutCtx, doughnutConfig);
-  };
-
-  const { mainData, statistics } = await fetchData();
+      </a>`),
+    renderChart = (labels, data, colors) => {
+      const doughnutConfig = createChartConfig(labels, data, colors),
+        doughnutCtx = document
+          .getElementById("doughnut-chart")
+          .getContext("2d");
+      new Chart(doughnutCtx, doughnutConfig);
+    },
+    { mainData, statistics } = await fetchData();
 
   if (mainData) {
     const { colors } = mainData,
@@ -165,7 +164,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderChart(labels, values, colors);
     renderSummary(totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth);
     renderStampa(statistics, avgValues, itemsPerPage, 1);
-  } else {
-    console.error("Nessun dato ricevuto");
-  }
+  } else console.error("Nessun dato ricevuto");
 });
