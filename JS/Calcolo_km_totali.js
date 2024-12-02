@@ -14,13 +14,12 @@ fetch("Statistiche/Js/History/JSON/Generale.json")
               kmData = [...kmData, ...kmValues];
             } else
               console.error(
-                "Dati dei chilometri mancanti o non validi in:",
-                url
+                `Dati dei chilometri mancanti o non validi in: ${url}`
               );
-            if (typeof annoData.numberOfRaces === "number") {
+            if (typeof annoData.numberOfRaces === "number")
               totaleCorse += annoData.numberOfRaces;
-            } else
-              console.error("numberOfRaces non è un numero valido in:", url);
+            else
+              console.error(`numberOfRaces non è un numero valido in: ${url}`);
           })
       );
 
