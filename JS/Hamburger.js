@@ -4,12 +4,12 @@ const menu = document.querySelector(".menu"),
   menuIcon = document.querySelector(".MenuIcon");
 
 function toggleMenu() {
-  if (menu.classList.contains("showMwnu")) {
-    menu.classList.remove("showMwnu");
+  if (menu.classList.contains("showMenu")) {
+    menu.classList.remove("showMenu");
     closeIcon.style.display = "none";
     menuIcon.style.display = "block";
   } else {
-    menu.classList.add("showMwnu");
+    menu.classList.add("showMenu");
     closeIcon.style.display = "block";
     menuIcon.style.display = "none";
   }

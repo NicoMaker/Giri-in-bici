@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       renderSeasonSummary(season, totale, labels.length, totalRaces);
       adjustContainerLayout(cssclass);
     })
-    .catch((error) => console.error("Error loading the JSON data:", error));
+    .catch((error) => console.error(`Error loading the JSON data:, ${error}`));
 });
 
 async function fetchSubPeriods(subPeriods) {

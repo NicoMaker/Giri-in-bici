@@ -136,10 +136,12 @@ document.addEventListener("DOMContentLoaded", () => {
           );
         })
         .catch((error) => {
-          console.error("Errore nel caricamento dei file JSON:", error);
+          console.error(`Errore nel caricamento dei file JSON: ${error}`);
         });
     })
     .catch((error) => {
-      console.error("Errore nel caricamento del file statistics.json:", error);
+      console.error(
+        `Errore nel caricamento del file statistics.json: ${error}`
+      );
     });
 });

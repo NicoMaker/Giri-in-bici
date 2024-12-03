@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       return await response.json();
     } catch (error) {
-      console.error(`Error fetching data from ${url}:`, error);
+      console.error(`Error fetching data from ${url}:, ${error}`);
       return null;
     }
   }

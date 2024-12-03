@@ -78,5 +78,5 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((datasets) => {
       renderCharts(datasets);
     })
-    .catch((error) => console.error("Error loading the data:", error));
+    .catch((error) => console.error(`Error loading the data:, ${error}`));
 });

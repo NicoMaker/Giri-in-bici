@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch(file);
       return await response.json();
     } catch (error) {
-      console.error(`Error fetching data from ${file}:`, error);
+      console.error(`Error fetching data from ${file}: ${error}`);
       return null;
     }
   }

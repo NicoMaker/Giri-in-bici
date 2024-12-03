@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
         jsonData = await response.json();
       return jsonData;
     } catch (error) {
-      console.error("Errore nel caricamento dei dati:", error);
+      console.error(`Errore nel caricamento dei dati:, ${error}`);
       return null;
     }
   }
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         data = await response.json();
       return data;
     } catch (error) {
-      console.error(`Errore nel caricamento dei dati da ${url}:`, error);
+      console.error(`Errore nel caricamento dei dati da ${url}: ${error}`);
       return null;
     }
   }
@@ -158,6 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
     .catch((error) => {
-      console.error("Errore durante il fetch:", error);
+      console.error(`Errore durante il fetch:, ${error}`);
     });
 });

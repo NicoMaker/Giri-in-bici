@@ -31,11 +31,11 @@ fetch("Statistiche/Js/History/JSON/Generale.json")
         StampaDati(totaleKm, mediaKm);
       })
       .catch((error) =>
-        console.error("Errore nel caricamento dei file JSON:", error)
+        console.error(`Errore nel caricamento dei file JSON: ${error}`)
       );
   })
   .catch((error) =>
-    console.error("Errore nel caricamento del file principale:", error)
+    console.error(`Errore nel caricamento del file principale: ${error}`)
   );
 
 const calcolaTotaleKm = (kmData) => kmData.reduce((total, km) => total + km, 0),

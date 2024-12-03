@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!response.ok) throw new Error("Failed to load data");
         return response.json();
       })
-      .catch((error) => console.error("Error loading data:", error));
+      .catch((error) => console.error(`Error loading data: ${error}`));
   }
 
   function createTableRow(row, index) {

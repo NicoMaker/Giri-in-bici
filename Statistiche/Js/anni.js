@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderDataTable(mesi, chilometri, percentuali);
     renderSummary(totale, kmMediPerCorsa, kmMediPerMese);
   } catch (error) {
-    console.error("Error fetching or processing the JSON data:", error);
+    console.error(`Error fetching or processing the JSON data:, ${error}`);
   }
 }),
   (calculatePercentuali = (chilometri, totale) =>
