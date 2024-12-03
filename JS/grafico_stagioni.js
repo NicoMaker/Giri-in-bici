@@ -157,7 +157,7 @@ function renderDataListPaginated(
       <button id="prev">
         <span class="material-icons">arrow_back</span>
       </button>
-      <span id="page-indicator">Dati  ${season} ${currentPage} di ${totalPages}</span>
+      <span id="page-indicator">Dati  della Stagione: ${season} ${currentPage} di ${totalPages}</span>
       <button id="next">
         <span class="material-icons">arrow_forward</span>
       </button>
