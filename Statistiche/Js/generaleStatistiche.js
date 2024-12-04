@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { colors } = mainData,
       { totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth, avgValues } =
         calculateAverages(statistics),
-      labels = statistics.map((entry) => `${entry.year}`),
+      labels = statistics.map((entry) => `km ${entry.year}`),
       values = statistics.map((entry) => entry.km),
       itemsPerPage = 2;
 
