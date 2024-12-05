@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <button id="prev">
         <span class="material-icons">arrow_back</span>
       </button>
-      <span id="page-indicator">Dati Statistiche Anni <br /> ${currentPage} di ${lastPage}</span>
+      <span id="page-indicator">Dati Statistiche: <br/> Anni${currentPage} di ${lastPage}</span>
       <button id="next">
         <span class="material-icons">arrow_forward</span>
       </button>
