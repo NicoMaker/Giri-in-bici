@@ -31,7 +31,7 @@ async function loadUsers() {
       password: generatePassword(),
     }));
   } catch (error) {
-    console.error("Error loading users:", error);
+    console.error(`Error loading users: ${error}`);
     return [];
   }
 }
@@ -46,7 +46,7 @@ async function handleLoginSubmit(event) {
       (u) => u.username === username && u.password === password
     );
 
-  if (user) window.location.href = "giri.html";
+  if (user) window.location.href = "Giri.html";
   else alert("Nome utente o password non validi!");
 }
 
