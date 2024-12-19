@@ -16,3 +16,11 @@ function toggleMenu() {
 }
 
 hamburger.addEventListener("click", toggleMenu);
+
+function contactEmail(emailsubject, subjetmail) {
+  const email = emailsubject,
+    subject = `info sul sito ${subjetmail}`,
+    mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+
+  window.location.href = mailtoLink;
+}
