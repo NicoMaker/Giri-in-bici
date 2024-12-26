@@ -595,3 +595,41 @@ input {
   height: 1000px; /* Altezza dell'immagine */
   object-fit: contain; /* Mantieni proporzioni dell'immagine */
 }
+
+/* Contenitore generale */
+.Container {
+  display: flex;
+  justify-content: center; /* Allinea i pulsanti orizzontalmente al centro */
+  align-items: center; /* Allinea i pulsanti verticalmente al centro */
+  background-color: #f4f4f4; /* Colore di sfondo del contenitore */
+  gap: 20px; /* Spazio tra i pulsanti */
+  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
+}
+
+/* Stile per i pulsanti */
+.Icona {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Forma circolare */
+  background-color: #f4f4f4; /* Stesso colore del contenitore */
+  border: none; /* Nessun bordo */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizioni fluide */
+  overflow: hidden; /* Nasconde il contenuto eccedente */
+}
+
+/* Effetto al passaggio del mouse */
+.Icona:hover {
+  transform: scale(1.1); /* Ingrandisce leggermente il bottone */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più evidente */
+}
+
+/* Stile per l'immagine dentro il bottone */
+.Icona img {
+  width: 100%; /* Riempie il bottone */
+  height: 100%; /* Mantiene le proporzioni */
+  object-fit: cover; /* Adatta l'immagine al bottone */
+}
