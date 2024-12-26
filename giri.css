@@ -614,7 +614,6 @@ input {
   width: 120px;
   height: 120px;
   border-radius: 50%; /* Forma circolare */
-  background-color: #f4f4f4; /* Stesso colore del contenitore */
   border: none; /* Nessun bordo */
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizioni fluide */
