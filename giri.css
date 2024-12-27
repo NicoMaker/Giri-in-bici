@@ -561,41 +561,6 @@ input {
   width: 100%; /* Imposta la larghezza al 100% */
 }
 
-/* Stile del bottone */
-.Icona {
-  background-color: #ffffff; /* Colore di sfondo bianco */
-  border: 2px solid #e63946; /* Bordo rosso per evidenziare */
-  border-radius: 50%; /* Forma circolare */
-  width: 120px; /* Larghezza */
-  height: 120px; /* Altezza */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Effetto ombra */
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transizioni */
-  cursor: pointer; /* Cambia il cursore */
-}
-
-/* Effetto hover */
-.Icona:hover {
-  transform: scale(1.1); /* Aumenta leggermente la dimensione */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Ombra più intensa */
-  background-color: #f1f1f1; /* Colore di sfondo più chiaro */
-}
-
-/* Stile dell'immagine */
-.Immagineicona {
-  width: 40px; /* Larghezza dell'icona */
-  height: 40px; /* Altezza dell'icona */
-  object-fit: contain; /* Mantieni proporzioni dell'immagine */
-}
-
-.Immagineicona {
-  width: 100px; /* Larghezza dell'immagine */
-  height: 1000px; /* Altezza dell'immagine */
-  object-fit: contain; /* Mantieni proporzioni dell'immagine */
-}
-
 /* Contenitore generale */
 .Container {
   display: flex;
@@ -618,6 +583,7 @@ input {
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizioni fluide */
   overflow: hidden; /* Nasconde il contenuto eccedente */
+  border: 2px solid #e63946; /* Bordo rosso */
 }
 
 /* Effetto al passaggio del mouse */
