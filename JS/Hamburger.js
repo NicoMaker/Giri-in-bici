@@ -25,4 +25,9 @@ function contactEmail(emailsubject, subjetmail) {
   window.location.href = mailtoLink;
 }
 
-const contactell = () => window.location.href = "tel:+393337024320";
+const contactell = () => (window.location.href = "tel:+393337024320"),
+  openWhatsAppChat = () => {
+    const phoneNumber = "+393337024320",
+      message = encodeURIComponent("Info sul sito Giri in Bici");
+    window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
+  };
