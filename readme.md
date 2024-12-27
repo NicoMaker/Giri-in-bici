@@ -42,7 +42,7 @@ Crea un file JSON per ogni nuova stagione all'interno delle cartelle di riferime
 
 #### Aggiornamento File Principale Stagione 🌸🌞🍁❄️
 
-Aggiorna il file principale del nuovo periodo  della stagione nel quale hai creato il nuovo file, specificando il percorso e il colore del nuovo periodo come per gli altri:
+Aggiorna il file principale del nuovo periodo  della stagione nel quale hai creato la nuova sottostagione, specificando il percorso e il colore del nuovo periodo come per gli altri:
 
 - **Primavera** 🌸: [`Primavera/primavera.json`](Primavera/primavera.json)
 - **Estate** 🌞: [`Estate/estate.json`](Estate/estate.json)
