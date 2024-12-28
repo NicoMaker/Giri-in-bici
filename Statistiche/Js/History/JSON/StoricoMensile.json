@@ -23,5 +23,10 @@
     "label": "2024",
     "color": "red",
     "data": "../Js/anni/2024.json"
+  },
+  "data2025": {
+    "label": "2025",
+    "color": "blue",
+    "data": "../Js/anni/2025.json"
   }
 }

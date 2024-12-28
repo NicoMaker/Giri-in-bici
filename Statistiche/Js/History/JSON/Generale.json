@@ -4,7 +4,8 @@
     "2021": "Statistiche/Js/anni/2021.json",
     "2022": "Statistiche/Js/anni/2022.json",
     "2023": "Statistiche/Js/anni/2023.json",
-    "2024": "Statistiche/Js/anni/2024.json"
+    "2024": "Statistiche/Js/anni/2024.json",
+    "2025": "Statistiche/Js/anni/2025.json"
   },
-  "colors": ["yellow", "lightgreen", "orange", "cyan", "red","blue"]
+  "colors": ["yellow", "lightgreen", "orange", "cyan", "red", "blue"]
 }

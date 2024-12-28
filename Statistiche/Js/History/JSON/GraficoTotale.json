@@ -4,9 +4,10 @@
     "2021": "../Js/anni/2021.json",
     "2022": "../Js/anni/2022.json",
     "2023": "../Js/anni/2023.json",
-    "2024": "../Js/anni/2024.json"
+    "2024": "../Js/anni/2024.json",
+    "2025": "../Js/anni/2025.json"
   },
-    "colors": [
+  "colors": [
     "darkblue",
     "blue",
     "lightgreen",
