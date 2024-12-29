@@ -28,6 +28,6 @@ function contactEmail(emailsubject, subjetmail) {
 const contactell = () => (window.location.href = "tel:+393337024320"),
   openWhatsAppChat = () => {
     const phoneNumber = "+393337024320",
-      message = encodeURIComponent("Info sul sito Giri in Bici");
+      message = encodeURIComponent("*Info sul sito Giri in Bici*");
     window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
   };
