@@ -50,6 +50,16 @@ Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato l
 - **Stagione Generale** 🌸🌞🍁❄️: [`Statistiche/Js/anni/stagioni.json`](Statistiche/Js/anni/stagioni.json)  
   Aggiungi il percorso del nuovo anno nella stagione interessata all’interno dei vari sottoperiodi.
 
+## Aggiornamento del Grafico in Base alla Stagione
+
+**Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
+
+a seconda della stagione, devi aggiornare il percorso dei file relativi al grafico nel codice HTML:
+
+- Primavera 🌸: Inserisci il nuovo percorso per il grafico della Primavera.
+- Estate 🌞: Inserisci il nuovo percorso per il grafico dell'Estate.
+- Autunno-Inverno 🍁❄️: Inserisci il nuovo percorso per il grafico dell'Autunno-Inverno.
+
 ---
 
 ## 📅 Creazione di un Nuovo Anno
@@ -57,12 +67,15 @@ Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato l
 ### Passaggi da Seguire
 
 1. **Creare la Struttura HTML**
+
    - Crea un nuovo file HTML per il nuovo anno nella cartella: [`Statistiche/Anni/`](Statistiche/Anni/) con il nome del nuovo anno.
 
 2. **Creare il File JSON**
+
    - Crea un nuovo file JSON per l’anno nella cartella: [`Statistiche/Js/anni/`](Statistiche/Js/anni/) con il nome del nuovo anno.
 
 3. **Aggiornare le Immagini**
+
    - Aggiungi un’immagine per il nuovo anno nella cartella: [`Statistiche/Anni/Img/`](Statistiche/Anni/Img/) con il nome del nuovo anno.
 
 4. **Aggiornare i File di Storia Generale**
@@ -70,11 +83,18 @@ Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato l
    - **Grafico Totale:** Modifica [`Statistiche/Js/History/JSON/GraficoTotale.json`](Statistiche/Js/History/JSON/GraficoTotale.json), aggiungendo il percorso corretto del nuovo anno.
    - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`Statistiche/Js/History/JSON/StoricoMensile.json`](Statistiche/Js/History/JSON/StoricoMensile.json), specificando il percorso corretto.
 
+## Aggiornamento del Grafico in Base alla Stagione
+
+**Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
+
+- Statistica Anno: Dentro la parte delle Statistiche Anno, crea il nuovo percorso del grafico per il nuovo anno.
+
 ---
 
 ## 🔐 Credenziali
 
 1. **Nome Utente**
+
    - **Percorso:** [`Login/users.json`](Login/users.json)
 
 2. **Password Giornaliera**
@@ -100,11 +120,11 @@ Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato l
 
 ## 👥 Avatar dei Partecipanti
 
-- [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)  
+- [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
 
   ![Avatar NM](About_US/Img/AvatarNM.jpg)
 
-- [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)  
+- [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)
 
   ![Avatar JR](About_US/Img/AvatarJR.png)
 
@@ -124,4 +144,4 @@ Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato l
   </a>
 </p>
 
---- 
+---

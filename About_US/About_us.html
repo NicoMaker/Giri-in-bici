@@ -1,123 +1,109 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Informazioni</title>
-    <link rel="stylesheet" type="text/css" href="StyleAbout.css" />
-    <link rel="icon" href="../Icons/informazioni.png" type="image/png" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.4.0/mermaid.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        mermaid.initialize({ startOnLoad: true });
-      });
-    </script>
-  </head>
-  <body>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informazioni</title>
+  <link rel="stylesheet" href="StyleAbout.css">
+  <link rel="icon" href="../Icons/informazioni.png" type="image/png">
+  
+  <!-- Caricamento del mermaid.js per il grafico -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.4.0/mermaid.min.js"></script>
+  <script src="JS/mermaid.js"></script>
+  <script src="JS/scriptinfo.js" defer></script>
+</head>
+
+<body>
+  <br />
+  <a href="../Giri.html">
+    <img class="Bandiera-FVG" src="../Img/logo.jpg" alt="Logo Giri" />
+  </a>
+  
+  <div class="container">
+    <h1 class="titolo">Informazioni Come Muoversi nel Sito</h1>
+    
+    <p>
+      <button class="Icons">
+        <a class="colore_apertura" href="../Giri.html">
+          <img src="../Icons/freccia.png" alt="Freccia di ritorno" />
+        </a>
+      </button>
+    </p>
+    
     <br />
-    <a href="../Giri.html">
-      <img class="Bandiera-FVG" src="../Img/logo.jpg" alt="Logo Giri" />
-    </a>
-    <div class="container">
-      <h1 class="titolo">Informazioni Come Muoversi nel Sito</h1>
-      <p>
-        <button class="Icons">
-          <a class="colore_apertura" href="../Giri.html">
-            <img src="../Icons/freccia.png" alt="Freccia di ritorno" />
-          </a>
-        </button>
-      </p>
-      <br />
-      <div class="mermaid">
-        graph TD;
-        A[Sito Giro In Bici] --> Estate[Estate] 
-    
-        Estate --> B2020(2020)
-        Estate --> B2021(2021)
-        Estate --> B2022(2022)
-        Estate --> B2023(2023)
-        Estate --> B2024(2024)
-    
-        A --> Primavera[Primavera] 
-    
-        Primavera --> C2021(2021)
-        Primavera --> C2022(2022)
-        Primavera --> C2023(2023)
-        Primavera --> C2024(2024)
-
-        A --> Autunno[Autunno-Inverno]
-    
-        Autunno --> D2020_2021(2020/2021)
-        Autunno --> D2021_2022(2021/2022)
-        Autunno --> D2022_2023(2022/2023)
-        Autunno --> D2023_2024(2023/2024)
-        Autunno --> D2024_2025(2024/2025)
-    
-    
-        A -->|Bici| Bici
-        A -->|Statistiche| Statistiche
-
-        Statistiche --> History(History)
-
-        History -->|Grafico Totale| GraficoTotale
-        History -->|Mensile| GraficoMensile
-        History -->|Annuale| GraficoAnnuale
-    
-        Statistiche --> Anni(Anni)
-    
-        Anni -->|Anno 2020| Anno2020(2020)
-        Anni -->|Anno 2021| Anno2021(2021)
-        Anni -->|Anno 2022| Anno2022(2022)
-        Anni -->|Anno 2023| Anno2023(2023)
-        Anni -->|Anno 2024| Anno2024(2024)
-        Anni -->|Anno 2025| Anno2025(2025)
-    
-        Statistiche -->|Stagioni| GraficoStagioni
-    
-      </div>
-      <br />
-      <br />
-      <table>
-        <tr>
-          <th class="colore">Nome Partecipante</th>
-          <th class="colore">Avatar</th>
-        </tr>
-        <tr>
-          <td>Nico Maker</td>
-          <td>
-            <a
-              href="https://www.komoot.com/it-it/user/1372754001803"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                class="immagine_avatar"
-                src="Img/AvatarNM.jpg"
-                alt="Avatar Nico Maker"
-              />
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>Jacoreds</td>
-          <td>
-            <a
-              href="https://www.komoot.com/it-it/user/1381372752571"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                class="immagine_avatar"
-                src="Img/AvatarJR.png"
-                alt="Avatar Jacoreds"
-              />
-            </a>
-          </td>
-        </tr>
-      </table>
+    <div class="mermaid">
+      graph TD;
+        A[<a href="../Giri.html" target="_blank">Home</a>] -->
+        Estate[<a href="../Estate.html" target="_blank">Estate</a>] 
+        Estate --> B2020[<a href="../Estate/Periodi/2020.html" target="_blank">2020</a>]
+        Estate --> B2021[<a href="../Estate/Periodi/2021.html" target="_blank">2021</a>]
+        Estate --> B2022[<a href="../Estate/Periodi/2022.html" target="_blank">2022</a>]
+        Estate --> B2023[<a href="../Estate/Periodi/2023.html" target="_blank">2023</a>]
+        Estate --> B2024[<a href="../Estate/Periodi/2024.html" target="_blank">2024</a>]
+        
+        A --> Primavera[<a href="../Primavera.html" target="_blank">Primavera</a>] 
+        Primavera --> C2021[<a href="../Primavera/Periodi/2021.html" target="_blank">2021</a>]
+        Primavera --> C2022[<a href="../Primavera/Periodi/2022.html" target="_blank">2022</a>]
+        Primavera --> C2023[<a href="../Primavera/Periodi/2023.html" target="_blank">2023</a>]
+        Primavera --> C2024[<a href="../Primavera/Periodi/2024.html" target="_blank">2024</a>]
+        
+        A --> AI[<a href="../Autunno_Inverno.html" target="_blank">Autunno - Inverno</a>] 
+        AI --> D2020_2021[<a href="../Autunno_Inverno/Periodi/2020-2021.html" target="_blank">2020-2021</a>]
+        AI --> D2021_2022[<a href="../Autunno_Inverno/Periodi/2021-2022.html" target="_blank">2021-2022</a>]
+        AI --> D2022_2023[<a href="../Autunno_Inverno/Periodi/2022-2023.html" target="_blank">2022-2023</a>]
+        AI --> D2023_2024[<a href="../Autunno_Inverno/Periodi/2023-2024.html" target="_blank">2023-2024</a>]
+        AI --> D2024_2025[<a href="../Autunno_Inverno/Periodi/2024-2025.html" target="_blank">2024-2025</a>]
+        
+        A --> Bici[<a href="../Bici/Bici.html" target="_blank">Bici</a>]
+        A --> Statistiche[<a href="../Statistiche.html" target="_blank">Statistiche</a>] 
+        Statistiche --> History 
+        History --> GraficoTotale[<a href="../Statistiche/History/Statistiche_Totali.html" target="_blank">Statistiche Totali</a>]
+        History --> GraficoMensile[<a href="../Statistiche/History/Statistiche_Mensili.html" target="_blank">Statistiche Mensili</a>]
+        History --> GraficoAnnuale[<a href="../Statistiche/History/StoricoMensile.html" target="_blank">Storico Mensile</a>]
+        
+        Statistiche --> Anni 
+        Anni --> Anno2020[<a href="../Statistiche/Anni/2020.html" target="_blank">2020</a>]
+        Anni --> Anno2021[<a href="../Statistiche/Anni/2021.html" target="_blank">2021</a>]
+        Anni --> Anno2022[<a href="../Statistiche/Anni/2022.html" target="_blank">2022</a>]
+        Anni --> Anno2023[<a href="../Statistiche/Anni/2023.html" target="_blank">2023</a>]
+        Anni --> Anno2024[<a href="../Statistiche/Anni/2024.html" target="_blank">2024</a>]
+        Anni --> Anno2025[<a href="../Statistiche/Anni/2025.html" target="_blank">2025</a>]
+        
+        Statistiche --> GraficoStagioni[<a href="../Statistiche/stagioni.html" target="_blank">Statistiche Stagioni</a>]
     </div>
+    
     <br />
     <br />
-    <br />
-    <br />
-    <div id="info"></div>
-  </body>
+    <table>
+      <tr>
+        <th class="colore">Nome Partecipante</th>
+        <th class="colore">Avatar</th>
+      </tr>
+      <tr>
+        <td>Nico Maker</td>
+        <td>
+          <a href="https://www.komoot.com/it-it/user/1372754001803" target="_blank" rel="noopener noreferrer">
+            <img class="immagine_avatar" src="Img/AvatarNM.jpg" alt="Avatar Nico Maker" />
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>Jacoreds</td>
+        <td>
+          <a href="https://www.komoot.com/it-it/user/1381372752571" target="_blank" rel="noopener noreferrer">
+            <img class="immagine_avatar" src="Img/AvatarJR.png" alt="Avatar Jacoreds" />
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <br />
+  <br />
+  <br />
+  <br />
+  <div id="info"></div>
+</body>
+
 </html>
