@@ -14,11 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Data is not an array:", data);
         return 0;
       }
-
-      return data.reduce((total, km) => {
-        const distanceValue = km.distance || 0;
-        return total + distanceValue;
-      }, 0);
+      return data.reduce((total, km) => total + (km.distance || 0), 0);
     },
     renderStampa = (data) => `
       <div class="primavera">
@@ -47,15 +43,23 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>`,
     createStampat = (data) => `
       <div class="colore">
-          <p class="misuracolore">totale km ${data.totale} <img src="../Icons/traguardo.png"></p>
+          <p class="misuracolore">Totale km ${data.totale} <img src="../Icons/traguardo.png"></p>
           <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
+          <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
       </div>`;
 
-  function calculateData(estateData, primaveraData, autunnoInvernoData) {
+  function calculateData(
+    estateData,
+    primaveraData,
+    autunnoInvernoData,
+    numPeriodi
+  ) {
     const estate = sumData(estateData),
       primavera = sumData(primaveraData),
       autunno_inverno = sumData(autunnoInvernoData),
-      totale = estate + primavera + autunno_inverno;
+      totale = estate + primavera + autunno_inverno,
+      totalePeriodi =
+        numPeriodi.estate + numPeriodi.primavera + numPeriodi.autunno_inverno;
 
     return {
       e: estate,
@@ -66,28 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       avgp: ((primavera / totale) * 100).toFixed(2),
       avgai: ((autunno_inverno / totale) * 100).toFixed(2),
       avgmediastagione: (totale / 3).toFixed(2),
-    };
-  }
-
-  function createDati(labels, data) {
-    return {
-      labels,
-      datasets: [
-        {
-          label: "km totali stagione",
-          backgroundColor: ["lightgreen", "red", "lightblue"],
-          borderColor: ["black"],
-          borderWidth: 1,
-          data,
-        },
-      ],
-    };
-  }
-
-  function createChartConfig(labels, data) {
-    return {
-      type: "doughnut",
-      data: createDati(labels, data),
+      avgperiod: totalePeriodi ? (totale / totalePeriodi).toFixed(2) : "N/A",
     };
   }
 
@@ -99,14 +82,20 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const seasonDataPromises = seasonsData.seasons.map(async (season) => {
-        const subPeriodsData = await Promise.all(
-          Object.entries(season.subPeriods).map(async ([year, subFile]) => {
-            const subData = await fetchData(subFile);
-            console.log(`Data for ${year}:`, subData);
-            return subData ? subData : [];
-          })
-        );
+    const numPeriodi = {
+        estate: 0,
+        primavera: 0,
+        autunno_inverno: 0,
+      },
+      seasonDataPromises = seasonsData.seasons.map(async (season) => {
+        const periodCount = Object.keys(season.subPeriods).length;
+        (numPeriodi[season.name.toLowerCase().replace("-", "_")] = periodCount),
+          (subPeriodsData = await Promise.all(
+            Object.entries(season.subPeriods).map(async ([year, subFile]) => {
+              const subData = await fetchData(subFile);
+              return subData ? subData : [];
+            })
+          ));
 
         return {
           name: season.name,
@@ -121,7 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const calculatedData = calculateData(
           estateData.data,
           primaveraData.data,
-          autunnoInvernoData.data
+          autunnoInvernoData.data,
+          numPeriodi
         ),
         labels = ["Primavera", "Estate", "Autunno-Inverno"],
         chartData = [calculatedData.p, calculatedData.e, calculatedData.ai],
@@ -130,11 +120,22 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("dati").innerHTML = renderStampa(calculatedData);
       document.getElementById("totale").innerHTML =
         createStampat(calculatedData);
-      const chartConfig = createChartConfig(labels, chartData);
-      new Chart(ctx, chartConfig);
-    } else {
-      console.error("Errore durante il caricamento dei dati");
-    }
+      new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels,
+          datasets: [
+            {
+              label: "km totali stagione",
+              backgroundColor: ["lightgreen", "red", "lightblue"],
+              borderColor: ["black"],
+              borderWidth: 1,
+              data: chartData,
+            },
+          ],
+        },
+      });
+    } else console.error("Errore durante il caricamento dei dati");
   }
 
   loadAndRenderData();
