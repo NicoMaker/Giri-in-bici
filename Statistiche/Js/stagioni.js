@@ -89,17 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       seasonDataPromises = seasonsData.seasons.map(async (season) => {
         const periodCount = Object.keys(season.subPeriods).length;
-        numPeriodi[season.name.toLowerCase().replace("-", "_")] = periodCount;
-
-        const subPeriodsData = await Promise.all(
-          Object.entries(season.subPeriods).map(async ([year, subFile]) => {
-            const correctedPath = subFile.startsWith("../")
-                ? subFile
-                : `../${subFile}`,
-              subData = await fetchData(correctedPath);
-            return subData ? subData : [];
-          })
-        );
+        (numPeriodi[season.name.toLowerCase().replace("-", "_")] = periodCount),
+          (subPeriodsData = await Promise.all(
+            Object.entries(season.subPeriods).map(async ([year, subFile]) => {
+              const correctedPath = subFile.startsWith("../")
+                  ? subFile
+                  : `../${subFile}`,
+                subData = await fetchData(correctedPath);
+              return subData ? subData : [];
+            })
+          ));
 
         return {
           name: season.name,
