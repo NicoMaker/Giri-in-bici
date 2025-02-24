@@ -20,9 +20,8 @@ function initCookieBanner() {
 }
 
 // Controlla se i cookie sono stati accettati
-function hasAcceptedCookies() {
-  return localStorage.getItem("cookieAccepted") === "true";
-}
+const hasAcceptedCookies = () =>
+  localStorage.getItem("cookieAccepted") === "true";
 
 // Accetta i cookie
 function acceptCookies() {
@@ -40,9 +39,8 @@ function revokeCookies() {
 
 // Inizializza il sistema di login
 function initLoginSystem() {
-  document
-    .getElementById("loginForm")
-    .addEventListener("submit", handleLoginSubmit);
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) loginForm.addEventListener("submit", handleLoginSubmit);
 }
 
 // Gestisce il login
@@ -68,8 +66,10 @@ async function handleLoginSubmit(event) {
 // Carica gli utenti dal file JSON
 async function loadUsers() {
   try {
-    const response = await fetch("Login/users.json"),
-      data = await response.json();
+    const response = await fetch("Login/users.json");
+    if (!response.ok) throw new Error("Errore nel caricamento del file JSON.");
+
+    const data = await response.json();
     return data.users.map((user) => ({
       username: user.username,
       password: generatePassword(),
@@ -97,12 +97,14 @@ function initBackgroundAnimation() {
 
 // Imposta uno sfondo astratto dinamico
 function setAbstractBackground() {
-  const container = document.getElementById("container"),
-    backgroundColor = getRandomColor(),
-    backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
+  const container = document.getElementById("container");
+  if (container) {
+    const backgroundColor = getRandomColor(),
+      backgroundImage = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
 
-  container.style.backgroundColor = backgroundColor;
-  container.style.backgroundImage = backgroundImage;
+    container.style.backgroundColor = backgroundColor;
+    container.style.backgroundImage = backgroundImage;
+  }
 }
 
 // Funzioni di utilità
@@ -113,6 +115,9 @@ const getRandomNumber = (min, max) =>
       0,
       255
     )}, ${getRandomNumber(0, 255)})`,
-  hideElement = element;
-(element.style.display = "none"),
-  (showElement = (element) => (element.style.display = "block"));
+  hideElement = (element) => {
+    if (element) element.style.display = "none";
+  },
+  showElement = (element) => {
+    if (element) element.style.display = "block";
+  };
