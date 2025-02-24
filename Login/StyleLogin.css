@@ -65,3 +65,84 @@ h2 {
   text-align: center;
   border: solid cyan 10px;
 }
+
+/* Stile del banner dei cookie */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 127, 80, 0.9); /* Coral trasparente */
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.cookie-banner p {
+  flex: 1 1 60%;
+  margin: 0;
+  padding-right: 10px;
+}
+
+.cookie-banner button {
+  background-color: #f1c40f; /* Giallo dorato */
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.cookie-banner button:hover {
+  background-color: #d4ac0d;
+}
+
+/* Pulsante di revoca */
+.revoke-button {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: cyan;
+  color: black;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  display: none; /* Inizialmente nascosto */
+}
+
+.revoke-button:hover {
+  background: #00b3b3;
+}
+
+/* Stile per i link all'interno del banner */
+.cookie-banner a {
+  color: #c04020; /* Coral scuro */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cookie-banner a:hover {
+  color: #a8321b;
+}
+
+/* Responsività per dispositivi mobili */
+@media screen and (max-width: 480px) {
+  .cookie-banner {
+    flex-direction: column;
+    text-align: center;
+    font-size: 12px;
+    padding: 8px;
+  }
+  .cookie-banner p {
+    flex: 1 1 100%;
+    margin-bottom: 8px;
+  }
+}
