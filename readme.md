@@ -83,7 +83,7 @@ a seconda della stagione, devi aggiornare il percorso dei file relativi al grafi
    - **Grafico Totale:** Modifica [`Statistiche/Js/History/JSON/GraficoTotale.json`](Statistiche/Js/History/JSON/GraficoTotale.json), aggiungendo il percorso corretto del nuovo anno.
    - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`Statistiche/Js/History/JSON/StoricoMensile.json`](Statistiche/Js/History/JSON/StoricoMensile.json), specificando il percorso corretto.
 
-## Aggiornamento del Grafico in Base alla Stagione
+## Aggiornamento del Grafico in Base alla Stagione e all'Anno
 
 **Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
 
