@@ -9,6 +9,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 ### Stagione
 
 1. **Aggiorna il file JSON per la stagione Primavera 2025**
+
    - **Percorso:** [`Primavera/Periodi/Json/2025.json`](Primavera/Periodi/Json/2025.json)
    - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.
 
@@ -24,41 +25,46 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ### Creazione della Nuova Stagione
 
-#### Struttura HTML
+### Passaggi da Seguire
 
-Crea i file HTML e JSON per la stagione nelle cartelle di riferimento, seguendo i percorsi indicati, e inserendo l’anno della stagione:
+1. **Struttura HTML**
 
-- **Primavera** 🌸: [`Primavera/Periodi/`](Primavera/Periodi/)
-- **Estate** 🌞: [`Estate/Periodi/`](Estate/Periodi/)
-- **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/`](Autunno_Inverno/Periodi/)
+   Crea il file HTML per la stagione nelle cartelle di riferimento, seguendo il percorso indicato, e inserendo l’anno della stagione:
 
-#### File JSON per la Nuova Stagione
+   - **Primavera** 🌸: [`Primavera/Periodi/`](Primavera/Periodi/)
+   - **Estate** 🌞: [`Estate/Periodi/`](Estate/Periodi/)
+   - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/`](Autunno_Inverno/Periodi/)
 
-Crea un file JSON per ogni nuova stagione all’interno delle cartelle di riferimento con il nome dell’anno:
+2. **File JSON per la Nuova Stagione**
 
-- **Primavera** 🌸: [`Primavera/Periodi/Json`](Primavera/Periodi/Json)
-- **Estate** 🌞: [`Estate/Periodi/Json`](Estate/Periodi/Json)
-- **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/Json`](Autunno_Inverno/Periodi/Json)
+   Crea un file JSON per la nuova stagione all’interno delle cartella di riferimento con il nome dell’anno:
 
-#### Aggiornamento del File Principale della Stagione 🌸🌞🍁❄️
+   - **Primavera** 🌸: [`Primavera/Periodi/Json`](Primavera/Periodi/Json)
+   - **Estate** 🌞: [`Estate/Periodi/Json`](Estate/Periodi/Json)
+   - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/Json`](Autunno_Inverno/Periodi/Json)
 
-Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato la nuova sottostagione, specificando il percorso e il colore del nuovo periodo come fatto per gli altri:
+3. **Aggiornamento del File Principale della Stagione 🌸🌞🍁❄️**
 
-- **Primavera** 🌸: [`Primavera/primavera.json`](Primavera/primavera.json)
-- **Estate** 🌞: [`Estate/estate.json`](Estate/estate.json)
-- **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
-- **Stagione Generale** 🌸🌞🍁❄️: [`Statistiche/Js/anni/stagioni.json`](Statistiche/Js/anni/stagioni.json)  
-  Aggiungi il percorso del nuovo anno nella stagione interessata all’interno dei vari sottoperiodi.
+   Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato la nuova sottostagione, specificando il percorso del file con il nome e il colore del nuovo periodo come fatto per gli altri:
 
-## Aggiornamento del Grafico in Base alla Stagione
+   - **Primavera** 🌸: [`Primavera/primavera.json`](Primavera/primavera.json)
+   - **Estate** 🌞: [`Estate/estate.json`](Estate/estate.json)
+   - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
 
-**Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
+4. **Sistemazione file Stagioni.json**
 
-a seconda della stagione, devi aggiornare il percorso dei file relativi al grafico nel codice HTML:
+   - **Stagione Generale** 🌸🌞🍁❄️: [`Statistiche/Js/anni/stagioni.json`](Statistiche/Js/anni/stagioni.json)  
+     Aggiungi il percorso del nuovo anno nella stagione interessata all’interno dei vari sottoperiodi.
 
-- Primavera 🌸: Inserisci il nuovo percorso per il grafico della Primavera.
-- Estate 🌞: Inserisci il nuovo percorso per il grafico dell'Estate.
-- Autunno-Inverno 🍁❄️: Inserisci il nuovo percorso per il grafico dell'Autunno-Inverno.
+5. **Aggiornamento del Grafico in Base alla Stagione**
+
+   **Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
+
+   a seconda della stagione, devi aggiornare il percorso dei file relativi al grafico nel codice HTML:
+
+   - Primavera 🌸: Inserisci il nuovo percorso per il grafico della Primavera.
+   - Estate 🌞: Inserisci il nuovo percorso per il grafico dell'Estate.
+   - Autunno-Inverno 🍁❄️: Inserisci il nuovo percorso per il grafico dell'Autunno-Inverno.
 
 ---
 
@@ -79,11 +85,12 @@ a seconda della stagione, devi aggiornare il percorso dei file relativi al grafi
    - Aggiungi un’immagine per il nuovo anno nella cartella: [`Statistiche/Anni/Img/`](Statistiche/Anni/Img/) con il nome del nuovo anno.
 
 4. **Aggiornare i File di Storia Generale**
+
    - **Generale:** Modifica [`Statistiche/Js/History/JSON/Generale.json`](Statistiche/Js/History/JSON/Generale.json), aggiungendo il percorso e il colore del nuovo anno.
    - **Grafico Totale:** Modifica [`Statistiche/Js/History/JSON/GraficoTotale.json`](Statistiche/Js/History/JSON/GraficoTotale.json), aggiungendo il percorso corretto del nuovo anno.
    - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`Statistiche/Js/History/JSON/StoricoMensile.json`](Statistiche/Js/History/JSON/StoricoMensile.json), specificando il percorso corretto.
 
-## Aggiornamento del Grafico in Base alla Stagione e all'Anno
+5. Aggiornamento del Grafico in Base alla Stagione e all'Anno
 
 **Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
 
