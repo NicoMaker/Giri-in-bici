@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <a href="Statistiche/History/Statistiche_Totali.html">
         <div class="colore">
             <p>Totale km ${totaleKm} <img src="Icons/traguardo.png"></p>
-            <p>Km medi per corsa ${avgKmPerRace}</p>
+            <p>km medi per giro ${avgKmPerRace}</p>
             <p>Km medi per anno ${avgKmPerYear}</p>
             <p>Km medi per mese ${avgKmPerMonth}</p>
         </div>

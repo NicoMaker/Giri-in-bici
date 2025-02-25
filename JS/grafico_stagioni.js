@@ -202,7 +202,7 @@ function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
     stampaseason = `
       <div class="colore">
         <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
-        <p>km medi per corsa in ${season} ${avgcorsa} </p>
+        <p>km medi per giro in ${season} ${avgcorsa} </p>
         <p>media km per stagione ${avgseason} </p>
       </div>
     `;
