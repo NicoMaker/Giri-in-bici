@@ -92,9 +92,9 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 5. Aggiornamento del Grafico in Base alla Stagione e all'Anno
 
-**Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
+   **Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
 
-- Statistica Anno: Dentro la parte delle Statistiche Anno, crea il nuovo percorso del grafico per il nuovo anno.
+   - Statistica Anno: Dentro la parte delle Statistiche Anno, crea il nuovo percorso del grafico per il nuovo anno.
 
 ---
 
