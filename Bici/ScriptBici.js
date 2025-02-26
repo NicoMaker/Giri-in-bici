@@ -18,12 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
           data.intestazioni[tipo].forEach((img, index) => {
             if (index % 3 === 0) html += `<div class="row">`; // Inizio riga ogni 3 immagini
             html += `<img class="immagini_stagione2" src="${img}" />`;
-            if (
-              index % 3 === 2 ||
-              index === data.intestazioni[tipo].length - 1
-            ) {
+            if (index % 3 === 2 || index === data.intestazioni[tipo].length - 1)
               html += `</div>`; // Chiudi riga ogni 3 immagini o alla fine
-            }
           });
           html += `</div><br />`;
         }
