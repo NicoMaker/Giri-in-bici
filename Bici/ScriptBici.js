@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>Tipo Freni:</strong> ${bici.tipo_freni}</p>
                 <p><strong>Materiale:</strong> ${bici.materiale}</p>
                 <p><strong>Misura Ruote:</strong> ${bici.misura_ruote}</p>
-                <p><strong>Cambi:</strong> ${bici.cambi} <br>Totale ${bici.totale_cambi}</p>
+                <p><strong>Cambi:</strong> ${bici.avanti} avanti ${bici.dietro} dietro <br> <br>Totale ${bici.avanti * bici.dietro}</p>
                 <p><strong>Anno di Produzione:</strong> ${bici.anno}</p>
             </div>`;
         });

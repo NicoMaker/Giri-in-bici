@@ -25,8 +25,8 @@
       "tipo_freni": "Pattino",
       "materiale": "Acciaio",
       "misura_ruote": 27,
-      "cambi": "3 avanti 7 dietro",
-      "totale_cambi": 21,
+      "avanti": 3,
+      "dietro": 7,
       "anno": 2016,
       "immagine": "img/MTB/La Pantera Nera .jpg"
     },
@@ -36,8 +36,8 @@
       "tipo_freni": "Disco",
       "materiale": "Acciaio",
       "misura_ruote": 29,
-      "cambi": "3 avanti 7 dietro",
-      "totale_cambi": 21,
+      "avanti": 3,
+      "dietro": 7,
       "anno": 2020,
       "immagine": "img/MTB/La Fluo.jpg"
     },
@@ -47,8 +47,8 @@
       "tipo_freni": "Disco",
       "materiale": "Acciaio",
       "misura_ruote": 29,
-      "cambi": "3 avanti 7 dietro",
-      "totale_cambi": 21,
+      "avanti": 3,
+      "dietro": 7,
       "anno": 2020,
       "immagine": "img/MTB/La Bianconera .jpg"
     },
@@ -58,8 +58,8 @@
       "tipo_freni": "Disco",
       "materiale": "Acciaio",
       "misura_ruote": 29,
-      "cambi": "3 avanti 8 dietro",
-      "totale_cambi": 24,
+      "avanti": 3,
+      "dietro": 8,
       "anno": 2021,
       "immagine": "img/MTB/La Pimpa.jpg"
     },
@@ -69,8 +69,8 @@
       "tipo_freni": "Disco",
       "materiale": "Acciaio",
       "misura_ruote": 27,
-      "cambi": "3 avanti 7 dietro",
-      "totale_cambi": 21,
+      "avanti": 3,
+      "dietro": 7,
       "anno": 2022,
       "immagine": "img/MTB/La Splendente.jpg"
     },
@@ -80,8 +80,8 @@
       "tipo_freni": "Pattino",
       "materiale": "Fibra di Carbonio",
       "misura_ruote": 28,
-      "cambi": "2 avanti 11 dietro",
-      "totale_cambi": 22,
+      "avanti": 2,
+      "dietro": 11,
       "anno": 2022,
       "immagine": "img/Corsa/La Corsara .jpg"
     }
