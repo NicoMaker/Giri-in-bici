@@ -598,3 +598,7 @@ input {
   height: 100%; /* Mantiene le proporzioni */
   object-fit: cover; /* Adatta l'immagine al bottone */
 }
+
+.contorno p{
+  font-size: 30px;
+}
