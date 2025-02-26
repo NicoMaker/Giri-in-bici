@@ -12,14 +12,21 @@ document.addEventListener("DOMContentLoaded", function () {
       function mostraBiciFiltrate(tipo) {
         let html = `<div class="container_stagione">`;
 
-        // Mostra intestazioni per la categoria selezionata
+        // Mostra intestazioni per la categoria selezionata con layout a 3 per riga
         if (data.intestazioni[tipo]) {
-          data.intestazioni[tipo].forEach((img) => {
+          html += `<div class="container_stagione">`;
+          data.intestazioni[tipo].forEach((img, index) => {
+            if (index % 3 === 0) html += `<div class="row">`; // Inizio riga ogni 3 immagini
             html += `<img class="immagini_stagione2" src="${img}" />`;
+            if (
+              index % 3 === 2 ||
+              index === data.intestazioni[tipo].length - 1
+            ) {
+              html += `</div>`; // Chiudi riga ogni 3 immagini o alla fine
+            }
           });
+          html += `</div><br />`;
         }
-
-        html += `</div><br />`;
 
         // Filtra e mostra solo le bici del tipo selezionato
         const biciFiltrate = data.bici.filter((bici) => bici.tipo === tipo);
@@ -27,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         biciFiltrate.forEach((bici, index) => {
           const classeImmagine =
             index % 2 === 0 ? "immagine_bicisx" : "immagine_bicidx";
-            html += `
+          html += `
             <div class="contorno">
                 <img class="${classeImmagine}" src="${bici.immagine}">
                 <h1 class="Titolo2">${bici.nome}</h1>
