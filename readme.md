@@ -60,7 +60,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
    **Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
 
-   a seconda della stagione, devi aggiornare il percorso dei file relativi al grafico nel codice HTML:
+   a seconda della stagione, devi aggiornare il percorso del nuovo file relativo al grafico nel codice HTML:
 
    - Primavera 🌸: Inserisci il nuovo percorso per il grafico della Primavera.
    - Estate 🌞: Inserisci il nuovo percorso per il grafico dell'Estate.
@@ -94,7 +94,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
    **Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
 
-   - Statistica Anno: Dentro la parte delle Statistiche Anno, crea il nuovo percorso del grafico per il nuovo anno.
+   - Statistica Anno: Dentro la parte delle Statistiche Anno, aggiorni il nuovo percorso del grafico per il nuovo anno nel file HTML.
 
 ---
 
