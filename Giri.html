@@ -30,29 +30,29 @@
       <div
         x-data="{
             search: '',
-            items: [
-                { name: 'Home', icon: 'Icons/home.png', link: 'Giri.html' },
-                { name: 'Statistiche', icon: 'Icons/Statistiche.png', link: 'Statistiche.html' },
-                { name: 'Bici', icon: 'Icons/bici.png', link: 'Bici/Bici.html' },
-                { name: 'Primavera', icon: 'Icons/primavera.png', link: 'Primavera.html' },
-                { name: 'Estate', icon: 'Icons/estate.png', link: 'Estate.html' },
-                { name: 'Autunno - Inverno', icon: 'Icons/inverno.png', link: 'Autunno_Inverno.html' },
-                { name: 'Pagina Precedente', icon: 'Icons/freccia.png', link: '#' },
-                { name: 'Login', icon: 'Icons/login.png', link: 'index.html' },
-                { name: 'Informazioni', icon: 'Icons/informazioni.png', link: 'About_US/About_us.html' },
-                { name: 'Apertura Repository Git', icon: 'Icons/GitHub.png', link: 'https://github.com/NicoMaker/Giri-in-bici' },
-                { name: 'Apertura Account GitHub', icon: 'Icons/Logo Scuro.jpg', link: 'https://github.com/NicoMaker' },
-                { name: 'QR CODE', icon: 'Icons/qr_code.png', link: 'QR_CODE/Logo.html' }
-            ],
-        
+            items: [],
+
+            // Funzione per caricae i dati dal JSON
+            async loadData() {
+                const response = await fetch('JS/Menu.json'); 
+                const data = await response.json();
+                this.items = data.items;
+            },
+
+            // Funzione per filtrare gli elementi
             get filteredItems() {
                 return this.items.filter(
                     i => i.name.toLowerCase().startsWith(this.search.toLowerCase())
                 );
             }
         }"
+        x-init="loadData()"
       >
-        <input x-model="search" placeholder="Cerca nel Menu" />
+        <input x-model="search" placeholder="Cerca nel Menu ..." />
+        <p x-show="filteredItems.length === 0" class="no-results">
+          Nessun elemento trovato
+        </p>
+
         <template x-for="item in filteredItems" :key="item.name">
           <li>
             <button>

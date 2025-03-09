@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "name": "Home",
+      "icon": "Icons/home.png",
+      "link": "Giri.html"
+    },
+    {
+      "name": "Statistiche",
+      "icon": "Icons/Statistiche.png",
+      "link": "Statistiche.html"
+    },
+    {
+      "name": "Bici",
+      "icon": "Icons/bici.png",
+      "link": "Bici/Bici.html"
+    },
+    {
+      "name": "Primavera",
+      "icon": "Icons/primavera.png",
+      "link": "Primavera.html"
+    },
+    {
+      "name": "Estate",
+      "icon": "Icons/estate.png",
+      "link": "Estate.html"
+    },
+    {
+      "name": "Autunno - Inverno",
+      "icon": "Icons/inverno.png",
+      "link": "Autunno_Inverno.html"
+    },
+    {
+      "name": "Pagina Precedente",
+      "icon": "Icons/freccia.png",
+      "link": "#"
+    },
+    {
+      "name": "Login",
+      "icon": "Icons/login.png",
+      "link": "index.html"
+    },
+    {
+      "name": "Informazioni",
+      "icon": "Icons/informazioni.png",
+      "link": "About_US/About_us.html"
+    },
+    {
+      "name": "Apertura Repository Git",
+      "icon": "Icons/GitHub.png",
+      "link": "https://github.com/NicoMaker/Giri-in-bici"
+    },
+    {
+      "name": "Apertura Account GitHub",
+      "icon": "Icons/Logo Scuro.jpg",
+      "link": "https://github.com/NicoMaker"
+    },
+    {
+      "name": "QR CODE",
+      "icon": "Icons/qr_code.png",
+      "link": "QR_CODE/Logo.html"
+    }
+  ]
+}
