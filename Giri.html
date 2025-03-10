@@ -14,7 +14,9 @@
       src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"
       defer
     ></script>
+    <script src="JS/Alpine.js" defer></script>
     <script type="module" src="JS/animation.js" defer></script>
+    +
   </head>
 
   <body>
@@ -27,27 +29,8 @@
       <br />
       <br />
       <h1>Riferimenti parti del sito</h1>
-      <div
-        x-data="{
-            search: '',
-            items: [],
 
-            // Funzione per caricae i dati dal JSON
-            async loadData() {
-                const response = await fetch('JS/Menu.json'); 
-                const data = await response.json();
-                this.items = data.items;
-            },
-
-            // Funzione per filtrare gli elementi
-            get filteredItems() {
-                return this.items.filter(
-                    i => i.name.toLowerCase().startsWith(this.search.toLowerCase())
-                );
-            }
-        }"
-        x-init="loadData()"
-      >
+      <div x-data="menuHandler()" x-init="loadData()">
         <input x-model="search" placeholder="Cerca nel Menu ..." />
         <p x-show="filteredItems.length === 0" class="no-results">
           Nessun elemento trovato
@@ -60,13 +43,15 @@
                 :src="item.icon"
                 :class="{ 'logo': item.name === 'Apertura Account GitHub' }"
               />
+
               <template
                 x-if="item.name === 'Pagina Precedente' && item.link === '#'"
               >
                 <span x-text="item.name"></span>
               </template>
+
               <template
-                x-if="item.name !== 'Pagina Precedente' || item.link !== '#'"
+                x-if="!(item.name === 'Pagina Precedente' && item.link === '#')"
               >
                 <a
                   :href="item.link"
