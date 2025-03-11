@@ -8,6 +8,8 @@ function menuHandler() {
       const response = await fetch("JS/Menu.json"),
         data = await response.json();
       this.items = data.items;
+      // Ordina gli elementi alfabeticamente per nome
+      this.items = data.items.sort((a, b) => a.name.localeCompare(b.name));
     },
 
     // Funzione per filtrare gli elementi
