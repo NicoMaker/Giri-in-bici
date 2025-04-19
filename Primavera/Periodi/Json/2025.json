@@ -15,13 +15,18 @@
     "distance": 88
   },
   {
-    "date":"06 Aprile",
+    "date": "06 Aprile",
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2142202361?share_token=aNEmH81GTSrHjAW48yephfngktReAnwkSPpVQt1ZuUNxFml26Z&ref=wtd\" target=\"_blank\">Monte di Ragogna + Forgaria</a>",
     "distance": 103
   },
   {
-    "date":"12 Aprile",
+    "date": "12 Aprile",
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2155240882?share_token=aF9ws7BEW1XO37VbhCGuw6sYEnI4cCbyuUKrKd1b85qNYVxgCX&ref=wtd\" target=\"_blank\">Ariis + Teor</a>",
+    "distance": 61
+  },
+  {
+    "date": "19 Aprile",
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/2172121214?share_token=ak8hIvL8jLKbBQD5KEC2pA2LqVox1q9nIrzfI80nxW8uEhN5oq&ref=wtd\" target=\"_blank\">Ariis + Mortegliano</a>",
     "distance": 61
   }
 ]
