@@ -1,148 +1,345 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Hubballi&family=Roboto:wght@100;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-.form-group {
-  margin-bottom: 10px;
-  text-align: center;
+:root {
+  --primary-color: #3498db;
+  --primary-dark: #2980b9;
+  --secondary-color: #e74c3c;
+  --text-color: #333;
+  --light-text: #777;
+  --background: #f5f7fa;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --border-radius: 16px;
+  --input-bg: #f1f5f9;
 }
 
-label {
-  display: block;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--background);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 40px 30px;
   text-align: center;
+  position: relative;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(52, 152, 219, 0.1) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  z-index: -1;
+  animation: pulse 15s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}
+
+.logo-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.logo-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 4px solid var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+.logo-circle:hover {
+  transform: scale(1.05);
+}
+
+.logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--primary-color);
+}
+
+.subtitle {
+  color: var(--light-text);
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon i {
+  position: absolute;
+  left: 15px;
+  color: var(--primary-color);
+  font-size: 18px;
 }
 
 input[type="text"],
 input[type="password"] {
-  position: relative;
-  right: 10px;
-  width: 250px;
-  padding: 5px;
-  text-align: center;
-  border-radius: 50px;
-}
-
-button[type="submit"] {
-  position: relative;
-  right: 10px;
-  width: 265px;
-  padding: 5px;
-  background-color: coral;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  border-radius: 50px;
-}
-
-img {
-  position: relative;
-  display: block;
-  right: 10px;
-  height: 300px;
-  border: dashed #00ff9d 10px;
-  background-color: yellow;
-}
-
-h2 {
-  color: red;
-  font-family: "Dancing Script", cursive;
-  font-size: 45px;
-}
-
-#container {
   width: 100%;
-  height: 100vh;
+  padding: 15px 15px 15px 45px;
+  border: none;
+  background: var(--input-bg);
+  border-radius: 50px;
+  font-size: 16px;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
 }
 
-/* Stile per la pagina di login */
-.login-page {
-  width: 300px;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  border: solid cyan 10px;
+.login-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5);
 }
 
-/* Stile del banner dei cookie */
+.login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(52, 152, 219, 0.4);
+}
+
+.login-footer {
+  margin-top: 30px;
+  font-size: 14px;
+  color: var(--light-text);
+}
+
+/* Cookie Banner */
 .cookie-banner {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 127, 80, 0.9); /* Coral trasparente */
-  color: white;
-  padding: 10px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.5s ease;
+  animation: slideIn 0.5s forwards 0.5s;
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.cookie-content {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
-  font-size: 14px;
+  padding: 15px 20px;
+  flex-wrap: wrap;
+}
+
+.cookie-icon {
+  font-size: 24px;
+  color: var(--secondary-color);
+  margin-right: 15px;
 }
 
 .cookie-banner p {
-  flex: 1 1 60%;
+  flex: 1;
   margin: 0;
-  padding-right: 10px;
-}
-
-.cookie-banner button {
-  background-color: #f1c40f; /* Giallo dorato */
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
-  margin-top: 8px;
+  color: var(--text-color);
 }
 
-.cookie-banner button:hover {
-  background-color: #d4ac0d;
-}
-
-/* Pulsante di revoca */
-.revoke-button {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background: cyan;
-  color: black;
-  padding: 8px 16px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
-  border-radius: 5px;
-  display: none; /* Inizialmente nascosto */
-}
-
-.revoke-button:hover {
-  background: #00b3b3;
-}
-
-/* Stile per i link all'interno del banner */
 .cookie-banner a {
-  color: #c04020; /* Coral scuro */
+  color: var(--primary-color);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .cookie-banner a:hover {
-  color: #a8321b;
+  text-decoration: underline;
 }
 
-/* Responsività per dispositivi mobili */
+#accept-cookies {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+#accept-cookies:hover {
+  background: var(--primary-dark);
+}
+
+.revoke-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.revoke-button:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Responsive */
 @media screen and (max-width: 480px) {
-  .cookie-banner {
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .logo-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .cookie-content {
     flex-direction: column;
     text-align: center;
-    font-size: 12px;
-    padding: 8px;
   }
-  .cookie-banner p {
-    flex: 1 1 100%;
-    margin-bottom: 8px;
+
+  .cookie-icon {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  #accept-cookies {
+    margin-left: 0;
+    margin-top: 15px;
+    width: 100%;
   }
 }
