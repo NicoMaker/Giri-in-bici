@@ -41,6 +41,27 @@ function revokeCookies() {
 function initLoginSystem() {
   const loginForm = document.getElementById("loginForm");
   if (loginForm) loginForm.addEventListener("submit", handleLoginSubmit);
+
+  // Inizializza il toggle della password
+  initPasswordToggle();
+}
+
+// Funzione per inizializzare il toggle della password
+function initPasswordToggle() {
+  const togglePassword = document.getElementById("togglePassword");
+  const passwordInput = document.getElementById("password");
+
+  if (togglePassword && passwordInput) {
+    togglePassword.addEventListener("click", function () {
+      // Cambia il tipo di input tra "password" e "text"
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+
+      // Cambia l'icona tra "eye" e "eye-slash"
+      this.classList.toggle("fa-eye");
+      this.classList.toggle("fa-eye-slash");
+    });
+  }
 }
 
 // Gestisce il login
@@ -109,7 +130,7 @@ function setAbstractBackground() {
 
 // Funzioni di utilità
 const getRandomNumber = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1)) + min,
+  Math.floor(Math.random() * (max - min + 1)) + min,
   getRandomColor = () =>
     `rgb(${getRandomNumber(0, 255)}, ${getRandomNumber(
       0,
