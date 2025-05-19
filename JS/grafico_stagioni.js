@@ -93,7 +93,7 @@ function createDoughnutConfig(doughnutData) {
 }
 
 const getDoughnutContext = () =>
-    document.getElementById("doughnut-chart").getContext("2d"),
+  document.getElementById("doughnut-chart").getContext("2d"),
   createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
     labels
       .map(
@@ -114,9 +114,9 @@ const getDoughnutContext = () =>
       )
       .join(""),
   updateStampa = (stampa) =>
-    (document.getElementById(
-      "stampa"
-    ).innerHTML = `<div class="container">${stampa}</div>`);
+  (document.getElementById(
+    "stampa"
+  ).innerHTML = `<div class="container">${stampa}</div>`);
 
 function renderDataListPaginated(
   labels,

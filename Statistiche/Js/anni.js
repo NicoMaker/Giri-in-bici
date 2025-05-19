@@ -25,17 +25,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function renderChart(mesi, chilometri, colors, year) {
   const chartData = {
-      labels: mesi,
-      datasets: [
-        {
-          label: `km mensili`,
-          backgroundColor: colors,
-          borderColor: "black",
-          borderWidth: 1,
-          data: chilometri,
-        },
-      ],
-    },
+    labels: mesi,
+    datasets: [
+      {
+        label: `km mensili`,
+        backgroundColor: colors,
+        borderColor: "black",
+        borderWidth: 1,
+        data: chilometri,
+      },
+    ],
+  },
     chartConfig = {
       type: "bar",
       data: chartData,

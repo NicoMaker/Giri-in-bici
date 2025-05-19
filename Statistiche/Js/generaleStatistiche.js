@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await fetchJSON(mainData.statistics[year]);
         return data
           ? {
-              year: data.year,
-              km: Object.values(data.data).reduce((sum, val) => sum + val, 0),
-              numberOfRaces: data.numberOfRaces,
-              monthlyData: data.data,
-            }
+            year: data.year,
+            km: Object.values(data.data).reduce((sum, val) => sum + val, 0),
+            numberOfRaces: data.numberOfRaces,
+            monthlyData: data.data,
+          }
           : null;
       })
     );
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const renderSummary = (totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth) =>
-      (document.getElementById("totale").innerHTML = `
+  (document.getElementById("totale").innerHTML = `
       <a href="Statistiche/History/Statistiche_Totali.html">
         <div class="colore">
             <p>Totale km ${totaleKm} <img src="Icons/traguardo.png"></p>

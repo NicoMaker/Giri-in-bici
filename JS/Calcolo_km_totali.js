@@ -41,7 +41,7 @@ const fetchJSON = (url) => fetch(url).then((response) => response.json()),
   calcolaMediaPeriodo = (totaleKm, periodi) =>
     periodi > 0 ? (totaleKm / periodi).toFixed(2) : "N/A",
   StampaDati = (totaleKm, mediaKm, avgPeriod) =>
-    (document.getElementById("km").innerHTML = `
+  (document.getElementById("km").innerHTML = `
     <div class="colore">
       <p class="misuracolore">Totale km ${totaleKm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
       <p class="misuracolore">km medi per giro ${mediaKm}</p>
