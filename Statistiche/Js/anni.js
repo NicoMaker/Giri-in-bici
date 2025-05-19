@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       chilometri = Object.values(data),
       totale = chilometri.reduce((acc, curr) => acc + curr, 0),
       percentuali = calculatePercentuali(chilometri, totale),
-      kmMediPerCorsa = calculateKmMedi(totale, corse),
-      kmMediPerMese = calculateKmMedi(totale, mesi.length);
+      kmMediPerCorsa = calculatekmMedi(totale, corse),
+      kmMediPerMese = calculatekmMedi(totale, mesi.length);
 
     renderChart(mesi, chilometri, colors, year);
     renderDataTable(mesi, chilometri, percentuali);
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 }),
   (calculatePercentuali = (chilometri, totale) =>
     chilometri.map((km) => ((km / totale) * 100).toFixed(2))),
-  (calculateKmMedi = (totale, divider) => (totale / divider).toFixed(2));
+  (calculatekmMedi = (totale, divider) => (totale / divider).toFixed(2));
 
 function renderChart(mesi, chilometri, colors, year) {
   const chartData = {

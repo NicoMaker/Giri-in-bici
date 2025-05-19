@@ -23,13 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const appendRowToTable = (tableBody, row) => tableBody.appendChild(row);
 
   function calculateAndDisplayStats(data) {
-    const totalKm = data.reduce((total, row) => total + row.distance, 0),
+    const totalkm = data.reduce((total, row) => total + row.distance, 0),
       totalRaces = data.length,
-      mediaValue = (totalKm / totalRaces).toFixed(2),
+      mediaValue = (totalkm / totalRaces).toFixed(2),
       kmElement = document.getElementById("km");
     kmElement.innerHTML = `
       <div class="colore">
-        <p> Totale km percorsi ${totalKm} 
+        <p> Totale km percorsi ${totalkm} 
           <img src="../../Icons/traguardo.png"> 
         </p>
         <p> Media km percorsi ${mediaValue} </p>

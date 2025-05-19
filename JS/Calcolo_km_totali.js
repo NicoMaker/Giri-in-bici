@@ -25,26 +25,26 @@ const fetchJSON = (url) => fetch(url).then((response) => response.json()),
 
     Promise.all(fetchPromises)
       .then(() => {
-        const totaleKm = calcolaTotaleKm(kmData),
-          mediaKm = calcolaMediaKm(totaleKm, totaleCorse),
-          avgPeriod = calcolaMediaPeriodo(totaleKm, totalePeriodi);
+        const totalekm = calcolaTotalekm(kmData),
+          mediakm = calcolaMediakm(totalekm, totaleCorse),
+          avgPeriod = calcolaMediaPeriodo(totalekm, totalePeriodi);
 
-        StampaDati(totaleKm, mediaKm, avgPeriod);
+        StampaDati(totalekm, mediakm, avgPeriod);
       })
       .catch((error) =>
         console.error(`Errore nel caricamento dei JSON: ${error}`)
       );
   },
-  calcolaTotaleKm = (kmData) => kmData.reduce((total, km) => total + km, 0),
-  calcolaMediaKm = (totaleKm, corse) =>
-    corse > 0 ? (totaleKm / corse).toFixed(2) : 0,
-  calcolaMediaPeriodo = (totaleKm, periodi) =>
-    periodi > 0 ? (totaleKm / periodi).toFixed(2) : "N/A",
-  StampaDati = (totaleKm, mediaKm, avgPeriod) =>
+  calcolaTotalekm = (kmData) => kmData.reduce((total, km) => total + km, 0),
+  calcolaMediakm = (totalekm, corse) =>
+    corse > 0 ? (totalekm / corse).toFixed(2) : 0,
+  calcolaMediaPeriodo = (totalekm, periodi) =>
+    periodi > 0 ? (totalekm / periodi).toFixed(2) : "N/A",
+  StampaDati = (totalekm, mediakm, avgPeriod) =>
   (document.getElementById("km").innerHTML = `
     <div class="colore">
-      <p class="misuracolore">Totale km ${totaleKm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
-      <p class="misuracolore">km medi per giro ${mediaKm}</p>
+      <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
+      <p class="misuracolore">km medi per giro ${mediakm}</p>
       <p class="misuracolore">Media km per Periodo ${avgPeriod} km</p>
     </div>
   `);

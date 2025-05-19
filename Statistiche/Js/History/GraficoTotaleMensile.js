@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getTotale = (chilometri) => chilometri.reduce((acc, curr) => acc + curr, 0),
     getPercentuali = (chilometri, totale) =>
       chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
-    getKmPerMese = (mesi, chilometri, mesiPercorsi) =>
+    getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
       mesi.map((mese, index) => {
         const kmMediMese =
           mesiPercorsi[index] > 0
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const totaleChilometri = getTotale(chilometriTotali),
             percentuali = getPercentuali(chilometriTotali, totaleChilometri),
-            kmPerMese = getKmPerMese(
+            kmPerMese = getkmPerMese(
               mesiOrdinati,
               chilometriTotali,
               mesiPercorsi

@@ -111,8 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <a href="Statistiche_Mensili.html">
         <div class="colore">
             <p>Totale km ${totale} <img src="../../Icons/traguardo.png"></p>
-            <p>Km medi percorsi ${kmMediPerCorsa}</p>
-            <p>Km medi per mese ${kmMediPerMese}</p>
+            <p>km medi percorsi ${kmMediPerCorsa}</p>
+            <p>km medi per mese ${kmMediPerMese}</p>
         </div>
       </a>`;
   }

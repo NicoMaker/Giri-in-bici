@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function calculateAverages(statistics) {
-    const totaleKm = statistics.reduce((acc, cur) => acc + cur.km, 0),
+    const totalekm = statistics.reduce((acc, cur) => acc + cur.km, 0),
       totaleCorse = statistics.reduce((acc, cur) => acc + cur.numberOfRaces, 0),
-      totalMonthlyKm = statistics.reduce(
+      totalMonthlykm = statistics.reduce(
         (acc, cur) =>
           acc +
           Object.values(cur.monthlyData).reduce((sum, val) => sum + val, 0),
@@ -55,14 +55,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       );
 
     return {
-      totaleKm,
-      avgKmPerRace: totaleCorse > 0 ? (totaleKm / totaleCorse).toFixed(2) : 0,
-      avgKmPerYear:
-        statistics.length > 0 ? (totaleKm / statistics.length).toFixed(2) : 0,
-      avgKmPerMonth:
-        totalMonths > 0 ? (totalMonthlyKm / totalMonths).toFixed(2) : 0,
+      totalekm,
+      avgkmPerRace: totaleCorse > 0 ? (totalekm / totaleCorse).toFixed(2) : 0,
+      avgkmPerYear:
+        statistics.length > 0 ? (totalekm / statistics.length).toFixed(2) : 0,
+      avgkmPerMonth:
+        totalMonths > 0 ? (totalMonthlykm / totalMonths).toFixed(2) : 0,
       avgValues: statistics.map((entry) =>
-        ((entry.km / totaleKm) * 100).toFixed(2)
+        ((entry.km / totalekm) * 100).toFixed(2)
       ),
     };
   }
@@ -134,14 +134,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   };
 
-  const renderSummary = (totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth) =>
+  const renderSummary = (totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth) =>
   (document.getElementById("totale").innerHTML = `
       <a href="Statistiche/History/Statistiche_Totali.html">
         <div class="colore">
-            <p>Totale km ${totaleKm} <img src="Icons/traguardo.png"></p>
-            <p>km medi per giro ${avgKmPerRace}</p>
-            <p>Km medi per anno ${avgKmPerYear}</p>
-            <p>Km medi per mese ${avgKmPerMonth}</p>
+            <p>Totale km ${totalekm} <img src="Icons/traguardo.png"></p>
+            <p>km medi per giro ${avgkmPerRace}</p>
+            <p>km medi per anno ${avgkmPerYear}</p>
+            <p>km medi per mese ${avgkmPerMonth}</p>
         </div>
       </a>`),
     renderChart = (labels, data, colors) => {
@@ -155,14 +155,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (mainData) {
     const { colors } = mainData,
-      { totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth, avgValues } =
+      { totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth, avgValues } =
         calculateAverages(statistics),
       labels = statistics.map((entry) => `km ${entry.year}`),
       values = statistics.map((entry) => entry.km),
       itemsPerPage = 2;
 
     renderChart(labels, values, colors);
-    renderSummary(totaleKm, avgKmPerRace, avgKmPerYear, avgKmPerMonth);
+    renderSummary(totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth);
     renderStampa(statistics, avgValues, itemsPerPage, 1);
   } else console.error("Nessun dato ricevuto");
 });
