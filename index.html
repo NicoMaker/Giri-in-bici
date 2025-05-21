@@ -12,7 +12,7 @@
   <meta name="generator" content="HTML, CSS, JavaScript" />
   <meta name="description" content="Nel seguente sito si vedono le mie corse in bici divise per stagione" />
 
-  <title>Pagina di Login Giri In Bici</title>
+  <title>Giri In Bici - Accedi</title>
   <link rel="stylesheet" type="text/css" href="Login/StyleLogin.css" />
   <link rel="icon" href="Img/logo.jpg" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -24,6 +24,9 @@
 
   <div class="container" id="container">
     <div class="login-card">
+      <div class="card-decoration"></div>
+      <div class="card-decoration-2"></div>
+
       <div class="logo-container">
         <div class="logo-circle">
           <img src="Img/logo.jpg" alt="Logo Giri in Bici" id="logo" />
@@ -37,21 +40,24 @@
         <div class="form-group">
           <div class="input-icon">
             <i class="fas fa-user"></i>
-            <input type="text" id="username" required placeholder="Username" />
+            <input type="text" id="username" required placeholder="Username" aria-label="Username" />
+            <span class="input-focus-effect"></span>
           </div>
         </div>
 
         <div class="form-group">
           <div class="input-icon">
             <i class="fas fa-lock"></i>
-            <input type="password" id="password" required placeholder="Password" />
-            <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+            <input type="password" id="password" required placeholder="Password" aria-label="Password" />
+            <i class="fas fa-eye toggle-password" id="togglePassword" aria-label="Mostra/nascondi password"></i>
+            <span class="input-focus-effect"></span>
           </div>
         </div>
 
         <button type="submit" class="login-btn">
           <span>Accedi</span>
           <i class="fas fa-arrow-right"></i>
+          <div class="btn-ripple"></div>
         </button>
       </form>
 
