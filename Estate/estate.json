@@ -10,5 +10,5 @@
     "2023": "Estate/Periodi/Json/2023.json",
     "2024": "Estate/Periodi/Json/2024.json"
   },
-  "colors": ["yellow", "orange", "red", "purple", "#ff0060"]
+  "colors": ["yellow", "orange", "red", "purple", "#ff0060", "turquoise"]
 }
