@@ -50,7 +50,7 @@ const generateFooter = () => {
                 <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
                     <span style="font-size: 1.5rem;">🚴‍♂️</span>
                     <div>
-                        <div>&copy; 30 Maggio 2020 - ${day} ${month} ${year}</div>
+                        <div style = "color : #4facfe;">&copy; 30 Maggio 2020 - ${day} ${month} ${year}</div>
                         <div style="margin-top: 0.5rem; font-weight: 600; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
                             Nico Maker Giri in Bici
                         </div>
