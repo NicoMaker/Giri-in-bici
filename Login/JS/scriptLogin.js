@@ -239,7 +239,7 @@ function showNotification(message, type) {
 // Carica gli utenti dal file JSON
 async function loadUsers() {
   try {
-    const response = await fetch("Login/users.json");
+    const response = await fetch("Login/JS/users.json");
     if (!response.ok) throw new Error("Errore nel caricamento del file JSON.");
 
     const data = await response.json();
