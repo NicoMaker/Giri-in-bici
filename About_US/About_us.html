@@ -3,107 +3,146 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Informazioni</title>
-  <link rel="stylesheet" href="StyleAbout.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informazioni - Giri in Bici</title>
   <link rel="icon" href="../Icons/informazioni.png" type="image/png">
-  
-  <!-- Caricamento del mermaid.js per il grafico -->
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Mermaid.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.4.0/mermaid.min.js"></script>
-  <script src="../JS/mermaid.js"></script>
-  <script src="../JS/scriptinfo.js" defer></script>
+
+
+  <link rel="stylesheet" href="StyleAbout.css">
 </head>
 
 <body>
-  <br />
-  <a href="../Giri.html">
-    <img class="Bandiera-FVG" src="../Img/logo.jpg" alt="Logo Giri" />
-  </a>
-  
-  <div class="container">
-    <h1 class="titolo">Informazioni Come Muoversi nel Sito</h1>
-    
-    <p>
-      <button class="Icons">
-        <a class="colore_apertura" href="../Giri.html">
-          <img src="../Icons/freccia.png" alt="Freccia di ritorno" />
-        </a>
-      </button>
-    </p>
-    
-    <br />
-    <div class="mermaid">
-      graph TD;
-        A[<a href="../Giri.html" target="_blank">Home</a>] -->
-        Estate[<a href="../Estate.html" target="_blank">Estate</a>] 
-        Estate --> B2020[<a href="../Estate/Periodi/2020.html" target="_blank">2020</a>]
-        Estate --> B2021[<a href="../Estate/Periodi/2021.html" target="_blank">2021</a>]
-        Estate --> B2022[<a href="../Estate/Periodi/2022.html" target="_blank">2022</a>]
-        Estate --> B2023[<a href="../Estate/Periodi/2023.html" target="_blank">2023</a>]
-        Estate --> B2024[<a href="../Estate/Periodi/2024.html" target="_blank">2024</a>]
-        
-        A --> Primavera[<a href="../Primavera.html" target="_blank">Primavera</a>] 
-        Primavera --> C2021[<a href="../Primavera/Periodi/2021.html" target="_blank">2021</a>]
-        Primavera --> C2022[<a href="../Primavera/Periodi/2022.html" target="_blank">2022</a>]
-        Primavera --> C2023[<a href="../Primavera/Periodi/2023.html" target="_blank">2023</a>]
-        Primavera --> C2024[<a href="../Primavera/Periodi/2024.html" target="_blank">2024</a>]
-        Primavera --> C2025[<a href="../Primavera/Periodi/2025.html" target="_blank">2025</a>]
-        
-        A --> AI[<a href="../Autunno_Inverno.html" target="_blank">Autunno - Inverno</a>] 
-        AI --> D2020_2021[<a href="../Autunno_Inverno/Periodi/2020-2021.html" target="_blank">2020-2021</a>]
-        AI --> D2021_2022[<a href="../Autunno_Inverno/Periodi/2021-2022.html" target="_blank">2021-2022</a>]
-        AI --> D2022_2023[<a href="../Autunno_Inverno/Periodi/2022-2023.html" target="_blank">2022-2023</a>]
-        AI --> D2023_2024[<a href="../Autunno_Inverno/Periodi/2023-2024.html" target="_blank">2023-2024</a>]
-        AI --> D2024_2025[<a href="../Autunno_Inverno/Periodi/2024-2025.html" target="_blank">2024-2025</a>]
-        
-        A --> Bici[<a href="../Bici/Bici.html" target="_blank">Bici</a>]
-        A --> Statistiche[<a href="../Statistiche.html" target="_blank">Statistiche</a>] 
-        Statistiche --> History 
-        History --> GraficoTotale[<a href="../Statistiche/History/Statistiche_Totali.html" target="_blank">Statistiche Totali</a>]
-        History --> GraficoMensile[<a href="../Statistiche/History/Statistiche_Mensili.html" target="_blank">Statistiche Mensili</a>]
-        History --> GraficoAnnuale[<a href="../Statistiche/History/StoricoMensile.html" target="_blank">Storico Mensile</a>]
-        
-        Statistiche --> Anni 
-        Anni --> Anno2020[<a href="../Statistiche/Anni/2020.html" target="_blank">2020</a>]
-        Anni --> Anno2021[<a href="../Statistiche/Anni/2021.html" target="_blank">2021</a>]
-        Anni --> Anno2022[<a href="../Statistiche/Anni/2022.html" target="_blank">2022</a>]
-        Anni --> Anno2023[<a href="../Statistiche/Anni/2023.html" target="_blank">2023</a>]
-        Anni --> Anno2024[<a href="../Statistiche/Anni/2024.html" target="_blank">2024</a>]
-        Anni --> Anno2025[<a href="../Statistiche/Anni/2025.html" target="_blank">2025</a>]
-        
-        Statistiche --> GraficoStagioni[<a href="../Statistiche/stagioni.html" target="_blank">Statistiche Stagioni</a>]
-    </div>
-    
-    <br />
-    <br />
-    <table>
-      <tr>
-        <th class="colore">Nome Partecipante</th>
-        <th class="colore">Avatar</th>
-      </tr>
-      <tr>
-        <td>Nico Maker</td>
-        <td>
-          <a href="https://www.komoot.com/it-it/user/1372754001803" target="_blank" rel="noopener noreferrer">
-            <img class="immagine_avatar" src="Img/AvatarNM.jpg" alt="Avatar Nico Maker" />
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>Jacoreds</td>
-        <td>
-          <a href="https://www.komoot.com/it-it/user/1381372752571" target="_blank" rel="noopener noreferrer">
-            <img class="immagine_avatar" src="Img/AvatarJR.png" alt="Avatar Jacoreds" />
-          </a>
-        </td>
-      </tr>
-    </table>
+  <!-- Animated Background -->
+  <div class="bg-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
   </div>
-  
-  <br />
-  <br />
-  <br />
-  <br />
-  <div id="info"></div>
+
+  <!-- Back Button -->
+  <a href="../Giri.html" class="back-btn" title="Torna alla Home">
+    ←
+  </a>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="../Giri.html">
+      <img class="logo" src="../Img/logo.jpg" alt="Logo Giri in Bici" />
+    </a>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <h1 class="main-title fade-in">Come Muoversi nel Sito</h1>
+
+    <!-- Site Map Section -->
+    <div class="sitemap-card fade-in">
+      <h2 class="section-title">Mappa del Sito</h2>
+      <div class="mermaid-container">
+        <div class="mermaid-loading" id="mermaid-loading">
+          <div class="spinner"></div>
+          Caricamento mappa del sito...
+        </div>
+        <div class="mermaid" id="sitemap-diagram">
+          graph TD;
+          A[<a href="../Giri.html" target="_blank">🏠 Home</a>] -->
+          Estate[<a href="../Estate.html" target="_blank">🌞 Estate</a>]
+          Estate --> B2020[<a href="../Estate/Periodi/2020.html" target="_blank">2020</a>]
+          Estate --> B2021[<a href="../Estate/Periodi/2021.html" target="_blank">2021</a>]
+          Estate --> B2022[<a href="../Estate/Periodi/2022.html" target="_blank">2022</a>]
+          Estate --> B2023[<a href="../Estate/Periodi/2023.html" target="_blank">2023</a>]
+          Estate --> B2024[<a href="../Estate/Periodi/2024.html" target="_blank">2024</a>]
+
+          A --> Primavera[<a href="../Primavera.html" target="_blank">🌸 Primavera</a>]
+          Primavera --> C2021[<a href="../Primavera/Periodi/2021.html" target="_blank">2021</a>]
+          Primavera --> C2022[<a href="../Primavera/Periodi/2022.html" target="_blank">2022</a>]
+          Primavera --> C2023[<a href="../Primavera/Periodi/2023.html" target="_blank">2023</a>]
+          Primavera --> C2024[<a href="../Primavera/Periodi/2024.html" target="_blank">2024</a>]
+          Primavera --> C2025[<a href="../Primavera/Periodi/2025.html" target="_blank">2025</a>]
+
+          A --> AI[<a href="../Autunno_Inverno.html" target="_blank">🍂❄️ Autunno-Inverno</a>]
+          AI --> D2020_2021[<a href="../Autunno_Inverno/Periodi/2020-2021.html" target="_blank">2020-2021</a>]
+          AI --> D2021_2022[<a href="../Autunno_Inverno/Periodi/2021-2022.html" target="_blank">2021-2022</a>]
+          AI --> D2022_2023[<a href="../Autunno_Inverno/Periodi/2022-2023.html" target="_blank">2022-2023</a>]
+          AI --> D2023_2024[<a href="../Autunno_Inverno/Periodi/2023-2024.html" target="_blank">2023-2024</a>]
+          AI --> D2024_2025[<a href="../Autunno_Inverno/Periodi/2024-2025.html" target="_blank">2024-2025</a>]
+
+          A --> Bici[<a href="../Bici/Bici.html" target="_blank">🚴 Bici</a>]
+          A --> Statistiche[<a href="../Statistiche.html" target="_blank">📊 Statistiche</a>]
+          Statistiche --> History[📈 Storia]
+          History --> GraficoTotale[<a href="../Statistiche/History/Statistiche_Totali.html" target="_blank">Statistiche
+            Totali</a>]
+          History --> GraficoMensile[<a href="../Statistiche/History/Statistiche_Mensili.html"
+            target="_blank">Statistiche Mensili</a>]
+          History --> GraficoAnnuale[<a href="../Statistiche/History/StoricoMensile.html" target="_blank">Storico
+            Mensile</a>]
+
+          Statistiche --> Anni[📅 Per Anno]
+          Anni --> Anno2020[<a href="../Statistiche/Anni/2020.html" target="_blank">2020</a>]
+          Anni --> Anno2021[<a href="../Statistiche/Anni/2021.html" target="_blank">2021</a>]
+          Anni --> Anno2022[<a href="../Statistiche/Anni/2022.html" target="_blank">2022</a>]
+          Anni --> Anno2023[<a href="../Statistiche/Anni/2023.html" target="_blank">2023</a>]
+          Anni --> Anno2024[<a href="../Statistiche/Anni/2024.html" target="_blank">2024</a>]
+          Anni --> Anno2025[<a href="../Statistiche/Anni/2025.html" target="_blank">2025</a>]
+
+          Statistiche --> GraficoStagioni[<a href="../Statistiche/stagioni.html" target="_blank">🗓️ Statistiche
+            Stagioni</a>]
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="team-section fade-in">
+      <h2 class="section-title">Il Nostro Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="avatar">
+            <img src="Img/AvatarNM.jpg" alt="Avatar Nico Maker" />
+          </div>
+          <h3 class="member-name">Nico Maker</h3>
+          <p>Creatore e sviluppatore del sito e appasionato di ciclismo</p>
+          <a href="https://www.komoot.com/it-it/user/1372754001803" target="_blank" rel="noopener noreferrer"
+            class="member-link">
+            Visualizza Profilo Komoot
+          </a>
+        </div>
+
+        <div class="team-member">
+          <div class="avatar">
+            <img src="Img/AvatarJR.png" alt="Avatar Jacoreds" />
+          </div>
+          <h3 class="member-name">Jacoreds</h3>
+          <p>Compagno di avventure ciclistiche</p>
+          <a href="https://www.komoot.com/it-it/user/1381372752571" target="_blank" rel="noopener noreferrer"
+            class="member-link">
+            Visualizza Profilo Komoot
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content" id="footer-content">
+      <!-- Content will be inserted by JavaScript -->
+    </div>
+  </footer>
+  <script src="script.js"></script>
 </body>
 
 </html>
