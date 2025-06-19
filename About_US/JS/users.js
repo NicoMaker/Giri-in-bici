@@ -1,4 +1,7 @@
 /**
+ * Team Manager - Gestisce la sezione team dinamicamente da JSON 
+ */
+/**
  * Team Manager - Gestisce la sezione team dinamicamente da JSON
  */
 class TeamManager {
@@ -55,23 +58,25 @@ class TeamManager {
 
     /**
      * Crea la griglia dei membri del team
+     * Usa solo i dati necessari per il team dalla sezione users
      */
     createTeamGrid() {
-        return this.data.team.map(member => this.createTeamMemberCard(member)).join('');
+        return this.data.users.map(user => this.createTeamMemberCard(user)).join('');
     }
 
     /**
      * Crea una card per un membro del team
+     * Estrae solo name, description, avatar, komootUrl dai dati completi
      */
-    createTeamMemberCard(member) {
+    createTeamMemberCard(user) {
         return `
             <div class="team-member">
                 <div class="avatar">
-                    <img src="Img/${member.avatar}" alt="Avatar ${member.name}" />
+                    <img src="Img/${user.avatar}" alt="Avatar ${user.name}" />
                 </div>
-                <h3 class="member-name">${member.name}</h3>
-                <p>${member.description}</p>
-                <a href="${member.komootUrl}" target="_blank" rel="noopener noreferrer" class="member-link">
+                <h3 class="member-name">${user.name}</h3>
+                <p>${user.description}</p>
+                <a href="${user.komootUrl}" target="_blank" rel="noopener noreferrer" class="member-link">
                     Visualizza Profilo Komoot
                 </a>
             </div>
@@ -95,26 +100,10 @@ class TeamManager {
             });
         });
     }
-
-    /**
-     * Restituisce i dati degli utenti per il sistema di login
-     */
-    getUsers() {
-        return this.data ? this.data.users : [];
-    }
-
-    /**
-     * Trova un utente per username
-     */
-    findUser(username) {
-        return this.data?.users.find(user => user.username === username);
-    }
 }
 
 // Inizializzazione quando il DOM è carico
 document.addEventListener('DOMContentLoaded', () => {
     const teamManager = new TeamManager();
-    // Rendi l'istanza globalmente accessibile per il sistema di login
-    window.teamManager = teamManager;
     teamManager.init();
 });

@@ -166,15 +166,18 @@ async function handleLoginSubmit(event) {
       await loadAppData();
     }
 
-    // Verifica le credenziali
+    // Verifica le credenziali - usa solo username dai dati completi
     const user = appData.users.find(u => u.username === username);
     const expectedPassword = generatePassword();
-
+    
     setTimeout(() => {
       if (user && password === expectedPassword) {
-        // Salva i dati dell'utente per la sessione
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
-
+        // Salva solo i dati necessari per la sessione
+        sessionStorage.setItem('currentUser', JSON.stringify({
+          username: user.username,
+          name: user.name
+        }));
+        
         showNotification("✅ Accesso riuscito! Reindirizzamento...", "success");
         setTimeout(() => {
           window.location.href = "Giri.html";
