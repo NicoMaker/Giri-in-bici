@@ -15,6 +15,10 @@
       "avatar": "AvatarJR.png",
       "komootUrl": "https://www.komoot.com/it-it/user/1381372752571",
       "visibleInTeam": true
+    },
+    {
+     "username": "Salvo",
+     "visibleInTeam": false 
     }
   ]
 }
