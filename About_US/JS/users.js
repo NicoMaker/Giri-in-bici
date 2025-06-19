@@ -2,9 +2,9 @@
  * Team Manager - Gestisce la sezione team dinamicamente da JSON
  */
 class TeamManager {
-    constructor(jsonPath = 'JS/Utenti.json') {
+    constructor(jsonPath = 'JS/Users.json') {
         this.jsonPath = jsonPath;
-        this.teamData = null;
+        this.data = null;
     }
 
     /**
@@ -12,7 +12,7 @@ class TeamManager {
      */
     async init() {
         try {
-            await this.loadTeamData();
+            await this.loadData();
             this.renderTeamSection();
             this.initializeAnimations();
         } catch (error) {
@@ -21,18 +21,17 @@ class TeamManager {
     }
 
     /**
-     * Carica i dati del team dal file JSON
+     * Carica tutti i dati dal file JSON unificato
      */
-    async loadTeamData() {
+    async loadData() {
         try {
             const response = await fetch(this.jsonPath);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const data = await response.json();
-            this.teamData = data.team;
+            this.data = await response.json();
         } catch (error) {
-            console.error('Errore durante il caricamento dei dati del team:', error);
+            console.error('Errore durante il caricamento dei dati:', error);
             throw error;
         }
     }
@@ -58,7 +57,7 @@ class TeamManager {
      * Crea la griglia dei membri del team
      */
     createTeamGrid() {
-        return this.teamData.map(member => this.createTeamMemberCard(member)).join('');
+        return this.data.team.map(member => this.createTeamMemberCard(member)).join('');
     }
 
     /**
@@ -96,10 +95,26 @@ class TeamManager {
             });
         });
     }
+
+    /**
+     * Restituisce i dati degli utenti per il sistema di login
+     */
+    getUsers() {
+        return this.data ? this.data.users : [];
+    }
+
+    /**
+     * Trova un utente per username
+     */
+    findUser(username) {
+        return this.data?.users.find(user => user.username === username);
+    }
 }
 
 // Inizializzazione quando il DOM è carico
 document.addEventListener('DOMContentLoaded', () => {
     const teamManager = new TeamManager();
+    // Rendi l'istanza globalmente accessibile per il sistema di login
+    window.teamManager = teamManager;
     teamManager.init();
 });

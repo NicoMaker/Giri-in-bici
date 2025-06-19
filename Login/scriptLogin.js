@@ -6,6 +6,22 @@ document.addEventListener("DOMContentLoaded", function () {
   initParticlesJS();
 });
 
+// Variabile globale per i dati
+let appData = null;
+
+// Carica i dati centralizzati
+async function loadAppData() {
+  try {
+    const response = await fetch("../About_US/JS/Users.json");
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    appData = await response.json();
+    return appData;
+  } catch (error) {
+    console.error("Errore nel caricamento dei dati:", error);
+    throw error;
+  }
+}
+
 // Inizializza il banner dei cookie
 function initCookieBanner() {
   const cookieBanner = document.getElementById("cookie-banner"),
@@ -45,6 +61,17 @@ document.head.insertAdjacentHTML('beforeend', `
       to {
         transform: translateY(100px);
         opacity: 0;
+      }
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
       }
     }
   </style>
@@ -134,13 +161,20 @@ async function handleLoginSubmit(event) {
   loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifica...';
 
   try {
-    const users = await loadUsers();
-    const user = users.find(
-      (u) => u.username === username && u.password === password
-    );
+    // Carica i dati se non sono già stati caricati
+    if (!appData) {
+      await loadAppData();
+    }
+
+    // Verifica le credenziali
+    const user = appData.users.find(u => u.username === username);
+    const expectedPassword = generatePassword();
 
     setTimeout(() => {
-      if (user) {
+      if (user && password === expectedPassword) {
+        // Salva i dati dell'utente per la sessione
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
+
         showNotification("✅ Accesso riuscito! Reindirizzamento...", "success");
         setTimeout(() => {
           window.location.href = "Giri.html";
@@ -158,6 +192,7 @@ async function handleLoginSubmit(event) {
       }
     }, 800); // Simula un breve ritardo per il controllo
   } catch (error) {
+    console.error("Errore durante l'accesso:", error);
     showNotification("❌ Errore durante l'accesso. Riprova più tardi.", "error");
     loginBtn.textContent = originalText;
   }
@@ -177,80 +212,67 @@ function showNotification(message, type) {
   notification.textContent = message;
 
   // Aggiungi stili CSS per la notifica
-  document.head.insertAdjacentHTML('beforeend', `
-    <style>
-      .notification {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 12px 20px;
-        border-radius: 8px;
-        color: white;
-        font-weight: 500;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 1000;
-        animation: notificationAppear 0.3s forwards, notificationDisappear 0.3s forwards 3s;
-      }
-      
-      @keyframes notificationAppear {
-        from { opacity: 0; transform: translate(-50%, -20px); }
-        to { opacity: 1; transform: translate(-50%, 0); }
-      }
-      
-      @keyframes notificationDisappear {
-        from { opacity: 1; transform: translate(-50%, 0); }
-        to { opacity: 0; transform: translate(-50%, -20px); }
-      }
-      
-      .notification.success {
-        background-color: #06d6a0;
-      }
-      
-      .notification.error {
-        background-color: #ef476f;
-      }
-      
-      .notification.warning {
-        background-color: #ffd166;
-        color: #333;
-      }
-      
-      .shake {
-        animation: shake 0.5s;
-      }
-      
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-        20%, 40%, 60%, 80% { transform: translateX(5px); }
-      }
-    </style>
-  `);
+  if (!document.querySelector('style[data-notification-style]')) {
+    document.head.insertAdjacentHTML('beforeend', `
+      <style data-notification-style>
+        .notification {
+          position: fixed;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 12px 20px;
+          border-radius: 8px;
+          color: white;
+          font-weight: 500;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          z-index: 1000;
+          animation: notificationAppear 0.3s forwards, notificationDisappear 0.3s forwards 3s;
+        }
+        
+        @keyframes notificationAppear {
+          from { opacity: 0; transform: translate(-50%, -20px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
+        }
+        
+        @keyframes notificationDisappear {
+          from { opacity: 1; transform: translate(-50%, 0); }
+          to { opacity: 0; transform: translate(-50%, -20px); }
+        }
+        
+        .notification.success {
+          background-color: #06d6a0;
+        }
+        
+        .notification.error {
+          background-color: #ef476f;
+        }
+        
+        .notification.warning {
+          background-color: #ffd166;
+          color: #333;
+        }
+        
+        .shake {
+          animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+          20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+      </style>
+    `);
+  }
 
   document.body.appendChild(notification);
 
   // Rimuovi la notifica dopo 3.5 secondi
   setTimeout(() => {
-    notification.remove();
+    if (notification.parentNode) {
+      notification.remove();
+    }
   }, 3500);
-}
-
-// Carica gli utenti dal file JSON
-async function loadUsers() {
-  try {
-    const response = await fetch("Login/JS/users.json");
-    if (!response.ok) throw new Error("Errore nel caricamento del file JSON.");
-
-    const data = await response.json();
-    return data.users.map((user) => ({
-      username: user.username,
-      password: generatePassword(),
-    }));
-  } catch (error) {
-    console.error(`Errore nel caricamento utenti: ${error}`);
-    return [];
-  }
 }
 
 // Genera una password basata sulla data
@@ -293,10 +315,35 @@ function initRippleEffect() {
       if (!this.querySelector('.btn-ripple')) {
         ripple.classList.add('btn-ripple');
         this.appendChild(ripple);
+
+        // Aggiungi stili per il ripple se non esistono
+        if (!document.querySelector('style[data-ripple-style]')) {
+          document.head.insertAdjacentHTML('beforeend', `
+            <style data-ripple-style>
+              .btn-ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                pointer-events: none;
+              }
+              
+              @keyframes ripple {
+                to {
+                  transform: scale(4);
+                  opacity: 0;
+                }
+              }
+            </style>
+          `);
+        }
       }
 
-      ripple.style.left = `${e.offsetX}px`;
-      ripple.style.top = `${e.offsetY}px`;
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = `${e.offsetX - size / 2}px`;
+      ripple.style.top = `${e.offsetY - size / 2}px`;
       ripple.style.animation = 'none';
 
       // Trigger reflow
@@ -420,15 +467,24 @@ function initParticlesJS() {
 
 // Funzioni di utilità
 const getRandomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min,
-  getRandomColor = (opacity = 1) =>
-    `rgba(${getRandomNumber(0, 255)}, ${getRandomNumber(
-      0,
-      255
-    )}, ${getRandomNumber(0, 255)}, ${opacity})`,
-  hideElement = (element) => {
-    if (element) element.style.display = "none";
-  },
-  showElement = (element) => {
-    if (element) element.style.display = "block";
-  };
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+const getRandomColor = (opacity = 1) =>
+  `rgba(${getRandomNumber(0, 255)}, ${getRandomNumber(0, 255)}, ${getRandomNumber(0, 255)}, ${opacity})`;
+
+const hideElement = (element) => {
+  if (element) element.style.display = "none";
+};
+
+const showElement = (element) => {
+  if (element) element.style.display = "block";
+};
+
+// Funzione per ottenere l'utente corrente (utile per altre pagine)
+function getCurrentUser() {
+  const userData = sessionStorage.getItem('currentUser');
+  return userData ? JSON.parse(userData) : null;
+}
+
+// Rendi la funzione globalmente accessibile
+window.getCurrentUser = getCurrentUser;

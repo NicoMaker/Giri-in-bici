@@ -8,9 +8,21 @@
     },
     {
       "name": "Jacoreds",
-      "description": "Compagno di avventure ciclistiche <br>",
+      "description": "Compagno di avventure ciclistiche",
       "avatar": "AvatarJR.png",
       "komootUrl": "https://www.komoot.com/it-it/user/1381372752571"
+    }
+  ],
+  "users": [
+    { 
+      "username": "NicoMaker",
+      "name": "Nico Maker",
+      "avatar": "AvatarNM.jpg"
+    }, 
+    { 
+      "username": "Jacoreds",
+      "name": "Jacoreds",
+      "avatar": "AvatarJR.png"
     }
   ]
 }
