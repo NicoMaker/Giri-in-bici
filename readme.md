@@ -102,7 +102,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 1. **Nome Utente**
 
-   - **Percorso:** [`About_USJS/Users.json`](About_USJS/Users.json)
+   - **Percorso:** [`About_US/JS/Users.json`](About_US/JS/Users.json)
 
 2. **Password Giornaliera**
    - Formato della password: `Giri DD/MM/YYYY`
