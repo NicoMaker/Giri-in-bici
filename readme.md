@@ -1,4 +1,4 @@
-# 📋 Aggiornamenti e Manutenzione 
+# 📋 Aggiornamenti e Manutenzione d
 
 Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per mantenere il sito sempre aggiornato. È pensata per essere semplice e comprensibile, anche per chi non ha esperienza di programmazione.
 
