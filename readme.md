@@ -137,7 +137,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ---
 
-## 💻 Linguaggi Utilizzati
+## 💻 Tecnologie Utilizzate
 
 <p align="left">
   <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank" rel="noreferrer">
