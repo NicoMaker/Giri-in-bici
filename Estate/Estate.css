@@ -35,7 +35,7 @@ tr {
 
 /**colore riga alternato pari**/
 tr:nth-child(2n) {
-  background-color: #ff8800;
+  background-color: orange;
 }
 
 /**colore riga alternato dispari**/
