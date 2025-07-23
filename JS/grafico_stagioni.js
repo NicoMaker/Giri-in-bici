@@ -128,10 +128,14 @@ function renderDataListPaginated(
   avgValues
 ) {
   const itemsPerPage = 2;
-  let currentPage = 1;
+  const storageKey = `page_${season}`;
+  let currentPage = parseInt(localStorage.getItem(storageKey)) || 1;
   const totalPages = Math.ceil(labels.length / itemsPerPage);
 
   function updatePage() {
+    // Save the current page in localStorage
+    localStorage.setItem(storageKey, currentPage);
+
     const startIndex = (currentPage - 1) * itemsPerPage,
       endIndex = startIndex + itemsPerPage,
       currentLabels = labels.slice(startIndex, endIndex),
@@ -157,7 +161,7 @@ function renderDataListPaginated(
       <button id="prev">
         <span class="material-icons">arrow_back</span>
       </button>
-      <span id="page-indicator">Dati  della Stagione: <br/> ${season} ${currentPage} di ${totalPages}</span>
+      <span id="page-indicator">Dati della Stagione: <br/> ${season} ${currentPage} di ${totalPages}</span>
       <button id="next">
         <span class="material-icons">arrow_forward</span>
       </button>
@@ -174,8 +178,15 @@ function renderDataListPaginated(
     });
   }
 
+  // If out of range (e.g. after JSON updates), reset to 1
+  if (currentPage > totalPages) {
+    currentPage = 1;
+    localStorage.setItem(storageKey, currentPage);
+  }
+
   updatePage();
 }
+
 
 const renderDataList = (
   labels,
