@@ -318,3 +318,11 @@ const hideElement = (element) => {
 const showElement = (element) => {
   if (element) element.style.display = "block";
 };
+
+
+// 🔁 Rileva ritorno tramite tasto "Indietro" e forza un reload completo
+window.addEventListener("pageshow", function (event) {
+  if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+    location.reload();
+  }
+});
