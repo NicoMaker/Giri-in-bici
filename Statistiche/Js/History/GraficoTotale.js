@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function calculateAverages(totale, corse, chilometri, mesi) {
     return {
       percentuali: mesi.map((mese, index) =>
-        ((chilometri[index] / totale) * 100).toFixed(2)
+        ((chilometri[index] / totale) * 100).toFixed(2),
       ),
       kmMediPerCorsa: corse > 0 ? (totale / corse).toFixed(2) : 0,
       kmMediPerMese: mesi.length > 0 ? (totale / mesi.length).toFixed(2) : 0,
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${chilometri[index]}</td>
           <td>${percentuali[index]} %</td>
           <td>${anni[index]}</td>
-      </tr>`
+      </tr>`,
         )
         .join("")}
     `;
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
               yearlyData.push(yearData);
               totaleCorse += yearData.numberOfRaces || 0;
             }
-          })
+          }),
         );
 
         await Promise.all(fetchPromises);
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             totale,
             totaleCorse,
             chilometri,
-            mesi
+            mesi,
           ),
           chartConfig = createChartConfig(mesi, chilometri, anni),
           ctx = document.getElementById("line-chart").getContext("2d");

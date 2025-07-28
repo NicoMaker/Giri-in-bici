@@ -60,7 +60,9 @@ function revokeCookies() {
   cookieBanner.style.animation = "slideIn 0.5s forwards";
 }
 
-document.head.insertAdjacentHTML('beforeend', `
+document.head.insertAdjacentHTML(
+  "beforeend",
+  `
   <style>
     @keyframes slideOut {
       to { transform: translateY(100px); opacity: 0; }
@@ -70,7 +72,8 @@ document.head.insertAdjacentHTML('beforeend', `
       to { transform: translateY(0); opacity: 1; }
     }
   </style>
-`);
+`,
+);
 
 function initLoginSystem() {
   const loginForm = document.getElementById("loginForm");
@@ -82,7 +85,7 @@ function initLoginSystem() {
     document.getElementById("password").value = "";
 
     // ❌ Cancella eventuali sessioni residue
-    sessionStorage.removeItem('currentUser');
+    sessionStorage.removeItem("currentUser");
   }
 
   initPasswordToggle();
@@ -90,15 +93,17 @@ function initLoginSystem() {
 }
 
 function initInputFocusEffects() {
-  const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
-  inputs.forEach(input => {
-    input.addEventListener('focus', function () {
-      const icon = this.parentElement.querySelector('i:not(.toggle-password)');
-      if (icon) icon.style.color = 'var(--accent-color)';
+  const inputs = document.querySelectorAll(
+    'input[type="text"], input[type="password"]',
+  );
+  inputs.forEach((input) => {
+    input.addEventListener("focus", function () {
+      const icon = this.parentElement.querySelector("i:not(.toggle-password)");
+      if (icon) icon.style.color = "var(--accent-color)";
     });
-    input.addEventListener('blur', function () {
-      const icon = this.parentElement.querySelector('i:not(.toggle-password)');
-      if (icon) icon.style.color = 'var(--primary-color)';
+    input.addEventListener("blur", function () {
+      const icon = this.parentElement.querySelector("i:not(.toggle-password)");
+      if (icon) icon.style.color = "var(--primary-color)";
     });
   });
 }
@@ -109,12 +114,15 @@ function initPasswordToggle() {
 
   if (togglePassword && passwordInput) {
     togglePassword.addEventListener("click", function () {
-      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      const type =
+        passwordInput.getAttribute("type") === "password" ? "text" : "password";
       passwordInput.setAttribute("type", type);
       this.classList.toggle("fa-eye");
       this.classList.toggle("fa-eye-slash");
       this.style.transform = "rotate(180deg)";
-      setTimeout(() => { this.style.transform = "rotate(0deg)"; }, 300);
+      setTimeout(() => {
+        this.style.transform = "rotate(0deg)";
+      }, 300);
     });
   }
 }
@@ -139,7 +147,7 @@ async function handleLoginSubmit(event) {
       await loadAppData();
     }
 
-    const user = appData.users.find(u => u.username === username);
+    const user = appData.users.find((u) => u.username === username);
     const expectedPassword = generatePassword();
 
     setTimeout(() => {
@@ -158,7 +166,10 @@ async function handleLoginSubmit(event) {
     }, 800);
   } catch (error) {
     console.error("Errore durante l'accesso:", error);
-    showNotification("❌ Errore durante l'accesso. Riprova più tardi.", "error");
+    showNotification(
+      "❌ Errore durante l'accesso. Riprova più tardi.",
+      "error",
+    );
     loginBtn.textContent = originalText;
   }
 }
@@ -171,8 +182,10 @@ function showNotification(message, type) {
   notification.className = `notification ${type}`;
   notification.textContent = message;
 
-  if (!document.querySelector('style[data-notification-style]')) {
-    document.head.insertAdjacentHTML('beforeend', `
+  if (!document.querySelector("style[data-notification-style]")) {
+    document.head.insertAdjacentHTML(
+      "beforeend",
+      `
       <style data-notification-style>
         .notification {
           position: fixed;
@@ -206,17 +219,20 @@ function showNotification(message, type) {
           20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
       </style>
-    `);
+    `,
+    );
   }
 
   document.body.appendChild(notification);
-  setTimeout(() => { if (notification.parentNode) notification.remove(); }, 3500);
+  setTimeout(() => {
+    if (notification.parentNode) notification.remove();
+  }, 3500);
 }
 
 function generatePassword() {
   const date = new Date(),
-    day = String(date.getDate()).padStart(2, '0'),
-    month = String(date.getMonth() + 1).padStart(2, '0'),
+    day = String(date.getDate()).padStart(2, "0"),
+    month = String(date.getMonth() + 1).padStart(2, "0"),
     year = date.getFullYear();
   return `Giri ${day}/${month}/${year}`;
 }
@@ -238,15 +254,20 @@ function setAbstractBackground() {
 }
 
 function initRippleEffect() {
-  const buttons = document.querySelectorAll('.login-btn, #accept-cookies, .revoke-button');
-  buttons.forEach(button => {
-    button.addEventListener('click', function (e) {
-      const ripple = this.querySelector('.btn-ripple') || document.createElement('span');
-      if (!this.querySelector('.btn-ripple')) {
-        ripple.classList.add('btn-ripple');
+  const buttons = document.querySelectorAll(
+    ".login-btn, #accept-cookies, .revoke-button",
+  );
+  buttons.forEach((button) => {
+    button.addEventListener("click", function (e) {
+      const ripple =
+        this.querySelector(".btn-ripple") || document.createElement("span");
+      if (!this.querySelector(".btn-ripple")) {
+        ripple.classList.add("btn-ripple");
         this.appendChild(ripple);
-        if (!document.querySelector('style[data-ripple-style]')) {
-          document.head.insertAdjacentHTML('beforeend', `
+        if (!document.querySelector("style[data-ripple-style]")) {
+          document.head.insertAdjacentHTML(
+            "beforeend",
+            `
             <style data-ripple-style>
               .btn-ripple {
                 position: absolute;
@@ -259,47 +280,60 @@ function initRippleEffect() {
                 to { transform: scale(4); opacity: 0; }
               }
             </style>
-          `);
+          `,
+          );
         }
       }
 
       const rect = this.getBoundingClientRect();
       const size = Math.max(rect.width, rect.height);
-      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.width = ripple.style.height = size + "px";
       ripple.style.left = `${e.offsetX - size / 2}px`;
       ripple.style.top = `${e.offsetY - size / 2}px`;
-      ripple.style.animation = 'none';
+      ripple.style.animation = "none";
       void ripple.offsetWidth;
-      ripple.style.animation = 'ripple 0.6s linear';
+      ripple.style.animation = "ripple 0.6s linear";
     });
   });
 }
 
 function initParticlesJS() {
   if (window.particlesJS) {
-    particlesJS('particles-js', {
+    particlesJS("particles-js", {
       particles: {
         number: { value: 80, density: { enable: true, value_area: 800 } },
         color: { value: "#4361ee" },
         shape: { type: "circle" },
         opacity: { value: 0.5, random: true },
         size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 150, color: "#4361ee", opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 2, direction: "none", random: true, out_mode: "out" }
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#4361ee",
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          random: true,
+          out_mode: "out",
+        },
       },
       interactivity: {
         detect_on: "canvas",
         events: {
           onhover: { enable: true, mode: "grab" },
           onclick: { enable: true, mode: "push" },
-          resize: true
+          resize: true,
         },
         modes: {
           grab: { distance: 140, line_linked: { opacity: 1 } },
-          push: { particles_nb: 4 }
-        }
+          push: { particles_nb: 4 },
+        },
       },
-      retina_detect: true
+      retina_detect: true,
     });
   }
 }
@@ -319,10 +353,12 @@ const showElement = (element) => {
   if (element) element.style.display = "block";
 };
 
-
 // 🔁 Rileva ritorno tramite tasto "Indietro" e forza un reload completo
 window.addEventListener("pageshow", function (event) {
-  if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+  if (
+    event.persisted ||
+    performance.getEntriesByType("navigation")[0].type === "back_forward"
+  ) {
     location.reload();
   }
 });

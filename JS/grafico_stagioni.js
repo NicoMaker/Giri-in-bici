@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         image,
         season,
         cssclass,
-        avgValues
+        avgValues,
       );
       renderSeasonSummary(season, totale, labels.length, totalRaces);
       adjustContainerLayout(cssclass);
@@ -38,11 +38,11 @@ async function fetchSubPeriods(subPeriods) {
       .then((response) => response.json())
       .then((data) => {
         const totalDistance = calculateTotal(
-          data.map((entry) => entry.distance)
+          data.map((entry) => entry.distance),
         );
         const numberOfRaces = data.length;
         return { [period]: { totalDistance, numberOfRaces } };
-      })
+      }),
   );
 
   const results = await Promise.all(promises);
@@ -54,7 +54,7 @@ const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
     labels.reduce((acc, label) => acc + data[label].numberOfRaces, 0),
   calculateAverageValues = (labels, data, totale) =>
     labels.map((label) =>
-      ((data[label].totalDistance / totale) * 100).toFixed(2)
+      ((data[label].totalDistance / totale) * 100).toFixed(2),
     );
 
 function renderDoughnutChart(labels, values, colors, season) {
@@ -93,7 +93,7 @@ function createDoughnutConfig(doughnutData) {
 }
 
 const getDoughnutContext = () =>
-  document.getElementById("doughnut-chart").getContext("2d"),
+    document.getElementById("doughnut-chart").getContext("2d"),
   createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
     labels
       .map(
@@ -110,13 +110,12 @@ const getDoughnutContext = () =>
           </p>
         </a>
       </div>
-    `
+    `,
       )
       .join(""),
   updateStampa = (stampa) =>
-  (document.getElementById(
-    "stampa"
-  ).innerHTML = `<div class="container">${stampa}</div>`);
+    (document.getElementById("stampa").innerHTML =
+      `<div class="container">${stampa}</div>`);
 
 function renderDataListPaginated(
   labels,
@@ -125,7 +124,7 @@ function renderDataListPaginated(
   image,
   season,
   cssclass,
-  avgValues
+  avgValues,
 ) {
   const itemsPerPage = 2;
   const storageKey = `page_${season}`;
@@ -151,7 +150,7 @@ function renderDataListPaginated(
         image,
         season,
         cssclass,
-        currentAvgValues
+        currentAvgValues,
       );
 
     updateStampa(stampa);
@@ -187,7 +186,6 @@ function renderDataListPaginated(
   updatePage();
 }
 
-
 const renderDataList = (
   labels,
   data,
@@ -195,7 +193,7 @@ const renderDataList = (
   image,
   season,
   cssclass,
-  avgValues
+  avgValues,
 ) =>
   renderDataListPaginated(
     labels,
@@ -204,7 +202,7 @@ const renderDataList = (
     image,
     season,
     cssclass,
-    avgValues
+    avgValues,
   );
 
 function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {

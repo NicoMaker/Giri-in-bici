@@ -261,7 +261,9 @@ canvas {
   cursor: pointer; /* Cambia il cursore al passaggio */
   font-size: 30px; /* Dimensione del testo */
   padding: 10px 20px; /* Spaziatura interna */
-  transition: transform 0.3s, color 0.3s; /* Effetti di transizione */
+  transition:
+    transform 0.3s,
+    color 0.3s; /* Effetti di transizione */
 }
 
 #pagination button:hover {
@@ -275,7 +277,9 @@ canvas {
   content: ""; /* Contenuto vuoto per la freccia */
   font-size: 72px; /* Aumenta la dimensione delle frecce */
   display: inline-block;
-  transition: transform 0.3s, color 0.3s; /* Effetti di transizione */
+  transition:
+    transform 0.3s,
+    color 0.3s; /* Effetti di transizione */
 }
 
 #pagination .prev::before {
@@ -309,7 +313,9 @@ canvas {
   ); /* Sfondo gradiente per le icone */
   border-radius: 50%; /* Forma circolare */
   padding: 15px; /* Spaziatura interna */
-  transition: transform 0.3s, box-shadow 0.3s; /* Effetti al passaggio */
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s; /* Effetti al passaggio */
 }
 
 .material-icons:hover {

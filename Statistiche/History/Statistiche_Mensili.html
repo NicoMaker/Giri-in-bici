@@ -1,37 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <link rel="stylesheet" href="../Style_statistiche.css" />
+    <link rel="icon" href="../Logo_statistiche.jpg" type="image/jpg" />
+    <title>Statistiche Totali km per Mese</title>
 
-<head>
-  <link rel="stylesheet" href="../Style_statistiche.css" />
-  <link rel="icon" href="../Logo_statistiche.jpg" type="image/jpg" />
-  <title>Statistiche Totali km per Mese</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/History/GraficoTotaleMensile.js" defer></script>
+  </head>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../js/History/GraficoTotaleMensile.js" defer></script>
-</head>
+  <body>
+    <a href="../../Giri.html">
+      <img class="Bandiera-FVG" src="../../Img/logo.jpg" />
+    </a>
 
-<body>
-  <a href="../../Giri.html">
-    <img class="Bandiera-FVG" src="../../Img/logo.jpg" />
-  </a>
+    <p>
+      <button class="Icons">
+        <a class="colore_apertura" href="Statistiche_Totali.html">
+          <img src="../../Icons/freccia.png" />
+        </a>
+      </button>
+    </p>
 
-  <p>
-    <button class="Icons">
-      <a class="colore_apertura" href="Statistiche_Totali.html">
-        <img src="../../Icons/freccia.png" />
-      </a>
-    </button>
-  </p>
+    <h1 class="colore_apertura, Titolo">Statistiche Totali km per Mese</h1>
 
-  <h1 class="colore_apertura, Titolo">Statistiche Totali km per Mese</h1>
+    <table id="mesi"></table>
 
-  <table id="mesi"></table>
-
-  <br />
-  <canvas id="line-chart"></canvas>
-  <br />
-  <div id="totale"></div>
-  <br />
-</body>
-
+    <br />
+    <canvas id="line-chart"></canvas>
+    <br />
+    <div id="totale"></div>
+    <br />
+  </body>
 </html>

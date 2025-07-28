@@ -15,7 +15,7 @@ function menuHandler() {
     // Funzione per filtrare gli elementi
     get filteredItems() {
       return this.items.filter((i) =>
-        i.name.toLowerCase().startsWith(this.search.toLowerCase())
+        i.name.toLowerCase().startsWith(this.search.toLowerCase()),
       );
     },
   };

@@ -12,7 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function fetchData() {
-    const mainData = await fetchJSON("Statistiche/Js/History/JSON/Generale.json");
+    const mainData = await fetchJSON(
+      "Statistiche/Js/History/JSON/Generale.json",
+    );
     if (!mainData || !mainData.statistics) {
       console.error("Main data not available or statistics field missing");
       return null;
@@ -23,13 +25,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await fetchJSON(mainData.statistics[year]);
         return data
           ? {
-            year: data.year,
-            km: Object.values(data.data).reduce((sum, val) => sum + val, 0),
-            numberOfRaces: data.numberOfRaces,
-            monthlyData: data.data,
-          }
+              year: data.year,
+              km: Object.values(data.data).reduce((sum, val) => sum + val, 0),
+              numberOfRaces: data.numberOfRaces,
+              monthlyData: data.data,
+            }
           : null;
-      })
+      }),
     );
 
     return {
@@ -42,21 +44,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     const totalekm = statistics.reduce((acc, cur) => acc + cur.km, 0),
       totaleCorse = statistics.reduce((acc, cur) => acc + cur.numberOfRaces, 0),
       totalMonthlykm = statistics.reduce(
-        (acc, cur) => acc + Object.values(cur.monthlyData).reduce((sum, val) => sum + val, 0),
-        0
+        (acc, cur) =>
+          acc +
+          Object.values(cur.monthlyData).reduce((sum, val) => sum + val, 0),
+        0,
       ),
       totalMonths = statistics.reduce(
         (acc, cur) => acc + Object.keys(cur.monthlyData).length,
-        0
+        0,
       );
 
     return {
       totalekm,
       avgkmPerRace: totaleCorse > 0 ? (totalekm / totaleCorse).toFixed(2) : 0,
-      avgkmPerYear: statistics.length > 0 ? (totalekm / statistics.length).toFixed(2) : 0,
-      avgkmPerMonth: totalMonths > 0 ? (totalMonthlykm / totalMonths).toFixed(2) : 0,
+      avgkmPerYear:
+        statistics.length > 0 ? (totalekm / statistics.length).toFixed(2) : 0,
+      avgkmPerMonth:
+        totalMonths > 0 ? (totalMonthlykm / totalMonths).toFixed(2) : 0,
       avgValues: statistics.map((entry) =>
-        ((entry.km / totalekm) * 100).toFixed(2)
+        ((entry.km / totalekm) * 100).toFixed(2),
       ),
     };
   }
@@ -96,8 +102,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("stampa").innerHTML = `
       <div class="${containerClass}">
         ${currentStatistics
-        .map(
-          (entry, index) => `
+          .map(
+            (entry, index) => `
               <div class="Statistiche">
                 <a href="Statistiche/Anni/${entry.year}.html">
                   <img class="immaginestagione" src="Icons/Statistiche.png">
@@ -106,9 +112,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                   <p>${avgValues[startIndex + index]} %</p>
                 </a>
               </div>
-            `
-        )
-        .join("")}
+            `,
+          )
+          .join("")}
       </div>`;
 
     const pagination = document.getElementById("pagination");
@@ -134,7 +140,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const renderSummary = (totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth) =>
-  (document.getElementById("totale").innerHTML = `
+    (document.getElementById("totale").innerHTML = `
       <a href="Statistiche/History/Statistiche_Totali.html">
         <div class="colore">
           <p>Totale km ${totalekm} <img src="Icons/traguardo.png"></p>
@@ -146,7 +152,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const renderChart = (labels, data, colors) => {
     const doughnutConfig = createChartConfig(labels, data, colors);
-    const doughnutCtx = document.getElementById("doughnut-chart").getContext("2d");
+    const doughnutCtx = document
+      .getElementById("doughnut-chart")
+      .getContext("2d");
     new Chart(doughnutCtx, doughnutConfig);
   };
 
@@ -154,13 +162,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (mainData) {
     const { colors } = mainData;
-    const {
-      totalekm,
-      avgkmPerRace,
-      avgkmPerYear,
-      avgkmPerMonth,
-      avgValues,
-    } = calculateAverages(statistics);
+    const { totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth, avgValues } =
+      calculateAverages(statistics);
     const labels = statistics.map((entry) => `km ${entry.year}`);
     const values = statistics.map((entry) => entry.km);
     const itemsPerPage = 2;

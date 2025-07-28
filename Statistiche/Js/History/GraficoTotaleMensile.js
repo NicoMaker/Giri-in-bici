@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mesiOrdinati = [
-    "Gennaio",
-    "Febbraio",
-    "Marzo",
-    "Aprile",
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Ottobre",
-    "Novembre",
-    "Dicembre",
-  ],
+      "Gennaio",
+      "Febbraio",
+      "Marzo",
+      "Aprile",
+      "Maggio",
+      "Giugno",
+      "Luglio",
+      "Agosto",
+      "Settembre",
+      "Ottobre",
+      "Novembre",
+      "Dicembre",
+    ],
     getTotale = (chilometri) => chilometri.reduce((acc, curr) => acc + curr, 0),
     getPercentuali = (chilometri, totale) =>
       chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <td>${percentuali[index]} %</td>
         <td>${mesiPercorsi[index]}</td>
         <td>${kmMediMese}</td>
-      </tr>`
+      </tr>`,
         )
         .join("")}
     `,
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Object.keys(statistics.statistics).forEach((year) => {
         const filePath = statistics.statistics[year];
         allDataPromises.push(
-          fetch(filePath).then((response) => response.json())
+          fetch(filePath).then((response) => response.json()),
         );
       });
 
@@ -109,16 +109,16 @@ document.addEventListener("DOMContentLoaded", () => {
             kmPerMese = getkmPerMese(
               mesiOrdinati,
               chilometriTotali,
-              mesiPercorsi
+              mesiPercorsi,
             ),
             mediaComplessiva = getMediaComplessiva(
               totaleChilometri,
-              mesiOrdinati.length
+              mesiOrdinati.length,
             ),
             chartConfig = createChartConfig(
               mesiOrdinati,
               chilometriTotali,
-              coloriGlobali
+              coloriGlobali,
             ),
             ctx = document.getElementById("line-chart").getContext("2d");
 
@@ -128,11 +128,11 @@ document.addEventListener("DOMContentLoaded", () => {
             kmPerMese,
             chilometriTotali,
             percentuali,
-            mesiPercorsi
+            mesiPercorsi,
           );
           document.getElementById("totale").innerHTML = createSummaryHTML(
             totaleChilometri,
-            mediaComplessiva
+            mediaComplessiva,
           );
         })
         .catch((error) => {
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch((error) => {
       console.error(
-        `Errore nel caricamento del file statistics.json: ${error}`
+        `Errore nel caricamento del file statistics.json: ${error}`,
       );
     });
 });

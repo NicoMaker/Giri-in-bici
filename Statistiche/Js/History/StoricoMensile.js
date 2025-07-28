@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(yearInfo.data)
           .then((response) => response.json())
           .then((yearData) =>
-            createDataset(yearData, yearInfo.label, yearInfo.color)
-          )
+            createDataset(yearData, yearInfo.label, yearInfo.color),
+          ),
       );
 
       return Promise.all(datasetsPromises);

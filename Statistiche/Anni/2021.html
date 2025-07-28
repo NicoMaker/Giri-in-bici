@@ -1,38 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <link rel="stylesheet" href="../Style_statistiche.css" />
+    <link rel="icon" href="Img/2021.jpg" type="image/jpg" />
+    <title>Statistiche 2021</title>
 
-<head>
-  <link rel="stylesheet" href="../Style_statistiche.css" />
-  <link rel="icon" href="Img/2021.jpg" type="image/jpg" />
-  <title>Statistiche 2021</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../Js/anni.js" defer></script>
+  </head>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../Js/anni.js" defer></script>
-</head>
+  <body>
+    <div id="json" link="../Js/anni/2021.json"></div>
+    <a href="../../Giri.html">
+      <img class="Bandiera-FVG" src="../../Img/logo.jpg" />
+    </a>
 
-<body>
-  <div id="json" link="../Js/anni/2021.json"></div>
-  <a href="../../Giri.html">
-    <img class="Bandiera-FVG" src="../../Img/logo.jpg" />
-  </a>
+    <p>
+      <button class="Icons">
+        <a class="colore_apertura" href="../../Statistiche.html">
+          <img src="../../Icons/freccia.png" />
+        </a>
+      </button>
+    </p>
 
-  <p>
-    <button class="Icons">
-      <a class="colore_apertura" href="../../Statistiche.html">
-        <img src="../../Icons/freccia.png" />
-      </a>
-    </button>
-  </p>
+    <h1 class="colore_apertura, Titolo">Statistiche 2021</h1>
 
-  <h1 class="colore_apertura, Titolo">Statistiche 2021</h1>
+    <table id="mesi"></table>
 
-  <table id="mesi"></table>
+    <br />
+    <canvas id="bar-chart"></canvas>
+    <br />
 
-  <br />
-  <canvas id="bar-chart"></canvas>
-  <br />
-
-  <div id="totale"></div>
-</body>
-
+    <div id="totale"></div>
+  </body>
 </html>

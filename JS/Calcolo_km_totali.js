@@ -19,8 +19,8 @@ const fetchJSON = (url) => fetch(url).then((response) => response.json()),
         fetchJSON(url).then((periodData) => {
           totaleCorse += processPeriodData(periodData, kmData);
           totalePeriodi++;
-        })
-      )
+        }),
+      ),
     );
 
     Promise.all(fetchPromises)
@@ -32,7 +32,7 @@ const fetchJSON = (url) => fetch(url).then((response) => response.json()),
         StampaDati(totalekm, mediakm, avgPeriod);
       })
       .catch((error) =>
-        console.error(`Errore nel caricamento dei JSON: ${error}`)
+        console.error(`Errore nel caricamento dei JSON: ${error}`),
       );
   },
   calcolaTotalekm = (kmData) => kmData.reduce((total, km) => total + km, 0),
@@ -41,7 +41,7 @@ const fetchJSON = (url) => fetch(url).then((response) => response.json()),
   calcolaMediaPeriodo = (totalekm, periodi) =>
     periodi > 0 ? (totalekm / periodi).toFixed(2) : "N/A",
   StampaDati = (totalekm, mediakm, avgPeriod) =>
-  (document.getElementById("km").innerHTML = `
+    (document.getElementById("km").innerHTML = `
     <div class="colore">
       <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
       <p class="misuracolore">km medi per giro ${mediakm}</p>
@@ -51,5 +51,5 @@ const fetchJSON = (url) => fetch(url).then((response) => response.json()),
 fetchJSON("Statistiche/Js/anni/stagioni.json")
   .then(processSeasons)
   .catch((error) =>
-    console.error(`Errore nel caricamento del file principale: ${error}`)
+    console.error(`Errore nel caricamento del file principale: ${error}`),
   );

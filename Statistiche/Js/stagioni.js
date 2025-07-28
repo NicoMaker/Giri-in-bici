@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const sumData = (data) => {
-    if (!Array.isArray(data)) {
-      console.error("Data is not an array:", data);
-      return 0;
-    }
-    return data.reduce((total, km) => total + (km.distance || 0), 0);
-  },
+      if (!Array.isArray(data)) {
+        console.error("Data is not an array:", data);
+        return 0;
+      }
+      return data.reduce((total, km) => total + (km.distance || 0), 0);
+    },
     renderStampa = (data) => `
       <div class="primavera">
           <a href="../Primavera.html">
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     estateData,
     primaveraData,
     autunnoInvernoData,
-    numPeriodi
+    numPeriodi,
   ) {
     const estate = sumData(estateData),
       primavera = sumData(primaveraData),
@@ -83,39 +83,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const numPeriodi = {
-      estate: 0,
-      primavera: 0,
-      autunno_inverno: 0,
-    },
+        estate: 0,
+        primavera: 0,
+        autunno_inverno: 0,
+      },
       seasonDataPromises = seasonsData.seasons.map(async (season) => {
         const periodCount = Object.keys(season.subPeriods).length;
-        (numPeriodi[season.name.toLowerCase().replace("-", "_")] = periodCount),
+        ((numPeriodi[season.name.toLowerCase().replace("-", "_")] =
+          periodCount),
           (subPeriodsData = await Promise.all(
             Object.entries(season.subPeriods).map(async ([year, subFile]) => {
               const correctedPath = subFile.startsWith("../")
-                ? subFile
-                : `../${subFile}`,
+                  ? subFile
+                  : `../${subFile}`,
                 subData = await fetchData(correctedPath);
               return subData ? subData : [];
-            })
-          ));
+            }),
+          )));
 
         return {
           name: season.name,
           data: subPeriodsData.flat(),
         };
       }),
-      [estateData, primaveraData, autunnoInvernoData] = await Promise.all(
-        seasonDataPromises
-      );
+      [estateData, primaveraData, autunnoInvernoData] =
+        await Promise.all(seasonDataPromises);
 
     if (estateData && primaveraData && autunnoInvernoData) {
       const calculatedData = calculateData(
-        estateData.data,
-        primaveraData.data,
-        autunnoInvernoData.data,
-        numPeriodi
-      ),
+          estateData.data,
+          primaveraData.data,
+          autunnoInvernoData.data,
+          numPeriodi,
+        ),
         labels = ["Primavera", "Estate", "Autunno-Inverno"],
         chartData = [calculatedData.p, calculatedData.e, calculatedData.ai],
         ctx = document.getElementById("doughnut-chart").getContext("2d");

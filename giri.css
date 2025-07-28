@@ -581,7 +581,9 @@ input {
   border-radius: 50%; /* Forma circolare */
   border: none; /* Nessun bordo */
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizioni fluide */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease; /* Transizioni fluide */
   overflow: hidden; /* Nasconde il contenuto eccedente */
   border: 2px solid #e63946; /* Bordo rosso */
 }

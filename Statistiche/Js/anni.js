@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
+(document.addEventListener("DOMContentLoaded", async () => {
   const jsonUrl = document.getElementById("json").getAttribute("link");
 
   try {
@@ -21,21 +21,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 }),
   (calculatePercentuali = (chilometri, totale) =>
     chilometri.map((km) => ((km / totale) * 100).toFixed(2))),
-  (calculatekmMedi = (totale, divider) => (totale / divider).toFixed(2));
+  (calculatekmMedi = (totale, divider) => (totale / divider).toFixed(2)));
 
 function renderChart(mesi, chilometri, colors, year) {
   const chartData = {
-    labels: mesi,
-    datasets: [
-      {
-        label: `km mensili`,
-        backgroundColor: colors,
-        borderColor: "black",
-        borderWidth: 1,
-        data: chilometri,
-      },
-    ],
-  },
+      labels: mesi,
+      datasets: [
+        {
+          label: `km mensili`,
+          backgroundColor: colors,
+          borderColor: "black",
+          borderWidth: 1,
+          data: chilometri,
+        },
+      ],
+    },
     chartConfig = {
       type: "bar",
       data: chartData,
@@ -65,7 +65,7 @@ function renderDataTable(mesi, chilometri, percentuali) {
           <td>${mese}</td>
           <td>${chilometri[index]}</td>
           <td>${percentuali[index]} %</td>
-        </tr>`
+        </tr>`,
       )
       .join("")}
   `;
