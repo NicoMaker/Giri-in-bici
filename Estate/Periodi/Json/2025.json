@@ -24,9 +24,14 @@
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2543955281?share_token=apr1nL4rJvCYTt9zbp01AXWT7rKuj8LfgAsnh1eCLmDFoH7O8g&ref=wtd\" target=\"_blank\">Cisterna + Anello Codroipo</a>",
     "distance": 56
   },
-    {
+  {
     "date": "04 Settembre",
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2550841834?share_token=abt5P2slVEdEHWEgG3gig3o83g1jsAP2eo3OqrqBoHJ8qduVrE&ref=wtd\" target=\"_blank\">Ariis + Mortegliano</a>",
     "distance": 59
+  },
+  {
+    "date": "08 Settembre",
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/2562162843?share_token=a1jOmuP6DjjhS1Cs7UlZbZXdG54GXE2mk5u7VwN9Hdi9QVSjMC&ref=wtd\" target=\"_blank\">San Daniele + Moruzzo</a>",
+    "distance": 79
   }
 ]
