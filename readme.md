@@ -8,15 +8,15 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ### Stagione
 
-1. **Aggiorna il file JSON per la stagione Estate 2025**
-   - **Percorso:** [`Estate/Periodi/Json/2025.json`](Estate/Periodi/Json/2025.json)
+1. **Aggiorna il file JSON per la stagione Autunno/Inverno 2025-2026**
+   - **Percorso:** [`Autunno-Inverno/Periodi/Json/2025-2026.json`](Autunno_Inverno/Periodi/Json/2025-2026.json)
    - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.
 
 ### Statistiche
 
 1. **Aggiorna il file JSON per le statistiche per il 2025**
    - **Percorso:** [`Statistiche/Js/anni/2025.json`](Statistiche/Js/anni/2025.json)
-   - Modifica i chilometri (km) di Settembre aggiorna il numero totale di corse dell'anno.
+   - Modifica i chilometri (km) di Ottobre aggiorna il numero totale di corse dell'anno.
 
 ---
 
@@ -50,16 +50,6 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 4. **Sistemazione file Stagioni.json**
    - **Stagione Generale** 🌸🌞🍁❄️: [`Statistiche/Js/anni/stagioni.json`](Statistiche/Js/anni/stagioni.json)  
      Aggiungi il percorso del nuovo anno nella stagione interessata all’interno dei vari sottoperiodi.
-
-5. **Aggiornamento del Grafico in Base alla Stagione**
-
-   **Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
-
-   a seconda della stagione, devi aggiornare il percorso del nuovo file relativo al grafico nel codice HTML:
-   - Primavera 🌸: Inserisci il nuovo percorso per il grafico della Primavera.
-   - Estate 🌞: Inserisci il nuovo percorso per il grafico dell'Estate.
-   - Autunno-Inverno 🍁❄️: Inserisci il nuovo percorso per il grafico dell'Autunno-Inverno.
-
 ---
 
 ## 📅 Creazione di un Nuovo Anno
@@ -80,10 +70,6 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
    - **Grafico Totale:** Modifica [`Statistiche/Js/History/JSON/GraficoTotale.json`](Statistiche/Js/History/JSON/GraficoTotale.json), aggiungendo il percorso corretto del nuovo anno.
    - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`Statistiche/Js/History/JSON/StoricoMensile.json`](Statistiche/Js/History/JSON/StoricoMensile.json), specificando il percorso corretto.
 
-5. Aggiornamento del Grafico in Base alla Stagione e all'Anno
-
-   **Grafico**: [`About_US/About_us.html`](About_US/About_us.html)
-   - Statistica Anno: Dentro la parte delle Statistiche Anno, aggiorni il nuovo percorso del grafico per il nuovo anno nel file HTML.
 
 ---
 
