@@ -100,40 +100,40 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
     }
 
-    const renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {
-        const storageKey = "page_statistiche";
-        const lastPage = Math.ceil(statistics.length / itemsPerPage);
+const renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {
+    const storageKey = "page_statistiche";
+    const lastPage = Math.ceil(statistics.length / itemsPerPage);
 
-        if (currentPage > lastPage) currentPage = 1;
+    if (currentPage > lastPage) currentPage = 1;
 
-        localStorage.setItem(storageKey, currentPage);
+    localStorage.setItem(storageKey, currentPage);
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const currentStatistics = statistics.slice(startIndex, endIndex);
-        const isOdd = currentStatistics.length === 1;
-        const containerClass = isOdd ? "container odd-items" : "container";
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentStatistics = statistics.slice(startIndex, endIndex);
+    const isOdd = currentStatistics.length === 1;
+    const containerClass = isOdd ? "container odd-items" : "container";
 
-        document.getElementById("stampa").innerHTML = `
+    document.getElementById("stampa").innerHTML = `
       <div class="${containerClass}">
         ${currentStatistics
-                .map(
-                    (entry, index) => `
+            .map(
+                (entry, index) => `
               <div class="Statistiche">
                 <a href="Statistiche/Anni/${entry.year}.html">
                   <img class="immaginestagione" src="Icons/Statistiche.png">
                   <p class="titoli">Statistiche ${entry.year}</p>
-                  <p>km totali ${entry.km} <img src="Icons/traguardo.png"></p>
-                  <p>${avgValues[startIndex + index]} %</p>
+                  <p>km totali ${formatNumberConditionally(entry.km)} <img src="Icons/traguardo.png"></p>
+                  <p>${formatNumberConditionally(parseFloat(avgValues[startIndex + index]))} %</p>
                 </a>
               </div>
-            `,
-                )
-                .join("")}
+            `
+            )
+            .join("")}
       </div>`;
 
-        const pagination = document.getElementById("pagination");
-        pagination.innerHTML = `
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = `
       <button id="prev">
         <span class="material-icons">arrow_back</span>
       </button>
@@ -143,16 +143,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       </button>
     `;
 
-        document.getElementById("prev").addEventListener("click", () => {
-            const newPage = currentPage === 1 ? lastPage : currentPage - 1;
-            renderStampa(statistics, avgValues, itemsPerPage, newPage);
-        });
+    document.getElementById("prev").addEventListener("click", () => {
+        const newPage = currentPage === 1 ? lastPage : currentPage - 1;
+        renderStampa(statistics, avgValues, itemsPerPage, newPage);
+    });
 
-        document.getElementById("next").addEventListener("click", () => {
-            const newPage = currentPage === lastPage ? 1 : currentPage + 1;
-            renderStampa(statistics, avgValues, itemsPerPage, newPage);
-        });
-    };
+    document.getElementById("next").addEventListener("click", () => {
+        const newPage = currentPage === lastPage ? 1 : currentPage + 1;
+        renderStampa(statistics, avgValues, itemsPerPage, newPage);
+    });
+};
 
     // renderSummary non ha bisogno di modifiche perché riceve già i valori formattati
     const renderSummary = (totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth) =>

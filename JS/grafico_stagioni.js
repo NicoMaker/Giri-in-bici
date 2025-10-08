@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         values = labels.map((label) => subPeriodData[label].totalDistance),
         totale = calculateTotal(values),
         totalRaces = calculateTotalRaces(labels, subPeriodData),
+        // Chiama la funzione aggiornata
         avgValues = calculateAverageValues(labels, subPeriodData, totale);
 
       renderDoughnutChart(labels, values, colors, season);
@@ -53,10 +54,19 @@ async function fetchSubPeriods(subPeriods) {
 const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
   calculateTotalRaces = (labels, data) =>
     labels.reduce((acc, label) => acc + data[label].numberOfRaces, 0),
+
+  // FUNZIONE AGGIORNATA: formatta le percentuali senza cifre decimali se il valore è intero
   calculateAverageValues = (labels, data, totale) =>
-    labels.map((label) =>
-      ((data[label].totalDistance / totale) * 100).toFixed(2),
-    );
+    labels.map((label) => {
+      // 1. Calcola il valore grezzo della percentuale
+      const rawPercentage = (data[label].totalDistance / totale) * 100;
+
+      // 2. Arrotonda il valore a due cifre decimali per la PRECISIONE
+      const precisePercentage = Math.round(rawPercentage * 100) / 100;
+
+      // 3. Applica la formattazione condizionale
+      return formatNumberConditionally(precisePercentage);
+    });
 
 function renderDoughnutChart(labels, values, colors, season) {
   const datasets = createDatasets(values, colors, season),
@@ -94,29 +104,29 @@ function createDoughnutConfig(doughnutData) {
 }
 
 const getDoughnutContext = () =>
-    document.getElementById("doughnut-chart").getContext("2d"),
+  document.getElementById("doughnut-chart").getContext("2d"),
   createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
     labels
       .map(
         (label, index) => `
-      <div class="${cssclass}contorno">
-        <a href="${path}/Periodi/${label}.html">
-          <img class="immaginestagione" src="Icons/${image}">
-          <p class="titoli">
-            ${season} ${label}
-            <p>Totale km ${data[label].totalDistance} 
-              <img src="Icons/traguardo.png">
-            </p> 
-            <p>${avgValues[index]} %</p>
-          </p>
-        </a>
-      </div>
-    `,
+      <div class="${cssclass}contorno">
+        <a href="${path}/Periodi/${label}.html">
+          <img class="immaginestagione" src="Icons/${image}">
+          <p class="titoli">
+            ${season} ${label}
+            <p>Totale km ${data[label].totalDistance} 
+              <img src="Icons/traguardo.png">
+            </p> 
+            <p>${avgValues[index]} %</p>
+          </p>
+        </a>
+      </div>
+    `,
       )
       .join(""),
   updateStampa = (stampa) =>
-    (document.getElementById("stampa").innerHTML =
-      `<div class="container">${stampa}</div>`);
+  (document.getElementById("stampa").innerHTML =
+    `<div class="container">${stampa}</div>`);
 
 function renderDataListPaginated(
   labels,
@@ -158,14 +168,14 @@ function renderDataListPaginated(
 
     const pagination = document.getElementById("pagination");
     pagination.innerHTML = `
-      <button id="prev">
-        <span class="material-icons">arrow_back</span>
-      </button>
-      <span id="page-indicator">Dati della Stagione: <br/> ${season} ${currentPage} di ${totalPages}</span>
-      <button id="next">
-        <span class="material-icons">arrow_forward</span>
-      </button>
-    `;
+      <button id="prev">
+        <span class="material-icons">arrow_back</span>
+      </button>
+      <span id="page-indicator">Dati della Stagione: <br/> ${season} ${currentPage} di ${totalPages}</span>
+      <button id="next">
+        <span class="material-icons">arrow_forward</span>
+      </button>
+    `;
 
     document.getElementById("prev").addEventListener("click", () => {
       currentPage = currentPage === 1 ? totalPages : currentPage - 1;
@@ -208,30 +218,30 @@ const renderDataList = (
 
 // NUOVA FUNZIONE DI UTILITÀ PER LA FORMATTAZIONE
 const formatNumberConditionally = (value) => {
-    // Se il valore è un intero (es. 10 o 10.0), lo mostra senza decimali
-    if (Number.isInteger(value)) {
-        return value.toString();
-    }
-    // Altrimenti, lo formatta con due decimali (es. 10.33)
-    return value.toFixed(2);
+  // Se il valore è un intero (es. 10 o 10.0), lo mostra senza decimali
+  if (Number.isInteger(value)) {
+    return value.toString();
+  }
+  // Altrimenti, lo formatta con due decimali (es. 10.33)
+  return value.toFixed(2);
 };
 
 function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
   // Calcolo dei valori grezzi
   const rawAvgSeason = totale / numberOfLabels;
   const rawAvgCorsa = totale / totalRaces;
-  
+
   // Applicazione della formattazione condizionale
   const avgseason = formatNumberConditionally(rawAvgSeason);
   const avgcorsa = formatNumberConditionally(rawAvgCorsa);
 
   const stampaseason = `
-      <div class="colore">
-        <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
-        <p>km medi per giro in ${season} ${avgcorsa} </p>
-        <p>media km per stagione ${avgseason} </p>
-      </div>
-    `;
+      <div class="colore">
+        <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
+        <p>km medi per giro in ${season} ${avgcorsa} </p>
+        <p>media km per stagione ${avgseason} </p>
+      </div>
+    `;
 
   document.getElementById("totale").innerHTML = stampaseason;
 }

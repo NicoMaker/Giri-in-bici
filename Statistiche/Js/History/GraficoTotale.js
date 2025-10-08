@@ -103,27 +103,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderChart = (config, ctx) => new Chart(ctx, config);
 
-  function createTable(mesi, chilometri, percentuali, anni) {
-    return `
-      <tr class="grassetto">
-        <th>Mese</th>
-        <th>km <img src="../../Icons/traguardo.png"></th>
-        <th>Percentuale sul totale</th>
-        <th>Anno</th>
-      </tr>
-      ${mesi
-        .map(
-          (mese, index) => `
-        <tr>
-          <td>${mese}</td>
-          <td>${chilometri[index]}</td>
-          <td>${percentuali[index]} %</td>
-          <td>${anni[index]}</td>
-        </tr>`,
-        )
-        .join("")}
-    `;
-  }
+function createTable(mesi, chilometri, percentuali, anni) {
+  return `
+    <tr class="grassetto">
+      <th>Mese</th>
+      <th>km <img src="../../Icons/traguardo.png"></th>
+      <th>Percentuale sul totale</th>
+      <th>Anno</th>
+    </tr>
+    ${mesi
+      .map(
+        (mese, index) => `
+      <tr>
+        <td>${mese}</td>
+        <td>${formatNumberConditionally(chilometri[index])}</td>
+        <td>${formatNumberConditionally(parseFloat(percentuali[index]))} %</td>
+        <td>${anni[index]}</td>
+      </tr>`,
+      )
+      .join("")}
+  `;
+}
 
   // createSummary non necessita di modifiche in quanto riceve i dati già formattati
   function createSummary(totale, kmMediPerCorsa, kmMediPerMese) {

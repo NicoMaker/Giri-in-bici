@@ -27,32 +27,43 @@ document.addEventListener("DOMContentLoaded", () => {
             return 0;
         }
         return data.reduce((total, km) => total + (km.distance || 0), 0);
-    },
-        renderStampa = (data) => `
-      <div class="primavera">
-          <a href="../Primavera.html">
-              <img class="immaginestagionestat" src="../Icons/primavera.png">
-              <p class="contornostagione misuracolore">Primavera</p>
-              <p class="misuracolore">km totali ${data.p} <img src="../Icons/traguardo.png"></p>
-              <p class="misuracolore">${data.avgp} %</p>
-          </a>
-      </div>
-      <div class="estate">
-          <a href="../Estate.html">
-              <img class="immaginestagionestatsx" src="../Icons/estate.png">
-              <p class="contornostagione misuracolore">Estate</p>
-              <p class="misuracolore">km totali ${data.e} <img src="../Icons/traguardo.png"></p>
-              <p class="misuracolore">${data.avge} %</p>
-          </a>
-      </div>
-      <div class="autunno_inverno">
-          <a href="../Autunno_Inverno.html">
-              <img class="immaginestagionestat" src="../Icons/inverno.png">
-              <p class="contornostagione misuracolore">Autunno - Inverno</p>
-              <p class="misuracolore">km totali ${data.ai} <img src="../Icons/traguardo.png"></p>
-              <p class="misuracolore">${data.avgai} %</p>
-          </a>
-      </div>`,
+    },renderStampa = (data) => `
+  <div class="primavera">
+      <a href="../Primavera.html">
+          <img class="immaginestagionestat" src="../Icons/primavera.png">
+          <p class="contornostagione misuracolore">Primavera</p>
+          <p class="misuracolore">
+              km totali ${formatNumberConditionally(data.p)} 
+              <img src="../Icons/traguardo.png">
+          </p>
+          <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgp))} %</p>
+      </a>
+  </div>
+
+  <div class="estate">
+      <a href="../Estate.html">
+          <img class="immaginestagionestatsx" src="../Icons/estate.png">
+          <p class="contornostagione misuracolore">Estate</p>
+          <p class="misuracolore">
+              km totali ${formatNumberConditionally(data.e)} 
+              <img src="../Icons/traguardo.png">
+          </p>
+          <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avge))} %</p>
+      </a>
+  </div>
+
+  <div class="autunno_inverno">
+      <a href="../Autunno_Inverno.html">
+          <img class="immaginestagionestat" src="../Icons/inverno.png">
+          <p class="contornostagione misuracolore">Autunno - Inverno</p>
+          <p class="misuracolore">
+              km totali ${formatNumberConditionally(data.ai)} 
+              <img src="../Icons/traguardo.png">
+          </p>
+          <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgai))} %</p>
+      </a>
+  </div>`,
+
         createStampat = (data) => `
       <div class="colore">
           <p class="misuracolore">Totale km ${data.totale} <img src="../Icons/traguardo.png"></p>

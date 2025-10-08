@@ -8,39 +8,60 @@ const formatNumberConditionally = (value) => {
     return value.toFixed(2);
 };
 
-// Modifica di calculatekmMedi per calcolare il valore grezzo (non formattato)
+// Funzione per calcolare il valore medio (grezzo, non formattato)
 const calculatekmMedi = (totale, divider) => totale / divider;
 
-(document.addEventListener("DOMContentLoaded", async () => {
+// Funzione per calcolare le percentuali con formattazione condizionale
+const calculatePercentuali = (chilometri, totale) =>
+    chilometri.map((km) => {
+        // 1. Calcola la percentuale grezza
+        const rawPercentage = (km / totale) * 100;
+
+        // 2. Arrotonda a due cifre decimali
+        const precisePercentage = Math.round(rawPercentage * 100) / 100;
+
+        // 3. Applica la formattazione condizionale
+        return formatNumberConditionally(precisePercentage);
+    });
+
+
+// Funzione principale (eseguita dopo il caricamento del DOM)
+document.addEventListener("DOMContentLoaded", async () => {
     const jsonUrl = document.getElementById("json").getAttribute("link");
 
     try {
-        const response = await fetch(jsonUrl),
-            jsonData = await response.json(),
-            { year, numberOfRaces: corse, data, colors } = jsonData,
-            mesi = Object.keys(data),
-            chilometri = Object.values(data),
-            totale = chilometri.reduce((acc, curr) => acc + curr, 0),
-            percentuali = calculatePercentuali(chilometri, totale);
+        const response = await fetch(jsonUrl);
+        const jsonData = await response.json();
 
-        // Calcolo dei valori medi grezzi
+        const { year, numberOfRaces: corse, data, colors } = jsonData;
+
+        const mesi = Object.keys(data);
+        const chilometri = Object.values(data);
+        const totale = chilometri.reduce((acc, curr) => acc + curr, 0);
+
+        // Calcolo percentuali con la funzione aggiornata
+        const percentuali = calculatePercentuali(chilometri, totale);
+
+        // Calcoli grezzi
         const rawKmMediPerCorsa = calculatekmMedi(totale, corse);
         const rawKmMediPerMese = calculatekmMedi(totale, mesi.length);
 
-        // Applicazione della formattazione
+        // Applicazione formattazione condizionale
         const kmMediPerCorsa = formatNumberConditionally(rawKmMediPerCorsa);
         const kmMediPerMese = formatNumberConditionally(rawKmMediPerMese);
 
+        // Render delle sezioni
         renderChart(mesi, chilometri, colors, year);
         renderDataTable(mesi, chilometri, percentuali);
-        renderSummary(totale, kmMediPerCorsa, kmMediPerMese); // Passa i valori formattati
-    } catch (error) {
-        console.error(`Error fetching or processing the JSON data:, ${error}`);
-    }
-}),
-    (calculatePercentuali = (chilometri, totale) =>
-        chilometri.map((km) => ((km / totale) * 100).toFixed(2))));
+        renderSummary(totale, kmMediPerCorsa, kmMediPerMese);
 
+    } catch (error) {
+        console.error(`Errore nel caricamento o elaborazione del JSON: ${error}`);
+    }
+});
+
+
+// --- FUNZIONI DI RENDER ---
 
 function renderChart(mesi, chilometri, colors, year) {
     const chartData = {
@@ -54,50 +75,50 @@ function renderChart(mesi, chilometri, colors, year) {
                 data: chilometri,
             },
         ],
-    },
-        chartConfig = {
-            type: "bar",
-            data: chartData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                    },
+    };
+
+    const chartConfig = {
+        type: "bar",
+        data: chartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
                 },
             },
         },
-        ctx = document.getElementById("bar-chart").getContext("2d");
+    };
+
+    const ctx = document.getElementById("bar-chart").getContext("2d");
     new Chart(ctx, chartConfig);
 }
 
 function renderDataTable(mesi, chilometri, percentuali) {
     const tabellaDati = `
-    <tr class="grassetto">
-      <th>Mese</th>
-      <th>km <img src="../../Icons/traguardo.png" alt="traguardo"></th>
-      <th>Percentuale sull'anno</th>
-    </tr>
-    ${mesi
-            .map(
-                (mese, index) => `
-        <tr>
-          <td>${mese}</td>
-          <td>${chilometri[index]}</td>
-          <td>${percentuali[index]} %</td>
-        </tr>`,
-            )
-            .join("")}
-  `;
+        <tr class="grassetto">
+            <th>Mese</th>
+            <th>km <img src="../../Icons/traguardo.png" alt="traguardo"></th>
+            <th>Percentuale sull'anno</th>
+        </tr>
+        ${mesi.map(
+            (mese, index) => `
+                <tr>
+                    <td>${mese}</td>
+                    <td>${chilometri[index]}</td>
+                    <td>${percentuali[index]} %</td>
+                </tr>`
+        ).join("")}
+    `;
     document.getElementById("mesi").innerHTML = tabellaDati;
 }
 
 function renderSummary(totale, kmMediPerCorsa, kmMediPerMese) {
     const stampat = `
-    <div class="colore">
-      <p>totale km ${totale} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
-      <p>km medi percorsi ${kmMediPerCorsa}</p>
-      <p>km medi per mese ${kmMediPerMese}</p>
-    </div>
-  `;
+        <div class="colore">
+            <p>Totale km: ${totale} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
+            <p>Km medi per corsa: ${kmMediPerCorsa}</p>
+            <p>Km medi per mese: ${kmMediPerMese}</p>
+        </div>
+    `;
     document.getElementById("totale").innerHTML = stampat;
 }
