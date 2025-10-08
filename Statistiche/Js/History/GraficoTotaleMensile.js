@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Funzione di utilità per la formattazione condizionale
+  const formatNumberConditionally = (value) => {
+    // Gestisce il caso in cui il valore sia nullo o indefinito prima della verifica
+    if (value === null || value === undefined) return "0"; 
+    // Se il valore è un intero (es. 10.0), lo mostra senza decimali
+    if (Number.isInteger(value)) {
+      return value.toString();
+    }
+    // Altrimenti, lo formatta con due decimali (es. 10.33)
+    return value.toFixed(2);
+  };
+
   const mesiOrdinati = [
       "Gennaio",
       "Febbraio",
@@ -16,15 +28,30 @@ document.addEventListener("DOMContentLoaded", () => {
     getTotale = (chilometri) => chilometri.reduce((acc, curr) => acc + curr, 0),
     getPercentuali = (chilometri, totale) =>
       chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
+
+    // --- FUNZIONE MODIFICATA: getkmPerMese ---
     getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
       mesi.map((mese, index) => {
-        const kmMediMese =
+        const rawkmMediMese =
           mesiPercorsi[index] > 0
-            ? (chilometri[index] / mesiPercorsi[index]).toFixed(2)
+            ? chilometri[index] / mesiPercorsi[index]
             : 0;
+
+        // Applica la formattazione condizionale
+        const kmMediMese = formatNumberConditionally(rawkmMediMese);
+        
         return { mese, kmMediMese };
       }),
-    getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
+    // --- FINE MODIFICA ---
+
+    // --- FUNZIONE MODIFICATA: getMediaComplessiva ---
+    getMediaComplessiva = (totale, length) => {
+      const rawMedia = length > 0 ? totale / length : 0;
+      // Applica la formattazione condizionale
+      return formatNumberConditionally(rawMedia);
+    },
+    // --- FINE MODIFICA ---
+
     createChartConfig = (labels, data, colori) => ({
       type: "bar",
       data: {
@@ -57,16 +84,17 @@ document.addEventListener("DOMContentLoaded", () => {
       ${kmPerMese
         .map(
           ({ mese, kmMediMese }, index) => `
-      <tr>
-        <td>${mese}</td>
-        <td>${chilometri[index]}</td>
-        <td>${percentuali[index]} %</td>
-        <td>${mesiPercorsi[index]}</td>
-        <td>${kmMediMese}</td>
-      </tr>`,
+        <tr>
+          <td>${mese}</td>
+          <td>${chilometri[index]}</td>
+          <td>${percentuali[index]} %</td>
+          <td>${mesiPercorsi[index]}</td>
+          <td>${kmMediMese}</td>
+        </tr>`,
         )
         .join("")}
     `,
+    // createSummaryHTML riceve già il valore formattato
     createSummaryHTML = (totale, mediaComplessiva) => `
       <a href="StoricoMensile.html">
         <div class="colore">
@@ -111,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
               chilometriTotali,
               mesiPercorsi,
             ),
+            // getMediaComplessiva ora restituisce un valore formattato
             mediaComplessiva = getMediaComplessiva(
               totaleChilometri,
               mesiOrdinati.length,

@@ -23,10 +23,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const appendRowToTable = (tableBody, row) => tableBody.appendChild(row);
 
   function calculateAndDisplayStats(data) {
-    const totalkm = data.reduce((total, row) => total + row.distance, 0),
-      totalRaces = data.length,
-      mediaValue = (totalkm / totalRaces).toFixed(2),
-      kmElement = document.getElementById("km");
+    const totalkm = data.reduce((total, row) => total + row.distance, 0);
+    const totalRaces = data.length;
+    // Calcola il valore grezzo della media
+    const rawMediaValue = totalkm / totalRaces;
+
+    let mediaValue;
+
+    // Controlla se il valore è un intero
+    if (Number.isInteger(rawMediaValue)) {
+      // Se è intero (es. 10.0), visualizza come intero (10)
+      mediaValue = rawMediaValue.toString();
+    } else {
+      // Se non è intero (es. 10.333), visualizza con due cifre decimali (10.33)
+      mediaValue = rawMediaValue.toFixed(2);
+    }
+
+    const kmElement = document.getElementById("km");
     kmElement.innerHTML = `
       <div class="colore">
         <p> Totale km percorsi ${totalkm} 
@@ -49,5 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const jsonUrl = document.getElementById("json").getAttribute("link");
-  loadDataFromJSON(jsonUrl).then((data) => updateTableAndStats(data));
+  loadDataFromJSON(jsonUrl).then((data) => {
+    // Assicurati che 'data' esista e sia un array prima di procedere
+    if (data && Array.isArray(data)) {
+      updateTableAndStats(data);
+    }
+  });
 });

@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cssclass,
         avgValues,
       );
+      // La formattazione viene gestita all'interno di renderSeasonSummary
       renderSeasonSummary(season, totale, labels.length, totalRaces);
       adjustContainerLayout(cssclass);
     })
@@ -205,10 +206,26 @@ const renderDataList = (
     avgValues,
   );
 
+// NUOVA FUNZIONE DI UTILITÀ PER LA FORMATTAZIONE
+const formatNumberConditionally = (value) => {
+    // Se il valore è un intero (es. 10 o 10.0), lo mostra senza decimali
+    if (Number.isInteger(value)) {
+        return value.toString();
+    }
+    // Altrimenti, lo formatta con due decimali (es. 10.33)
+    return value.toFixed(2);
+};
+
 function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
-  const avgseason = (totale / numberOfLabels).toFixed(2),
-    avgcorsa = (totale / totalRaces).toFixed(2),
-    stampaseason = `
+  // Calcolo dei valori grezzi
+  const rawAvgSeason = totale / numberOfLabels;
+  const rawAvgCorsa = totale / totalRaces;
+  
+  // Applicazione della formattazione condizionale
+  const avgseason = formatNumberConditionally(rawAvgSeason);
+  const avgcorsa = formatNumberConditionally(rawAvgCorsa);
+
+  const stampaseason = `
       <div class="colore">
         <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
         <p>km medi per giro in ${season} ${avgcorsa} </p>

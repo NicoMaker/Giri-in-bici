@@ -1,3 +1,13 @@
+// Funzione di utilità per la formattazione condizionale
+const formatNumberConditionally = (value) => {
+    // Se il valore è un intero (es. 10.0), lo mostra senza decimali
+    if (Number.isInteger(value)) {
+        return value.toString();
+    }
+    // Altrimenti, lo formatta con due decimali (es. 10.33)
+    return value.toFixed(2);
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   async function fetchData() {
     try {
@@ -35,7 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     combinedData.sort((a, b) => {
       if (a.year !== b.year) return a.year - b.year;
-      return new Date(`1 ${a.mese} 2000`) - new Date(`1 ${b.mese} 2000`);
+      // La comparazione delle date è necessaria per ordinare i mesi correttamente
+      return new Date(`1 ${a.mese} 2000`) - new Date(`1 ${b.mese} 2000`); 
     });
 
     combinedData.forEach(({ chilometri: chilometriMensili, mese, year }) => {
@@ -49,15 +60,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return { totale, chilometri, mesi, anni };
   }
 
+  // --- MODIFICATA LA FUNZIONE calculateAverages ---
   function calculateAverages(totale, corse, chilometri, mesi) {
+    
+    // Calcolo dei valori grezzi
+    const rawKmMediPerCorsa = corse > 0 ? totale / corse : 0;
+    const rawKmMediPerMese = mesi.length > 0 ? totale / mesi.length : 0;
+
     return {
       percentuali: mesi.map((mese, index) =>
         ((chilometri[index] / totale) * 100).toFixed(2),
       ),
-      kmMediPerCorsa: corse > 0 ? (totale / corse).toFixed(2) : 0,
-      kmMediPerMese: mesi.length > 0 ? (totale / mesi.length).toFixed(2) : 0,
+      // Applicazione della formattazione condizionale
+      kmMediPerCorsa: formatNumberConditionally(rawKmMediPerCorsa),
+      kmMediPerMese: formatNumberConditionally(rawKmMediPerMese),
     };
   }
+  // ------------------------------------------------
 
   function createChartConfig(labels, data, anni) {
     return {
@@ -95,17 +114,18 @@ document.addEventListener("DOMContentLoaded", () => {
       ${mesi
         .map(
           (mese, index) => `
-      <tr>
+        <tr>
           <td>${mese}</td>
           <td>${chilometri[index]}</td>
           <td>${percentuali[index]} %</td>
           <td>${anni[index]}</td>
-      </tr>`,
+        </tr>`,
         )
         .join("")}
     `;
   }
 
+  // createSummary non necessita di modifiche in quanto riceve i dati già formattati
   function createSummary(totale, kmMediPerCorsa, kmMediPerMese) {
     return `
       <a href="Statistiche_Mensili.html">
@@ -136,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         await Promise.all(fetchPromises);
 
         const { totale, chilometri, mesi, anni } = calculateTotals(yearlyData),
-          { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages(
+          { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages( // Usa i valori formattati
             totale,
             totaleCorse,
             chilometri,
