@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
           mesiPercorsi[index] > 0
             ? chilometri[index] / mesiPercorsi[index]
             : 0;
-        const kmMediMese = formatNumberConditionally(rawkmMediMese);
+        const kmMediMese = rawkmMediMese.toFixed(2);
         return { mese, kmMediMese };
       }),
 
