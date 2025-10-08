@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     estateData,
     primaveraData,
     autunnoInvernoData,
-    numPeriodi,
+    numPeriodi
   ) {
     const estate = sumData(estateData),
       primavera = sumData(primaveraData),
@@ -60,6 +60,26 @@ document.addEventListener("DOMContentLoaded", () => {
       totale = estate + primavera + autunno_inverno,
       totalePeriodi =
         numPeriodi.estate + numPeriodi.primavera + numPeriodi.autunno_inverno;
+
+    // --- Logic for avgmediastagione (Media km per Stagione) ---
+    const rawAvgSeason = totale / 3;
+    let avgmediastagioneFormatted;
+    if (Number.isInteger(rawAvgSeason)) {
+      avgmediastagioneFormatted = rawAvgSeason.toFixed(0); // 0 decimal places for integers
+    } else {
+      avgmediastagioneFormatted = rawAvgSeason.toFixed(2); // 2 decimal places otherwise
+    }
+
+    // --- Logic for avgperiod (Media km per Periodo) ---
+    const rawAvgPeriod = totalePeriodi ? totale / totalePeriodi : null;
+    let avgperiodFormatted;
+    if (rawAvgPeriod === null) {
+      avgperiodFormatted = "N/A";
+    } else if (Number.isInteger(rawAvgPeriod)) {
+      avgperiodFormatted = rawAvgPeriod.toFixed(0); // 0 decimal places for integers
+    } else {
+      avgperiodFormatted = rawAvgPeriod.toFixed(2); // 2 decimal places otherwise
+    }
 
     return {
       e: estate,
@@ -69,8 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
       avge: ((estate / totale) * 100).toFixed(2),
       avgp: ((primavera / totale) * 100).toFixed(2),
       avgai: ((autunno_inverno / totale) * 100).toFixed(2),
-      avgmediastagione: (totale / 3).toFixed(2),
-      avgperiod: totalePeriodi ? (totale / totalePeriodi).toFixed(2) : "N/A",
+      avgmediastagione: avgmediastagioneFormatted, // Using the new formatted value
+      avgperiod: avgperiodFormatted, // Using the new formatted value
     };
   }
 
@@ -89,8 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       seasonDataPromises = seasonsData.seasons.map(async (season) => {
         const periodCount = Object.keys(season.subPeriods).length;
-        ((numPeriodi[season.name.toLowerCase().replace("-", "_")] =
-          periodCount),
+        (numPeriodi[season.name.toLowerCase().replace("-", "_")] = periodCount),
           (subPeriodsData = await Promise.all(
             Object.entries(season.subPeriods).map(async ([year, subFile]) => {
               const correctedPath = subFile.startsWith("../")
@@ -98,23 +117,24 @@ document.addEventListener("DOMContentLoaded", () => {
                   : `../${subFile}`,
                 subData = await fetchData(correctedPath);
               return subData ? subData : [];
-            }),
-          )));
+            })
+          ));
 
         return {
           name: season.name,
           data: subPeriodsData.flat(),
         };
       }),
-      [estateData, primaveraData, autunnoInvernoData] =
-        await Promise.all(seasonDataPromises);
+      [estateData, primaveraData, autunnoInvernoData] = await Promise.all(
+        seasonDataPromises
+      );
 
     if (estateData && primaveraData && autunnoInvernoData) {
       const calculatedData = calculateData(
           estateData.data,
           primaveraData.data,
           autunnoInvernoData.data,
-          numPeriodi,
+          numPeriodi
         ),
         labels = ["Primavera", "Estate", "Autunno-Inverno"],
         chartData = [calculatedData.p, calculatedData.e, calculatedData.ai],
