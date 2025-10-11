@@ -1,10 +1,6 @@
 // Funzione di utilità per la formattazione condizionale
 const formatNumberConditionally = (value) => {
-    // Se il valore è un intero, lo restituisce come stringa intera (es. 10)
-    if (Number.isInteger(value)) {
-        return value.toString();
-    }
-    // Altrimenti, lo formatta con due decimali (es. 10.33)
+    if (Number.isInteger(value)) return value.toString();
     return value.toFixed(2);
 };
 
@@ -27,85 +23,78 @@ document.addEventListener("DOMContentLoaded", () => {
             return 0;
         }
         return data.reduce((total, km) => total + (km.distance || 0), 0);
-    },renderStampa = (data) => `
-  <div class="primavera">
-      <a href="../Primavera.html">
-          <img class="immaginestagionestat" src="../Icons/primavera.png">
-          <p class="contornostagione misuracolore">Primavera</p>
-          <p class="misuracolore">
-              km totali ${formatNumberConditionally(data.p)} 
-              <img src="../Icons/traguardo.png">
-          </p>
-          <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgp))} %</p>
-      </a>
-  </div>
+    };
 
-  <div class="estate">
-      <a href="../Estate.html">
-          <img class="immaginestagionestatsx" src="../Icons/estate.png">
-          <p class="contornostagione misuracolore">Estate</p>
-          <p class="misuracolore">
-              km totali ${formatNumberConditionally(data.e)} 
-              <img src="../Icons/traguardo.png">
-          </p>
-          <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avge))} %</p>
-      </a>
-  </div>
+    const renderStampa = (data) => `
+        <div class="primavera">
+            <a href="../Primavera.html">
+                <img class="immaginestagionestat" src="../Icons/primavera.png">
+                <p class="contornostagione misuracolore">Primavera</p>
+                <p class="misuracolore">
+                    km totali ${formatNumberConditionally(data.p)} 
+                    <img src="../Icons/traguardo.png">
+                </p>
+                <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgp))} %</p>
+            </a>
+        </div>
 
-  <div class="autunno_inverno">
-      <a href="../Autunno_Inverno.html">
-          <img class="immaginestagionestat" src="../Icons/inverno.png">
-          <p class="contornostagione misuracolore">Autunno - Inverno</p>
-          <p class="misuracolore">
-              km totali ${formatNumberConditionally(data.ai)} 
-              <img src="../Icons/traguardo.png">
-          </p>
-          <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgai))} %</p>
-      </a>
-  </div>`,
+        <div class="estate">
+            <a href="../Estate.html">
+                <img class="immaginestagionestatsx" src="../Icons/estate.png">
+                <p class="contornostagione misuracolore">Estate</p>
+                <p class="misuracolore">
+                    km totali ${formatNumberConditionally(data.e)} 
+                    <img src="../Icons/traguardo.png">
+                </p>
+                <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avge))} %</p>
+            </a>
+        </div>
 
-        createStampat = (data) => `
-      <div class="colore">
-          <p class="misuracolore">Totale km ${data.totale} <img src="../Icons/traguardo.png"></p>
-          <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
-          <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
-      </div>`;
+        <div class="autunno_inverno">
+            <a href="../Autunno_Inverno.html">
+                <img class="immaginestagionestat" src="../Icons/inverno.png">
+                <p class="contornostagione misuracolore">Autunno - Inverno</p>
+                <p class="misuracolore">
+                    km totali ${formatNumberConditionally(data.ai)} 
+                    <img src="../Icons/traguardo.png">
+                </p>
+                <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgai))} %</p>
+            </a>
+        </div>`;
 
-    function calculateData(
-        estateData,
-        primaveraData,
-        autunnoInvernoData,
-        numPeriodi
-    ) {
-        const estate = sumData(estateData),
-            primavera = sumData(primaveraData),
+    const createStampat = (data) => `
+        <div class="colore">
+            <p class="misuracolore">Totale km ${formatNumberConditionally(data.totale)} <img src="../Icons/traguardo.png"></p>
+            <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
+            <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
+        </div>`;
+
+    // ✅ Ordine dei parametri corretto: primavera, estate, autunno_inverno
+    function calculateData(primaveraData, estateData, autunnoInvernoData, numPeriodi) {
+        const primavera = sumData(primaveraData),
+            estate = sumData(estateData),
             autunno_inverno = sumData(autunnoInvernoData),
-            totale = estate + primavera + autunno_inverno,
+            totale = primavera + estate + autunno_inverno,
             totalePeriodi =
-                numPeriodi.estate + numPeriodi.primavera + numPeriodi.autunno_inverno;
+                numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
 
-        // Calcola la media km per Stagione (3 stagioni/periodi principali)
-        const rawAvgSeason = totale / 3;
-        const avgmediastagioneFormatted = formatNumberConditionally(rawAvgSeason);
+        const avgmediastagioneFormatted = formatNumberConditionally(totale / 3);
 
-        // Calcola la media km per Periodo (totale periodi secondari)
         let avgperiodFormatted;
         if (totalePeriodi > 0) {
-            const rawAvgPeriod = totale / totalePeriodi;
-            avgperiodFormatted = formatNumberConditionally(rawAvgPeriod);
+            avgperiodFormatted = formatNumberConditionally(totale / totalePeriodi);
         } else {
             avgperiodFormatted = "N/A";
         }
 
         return {
-            e: estate,
             p: primavera,
+            e: estate,
             ai: autunno_inverno,
             totale,
-            avge: ((estate / totale) * 100).toFixed(2),
-            avgp: ((primavera / totale) * 100).toFixed(2),
-            avgai: ((autunno_inverno / totale) * 100).toFixed(2),
-            // Restituisce i valori formattati
+            avgp: (primavera / totale) * 100,
+            avge: (estate / totale) * 100,
+            avgai: (autunno_inverno / totale) * 100,
             avgmediastagione: avgmediastagioneFormatted,
             avgperiod: avgperiodFormatted,
         };
@@ -120,48 +109,59 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const numPeriodi = {
-            estate: 0,
             primavera: 0,
+            estate: 0,
             autunno_inverno: 0,
-        },
-            seasonDataPromises = seasonsData.seasons.map(async (season) => {
-                const periodCount = Object.keys(season.subPeriods).length;
-                // NOTA: Ho corretto l'assegnazione per usare l'indice corretto
-                numPeriodi[season.name.toLowerCase().replace("-", "_")] = periodCount; 
+        };
 
-                const subPeriodsData = await Promise.all(
-                    Object.entries(season.subPeriods).map(async ([, subFile]) => {
-                        const correctedPath = subFile.startsWith("../")
-                            ? subFile
-                            : `../${subFile}`,
-                            subData = await fetchJSON(correctedPath);
-                        return subData ? subData : [];
-                    })
-                );
+        const seasonDataPromises = seasonsData.seasons.map(async (season) => {
+            const periodCount = Object.keys(season.subPeriods).length;
+            numPeriodi[season.name.toLowerCase().replace("-", "_")] = periodCount;
 
-                return {
-                    name: season.name,
-                    data: subPeriodsData.flat(),
-                };
-            }),
-            [primaveraPromise, estatePromise, autunnoInvernoPromise] = await Promise.all( // Ordine cambiato per coerenza con l'array
-                seasonDataPromises
+            const subPeriodsData = await Promise.all(
+                Object.entries(season.subPeriods).map(async ([, subFile]) => {
+                    const correctedPath = subFile.startsWith("../")
+                        ? subFile
+                        : `../${subFile}`;
+                    const subData = await fetchJSON(correctedPath);
+                    return subData ? subData : [];
+                })
+            );
+
+            return {
+                name: season.name,
+                data: subPeriodsData.flat(),
+            };
+        });
+
+        const resolvedSeasons = await Promise.all(seasonDataPromises);
+
+        // 🔍 Trova le stagioni per nome, indipendentemente dall’ordine
+        const primaveraPromise = resolvedSeasons.find((s) =>
+                s.name.toLowerCase().includes("primavera")
+            ),
+            estatePromise = resolvedSeasons.find((s) =>
+                s.name.toLowerCase().includes("estate")
+            ),
+            autunnoInvernoPromise = resolvedSeasons.find((s) =>
+                s.name.toLowerCase().includes("inverno")
             );
 
         if (primaveraPromise && estatePromise && autunnoInvernoPromise) {
             const calculatedData = calculateData(
-                estatePromise.data, // Dati Estate
-                primaveraPromise.data, // Dati Primavera
-                autunnoInvernoPromise.data, // Dati Autunno/Inverno
+                primaveraPromise.data,
+                estatePromise.data,
+                autunnoInvernoPromise.data,
                 numPeriodi
-            ),
-                labels = ["Primavera", "Estate", "Autunno-Inverno"],
-                chartData = [calculatedData.p, calculatedData.e, calculatedData.ai],
-                ctx = document.getElementById("doughnut-chart").getContext("2d");
+            );
+
+            const labels = ["Primavera", "Estate", "Autunno-Inverno"];
+            const chartData = [calculatedData.p, calculatedData.e, calculatedData.ai];
+            const ctx = document.getElementById("doughnut-chart").getContext("2d");
 
             document.getElementById("dati").innerHTML = renderStampa(calculatedData);
-            document.getElementById("totale").innerHTML =
-                createStampat(calculatedData);
+            document.getElementById("totale").innerHTML = createStampat(calculatedData);
+
             new Chart(ctx, {
                 type: "doughnut",
                 data: {
@@ -177,7 +177,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     ],
                 },
             });
-        } else console.error("Errore durante il caricamento dei dati");
+        } else {
+            console.error("Errore durante il caricamento dei dati");
+        }
     }
 
     loadAndRenderData();

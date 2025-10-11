@@ -49,13 +49,19 @@ async function fetchSubPeriods(subPeriods) {
   return results.reduce((acc, curr) => Object.assign(acc, curr), {});
 }
 
+// Funzione per formattare i numeri
+function formatNumber(value) {
+  return Number.isInteger(value) ? value.toString() : value.toFixed(2);
+}
+
 const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
   calculateTotalRaces = (labels, data) =>
     labels.reduce((acc, label) => acc + data[label].numberOfRaces, 0),
   calculateAverageValues = (labels, data, totale) =>
-    labels.map((label) =>
-      ((data[label].totalDistance / totale) * 100).toFixed(2),
-    );
+    labels.map((label) => {
+      const value = (data[label].totalDistance / totale) * 100;
+      return formatNumber(value);
+    });
 
 function renderDoughnutChart(labels, values, colors, season) {
   const datasets = createDatasets(values, colors, season),
@@ -103,7 +109,7 @@ const getDoughnutContext = () =>
           <img class="immaginestagione" src="Icons/${image}">
           <p class="titoli">
             ${season} ${label}
-            <p>Totale km ${data[label].totalDistance} 
+            <p>Totale km ${formatNumber(data[label].totalDistance)} 
               <img src="Icons/traguardo.png">
             </p> 
             <p>${avgValues[index]} %</p>
@@ -132,7 +138,6 @@ function renderDataListPaginated(
   const totalPages = Math.ceil(labels.length / itemsPerPage);
 
   function updatePage() {
-    // Save the current page in localStorage
     localStorage.setItem(storageKey, currentPage);
 
     const startIndex = (currentPage - 1) * itemsPerPage,
@@ -177,7 +182,6 @@ function renderDataListPaginated(
     });
   }
 
-  // If out of range (e.g. after JSON updates), reset to 1
   if (currentPage > totalPages) {
     currentPage = 1;
     localStorage.setItem(storageKey, currentPage);
@@ -206,11 +210,11 @@ const renderDataList = (
   );
 
 function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
-  const avgseason = (totale / numberOfLabels).toFixed(2),
-    avgcorsa = (totale / totalRaces).toFixed(2),
+  const avgseason = formatNumber(totale / numberOfLabels),
+    avgcorsa = formatNumber(totale / totalRaces),
     stampaseason = `
       <div class="colore">
-        <p>Totale km percorsi in ${season} ${totale} <img src="Icons/traguardo.png"> </p>
+        <p>Totale km percorsi in ${season} ${formatNumber(totale)} <img src="Icons/traguardo.png"> </p>
         <p>km medi per giro in ${season} ${avgcorsa} </p>
         <p>media km per stagione ${avgseason} </p>
       </div>
