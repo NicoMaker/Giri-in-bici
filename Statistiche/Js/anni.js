@@ -14,14 +14,8 @@ const calculatekmMedi = (totale, divider) => totale / divider;
 // Funzione per calcolare le percentuali con formattazione condizionale
 const calculatePercentuali = (chilometri, totale) =>
     chilometri.map((km) => {
-        // 1. Calcola la percentuale grezza
-        const rawPercentage = (km / totale) * 100;
-
-        // 2. Arrotonda a due cifre decimali
-        const precisePercentage = Math.round(rawPercentage * 100) / 100;
-
-        // 3. Applica la formattazione condizionale
-        return formatNumberConditionally(precisePercentage);
+        const rawPercentage = calculatekmMedi(km, totale) * 100;
+        return formatNumberConditionally(rawPercentage);
     });
 
 
