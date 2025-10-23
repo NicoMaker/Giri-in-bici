@@ -112,8 +112,8 @@ function renderSummary(totale, kmMediPerCorsa, kmMediPerMese) {
   const stampat = `
         <div class="colore">
             <p>Totale km: ${totale} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
-            <p>Km medi per corsa: ${kmMediPerCorsa}</p>
-            <p>Km medi per mese: ${kmMediPerMese}</p>
+            <p>km medi per corsa: ${kmMediPerCorsa}</p>
+            <p>km medi per mese: ${kmMediPerMese}</p>
         </div>
     `;
   document.getElementById("totale").innerHTML = stampat;
