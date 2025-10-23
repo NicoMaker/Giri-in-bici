@@ -111,9 +111,9 @@ function renderDataTable(mesi, chilometri, percentuali) {
 function renderSummary(totale, kmMediPerCorsa, kmMediPerMese) {
   const stampat = `
         <div class="colore">
-            <p>Totale km: ${totale} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
-            <p>km medi per corsa: ${kmMediPerCorsa}</p>
-            <p>km medi per mese: ${kmMediPerMese}</p>
+            <p>Totale km ${totale} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
+            <p>km medi per corsa ${kmMediPerCorsa}</p>
+            <p>km medi per mese ${kmMediPerMese}</p>
         </div>
     `;
   document.getElementById("totale").innerHTML = stampat;
