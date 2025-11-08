@@ -14,9 +14,14 @@
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2643046423?share_token=aaQEvyve1Fs3vTnEH0CmRNfxFkaHkrtYJpXJv4mHBVH2soddmJ&ref=wtd\" target=\"_blank\">Anduins Clauzetto Vito D'Asio</a>",
     "distance": 112
   },
-    {
+  {
     "date": "26 Ottobre",
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2654104719?share_token=aszq61iAx7EfP8W6Wn4PL8Zi6MsLVv1ZlZ2LrZ829ftFX1POgV&ref=wtd\" target=\"_blank\">Sella Chianzutan</a>",
     "distance": 139
+  },
+  {
+    "date": "08 Novembre",
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/2674663546?share_token=azaORjsnQDK7pOm7zCG4Y2QPaL7WaZM78VuchBO3Yif5pE6s5x&ref=wtd\" target=\"_blank\">Ariis</a>",
+    "distance": 47
   }
 ]
