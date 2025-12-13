@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "numberOfRaces": 38,
+  "numberOfRaces": 39,
   "data": {
     "Gennaio": 400,
     "Febbraio": 309,
@@ -13,7 +13,7 @@
     "Settembre": 390,
     "Ottobre": 414,
     "Novembre": 179,
-    "Dicembre": 0
+    "Dicembre": 40
   },
   "colors": [
     "darkblue",
