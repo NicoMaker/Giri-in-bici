@@ -1,0 +1,21 @@
+{
+  "year": "2026",
+  "numberOfRaces": 1,
+  "data": {
+    "Gennaio": 0
+  },
+  "colors": [
+    "darkblue",
+    "blue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
+  ]
+}
