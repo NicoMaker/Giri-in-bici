@@ -14,9 +14,9 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ### Statistiche
 
-1. **Aggiorna il file JSON per le statistiche per il 2025**
-   - **Percorso:** [`Statistiche/Js/anni/2025.json`](Statistiche/Js/anni/2025.json)
-   - Modifica i chilometri (km) di Dicembre aggiorna e il numero totale di corse dell'anno.
+1. **Aggiorna il file JSON per le statistiche per il 2026**
+   - **Percorso:** [`Statistiche/Js/anni/2025.json`](Statistiche/Js/anni/2026.json)
+   - Modifica i chilometri (km) di Gennaio aggiorna e il numero totale di corse dell'anno.
 
 ---
 
