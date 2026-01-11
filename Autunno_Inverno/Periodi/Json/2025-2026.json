@@ -39,9 +39,14 @@
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2714486699?share_token=aJDRdPG9fC3edFIz9wKoeCrtEw716TnFt2bG0T8igJuCNwb3Q7&ref=wtd\" target=\"_blank\">Ariis</a>",
     "distance": 40
   },
-    {
+  {
     "date": "21 Dicembre",
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2722407623?share_token=a8E4FSBGpmpd2qvuVUKPeL7ylJDLGm7DJGSFl7dEht9sSx5xHC&ref=wtd\" target=\"_blank\">San Daniele + Fagagna</a>",
     "distance": 70
+  },
+  {
+    "date":"11 Gennaio",
+    "place":"<a href=\"https://www.komoot.com/it-it/tour/2746675571?share_token=a2tg5Gu4hs3gUOcTol1aYmRMn5UlUkRWJDQopJoxwHHISCaxIF&ref=wtd\" target=\"_blank\">Aiello</a>",
+    "distance": 100
   }
 ]
