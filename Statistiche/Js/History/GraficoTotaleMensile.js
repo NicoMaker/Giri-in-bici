@@ -14,18 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
       "Dicembre",
     ],
 
-    // 🔹 Funzione per formattare i numeri: senza decimali se .00, altrimenti 2 decimali
-    formatNumber = (num) => {
-      if (isNaN(num)) return 0;
-      return num % 1 === 0 ? num.toFixed(0) : num.toFixed(2);
-    },
 
     getTotale = (chilometri) => chilometri.reduce((acc, curr) => acc + curr, 0),
 
     getPercentuali = (chilometri, totale) =>
       chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
 
-    // 🔹 Calcolo km medi per mese con uso di formatNumber()
+    // 🔹 Calcolo km medi per mese
     getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
       mesi.map((mese, index) => {
         let kmMediMese = 0;
