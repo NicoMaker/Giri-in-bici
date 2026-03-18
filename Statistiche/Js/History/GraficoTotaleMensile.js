@@ -13,13 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "Novembre",
       "Dicembre",
     ],
-
-
     getTotale = (chilometri) => chilometri.reduce((acc, curr) => acc + curr, 0),
-
     getPercentuali = (chilometri, totale) =>
       chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
-
     // 🔹 Calcolo km medi per mese
     getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
       mesi.map((mese, index) => {
@@ -30,9 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         return { mese, kmMediMese };
       }),
-
     getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
-
     createChartConfig = (labels, data, colori) => ({
       type: "bar",
       data: {
@@ -53,9 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       },
     }),
-
     renderChart = (config, ctx) => new Chart(ctx, config),
-
     createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
       <tr class="grassetto">
         <th>Mese</th>
@@ -77,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
         )
         .join("")}
     `,
-
     createSummaryHTML = (totale, mediaComplessiva) => `
       <a href="StoricoMensile.html">
         <div class="colore">

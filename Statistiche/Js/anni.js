@@ -101,7 +101,7 @@ function renderDataTable(mesi, chilometri, percentuali) {
                     <td>${mese}</td>
                     <td>${chilometri[index]}</td>
                     <td>${percentuali[index]} %</td>
-                </tr>`
+                </tr>`,
           )
           .join("")}
     `;

@@ -1,11 +1,11 @@
 // Funzione di utilità per la formattazione condizionale
 const formatNumberConditionally = (value) => {
-    // Se il valore è un intero (es. 10.0), lo mostra senza decimali
-    if (Number.isInteger(value)) {
-        return value.toString();
-    }
-    // Altrimenti, lo formatta con due decimali (es. 10.33)
-    return value.toFixed(2);
+  // Se il valore è un intero (es. 10.0), lo mostra senza decimali
+  if (Number.isInteger(value)) {
+    return value.toString();
+  }
+  // Altrimenti, lo formatta con due decimali (es. 10.33)
+  return value.toFixed(2);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     combinedData.sort((a, b) => {
       if (a.year !== b.year) return a.year - b.year;
       // La comparazione delle date è necessaria per ordinare i mesi correttamente
-      return new Date(`1 ${a.mese} 2000`) - new Date(`1 ${b.mese} 2000`); 
+      return new Date(`1 ${a.mese} 2000`) - new Date(`1 ${b.mese} 2000`);
     });
 
     combinedData.forEach(({ chilometri: chilometriMensili, mese, year }) => {
@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- MODIFICATA LA FUNZIONE calculateAverages ---
   function calculateAverages(totale, corse, chilometri, mesi) {
-    
     // Calcolo dei valori grezzi
     const rawKmMediPerCorsa = corse > 0 ? totale / corse : 0;
     const rawKmMediPerMese = mesi.length > 0 ? totale / mesi.length : 0;
@@ -103,8 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderChart = (config, ctx) => new Chart(ctx, config);
 
-function createTable(mesi, chilometri, percentuali, anni) {
-  return `
+  function createTable(mesi, chilometri, percentuali, anni) {
+    return `
     <tr class="grassetto">
       <th>Mese</th>
       <th>km <img src="../../Icons/traguardo.png"></th>
@@ -123,7 +122,7 @@ function createTable(mesi, chilometri, percentuali, anni) {
       )
       .join("")}
   `;
-}
+  }
 
   // createSummary non necessita di modifiche in quanto riceve i dati già formattati
   function createSummary(totale, kmMediPerCorsa, kmMediPerMese) {
@@ -156,7 +155,8 @@ function createTable(mesi, chilometri, percentuali, anni) {
         await Promise.all(fetchPromises);
 
         const { totale, chilometri, mesi, anni } = calculateTotals(yearlyData),
-          { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages( // Usa i valori formattati
+          { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages(
+            // Usa i valori formattati
             totale,
             totaleCorse,
             chilometri,

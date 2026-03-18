@@ -1,12 +1,15 @@
 const fetchJSON = (url) =>
     fetch(url).then((response) => {
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        return response.json();
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
     }),
   processPeriodData = (periodData, kmData) => {
     if (Array.isArray(periodData)) {
       // Filtra solo i numeri validi, anche se distance dovrebbe essere sempre un numero
-      const kmValues = periodData.map((entry) => entry.distance).filter(km => typeof km === 'number');
+      const kmValues = periodData
+        .map((entry) => entry.distance)
+        .filter((km) => typeof km === "number");
       kmData.push(...kmValues);
       return periodData.length;
     } else {
@@ -21,20 +24,22 @@ const fetchJSON = (url) =>
 
     // Assicurati che 'data.seasons' sia un array valido
     if (!data.seasons || !Array.isArray(data.seasons)) {
-        console.error("Dati stagionali (seasons) non trovati o non validi.");
-        return;
+      console.error("Dati stagionali (seasons) non trovati o non validi.");
+      return;
     }
 
     const fetchPromises = data.seasons.flatMap((season) =>
       // Assicurati che 'season.subPeriods' esista
       Object.values(season.subPeriods || {}).map((url) =>
-        fetchJSON(url).then((periodData) => {
-          totaleCorse += processPeriodData(periodData, kmData);
-          totalePeriodi++;
-        }).catch(error => {
+        fetchJSON(url)
+          .then((periodData) => {
+            totaleCorse += processPeriodData(periodData, kmData);
+            totalePeriodi++;
+          })
+          .catch((error) => {
             console.error(`Errore nel fetch di un periodo: ${url} - ${error}`);
             // Non bloccare Promise.all se un periodo fallisce, ma registra l'errore.
-        }),
+          }),
       ),
     );
 
@@ -52,7 +57,6 @@ const fetchJSON = (url) =>
       );
   },
   calcolaTotalekm = (kmData) => kmData.reduce((total, km) => total + km, 0),
-
   // ---------------- MODIFICHE QUI ----------------
 
   formatoCondizionale = (valore) => {
@@ -65,15 +69,13 @@ const fetchJSON = (url) =>
       return valore.toFixed(2);
     }
   },
-
   calcolaMediakm = (totalekm, corse) => {
     if (corse > 0) {
       const media = totalekm / corse;
       return formatoCondizionale(media);
     }
-    return '0'; // Se non ci sono corse, restituisce '0'
+    return "0"; // Se non ci sono corse, restituisce '0'
   },
-
   calcolaMediaPeriodo = (totalekm, periodi) => {
     if (periodi > 0) {
       const media = totalekm / periodi;

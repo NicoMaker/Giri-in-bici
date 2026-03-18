@@ -1,4 +1,4 @@
-# 📋 Aggiornamenti e Manutenzione 
+# 📋 Aggiornamenti e Manutenzione
 
 Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per mantenere il sito sempre aggiornato.
 
@@ -29,7 +29,6 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 1. **Struttura HTML**
 
    Crea il file HTML per la stagione nelle cartelle di riferimento, seguendo il percorso indicato, e inserendo l’anno della stagione:
-
    - **Primavera** 🌸: [`Primavera/Periodi/`](Primavera/Periodi/)
    - **Estate** 🌞: [`Estate/Periodi/`](Estate/Periodi/)
    - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/`](Autunno_Inverno/Periodi/)
@@ -37,7 +36,6 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 2. **File JSON per la Nuova Stagione**
 
    Crea un file JSON per la nuova stagione all’interno delle cartella di riferimento con il nome dell’anno:
-
    - **Primavera** 🌸: [`Primavera/Periodi/Json`](Primavera/Periodi/Json)
    - **Estate** 🌞: [`Estate/Periodi/Json`](Estate/Periodi/Json)
    - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/Json`](Autunno_Inverno/Periodi/Json)
@@ -45,7 +43,6 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 3. **Aggiornamento del File Principale della Stagione 🌸🌞🍁❄️**
 
    Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato la nuova sottostagione, specificando il percorso del file con il nome e il colore del nuovo periodo come fatto per gli altri:
-
    - **Primavera** 🌸: [`Primavera/primavera.json`](Primavera/primavera.json)
    - **Estate** 🌞: [`Estate/estate.json`](Estate/estate.json)
    - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
@@ -61,15 +58,12 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 ### Passaggi da Seguire
 
 1. **Creare la Struttura HTML**
-
    - Crea un nuovo file HTML per il nuovo anno nella cartella: [`Statistiche/Anni/`](Statistiche/Anni/) con il nome del nuovo anno.
 
 2. **Creare il File JSON**
-
    - Crea un nuovo file JSON per l’anno nella cartella: [`Statistiche/Js/anni/`](Statistiche/Js/anni/) con il nome del nuovo anno.
 
 3. **Aggiornare le Immagini**
-
    - Aggiungi un’immagine per il nuovo anno nella cartella: [`Statistiche/Anni/Img/`](Statistiche/Anni/Img/) con il nome del nuovo anno.
 
 4. **Aggiornare i File di Storia Generale**
@@ -82,7 +76,6 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 ## 🔐 Credenziali
 
 1. **Nome Utente**
-
    - **Percorso:** [`About_US/JS/Users.json`](About_US/JS/Users.json)
 
 2. **Password Giornaliera**
