@@ -45,7 +45,7 @@ async function initializeConfiguration(jsonFilePath) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   // ✅ CARICA LA CONFIGURAZIONE DAL FILE JSON
-  await initializeConfiguration("Js/anni/seasons-config.json");
+  await initializeConfiguration("Js/anni/stagioni/seasons-config.json");
 
   // ✅ POI ESEGUI LA FUNZIONE PRINCIPALE
   loadAndRenderData();
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ============================================
 
   async function loadAndRenderData() {
-    const seasonsData = await fetchJSON("Js/anni/stagioni.json");
+    const seasonsData = await fetchJSON("Js/anni/stagioni/stagioni.json");
 
     if (!seasonsData || !Array.isArray(seasonsData.seasons)) {
       console.error("Invalid seasons data");

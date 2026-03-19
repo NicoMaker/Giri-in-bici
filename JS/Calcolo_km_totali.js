@@ -85,7 +85,7 @@ const fetchJSON = (url) =>
     </div>
   `);
 
-fetchJSON("Statistiche/Js/anni/stagioni.json")
+fetchJSON("Statistiche/Js/anni/stagioni/stagioni.json")
   .then(processSeasons)
   .catch((error) =>
     console.error(`Errore nel caricamento del file principale: ${error}`),

@@ -48,7 +48,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
    - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
 
 4. **Sistemazione file Stagioni.json**
-   - **Stagione Generale** 🌸🌞🍁❄️: [`Statistiche/Js/anni/stagioni.json`](Statistiche/Js/anni/stagioni.json)  
+   - **Stagione Generale** 🌸🌞🍁❄️: [`Statistiche/Js/anni/stagioni/stagioni.json`](Statistiche/Js/anni/Stagioni/stagioni.json)  
      Aggiungi il percorso del nuovo anno nella stagione interessata all’interno dei vari sottoperiodi.
 
 ---
