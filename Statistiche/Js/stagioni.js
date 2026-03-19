@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img src="../Icons/traguardo.png">
                 </p>
                 <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgp))} %</p>
+                <p class="misuracolore">Totale corse ${data.corsep}</p>
             </a>
         </div>
 
@@ -54,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img src="../Icons/traguardo.png">
                 </p>
                 <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avge))} %</p>
+                <p class="misuracolore">Totale corse ${data.corsee}</p>
             </a>
         </div>
 
@@ -66,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img src="../Icons/traguardo.png">
                 </p>
                 <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgai))} %</p>
+                <p class="misuracolore">Totale corse ${data.corseai}</p>
             </a>
         </div>`;
 

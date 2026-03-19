@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   <p class="titoli">Statistiche ${entry.year}</p>
                   <p class="misuracolore">km totali ${formatNumberConditionally(entry.km)} <img src="Icons/traguardo.png"></p>
                   <p class="misuracolore">${formatNumberConditionally(parseFloat(avgValues[startIndex + index]))} %</p>
+                  <p class="misuracolore">Totale corse ${entry.numberOfRaces}</p>
                 </a>
               </div>
             `,

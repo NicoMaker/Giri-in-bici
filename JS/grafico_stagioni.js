@@ -113,6 +113,7 @@ const getDoughnutContext = () =>
               <img src="Icons/traguardo.png">
             </p> 
             <p class="misuracolore">${avgValues[index]} %</p>
+            <p class="misuracolore">Totale corse ${data[label].numberOfRaces}</p>
           </p>
         </a>
       </div>
