@@ -171,7 +171,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const tableHTML = createTable(mesi, chilometri, percentuali, anni),
           // ✅ Passa totaleCorse a createSummary
-          summaryHTML = createSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse);
+          summaryHTML = createSummary(
+            totale,
+            kmMediPerCorsa,
+            kmMediPerMese,
+            totaleCorse,
+          );
 
         document.getElementById("mesi").innerHTML = tableHTML;
         document.getElementById("totale").innerHTML = summaryHTML;

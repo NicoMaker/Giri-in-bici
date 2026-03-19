@@ -157,7 +157,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // renderSummary riceve ora totaleCorse come parametro
-  const renderSummary = (totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth, totaleCorse) =>
+  const renderSummary = (
+    totalekm,
+    avgkmPerRace,
+    avgkmPerYear,
+    avgkmPerMonth,
+    totaleCorse,
+  ) =>
     (document.getElementById("totale").innerHTML = `
         <a href="Statistiche/History/Statistiche_Totali.html">
           <div class="colore">
@@ -182,8 +188,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (dataResult && dataResult.mainData) {
     const { mainData, statistics } = dataResult;
     const { colors } = mainData;
-    const { totalekm, totaleCorse, avgkmPerRace, avgkmPerYear, avgkmPerMonth, avgValues } =
-      calculateAverages(statistics); // I valori medi sono ora formattati
+    const {
+      totalekm,
+      totaleCorse,
+      avgkmPerRace,
+      avgkmPerYear,
+      avgkmPerMonth,
+      avgValues,
+    } = calculateAverages(statistics); // I valori medi sono ora formattati
 
     const labels = statistics.map((entry) => `km ${entry.year}`);
     const values = statistics.map((entry) => entry.km);
@@ -191,7 +203,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     renderChart(labels, values, colors);
     // ✅ Passa totaleCorse a renderSummary
-    renderSummary(totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth, totaleCorse);
+    renderSummary(
+      totalekm,
+      avgkmPerRace,
+      avgkmPerYear,
+      avgkmPerMonth,
+      totaleCorse,
+    );
 
     // 🔁 Recupera pagina salvata o default 1
     const savedPage = parseInt(localStorage.getItem("page_statistiche")) || 1;
