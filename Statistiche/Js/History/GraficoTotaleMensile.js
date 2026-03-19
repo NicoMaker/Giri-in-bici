@@ -27,6 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return { mese, kmMediMese };
       }),
     getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
+    getTotaleCorse = (allData) => {
+      let totaleCorse = 0;
+      allData.forEach((json) => {
+        totaleCorse += json.numberOfRaces || 0;
+      });
+      return totaleCorse;
+    },
     createChartConfig = (labels, data, colori) => ({
       type: "bar",
       data: {
@@ -69,11 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
         )
         .join("")}
     `,
-    createSummaryHTML = (totale, mediaComplessiva) => `
+    // ✅ Aggiungo totaleCorse come parametro
+    createSummaryHTML = (totale, mediaComplessiva, totaleCorse) => `
       <a href="StoricoMensile.html">
         <div class="colore">
-            <p>totale km ${totale} <img src="../../Icons/traguardo.png"></p>
-            <p>km totali medi per mese ${mediaComplessiva}</p>
+            <p class="misuracolore">totale km ${totale} <img src="../../Icons/traguardo.png"></p>
+            <p class="misuracolore">km totali medi per mese ${mediaComplessiva}</p>
+            <p class="misuracolore">Totale corse ${totaleCorse}</p>
         </div>
       </a>`;
 
@@ -117,6 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
               totaleChilometri,
               mesiOrdinati.length,
             ),
+            // ✅ Calcola totaleCorse
+            totaleCorse = getTotaleCorse(allData),
             chartConfig = createChartConfig(
               mesiOrdinati,
               chilometriTotali,
@@ -133,9 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
             mesiPercorsi,
           );
 
+          // ✅ Passa totaleCorse a createSummaryHTML
           document.getElementById("totale").innerHTML = createSummaryHTML(
             totaleChilometri,
             mediaComplessiva,
+            totaleCorse,
           );
         })
         .catch((error) => {

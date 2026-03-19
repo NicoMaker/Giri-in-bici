@@ -124,14 +124,15 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   }
 
-  // createSummary non necessita di modifiche in quanto riceve i dati già formattati
-  function createSummary(totale, kmMediPerCorsa, kmMediPerMese) {
+  // ✅ Aggiungo totaleCorse come parametro
+  function createSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
     return `
       <a href="Statistiche_Mensili.html">
         <div class="colore">
-            <p>Totale km ${totale} <img src="../../Icons/traguardo.png"></p>
-            <p>km medi percorsi ${kmMediPerCorsa}</p>
-            <p>km medi per mese ${kmMediPerMese}</p>
+            <p class="misuracolore">Totale km ${totale} <img src="../../Icons/traguardo.png"></p>
+            <p class="misuracolore">km medi percorsi ${kmMediPerCorsa}</p>
+            <p class="misuracolore">km medi per mese ${kmMediPerMese}</p>
+            <p class="misuracolore">Totale corse ${totaleCorse}</p>
         </div>
       </a>`;
   }
@@ -169,7 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
         else console.error("Contesto del canvas non trovato");
 
         const tableHTML = createTable(mesi, chilometri, percentuali, anni),
-          summaryHTML = createSummary(totale, kmMediPerCorsa, kmMediPerMese);
+          // ✅ Passa totaleCorse a createSummary
+          summaryHTML = createSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse);
 
         document.getElementById("mesi").innerHTML = tableHTML;
         document.getElementById("totale").innerHTML = summaryHTML;
