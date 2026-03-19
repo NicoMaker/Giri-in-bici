@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const response = await fetch(url);
       if (!response.ok)
-        throw new new Error(`HTTP error! status: ${response.status}`)();
+        throw new Error(`HTTP error! status: ${response.status}`); // ✅ CORRETTO
       return await response.json();
     } catch (error) {
       console.error(`Error fetching data from ${url}:`, error);
@@ -64,11 +64,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         0,
       );
 
-    // --- APPLICAZIONE DELLA FORMATTAZIONE CONDIZIONALE QUI ---
     const avgkmPerRaceRaw = totaleCorse > 0 ? totalekm / totaleCorse : 0;
-    const avgkmPerYearRaw =
-      statistics.length > 0 ? totalekm / statistics.length : 0;
+    const avgkmPerYearRaw = statistics.length > 0 ? totalekm / statistics.length : 0;
     const avgkmPerMonthRaw = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
+    // ✅ AGGIUNTO: Calcolo medie corse per anno
+    const avgRacesPerYearRaw = statistics.length > 0 ? totaleCorse / statistics.length : 0;
 
     return {
       totalekm,
@@ -77,12 +77,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgkmPerRace: formatNumberConditionally(avgkmPerRaceRaw),
       avgkmPerYear: formatNumberConditionally(avgkmPerYearRaw),
       avgkmPerMonth: formatNumberConditionally(avgkmPerMonthRaw),
+      // ✅ AGGIUNTO: Media corse per anno formattata
+      avgRacesPerYear: formatNumberConditionally(avgRacesPerYearRaw),
       avgValues: statistics.map((entry) =>
         ((entry.km / totalekm) * 100).toFixed(2),
       ),
     };
   }
-  // -------------------------------------------------------------
 
   function createChartConfig(labels, data, colors) {
     return {
@@ -157,24 +158,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   };
 
-  // renderSummary riceve ora totaleCorse come parametro
+  // ✅ CORRETTO: renderSummary riceve anche avgRacesPerYear
   const renderSummary = (
     totalekm,
     avgkmPerRace,
     avgkmPerYear,
     avgkmPerMonth,
     totaleCorse,
+    avgRacesPerYear  // ✅ PARAMETRO AGGIUNTO
   ) =>
     (document.getElementById("totale").innerHTML = `
-        <a href="Statistiche/History/Statistiche_Totali.html">
-          <div class="colore">
-            <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png"></p>
-            <p class="misuracolore">km medi per giro ${avgkmPerRace}</p>
-            <p class="misuracolore">km medi per anno ${avgkmPerYear}</p>
-            <p class="misuracolore">km medi per mese ${avgkmPerMonth}</p>
-            <p class="misuracolore">Totale corse ${totaleCorse}</p>
-          </div>
-        </a>`);
+      <a href="Statistiche/History/Statistiche_Totali.html">
+        <div class="colore">
+          <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png"></p>
+          <p class="misuracolore">km medi per giro ${avgkmPerRace}</p>
+          <p class="misuracolore">km medi per anno ${avgkmPerYear}</p>
+          <p class="misuracolore">km medi per mese ${avgkmPerMonth}</p>
+          <p class="misuracolore">Totale corse ${totaleCorse}</p>
+          <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p> <!-- ✅ CORRETTO -->
+        </div>
+      </a>`);
 
   const renderChart = (labels, data, colors) => {
     const doughnutConfig = createChartConfig(labels, data, colors);
@@ -195,21 +198,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgkmPerRace,
       avgkmPerYear,
       avgkmPerMonth,
+      avgRacesPerYear,  // ✅ RICEVUTO DA calculateAverages
       avgValues,
-    } = calculateAverages(statistics); // I valori medi sono ora formattati
+    } = calculateAverages(statistics);
 
     const labels = statistics.map((entry) => `km ${entry.year}`);
     const values = statistics.map((entry) => entry.km);
     const itemsPerPage = 2;
 
     renderChart(labels, values, colors);
-    // ✅ Passa totaleCorse a renderSummary
+    
+    // ✅ CORRETTO: Passa tutti i parametri inclusi avgRacesPerYear
     renderSummary(
       totalekm,
       avgkmPerRace,
       avgkmPerYear,
       avgkmPerMonth,
       totaleCorse,
+      avgRacesPerYear   // ✅ AGGIUNTO
     );
 
     // 🔁 Recupera pagina salvata o default 1

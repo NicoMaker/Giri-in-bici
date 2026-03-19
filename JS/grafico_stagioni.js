@@ -219,6 +219,7 @@ function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
         <p class="misuracolore">km medi per giro in ${season} ${avgcorsa} </p>
         <p class="misuracolore">Media km per periodo ${avgseason} </p>
         <p class="misuracolore">Totale corse ${totalRaces}</p>
+        <p class="misuracolore">corse medie per stagione ${formatNumber(totalRaces / numberOfLabels)}</p>
       </div>
     `;
 

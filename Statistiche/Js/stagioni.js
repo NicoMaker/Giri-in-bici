@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
       <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
       <p class="misuracolore">Totale corse ${data.corseTotale}</p>
+      <p class="misuracolore">Medie corse per stagione: ${formatNumberConditionally(data.corseTotale / 3)}</p>
     </div>`;
 
   // ============================================
