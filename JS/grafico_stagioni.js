@@ -109,10 +109,10 @@ const getDoughnutContext = () =>
           <img class="immaginestagione" src="Icons/${image}">
           <p class="titoli">
             ${season} ${label}
-            <p>Totale km ${formatNumber(data[label].totalDistance)} 
+            <p class="misuracolore">Totale km ${formatNumber(data[label].totalDistance)} 
               <img src="Icons/traguardo.png">
             </p> 
-            <p>${avgValues[index]} %</p>
+            <p class="misuracolore">${avgValues[index]} %</p>
           </p>
         </a>
       </div>
@@ -214,9 +214,10 @@ function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
     avgcorsa = formatNumber(totale / totalRaces),
     stampaseason = `
       <div class="colore">
-        <p>Totale km percorsi in ${season} ${formatNumber(totale)} <img src="Icons/traguardo.png"> </p>
-        <p>km medi per giro in ${season} ${avgcorsa} </p>
-        <p>media km per stagione ${avgseason} </p>
+        <p class="misuracolore">Totale km percorsi in ${season} ${formatNumber(totale)} <img src="Icons/traguardo.png"> </p>
+        <p class="misuracolore">km medi per giro in ${season} ${avgcorsa} </p>
+        <p class="misuracolore">Media km per periodo ${avgseason} </p>
+        <p class="misuracolore">Totale corse ${totalRaces}</p>
       </div>
     `;
 

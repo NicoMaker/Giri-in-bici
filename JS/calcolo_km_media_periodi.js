@@ -22,30 +22,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const appendRowToTable = (tableBody, row) => tableBody.appendChild(row);
 
+  function formatNumber(value) {
+    if (Number.isInteger(value)) {
+      return value.toString();
+    } else {
+      return value.toFixed(2);
+    }
+  }
+
   function calculateAndDisplayStats(data) {
     const totalkm = data.reduce((total, row) => total + row.distance, 0);
     const totalRaces = data.length;
-    // Calcola il valore grezzo della media
     const rawMediaValue = totalkm / totalRaces;
 
-    let mediaValue;
-
-    // Controlla se il valore è un intero
-    if (Number.isInteger(rawMediaValue)) {
-      // Se è intero (es. 10.0), visualizza come intero (10)
-      mediaValue = rawMediaValue.toString();
-    } else {
-      // Se non è intero (es. 10.333), visualizza con due cifre decimali (10.33)
-      mediaValue = rawMediaValue.toFixed(2);
-    }
+    const mediaValue = formatNumber(rawMediaValue);
 
     const kmElement = document.getElementById("km");
     kmElement.innerHTML = `
       <div class="colore">
-        <p> Totale km percorsi ${totalkm} 
-          <img src="../../Icons/traguardo.png"> 
+        <p class="misuracolore">Totale km percorsi ${totalkm} 
+          <img src="../../Icons/traguardo.png" alt="Icona traguardo"> 
         </p>
-        <p> Media km percorsi ${mediaValue} </p>
+        <p class="misuracolore">Media km percorsi ${mediaValue}</p>
+        <p class="misuracolore">Totale corse ${totalRaces}</p>
       </div>
     `;
   }
@@ -63,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const jsonUrl = document.getElementById("json").getAttribute("link");
   loadDataFromJSON(jsonUrl).then((data) => {
-    // Assicurati che 'data' esista e sia un array prima di procedere
     if (data && Array.isArray(data)) {
       updateTableAndStats(data);
     }

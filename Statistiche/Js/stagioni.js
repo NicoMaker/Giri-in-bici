@@ -25,6 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return data.reduce((total, km) => total + (km.distance || 0), 0);
   };
 
+  const countRaces = (data) => {
+    if (!Array.isArray(data)) {
+      return 0;
+    }
+    return data.length;
+  };
+
   const renderStampa = (data) => `
         <div class="primavera">
             <a href="../Primavera.html">
@@ -67,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p class="misuracolore">Totale km ${formatNumberConditionally(data.totale)} <img src="../Icons/traguardo.png"></p>
             <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
             <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
+            <p class="misuracolore">Totale corse ${data.corseTotale}</p>
         </div>`;
 
   // ✅ Ordine dei parametri corretto: primavera, estate, autunno_inverno
@@ -79,6 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const primavera = sumData(primaveraData),
       estate = sumData(estateData),
       autunno_inverno = sumData(autunnoInvernoData),
+      corsep = countRaces(primaveraData),
+      corsee = countRaces(estateData),
+      corseai = countRaces(autunnoInvernoData),
+      corseTotale = corsep + corsee + corseai,
       totale = primavera + estate + autunno_inverno,
       totalePeriodi =
         numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
@@ -96,6 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
       p: primavera,
       e: estate,
       ai: autunno_inverno,
+      corsep,
+      corsee,
+      corseai,
+      corseTotale,
       totale,
       avgp: (primavera / totale) * 100,
       avge: (estate / totale) * 100,
@@ -141,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const resolvedSeasons = await Promise.all(seasonDataPromises);
 
-    // 🔍 Trova le stagioni per nome, indipendentemente dall’ordine
+    // 🔍 Trova le stagioni per nome, indipendentemente dall'ordine
     const primaveraPromise = resolvedSeasons.find((s) =>
         s.name.toLowerCase().includes("primavera"),
       ),

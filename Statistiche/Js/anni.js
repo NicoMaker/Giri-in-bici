@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Render delle sezioni
     renderChart(mesi, chilometri, colors, year);
     renderDataTable(mesi, chilometri, percentuali);
-    renderSummary(totale, kmMediPerCorsa, kmMediPerMese);
+    renderSummary(totale, kmMediPerCorsa, kmMediPerMese, corse);
   } catch (error) {
     console.error(`Errore nel caricamento o elaborazione del JSON: ${error}`);
   }
@@ -108,12 +108,13 @@ function renderDataTable(mesi, chilometri, percentuali) {
   document.getElementById("mesi").innerHTML = tabellaDati;
 }
 
-function renderSummary(totale, kmMediPerCorsa, kmMediPerMese) {
+function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
   const stampat = `
         <div class="colore">
-            <p>Totale km ${totale} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
-            <p>km medi per corsa ${kmMediPerCorsa}</p>
-            <p>km medi per mese ${kmMediPerMese}</p>
+            <p class="misuracolore">Totale km ${totale} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
+            <p class="misuracolore">km medi per corsa ${kmMediPerCorsa}</p>
+            <p class="misuracolore">km medi per mese ${kmMediPerMese}</p>
+            <p class="misuracolore">Totale corse ${totaleCorse}</p>
         </div>
     `;
   document.getElementById("totale").innerHTML = stampat;

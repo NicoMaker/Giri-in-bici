@@ -1,4 +1,4 @@
-// Funzione di utilità per la formattazione condizionale (DEVE ESSERE DEFINITA FUORI DA DOMContentLoaded se usata come variabile globale, o interna se non lo è)
+// Funzione di utilità per la formattazione condizionale
 const formatNumberConditionally = (value) => {
   // Se il valore è un intero (es. 10.0), lo mostra senza decimali
   if (Number.isInteger(value)) {
@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     return {
       totalekm,
+      totaleCorse,
       // Restituisce i valori formattati
       avgkmPerRace: formatNumberConditionally(avgkmPerRaceRaw),
       avgkmPerYear: formatNumberConditionally(avgkmPerYearRaw),
@@ -124,8 +125,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <a href="Statistiche/Anni/${entry.year}.html">
                   <img class="immaginestagione" src="Icons/Statistiche.png">
                   <p class="titoli">Statistiche ${entry.year}</p>
-                  <p>km totali ${formatNumberConditionally(entry.km)} <img src="Icons/traguardo.png"></p>
-                  <p>${formatNumberConditionally(parseFloat(avgValues[startIndex + index]))} %</p>
+                  <p class="misuracolore">km totali ${formatNumberConditionally(entry.km)} <img src="Icons/traguardo.png"></p>
+                  <p class="misuracolore">${formatNumberConditionally(parseFloat(avgValues[startIndex + index]))} %</p>
                 </a>
               </div>
             `,
@@ -155,15 +156,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   };
 
-  // renderSummary non ha bisogno di modifiche perché riceve già i valori formattati
-  const renderSummary = (totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth) =>
+  // renderSummary riceve ora totaleCorse come parametro
+  const renderSummary = (totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth, totaleCorse) =>
     (document.getElementById("totale").innerHTML = `
         <a href="Statistiche/History/Statistiche_Totali.html">
           <div class="colore">
-            <p>Totale km ${totalekm} <img src="Icons/traguardo.png"></p>
-            <p>km medi per giro ${avgkmPerRace}</p>
-            <p>km medi per anno ${avgkmPerYear}</p>
-            <p>km medi per mese ${avgkmPerMonth}</p>
+            <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png"></p>
+            <p class="misuracolore">km medi per giro ${avgkmPerRace}</p>
+            <p class="misuracolore">km medi per anno ${avgkmPerYear}</p>
+            <p class="misuracolore">km medi per mese ${avgkmPerMonth}</p>
+            <p class="misuracolore">Totale corse ${totaleCorse}</p>
           </div>
         </a>`);
 
@@ -180,7 +182,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (dataResult && dataResult.mainData) {
     const { mainData, statistics } = dataResult;
     const { colors } = mainData;
-    const { totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth, avgValues } =
+    const { totalekm, totaleCorse, avgkmPerRace, avgkmPerYear, avgkmPerMonth, avgValues } =
       calculateAverages(statistics); // I valori medi sono ora formattati
 
     const labels = statistics.map((entry) => `km ${entry.year}`);
@@ -188,7 +190,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const itemsPerPage = 2;
 
     renderChart(labels, values, colors);
-    renderSummary(totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth);
+    // ✅ Passa totaleCorse a renderSummary
+    renderSummary(totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth, totaleCorse);
 
     // 🔁 Recupera pagina salvata o default 1
     const savedPage = parseInt(localStorage.getItem("page_statistiche")) || 1;
