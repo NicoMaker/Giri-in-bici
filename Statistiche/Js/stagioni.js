@@ -10,68 +10,45 @@ const formatNumberConditionally = (value) => {
 let SEASONS_CONFIG = [];
 let CHART_CONFIG = {};
 
+// ============================================
+// FUNZIONE GENERICA PER LEGGERE JSON
+// ============================================
+async function loadJSON(jsonFilePath) {
+  try {
+    const response = await fetch(jsonFilePath);
+    if (!response.ok) {
+      throw new Error(`Failed to load ${jsonFilePath}: ${response.status}`);
+    }
+    const config = await response.json();
+    return config;
+  } catch (error) {
+    console.error(`❌ Errore nel caricamento di ${jsonFilePath}:`, error);
+    return null;
+  }
+}
+
+// ============================================
+// INIZIALIZZA CONFIGURAZIONE DAL JSON
+// ============================================
+async function initializeConfiguration(jsonFilePath) {
+  const config = await loadJSON(jsonFilePath);
+
+  if (config) {
+    SEASONS_CONFIG = config.seasons;
+    CHART_CONFIG = config.chart;
+    console.log(`✅ Configurazione caricata da ${jsonFilePath}`);
+  } else {
+    console.log("⚠️ Usata configurazione di fallback");
+    loadDefaultConfiguration();
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   // ✅ CARICA LA CONFIGURAZIONE DAL FILE JSON
-  await loadConfiguration();
+  await initializeConfiguration("Js/anni/seasons-config.json");
 
-  async function loadConfiguration() {
-    try {
-      const response = await fetch("Js/anni/seasons-config.json");
-      if (!response.ok) {
-        throw new Error(`Failed to load config: ${response.status}`);
-      }
-      const config = await response.json();
-      SEASONS_CONFIG = config.seasons;
-      CHART_CONFIG = config.chart;
-      console.log("✅ Configurazione caricata con successo");
-    } catch (error) {
-      console.error("❌ Errore nel caricamento della configurazione:", error);
-      // Fallback: configurazione inline (se il file non è disponibile)
-      loadDefaultConfiguration();
-    }
-  }
-
-  // Configurazione di fallback
-  function loadDefaultConfiguration() {
-    SEASONS_CONFIG = [
-      {
-        containerClass: "primavera",
-        link: "../Primavera.html",
-        imgClass: "immaginestagionestat",
-        icon: "primavera.png",
-        name: "Primavera",
-        dataKey: "p",
-        raceKey: "corsep",
-        avgKey: "avgp",
-      },
-      {
-        containerClass: "estate",
-        link: "../Estate.html",
-        imgClass: "immaginestagionestatsx",
-        icon: "estate.png",
-        name: "Estate",
-        dataKey: "e",
-        raceKey: "corsee",
-        avgKey: "avge",
-      },
-      {
-        containerClass: "autunno_inverno",
-        link: "../Autunno_Inverno.html",
-        imgClass: "immaginestagionestat",
-        icon: "inverno.png",
-        name: "Autunno - Inverno",
-        dataKey: "ai",
-        raceKey: "corseai",
-        avgKey: "avgai",
-      },
-    ];
-    CHART_CONFIG = {
-      colors: ["lightgreen", "red", "lightblue"],
-      borderColor: "black",
-      borderWidth: 1,
-    };
-    console.log("⚠️ Usata configurazione di fallback");
-  }
+  // ✅ POI ESEGUI LA FUNZIONE PRINCIPALE
+  loadAndRenderData();
 
   // ============================================
   // FUNZIONI UTILITÀ
@@ -122,8 +99,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       </a>
     </div>`;
 
-  const renderStampa = (data) =>
-    SEASONS_CONFIG.map((season) => renderSeasonDiv(season, data)).join("");
+  const renderStampa = (data) => {
+    return SEASONS_CONFIG.map((season) => renderSeasonDiv(season, data)).join(
+      "",
+    );
+  };
 
   const createStampat = (data) => `
     <div class="colore">
@@ -269,7 +249,4 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Errore durante il caricamento dei dati");
     }
   }
-
-  // ✅ AVVIA DOPO CHE LA CONFIGURAZIONE È CARICATA
-  loadAndRenderData();
 });
