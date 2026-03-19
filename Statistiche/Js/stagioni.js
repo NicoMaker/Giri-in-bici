@@ -32,71 +32,86 @@ document.addEventListener("DOMContentLoaded", () => {
     return data.length;
   };
 
-  const renderStampa = (data) => `
-        <div class="primavera">
-            <a href="../Primavera.html">
-                <img class="immaginestagionestat" src="../Icons/primavera.png">
-                <p class="contornostagione misuracolore">Primavera</p>
-                <p class="misuracolore">
-                    km totali ${formatNumberConditionally(data.p)} 
-                    <img src="../Icons/traguardo.png">
-                </p>
-                <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgp))} %</p>
-                <p class="misuracolore">Totale corse ${data.corsep}</p>
-            </a>
-        </div>
+  // ✅ CONFIGURAZIONE STAGIONI - FACILE DA MODIFICARE
+  const SEASONS_CONFIG = [
+    {
+      containerClass: "primavera",
+      link: "../Primavera.html",
+      imgClass: "immaginestagionestat",
+      icon: "primavera.png",
+      name: "Primavera",
+      dataKey: "p",
+      raceKey: "corsep",
+      avgKey: "avgp",
+    },
+    {
+      containerClass: "estate",
+      link: "../Estate.html",
+      imgClass: "immaginestagionestatsx",
+      icon: "estate.png",
+      name: "Estate",
+      dataKey: "e",
+      raceKey: "corsee",
+      avgKey: "avge",
+    },
+    {
+      containerClass: "autunno_inverno",
+      link: "../Autunno_Inverno.html",
+      imgClass: "immaginestagionestat",
+      icon: "inverno.png",
+      name: "Autunno - Inverno",
+      dataKey: "ai",
+      raceKey: "corseai",
+      avgKey: "avgai",
+    },
+  ];
 
-        <div class="estate">
-            <a href="../Estate.html">
-                <img class="immaginestagionestatsx" src="../Icons/estate.png">
-                <p class="contornostagione misuracolore">Estate</p>
-                <p class="misuracolore">
-                    km totali ${formatNumberConditionally(data.e)} 
-                    <img src="../Icons/traguardo.png">
-                </p>
-                <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avge))} %</p>
-                <p class="misuracolore">Totale corse ${data.corsee}</p>
-            </a>
-        </div>
+  // ✅ RENDERIZZA UNA SINGOLA STAGIONE
+  const renderSeasonDiv = (season, data) => `
+    <div class="${season.containerClass}">
+      <a href="${season.link}">
+        <img class="${season.imgClass}" src="../Icons/${season.icon}">
+        <p class="contornostagione misuracolore">${season.name}</p>
+        <p class="misuracolore">
+          km totali ${formatNumberConditionally(data[season.dataKey])} 
+          <img src="../Icons/traguardo.png">
+        </p>
+        <p class="misuracolore">${formatNumberConditionally(parseFloat(data[season.avgKey]))} %</p>
+        <p class="misuracolore">Totale corse ${data[season.raceKey]}</p>
+      </a>
+    </div>`;
 
-        <div class="autunno_inverno">
-            <a href="../Autunno_Inverno.html">
-                <img class="immaginestagionestat" src="../Icons/inverno.png">
-                <p class="contornostagione misuracolore">Autunno - Inverno</p>
-                <p class="misuracolore">
-                    km totali ${formatNumberConditionally(data.ai)} 
-                    <img src="../Icons/traguardo.png">
-                </p>
-                <p class="misuracolore">${formatNumberConditionally(parseFloat(data.avgai))} %</p>
-                <p class="misuracolore">Totale corse ${data.corseai}</p>
-            </a>
-        </div>`;
+  // ✅ RENDERIZZA TUTTE LE STAGIONI DINAMICAMENTE
+  const renderStampa = (data) => {
+    return SEASONS_CONFIG.map((season) => renderSeasonDiv(season, data)).join("");
+  };
 
   const createStampat = (data) => `
-        <div class="colore">
-            <p class="misuracolore">Totale km ${formatNumberConditionally(data.totale)} <img src="../Icons/traguardo.png"></p>
-            <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
-            <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
-            <p class="misuracolore">Totale corse ${data.corseTotale}</p>
-        </div>`;
+    <div class="colore">
+      <p class="misuracolore">Totale km ${formatNumberConditionally(data.totale)} <img src="../Icons/traguardo.png"></p>
+      <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
+      <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
+      <p class="misuracolore">Totale corse ${data.corseTotale}</p>
+    </div>`;
 
-  // ✅ Ordine dei parametri corretto: primavera, estate, autunno_inverno
   function calculateData(
     primaveraData,
     estateData,
     autunnoInvernoData,
     numPeriodi,
   ) {
-    const primavera = sumData(primaveraData),
-      estate = sumData(estateData),
-      autunno_inverno = sumData(autunnoInvernoData),
-      corsep = countRaces(primaveraData),
-      corsee = countRaces(estateData),
-      corseai = countRaces(autunnoInvernoData),
-      corseTotale = corsep + corsee + corseai,
-      totale = primavera + estate + autunno_inverno,
-      totalePeriodi =
-        numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
+    const primavera = sumData(primaveraData);
+    const estate = sumData(estateData);
+    const autunno_inverno = sumData(autunnoInvernoData);
+
+    const corsep = countRaces(primaveraData);
+    const corsee = countRaces(estateData);
+    const corseai = countRaces(autunnoInvernoData);
+    const corseTotale = corsep + corsee + corseai;
+
+    const totale = primavera + estate + autunno_inverno;
+    const totalePeriodi =
+      numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
 
     const avgmediastagioneFormatted = formatNumberConditionally(totale / 3);
 
@@ -162,14 +177,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🔍 Trova le stagioni per nome, indipendentemente dall'ordine
     const primaveraPromise = resolvedSeasons.find((s) =>
-        s.name.toLowerCase().includes("primavera"),
-      ),
-      estatePromise = resolvedSeasons.find((s) =>
-        s.name.toLowerCase().includes("estate"),
-      ),
-      autunnoInvernoPromise = resolvedSeasons.find((s) =>
-        s.name.toLowerCase().includes("inverno"),
-      );
+      s.name.toLowerCase().includes("primavera"),
+    );
+    const estatePromise = resolvedSeasons.find((s) =>
+      s.name.toLowerCase().includes("estate"),
+    );
+    const autunnoInvernoPromise = resolvedSeasons.find((s) =>
+      s.name.toLowerCase().includes("inverno"),
+    );
 
     if (primaveraPromise && estatePromise && autunnoInvernoPromise) {
       const calculatedData = calculateData(
@@ -184,8 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const ctx = document.getElementById("doughnut-chart").getContext("2d");
 
       document.getElementById("dati").innerHTML = renderStampa(calculatedData);
-      document.getElementById("totale").innerHTML =
-        createStampat(calculatedData);
+      document.getElementById("totale").innerHTML = createStampat(calculatedData);
 
       new Chart(ctx, {
         type: "doughnut",
