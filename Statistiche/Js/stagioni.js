@@ -4,7 +4,79 @@ const formatNumberConditionally = (value) => {
   return value.toFixed(2);
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+// ============================================
+// VARIABILE GLOBALE PER LA CONFIGURAZIONE
+// ============================================
+let SEASONS_CONFIG = [];
+let CHART_CONFIG = {};
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // ✅ CARICA LA CONFIGURAZIONE DAL FILE JSON
+  await loadConfiguration();
+
+  async function loadConfiguration() {
+    try {
+      const response = await fetch("Js/anni/seasons-config.json");
+      if (!response.ok) {
+        throw new Error(`Failed to load config: ${response.status}`);
+      }
+      const config = await response.json();
+      SEASONS_CONFIG = config.seasons;
+      CHART_CONFIG = config.chart;
+      console.log("✅ Configurazione caricata con successo");
+    } catch (error) {
+      console.error("❌ Errore nel caricamento della configurazione:", error);
+      // Fallback: configurazione inline (se il file non è disponibile)
+      loadDefaultConfiguration();
+    }
+  }
+
+  // Configurazione di fallback
+  function loadDefaultConfiguration() {
+    SEASONS_CONFIG = [
+      {
+        containerClass: "primavera",
+        link: "../Primavera.html",
+        imgClass: "immaginestagionestat",
+        icon: "primavera.png",
+        name: "Primavera",
+        dataKey: "p",
+        raceKey: "corsep",
+        avgKey: "avgp",
+      },
+      {
+        containerClass: "estate",
+        link: "../Estate.html",
+        imgClass: "immaginestagionestatsx",
+        icon: "estate.png",
+        name: "Estate",
+        dataKey: "e",
+        raceKey: "corsee",
+        avgKey: "avge",
+      },
+      {
+        containerClass: "autunno_inverno",
+        link: "../Autunno_Inverno.html",
+        imgClass: "immaginestagionestat",
+        icon: "inverno.png",
+        name: "Autunno - Inverno",
+        dataKey: "ai",
+        raceKey: "corseai",
+        avgKey: "avgai",
+      },
+    ];
+    CHART_CONFIG = {
+      colors: ["lightgreen", "red", "lightblue"],
+      borderColor: "black",
+      borderWidth: 1,
+    };
+    console.log("⚠️ Usata configurazione di fallback");
+  }
+
+  // ============================================
+  // FUNZIONI UTILITÀ
+  // ============================================
+
   async function fetchJSON(url) {
     try {
       const response = await fetch(url);
@@ -32,41 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return data.length;
   };
 
-  // ✅ CONFIGURAZIONE STAGIONI - FACILE DA MODIFICARE
-  const SEASONS_CONFIG = [
-    {
-      containerClass: "primavera",
-      link: "../Primavera.html",
-      imgClass: "immaginestagionestat",
-      icon: "primavera.png",
-      name: "Primavera",
-      dataKey: "p",
-      raceKey: "corsep",
-      avgKey: "avgp",
-    },
-    {
-      containerClass: "estate",
-      link: "../Estate.html",
-      imgClass: "immaginestagionestatsx",
-      icon: "estate.png",
-      name: "Estate",
-      dataKey: "e",
-      raceKey: "corsee",
-      avgKey: "avge",
-    },
-    {
-      containerClass: "autunno_inverno",
-      link: "../Autunno_Inverno.html",
-      imgClass: "immaginestagionestat",
-      icon: "inverno.png",
-      name: "Autunno - Inverno",
-      dataKey: "ai",
-      raceKey: "corseai",
-      avgKey: "avgai",
-    },
-  ];
+  // ============================================
+  // RENDERING DINAMICO
+  // ============================================
 
-  // ✅ RENDERIZZA UNA SINGOLA STAGIONE
   const renderSeasonDiv = (season, data) => `
     <div class="${season.containerClass}">
       <a href="${season.link}">
@@ -81,10 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
       </a>
     </div>`;
 
-  // ✅ RENDERIZZA TUTTE LE STAGIONI DINAMICAMENTE
-  const renderStampa = (data) => {
-    return SEASONS_CONFIG.map((season) => renderSeasonDiv(season, data)).join("");
-  };
+  const renderStampa = (data) =>
+    SEASONS_CONFIG.map((season) => renderSeasonDiv(season, data)).join("");
 
   const createStampat = (data) => `
     <div class="colore">
@@ -93,6 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
       <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
       <p class="misuracolore">Totale corse ${data.corseTotale}</p>
     </div>`;
+
+  // ============================================
+  // CALCOLI DATI
+  // ============================================
 
   function calculateData(
     primaveraData,
@@ -138,6 +181,10 @@ document.addEventListener("DOMContentLoaded", () => {
       avgperiod: avgperiodFormatted,
     };
   }
+
+  // ============================================
+  // CARICAMENTO E RENDERING
+  // ============================================
 
   async function loadAndRenderData() {
     const seasonsData = await fetchJSON("Js/anni/stagioni.json");
@@ -199,8 +246,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const ctx = document.getElementById("doughnut-chart").getContext("2d");
 
       document.getElementById("dati").innerHTML = renderStampa(calculatedData);
-      document.getElementById("totale").innerHTML = createStampat(calculatedData);
+      document.getElementById("totale").innerHTML =
+        createStampat(calculatedData);
 
+      // ✅ USA LA CONFIGURAZIONE DEL CHART DAL JSON
       new Chart(ctx, {
         type: "doughnut",
         data: {
@@ -208,9 +257,9 @@ document.addEventListener("DOMContentLoaded", () => {
           datasets: [
             {
               label: "km totali stagione",
-              backgroundColor: ["lightgreen", "red", "lightblue"],
-              borderColor: ["black"],
-              borderWidth: 1,
+              backgroundColor: CHART_CONFIG.colors,
+              borderColor: CHART_CONFIG.borderColor,
+              borderWidth: CHART_CONFIG.borderWidth,
               data: chartData,
             },
           ],
@@ -221,5 +270,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // ✅ AVVIA DOPO CHE LA CONFIGURAZIONE È CARICATA
   loadAndRenderData();
 });
