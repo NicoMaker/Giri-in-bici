@@ -1,71 +1,81 @@
+// Funzione di utilità per la formattazione condizionale
+// 1. Se è 10.0 → "10", se 10.33 → "10.33"
+const formatNumberConditionally = (value) => {
+  if (Number.isInteger(value)) {
+    return value.toString();
+  }
+  return value.toFixed(2);
+};
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const mesiOrdinati = [
-      "Gennaio",
-      "Febbraio",
-      "Marzo",
-      "Aprile",
-      "Maggio",
-      "Giugno",
-      "Luglio",
-      "Agosto",
-      "Settembre",
-      "Ottobre",
-      "Novembre",
-      "Dicembre",
-    ],
-    getTotale = (chilometri) => chilometri.reduce((acc, curr) => acc + curr, 0),
-    getPercentuali = (chilometri, totale) =>
-      chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
-    // 🔹 Calcolo km medi per mese
-    getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
-      mesi.map((mese, index) => {
-        let kmMediMese = 0;
-        if (mesiPercorsi[index] > 0) {
-          kmMediMese = chilometri[index] / mesiPercorsi[index];
-          kmMediMese = kmMediMese.toFixed(2);
-        }
-        return { mese, kmMediMese };
-      }),
-    getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
-    getTotaleCorse = (allData) => {
-      let totaleCorse = 0;
-      allData.forEach((json) => {
-        totaleCorse += json.numberOfRaces || 0;
-      });
-      return totaleCorse;
-    },
-    createChartConfig = (labels, data, colori) => ({
-      type: "bar",
-      data: {
-        labels,
-        datasets: [
-          {
-            label: "km mensili totali",
-            backgroundColor: colori,
-            borderColor: ["black"],
-            borderWidth: 1,
-            data,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: { beginAtZero: true },
-        },
-      },
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
+  ],
+  getTotale = (chilometri) => chilometri.reduce((acc, curr) => acc + curr, 0),
+  getPercentuali = (chilometri, totale) =>
+    chilometri.map((km) => ((km / totale) * 100).toFixed(2)),
+  // 🔹 Calcolo km medi per mese
+  getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
+    mesi.map((mese, index) => {
+      let kmMediMese = 0;
+      if (mesiPercorsi[index] > 0) {
+        kmMediMese = chilometri[index] / mesiPercorsi[index];
+        kmMediMese = kmMediMese.toFixed(2);
+      }
+      return { mese, kmMediMese };
     }),
-    renderChart = (config, ctx) => new Chart(ctx, config),
-    createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
-      <tr class="grassetto">
-        <th>Mese</th>
-        <th>km <img src="../../Icons/traguardo.png"></th>
-        <th>Percentuale sul totale</th>
-        <th>Mesi di Corsa</th>
-        <th>km <img src="../../Icons/traguardo.png"> medi mensili</th>
-      </tr>
-      ${kmPerMese
-        .map(
-          ({ mese, kmMediMese }, index) => `
+  getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
+  getTotaleCorse = (allData) => {
+    let totaleCorse = 0;
+    allData.forEach((json) => {
+      totaleCorse += json.numberOfRaces || 0;
+    });
+    return totaleCorse;
+  },
+  createChartConfig = (labels, data, colori) => ({
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "km mensili totali",
+          backgroundColor: colori,
+          borderColor: ["black"],
+          borderWidth: 1,
+          data,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true },
+      },
+    },
+  }),
+  renderChart = (config, ctx) => new Chart(ctx, config),
+  createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
+    <tr class="grassetto">
+      <th>Mese</th>
+      <th>km <img src="../../Icons/traguardo.png"></th>
+      <th>Percentuale sul totale</th>
+      <th>Mesi di Corsa</th>
+      <th>km <img src="../../Icons/traguardo.png"> medi mensili</th>
+    </tr>
+    ${kmPerMese
+      .map(
+        ({ mese, kmMediMese }, index) => `
       <tr>
         <td>${mese}</td>
         <td>${chilometri[index]}</td>
@@ -73,18 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
         <td>${mesiPercorsi[index]}</td>
         <td>${kmMediMese}</td>
       </tr>`,
-        )
-        .join("")}
-    `,
-    // ✅ Aggiungo totaleCorse come parametro
-    createSummaryHTML = (totale, mediaComplessiva, totaleCorse) => `
-      <a href="StoricoMensile.html">
-        <div class="colore">
-            <p class="misuracolore">totale km ${totale} <img src="../../Icons/traguardo.png"></p>
-            <p class="misuracolore">km totali medi per mese ${mediaComplessiva}</p>
-            <p class="misuracolore">Totale corse ${totaleCorse}</p>
-        </div>
-      </a>`;
+      )
+      .join("")}
+  `,
+  // ✅ Creo una funzione getMediaCorsePerMese con lo stesso stile di getMediaComplessiva
+  getMediaCorsePerMese = (totaleCorse) => {
+    const mediaRaw = totaleCorse / 12;
+    return formatNumberConditionally(mediaRaw);
+  },
+  createSummaryHTML = (totale, mediaComplessiva, totaleCorse, mediacorse) => `
+    <a href="StoricoMensile.html">
+      <div class="colore">
+          <p class="misuracolore">totale km ${totale} <img src="../../Icons/traguardo.png"></p>
+          <p class="misuracolore">km totali medi per mese ${mediaComplessiva}</p>
+          <p class="misuracolore">Totale corse ${totaleCorse}</p>
+          <p class="misuracolore">Medie corse per mese (12 mesi) ${mediacorse}</p>
+      </div>
+    </a>`;
+
 
   fetch("../Js/History/JSON/GraficoTotale.json")
     .then((response) => response.json())
@@ -126,8 +142,9 @@ document.addEventListener("DOMContentLoaded", () => {
               totaleChilometri,
               mesiOrdinati.length,
             ),
-            // ✅ Calcola totaleCorse
             totaleCorse = getTotaleCorse(allData),
+            // ✅ Calcola mediacorse con funzione dedicata (stesso stile di mediaComplessiva)
+            mediacorse = getMediaCorsePerMese(totaleCorse),
             chartConfig = createChartConfig(
               mesiOrdinati,
               chilometriTotali,
@@ -144,11 +161,11 @@ document.addEventListener("DOMContentLoaded", () => {
             mesiPercorsi,
           );
 
-          // ✅ Passa totaleCorse a createSummaryHTML
           document.getElementById("totale").innerHTML = createSummaryHTML(
             totaleChilometri,
             mediaComplessiva,
             totaleCorse,
+            mediacorse,
           );
         })
         .catch((error) => {

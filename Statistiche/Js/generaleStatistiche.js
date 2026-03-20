@@ -8,18 +8,20 @@ const formatNumberConditionally = (value) => {
   return value.toFixed(2);
 };
 
+
 document.addEventListener("DOMContentLoaded", async () => {
   async function fetchJSON(url) {
     try {
       const response = await fetch(url);
       if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`); // ✅ CORRETTO
+        throw new Error(`HTTP error! status: ${response.status}`);
       return await response.json();
     } catch (error) {
       console.error(`Error fetching data from ${url}:`, error);
       return null;
     }
   }
+
 
   async function fetchData() {
     const mainData = await fetchJSON(
@@ -50,40 +52,46 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-  function calculateAverages(statistics) {
-    const totalekm = statistics.reduce((acc, cur) => acc + cur.km, 0),
-      totaleCorse = statistics.reduce((acc, cur) => acc + cur.numberOfRaces, 0),
-      totalMonthlykm = statistics.reduce(
-        (acc, cur) =>
-          acc +
-          Object.values(cur.monthlyData).reduce((sum, val) => sum + val, 0),
-        0,
-      ),
-      totalMonths = statistics.reduce(
-        (acc, cur) => acc + Object.keys(cur.monthlyData).length,
-        0,
-      );
 
-    const avgkmPerRaceRaw = totaleCorse > 0 ? totalekm / totaleCorse : 0;
-    const avgkmPerYearRaw = statistics.length > 0 ? totalekm / statistics.length : 0;
-    const avgkmPerMonthRaw = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
-    // ✅ AGGIUNTO: Calcolo medie corse per anno
+  function calculateAverages(statistics) {
+    const totalekm = statistics.reduce((acc, cur) => acc + cur.km, 0);
+    const totaleCorse = statistics.reduce((acc, cur) => acc + cur.numberOfRaces, 0);
+
+    const totalMonthlykm = statistics.reduce(
+      (acc, cur) =>
+        acc +
+        Object.values(cur.monthlyData).reduce((sum, val) => sum + val, 0),
+      0,
+    );
+    const totalMonths = statistics.reduce(
+      (acc, cur) => acc + Object.keys(cur.monthlyData).length,
+      0,
+    );
+
+    const avgkmPerRaceRaw   = totaleCorse > 0 ? totalekm / totaleCorse : 0;
+    const avgkmPerYearRaw   = statistics.length > 0 ? totalekm / statistics.length : 0;
+    const avgkmPerMonthRaw  = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
     const avgRacesPerYearRaw = statistics.length > 0 ? totaleCorse / statistics.length : 0;
+
+    // Calcolo media corse per mese
+    const avgRacesPerMonthRaw = totalMonths > 0 ? totaleCorse / totalMonths : 0;
 
     return {
       totalekm,
       totaleCorse,
-      // Restituisce i valori formattati
-      avgkmPerRace: formatNumberConditionally(avgkmPerRaceRaw),
-      avgkmPerYear: formatNumberConditionally(avgkmPerYearRaw),
-      avgkmPerMonth: formatNumberConditionally(avgkmPerMonthRaw),
-      // ✅ AGGIUNTO: Media corse per anno formattata
-      avgRacesPerYear: formatNumberConditionally(avgRacesPerYearRaw),
+
+      avgkmPerRace    : formatNumberConditionally(avgkmPerRaceRaw),
+      avgkmPerYear    : formatNumberConditionally(avgkmPerYearRaw),
+      avgkmPerMonth   : formatNumberConditionally(avgkmPerMonthRaw),
+      avgRacesPerYear : formatNumberConditionally(avgRacesPerYearRaw),
+      avgRacesPerMonth: formatNumberConditionally(avgRacesPerMonthRaw),
+
       avgValues: statistics.map((entry) =>
         ((entry.km / totalekm) * 100).toFixed(2),
       ),
     };
   }
+
 
   function createChartConfig(labels, data, colors) {
     return {
@@ -102,6 +110,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     };
   }
+
 
   const renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {
     const storageKey = "page_statistiche";
@@ -158,16 +167,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   };
 
-  // ✅ CORRETTO: renderSummary riceve anche avgRacesPerYear
+
   const renderSummary = (
     totalekm,
     avgkmPerRace,
     avgkmPerYear,
     avgkmPerMonth,
     totaleCorse,
-    avgRacesPerYear  // ✅ PARAMETRO AGGIUNTO
-  ) =>
-    (document.getElementById("totale").innerHTML = `
+    avgRacesPerYear,
+    avgRacesPerMonth  // 👈 parola chiave
+  ) => {
+    document.getElementById("totale").innerHTML = `
       <a href="Statistiche/History/Statistiche_Totali.html">
         <div class="colore">
           <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png"></p>
@@ -175,9 +185,12 @@ document.addEventListener("DOMContentLoaded", async () => {
           <p class="misuracolore">km medi per anno ${avgkmPerYear}</p>
           <p class="misuracolore">km medi per mese ${avgkmPerMonth}</p>
           <p class="misuracolore">Totale corse ${totaleCorse}</p>
-          <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p> <!-- ✅ CORRETTO -->
+          <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p>
+          <p class="misuracolore">Corse medie per mese ${avgRacesPerMonth}</p>
         </div>
-      </a>`);
+      </a>`;
+  };
+
 
   const renderChart = (labels, data, colors) => {
     const doughnutConfig = createChartConfig(labels, data, colors);
@@ -186,6 +199,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .getContext("2d");
     new Chart(doughnutCtx, doughnutConfig);
   };
+
 
   const dataResult = await fetchData();
 
@@ -198,7 +212,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgkmPerRace,
       avgkmPerYear,
       avgkmPerMonth,
-      avgRacesPerYear,  // ✅ RICEVUTO DA calculateAverages
+      avgRacesPerYear,
+      avgRacesPerMonth,   // ✅ ricevuto da calculateAverages
       avgValues,
     } = calculateAverages(statistics);
 
@@ -207,18 +222,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const itemsPerPage = 2;
 
     renderChart(labels, values, colors);
-    
-    // ✅ CORRETTO: Passa tutti i parametri inclusi avgRacesPerYear
+
     renderSummary(
       totalekm,
       avgkmPerRace,
       avgkmPerYear,
       avgkmPerMonth,
       totaleCorse,
-      avgRacesPerYear   // ✅ AGGIUNTO
+      avgRacesPerYear,
+      avgRacesPerMonth   // ✅ passato anche qui
     );
 
-    // 🔁 Recupera pagina salvata o default 1
     const savedPage = parseInt(localStorage.getItem("page_statistiche")) || 1;
     renderStampa(statistics, avgValues, itemsPerPage, savedPage);
   } else {

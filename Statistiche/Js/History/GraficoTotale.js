@@ -8,6 +8,7 @@ const formatNumberConditionally = (value) => {
   return value.toFixed(2);
 };
 
+
 document.addEventListener("DOMContentLoaded", () => {
   async function fetchData() {
     try {
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+
   async function fetchYearData(url) {
     try {
       const response = await fetch(url),
@@ -30,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return null;
     }
   }
+
 
   function calculateTotals(yearlyData) {
     let totale = 0,
@@ -45,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     combinedData.sort((a, b) => {
       if (a.year !== b.year) return a.year - b.year;
-      // La comparazione delle date è necessaria per ordinare i mesi correttamente
       return new Date(`1 ${a.mese} 2000`) - new Date(`1 ${b.mese} 2000`);
     });
 
@@ -60,22 +62,31 @@ document.addEventListener("DOMContentLoaded", () => {
     return { totale, chilometri, mesi, anni };
   }
 
-  // --- MODIFICATA LA FUNZIONE calculateAverages ---
-  function calculateAverages(totale, corse, chilometri, mesi) {
+
+  // --- MODIFICATA calculateAverages con medie corse ---
+  function calculateAverages(totale, totaleCorse, totaleAnni, chilometri, mesi) {
     // Calcolo dei valori grezzi
-    const rawKmMediPerCorsa = corse > 0 ? totale / corse : 0;
-    const rawKmMediPerMese = mesi.length > 0 ? totale / mesi.length : 0;
+    const rawKmMediPerCorsa = totaleCorse > 0 ? totale / totaleCorse : 0;
+    const rawKmMediPerMese   = mesi.length > 0 ? totale / mesi.length : 0;
+
+    // Medie corse
+    const rawRacesPerYear    = totaleAnni > 0 ? totaleCorse / totaleAnni : 0;
+    const rawRacesPerMonth   = mesi.length > 0 ? totaleCorse / mesi.length : 0;
 
     return {
       percentuali: mesi.map((mese, index) =>
         ((chilometri[index] / totale) * 100).toFixed(2),
       ),
       // Applicazione della formattazione condizionale
-      kmMediPerCorsa: formatNumberConditionally(rawKmMediPerCorsa),
-      kmMediPerMese: formatNumberConditionally(rawKmMediPerMese),
+      kmMediPerCorsa   : formatNumberConditionally(rawKmMediPerCorsa),
+      kmMediPerMese    : formatNumberConditionally(rawKmMediPerMese),
+
+      racesPerYear     : formatNumberConditionally(rawRacesPerYear),
+      racesPerMonth    : formatNumberConditionally(rawRacesPerMonth),
     };
   }
   // ------------------------------------------------
+
 
   function createChartConfig(labels, data, anni) {
     return {
@@ -100,7 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+
   const renderChart = (config, ctx) => new Chart(ctx, config);
+
 
   function createTable(mesi, chilometri, percentuali, anni) {
     return `
@@ -124,8 +137,16 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   }
 
-  // ✅ Aggiungo totaleCorse come parametro
-  function createSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
+
+  // ✅ Aggiungo totaleCorse, racesPerYear, racesPerMonth
+  function createSummary(
+    totale,
+    kmMediPerCorsa,
+    kmMediPerMese,
+    totaleCorse,
+    racesPerYear,
+    racesPerMonth
+  ) {
     return `
       <a href="Statistiche_Mensili.html">
         <div class="colore">
@@ -133,9 +154,12 @@ document.addEventListener("DOMContentLoaded", () => {
             <p class="misuracolore">km medi percorsi ${kmMediPerCorsa}</p>
             <p class="misuracolore">km medi per mese ${kmMediPerMese}</p>
             <p class="misuracolore">Totale corse ${totaleCorse}</p>
+            <p class="misuracolore">Corse medie per anno ${racesPerYear}</p>
+            <p class="misuracolore">Corse medie per mese ${racesPerMonth}</p>
         </div>
       </a>`;
   }
+
 
   fetchData()
     .then(async (data) => {
@@ -155,11 +179,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         await Promise.all(fetchPromises);
 
+        const totaleAnni = yearlyData.length;
+
         const { totale, chilometri, mesi, anni } = calculateTotals(yearlyData),
-          { percentuali, kmMediPerCorsa, kmMediPerMese } = calculateAverages(
-            // Usa i valori formattati
+          { percentuali, kmMediPerCorsa, kmMediPerMese, racesPerYear, racesPerMonth } = calculateAverages(
             totale,
             totaleCorse,
+            totaleAnni,
             chilometri,
             mesi,
           ),
@@ -170,12 +196,13 @@ document.addEventListener("DOMContentLoaded", () => {
         else console.error("Contesto del canvas non trovato");
 
         const tableHTML = createTable(mesi, chilometri, percentuali, anni),
-          // ✅ Passa totaleCorse a createSummary
           summaryHTML = createSummary(
             totale,
             kmMediPerCorsa,
             kmMediPerMese,
             totaleCorse,
+            racesPerYear,
+            racesPerMonth,
           );
 
         document.getElementById("mesi").innerHTML = tableHTML;
