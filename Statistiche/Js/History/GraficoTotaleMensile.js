@@ -8,6 +8,13 @@ const formatNumberConditionally = (value) => {
 };
 
 
+// 🔹 Funzione generica: media su 12 mesi
+const getMediaPer12 = (totale) => {
+  const mediaRaw = totale / 12;
+  return formatNumberConditionally(mediaRaw);
+};
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const mesiOrdinati = [
     "Gennaio",
@@ -36,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return { mese, kmMediMese };
     }),
-  getMediaComplessiva = (totale, length) => (totale / length).toFixed(2),
   getTotaleCorse = (allData) => {
     let totaleCorse = 0;
     allData.forEach((json) => {
@@ -86,11 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
       )
       .join("")}
   `,
-  // ✅ Creo una funzione getMediaCorsePerMese con lo stesso stile di getMediaComplessiva
-  getMediaCorsePerMese = (totaleCorse) => {
-    const mediaRaw = totaleCorse / 12;
-    return formatNumberConditionally(mediaRaw);
-  },
   createSummaryHTML = (totale, mediaComplessiva, totaleCorse, mediacorse) => `
     <a href="StoricoMensile.html">
       <div class="colore">
@@ -138,13 +139,11 @@ document.addEventListener("DOMContentLoaded", () => {
               chilometriTotali,
               mesiPercorsi,
             ),
-            mediaComplessiva = getMediaComplessiva(
-              totaleChilometri,
-              mesiOrdinati.length,
-            ),
+            // ✅ km medi per mese su 12
+            mediaComplessiva = getMediaPer12(totaleChilometri),
             totaleCorse = getTotaleCorse(allData),
-            // ✅ Calcola mediacorse con funzione dedicata (stesso stile di mediaComplessiva)
-            mediacorse = getMediaCorsePerMese(totaleCorse),
+            // ✅ medie corse per mese su 12
+            mediacorse = getMediaPer12(totaleCorse),
             chartConfig = createChartConfig(
               mesiOrdinati,
               chilometriTotali,
