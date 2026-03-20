@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
       <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
       <p class="misuracolore">Totale corse ${data.corseTotale}</p>
+      <p class="misuracolore">Media corse per periodo: ${formatNumberConditionally(data.corseTotale / data.totalePeriodi)}</p>
       <p class="misuracolore">Medie corse per stagione: ${formatNumberConditionally(data.corseTotale / 3)}</p>
     </div>`;
 
@@ -139,11 +140,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const avgmediastagioneFormatted = formatNumberConditionally(totale / 3);
 
+    // ✅ CORREZIONE: Calcola la media km per periodo
     let avgperiodFormatted;
     if (totalePeriodi > 0) {
       avgperiodFormatted = formatNumberConditionally(totale / totalePeriodi);
     } else {
-      avgperiodFormatted = "N/A";
+      avgperiodFormatted = "0";
     }
 
     return {
@@ -155,6 +157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       corseai,
       corseTotale,
       totale,
+      totalePeriodi, // ✅ AGGIUNGI questo per debug
       avgp: (primavera / totale) * 100,
       avge: (estate / totale) * 100,
       avgai: (autunno_inverno / totale) * 100,

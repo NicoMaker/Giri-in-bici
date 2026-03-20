@@ -90,6 +90,7 @@ calcolaMediaPeriodo = (totalekm, periodi) => {
 // ✅ FIX: Aggiungi anche totalePeriodi come parametro
 StampaDati = (totalekm, mediakm, avgPeriod, totaleCorse, totalePeriodi) => {
   const mediaCorsePerPeriodo = totalePeriodi > 0 ? formatoCondizionale(totaleCorse / totalePeriodi) : "N/A";
+  const mediaCorsePerStagione = formatoCondizionale(totaleCorse / 3) == 0 ? "N/A" : formatoCondizionale(totaleCorse / 3); // ✅ Aggiungi media corse per stagione
   
   document.getElementById("km").innerHTML = `
     <div class="colore">
@@ -98,6 +99,7 @@ StampaDati = (totalekm, mediakm, avgPeriod, totaleCorse, totalePeriodi) => {
       <p class="misuracolore">Media km per Periodo ${avgPeriod} km</p>
       <p class="misuracolore">Totale corse ${totaleCorse}</p>
       <p class="misuracolore">Media corse per periodo ${mediaCorsePerPeriodo}</p>
+      <p class="misuracolore">Media corse per Stagione ${mediaCorsePerStagione}</p>
     </div>
   `;
 };
