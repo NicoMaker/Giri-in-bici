@@ -36,41 +36,58 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Footer content generation
+const months = [
+  "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+  "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
+];
+
 const generateFooter = () => {
   const now = new Date();
   const day = String(now.getDate()).padStart(2, "0");
-  const months = [
-    "Gennaio",
-    "Febbraio",
-    "Marzo",
-    "Aprile",
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Ottobre",
-    "Novembre",
-    "Dicembre",
-  ];
   const month = months[now.getMonth()];
   const year = now.getFullYear();
 
   return `
-                <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                    <span style="font-size: 1.5rem;">🚴‍♂️</span>
-                    <div>
-                        <div style = "color : purple;">&copy; 30 Maggio 2020 - ${day} ${month} ${year}</div>
-                        <div style="margin-top: 0.5rem; font-weight: 600; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                            Nico Maker Giri in Bici
-                        </div>
-                    </div>
-                    <span style="font-size: 1.5rem;">🚴‍♀️</span>
-                </div>
-            `;
+    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <span style="font-size: 1.5rem;">🚴‍♂️</span>
+      <div>
+        <div style="color: purple;">&copy; 30 Maggio 2020 - ${day} ${month} ${year}</div>
+        <div style="margin-top: 0.5rem; font-weight: 600; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          Nico Maker Giri in Bici
+        </div>
+      </div>
+      <span style="font-size: 1.5rem;">🚴‍♀️</span>
+    </div>
+  `;
 };
 
-document.getElementById("footer-content").innerHTML = generateFooter();
+const updateFooter = () => {
+  document.getElementById("footer-content").innerHTML = generateFooter();
+};
+
+// Aggiorna subito il footer
+updateFooter();
+
+// Calcola i millisecondi che mancano alla mezzanotte successiva
+// e programma l'aggiornamento esatto in quel momento, poi ogni 24h
+const scheduleMidnightUpdate = () => {
+  const now = new Date();
+  const midnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1, // giorno successivo
+    0, 0, 0, 0          // mezzanotte esatta
+  );
+  const msToMidnight = midnight - now;
+
+  setTimeout(() => {
+    updateFooter();
+    // Dopo il primo aggiornamento a mezzanotte, ripeti ogni 24 ore
+    setInterval(updateFooter, 24 * 60 * 60 * 1000);
+  }, msToMidnight);
+};
+
+scheduleMidnightUpdate();
 
 // Intersection Observer for animations
 const observerOptions = {
