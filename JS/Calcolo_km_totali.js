@@ -5,24 +5,19 @@ const fetchJSON = (url) =>
     return response.json();
   }),
 
-processPeriodData = (periodData, kmData) => {
+processPeriodData = (periodData) => {
   if (Array.isArray(periodData)) {
     const kmValues = periodData
       .map((entry) => entry.distance)
       .filter((km) => typeof km === "number");
-    kmData.push(...kmValues);
-    return periodData.length; // Numero di corse in questo periodo
+    return { kmValues, corse: periodData.length };
   } else {
     console.error("Formato JSON non valido: il dato non è un array.");
-    return 0;
+    return { kmValues: [], corse: 0 };
   }
 },
 
 processSeasons = (data) => {
-  let kmData = [],
-    totaleCorse = 0,
-    totalePeriodi = 0;
-
   if (!data.seasons || !Array.isArray(data.seasons)) {
     console.error("Dati stagionali (seasons) non trovati o non validi.");
     return;
@@ -32,9 +27,8 @@ processSeasons = (data) => {
     Object.values(season.subPeriods || {}).map((url) =>
       fetchJSON(url)
         .then((periodData) => {
-          totaleCorse += processPeriodData(periodData, kmData);
-          totalePeriodi++; // ✅ Incrementa qui
-          return { totaleCorse, totalePeriodi }; // ✅ Ritorna i valori
+          const { kmValues, corse } = processPeriodData(periodData);
+          return { kmValues, corse, periodi: 1 };
         })
         .catch((error) => {
           console.error(`Errore nel fetch di un periodo: ${url} - ${error}`);
@@ -45,16 +39,18 @@ processSeasons = (data) => {
 
   Promise.all(fetchPromises)
     .then((results) => {
-      // ✅ Filtra i risultati validi e somma
-      const validResults = results.filter(r => r !== null);
-      const ultimoTotaleCorse = validResults.length > 0 ? validResults[validResults.length - 1].totaleCorse : 0;
-      const ultimoTotalePeriodi = validResults.length > 0 ? validResults[validResults.length - 1].totalePeriodi : 0;
+      const validResults = results.filter((r) => r !== null);
 
-      const totalekm = calcolaTotalekm(kmData);
-      const mediakm = calcolaMediakm(totalekm, ultimoTotaleCorse);
-      const avgPeriod = calcolaMediaPeriodo(totalekm, ultimoTotalePeriodi);
+      // Somma tutti i risultati in modo sicuro
+      const allKmValues = validResults.flatMap((r) => r.kmValues);
+      const totaleCorse = validResults.reduce((acc, r) => acc + r.corse, 0);
+      const totalePeriodi = validResults.reduce((acc, r) => acc + r.periodi, 0);
 
-      StampaDati(totalekm, mediakm, avgPeriod, ultimoTotaleCorse, ultimoTotalePeriodi);
+      const totalekm = calcolaTotalekm(allKmValues);
+      const mediakm = calcolaMediakm(totalekm, totaleCorse);
+      const avgPeriod = calcolaMediaPeriodo(totalekm, totalePeriodi);
+
+      StampaDati(totalekm, mediakm, avgPeriod, totaleCorse, totalePeriodi);
     })
     .catch((error) =>
       console.error(`Errore generale nel Promise.all dei JSON: ${error}`)
@@ -87,11 +83,14 @@ calcolaMediaPeriodo = (totalekm, periodi) => {
   return "N/A";
 },
 
-// ✅ FIX: Aggiungi anche totalePeriodi come parametro
 StampaDati = (totalekm, mediakm, avgPeriod, totaleCorse, totalePeriodi) => {
-  const mediaCorsePerPeriodo = totalePeriodi > 0 ? formatoCondizionale(totaleCorse / totalePeriodi) : "N/A";
-  const mediaCorsePerStagione = formatoCondizionale(totaleCorse / 3) == 0 ? "N/A" : formatoCondizionale(totaleCorse / 3); // ✅ Aggiungi media corse per stagione
-  
+  const mediaCorsePerPeriodo =
+    totalePeriodi > 0 ? formatoCondizionale(totaleCorse / totalePeriodi) : "N/A";
+  const mediaCorsePerStagione =
+    formatoCondizionale(totaleCorse / 3) == 0
+      ? "N/A"
+      : formatoCondizionale(totaleCorse / 3);
+
   document.getElementById("km").innerHTML = `
     <div class="colore">
       <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
