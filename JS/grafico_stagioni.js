@@ -50,9 +50,8 @@ async function fetchSubPeriods(subPeriods) {
 }
 
 // Funzione per formattare i numeri
-function formatNumber(value) {
-  return Number.isInteger(value) ? value.toString() : value.toFixed(2);
-}
+const formatNumber = (value) =>
+  Number.isInteger(value) ? value.toString() : value.toFixed(2);
 
 const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
   calculateTotalRaces = (labels, data) =>
