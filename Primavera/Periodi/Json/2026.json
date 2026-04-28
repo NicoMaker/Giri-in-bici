@@ -19,9 +19,14 @@
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2881256867?share_token=ab8zwbYUeu4ey12gvE9eT26COMLUBk5g45T2xhRsNEjkwj7lJf&ref=wtd\" target=\"_blank\">Monte Prat + Peonis</a>",
     "distance": 119
   },
-    {
+  {
     "date": "18 Aprile",
     "place": "<a href=\"https://www.komoot.com/it-it/tour/2893230738?share_token=aDcrWvlBYx8lfPpCkzX5aN6OVOYsaODRxNV2MM8Mn1qSLbydKA&ref=wtd\" target=\"_blank\">Bibione & Lignano</a>",
     "distance": 181
+  },
+    {
+    "date": "28 Aprile",
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/2915768525?share_token=a33tlwj37yrseQzLDqFlbHz4Wxnwb0yugLKki1qpFWKEvDWxBZ&ref=wtd\" target=\"_blank\">Monte di Ragogna</a>",
+    "distance": 81
   }
 ]
