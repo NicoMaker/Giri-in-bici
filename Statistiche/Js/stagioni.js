@@ -39,7 +39,6 @@ async function initializeConfiguration(jsonFilePath) {
     console.log(`✅ Configurazione caricata da ${jsonFilePath}`);
   } else {
     console.log("⚠️ Usata configurazione di fallback");
-    loadDefaultConfiguration();
   }
 }
 
@@ -82,38 +81,74 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // ============================================
-  // RENDERING DINAMICO
+  // RENDERING DINAMICO - CON PERIODI PER SINGOLA STAGIONE
   // ============================================
 
-  const renderSeasonDiv = (season, data) => `
+  const renderSeasonDiv = (season, data, numPeriods) => `
     <div class="${season.containerClass}">
       <a href="${season.link}">
-        <img class="${season.imgClass}" src="../Icons/${season.icon}">
+        <img class="${season.imgClass}" src="../Icons/${season.icon}" onerror="this.src='../Icons/default.png'">
         <p class="contornostagione misuracolore">${season.name}</p>
         <p class="misuracolore">
           km totali ${formatNumberConditionally(data[season.dataKey])} 
-          <img src="../Icons/traguardo.png">
+          <img src="../Icons/traguardo.png" onerror="this.style.display='none'">
         </p>
         <p class="misuracolore">${formatNumberConditionally(parseFloat(data[season.avgKey]))} %</p>
         <p class="misuracolore">Totale corse ${data[season.raceKey]}</p>
+        <p class="misuracolore" style="font-weight: bold; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 5px;">📅 Periodi: ${numPeriods}</p>
       </a>
     </div>`;
 
-  const renderStampa = (data) => {
-    return SEASONS_CONFIG.map((season) => renderSeasonDiv(season, data)).join(
-      "",
-    );
+  const renderStampa = (data, numPeriodsPerSeason) => {
+    return SEASONS_CONFIG.map((season) => {
+      let numPeriods = 0;
+      if (season.name === "Primavera") numPeriods = numPeriodsPerSeason.primavera;
+      else if (season.name === "Estate") numPeriods = numPeriodsPerSeason.estate;
+      else if (season.name === "Autunno - Inverno") numPeriods = numPeriodsPerSeason.autunno_inverno;
+      
+      return renderSeasonDiv(season, data, numPeriods);
+    }).join("");
   };
 
-  const createStampat = (data) => `
-    <div class="colore">
-      <p class="misuracolore">Totale km ${formatNumberConditionally(data.totale)} <img src="../Icons/traguardo.png"></p>
-      <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
-      <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
-      <p class="misuracolore">Totale corse ${data.corseTotale}</p>
-      <p class="misuracolore">Media corse per periodo: ${formatNumberConditionally(data.corseTotale / data.totalePeriodi)}</p>
-      <p class="misuracolore">Medie corse per stagione: ${formatNumberConditionally(data.corseTotale / 3)}</p>
-    </div>`;
+  const createStampat = (data, numPeriodsPerSeason) => {
+    const totalePeriodi = numPeriodsPerSeason.primavera + 
+                          numPeriodsPerSeason.estate + 
+                          numPeriodsPerSeason.autunno_inverno;
+    
+    return `
+      <div class="colore">
+        <p class="misuracolore">Totale km ${formatNumberConditionally(data.totale)} <img src="../Icons/traguardo.png" onerror="this.style.display='none'"></p>
+        <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
+        <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
+        <p class="misuracolore">Totale corse ${data.corseTotale}</p>
+        <p class="misuracolore">Media corse per periodo: ${formatNumberConditionally(data.corseTotale / totalePeriodi)}</p>
+        <p class="misuracolore">Media corse per stagione: ${formatNumberConditionally(data.corseTotale / 3)}</p>
+        
+        <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
+        
+        <p class="misuracolore" style="font-weight: bold; text-align: center;">📊 DETTAGLIO PERIODI PER STAGIONE</p>
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 10px; flex-wrap: wrap;">
+          <div style="flex: 1; text-align: center; padding: 5px;">
+            <p class="misuracolore" style="font-weight: bold;">🌸 PRIMAVERA</p>
+            <p class="misuracolore" style="font-size: 1.2em;">${numPeriodsPerSeason.primavera} periodi</p>
+          </div>
+          <div style="flex: 1; text-align: center; padding: 5px;">
+            <p class="misuracolore" style="font-weight: bold;">☀️ ESTATE</p>
+            <p class="misuracolore" style="font-size: 1.2em;">${numPeriodsPerSeason.estate} periodi</p>
+          </div>
+          <div style="flex: 1; text-align: center; padding: 5px;">
+            <p class="misuracolore" style="font-weight: bold;">🍂 AUTUNNO-INVERNO</p>
+            <p class="misuracolore" style="font-size: 1.2em;">${numPeriodsPerSeason.autunno_inverno} periodi</p>
+          </div>
+        </div>
+        
+        <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
+        
+        <p class="misuracolore" style="font-weight: bold; text-align: center; font-size: 1.1em;">📅 TOTALE PERIODI COMPLESSIVI</p>
+        <p class="misuracolore" style="font-size: 1.3em; text-align: center; font-weight: bold;">${totalePeriodi} periodi</p>
+      </div>`;
+  };
 
   // ============================================
   // CALCOLI DATI
@@ -135,12 +170,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const corseTotale = corsep + corsee + corseai;
 
     const totale = primavera + estate + autunno_inverno;
-    const totalePeriodi =
-      numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
+    const totalePeriodi = numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
 
     const avgmediastagioneFormatted = formatNumberConditionally(totale / 3);
 
-    // ✅ CORREZIONE: Calcola la media km per periodo
     let avgperiodFormatted;
     if (totalePeriodi > 0) {
       avgperiodFormatted = formatNumberConditionally(totale / totalePeriodi);
@@ -157,10 +190,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       corseai,
       corseTotale,
       totale,
-      totalePeriodi, // ✅ AGGIUNGI questo per debug
-      avgp: (primavera / totale) * 100,
-      avge: (estate / totale) * 100,
-      avgai: (autunno_inverno / totale) * 100,
+      totalePeriodi,
+      avgp: totale > 0 ? (primavera / totale) * 100 : 0,
+      avge: totale > 0 ? (estate / totale) * 100 : 0,
+      avgai: totale > 0 ? (autunno_inverno / totale) * 100 : 0,
       avgmediastagione: avgmediastagioneFormatted,
       avgperiod: avgperiodFormatted,
     };
@@ -171,12 +204,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ============================================
 
   async function loadAndRenderData() {
+    console.log("🔄 Caricamento dati stagioni...");
+    
     const seasonsData = await fetchJSON("Js/anni/stagioni/stagioni.json");
 
     if (!seasonsData || !Array.isArray(seasonsData.seasons)) {
-      console.error("Invalid seasons data");
+      console.error("❌ Invalid seasons data", seasonsData);
+      document.getElementById("dati").innerHTML = '<p class="errore">Errore nel caricamento dei dati delle stagioni</p>';
       return;
     }
+
+    console.log(`✅ seasonsData caricato: ${seasonsData.seasons.length} stagioni trovate`);
 
     const numPeriodi = {
       primavera: 0,
@@ -184,73 +222,154 @@ document.addEventListener("DOMContentLoaded", async () => {
       autunno_inverno: 0,
     };
 
+    // Mappa per associare i nomi del JSON ai nomi della configurazione
+    const seasonNameMap = {
+      "Primavera": "primavera",
+      "Estate": "estate",
+      "Autunno_Inverno": "autunno_inverno"
+    };
+
     const seasonDataPromises = seasonsData.seasons.map(async (season) => {
+      console.log(`📋 Processando stagione: "${season.name}"`);
+      
+      // Usa la mappa per ottenere la chiave corretta
+      const seasonKey = seasonNameMap[season.name] || season.name.toLowerCase().replace("-", "_");
       const periodCount = Object.keys(season.subPeriods).length;
-      numPeriodi[season.name.toLowerCase().replace("-", "_")] = periodCount;
+      numPeriodi[seasonKey] = periodCount;
+      console.log(`📅 ${season.name}: ${periodCount} periodi (chiave: ${seasonKey})`);
 
       const subPeriodsData = await Promise.all(
-        Object.entries(season.subPeriods).map(async ([, subFile]) => {
-          const correctedPath = subFile.startsWith("../")
-            ? subFile
-            : `../${subFile}`;
+        Object.entries(season.subPeriods).map(async ([periodName, subFile]) => {
+          console.log(`📂 Caricamento ${season.name} - ${periodName}: ${subFile}`);
+          const correctedPath = subFile.startsWith("../") ? subFile : `../${subFile}`;
           const subData = await fetchJSON(correctedPath);
+          if (subData && Array.isArray(subData)) {
+            console.log(`✅ ${season.name} - ${periodName}: ${subData.length} corse`);
+          } else {
+            console.warn(`⚠️ Nessun dato per ${season.name} - ${periodName}`);
+          }
           return subData ? subData : [];
         }),
       );
 
+      const flatData = subPeriodsData.flat();
+      console.log(`📊 ${season.name}: totale ${flatData.length} corse`);
+      
       return {
         name: season.name,
-        data: subPeriodsData.flat(),
+        data: flatData,
       };
     });
 
     const resolvedSeasons = await Promise.all(seasonDataPromises);
+    
+    console.log("📋 Stagioni risolte:", resolvedSeasons.map(s => s.name));
 
-    // 🔍 Trova le stagioni per nome, indipendentemente dall'ordine
-    const primaveraPromise = resolvedSeasons.find((s) =>
-      s.name.toLowerCase().includes("primavera"),
-    );
-    const estatePromise = resolvedSeasons.find((s) =>
-      s.name.toLowerCase().includes("estate"),
-    );
-    const autunnoInvernoPromise = resolvedSeasons.find((s) =>
-      s.name.toLowerCase().includes("inverno"),
-    );
+    // Trova le stagioni usando i nomi esatti dal file JSON
+    const primaveraData = resolvedSeasons.find((s) => s.name === "Primavera");
+    const estateData = resolvedSeasons.find((s) => s.name === "Estate");
+    const autunnoInvernoData = resolvedSeasons.find((s) => s.name === "Autunno_Inverno");
 
-    if (primaveraPromise && estatePromise && autunnoInvernoPromise) {
+    console.log("🔍 Ricerca stagioni:", {
+      primavera: primaveraData ? "✅ Trovata" : "❌ Non trovata",
+      estate: estateData ? "✅ Trovata" : "❌ Non trovata",
+      autunnoInverno: autunnoInvernoData ? "✅ Trovata" : "❌ Non trovata"
+    });
+
+    if (primaveraData && estateData && autunnoInvernoData) {
+      console.log("✅ Tutte le stagioni trovate, calcolo dati...");
+      
       const calculatedData = calculateData(
-        primaveraPromise.data,
-        estatePromise.data,
-        autunnoInvernoPromise.data,
+        primaveraData.data,
+        estateData.data,
+        autunnoInvernoData.data,
         numPeriodi,
       );
 
+      console.log("📊 Dati calcolati:", {
+        totale: calculatedData.totale,
+        corseTotale: calculatedData.corseTotale,
+        periodi: calculatedData.totalePeriodi,
+        primavera_km: calculatedData.p,
+        estate_km: calculatedData.e,
+        autunno_km: calculatedData.ai
+      });
+
       const labels = ["Primavera", "Estate", "Autunno-Inverno"];
       const chartData = [calculatedData.p, calculatedData.e, calculatedData.ai];
-      const ctx = document.getElementById("doughnut-chart").getContext("2d");
+      const canvas = document.getElementById("doughnut-chart");
+      
+      if (!canvas) {
+        console.error("❌ Canvas doughnut-chart non trovato!");
+        return;
+      }
+      
+      const ctx = canvas.getContext("2d");
 
-      document.getElementById("dati").innerHTML = renderStampa(calculatedData);
-      document.getElementById("totale").innerHTML =
-        createStampat(calculatedData);
+      if (window.myChart) {
+        window.myChart.destroy();
+      }
 
-      // ✅ USA LA CONFIGURAZIONE DEL CHART DAL JSON
-      new Chart(ctx, {
+      const datiElement = document.getElementById("dati");
+      const totaleElement = document.getElementById("totale");
+      
+      if (datiElement) {
+        datiElement.innerHTML = renderStampa(calculatedData, numPeriodi);
+        console.log("✅ Render stampa completato");
+      }
+      
+      if (totaleElement) {
+        totaleElement.innerHTML = createStampat(calculatedData, numPeriodi);
+        console.log("✅ Render totale completato");
+      }
+
+      window.myChart = new Chart(ctx, {
         type: "doughnut",
         data: {
           labels,
           datasets: [
             {
               label: "km totali stagione",
-              backgroundColor: CHART_CONFIG.colors,
-              borderColor: CHART_CONFIG.borderColor,
-              borderWidth: CHART_CONFIG.borderWidth,
+              backgroundColor: CHART_CONFIG.colors || ["#ff9999", "#66b3ff", "#99ff99"],
+              borderColor: CHART_CONFIG.borderColor || "black",
+              borderWidth: CHART_CONFIG.borderWidth || 1,
               data: chartData,
             },
           ],
         },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                font: { size: 12, weight: 'bold' }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const label = context.label || '';
+                  const value = context.raw || 0;
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = ((value / total) * 100).toFixed(1);
+                  return `${label}: ${formatNumberConditionally(value)} km (${percentage}%)`;
+                }
+              }
+            }
+          }
+        },
       });
+      
+      console.log("✅ Grafico creato con successo");
     } else {
-      console.error("Errore durante il caricamento dei dati");
+      console.error("❌ Stagioni non trovate:", {
+        primavera: !!primaveraData,
+        estate: !!estateData,
+        autunnoInverno: !!autunnoInvernoData
+      });
+      document.getElementById("dati").innerHTML = '<p class="errore">Stagioni non trovate nei dati</p>';
     }
   }
 });
