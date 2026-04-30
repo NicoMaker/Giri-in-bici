@@ -264,7 +264,7 @@ function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
         <p class="misuracolore">Totale corse ${totalRaces}</p>
         <p class="misuracolore">Corse medie per periodo ${formatNumber(totalRaces / totalePeriodi)}</p>
         <hr style="margin: 10px 0; border-color: rgba(255,255,255,0.3);">
-        <p class="misuracolore" style="font-weight: bold;">Totale periodi: ${totalePeriodi}</p>
+        <p class="misuracolore">Totale periodi: ${totalePeriodi}</p>
       </div>
     `;
 
