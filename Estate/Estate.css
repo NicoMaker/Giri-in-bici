@@ -326,3 +326,13 @@ canvas {
 .material-icons {
   color: white;
 }
+
+.immagine {
+  display: block;
+  margin: 0 auto;
+  width: 700px;
+  height: auto;
+  border: dashed #00ff9d 10px;
+  background-color: yellow;
+  border-radius: 50px;
+}
