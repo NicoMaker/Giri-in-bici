@@ -8,7 +8,6 @@ const formatNumberConditionally = (value) => {
   return value.toFixed(2);
 };
 
-
 document.addEventListener("DOMContentLoaded", async () => {
   async function fetchJSON(url) {
     try {
@@ -21,7 +20,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       return null;
     }
   }
-
 
   async function fetchData() {
     const mainData = await fetchJSON(
@@ -52,7 +50,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-
   function calculateAverages(statistics) {
     const totalekm = statistics.reduce((acc, cur) => acc + cur.km, 0);
     const totaleCorse = statistics.reduce((acc, cur) => acc + cur.numberOfRaces, 0);
@@ -72,13 +69,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const avgkmPerYearRaw   = statistics.length > 0 ? totalekm / statistics.length : 0;
     const avgkmPerMonthRaw  = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
     const avgRacesPerYearRaw = statistics.length > 0 ? totaleCorse / statistics.length : 0;
-
-    // Calcolo media corse per mese
     const avgRacesPerMonthRaw = totalMonths > 0 ? totaleCorse / totalMonths : 0;
 
     return {
       totalekm,
       totaleCorse,
+      totalMonths,
 
       avgkmPerRace    : formatNumberConditionally(avgkmPerRaceRaw),
       avgkmPerYear    : formatNumberConditionally(avgkmPerYearRaw),
@@ -92,25 +88,59 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-
   function createChartConfig(labels, data, colors) {
     return {
       type: "doughnut",
       data: {
-        labels,
+        labels: labels,
         datasets: [
           {
             label: "km totali",
             backgroundColor: colors,
             borderColor: ["black"],
             borderWidth: 1,
-            data,
+            data: data,
           },
         ],
       },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: {
+            position: 'top',  // ← CAMBIATO DA 'bottom' A 'top' (legenda in alto)
+            labels: {
+              font: {
+                size: 12,
+                weight: 'bold'
+              },
+              padding: 15
+            }
+          },
+          title: {
+            display: true,
+            text: 'Distribuzione km per anno',
+            font: {
+              size: 16,
+              weight: 'bold'
+            },
+            padding: 10
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${label}: ${formatNumberConditionally(value)} km (${percentage}%)`;
+              }
+            }
+          }
+        }
+      },
     };
   }
-
 
   const renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {
     const storageKey = "page_statistiche";
@@ -126,47 +156,58 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isOdd = currentStatistics.length === 1;
     const containerClass = isOdd ? "container odd-items" : "container";
 
-    document.getElementById("stampa").innerHTML = `
-      <div class="${containerClass}">
-        ${currentStatistics
-          .map(
-            (entry, index) => `
-              <div class="Statistiche">
-                <a href="Statistiche/Anni/${entry.year}.html">
-                  <img class="immaginestagione" src="Icons/Statistiche.png">
-                  <p class="titoli">Statistiche ${entry.year}</p>
-                  <p class="misuracolore">km totali ${formatNumberConditionally(entry.km)} <img src="Icons/traguardo.png"></p>
-                  <p class="misuracolore">${formatNumberConditionally(parseFloat(avgValues[startIndex + index]))} %</p>
-                  <p class="misuracolore">Totale corse ${entry.numberOfRaces}</p>
-                </a>
-              </div>
-            `,
-          )
-          .join("")}
-      </div>`;
+    const stampaElement = document.getElementById("stampa");
+    if (stampaElement) {
+      stampaElement.innerHTML = `
+        <div class="${containerClass}">
+          ${currentStatistics
+            .map(
+              (entry, index) => `
+                <div class="Statistiche">
+                  <a href="Statistiche/Anni/${entry.year}.html">
+                    <img class="immaginestagione" src="Icons/Statistiche.png">
+                    <p class="titoli">Statistiche ${entry.year}</p>
+                    <p class="misuracolore">km totali ${formatNumberConditionally(entry.km)} <img src="Icons/traguardo.png"></p>
+                    <p class="misuracolore">${formatNumberConditionally(parseFloat(avgValues[startIndex + index]))} %</p>
+                    <p class="misuracolore">Totale corse ${entry.numberOfRaces}</p>
+                  </a>
+                </div>
+              `,
+            )
+            .join("")}
+        </div>`;
+    }
 
     const pagination = document.getElementById("pagination");
-    pagination.innerHTML = `
-      <button id="prev">
-        <span class="material-icons">arrow_back</span>
-      </button>
-      <span id="page-indicator">Dati Statistiche: <br/> Anni ${currentPage} di ${lastPage}</span>
-      <button id="next">
-        <span class="material-icons">arrow_forward</span>
-      </button>
-    `;
+    if (pagination) {
+      pagination.innerHTML = `
+        <button id="prev">
+          <span class="material-icons">arrow_back</span>
+        </button>
+        <span id="page-indicator">Dati Statistiche: <br/> Anni ${currentPage} di ${lastPage}</span>
+        <button id="next">
+          <span class="material-icons">arrow_forward</span>
+        </button>
+      `;
 
-    document.getElementById("prev").addEventListener("click", () => {
-      const newPage = currentPage === 1 ? lastPage : currentPage - 1;
-      renderStampa(statistics, avgValues, itemsPerPage, newPage);
-    });
+      const prevButton = document.getElementById("prev");
+      const nextButton = document.getElementById("next");
+      
+      if (prevButton) {
+        prevButton.addEventListener("click", () => {
+          const newPage = currentPage === 1 ? lastPage : currentPage - 1;
+          renderStampa(statistics, avgValues, itemsPerPage, newPage);
+        });
+      }
 
-    document.getElementById("next").addEventListener("click", () => {
-      const newPage = currentPage === lastPage ? 1 : currentPage + 1;
-      renderStampa(statistics, avgValues, itemsPerPage, newPage);
-    });
+      if (nextButton) {
+        nextButton.addEventListener("click", () => {
+          const newPage = currentPage === lastPage ? 1 : currentPage + 1;
+          renderStampa(statistics, avgValues, itemsPerPage, newPage);
+        });
+      }
+    }
   };
-
 
   const renderSummary = (
     totalekm,
@@ -175,31 +216,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     avgkmPerMonth,
     totaleCorse,
     avgRacesPerYear,
-    avgRacesPerMonth  // 👈 parola chiave
+    avgRacesPerMonth,
+    totalMonths
   ) => {
-    document.getElementById("totale").innerHTML = `
-      <a href="Statistiche/History/Statistiche_Totali.html">
-        <div class="colore">
-          <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png"></p>
-          <p class="misuracolore">km medi per giro ${avgkmPerRace}</p>
-          <p class="misuracolore">km medi per anno ${avgkmPerYear}</p>
-          <p class="misuracolore">km medi per mese ${avgkmPerMonth}</p>
-          <p class="misuracolore">Totale corse ${totaleCorse}</p>
-          <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p>
-          <p class="misuracolore">Corse medie per mese ${avgRacesPerMonth}</p>
-        </div>
-      </a>`;
+    const totaleElement = document.getElementById("totale");
+    if (totaleElement) {
+      totaleElement.innerHTML = `
+        <a href="Statistiche/History/Statistiche_Totali.html">
+          <div class="colore">
+            <p class="misuracolore">Totale km ${formatNumberConditionally(totalekm)} <img src="Icons/traguardo.png"></p>
+            <p class="misuracolore">Km medi per giro ${avgkmPerRace}</p>
+            <p class="misuracolore">Km medi per anno ${avgkmPerYear}</p>
+            <p class="misuracolore">Km medi per mese ${avgkmPerMonth}</p>
+            <p class="misuracolore">Totale corse ${totaleCorse}</p>
+            <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p>
+            <p class="misuracolore">Corse medie per mese ${avgRacesPerMonth}</p>
+            <p class="misuracolore">Totale mesi di corsa ${totalMonths}</p>
+          </div>
+        </a>`;
+    }
   };
-
 
   const renderChart = (labels, data, colors) => {
     const doughnutConfig = createChartConfig(labels, data, colors);
-    const doughnutCtx = document
-      .getElementById("doughnut-chart")
-      .getContext("2d");
-    new Chart(doughnutCtx, doughnutConfig);
+    const doughnutCanvas = document.getElementById("doughnut-chart");
+    
+    if (doughnutCanvas) {
+      const doughnutCtx = doughnutCanvas.getContext("2d");
+      // Distruggi il grafico esistente se presente
+      if (window.doughnutChart) {
+        window.doughnutChart.destroy();
+      }
+      window.doughnutChart = new Chart(doughnutCtx, doughnutConfig);
+    } else {
+      console.error("Canvas element 'doughnut-chart' not found");
+    }
   };
-
 
   const dataResult = await fetchData();
 
@@ -209,15 +261,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const {
       totalekm,
       totaleCorse,
+      totalMonths,
       avgkmPerRace,
       avgkmPerYear,
       avgkmPerMonth,
       avgRacesPerYear,
-      avgRacesPerMonth,   // ✅ ricevuto da calculateAverages
+      avgRacesPerMonth,
       avgValues,
     } = calculateAverages(statistics);
 
-    const labels = statistics.map((entry) => `km ${entry.year}`);
+    const labels = statistics.map((entry) => `${entry.year}`);
     const values = statistics.map((entry) => entry.km);
     const itemsPerPage = 2;
 
@@ -230,7 +283,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgkmPerMonth,
       totaleCorse,
       avgRacesPerYear,
-      avgRacesPerMonth   // ✅ passato anche qui
+      avgRacesPerMonth,
+      totalMonths
     );
 
     const savedPage = parseInt(localStorage.getItem("page_statistiche")) || 1;

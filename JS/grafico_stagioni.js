@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         totale = calculateTotal(values),
         totalRaces = calculateTotalRaces(labels, subPeriodData),
         avgValues = calculateAverageValues(labels, subPeriodData, totale);
+      
+      // Calcola il numero totale di periodi
+      const totalePeriodi = labels.length;
 
       renderDoughnutChart(labels, values, colors, season);
       renderDataList(
@@ -26,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cssclass,
         avgValues,
       );
-      renderSeasonSummary(season, totale, labels.length, totalRaces);
+      renderSeasonSummary(season, totale, totalePeriodi, totalRaces);
       adjustContainerLayout(cssclass);
     })
     .catch((error) => console.error(`Error loading the JSON data:, ${error}`));
@@ -68,7 +71,12 @@ function renderDoughnutChart(labels, values, colors, season) {
     doughnutConfig = createDoughnutConfig(doughnutData),
     doughnutCtx = getDoughnutContext();
 
-  new Chart(doughnutCtx, doughnutConfig);
+  // Distruggi il grafico esistente se presente
+  if (window.myChart) {
+    window.myChart.destroy();
+  }
+  
+  window.myChart = new Chart(doughnutCtx, doughnutConfig);
 }
 
 function createDatasets(values, colors, season) {
@@ -94,6 +102,32 @@ function createDoughnutConfig(doughnutData) {
   return {
     type: "doughnut",
     data: doughnutData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: 'top',  // Legenda in alto
+          labels: {
+            font: {
+              size: 12,
+              weight: 'bold'
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const label = context.label || '';
+              const value = context.raw || 0;
+              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+              const percentage = ((value / total) * 100).toFixed(1);
+              return `${label}: ${formatNumber(value)} km (${percentage}%)`;
+            }
+          }
+        }
+      }
+    },
   };
 }
 
@@ -161,25 +195,34 @@ function renderDataListPaginated(
     updateStampa(stampa);
 
     const pagination = document.getElementById("pagination");
-    pagination.innerHTML = `
-      <button id="prev">
-        <span class="material-icons">arrow_back</span>
-      </button>
-      <span id="page-indicator">Dati della Stagione: <br/> ${season} ${currentPage} di ${totalPages}</span>
-      <button id="next">
-        <span class="material-icons">arrow_forward</span>
-      </button>
-    `;
+    if (pagination) {
+      pagination.innerHTML = `
+        <button id="prev">
+          <span class="material-icons">arrow_back</span>
+        </button>
+        <span id="page-indicator">Dati della Stagione: <br/> ${season} ${currentPage} di ${totalPages}</span>
+        <button id="next">
+          <span class="material-icons">arrow_forward</span>
+        </button>
+      `;
 
-    document.getElementById("prev").addEventListener("click", () => {
-      currentPage = currentPage === 1 ? totalPages : currentPage - 1;
-      updatePage();
-    });
+      const prevButton = document.getElementById("prev");
+      const nextButton = document.getElementById("next");
+      
+      if (prevButton) {
+        prevButton.addEventListener("click", () => {
+          currentPage = currentPage === 1 ? totalPages : currentPage - 1;
+          updatePage();
+        });
+      }
 
-    document.getElementById("next").addEventListener("click", () => {
-      currentPage = currentPage === totalPages ? 1 : currentPage + 1;
-      updatePage();
-    });
+      if (nextButton) {
+        nextButton.addEventListener("click", () => {
+          currentPage = currentPage === totalPages ? 1 : currentPage + 1;
+          updatePage();
+        });
+      }
+    }
   }
 
   if (currentPage > totalPages) {
@@ -209,16 +252,19 @@ const renderDataList = (
     avgValues,
   );
 
-function renderSeasonSummary(season, totale, numberOfLabels, totalRaces) {
-  const avgseason = formatNumber(totale / numberOfLabels),
+// MODIFICATA: ora riceve totalePeriodi invece di numberOfLabels
+function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
+  const avgseason = formatNumber(totale / totalePeriodi),
     avgcorsa = formatNumber(totale / totalRaces),
     stampaseason = `
       <div class="colore">
         <p class="misuracolore">Totale km percorsi in ${season} ${formatNumber(totale)} <img src="Icons/traguardo.png"> </p>
-        <p class="misuracolore">km medi per giro in ${season} ${avgcorsa} </p>
+        <p class="misuracolore">Km medi per giro in ${season} ${avgcorsa} </p>
         <p class="misuracolore">Media km per periodo ${avgseason} </p>
         <p class="misuracolore">Totale corse ${totalRaces}</p>
-        <p class="misuracolore">corse medie per stagione ${formatNumber(totalRaces / numberOfLabels)}</p>
+        <p class="misuracolore">Corse medie per periodo ${formatNumber(totalRaces / totalePeriodi)}</p>
+        <hr style="margin: 10px 0; border-color: rgba(255,255,255,0.3);">
+        <p class="misuracolore" style="font-weight: bold;">Totale periodi: ${totalePeriodi}</p>
       </div>
     `;
 

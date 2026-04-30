@@ -8,7 +8,6 @@ const formatNumberConditionally = (value) => {
   return value.toFixed(2);
 };
 
-
 document.addEventListener("DOMContentLoaded", () => {
   async function fetchData() {
     try {
@@ -21,11 +20,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-
-  async function fetchYearData(url) {
+  async function fetchYearData(url, year) {
     try {
-      const response = await fetch(url),
-        data = await response.json();
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      const data = await response.json();
+      
+      // Validazione struttura dati
+      if (!data || typeof data !== "object") {
+        throw new Error("Dati non validi");
+      }
+      
+      // Aggiunge l'anno ai dati se non presente
+      if (!data.year && year) {
+        data.year = year;
+      }
+      
       return data;
     } catch (error) {
       console.error(`Errore nel caricamento dei dati da ${url}: ${error}`);
@@ -33,22 +45,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-
   function calculateTotals(yearlyData) {
     let totale = 0,
-      chilometri = [],
-      mesi = [],
-      anni = [];
+        chilometri = [],
+        mesi = [],
+        anni = [];
 
     const combinedData = [];
-    yearlyData.forEach(({ data, year }) => {
-      for (let mese in data)
-        combinedData.push({ mese, chilometri: data[mese], year });
+    
+    yearlyData.forEach((item) => {
+      // Controllo struttura dati
+      if (!item || !item.data) {
+        console.error("Dato annuale non valido:", item);
+        return;
+      }
+      
+      const year = item.year || "Sconosciuto";
+      
+      for (let mese in item.data) {
+        if (item.data.hasOwnProperty(mese)) {
+          combinedData.push({ 
+            mese: mese, 
+            chilometri: item.data[mese], 
+            year: year 
+          });
+        }
+      }
     });
 
+    // Ordinamento per anno e mese
+    const orderMesi = {
+      "Gennaio": 1, "Febbraio": 2, "Marzo": 3, "Aprile": 4,
+      "Maggio": 5, "Giugno": 6, "Luglio": 7, "Agosto": 8,
+      "Settembre": 9, "Ottobre": 10, "Novembre": 11, "Dicembre": 12
+    };
+    
     combinedData.sort((a, b) => {
       if (a.year !== b.year) return a.year - b.year;
-      return new Date(`1 ${a.mese} 2000`) - new Date(`1 ${b.mese} 2000`);
+      return (orderMesi[a.mese] || 0) - (orderMesi[b.mese] || 0);
     });
 
     combinedData.forEach(({ chilometri: chilometriMensili, mese, year }) => {
@@ -62,31 +96,29 @@ document.addEventListener("DOMContentLoaded", () => {
     return { totale, chilometri, mesi, anni };
   }
 
-
-  // --- MODIFICATA calculateAverages con medie corse ---
   function calculateAverages(totale, totaleCorse, totaleAnni, chilometri, mesi) {
     // Calcolo dei valori grezzi
     const rawKmMediPerCorsa = totaleCorse > 0 ? totale / totaleCorse : 0;
     const rawKmMediPerMese   = mesi.length > 0 ? totale / mesi.length : 0;
-
+    
     // Medie corse
     const rawRacesPerYear    = totaleAnni > 0 ? totaleCorse / totaleAnni : 0;
     const rawRacesPerMonth   = mesi.length > 0 ? totaleCorse / mesi.length : 0;
-
+    
+    // Calcolo percentuali con controllo divisione per zero
+    const percentuali = mesi.map((mese, index) => {
+      if (totale === 0) return "0.00";
+      return ((chilometri[index] / totale) * 100).toFixed(2);
+    });
+    
     return {
-      percentuali: mesi.map((mese, index) =>
-        ((chilometri[index] / totale) * 100).toFixed(2),
-      ),
-      // Applicazione della formattazione condizionale
-      kmMediPerCorsa   : formatNumberConditionally(rawKmMediPerCorsa),
-      kmMediPerMese    : formatNumberConditionally(rawKmMediPerMese),
-
-      racesPerYear     : formatNumberConditionally(rawRacesPerYear),
-      racesPerMonth    : formatNumberConditionally(rawRacesPerMonth),
+      percentuali: percentuali,
+      kmMediPerCorsa: formatNumberConditionally(rawKmMediPerCorsa),
+      kmMediPerMese: formatNumberConditionally(rawKmMediPerMese),
+      racesPerYear: formatNumberConditionally(rawRacesPerYear),
+      racesPerMonth: formatNumberConditionally(rawRacesPerMonth),
     };
   }
-  // ------------------------------------------------
-
 
   function createChartConfig(labels, data, anni) {
     return {
@@ -99,119 +131,184 @@ document.addEventListener("DOMContentLoaded", () => {
             backgroundColor: "blue",
             borderColor: "blue",
             borderWidth: 1,
-            data,
+            data: data,
           },
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: true,
         scales: {
-          y: { beginAtZero: true },
+          y: { 
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Chilometri"
+            }
+          },
+          x: {
+            title: {
+            }
+          }
         },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.dataset.label}: ${formatNumberConditionally(context.raw)} km`;
+              }
+            }
+          }
+        }
       },
     };
   }
 
-
-  const renderChart = (config, ctx) => new Chart(ctx, config);
-
+  const renderChart = (config, ctx) => {
+    if (!ctx) {
+      console.error("Contesto canvas non disponibile");
+      return null;
+    }
+    return new Chart(ctx, config);
+  };
 
   function createTable(mesi, chilometri, percentuali, anni) {
+    if (!mesi || !chilometri || !percentuali || !anni) {
+      console.error("Dati mancanti per la tabella");
+      return "<tr><td colspan='4'>Errore nel caricamento dei dati</td></tr>";
+    }
+    
     return `
-    <tr class="grassetto">
-      <th>Mese</th>
-      <th>km <img src="../../Icons/traguardo.png"></th>
-      <th>Percentuale sul totale</th>
-      <th>Anno</th>
-    </tr>
-    ${mesi
-      .map(
-        (mese, index) => `
-      <tr>
-        <td>${mese}</td>
-        <td>${formatNumberConditionally(chilometri[index])}</td>
-        <td>${formatNumberConditionally(parseFloat(percentuali[index]))} %</td>
-        <td>${anni[index]}</td>
-      </tr>`,
-      )
-      .join("")}
-  `;
+      <tr class="grassetto">
+        <th>Mese</th>
+        <th>km <img src="../../Icons/traguardo.png"></th>
+        <th>Percentuale sul totale</th>
+        <th>Anno</th>
+      </tr>
+      ${mesi
+        .map(
+          (mese, index) => `
+        <tr>
+          <td>${mese || "N/D"}</td>
+          <td>${formatNumberConditionally(chilometri[index] || 0)}</td>
+          <td>${formatNumberConditionally(parseFloat(percentuali[index]) || 0)} %</td>
+          <td>${anni[index] || "N/D"}</td>
+        </tr>`,
+        )
+        .join("")}
+    `;
   }
 
-
-  // ✅ Aggiungo totaleCorse, racesPerYear, racesPerMonth
   function createSummary(
     totale,
     kmMediPerCorsa,
     kmMediPerMese,
     totaleCorse,
     racesPerYear,
-    racesPerMonth
+    racesPerMonth,
+    mesi
   ) {
     return `
       <a href="Statistiche_Mensili.html">
         <div class="colore">
-            <p class="misuracolore">Totale km ${totale} <img src="../../Icons/traguardo.png"></p>
-            <p class="misuracolore">km medi percorsi ${kmMediPerCorsa}</p>
-            <p class="misuracolore">km medi per mese ${kmMediPerMese}</p>
-            <p class="misuracolore">Totale corse ${totaleCorse}</p>
-            <p class="misuracolore">Corse medie per anno ${racesPerYear}</p>
-            <p class="misuracolore">Corse medie per mese ${racesPerMonth}</p>
+          <p class="misuracolore">Totale km ${formatNumberConditionally(totale)} <img src="../../Icons/traguardo.png"></p>
+          <p class="misuracolore">Km medi per corsa ${kmMediPerCorsa}</p>
+          <p class="misuracolore">Km medi per mese ${kmMediPerMese}</p>
+          <p class="misuracolore">Totale corse ${totaleCorse}</p>
+          <p class="misuracolore">Corse medie per anno ${racesPerYear}</p>
+          <p class="misuracolore">Corse medie per mese ${racesPerMonth}</p>
+          <p class="misuracolore">Totale mesi di corsa ${mesi.length}</p>
         </div>
       </a>`;
   }
 
-
+  // Esecuzione principale
   fetchData()
     .then(async (data) => {
-      if (data) {
+      if (data && data.statistics) {
         const { statistics } = data;
-        let yearlyData = [],
-          totaleCorse = 0;
+        let yearlyData = [];
+        let totaleCorse = 0;
 
-        const fetchPromises = Object.values(statistics).map((url) =>
-          fetchYearData(url).then((yearData) => {
+        // Fetch con anno esplicito
+        const fetchPromises = Object.entries(statistics).map(([year, url]) =>
+          fetchYearData(url, year).then((yearData) => {
             if (yearData) {
               yearlyData.push(yearData);
               totaleCorse += yearData.numberOfRaces || 0;
             }
-          }),
+          })
         );
 
         await Promise.all(fetchPromises);
 
+        if (yearlyData.length === 0) {
+          console.error("Nessun dato annuale caricato");
+          return;
+        }
+
         const totaleAnni = yearlyData.length;
+        const { totale, chilometri, mesi, anni } = calculateTotals(yearlyData);
+        
+        const { 
+          percentuali, 
+          kmMediPerCorsa, 
+          kmMediPerMese, 
+          racesPerYear, 
+          racesPerMonth 
+        } = calculateAverages(
+          totale,
+          totaleCorse,
+          totaleAnni,
+          chilometri,
+          mesi
+        );
+        
+        const chartConfig = createChartConfig(mesi, chilometri, anni);
+        const canvas = document.getElementById("line-chart");
+        
+        if (canvas) {
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            renderChart(chartConfig, ctx);
+          } else {
+            console.error("Contesto 2D non disponibile");
+          }
+        } else {
+          console.error("Elemento canvas non trovato");
+        }
 
-        const { totale, chilometri, mesi, anni } = calculateTotals(yearlyData),
-          { percentuali, kmMediPerCorsa, kmMediPerMese, racesPerYear, racesPerMonth } = calculateAverages(
-            totale,
-            totaleCorse,
-            totaleAnni,
-            chilometri,
-            mesi,
-          ),
-          chartConfig = createChartConfig(mesi, chilometri, anni),
-          ctx = document.getElementById("line-chart").getContext("2d");
+        const tableHTML = createTable(mesi, chilometri, percentuali, anni);
+        const summaryHTML = createSummary(
+          totale,
+          kmMediPerCorsa,
+          kmMediPerMese,
+          totaleCorse,
+          racesPerYear,
+          racesPerMonth,
+          mesi
+        );
 
-        if (ctx) renderChart(chartConfig, ctx);
-        else console.error("Contesto del canvas non trovato");
-
-        const tableHTML = createTable(mesi, chilometri, percentuali, anni),
-          summaryHTML = createSummary(
-            totale,
-            kmMediPerCorsa,
-            kmMediPerMese,
-            totaleCorse,
-            racesPerYear,
-            racesPerMonth,
-          );
-
-        document.getElementById("mesi").innerHTML = tableHTML;
-        document.getElementById("totale").innerHTML = summaryHTML;
+        const tableElement = document.getElementById("mesi");
+        const summaryElement = document.getElementById("totale");
+        
+        if (tableElement) {
+          tableElement.innerHTML = tableHTML;
+        } else {
+          console.error("Elemento 'mesi' non trovato");
+        }
+        
+        if (summaryElement) {
+          summaryElement.innerHTML = summaryHTML;
+        } else {
+          console.error("Elemento 'totale' non trovato");
+        }
+        
       } else {
-        console.error("Nessun dato ricevuto");
+        console.error("Nessun dato ricevuto o struttura statistics mancante", data);
       }
     })
     .catch((error) => {
-      console.error(`Errore durante il fetch:, ${error}`);
+      console.error(`Errore durante il fetch: ${error}`);
     });
 });
