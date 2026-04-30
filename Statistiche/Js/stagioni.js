@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         </p>
         <p class="misuracolore">${formatNumberConditionally(parseFloat(data[season.avgKey]))} %</p>
         <p class="misuracolore">Totale corse ${data[season.raceKey]}</p>
-        <p class="misuracolore" style="font-weight: bold; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 5px;">📅 Periodi: ${numPeriods}</p>
+        <p class="misuracolore">📅 Periodi: ${numPeriods}</p>
       </a>
     </div>`;
 
@@ -105,16 +105,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (season.name === "Primavera") numPeriods = numPeriodsPerSeason.primavera;
       else if (season.name === "Estate") numPeriods = numPeriodsPerSeason.estate;
       else if (season.name === "Autunno - Inverno") numPeriods = numPeriodsPerSeason.autunno_inverno;
-      
+
       return renderSeasonDiv(season, data, numPeriods);
     }).join("");
   };
 
   const createStampat = (data, numPeriodsPerSeason) => {
-    const totalePeriodi = numPeriodsPerSeason.primavera + 
-                          numPeriodsPerSeason.estate + 
-                          numPeriodsPerSeason.autunno_inverno;
-    
+    const totalePeriodi = numPeriodsPerSeason.primavera +
+      numPeriodsPerSeason.estate +
+      numPeriodsPerSeason.autunno_inverno;
+
     return `
       <div class="colore">
         <p class="misuracolore">Totale km ${formatNumberConditionally(data.totale)} <img src="../Icons/traguardo.png" onerror="this.style.display='none'"></p>
@@ -126,27 +126,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         
         <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
         
-        <p class="misuracolore" style="font-weight: bold; text-align: center;">📊 DETTAGLIO PERIODI PER STAGIONE</p>
+        <p class="misuracolore"text-align: center;">📊 DETTAGLIO PERIODI PER STAGIONE</p>
         
         <div style="display: flex; justify-content: space-between; margin-top: 10px; flex-wrap: wrap;">
           <div style="flex: 1; text-align: center; padding: 5px;">
-            <p class="misuracolore" style="font-weight: bold;">🌸 PRIMAVERA</p>
-            <p class="misuracolore" style="font-size: 1.2em;">${numPeriodsPerSeason.primavera} periodi</p>
+            <p class="misuracolore"">🌸 PRIMAVERA</p>
+            <p class="misuracolore"">${numPeriodsPerSeason.primavera} periodi</p>
           </div>
           <div style="flex: 1; text-align: center; padding: 5px;">
-            <p class="misuracolore" style="font-weight: bold;">☀️ ESTATE</p>
-            <p class="misuracolore" style="font-size: 1.2em;">${numPeriodsPerSeason.estate} periodi</p>
+            <p class="misuracolore"">☀️ ESTATE</p>
+            <p class="misuracolore"">${numPeriodsPerSeason.estate} periodi</p>
           </div>
           <div style="flex: 1; text-align: center; padding: 5px;">
-            <p class="misuracolore" style="font-weight: bold;">🍂 AUTUNNO-INVERNO</p>
-            <p class="misuracolore" style="font-size: 1.2em;">${numPeriodsPerSeason.autunno_inverno} periodi</p>
+            <p class="misuracolore">🍂 AUTUNNO-INVERNO</p>
+            <p class="misuracolore"">${numPeriodsPerSeason.autunno_inverno} periodi</p>
           </div>
         </div>
         
         <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
         
-        <p class="misuracolore" style="font-weight: bold; text-align: center; font-size: 1.1em;">📅 TOTALE PERIODI COMPLESSIVI</p>
-        <p class="misuracolore" style="font-size: 1.3em; text-align: center; font-weight: bold;">${totalePeriodi} periodi</p>
+        <p class="misuracolore"">📅 TOTALE PERIODI COMPLESSIVI</p>
+        <p class="misuracolore">${totalePeriodi} periodi</p>
       </div>`;
   };
 
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function loadAndRenderData() {
     console.log("🔄 Caricamento dati stagioni...");
-    
+
     const seasonsData = await fetchJSON("Js/anni/stagioni/stagioni.json");
 
     if (!seasonsData || !Array.isArray(seasonsData.seasons)) {
@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const seasonDataPromises = seasonsData.seasons.map(async (season) => {
       console.log(`📋 Processando stagione: "${season.name}"`);
-      
+
       // Usa la mappa per ottenere la chiave corretta
       const seasonKey = seasonNameMap[season.name] || season.name.toLowerCase().replace("-", "_");
       const periodCount = Object.keys(season.subPeriods).length;
@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const flatData = subPeriodsData.flat();
       console.log(`📊 ${season.name}: totale ${flatData.length} corse`);
-      
+
       return {
         name: season.name,
         data: flatData,
@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const resolvedSeasons = await Promise.all(seasonDataPromises);
-    
+
     console.log("📋 Stagioni risolte:", resolvedSeasons.map(s => s.name));
 
     // Trova le stagioni usando i nomi esatti dal file JSON
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (primaveraData && estateData && autunnoInvernoData) {
       console.log("✅ Tutte le stagioni trovate, calcolo dati...");
-      
+
       const calculatedData = calculateData(
         primaveraData.data,
         estateData.data,
@@ -298,12 +298,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       const labels = ["Primavera", "Estate", "Autunno-Inverno"];
       const chartData = [calculatedData.p, calculatedData.e, calculatedData.ai];
       const canvas = document.getElementById("doughnut-chart");
-      
+
       if (!canvas) {
         console.error("❌ Canvas doughnut-chart non trovato!");
         return;
       }
-      
+
       const ctx = canvas.getContext("2d");
 
       if (window.myChart) {
@@ -312,12 +312,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const datiElement = document.getElementById("dati");
       const totaleElement = document.getElementById("totale");
-      
+
       if (datiElement) {
         datiElement.innerHTML = renderStampa(calculatedData, numPeriodi);
         console.log("✅ Render stampa completato");
       }
-      
+
       if (totaleElement) {
         totaleElement.innerHTML = createStampat(calculatedData, numPeriodi);
         console.log("✅ Render totale completato");
@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             },
             tooltip: {
               callbacks: {
-                label: function(context) {
+                label: function (context) {
                   const label = context.label || '';
                   const value = context.raw || 0;
                   const total = context.dataset.data.reduce((a, b) => a + b, 0);
@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         },
       });
-      
+
       console.log("✅ Grafico creato con successo");
     } else {
       console.error("❌ Stagioni non trovate:", {
