@@ -212,3 +212,13 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(`Errore nel caricamento del file statistics.json: ${error}`);
     });
 });
+
+document.getElementById("grafici").innerHTML = `
+    <br />
+    <canvas id="line-chart"></canvas>
+    <br />
+
+    <br />
+    <canvas id="bar-chart"></canvas>
+    <br />
+  `;
