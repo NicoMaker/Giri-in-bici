@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
           label: "km mensili totali (andamento)",
           data,
           borderColor: "rgba(30, 100, 220, 1)",
-          backgroundColor: "transparent",  // ← SENZA riempimento colorato
+          backgroundColor: "transparent", // ← SENZA riempimento colorato
           borderWidth: 2,
           pointBackgroundColor: "rgba(30, 100, 220, 1)",
           pointBorderColor: "rgba(255, 255, 255, 0.8)",
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
           pointRadius: 5,
           pointHoverRadius: 7,
           tension: 0.35,
-          fill: false,  // ← IMPORTANTE: disabilita il riempimento
+          fill: false, // ← IMPORTANTE: disabilita il riempimento
         },
       ],
     },
@@ -107,7 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderChart = (config, ctx) => new Chart(ctx, config);
 
-  const createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
+  const createTableHTML = (
+    kmPerMese,
+    chilometri,
+    percentuali,
+    mesiPercorsi,
+  ) => `
     <tr class="grassetto">
       <th>Mese</th>
       <th>km <img src="../../Icons/traguardo.png"></th>
@@ -124,12 +129,17 @@ document.addEventListener("DOMContentLoaded", () => {
         <td>${percentuali[index]} %</td>
         <td>${mesiPercorsi[index]}</td>
         <td>${kmMediMese}</td>
-       </tr>`
+       </tr>`,
       )
       .join("")}
   `;
 
-  const createSummaryHTML = (totale, mediaComplessiva, totaleCorse, mediacorse) => `
+  const createSummaryHTML = (
+    totale,
+    mediaComplessiva,
+    totaleCorse,
+    mediacorse,
+  ) => `
     <a href="StoricoMensile.html">
       <div class="colore">
           <p class="misuracolore">totale km ${totale} <img src="../../Icons/traguardo.png"></p>
@@ -147,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Object.keys(statistics.statistics).forEach((year) => {
         const filePath = statistics.statistics[year];
         allDataPromises.push(
-          fetch(filePath).then((response) => response.json())
+          fetch(filePath).then((response) => response.json()),
         );
       });
 
@@ -168,8 +178,15 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           const totaleChilometri = getTotale(chilometriTotali);
-          const percentuali = getPercentuali(chilometriTotali, totaleChilometri);
-          const kmPerMese = getkmPerMese(mesiOrdinati, chilometriTotali, mesiPercorsi);
+          const percentuali = getPercentuali(
+            chilometriTotali,
+            totaleChilometri,
+          );
+          const kmPerMese = getkmPerMese(
+            mesiOrdinati,
+            chilometriTotali,
+            mesiPercorsi,
+          );
 
           // ✅ km medi per mese su 12
           const mediaComplessiva = getMediaPer12(totaleChilometri);
@@ -179,13 +196,22 @@ document.addEventListener("DOMContentLoaded", () => {
           const mediacorse = getMediaPer12(totaleCorse);
 
           // 🔹 Render grafico a BARRE
-          const barConfig = createBarChartConfig(mesiOrdinati, chilometriTotali, coloriGlobali);
+          const barConfig = createBarChartConfig(
+            mesiOrdinati,
+            chilometriTotali,
+            coloriGlobali,
+          );
           const ctxBar = document.getElementById("bar-chart").getContext("2d");
           renderChart(barConfig, ctxBar);
 
           // 🔹 Render grafico a LINEA blu (senza riempimento)
-          const lineConfig = createLineChartConfig(mesiOrdinati, chilometriTotali);
-          const ctxLine = document.getElementById("line-chart").getContext("2d");
+          const lineConfig = createLineChartConfig(
+            mesiOrdinati,
+            chilometriTotali,
+          );
+          const ctxLine = document
+            .getElementById("line-chart")
+            .getContext("2d");
           renderChart(lineConfig, ctxLine);
 
           // 🔹 Tabella mesi
@@ -193,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
             kmPerMese,
             chilometriTotali,
             percentuali,
-            mesiPercorsi
+            mesiPercorsi,
           );
 
           // 🔹 Riepilogo totale
@@ -201,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
             totaleChilometri,
             mediaComplessiva,
             totaleCorse,
-            mediacorse
+            mediacorse,
           );
         })
         .catch((error) => {
@@ -209,6 +235,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     })
     .catch((error) => {
-      console.error(`Errore nel caricamento del file statistics.json: ${error}`);
+      console.error(
+        `Errore nel caricamento del file statistics.json: ${error}`,
+      );
     });
 });
+
+document.getElementById("Grafici").innerHTML = `
+      <canvas id="line-chart"></canvas>
+      <br>
+      <canvas id="bar-chart"></canvas>
+    `;
