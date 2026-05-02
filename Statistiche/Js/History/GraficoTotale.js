@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         jsonData = await response.json();
       return jsonData;
     } catch (error) {
-      console.error(`Errore nel caricamento dei dati:, ${error}`);
+      console.error(`Errore nel caricamento dei dati: ${error}`);
       return null;
     }
   }
@@ -47,9 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function calculateTotals(yearlyData) {
     let totale = 0,
-        chilometri = [],
-        mesi = [],
-        anni = [];
+      chilometri = [],
+      mesi = [],
+      anni = [],
+      percentuali = []; // Aggiunto per il grafico
 
     const combinedData = [];
     
@@ -85,15 +86,18 @@ document.addEventListener("DOMContentLoaded", () => {
       return (orderMesi[a.mese] || 0) - (orderMesi[b.mese] || 0);
     });
 
+    // Calcolo del totale per le percentuali
+    totale = combinedData.reduce((acc, item) => acc + item.chilometri, 0);
+
     combinedData.forEach(({ chilometri: chilometriMensili, mese, year }) => {
       chilometri.push(chilometriMensili);
       mesi.push(mese);
       anni.push(year);
+      // Calcolo percentuale per ogni punto
+      percentuali.push(totale > 0 ? ((chilometriMensili / totale) * 100).toFixed(2) : "0.00");
     });
 
-    totale = chilometri.reduce((acc, curr) => acc + curr, 0);
-
-    return { totale, chilometri, mesi, anni };
+    return { totale, chilometri, mesi, anni, percentuali };
   }
 
   function calculateAverages(totale, totaleCorse, totaleAnni, chilometri, mesi) {
@@ -120,49 +124,60 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function createChartConfig(labels, data, anni) {
-    return {
-      type: "line",
-      data: {
-        labels: labels.map((mese, index) => `${mese} (${anni[index]})`),
-        datasets: [
-          {
-            label: "km mensili per periodo totali",
-            backgroundColor: "blue",
-            borderColor: "blue",
-            borderWidth: 1,
-            data: data,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        scales: {
-          y: { 
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: "Chilometri"
-            }
-          },
-          x: {
-            title: {
-            }
+function createChartConfig(labels, data, anni, percentuali) {
+  return {
+    type: "line",
+    data: {
+      labels: labels.map((mese, index) => `${mese} (${anni[index]})`),
+      datasets: [
+        {
+          label: "km mensili per periodo totali",
+          // RIMUOVI LA COLORAZIONE INTERNA
+          backgroundColor: "transparent",  // ← TRANSPARENTE invece di rgba
+          borderColor: "rgba(54, 162, 235, 1)",
+          borderWidth: 3,  // Linea più spessa per visibilità
+          fill: false,     // ← NESSUN FILL sotto la linea
+          data: data,
+          // Dati aggiuntivi per il tooltip
+          percentuali: percentuali
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        y: { 
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: "Chilometri"
           }
         },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return `${context.dataset.label}: ${formatNumberConditionally(context.raw)} km`;
-              }
-            }
+        x: {
+          title: {
+            display: true,
+            text: "Mese (Anno)"
           }
         }
       },
-    };
-  }
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const km = formatNumberConditionally(context.raw);
+              const perc = context.dataset.percentuali[context.dataIndex];
+              return [
+                `${context.dataset.label}: ${km} km`,
+                `(${perc}%)`
+              ];
+            }
+          }
+        }
+      }
+    },
+  };
+}
 
   const renderChart = (config, ctx) => {
     if (!ctx) {
@@ -188,12 +203,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ${mesi
         .map(
           (mese, index) => `
-        <tr>
-          <td>${mese || "N/D"}</td>
-          <td>${formatNumberConditionally(chilometri[index] || 0)}</td>
-          <td>${formatNumberConditionally(parseFloat(percentuali[index]) || 0)} %</td>
-          <td>${anni[index] || "N/D"}</td>
-        </tr>`,
+          <tr>
+            <td>${mese || "N/D"}</td>
+            <td>${formatNumberConditionally(chilometri[index] || 0)}</td>
+            <td>${formatNumberConditionally(parseFloat(percentuali[index]) || 0)} %</td>
+            <td>${anni[index] || "N/D"}</td>
+          </tr>`,
         )
         .join("")}
     `;
@@ -248,10 +263,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const totaleAnni = yearlyData.length;
-        const { totale, chilometri, mesi, anni } = calculateTotals(yearlyData);
+        const { totale, chilometri, mesi, anni, percentuali } = calculateTotals(yearlyData);
         
         const { 
-          percentuali, 
           kmMediPerCorsa, 
           kmMediPerMese, 
           racesPerYear, 
@@ -264,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
           mesi
         );
         
-        const chartConfig = createChartConfig(mesi, chilometri, anni);
+        const chartConfig = createChartConfig(mesi, chilometri, anni, percentuali);
         const canvas = document.getElementById("line-chart");
         
         if (canvas) {

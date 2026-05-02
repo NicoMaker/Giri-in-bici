@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return totaleCorse;
   };
 
-  // 🔹 Config grafico a BARRE (colori dal JSON)
-  const createBarChartConfig = (labels, data, colori) => ({
+  // 🔹 Config grafico a BARRE (colori dal JSON) + PERCENTUALI
+  const createBarChartConfig = (labels, data, colori, percentuali) => ({
     type: "bar",
     data: {
       labels,
@@ -66,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
           borderColor: ["black"],
           borderWidth: 1,
           data,
+          // ✅ PERCENTUALI per il tooltip
+          percentuali: percentuali
         },
       ],
     },
@@ -73,11 +75,25 @@ document.addEventListener("DOMContentLoaded", () => {
       scales: {
         y: { beginAtZero: true },
       },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const km = formatNumberConditionally(context.raw);
+              const perc = context.dataset.percentuali[context.dataIndex];
+              return [
+                `${context.dataset.label}: ${km} km`,
+                `(${perc}%)`
+              ];
+            }
+          }
+        }
+      }
     },
   });
 
-  // 🔹 Config grafico a LINEA (senza riempimento)
-  const createLineChartConfig = (labels, data) => ({
+  // 🔹 Config grafico a LINEA (senza riempimento) + PERCENTUALI
+  const createLineChartConfig = (labels, data, percentuali) => ({
     type: "line",
     data: {
       labels,
@@ -86,15 +102,17 @@ document.addEventListener("DOMContentLoaded", () => {
           label: "km mensili totali (andamento)",
           data,
           borderColor: "rgba(30, 100, 220, 1)",
-          backgroundColor: "transparent",  // ← SENZA riempimento colorato
-          borderWidth: 2,
+          backgroundColor: "transparent",  // ✅ SEMPRE TRANSPARENTE
+          borderWidth: 3,                  // Linea più spessa
           pointBackgroundColor: "rgba(30, 100, 220, 1)",
-          pointBorderColor: "rgba(255, 255, 255, 0.8)",
-          pointBorderWidth: 1.5,
-          pointRadius: 5,
-          pointHoverRadius: 7,
+          pointBorderColor: "rgba(255, 255, 255, 1)",
+          pointBorderWidth: 2,
+          pointRadius: 6,
+          pointHoverRadius: 8,
           tension: 0.35,
-          fill: false,  // ← IMPORTANTE: disabilita il riempimento
+          fill: false,                     // ✅ NESSUN RIEMPIMENTO
+          // ✅ PERCENTUALI per il tooltip
+          percentuali: percentuali
         },
       ],
     },
@@ -102,6 +120,20 @@ document.addEventListener("DOMContentLoaded", () => {
       scales: {
         y: { beginAtZero: true },
       },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const km = formatNumberConditionally(context.raw);
+              const perc = context.dataset.percentuali[context.dataIndex];
+              return [
+                `${context.dataset.label}: ${km} km`,
+                `(${perc}%)`
+              ];
+            }
+          }
+        }
+      }
     },
   });
 
@@ -178,13 +210,13 @@ document.addEventListener("DOMContentLoaded", () => {
           // ✅ medie corse per mese su 12
           const mediacorse = getMediaPer12(totaleCorse);
 
-          // 🔹 Render grafico a BARRE
-          const barConfig = createBarChartConfig(mesiOrdinati, chilometriTotali, coloriGlobali);
+          // 🔹 Render grafico a BARRE + PERCENTUALI
+          const barConfig = createBarChartConfig(mesiOrdinati, chilometriTotali, coloriGlobali, percentuali);
           const ctxBar = document.getElementById("bar-chart").getContext("2d");
           renderChart(barConfig, ctxBar);
 
-          // 🔹 Render grafico a LINEA blu (senza riempimento)
-          const lineConfig = createLineChartConfig(mesiOrdinati, chilometriTotali);
+          // 🔹 Render grafico a LINEA (senza riempimento) + PERCENTUALI
+          const lineConfig = createLineChartConfig(mesiOrdinati, chilometriTotali, percentuali);
           const ctxLine = document.getElementById("line-chart").getContext("2d");
           renderChart(lineConfig, ctxLine);
 
@@ -221,4 +253,4 @@ document.getElementById("grafici").innerHTML = `
     <br />
     <canvas id="bar-chart"></canvas>
     <br />
-  `;
+ `;
