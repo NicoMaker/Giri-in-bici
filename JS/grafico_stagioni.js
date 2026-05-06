@@ -1,38 +1,56 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+  // Assicurati che le dipendenze siano caricate
+  if (!window.chartRenderer || !window.ChartConfigs) {
+    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    return;
+  }
+
   const jsonUrl = document.getElementById("json").getAttribute("link");
 
-  fetch(jsonUrl)
-    .then((response) => response.json())
-    .then(async (seasonData) => {
-      const season = seasonData.season,
-        image = seasonData.image,
-        path = seasonData.path,
-        cssclass = seasonData.cssclass,
-        colors = seasonData.colors,
-        subPeriodData = await fetchSubPeriods(seasonData.subPeriods),
-        labels = Object.keys(subPeriodData),
-        values = labels.map((label) => subPeriodData[label].totalDistance),
-        totale = calculateTotal(values),
-        totalRaces = calculateTotalRaces(labels, subPeriodData),
-        avgValues = calculateAverageValues(labels, subPeriodData, totale);
-      
-      // Calcola il numero totale di periodi
-      const totalePeriodi = labels.length;
+  try {
+    const seasonData = await fetch(jsonUrl).then(response => response.json());
+    
+    const season = seasonData.season,
+      image = seasonData.image,
+      path = seasonData.path,
+      cssclass = seasonData.cssclass,
+      colors = seasonData.colors,
+      subPeriodData = await fetchSubPeriods(seasonData.subPeriods),
+      labels = Object.keys(subPeriodData),
+      values = labels.map((label) => subPeriodData[label].totalDistance),
+      totale = calculateTotal(values),
+      totalRaces = calculateTotalRaces(labels, subPeriodData),
+      avgValues = calculateAverageValues(labels, subPeriodData, totale);
+    
+    // Calcola il numero totale di periodi
+    const totalePeriodi = labels.length;
 
-      renderDoughnutChart(labels, values, colors, season);
-      renderDataList(
-        labels,
-        subPeriodData,
-        path,
-        image,
-        season,
-        cssclass,
-        avgValues,
-      );
-      renderSeasonSummary(season, totale, totalePeriodi, totalRaces);
-      adjustContainerLayout(cssclass);
-    })
-    .catch((error) => console.error(`Error loading the JSON data:, ${error}`));
+    // Usa il sistema centralizzato per creare il grafico
+    const chartData = {
+      season,
+      image,
+      path,
+      cssclass,
+      colors,
+      subPeriodData
+    };
+    
+    await window.chartRenderer.createChart('stagioni', chartData);
+
+    renderDataList(
+      labels,
+      subPeriodData,
+      path,
+      image,
+      season,
+      cssclass,
+      avgValues,
+    );
+    renderSeasonSummary(season, totale, totalePeriodi, totalRaces);
+    adjustContainerLayout(cssclass);
+  } catch (error) {
+    console.error(`Error loading the JSON data:, ${error}`);
+  }
 });
 
 async function fetchSubPeriods(subPeriods) {
@@ -65,75 +83,9 @@ const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
       return formatNumber(value);
     });
 
-function renderDoughnutChart(labels, values, colors, season) {
-  const datasets = createDatasets(values, colors, season),
-    doughnutData = createDoughnutData(labels, datasets),
-    doughnutConfig = createDoughnutConfig(doughnutData),
-    doughnutCtx = getDoughnutContext();
+// Funzioni di rendering del grafico rimosse - ora gestite dal sistema centralizzato
 
-  // Distruggi il grafico esistente se presente
-  if (window.myChart) {
-    window.myChart.destroy();
-  }
-  
-  window.myChart = new Chart(doughnutCtx, doughnutConfig);
-}
-
-function createDatasets(values, colors, season) {
-  return [
-    {
-      label: `km ${season}`,
-      backgroundColor: colors,
-      borderColor: ["black"],
-      borderWidth: 1,
-      data: values,
-    },
-  ];
-}
-
-function createDoughnutData(labels, datasets) {
-  return {
-    labels,
-    datasets,
-  };
-}
-
-function createDoughnutConfig(doughnutData) {
-  return {
-    type: "doughnut",
-    data: doughnutData,
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: {
-        legend: {
-          position: 'top',  // Legenda in alto
-          labels: {
-            font: {
-              size: 12,
-              weight: 'bold'
-            }
-          }
-        },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              const label = context.label || '';
-              const value = context.raw || 0;
-              const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentage = ((value / total) * 100).toFixed(1);
-              return `${label}: ${formatNumber(value)} km (${percentage}%)`;
-            }
-          }
-        }
-      }
-    },
-  };
-}
-
-const getDoughnutContext = () =>
-    document.getElementById("doughnut-chart").getContext("2d"),
-  createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
+const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
     labels
       .map(
         (label, index) => `

@@ -26,6 +26,12 @@ const calculatePercentuali = (chilometri, totale) =>
 
 // Funzione principale (eseguita dopo il caricamento del DOM)
 document.addEventListener("DOMContentLoaded", async () => {
+  // Assicurati che le dipendenze siano caricate
+  if (!window.chartRenderer || !window.ChartConfigs) {
+    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    return;
+  }
+
   const jsonUrl = document.getElementById("json").getAttribute("link");
 
   try {
@@ -49,8 +55,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const kmMediPerCorsa = formatNumberConditionally(rawKmMediPerCorsa);
     const kmMediPerMese = formatNumberConditionally(rawKmMediPerMese);
 
-    // Render delle sezioni
-    renderChart(mesi, chilometri, colors, year);
+    // Usa il sistema centralizzato per creare il grafico
+    const chartData = {
+      year,
+      data,
+      colors
+    };
+    
+    await window.chartRenderer.createChart('anni', chartData);
+
+    // Render delle sezioni rimanenti
     renderDataTable(mesi, chilometri, percentuali);
     renderSummary(totale, kmMediPerCorsa, kmMediPerMese, corse);
   } catch (error) {
@@ -62,35 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // --- FUNZIONI DI RENDER ---
 
 
-function renderChart(mesi, chilometri, colors, year) {
-  const chartData = {
-    labels: mesi,
-    datasets: [
-      {
-        label: `km mensili`,
-        backgroundColor: colors,
-        borderColor: "black",
-        borderWidth: 1,
-        data: chilometri,
-      },
-    ],
-  };
-
-  const chartConfig = {
-    type: "bar",
-    data: chartData,
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  };
-
-  const ctx = document.getElementById("bar-chart").getContext("2d");
-  new Chart(ctx, chartConfig);
-}
+// Funzione renderChart rimossa - ora gestita dal sistema centralizzato
 
 
 function renderDataTable(mesi, chilometri, percentuali) {

@@ -8,7 +8,13 @@ const formatNumberConditionally = (value) => {
   return value.toFixed(2);
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Assicurati che le dipendenze siano caricate
+  if (!window.chartRenderer || !window.ChartConfigs) {
+    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    return;
+  }
+
   async function fetchData() {
     try {
       const response = await fetch("../Js/History/JSON/GraficoTotale.json"),
@@ -124,68 +130,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-function createChartConfig(labels, data, anni, percentuali) {
-  return {
-    type: "line",
-    data: {
-      labels: labels.map((mese, index) => `${mese} (${anni[index]})`),
-      datasets: [
-        {
-          label: "km mensili per periodo totali",
-          // RIMUOVI LA COLORAZIONE INTERNA
-          backgroundColor: "transparent",  // ← TRANSPARENTE invece di rgba
-          borderColor: "rgba(54, 162, 235, 1)",
-          borderWidth: 3,  // Linea più spessa per visibilità
-          fill: false,     // ← NESSUN FILL sotto la linea
-          data: data,
-          // Dati aggiuntivi per il tooltip
-          percentuali: percentuali
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      scales: {
-        y: { 
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: "Chilometri"
-          }
-        },
-        x: {
-          title: {
-            display: true,
-            text: "Mese (Anno)"
-          }
-        }
-      },
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              const km = formatNumberConditionally(context.raw);
-              const perc = context.dataset.percentuali[context.dataIndex];
-              return [
-                `${context.dataset.label}: ${km} km`,
-                `(${perc}%)`
-              ];
-            }
-          }
-        }
-      }
-    },
-  };
-}
+// Funzione createChartConfig rimossa - ora gestita dal sistema centralizzato
 
-  const renderChart = (config, ctx) => {
-    if (!ctx) {
-      console.error("Contesto canvas non disponibile");
-      return null;
-    }
-    return new Chart(ctx, config);
-  };
+  // Funzione renderChart rimossa - ora gestita dal sistema centralizzato
 
   function createTable(mesi, chilometri, percentuali, anni) {
     if (!mesi || !chilometri || !percentuali || !anni) {
@@ -278,19 +225,15 @@ function createChartConfig(labels, data, anni, percentuali) {
           mesi
         );
         
-        const chartConfig = createChartConfig(mesi, chilometri, anni, percentuali);
-        const canvas = document.getElementById("line-chart");
+        // Usa il sistema centralizzato per creare il grafico
+        const chartData = {
+          labels: mesi,
+          values: chilometri,
+          anni,
+          percentuali
+        };
         
-        if (canvas) {
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            renderChart(chartConfig, ctx);
-          } else {
-            console.error("Contesto 2D non disponibile");
-          }
-        } else {
-          console.error("Elemento canvas non trovato");
-        }
+        await window.chartRenderer.createChart('graficoTotale', chartData);
 
         const tableHTML = createTable(mesi, chilometri, percentuali, anni);
         const summaryHTML = createSummary(

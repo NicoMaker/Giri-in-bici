@@ -13,7 +13,13 @@ const getMediaPer12 = (totale) => {
   return formatNumberConditionally(mediaRaw);
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Assicurati che le dipendenze siano caricate
+  if (!window.chartRenderer || !window.ChartConfigs) {
+    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    return;
+  }
+
   const mesiOrdinati = [
     "Gennaio",
     "Febbraio",
@@ -54,90 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return totaleCorse;
   };
 
-  // 🔹 Config grafico a BARRE (colori dal JSON) + PERCENTUALI
-  const createBarChartConfig = (labels, data, colori, percentuali) => ({
-    type: "bar",
-    data: {
-      labels,
-      datasets: [
-        {
-          label: "km mensili totali",
-          backgroundColor: colori,
-          borderColor: ["black"],
-          borderWidth: 1,
-          data,
-          // ✅ PERCENTUALI per il tooltip
-          percentuali: percentuali
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: { beginAtZero: true },
-      },
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              const km = formatNumberConditionally(context.raw);
-              const perc = context.dataset.percentuali[context.dataIndex];
-              return [
-                `${context.dataset.label}: ${km} km`,
-                `(${perc}%)`
-              ];
-            }
-          }
-        }
-      }
-    },
-  });
-
-  // 🔹 Config grafico a LINEA (senza riempimento) + PERCENTUALI
-  const createLineChartConfig = (labels, data, percentuali) => ({
-    type: "line",
-    data: {
-      labels,
-      datasets: [
-        {
-          label: "km mensili totali (andamento)",
-          data,
-          borderColor: "rgba(30, 100, 220, 1)",
-          backgroundColor: "transparent",  // ✅ SEMPRE TRANSPARENTE
-          borderWidth: 3,                  // Linea più spessa
-          pointBackgroundColor: "rgba(30, 100, 220, 1)",
-          pointBorderColor: "rgba(255, 255, 255, 1)",
-          pointBorderWidth: 2,
-          pointRadius: 6,
-          pointHoverRadius: 8,
-          tension: 0.35,
-          fill: false,                     // ✅ NESSUN RIEMPIMENTO
-          // ✅ PERCENTUALI per il tooltip
-          percentuali: percentuali
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: { beginAtZero: true },
-      },
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              const km = formatNumberConditionally(context.raw);
-              const perc = context.dataset.percentuali[context.dataIndex];
-              return [
-                `${context.dataset.label}: ${km} km`,
-                `(${perc}%)`
-              ];
-            }
-          }
-        }
-      }
-    },
-  });
-
-  const renderChart = (config, ctx) => new Chart(ctx, config);
+  // Funzioni di configurazione grafico rimosse - ora gestite dal sistema centralizzato
 
   const createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
     <tr class="grassetto">
@@ -184,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       Promise.all(allDataPromises)
-        .then((allData) => {
+        .then(async (allData) => {
           let chilometriTotali = new Array(12).fill(0);
           let mesiPercorsi = new Array(12).fill(0);
           const coloriGlobali = statistics.colors;
@@ -210,15 +133,19 @@ document.addEventListener("DOMContentLoaded", () => {
           // ✅ medie corse per mese su 12
           const mediacorse = getMediaPer12(totaleCorse);
 
-          // 🔹 Render grafico a BARRE + PERCENTUALI
-          const barConfig = createBarChartConfig(mesiOrdinati, chilometriTotali, coloriGlobali, percentuali);
-          const ctxBar = document.getElementById("bar-chart").getContext("2d");
-          renderChart(barConfig, ctxBar);
-
-          // 🔹 Render grafico a LINEA (senza riempimento) + PERCENTUALI
-          const lineConfig = createLineChartConfig(mesiOrdinati, chilometriTotali, percentuali);
-          const ctxLine = document.getElementById("line-chart").getContext("2d");
-          renderChart(lineConfig, ctxLine);
+          // Usa il sistema centralizzato per creare entrambi i grafici
+          const chartData = {
+            labels: mesiOrdinati,
+            values: chilometriTotali,
+            colors: coloriGlobali,
+            percentuali
+          };
+          
+          // Crea grafico a barre
+          await window.chartRenderer.createChart('graficoTotaleMensile', chartData);
+          
+          // Crea grafico a linee (stesso dati ma tipo diverso)
+          await window.chartRenderer.createChart('graficoTotaleMensileLine', chartData);
 
           // 🔹 Tabella mesi
           document.getElementById("mesi").innerHTML = createTableHTML(

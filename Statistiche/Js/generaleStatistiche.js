@@ -9,6 +9,12 @@ const formatNumberConditionally = (value) => {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // Assicurati che le dipendenze siano caricate
+  if (!window.chartRenderer || !window.ChartConfigs) {
+    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    return;
+  }
+
   async function fetchJSON(url) {
     try {
       const response = await fetch(url);
@@ -88,59 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-  function createChartConfig(labels, data, colors) {
-    return {
-      type: "doughnut",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "km totali",
-            backgroundColor: colors,
-            borderColor: ["black"],
-            borderWidth: 1,
-            data: data,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            position: 'top',  // ← CAMBIATO DA 'bottom' A 'top' (legenda in alto)
-            labels: {
-              font: {
-                size: 12,
-                weight: 'bold'
-              },
-              padding: 15
-            }
-          },
-          title: {
-            display: true,
-            text: 'Distribuzione km per anno',
-            font: {
-              size: 16,
-              weight: 'bold'
-            },
-            padding: 10
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                const label = context.label || '';
-                const value = context.raw || 0;
-                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                const percentage = ((value / total) * 100).toFixed(1);
-                return `${label}: ${formatNumberConditionally(value)} km (${percentage}%)`;
-              }
-            }
-          }
-        }
-      },
-    };
-  }
+  // Funzione createChartConfig rimossa - ora gestita dal sistema centralizzato
 
   const renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {
     const storageKey = "page_statistiche";
@@ -237,21 +191,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  const renderChart = (labels, data, colors) => {
-    const doughnutConfig = createChartConfig(labels, data, colors);
-    const doughnutCanvas = document.getElementById("doughnut-chart");
-    
-    if (doughnutCanvas) {
-      const doughnutCtx = doughnutCanvas.getContext("2d");
-      // Distruggi il grafico esistente se presente
-      if (window.doughnutChart) {
-        window.doughnutChart.destroy();
-      }
-      window.doughnutChart = new Chart(doughnutCtx, doughnutConfig);
-    } else {
-      console.error("Canvas element 'doughnut-chart' not found");
-    }
-  };
+  // Funzione renderChart rimossa - ora gestita dal sistema centralizzato
 
   const dataResult = await fetchData();
 
@@ -274,7 +214,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const values = statistics.map((entry) => entry.km);
     const itemsPerPage = 2;
 
-    renderChart(labels, values, colors);
+    // Usa il sistema centralizzato per creare il grafico
+    const chartData = {
+      statistics,
+      colors
+    };
+    
+    await window.chartRenderer.createChart('generaleStatistiche', chartData);
 
     renderSummary(
       totalekm,
