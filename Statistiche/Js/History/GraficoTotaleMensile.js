@@ -1,10 +1,43 @@
 // Funzione di utilità per la formattazione condizionale
-// 1. Se è 10.0 → "10", se 10.33 → "10.33"
+// Always show 2 decimal places for tables
 const formatNumberConditionally = (value) => {
-  if (Number.isInteger(value)) {
-    return value.toString();
+  return formatItalianNumber(value, true);
+};
+
+// Funzione per formattazione italiana con separatori di migliaia
+const formatItalianNumber = (num, forceDecimals = false) => {
+  if (typeof num === 'string') {
+    num = parseFloat(num);
   }
-  return value.toFixed(2);
+  if (isNaN(num)) return '0';
+  
+  // For tables, always show 2 decimal places
+  let decimalString = '';
+  if (forceDecimals || !Number.isInteger(num)) {
+    const decimalPart = num.toFixed(2).split('.')[1];
+    // Only add decimal part if it's not "00"
+    if (decimalPart !== '00') {
+      decimalString = ',' + decimalPart;
+    }
+  }
+  
+  // Handle decimal part - use comma for Italian format
+  const parts = num.toString().split('.');
+  let integerPart = parts[0];
+  
+  // Add thousand separators (periods)
+  if (integerPart.length > 3) {
+    const groups = [];
+    let i = integerPart.length;
+    while (i > 0) {
+      const start = Math.max(0, i - 3);
+      groups.unshift(integerPart.substring(start, i));
+      i -= 3;
+    }
+    integerPart = groups.join('.');
+  }
+  
+  return integerPart + decimalString;
 };
 
 // 🔹 Funzione generica: media su 12 mesi
@@ -75,24 +108,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         ({ mese, kmMediMese }, index) => `
        <tr>
         <td>${mese}</td>
-        <td>${chilometri[index]}</td>
+        <td>${formatItalianNumber(chilometri[index])}</td>
         <td>${percentuali[index]} %</td>
         <td>${mesiPercorsi[index]}</td>
-        <td>${kmMediMese}</td>
+        <td>${formatItalianNumber(kmMediMese)}</td>
        </tr>`
       )
       .join("")}
   `;
 
-  const createSummaryHTML = (totale, mediaComplessiva, totaleCorse, mediacorse) => `
+  const createSummaryHTML = (totale, mediaComplessiva, totaleCorse, mediacorse) => {
+    const formattedTotale = formatItalianNumber(totale);
+    const formattedTotaleCorse = formatItalianNumber(totaleCorse);
+    
+    return `
     <a href="StoricoMensile.html">
       <div class="colore">
-          <p class="misuracolore">totale km ${totale} <img src="../../Icons/traguardo.png"></p>
+          <p class="misuracolore">totale km ${formattedTotale} <img src="../../Icons/traguardo.png"></p>
           <p class="misuracolore">km totali medi per mese ${mediaComplessiva}</p>
-          <p class="misuracolore">Totale corse ${totaleCorse}</p>
+          <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>
           <p class="misuracolore">Medie corse per mese (12 mesi) ${mediacorse}</p>
       </div>
     </a>`;
+  };
 
   fetch("../Js/History/JSON/GraficoTotale.json")
     .then((response) => response.json())

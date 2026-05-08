@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <td>${row.date}</td>
       <td>${index + 1}</td>
       <td>${row.place}</td>
-      <td>${row.distance}</td>
+      <td>${formatItalianNumber(row.distance)}</td>
       <td>km</td>
     `;
     return newRow;
@@ -23,11 +23,43 @@ document.addEventListener("DOMContentLoaded", function () {
   const appendRowToTable = (tableBody, row) => tableBody.appendChild(row);
 
   function formatNumber(value) {
-    if (Number.isInteger(value)) {
-      return value.toString();
-    } else {
-      return value.toFixed(2);
+    // Always show 2 decimal places for tables
+    return formatItalianNumber(value, true);
+  }
+
+  function formatItalianNumber(num, forceDecimals = false) {
+    if (typeof num === 'string') {
+      num = parseFloat(num);
     }
+    if (isNaN(num)) return '0';
+    
+    // For tables, always show 2 decimal places
+    let decimalString = '';
+    if (forceDecimals || !Number.isInteger(num)) {
+      const decimalPart = num.toFixed(2).split('.')[1];
+      // Only add decimal part if it's not "00"
+      if (decimalPart !== '00') {
+        decimalString = ',' + decimalPart;
+      }
+    }
+    
+    // Handle decimal part - use comma for Italian format
+    const parts = num.toString().split('.');
+    let integerPart = parts[0];
+    
+    // Add thousand separators (periods)
+    if (integerPart.length > 3) {
+      const groups = [];
+      let i = integerPart.length;
+      while (i > 0) {
+        const start = Math.max(0, i - 3);
+        groups.unshift(integerPart.substring(start, i));
+        i -= 3;
+      }
+      integerPart = groups.join('.');
+    }
+    
+    return integerPart + decimalString;
   }
 
   function calculateAndDisplayStats(data) {
@@ -36,11 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const rawMediaValue = totalkm / totalRaces;
 
     const mediaValue = formatNumber(rawMediaValue);
+    const formattedTotalKm = formatItalianNumber(totalkm);
 
     const kmElement = document.getElementById("km");
     kmElement.innerHTML = `
       <div class="colore">
-        <p class="misuracolore">Totale km percorsi ${totalkm} 
+        <p class="misuracolore">Totale km percorsi ${formattedTotalKm} 
           <img src="../../Icons/traguardo.png" alt="Icona traguardo"> 
         </p>
         <p class="misuracolore">Media km percorsi ${mediaValue}</p>

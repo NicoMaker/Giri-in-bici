@@ -71,8 +71,46 @@ async function fetchSubPeriods(subPeriods) {
 }
 
 // Funzione per formattare i numeri
-const formatNumber = (value) =>
-  Number.isInteger(value) ? value.toString() : value.toFixed(2);
+const formatNumber = (value) => {
+  // Always show 2 decimal places for tables
+  return formatItalianNumber(value, true);
+};
+
+// Funzione per formattazione italiana con separatori di migliaia e virgola per decimali
+const formatItalianNumber = (num, forceDecimals = false) => {
+  if (typeof num === 'string') {
+    num = parseFloat(num);
+  }
+  if (isNaN(num)) return '0';
+  
+  // For tables, always show 2 decimal places
+  let decimalString = '';
+  if (forceDecimals || !Number.isInteger(num)) {
+    const decimalPart = num.toFixed(2).split('.')[1];
+    // Only add decimal part if it's not "00"
+    if (decimalPart !== '00') {
+      decimalString = ',' + decimalPart;
+    }
+  }
+  
+  // Handle decimal part - use comma for Italian format
+  const parts = num.toString().split('.');
+  let integerPart = parts[0];
+  
+  // Add thousand separators (periods)
+  if (integerPart.length > 3) {
+    const groups = [];
+    let i = integerPart.length;
+    while (i > 0) {
+      const start = Math.max(0, i - 3);
+      groups.unshift(integerPart.substring(start, i));
+      i -= 3;
+    }
+    integerPart = groups.join('.');
+  }
+  
+  return integerPart + decimalString;
+};
 
 const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
   calculateTotalRaces = (labels, data) =>
@@ -208,12 +246,13 @@ const renderDataList = (
 function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
   const avgseason = formatNumber(totale / totalePeriodi),
     avgcorsa = formatNumber(totale / totalRaces),
+    formattedTotalRaces = formatItalianNumber(totalRaces),
     stampaseason = `
       <div class="colore">
         <p class="misuracolore">Totale km percorsi in ${season} ${formatNumber(totale)} <img src="Icons/traguardo.png"> </p>
         <p class="misuracolore">Km medi per giro in ${season} ${avgcorsa} </p>
         <p class="misuracolore">Media km per periodo ${avgseason} </p>
-        <p class="misuracolore">Totale corse ${totalRaces}</p>
+        <p class="misuracolore">Totale corse ${formattedTotalRaces}</p>
         <p class="misuracolore">Corse medie per periodo ${formatNumber(totalRaces / totalePeriodi)}</p>
         <hr style="margin: 10px 0; border-color: rgba(255,255,255,0.3);">
         <p class="misuracolore">Totale periodi: ${totalePeriodi}</p>

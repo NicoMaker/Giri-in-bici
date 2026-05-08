@@ -1,11 +1,43 @@
 // Funzione di utilità per la formattazione condizionale
 const formatNumberConditionally = (value) => {
-  // Se il valore è un intero (es. 10.0), lo mostra senza decimali
-  if (Number.isInteger(value)) {
-    return value.toString();
+  // Always show 2 decimal places for tables
+  return formatItalianNumber(value, true);
+};
+
+// Funzione per formattazione italiana con separatori di migliaia
+const formatItalianNumber = (num, forceDecimals = false) => {
+  if (typeof num === 'string') {
+    num = parseFloat(num);
   }
-  // Altrimenti, lo formatta con due decimali (es. 10.33)
-  return value.toFixed(2);
+  if (isNaN(num)) return '0';
+  
+  // For tables, always show 2 decimal places
+  let decimalString = '';
+  if (forceDecimals || !Number.isInteger(num)) {
+    const decimalPart = num.toFixed(2).split('.')[1];
+    // Only add decimal part if it's not "00"
+    if (decimalPart !== '00') {
+      decimalString = ',' + decimalPart;
+    }
+  }
+  
+  // Handle decimal part - use comma for Italian format
+  const parts = num.toString().split('.');
+  let integerPart = parts[0];
+  
+  // Add thousand separators (periods)
+  if (integerPart.length > 3) {
+    const groups = [];
+    let i = integerPart.length;
+    while (i > 0) {
+      const start = Math.max(0, i - 3);
+      groups.unshift(integerPart.substring(start, i));
+      i -= 3;
+    }
+    integerPart = groups.join('.');
+  }
+  
+  return integerPart + decimalString;
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -170,13 +202,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     racesPerMonth,
     mesi
   ) {
+    const formattedTotaleCorse = formatItalianNumber(totaleCorse);
+    
     return `
       <a href="Statistiche_Mensili.html">
         <div class="colore">
           <p class="misuracolore">Totale km ${formatNumberConditionally(totale)} <img src="../../Icons/traguardo.png"></p>
           <p class="misuracolore">Km medi per corsa ${kmMediPerCorsa}</p>
           <p class="misuracolore">Km medi per mese ${kmMediPerMese}</p>
-          <p class="misuracolore">Totale corse ${totaleCorse}</p>
+          <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>
           <p class="misuracolore">Corse medie per anno ${racesPerYear}</p>
           <p class="misuracolore">Corse medie per mese ${racesPerMonth}</p>
           <p class="misuracolore">Totale mesi di corsa ${mesi.length}</p>

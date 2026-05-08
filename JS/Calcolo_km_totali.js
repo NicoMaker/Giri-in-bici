@@ -60,11 +60,43 @@ processSeasons = (data) => {
 calcolaTotalekm = (kmData) => kmData.reduce((total, km) => total + km, 0),
 
 formatoCondizionale = (valore) => {
-  if (Number.isInteger(valore)) {
-    return valore.toString();
-  } else {
-    return valore.toFixed(2);
+  // Always show 2 decimal places for tables
+  return formatItalianNumber(valore, true);
+},
+
+formatItalianNumber = (num, forceDecimals = false) => {
+  if (typeof num === 'string') {
+    num = parseFloat(num);
   }
+  if (isNaN(num)) return '0';
+  
+  // For tables, always show 2 decimal places
+  let decimalString = '';
+  if (forceDecimals || !Number.isInteger(num)) {
+    const decimalPart = num.toFixed(2).split('.')[1];
+    // Only add decimal part if it's not "00"
+    if (decimalPart !== '00') {
+      decimalString = ',' + decimalPart;
+    }
+  }
+  
+  // Handle decimal part - use comma for Italian format
+  const parts = num.toString().split('.');
+  let integerPart = parts[0];
+  
+  // Add thousand separators (periods)
+  if (integerPart.length > 3) {
+    const groups = [];
+    let i = integerPart.length;
+    while (i > 0) {
+      const start = Math.max(0, i - 3);
+      groups.unshift(integerPart.substring(start, i));
+      i -= 3;
+    }
+    integerPart = groups.join('.');
+  }
+  
+  return integerPart + decimalString;
 },
 
 calcolaMediakm = (totalekm, corse) => {
@@ -91,12 +123,15 @@ StampaDati = (totalekm, mediakm, avgPeriod, totaleCorse, totalePeriodi) => {
       ? "N/A"
       : formatoCondizionale(totaleCorse / 3);
 
+  const formattedTotaleKm = formatItalianNumber(totalekm);
+  const formattedTotaleCorse = formatItalianNumber(totaleCorse);
+
   document.getElementById("km").innerHTML = `
     <div class="colore">
-      <p class="misuracolore">Totale km ${totalekm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
+      <p class="misuracolore">Totale km ${formattedTotaleKm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
       <p class="misuracolore">km medi per giro ${mediakm}</p>
       <p class="misuracolore">Media km per Periodo ${avgPeriod} km</p>
-      <p class="misuracolore">Totale corse ${totaleCorse}</p>
+      <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>
       <p class="misuracolore">Media corse per periodo ${mediaCorsePerPeriodo}</p>
       <p class="misuracolore">Media corse per Stagione ${mediaCorsePerStagione}</p>
     </div>

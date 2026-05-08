@@ -1,7 +1,43 @@
 // Funzione di utilità per la formattazione condizionale
 const formatNumberConditionally = (value) => {
-  if (Number.isInteger(value)) return value.toString();
-  return value.toFixed(2);
+  // Always show 2 decimal places for tables
+  return formatItalianNumber(value, true);
+};
+
+// Funzione per formattazione italiana con separatori di migliaia
+const formatItalianNumber = (num, forceDecimals = false) => {
+  if (typeof num === 'string') {
+    num = parseFloat(num);
+  }
+  if (isNaN(num)) return '0';
+  
+  // For tables, always show 2 decimal places
+  let decimalString = '';
+  if (forceDecimals || !Number.isInteger(num)) {
+    const decimalPart = num.toFixed(2).split('.')[1];
+    // Only add decimal part if it's not "00"
+    if (decimalPart !== '00') {
+      decimalString = ',' + decimalPart;
+    }
+  }
+  
+  // Handle decimal part - use comma for Italian format
+  const parts = num.toString().split('.');
+  let integerPart = parts[0];
+  
+  // Add thousand separators (periods)
+  if (integerPart.length > 3) {
+    const groups = [];
+    let i = integerPart.length;
+    while (i > 0) {
+      const start = Math.max(0, i - 3);
+      groups.unshift(integerPart.substring(start, i));
+      i -= 3;
+    }
+    integerPart = groups.join('.');
+  }
+  
+  return integerPart + decimalString;
 };
 
 // ============================================
@@ -115,12 +151,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       numPeriodsPerSeason.estate +
       numPeriodsPerSeason.autunno_inverno;
 
+    const formattedCorseTotale = formatItalianNumber(data.corseTotale);
+
     return `
       <div class="colore">
         <p class="misuracolore">Totale km ${formatNumberConditionally(data.totale)} <img src="../Icons/traguardo.png" onerror="this.style.display='none'"></p>
         <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
         <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
-        <p class="misuracolore">Totale corse ${data.corseTotale}</p>
+        <p class="misuracolore">Totale corse ${formattedCorseTotale}</p>
         <p class="misuracolore">Media corse per periodo: ${formatNumberConditionally(data.corseTotale / totalePeriodi)}</p>
         <p class="misuracolore">Media corse per stagione: ${formatNumberConditionally(data.corseTotale / 3)}</p>
         
