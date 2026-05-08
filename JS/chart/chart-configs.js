@@ -9,7 +9,7 @@ const ChartConfigs = {
     },
 
     // Funzione per formattazione italiana con separatori di migliaia e virgola per decimali
-    formatItalianNumber: (num, forceDecimals = false) => {
+    formatItalianNumber: (num, forceDecimals = false, isPercentage = false) => {
         if (typeof num === 'string') {
             num = parseFloat(num);
         }
@@ -21,22 +21,22 @@ const ChartConfigs = {
         let integerPart = parts[0];
         let decimalPart = parts[1] || '';
         
-        // For tables, always show 2 decimal places
-        if (forceDecimals || !Number.isInteger(num)) {
+        // For tables and percentages, always show 2 decimal places
+        if (forceDecimals || isPercentage || !Number.isInteger(num)) {
             // Ensure we have exactly 2 decimal places
             decimalPart = num.toFixed(2).split('.')[1];
             // Only add decimal part if it's not "00"
             if (decimalPart !== '00') {
-                decimalPart = ',' + decimalPart;
+                decimalString = ',' + decimalPart;
             } else {
-                decimalPart = '';
+                decimalString = '';
             }
         } else if (decimalPart !== '') {
             // For charts, show existing decimals with comma
-            decimalPart = ',' + decimalPart;
+            decimalString = ',' + decimalPart;
         } else {
             // No decimal part
-            decimalPart = '';
+            decimalString = '';
         }
         
         // Add thousand separators (periods)
@@ -51,7 +51,7 @@ const ChartConfigs = {
             integerPart = groups.join('.');
         }
         
-        return integerPart + decimalPart;
+        return integerPart + decimalString;
     },
 
     // Configurazione per grafico doughnut (usato per stagioni e statistiche generali)

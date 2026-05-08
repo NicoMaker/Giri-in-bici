@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgRacesPerMonth: formatNumberConditionally(avgRacesPerMonthRaw),
 
       avgValues: statistics.map((entry) =>
-        ((entry.km / totalekm) * 100).toFixed(2),
+        formatItalianNumber(((entry.km / totalekm) * 100), true, true),
       ),
     };
   }

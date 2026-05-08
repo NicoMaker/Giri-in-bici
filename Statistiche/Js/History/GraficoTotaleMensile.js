@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     chilometri.reduce((acc, curr) => acc + curr, 0);
 
   const getPercentuali = (chilometri, totale) =>
-    chilometri.map((km) => ((km / totale) * 100).toFixed(2));
+    chilometri.map((km) => formatItalianNumber(((km / totale) * 100), true, true));
 
   // 🔹 Calcolo km medi per mese
   const getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       let kmMediMese = 0;
       if (mesiPercorsi[index] > 0) {
         kmMediMese = chilometri[index] / mesiPercorsi[index];
-        kmMediMese = kmMediMese.toFixed(2);
+        kmMediMese = formatItalianNumber(kmMediMese, true);
       }
       return { mese, kmMediMese };
     });

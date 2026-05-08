@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       mesi.push(mese);
       anni.push(year);
       // Calcolo percentuale per ogni punto
-      percentuali.push(totale > 0 ? ((chilometriMensili / totale) * 100).toFixed(2) : "0.00");
+      percentuali.push(totale > 0 ? ChartConfigs.formatItalianNumber(((chilometriMensili / totale) * 100), true, true) : "0,00");
     });
 
     return { totale, chilometri, mesi, anni, percentuali };
@@ -149,8 +149,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     // Calcolo percentuali con controllo divisione per zero
     const percentuali = mesi.map((mese, index) => {
-      if (totale === 0) return "0.00";
-      return ((chilometri[index] / totale) * 100).toFixed(2);
+      if (totale === 0) return "0,00";
+      return formatItalianNumber(((chilometri[index] / totale) * 100), true);
     });
     
     return {

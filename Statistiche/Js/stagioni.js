@@ -391,7 +391,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                   const label = context.label || '';
                   const value = context.raw || 0;
                   const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                  const percentage = ((value / total) * 100).toFixed(1);
+                  const percentageRaw = (value / total) * 100;
+                  const percentage = formatItalianNumber(percentageRaw, true, true);
                   return `${label}: ${formatNumberConditionally(value)} km (${percentage}%)`;
                 }
               }
