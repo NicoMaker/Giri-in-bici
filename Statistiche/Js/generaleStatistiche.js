@@ -40,6 +40,34 @@ const formatItalianNumber = (num, forceDecimals = false) => {
   return integerPart + decimalString;
 };
 
+// Funzione per formattazione percentuale con 2 decimali
+const formatPercentage = (value) => {
+  if (typeof value === 'string') {
+    value = parseFloat(value);
+  }
+  if (isNaN(value)) return '0,00';
+  
+  // Force 2 decimal places for percentages
+  const fixedNum = value.toFixed(2);
+  const parts = fixedNum.split('.');
+  let integerPart = parts[0];
+  const decimalPart = parts[1];
+  
+  // Add thousand separators if needed
+  if (integerPart.length > 3) {
+    const groups = [];
+    let i = integerPart.length;
+    while (i > 0) {
+      const start = Math.max(0, i - 3);
+      groups.unshift(integerPart.substring(start, i));
+      i -= 3;
+    }
+    integerPart = groups.join('.');
+  }
+  
+  return integerPart + ',' + decimalPart;
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
   // Assicurati che le dipendenze siano caricate
   if (!window.chartRenderer || !window.ChartConfigs) {
@@ -109,6 +137,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const avgRacesPerYearRaw = statistics.length > 0 ? totaleCorse / statistics.length : 0;
     const avgRacesPerMonthRaw = totalMonths > 0 ? totaleCorse / totalMonths : 0;
 
+    // Calcola le percentuali con 2 decimali
+    const avgValues = statistics.map((entry) => {
+      const percentuale = (entry.km / totalekm) * 100;
+      return formatPercentage(percentuale);
+    });
+
     return {
       totalekm,
       totaleCorse,
@@ -120,13 +154,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgRacesPerYear : formatNumberConditionally(avgRacesPerYearRaw),
       avgRacesPerMonth: formatNumberConditionally(avgRacesPerMonthRaw),
 
-      avgValues: statistics.map((entry) =>
-        formatItalianNumber(((entry.km / totalekm) * 100), true, true),
-      ),
+      avgValues: avgValues,
     };
   }
-
-  // Funzione createChartConfig rimossa - ora gestita dal sistema centralizzato
 
   const renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {
     const storageKey = "page_statistiche";
@@ -154,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <img class="immaginestagione" src="Icons/Statistiche.png">
                     <p class="titoli">Statistiche ${entry.year}</p>
                     <p class="misuracolore">km totali ${formatNumberConditionally(entry.km)} <img src="Icons/traguardo.png"></p>
-                    <p class="misuracolore">${formatNumberConditionally(parseFloat(avgValues[startIndex + index]))} %</p>
+                    <p class="misuracolore">${avgValues[startIndex + index]} %</p>
                     <p class="misuracolore">Totale corse ${entry.numberOfRaces}</p>
                   </a>
                 </div>
@@ -226,8 +256,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  // Funzione renderChart rimossa - ora gestita dal sistema centralizzato
-
   const dataResult = await fetchData();
 
   if (dataResult && dataResult.mainData) {
@@ -245,8 +273,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgValues,
     } = calculateAverages(statistics);
 
-    const labels = statistics.map((entry) => `${entry.year}`);
-    const values = statistics.map((entry) => entry.km);
     const itemsPerPage = 2;
 
     // Usa il sistema centralizzato per creare il grafico
