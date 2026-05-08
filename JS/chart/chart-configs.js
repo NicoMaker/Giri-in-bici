@@ -4,12 +4,8 @@
 const ChartConfigs = {
     // Formattazione numeri condivisa
     formatNumber: (value) => {
-        // For charts: show decimals only if not integer
-        if (Number.isInteger(value)) {
-            return ChartConfigs.formatItalianNumber(value);
-        } else {
-            return ChartConfigs.formatItalianNumber(value, true);
-        }
+        // Always use Italian formatting for charts
+        return ChartConfigs.formatItalianNumber(value);
     },
 
     // Funzione per formattazione italiana con separatori di migliaia e virgola per decimali
@@ -19,19 +15,29 @@ const ChartConfigs = {
         }
         if (isNaN(num)) return '0';
         
+        // Convert to string and handle decimal part
+        const numStr = num.toString();
+        const parts = numStr.split('.');
+        let integerPart = parts[0];
+        let decimalPart = parts[1] || '';
+        
         // For tables, always show 2 decimal places
-        let decimalString = '';
         if (forceDecimals || !Number.isInteger(num)) {
-            const decimalPart = num.toFixed(2).split('.')[1];
+            // Ensure we have exactly 2 decimal places
+            decimalPart = num.toFixed(2).split('.')[1];
             // Only add decimal part if it's not "00"
             if (decimalPart !== '00') {
-                decimalString = ',' + decimalPart;
+                decimalPart = ',' + decimalPart;
+            } else {
+                decimalPart = '';
             }
+        } else if (decimalPart !== '') {
+            // For charts, show existing decimals with comma
+            decimalPart = ',' + decimalPart;
+        } else {
+            // No decimal part
+            decimalPart = '';
         }
-        
-        // Handle decimal part - use comma for Italian format
-        const parts = num.toString().split('.');
-        let integerPart = parts[0];
         
         // Add thousand separators (periods)
         if (integerPart.length > 3) {
@@ -45,7 +51,7 @@ const ChartConfigs = {
             integerPart = groups.join('.');
         }
         
-        return integerPart + decimalString;
+        return integerPart + decimalPart;
     },
 
     // Configurazione per grafico doughnut (usato per stagioni e statistiche generali)
@@ -71,8 +77,9 @@ const ChartConfigs = {
                             const label = context.label || '';
                             const value = context.raw || 0;
                             const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = ((value / total) * 100).toFixed(1);
-                            return `${label}: ${ChartConfigs.formatItalianNumber(value, true)} km (${percentage}%)`;
+                            const percentageRaw = (value / total) * 100;
+                            const percentage = ChartConfigs.formatItalianNumber(percentageRaw);
+                            return `${label}: ${ChartConfigs.formatItalianNumber(value)} km (${percentage}%)`;
                         }
                     }
                 }
@@ -107,8 +114,11 @@ const ChartConfigs = {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            const km = ChartConfigs.formatItalianNumber(context.raw, true);
-                            return `${context.dataset.label}: ${km} km`;
+                            const km = ChartConfigs.formatItalianNumber(context.raw);
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentageRaw = (context.raw / total) * 100;
+                            const percentage = ChartConfigs.formatItalianNumber(percentageRaw);
+                            return `${context.dataset.label}: ${km} km (${percentage}%)`;
                         }
                     }
                 }
@@ -145,7 +155,7 @@ const ChartConfigs = {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            const km = ChartConfigs.formatItalianNumber(context.raw, true);
+                            const km = ChartConfigs.formatItalianNumber(context.raw);
                             const percentage = context.dataset.percentuali ? 
                                 `(${context.dataset.percentuali[context.dataIndex]}%)` : '';
                             return [
