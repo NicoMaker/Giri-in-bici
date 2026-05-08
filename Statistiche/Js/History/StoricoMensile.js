@@ -1,18 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mesi = [
-    "Gennaio",
-    "Febbraio",
-    "Marzo",
-    "Aprile",
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Ottobre",
-    "Novembre",
-    "Dicembre",
+    "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+    "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
   ];
+
+  // Usa la stessa funzione di tutti gli altri grafici del progetto
+  const formatNumber = (value) => ChartConfigs.formatItalianNumber(value);
 
   function createDataset(yearData, yearLabel, yearColor) {
     const data = new Array(12).fill(0);
@@ -41,6 +34,20 @@ document.addEventListener("DOMContentLoaded", () => {
       scales: {
         y: {
           beginAtZero: true,
+          ticks: {
+            callback: (value) => formatNumber(value),
+          },
+        },
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const label = context.dataset.label || "";
+              const value = context.parsed.y;
+              return `${label}: ${formatNumber(value)}`;
+            },
+          },
         },
       },
     },
@@ -54,12 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     const ctxline = document.getElementById("line-chart").getContext("2d"),
-      ctxbar = document.getElementById("bar-chart").getContext("2d"),
+      ctxbar  = document.getElementById("bar-chart").getContext("2d"),
       configline = createConfig("line", datasets),
-      configbar = createConfig("bar", datasets);
+      configbar  = createConfig("bar",  datasets);
 
     new Chart(ctxline, configline);
-    new Chart(ctxbar, configbar);
+    new Chart(ctxbar,  configbar);
   }
 
   fetch("../Js/History/JSON/StoricoMensile.json")
@@ -72,11 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
             createDataset(yearData, yearInfo.label, yearInfo.color),
           ),
       );
-
       return Promise.all(datasetsPromises);
     })
-    .then((datasets) => {
-      renderCharts(datasets);
-    })
+    .then((datasets) => renderCharts(datasets))
     .catch((error) => console.error(`Error loading the data:, ${error}`));
 });

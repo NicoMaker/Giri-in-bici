@@ -1,45 +1,27 @@
 // File di configurazione centralizzato per tutti i grafici
-// Questo file contiene tutte le configurazioni dei grafici utilizzati nel progetto
-
 const ChartConfigs = {
-    // Formattazione numeri condivisa
+
     formatNumber: (value) => {
-        // Always use Italian formatting for charts
         return ChartConfigs.formatItalianNumber(value);
     },
 
-    // Funzione per formattazione italiana con separatori di migliaia e virgola per decimali
     formatItalianNumber: (num, forceDecimals = false, isPercentage = false) => {
-        if (typeof num === 'string') {
-            num = parseFloat(num);
-        }
+        if (typeof num === 'string') num = parseFloat(num);
         if (isNaN(num)) return '0';
-        
-        // Convert to string and handle decimal part
+
         const numStr = num.toString();
         const parts = numStr.split('.');
         let integerPart = parts[0];
         let decimalPart = parts[1] || '';
-        
-        // For tables and percentages, always show 2 decimal places
+        let decimalString = '';
+
         if (forceDecimals || isPercentage || !Number.isInteger(num)) {
-            // Ensure we have exactly 2 decimal places
             decimalPart = num.toFixed(2).split('.')[1];
-            // Only add decimal part if it's not "00"
-            if (decimalPart !== '00') {
-                decimalString = ',' + decimalPart;
-            } else {
-                decimalString = '';
-            }
+            decimalString = decimalPart !== '00' ? ',' + decimalPart : '';
         } else if (decimalPart !== '') {
-            // For charts, show existing decimals with comma
             decimalString = ',' + decimalPart;
-        } else {
-            // No decimal part
-            decimalString = '';
         }
-        
-        // Add thousand separators (periods)
+
         if (integerPart.length > 3) {
             const groups = [];
             let i = integerPart.length;
@@ -50,11 +32,11 @@ const ChartConfigs = {
             }
             integerPart = groups.join('.');
         }
-        
+
         return integerPart + decimalString;
     },
 
-    // Configurazione per grafico doughnut (usato per stagioni e statistiche generali)
+    // Doughnut
     doughnut: {
         type: "doughnut",
         options: {
@@ -64,10 +46,7 @@ const ChartConfigs = {
                 legend: {
                     position: 'top',
                     labels: {
-                        font: {
-                            size: 12,
-                            weight: 'bold'
-                        },
+                        font: { size: 12, weight: 'bold' },
                         padding: 15
                     }
                 },
@@ -87,27 +66,22 @@ const ChartConfigs = {
         }
     },
 
-    // Configurazione per grafico a barre (usato per statistiche mensili/annuali)
+    // Bar
     bar: {
         type: "bar",
         options: {
             scales: {
-                y: { 
+                y: {
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: "Chilometri"
-                    },
+                    title: { display: true, text: "Chilometri" },
                     ticks: {
-                        callback: function(value, index, ticks) {
+                        callback: function(value) {
                             return ChartConfigs.formatItalianNumber(value);
                         }
                     }
                 },
                 x: {
-                    title: {
-                        display: true
-                    }
+                    title: { display: true }
                 }
             },
             plugins: {
@@ -126,29 +100,24 @@ const ChartConfigs = {
         }
     },
 
-    // Configurazione per grafico a linea (usato per andamenti storici)
+    // Line
     line: {
         type: "line",
         options: {
             responsive: true,
             maintainAspectRatio: true,
             scales: {
-                y: { 
+                y: {
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: "Chilometri"
-                    },
+                    title: { display: true, text: "Chilometri" },
                     ticks: {
-                        callback: function(value, index, ticks) {
+                        callback: function(value) {
                             return ChartConfigs.formatItalianNumber(value);
                         }
                     }
                 },
                 x: {
-                    title: {
-                        display: true
-                    }
+                    title: { display: true }
                 }
             },
             plugins: {
@@ -156,12 +125,10 @@ const ChartConfigs = {
                     callbacks: {
                         label: function(context) {
                             const km = ChartConfigs.formatItalianNumber(context.raw);
-                            const percentage = context.dataset.percentuali ? 
-                                `(${context.dataset.percentuali[context.dataIndex]}%)` : '';
-                            return [
-                                `${context.dataset.label}: ${km} km`,
-                                percentage
-                            ].filter(Boolean);
+                            const percentage = context.dataset.percentuali
+                                ? `(${context.dataset.percentuali[context.dataIndex]}%)`
+                                : '';
+                            return [`${context.dataset.label}: ${km} km`, percentage].filter(Boolean);
                         }
                     }
                 }
@@ -169,7 +136,7 @@ const ChartConfigs = {
         }
     },
 
-    // Configurazioni specifiche per pagina
+    // Pagine
     pages: {
         stagioni: {
             chartType: 'doughnut',
@@ -204,7 +171,6 @@ const ChartConfigs = {
     }
 };
 
-// Esporta le configurazioni per uso globale
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ChartConfigs;
 } else {
