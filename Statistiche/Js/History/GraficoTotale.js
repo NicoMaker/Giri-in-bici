@@ -40,6 +40,34 @@ const formatItalianNumber = (num, forceDecimals = false) => {
   return integerPart + decimalString;
 };
 
+// Funzione per formattazione percentuale con 2 decimali fissi
+const formatPercentage = (value) => {
+  if (typeof value === 'string') {
+    value = parseFloat(value);
+  }
+  if (isNaN(value)) return '0,00';
+  
+  // Force 2 decimal places for percentages
+  const fixedNum = value.toFixed(2);
+  const parts = fixedNum.split('.');
+  let integerPart = parts[0];
+  const decimalPart = parts[1];
+  
+  // Add thousand separators if needed
+  if (integerPart.length > 3) {
+    const groups = [];
+    let i = integerPart.length;
+    while (i > 0) {
+      const start = Math.max(0, i - 3);
+      groups.unshift(integerPart.substring(start, i));
+      i -= 3;
+    }
+    integerPart = groups.join('.');
+  }
+  
+  return integerPart + ',' + decimalPart;
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
   // Assicurati che le dipendenze siano caricate
   if (!window.chartRenderer || !window.ChartConfigs) {
@@ -88,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       chilometri = [],
       mesi = [],
       anni = [],
-      percentuali = []; // Aggiunto per il grafico
+      percentuali = [];
 
     const combinedData = [];
     
@@ -131,8 +159,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       chilometri.push(chilometriMensili);
       mesi.push(mese);
       anni.push(year);
-      // Calcolo percentuale per ogni punto
-      percentuali.push(totale > 0 ? ChartConfigs.formatItalianNumber(((chilometriMensili / totale) * 100), true, true) : "0,00");
+      // Calcolo percentuale con 2 decimali usando formatPercentage
+      const percentuale = totale > 0 ? (chilometriMensili / totale) * 100 : 0;
+      percentuali.push(formatPercentage(percentuale));
     });
 
     return { totale, chilometri, mesi, anni, percentuali };
@@ -147,24 +176,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const rawRacesPerYear    = totaleAnni > 0 ? totaleCorse / totaleAnni : 0;
     const rawRacesPerMonth   = mesi.length > 0 ? totaleCorse / mesi.length : 0;
     
-    // Calcolo percentuali con controllo divisione per zero
-    const percentuali = mesi.map((mese, index) => {
-      if (totale === 0) return "0,00";
-      return formatItalianNumber(((chilometri[index] / totale) * 100), true);
-    });
-    
     return {
-      percentuali: percentuali,
       kmMediPerCorsa: formatNumberConditionally(rawKmMediPerCorsa),
       kmMediPerMese: formatNumberConditionally(rawKmMediPerMese),
       racesPerYear: formatNumberConditionally(rawRacesPerYear),
       racesPerMonth: formatNumberConditionally(rawRacesPerMonth),
     };
   }
-
-// Funzione createChartConfig rimossa - ora gestita dal sistema centralizzato
-
-  // Funzione renderChart rimossa - ora gestita dal sistema centralizzato
 
   function createTable(mesi, chilometri, percentuali, anni) {
     if (!mesi || !chilometri || !percentuali || !anni) {
@@ -178,16 +196,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         <th>km <img src="../../Icons/traguardo.png"></th>
         <th>Percentuale sul totale</th>
         <th>Anno</th>
-      </tr>
+       </tr>
       ${mesi
         .map(
           (mese, index) => `
-          <tr>
+           <tr>
             <td>${mese || "N/D"}</td>
             <td>${formatNumberConditionally(chilometri[index] || 0)}</td>
-            <td>${formatNumberConditionally(parseFloat(percentuali[index]) || 0)} %</td>
+            <td>${percentuali[index] || "0,00"} %</td>
             <td>${anni[index] || "N/D"}</td>
-          </tr>`,
+           </tr>`,
         )
         .join("")}
     `;
@@ -263,8 +281,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const chartData = {
           labels: mesi,
           values: chilometri,
-          anni,
-          percentuali
+          anni: anni,
+          percentuali: percentuali
         };
         
         await window.chartRenderer.createChart('graficoTotale', chartData);

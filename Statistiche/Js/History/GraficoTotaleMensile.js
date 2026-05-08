@@ -15,10 +15,8 @@ const formatItalianNumber = (num, forceDecimals = false) => {
   let decimalString = '';
   if (forceDecimals || !Number.isInteger(num)) {
     const decimalPart = num.toFixed(2).split('.')[1];
-    // Only add decimal part if it's not "00"
-    if (decimalPart !== '00') {
-      decimalString = ',' + decimalPart;
-    }
+    // Always add decimal part for the km medi mensili column
+    decimalString = ',' + decimalPart;
   }
   
   // Handle decimal part - use comma for Italian format
@@ -38,6 +36,34 @@ const formatItalianNumber = (num, forceDecimals = false) => {
   }
   
   return integerPart + decimalString;
+};
+
+// Funzione per formattazione percentuale con 2 decimali fissi
+const formatPercentage = (value) => {
+  if (typeof value === 'string') {
+    value = parseFloat(value);
+  }
+  if (isNaN(value)) return '0,00';
+  
+  // Force 2 decimal places for percentages
+  const fixedNum = value.toFixed(2);
+  const parts = fixedNum.split('.');
+  let integerPart = parts[0];
+  const decimalPart = parts[1];
+  
+  // Add thousand separators if needed
+  if (integerPart.length > 3) {
+    const groups = [];
+    let i = integerPart.length;
+    while (i > 0) {
+      const start = Math.max(0, i - 3);
+      groups.unshift(integerPart.substring(start, i));
+      i -= 3;
+    }
+    integerPart = groups.join('.');
+  }
+  
+  return integerPart + ',' + decimalPart;
 };
 
 // 🔹 Funzione generica: media su 12 mesi
@@ -72,15 +98,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     chilometri.reduce((acc, curr) => acc + curr, 0);
 
   const getPercentuali = (chilometri, totale) =>
-    chilometri.map((km) => formatItalianNumber(((km / totale) * 100), true, true));
+    chilometri.map((km) => formatPercentage((km / totale) * 100));
 
-  // 🔹 Calcolo km medi per mese
+  // 🔹 Calcolo km medi per mese con formattazione a 2 decimali
   const getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
     mesi.map((mese, index) => {
       let kmMediMese = 0;
       if (mesiPercorsi[index] > 0) {
         kmMediMese = chilometri[index] / mesiPercorsi[index];
+        // Formatta con 2 decimali fissi per i km medi mensili
         kmMediMese = formatItalianNumber(kmMediMese, true);
+      } else {
+        kmMediMese = '0,00';
       }
       return { mese, kmMediMese };
     });
@@ -93,8 +122,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return totaleCorse;
   };
 
-  // Funzioni di configurazione grafico rimosse - ora gestite dal sistema centralizzato
-
   const createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
     <tr class="grassetto">
       <th>Mese</th>
@@ -106,13 +133,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     ${kmPerMese
       .map(
         ({ mese, kmMediMese }, index) => `
-       <tr>
-        <td>${mese}</td>
-        <td>${formatItalianNumber(chilometri[index])}</td>
-        <td>${percentuali[index]} %</td>
-        <td>${mesiPercorsi[index]}</td>
-        <td>${formatItalianNumber(kmMediMese)}</td>
-       </tr>`
+        <tr>
+          <td>${mese}</td>
+          <td>${formatItalianNumber(chilometri[index])}</td>
+          <td>${percentuali[index]} %</td>
+          <td>${mesiPercorsi[index]}</td>
+          <td>${kmMediMese}</td>
+        </tr>`
       )
       .join("")}
   `;
@@ -210,12 +237,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-document.getElementById("grafici").innerHTML = `
+// Aggiungi i canvas per i grafici se non esistono già
+if (document.getElementById("grafici")) {
+  document.getElementById("grafici").innerHTML = `
     <br />
     <canvas id="line-chart"></canvas>
     <br />
-
     <br />
     <canvas id="bar-chart"></canvas>
     <br />
- `;
+  `;
+}
