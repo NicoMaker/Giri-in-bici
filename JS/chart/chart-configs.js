@@ -56,8 +56,7 @@ const ChartConfigs = {
                 },
                 x: {
                     title: {
-                        display: true,
-                        text: "Periodo"
+                        display: true
                     }
                 }
             },
@@ -90,8 +89,7 @@ const ChartConfigs = {
                 },
                 x: {
                     title: {
-                        display: true,
-                        text: "Periodo"
+                        display: true
                     }
                 }
             },

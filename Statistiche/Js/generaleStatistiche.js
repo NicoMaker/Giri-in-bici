@@ -179,9 +179,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         <a href="Statistiche/History/Statistiche_Totali.html">
           <div class="colore">
             <p class="misuracolore">Totale km ${formatNumberConditionally(totalekm)} <img src="Icons/traguardo.png"></p>
-            <p class="misuracolore">Km medi per giro ${avgkmPerRace}</p>
-            <p class="misuracolore">Km medi per anno ${avgkmPerYear}</p>
-            <p class="misuracolore">Km medi per mese ${avgkmPerMonth}</p>
+            <p class="misuracolore">km medi per giro ${avgkmPerRace}</p>
+            <p class="misuracolore">km medi per anno ${avgkmPerYear}</p>
+            <p class="misuracolore">km medi per mese ${avgkmPerMonth}</p>
             <p class="misuracolore">Totale corse ${totaleCorse}</p>
             <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p>
             <p class="misuracolore">Corse medie per mese ${avgRacesPerMonth}</p>
