@@ -1,31 +1,25 @@
 // Funzione di utilità per la formattazione condizionale
 const formatNumberConditionally = (value) => {
-  // Always show 2 decimal places for tables
   return formatItalianNumber(value, true);
 };
 
-// Funzione per formattazione italiana con separatori di migliaia
 const formatItalianNumber = (num, forceDecimals = false) => {
-  if (typeof num === 'string') {
+  if (typeof num === "string") {
     num = parseFloat(num);
   }
-  if (isNaN(num)) return '0';
-  
-  // For tables, always show 2 decimal places
-  let decimalString = '';
+  if (isNaN(num)) return "0";
+
+  let decimalString = "";
   if (forceDecimals || !Number.isInteger(num)) {
-    const decimalPart = num.toFixed(2).split('.')[1];
-    // Only add decimal part if it's not "00"
-    if (decimalPart !== '00') {
-      decimalString = ',' + decimalPart;
+    const decimalPart = num.toFixed(2).split(".")[1];
+    if (decimalPart !== "00") {
+      decimalString = "," + decimalPart;
     }
   }
-  
-  // Handle decimal part - use comma for Italian format
-  const parts = num.toString().split('.');
+
+  const parts = num.toString().split(".");
   let integerPart = parts[0];
-  
-  // Add thousand separators (periods)
+
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -34,33 +28,28 @@ const formatItalianNumber = (num, forceDecimals = false) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
+
   return integerPart + decimalString;
 };
 
-
-// Funzione per calcolare il valore medio (grezzo, non formattato)
 const calculatekmMedi = (totale, divider, isPercentage = false) => {
   const result = totale / divider;
   return isPercentage ? result * 100 : result;
 };
 
-
-// Funzione per calcolare le percentuali con formattazione condizionale
 const calculatePercentuali = (chilometri, totale) =>
   chilometri.map((km) => {
     const rawPercentage = calculatekmMedi(km, totale, true);
     return formatNumberConditionally(rawPercentage);
   });
 
-
-// Funzione principale (eseguita dopo il caricamento del DOM)
 document.addEventListener("DOMContentLoaded", async () => {
-  // Assicurati che le dipendenze siano caricate
   if (!window.chartRenderer || !window.ChartConfigs) {
-    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    console.error(
+      "Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js",
+    );
     return;
   }
 
@@ -76,40 +65,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     const chilometri = Object.values(data);
     const totale = chilometri.reduce((acc, curr) => acc + curr, 0);
 
-    // Calcolo percentuali con la funzione aggiornata
     const percentuali = calculatePercentuali(chilometri, totale);
 
-    // Calcoli grezzi
     const rawKmMediPerCorsa = calculatekmMedi(totale, corse);
     const rawKmMediPerMese = calculatekmMedi(totale, mesi.length);
 
-    // Applicazione formattazione condizionale
     const kmMediPerCorsa = formatNumberConditionally(rawKmMediPerCorsa);
     const kmMediPerMese = formatNumberConditionally(rawKmMediPerMese);
 
-    // Usa il sistema centralizzato per creare il grafico
-    const chartData = {
-      year,
-      data,
-      colors
-    };
-    
-    await window.chartRenderer.createChart('anni', chartData);
+    const chartData = { year, data, colors };
 
-    // Render delle sezioni rimanenti
+    // Grafico a barre
+    await window.chartRenderer.createChart("anni", chartData);
+
+    // Grafico a linee — AGGIUNTO
+    await window.chartRenderer.createChart("graficoTotaleMensileLine", {
+      labels: mesi,
+      values: chilometri,
+      colors: colors,
+      percentuali: percentuali,
+    });
+
     renderDataTable(mesi, chilometri, percentuali);
     renderSummary(totale, kmMediPerCorsa, kmMediPerMese, corse);
   } catch (error) {
     console.error(`Errore nel caricamento o elaborazione del JSON: ${error}`);
   }
 });
-
-
-// --- FUNZIONI DI RENDER ---
-
-
-// Funzione renderChart rimossa - ora gestita dal sistema centralizzato
-
 
 function renderDataTable(mesi, chilometri, percentuali) {
   const tabellaDati = `
@@ -132,10 +114,9 @@ function renderDataTable(mesi, chilometri, percentuali) {
   document.getElementById("mesi").innerHTML = tabellaDati;
 }
 
-
 function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
-  // 🛡️ controllo input
-  const mesiCount = document.getElementById("mesi")?.querySelectorAll("tr").length - 1 || 0;
+  const mesiCount =
+    document.getElementById("mesi")?.querySelectorAll("tr").length - 1 || 0;
   const validoMesi = mesiCount > 0;
   const validoCorse = totaleCorse != null && totaleCorse > 0;
 
@@ -159,4 +140,3 @@ function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
     `;
   document.getElementById("totale").innerHTML = stampat;
 }
-
