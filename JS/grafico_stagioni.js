@@ -137,6 +137,7 @@ const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
             </p> 
             <p class="misuracolore">${avgValues[index]} %</p>
             <p class="misuracolore">Totale corse ${data[label].numberOfRaces}</p>
+            <p class="misuracolore">km medi per corsa ${formatNumber(data[label].totalDistance / data[label].numberOfRaces)}</p>
           </p>
         </a>
       </div>

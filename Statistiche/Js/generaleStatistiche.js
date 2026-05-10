@@ -186,6 +186,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <p class="misuracolore">km totali ${formatNumberConditionally(entry.km)} <img src="Icons/traguardo.png"></p>
                     <p class="misuracolore">${avgValues[startIndex + index]} %</p>
                     <p class="misuracolore">Totale corse ${entry.numberOfRaces}</p>
+                    <p class="misuracolore">km medi per corsa ${formatNumberConditionally(entry.km / entry.numberOfRaces)}</p>
                   </a>
                 </div>
               `,

@@ -132,6 +132,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p class="misuracolore">${formatNumberConditionally(parseFloat(data[season.avgKey]))} %</p>
         <p class="misuracolore">Totale corse ${data[season.raceKey]}</p>
         <p class="misuracolore">📅 Periodi: ${numPeriods}</p>
+        <p class="misuracolore">km medi per periodo ${formatNumberConditionally(data[season.dataKey] / numPeriods)}</p>
+        <p class="misuracolore">km medi per corsa ${formatNumberConditionally(data[season.dataKey] / data[season.raceKey])}</p>
       </a>
     </div>`;
 
