@@ -78,14 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Grafico a barre
     await window.chartRenderer.createChart("anni", chartData);
 
-    // Grafico a linee — AGGIUNTO
-    await window.chartRenderer.createChart("graficoTotaleMensileLine", {
-      labels: mesi,
-      values: chilometri,
-      colors: colors,
-      percentuali: percentuali,
-    });
-
+    
     renderDataTable(mesi, chilometri, percentuali);
     renderSummary(totale, kmMediPerCorsa, kmMediPerMese, corse);
   } catch (error) {
