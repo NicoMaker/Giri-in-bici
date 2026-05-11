@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     return {
-      label: `km ${yearLabel}`,
+      label: `${yearLabel}`,
       backgroundColor: yearColor,
       borderColor: yearColor,
       borderWidth: 3,
