@@ -1,12 +1,12 @@
 {
   "year": "2026",
-  "numberOfRaces": 12,
+  "numberOfRaces": 13,
   "data": {
     "Gennaio": 189,
     "Febbraio": 194,
     "Marzo": 209,
     "Aprile": 514,
-    "Maggio": 200
+    "Maggio": 277
   },
   "colors": [
     "darkblue",
