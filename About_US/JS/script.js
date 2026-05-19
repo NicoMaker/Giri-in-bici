@@ -37,8 +37,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Footer content generation
 const months = [
-  "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-  "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
+  "Gennaio",
+  "Febbraio",
+  "Marzo",
+  "Aprile",
+  "Maggio",
+  "Giugno",
+  "Luglio",
+  "Agosto",
+  "Settembre",
+  "Ottobre",
+  "Novembre",
+  "Dicembre",
 ];
 
 const generateFooter = () => {
@@ -76,7 +86,10 @@ const scheduleMidnightUpdate = () => {
     now.getFullYear(),
     now.getMonth(),
     now.getDate() + 1, // giorno successivo
-    0, 0, 0, 0          // mezzanotte esatta
+    0,
+    0,
+    0,
+    0, // mezzanotte esatta
   );
   const msToMidnight = midnight - now;
 

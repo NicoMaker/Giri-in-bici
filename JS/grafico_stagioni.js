@@ -1,14 +1,16 @@
 document.addEventListener("DOMContentLoaded", async function () {
   if (!window.chartRenderer || !window.ChartConfigs) {
-    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    console.error(
+      "Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js",
+    );
     return;
   }
 
   const jsonUrl = document.getElementById("json").getAttribute("link");
 
   try {
-    const seasonData = await fetch(jsonUrl).then(response => response.json());
-    
+    const seasonData = await fetch(jsonUrl).then((response) => response.json());
+
     const season = seasonData.season,
       image = seasonData.image,
       path = seasonData.path,
@@ -20,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       totale = calculateTotal(values),
       totalRaces = calculateTotalRaces(labels, subPeriodData),
       avgValues = calculateAverageValues(labels, subPeriodData, totale);
-    
+
     const totalePeriodi = labels.length;
 
     const chartData = {
@@ -29,14 +31,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       path,
       cssclass,
       colors,
-      subPeriodData
+      subPeriodData,
     };
-    
+
     // Grafico a linea (sopra)
-    await window.chartRenderer.createChart('stagioniLine', chartData);
+    await window.chartRenderer.createChart("stagioniLine", chartData);
 
     // Grafico a ciambella (sotto)
-    await window.chartRenderer.createChart('stagioni', chartData);
+    await window.chartRenderer.createChart("stagioni", chartData);
 
     renderDataList(
       labels,
@@ -76,22 +78,22 @@ const formatNumber = (value) => {
 };
 
 const formatItalianNumber = (num, forceDecimals = false) => {
-  if (typeof num === 'string') {
+  if (typeof num === "string") {
     num = parseFloat(num);
   }
-  if (isNaN(num)) return '0';
-  
-  let decimalString = '';
+  if (isNaN(num)) return "0";
+
+  let decimalString = "";
   if (forceDecimals || !Number.isInteger(num)) {
-    const decimalPart = num.toFixed(2).split('.')[1];
-    if (decimalPart !== '00') {
-      decimalString = ',' + decimalPart;
+    const decimalPart = num.toFixed(2).split(".")[1];
+    if (decimalPart !== "00") {
+      decimalString = "," + decimalPart;
     }
   }
-  
-  const parts = num.toString().split('.');
+
+  const parts = num.toString().split(".");
   let integerPart = parts[0];
-  
+
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -100,9 +102,9 @@ const formatItalianNumber = (num, forceDecimals = false) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
+
   return integerPart + decimalString;
 };
 
@@ -191,7 +193,7 @@ function renderDataListPaginated(
 
       const prevButton = document.getElementById("prev");
       const nextButton = document.getElementById("next");
-      
+
       if (prevButton) {
         prevButton.addEventListener("click", () => {
           currentPage = currentPage === 1 ? totalPages : currentPage - 1;

@@ -6,25 +6,25 @@ const formatNumberConditionally = (value) => {
 
 // Funzione per formattazione italiana con separatori di migliaia
 const formatItalianNumber = (num, forceDecimals = false) => {
-  if (typeof num === 'string') {
+  if (typeof num === "string") {
     num = parseFloat(num);
   }
-  if (isNaN(num)) return '0';
-  
+  if (isNaN(num)) return "0";
+
   // For tables, always show 2 decimal places
-  let decimalString = '';
+  let decimalString = "";
   if (forceDecimals || !Number.isInteger(num)) {
-    const decimalPart = num.toFixed(2).split('.')[1];
+    const decimalPart = num.toFixed(2).split(".")[1];
     // Only add decimal part if it's not "00"
-    if (decimalPart !== '00') {
-      decimalString = ',' + decimalPart;
+    if (decimalPart !== "00") {
+      decimalString = "," + decimalPart;
     }
   }
-  
+
   // Handle decimal part - use comma for Italian format
-  const parts = num.toString().split('.');
+  const parts = num.toString().split(".");
   let integerPart = parts[0];
-  
+
   // Add thousand separators (periods)
   if (integerPart.length > 3) {
     const groups = [];
@@ -34,25 +34,25 @@ const formatItalianNumber = (num, forceDecimals = false) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
+
   return integerPart + decimalString;
 };
 
 // Funzione per formattazione percentuale con 2 decimali fissi
 const formatPercentage = (value) => {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     value = parseFloat(value);
   }
-  if (isNaN(value)) return '0,00';
-  
+  if (isNaN(value)) return "0,00";
+
   // Force 2 decimal places for percentages
   const fixedNum = value.toFixed(2);
-  const parts = fixedNum.split('.');
+  const parts = fixedNum.split(".");
   let integerPart = parts[0];
   const decimalPart = parts[1];
-  
+
   // Add thousand separators if needed
   if (integerPart.length > 3) {
     const groups = [];
@@ -62,16 +62,18 @@ const formatPercentage = (value) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
-  return integerPart + ',' + decimalPart;
+
+  return integerPart + "," + decimalPart;
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
   // Assicurati che le dipendenze siano caricate
   if (!window.chartRenderer || !window.ChartConfigs) {
-    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    console.error(
+      "Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js",
+    );
     return;
   }
 
@@ -93,17 +95,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const data = await response.json();
-      
+
       // Validazione struttura dati
       if (!data || typeof data !== "object") {
         throw new Error("Dati non validi");
       }
-      
+
       // Aggiunge l'anno ai dati se non presente
       if (!data.year && year) {
         data.year = year;
       }
-      
+
       return data;
     } catch (error) {
       console.error(`Errore nel caricamento dei dati da ${url}: ${error}`);
@@ -119,22 +121,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       percentuali = [];
 
     const combinedData = [];
-    
+
     yearlyData.forEach((item) => {
       // Controllo struttura dati
       if (!item || !item.data) {
         console.error("Dato annuale non valido:", item);
         return;
       }
-      
+
       const year = item.year || "Sconosciuto";
-      
+
       for (let mese in item.data) {
         if (item.data.hasOwnProperty(mese)) {
-          combinedData.push({ 
-            mese: mese, 
-            chilometri: item.data[mese], 
-            year: year 
+          combinedData.push({
+            mese: mese,
+            chilometri: item.data[mese],
+            year: year,
           });
         }
       }
@@ -142,11 +144,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Ordinamento per anno e mese
     const orderMesi = {
-      "Gennaio": 1, "Febbraio": 2, "Marzo": 3, "Aprile": 4,
-      "Maggio": 5, "Giugno": 6, "Luglio": 7, "Agosto": 8,
-      "Settembre": 9, "Ottobre": 10, "Novembre": 11, "Dicembre": 12
+      Gennaio: 1,
+      Febbraio: 2,
+      Marzo: 3,
+      Aprile: 4,
+      Maggio: 5,
+      Giugno: 6,
+      Luglio: 7,
+      Agosto: 8,
+      Settembre: 9,
+      Ottobre: 10,
+      Novembre: 11,
+      Dicembre: 12,
     };
-    
+
     combinedData.sort((a, b) => {
       if (a.year !== b.year) return a.year - b.year;
       return (orderMesi[a.mese] || 0) - (orderMesi[b.mese] || 0);
@@ -167,15 +178,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     return { totale, chilometri, mesi, anni, percentuali };
   }
 
-  function calculateAverages(totale, totaleCorse, totaleAnni, chilometri, mesi) {
+  function calculateAverages(
+    totale,
+    totaleCorse,
+    totaleAnni,
+    chilometri,
+    mesi,
+  ) {
     // Calcolo dei valori grezzi
     const rawKmMediPerCorsa = totaleCorse > 0 ? totale / totaleCorse : 0;
-    const rawKmMediPerMese   = mesi.length > 0 ? totale / mesi.length : 0;
-    
+    const rawKmMediPerMese = mesi.length > 0 ? totale / mesi.length : 0;
+
     // Medie corse
-    const rawRacesPerYear    = totaleAnni > 0 ? totaleCorse / totaleAnni : 0;
-    const rawRacesPerMonth   = mesi.length > 0 ? totaleCorse / mesi.length : 0;
-    
+    const rawRacesPerYear = totaleAnni > 0 ? totaleCorse / totaleAnni : 0;
+    const rawRacesPerMonth = mesi.length > 0 ? totaleCorse / mesi.length : 0;
+
     return {
       kmMediPerCorsa: formatNumberConditionally(rawKmMediPerCorsa),
       kmMediPerMese: formatNumberConditionally(rawKmMediPerMese),
@@ -189,7 +206,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Dati mancanti per la tabella");
       return "<tr><td colspan='4'>Errore nel caricamento dei dati</td></tr>";
     }
-    
+
     return `
       <tr class="grassetto">
         <th>Mese</th>
@@ -218,10 +235,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     totaleCorse,
     racesPerYear,
     racesPerMonth,
-    mesi
+    mesi,
   ) {
     const formattedTotaleCorse = formatItalianNumber(totaleCorse);
-    
+
     return `
       <a href="Statistiche_Mensili.html">
         <div class="colore">
@@ -251,7 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               yearlyData.push(yearData);
               totaleCorse += yearData.numberOfRaces || 0;
             }
-          })
+          }),
         );
 
         await Promise.all(fetchPromises);
@@ -262,30 +279,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const totaleAnni = yearlyData.length;
-        const { totale, chilometri, mesi, anni, percentuali } = calculateTotals(yearlyData);
-        
-        const { 
-          kmMediPerCorsa, 
-          kmMediPerMese, 
-          racesPerYear, 
-          racesPerMonth 
-        } = calculateAverages(
-          totale,
-          totaleCorse,
-          totaleAnni,
-          chilometri,
-          mesi
-        );
-        
+        const { totale, chilometri, mesi, anni, percentuali } =
+          calculateTotals(yearlyData);
+
+        const { kmMediPerCorsa, kmMediPerMese, racesPerYear, racesPerMonth } =
+          calculateAverages(totale, totaleCorse, totaleAnni, chilometri, mesi);
+
         // Usa il sistema centralizzato per creare il grafico
         const chartData = {
           labels: mesi,
           values: chilometri,
           anni: anni,
-          percentuali: percentuali
+          percentuali: percentuali,
         };
-        
-        await window.chartRenderer.createChart('graficoTotale', chartData);
+
+        await window.chartRenderer.createChart("graficoTotale", chartData);
 
         const tableHTML = createTable(mesi, chilometri, percentuali, anni);
         const summaryHTML = createSummary(
@@ -295,26 +303,28 @@ document.addEventListener("DOMContentLoaded", async () => {
           totaleCorse,
           racesPerYear,
           racesPerMonth,
-          mesi
+          mesi,
         );
 
         const tableElement = document.getElementById("mesi");
         const summaryElement = document.getElementById("totale");
-        
+
         if (tableElement) {
           tableElement.innerHTML = tableHTML;
         } else {
           console.error("Elemento 'mesi' non trovato");
         }
-        
+
         if (summaryElement) {
           summaryElement.innerHTML = summaryHTML;
         } else {
           console.error("Elemento 'totale' non trovato");
         }
-        
       } else {
-        console.error("Nessun dato ricevuto o struttura statistics mancante", data);
+        console.error(
+          "Nessun dato ricevuto o struttura statistics mancante",
+          data,
+        );
       }
     })
     .catch((error) => {

@@ -5,22 +5,22 @@ const formatNumberConditionally = (value) => {
 
 // Funzione per formattazione italiana con separatori di migliaia
 const formatItalianNumber = (num, forceDecimals = false) => {
-  if (typeof num === 'string') {
+  if (typeof num === "string") {
     num = parseFloat(num);
   }
-  if (isNaN(num)) return '0';
-  
-  let decimalString = '';
+  if (isNaN(num)) return "0";
+
+  let decimalString = "";
   if (forceDecimals || !Number.isInteger(num)) {
-    const decimalPart = num.toFixed(2).split('.')[1];
-    if (decimalPart !== '00') {
-      decimalString = ',' + decimalPart;
+    const decimalPart = num.toFixed(2).split(".")[1];
+    if (decimalPart !== "00") {
+      decimalString = "," + decimalPart;
     }
   }
-  
-  const parts = num.toString().split('.');
+
+  const parts = num.toString().split(".");
   let integerPart = parts[0];
-  
+
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -29,9 +29,9 @@ const formatItalianNumber = (num, forceDecimals = false) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
+
   return integerPart + decimalString;
 };
 
@@ -132,16 +132,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   const renderStampa = (data, numPeriodsPerSeason) => {
     return SEASONS_CONFIG.map((season) => {
       let numPeriods = 0;
-      if (season.name === "Primavera") numPeriods = numPeriodsPerSeason.primavera;
-      else if (season.name === "Estate") numPeriods = numPeriodsPerSeason.estate;
-      else if (season.name === "Autunno - Inverno") numPeriods = numPeriodsPerSeason.autunno_inverno;
+      if (season.name === "Primavera")
+        numPeriods = numPeriodsPerSeason.primavera;
+      else if (season.name === "Estate")
+        numPeriods = numPeriodsPerSeason.estate;
+      else if (season.name === "Autunno - Inverno")
+        numPeriods = numPeriodsPerSeason.autunno_inverno;
 
       return renderSeasonDiv(season, data, numPeriods);
     }).join("");
   };
 
   const createStampat = (data, numPeriodsPerSeason) => {
-    const totalePeriodi = numPeriodsPerSeason.primavera +
+    const totalePeriodi =
+      numPeriodsPerSeason.primavera +
       numPeriodsPerSeason.estate +
       numPeriodsPerSeason.autunno_inverno;
 
@@ -186,18 +190,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   // CALCOLI DATI
   // ============================================
 
-  function calculateData(primaveraData, estateData, autunnoInvernoData, numPeriodi) {
+  function calculateData(
+    primaveraData,
+    estateData,
+    autunnoInvernoData,
+    numPeriodi,
+  ) {
     const primavera = sumData(primaveraData);
     const estate = sumData(estateData);
     const autunno_inverno = sumData(autunnoInvernoData);
 
-    const corsep  = countRaces(primaveraData);
-    const corsee  = countRaces(estateData);
+    const corsep = countRaces(primaveraData);
+    const corsee = countRaces(estateData);
     const corseai = countRaces(autunnoInvernoData);
     const corseTotale = corsep + corsee + corseai;
 
     const totale = primavera + estate + autunno_inverno;
-    const totalePeriodi = numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
+    const totalePeriodi =
+      numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
 
     const avgmediastagioneFormatted = formatNumberConditionally(totale / 3);
 
@@ -237,11 +247,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!seasonsData || !Array.isArray(seasonsData.seasons)) {
       console.error("❌ Invalid seasons data", seasonsData);
-      document.getElementById("dati").innerHTML = '<p class="errore">Errore nel caricamento dei dati delle stagioni</p>';
+      document.getElementById("dati").innerHTML =
+        '<p class="errore">Errore nel caricamento dei dati delle stagioni</p>';
       return;
     }
 
-    console.log(`✅ seasonsData caricato: ${seasonsData.seasons.length} stagioni trovate`);
+    console.log(
+      `✅ seasonsData caricato: ${seasonsData.seasons.length} stagioni trovate`,
+    );
 
     const numPeriodi = {
       primavera: 0,
@@ -250,26 +263,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     const seasonNameMap = {
-      "Primavera": "primavera",
-      "Estate": "estate",
-      "Autunno_Inverno": "autunno_inverno"
+      Primavera: "primavera",
+      Estate: "estate",
+      Autunno_Inverno: "autunno_inverno",
     };
 
     const seasonDataPromises = seasonsData.seasons.map(async (season) => {
       console.log(`📋 Processando stagione: "${season.name}"`);
 
-      const seasonKey = seasonNameMap[season.name] || season.name.toLowerCase().replace("-", "_");
+      const seasonKey =
+        seasonNameMap[season.name] ||
+        season.name.toLowerCase().replace("-", "_");
       const periodCount = Object.keys(season.subPeriods).length;
       numPeriodi[seasonKey] = periodCount;
-      console.log(`📅 ${season.name}: ${periodCount} periodi (chiave: ${seasonKey})`);
+      console.log(
+        `📅 ${season.name}: ${periodCount} periodi (chiave: ${seasonKey})`,
+      );
 
       const subPeriodsData = await Promise.all(
         Object.entries(season.subPeriods).map(async ([periodName, subFile]) => {
-          console.log(`📂 Caricamento ${season.name} - ${periodName}: ${subFile}`);
-          const correctedPath = subFile.startsWith("../") ? subFile : `../${subFile}`;
+          console.log(
+            `📂 Caricamento ${season.name} - ${periodName}: ${subFile}`,
+          );
+          const correctedPath = subFile.startsWith("../")
+            ? subFile
+            : `../${subFile}`;
           const subData = await fetchJSON(correctedPath);
           if (subData && Array.isArray(subData)) {
-            console.log(`✅ ${season.name} - ${periodName}: ${subData.length} corse`);
+            console.log(
+              `✅ ${season.name} - ${periodName}: ${subData.length} corse`,
+            );
           } else {
             console.warn(`⚠️ Nessun dato per ${season.name} - ${periodName}`);
           }
@@ -288,16 +311,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const resolvedSeasons = await Promise.all(seasonDataPromises);
 
-    console.log("📋 Stagioni risolte:", resolvedSeasons.map(s => s.name));
+    console.log(
+      "📋 Stagioni risolte:",
+      resolvedSeasons.map((s) => s.name),
+    );
 
-    const primaveraData     = resolvedSeasons.find((s) => s.name === "Primavera");
-    const estateData        = resolvedSeasons.find((s) => s.name === "Estate");
-    const autunnoInvernoData = resolvedSeasons.find((s) => s.name === "Autunno_Inverno");
+    const primaveraData = resolvedSeasons.find((s) => s.name === "Primavera");
+    const estateData = resolvedSeasons.find((s) => s.name === "Estate");
+    const autunnoInvernoData = resolvedSeasons.find(
+      (s) => s.name === "Autunno_Inverno",
+    );
 
     console.log("🔍 Ricerca stagioni:", {
       primavera: primaveraData ? "✅ Trovata" : "❌ Non trovata",
       estate: estateData ? "✅ Trovata" : "❌ Non trovata",
-      autunnoInverno: autunnoInvernoData ? "✅ Trovata" : "❌ Non trovata"
+      autunnoInverno: autunnoInvernoData ? "✅ Trovata" : "❌ Non trovata",
     });
 
     if (primaveraData && estateData && autunnoInvernoData) {
@@ -316,10 +344,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         periodi: calculatedData.totalePeriodi,
         primavera_km: calculatedData.p,
         estate_km: calculatedData.e,
-        autunno_km: calculatedData.ai
+        autunno_km: calculatedData.ai,
       });
 
-      const labels   = ["Primavera", "Estate", "Autunno-Inverno"];
+      const labels = ["Primavera", "Estate", "Autunno-Inverno"];
       const chartData = [calculatedData.p, calculatedData.e, calculatedData.ai];
 
       // Grafico a linea (sopra il doughnut) — senza riempimento
@@ -335,20 +363,22 @@ document.addEventListener("DOMContentLoaded", async () => {
           type: "line",
           data: {
             labels,
-            datasets: [{
-              label: "km stagioni (andamento)",
-              data: chartData,
-              borderColor: "rgba(54, 162, 235, 1)",
-              backgroundColor: "transparent",
-              borderWidth: 3,
-              pointBackgroundColor: "rgba(54, 162, 235, 1)",
-              pointBorderColor: "rgba(255, 255, 255, 1)",
-              pointBorderWidth: 2,
-              pointRadius: 6,
-              pointHoverRadius: 8,
-              tension: 0.35,
-              fill: false
-            }]
+            datasets: [
+              {
+                label: "km stagioni (andamento)",
+                data: chartData,
+                borderColor: "rgba(54, 162, 235, 1)",
+                backgroundColor: "transparent",
+                borderWidth: 3,
+                pointBackgroundColor: "rgba(54, 162, 235, 1)",
+                pointBorderColor: "rgba(255, 255, 255, 1)",
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                tension: 0.35,
+                fill: false,
+              },
+            ],
           },
           options: {
             responsive: true,
@@ -358,35 +388,39 @@ document.addEventListener("DOMContentLoaded", async () => {
                 beginAtZero: true,
                 title: { display: true, text: "Chilometri" },
                 ticks: {
-                  callback: function(value) {
+                  callback: function (value) {
                     return formatItalianNumber(value);
-                  }
-                }
+                  },
+                },
               },
               x: {
-                title: { display: true }
-              }
+                title: { display: true },
+              },
             },
             plugins: {
               legend: {
-                position: 'top',
+                position: "top",
                 labels: {
-                  font: { size: 12, weight: 'bold' }
-                }
+                  font: { size: 12, weight: "bold" },
+                },
               },
               tooltip: {
                 callbacks: {
-                  label: function(context) {
+                  label: function (context) {
                     const km = formatNumberConditionally(context.raw);
-                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                    const percentageRaw = total > 0 ? (context.raw / total) * 100 : 0;
+                    const total = context.dataset.data.reduce(
+                      (a, b) => a + b,
+                      0,
+                    );
+                    const percentageRaw =
+                      total > 0 ? (context.raw / total) * 100 : 0;
                     const percentage = formatItalianNumber(percentageRaw, true);
                     return `${context.dataset.label}: ${km} km (${percentage}%)`;
-                  }
-                }
-              }
-            }
-          }
+                  },
+                },
+              },
+            },
+          },
         });
 
         console.log("✅ Grafico linea creato");
@@ -407,7 +441,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.myChart.destroy();
       }
 
-      const datiElement   = document.getElementById("dati");
+      const datiElement = document.getElementById("dati");
       const totaleElement = document.getElementById("totale");
 
       if (datiElement) {
@@ -427,7 +461,11 @@ document.addEventListener("DOMContentLoaded", async () => {
           datasets: [
             {
               label: "km totali stagione",
-              backgroundColor: CHART_CONFIG.colors || ["#ff9999", "#66b3ff", "#99ff99"],
+              backgroundColor: CHART_CONFIG.colors || [
+                "#ff9999",
+                "#66b3ff",
+                "#99ff99",
+              ],
               borderColor: CHART_CONFIG.borderColor || "black",
               borderWidth: CHART_CONFIG.borderWidth || 1,
               data: chartData,
@@ -439,24 +477,28 @@ document.addEventListener("DOMContentLoaded", async () => {
           maintainAspectRatio: true,
           plugins: {
             legend: {
-              position: 'top',
+              position: "top",
               labels: {
-                font: { size: 12, weight: 'bold' }
-              }
+                font: { size: 12, weight: "bold" },
+              },
             },
             tooltip: {
               callbacks: {
                 label: function (context) {
-                  const label = context.label || '';
+                  const label = context.label || "";
                   const value = context.raw || 0;
                   const total = context.dataset.data.reduce((a, b) => a + b, 0);
                   const percentageRaw = (value / total) * 100;
-                  const percentage = formatItalianNumber(percentageRaw, true, true);
+                  const percentage = formatItalianNumber(
+                    percentageRaw,
+                    true,
+                    true,
+                  );
                   return `${label}: ${formatNumberConditionally(value)} km (${percentage}%)`;
-                }
-              }
-            }
-          }
+                },
+              },
+            },
+          },
         },
       });
 
@@ -465,9 +507,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("❌ Stagioni non trovate:", {
         primavera: !!primaveraData,
         estate: !!estateData,
-        autunnoInverno: !!autunnoInvernoData
+        autunnoInverno: !!autunnoInvernoData,
       });
-      document.getElementById("dati").innerHTML = '<p class="errore">Stagioni non trovate nei dati</p>';
+      document.getElementById("dati").innerHTML =
+        '<p class="errore">Stagioni non trovate nei dati</p>';
     }
   }
 });

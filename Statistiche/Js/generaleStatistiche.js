@@ -6,22 +6,22 @@ const formatNumberConditionally = (value) => {
 
 // Funzione per formattazione italiana con separatori di migliaia
 const formatItalianNumber = (num, forceDecimals = false) => {
-  if (typeof num === 'string') {
+  if (typeof num === "string") {
     num = parseFloat(num);
   }
-  if (isNaN(num)) return '0';
-  
-  let decimalString = '';
+  if (isNaN(num)) return "0";
+
+  let decimalString = "";
   if (forceDecimals || !Number.isInteger(num)) {
-    const decimalPart = num.toFixed(2).split('.')[1];
-    if (decimalPart !== '00') {
-      decimalString = ',' + decimalPart;
+    const decimalPart = num.toFixed(2).split(".")[1];
+    if (decimalPart !== "00") {
+      decimalString = "," + decimalPart;
     }
   }
-  
-  const parts = num.toString().split('.');
+
+  const parts = num.toString().split(".");
   let integerPart = parts[0];
-  
+
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -30,24 +30,24 @@ const formatItalianNumber = (num, forceDecimals = false) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
+
   return integerPart + decimalString;
 };
 
 // Funzione per formattazione percentuale con 2 decimali
 const formatPercentage = (value) => {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     value = parseFloat(value);
   }
-  if (isNaN(value)) return '0,00';
-  
+  if (isNaN(value)) return "0,00";
+
   const fixedNum = value.toFixed(2);
-  const parts = fixedNum.split('.');
+  const parts = fixedNum.split(".");
   let integerPart = parts[0];
   const decimalPart = parts[1];
-  
+
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -56,15 +56,17 @@ const formatPercentage = (value) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
-  return integerPart + ',' + decimalPart;
+
+  return integerPart + "," + decimalPart;
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!window.chartRenderer || !window.ChartConfigs) {
-    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    console.error(
+      "Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js",
+    );
     return;
   }
 
@@ -111,12 +113,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function calculateAverages(statistics) {
     const totalekm = statistics.reduce((acc, cur) => acc + cur.km, 0);
-    const totaleCorse = statistics.reduce((acc, cur) => acc + cur.numberOfRaces, 0);
+    const totaleCorse = statistics.reduce(
+      (acc, cur) => acc + cur.numberOfRaces,
+      0,
+    );
 
     const totalMonthlykm = statistics.reduce(
       (acc, cur) =>
-        acc +
-        Object.values(cur.monthlyData).reduce((sum, val) => sum + val, 0),
+        acc + Object.values(cur.monthlyData).reduce((sum, val) => sum + val, 0),
       0,
     );
     const totalMonths = statistics.reduce(
@@ -124,10 +128,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       0,
     );
 
-    const avgkmPerRaceRaw    = totaleCorse > 0 ? totalekm / totaleCorse : 0;
-    const avgkmPerYearRaw    = statistics.length > 0 ? totalekm / statistics.length : 0;
-    const avgkmPerMonthRaw   = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
-    const avgRacesPerYearRaw  = statistics.length > 0 ? totaleCorse / statistics.length : 0;
+    const avgkmPerRaceRaw = totaleCorse > 0 ? totalekm / totaleCorse : 0;
+    const avgkmPerYearRaw =
+      statistics.length > 0 ? totalekm / statistics.length : 0;
+    const avgkmPerMonthRaw = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
+    const avgRacesPerYearRaw =
+      statistics.length > 0 ? totaleCorse / statistics.length : 0;
     const avgRacesPerMonthRaw = totalMonths > 0 ? totaleCorse / totalMonths : 0;
 
     const avgValues = statistics.map((entry) => {
@@ -140,10 +146,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       totaleCorse,
       totalMonths,
 
-      avgkmPerRace    : formatNumberConditionally(avgkmPerRaceRaw),
-      avgkmPerYear    : formatNumberConditionally(avgkmPerYearRaw),
-      avgkmPerMonth   : formatNumberConditionally(avgkmPerMonthRaw),
-      avgRacesPerYear : formatNumberConditionally(avgRacesPerYearRaw),
+      avgkmPerRace: formatNumberConditionally(avgkmPerRaceRaw),
+      avgkmPerYear: formatNumberConditionally(avgkmPerYearRaw),
+      avgkmPerMonth: formatNumberConditionally(avgkmPerMonthRaw),
+      avgRacesPerYear: formatNumberConditionally(avgRacesPerYearRaw),
       avgRacesPerMonth: formatNumberConditionally(avgRacesPerMonthRaw),
 
       avgValues: avgValues,
@@ -201,7 +207,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const prevButton = document.getElementById("prev");
       const nextButton = document.getElementById("next");
-      
+
       if (prevButton) {
         prevButton.addEventListener("click", () => {
           const newPage = currentPage === 1 ? lastPage : currentPage - 1;
@@ -226,13 +232,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     totaleCorse,
     avgRacesPerYear,
     avgRacesPerMonth,
-    totalMonths
+    totalMonths,
   ) => {
     const totaleElement = document.getElementById("totale");
     if (totaleElement) {
       const formattedTotaleKm = formatItalianNumber(totalekm);
       const formattedTotaleCorse = formatItalianNumber(totaleCorse);
-      
+
       totaleElement.innerHTML = `
         <a href="Statistiche/History/Statistiche_Totali.html">
           <div class="colore">
@@ -270,14 +276,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const chartData = {
       statistics,
-      colors
+      colors,
     };
 
     // Grafico a linea (sopra) — senza riempimento
-    await window.chartRenderer.createChart('generaleStatisticheLine', chartData);
+    await window.chartRenderer.createChart(
+      "generaleStatisticheLine",
+      chartData,
+    );
 
     // Grafico a ciambella (sotto)
-    await window.chartRenderer.createChart('generaleStatistiche', chartData);
+    await window.chartRenderer.createChart("generaleStatistiche", chartData);
 
     renderSummary(
       totalekm,
@@ -287,7 +296,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       totaleCorse,
       avgRacesPerYear,
       avgRacesPerMonth,
-      totalMonths
+      totalMonths,
     );
 
     const savedPage = parseInt(localStorage.getItem("page_statistiche")) || 1;

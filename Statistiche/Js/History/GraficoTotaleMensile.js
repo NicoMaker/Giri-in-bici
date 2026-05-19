@@ -6,23 +6,23 @@ const formatNumberConditionally = (value) => {
 
 // Funzione per formattazione italiana con separatori di migliaia
 const formatItalianNumber = (num, forceDecimals = false) => {
-  if (typeof num === 'string') {
+  if (typeof num === "string") {
     num = parseFloat(num);
   }
-  if (isNaN(num)) return '0';
-  
+  if (isNaN(num)) return "0";
+
   // For tables, always show 2 decimal places
-  let decimalString = '';
+  let decimalString = "";
   if (forceDecimals || !Number.isInteger(num)) {
-    const decimalPart = num.toFixed(2).split('.')[1];
+    const decimalPart = num.toFixed(2).split(".")[1];
     // Always add decimal part for the km medi mensili column
-    decimalString = ',' + decimalPart;
+    decimalString = "," + decimalPart;
   }
-  
+
   // Handle decimal part - use comma for Italian format
-  const parts = num.toString().split('.');
+  const parts = num.toString().split(".");
   let integerPart = parts[0];
-  
+
   // Add thousand separators (periods)
   if (integerPart.length > 3) {
     const groups = [];
@@ -32,25 +32,25 @@ const formatItalianNumber = (num, forceDecimals = false) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
+
   return integerPart + decimalString;
 };
 
 // Funzione per formattazione percentuale con 2 decimali fissi
 const formatPercentage = (value) => {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     value = parseFloat(value);
   }
-  if (isNaN(value)) return '0,00';
-  
+  if (isNaN(value)) return "0,00";
+
   // Force 2 decimal places for percentages
   const fixedNum = value.toFixed(2);
-  const parts = fixedNum.split('.');
+  const parts = fixedNum.split(".");
   let integerPart = parts[0];
   const decimalPart = parts[1];
-  
+
   // Add thousand separators if needed
   if (integerPart.length > 3) {
     const groups = [];
@@ -60,10 +60,10 @@ const formatPercentage = (value) => {
       groups.unshift(integerPart.substring(start, i));
       i -= 3;
     }
-    integerPart = groups.join('.');
+    integerPart = groups.join(".");
   }
-  
-  return integerPart + ',' + decimalPart;
+
+  return integerPart + "," + decimalPart;
 };
 
 // 🔹 Funzione generica: media su 12 mesi
@@ -75,7 +75,9 @@ const getMediaPer12 = (totale) => {
 document.addEventListener("DOMContentLoaded", async () => {
   // Assicurati che le dipendenze siano caricate
   if (!window.chartRenderer || !window.ChartConfigs) {
-    console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
+    console.error(
+      "Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js",
+    );
     return;
   }
 
@@ -109,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Formatta con 2 decimali fissi per i km medi mensili
         kmMediMese = formatItalianNumber(kmMediMese, true);
       } else {
-        kmMediMese = '0,00';
+        kmMediMese = "0,00";
       }
       return { mese, kmMediMese };
     });
@@ -122,7 +124,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     return totaleCorse;
   };
 
-  const createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
+  const createTableHTML = (
+    kmPerMese,
+    chilometri,
+    percentuali,
+    mesiPercorsi,
+  ) => `
     <tr class="grassetto">
       <th>Mese</th>
       <th>km <img src="../../Icons/traguardo.png"></th>
@@ -139,15 +146,20 @@ document.addEventListener("DOMContentLoaded", async () => {
           <td>${percentuali[index]} %</td>
           <td>${mesiPercorsi[index]}</td>
           <td>${kmMediMese}</td>
-        </tr>`
+        </tr>`,
       )
       .join("")}
   `;
 
-  const createSummaryHTML = (totale, mediaComplessiva, totaleCorse, mediacorse) => {
+  const createSummaryHTML = (
+    totale,
+    mediaComplessiva,
+    totaleCorse,
+    mediacorse,
+  ) => {
     const formattedTotale = formatItalianNumber(totale);
     const formattedTotaleCorse = formatItalianNumber(totaleCorse);
-    
+
     return `
     <a href="StoricoMensile.html">
       <div class="colore">
@@ -167,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       Object.keys(statistics.statistics).forEach((year) => {
         const filePath = statistics.statistics[year];
         allDataPromises.push(
-          fetch(filePath).then((response) => response.json())
+          fetch(filePath).then((response) => response.json()),
         );
       });
 
@@ -188,8 +200,15 @@ document.addEventListener("DOMContentLoaded", async () => {
           });
 
           const totaleChilometri = getTotale(chilometriTotali);
-          const percentuali = getPercentuali(chilometriTotali, totaleChilometri);
-          const kmPerMese = getkmPerMese(mesiOrdinati, chilometriTotali, mesiPercorsi);
+          const percentuali = getPercentuali(
+            chilometriTotali,
+            totaleChilometri,
+          );
+          const kmPerMese = getkmPerMese(
+            mesiOrdinati,
+            chilometriTotali,
+            mesiPercorsi,
+          );
 
           // ✅ km medi per mese su 12
           const mediaComplessiva = getMediaPer12(totaleChilometri);
@@ -203,21 +222,27 @@ document.addEventListener("DOMContentLoaded", async () => {
             labels: mesiOrdinati,
             values: chilometriTotali,
             colors: coloriGlobali,
-            percentuali
+            percentuali,
           };
-          
+
           // Crea grafico a barre
-          await window.chartRenderer.createChart('graficoTotaleMensile', chartData);
-          
+          await window.chartRenderer.createChart(
+            "graficoTotaleMensile",
+            chartData,
+          );
+
           // Crea grafico a linee (stesso dati ma tipo diverso)
-          await window.chartRenderer.createChart('graficoTotaleMensileLine', chartData);
+          await window.chartRenderer.createChart(
+            "graficoTotaleMensileLine",
+            chartData,
+          );
 
           // 🔹 Tabella mesi
           document.getElementById("mesi").innerHTML = createTableHTML(
             kmPerMese,
             chilometriTotali,
             percentuali,
-            mesiPercorsi
+            mesiPercorsi,
           );
 
           // 🔹 Riepilogo totale
@@ -225,7 +250,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             totaleChilometri,
             mediaComplessiva,
             totaleCorse,
-            mediacorse
+            mediacorse,
           );
         })
         .catch((error) => {
@@ -233,7 +258,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     })
     .catch((error) => {
-      console.error(`Errore nel caricamento del file statistics.json: ${error}`);
+      console.error(
+        `Errore nel caricamento del file statistics.json: ${error}`,
+      );
     });
 });
 

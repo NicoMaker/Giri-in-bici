@@ -28,25 +28,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function formatItalianNumber(num, forceDecimals = false) {
-    if (typeof num === 'string') {
+    if (typeof num === "string") {
       num = parseFloat(num);
     }
-    if (isNaN(num)) return '0';
-    
+    if (isNaN(num)) return "0";
+
     // For tables, always show 2 decimal places
-    let decimalString = '';
+    let decimalString = "";
     if (forceDecimals || !Number.isInteger(num)) {
-      const decimalPart = num.toFixed(2).split('.')[1];
+      const decimalPart = num.toFixed(2).split(".")[1];
       // Only add decimal part if it's not "00"
-      if (decimalPart !== '00') {
-        decimalString = ',' + decimalPart;
+      if (decimalPart !== "00") {
+        decimalString = "," + decimalPart;
       }
     }
-    
+
     // Handle decimal part - use comma for Italian format
-    const parts = num.toString().split('.');
+    const parts = num.toString().split(".");
     let integerPart = parts[0];
-    
+
     // Add thousand separators (periods)
     if (integerPart.length > 3) {
       const groups = [];
@@ -56,9 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
         groups.unshift(integerPart.substring(start, i));
         i -= 3;
       }
-      integerPart = groups.join('.');
+      integerPart = groups.join(".");
     }
-    
+
     return integerPart + decimalString;
   }
 

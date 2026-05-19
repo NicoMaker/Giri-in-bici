@@ -1,7 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mesi = [
-    "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-    "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
   ];
 
   // Usa la stessa funzione di tutti gli altri grafici del progetto
@@ -61,12 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     const ctxline = document.getElementById("line-chart").getContext("2d"),
-      ctxbar  = document.getElementById("bar-chart").getContext("2d"),
+      ctxbar = document.getElementById("bar-chart").getContext("2d"),
       configline = createConfig("line", datasets),
-      configbar  = createConfig("bar",  datasets);
+      configbar = createConfig("bar", datasets);
 
     new Chart(ctxline, configline);
-    new Chart(ctxbar,  configbar);
+    new Chart(ctxbar, configbar);
   }
 
   fetch("../Js/History/JSON/StoricoMensile.json")
