@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  // Assicurati che le dipendenze siano caricate
   if (!window.chartRenderer || !window.ChartConfigs) {
     console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
     return;
@@ -22,10 +21,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       totalRaces = calculateTotalRaces(labels, subPeriodData),
       avgValues = calculateAverageValues(labels, subPeriodData, totale);
     
-    // Calcola il numero totale di periodi
     const totalePeriodi = labels.length;
 
-    // Usa il sistema centralizzato per creare il grafico
     const chartData = {
       season,
       image,
@@ -35,6 +32,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       subPeriodData
     };
     
+    // Grafico a linea (sopra)
+    await window.chartRenderer.createChart('stagioniLine', chartData);
+
+    // Grafico a ciambella (sotto)
     await window.chartRenderer.createChart('stagioni', chartData);
 
     renderDataList(
@@ -70,34 +71,27 @@ async function fetchSubPeriods(subPeriods) {
   return results.reduce((acc, curr) => Object.assign(acc, curr), {});
 }
 
-// Funzione per formattare i numeri
 const formatNumber = (value) => {
-  // Always show 2 decimal places for tables
   return formatItalianNumber(value, true);
 };
 
-// Funzione per formattazione italiana con separatori di migliaia e virgola per decimali
 const formatItalianNumber = (num, forceDecimals = false) => {
   if (typeof num === 'string') {
     num = parseFloat(num);
   }
   if (isNaN(num)) return '0';
   
-  // For tables, always show 2 decimal places
   let decimalString = '';
   if (forceDecimals || !Number.isInteger(num)) {
     const decimalPart = num.toFixed(2).split('.')[1];
-    // Only add decimal part if it's not "00"
     if (decimalPart !== '00') {
       decimalString = ',' + decimalPart;
     }
   }
   
-  // Handle decimal part - use comma for Italian format
   const parts = num.toString().split('.');
   let integerPart = parts[0];
   
-  // Add thousand separators (periods)
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -120,8 +114,6 @@ const calculateTotal = (values) => values.reduce((acc, cur) => acc + cur, 0),
       const value = (data[label].totalDistance / totale) * 100;
       return formatNumber(value);
     });
-
-// Funzioni di rendering del grafico rimosse - ora gestite dal sistema centralizzato
 
 const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
     labels
@@ -243,7 +235,6 @@ const renderDataList = (
     avgValues,
   );
 
-// MODIFICATA: ora riceve totalePeriodi invece di numberOfLabels
 function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
   const avgseason = formatNumber(totale / totalePeriodi),
     avgcorsa = formatNumber(totale / totalRaces),
