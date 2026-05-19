@@ -90,8 +90,8 @@ const ChartConfigs = {
                         label: function(context) {
                             const km = ChartConfigs.formatItalianNumber(context.raw);
                             const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentageRaw = (context.raw / total) * 100;
-                            const percentage = ChartConfigs.formatItalianNumber(percentageRaw);
+                            const percentageRaw = total > 0 ? (context.raw / total) * 100 : 0;
+                            const percentage = ChartConfigs.formatItalianNumber(percentageRaw, true);
                             return `${context.dataset.label}: ${km} km (${percentage}%)`;
                         }
                     }
@@ -125,10 +125,10 @@ const ChartConfigs = {
                     callbacks: {
                         label: function(context) {
                             const km = ChartConfigs.formatItalianNumber(context.raw);
-                            const percentage = context.dataset.percentuali
-                                ? `(${context.dataset.percentuali[context.dataIndex]}%)`
-                                : '';
-                            return [`${context.dataset.label}: ${km} km`, percentage].filter(Boolean);
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentageRaw = total > 0 ? (context.raw / total) * 100 : 0;
+                            const percentage = ChartConfigs.formatItalianNumber(percentageRaw, true);
+                            return `${context.dataset.label}: ${km} km (${percentage}%)`;
                         }
                     }
                 }

@@ -377,7 +377,11 @@ document.addEventListener("DOMContentLoaded", async () => {
               tooltip: {
                 callbacks: {
                   label: function(context) {
-                    return `${context.dataset.label}: ${formatNumberConditionally(context.raw)} km`;
+                    const km = formatNumberConditionally(context.raw);
+                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                    const percentageRaw = total > 0 ? (context.raw / total) * 100 : 0;
+                    const percentage = formatItalianNumber(percentageRaw, true);
+                    return `${context.dataset.label}: ${km} km (${percentage}%)`;
                   }
                 }
               }
