@@ -143,14 +143,29 @@ const ChartConfigs = {
             containerId: 'doughnut-chart',
             dataProcessor: 'processSeasonData'
         },
+        stagioniLine: {
+            chartType: 'line',
+            containerId: 'line-chart',
+            dataProcessor: 'processSeasonData'
+        },
         generaleStatistiche: {
             chartType: 'doughnut',
             containerId: 'doughnut-chart',
             dataProcessor: 'processGeneralStatsData'
         },
+        generaleStatisticheLine: {
+            chartType: 'line',
+            containerId: 'line-chart',
+            dataProcessor: 'processGeneralStatsData'
+        },
         anni: {
             chartType: 'bar',
             containerId: 'bar-chart',
+            dataProcessor: 'processYearData'
+        },
+        anniLine: {
+            chartType: 'line',
+            containerId: 'line-chart',
             dataProcessor: 'processYearData'
         },
         graficoTotale: {

@@ -61,24 +61,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const { year, numberOfRaces: corse, data, colors } = jsonData;
 
-    const mesi = Object.keys(data);
+    const mesi       = Object.keys(data);
     const chilometri = Object.values(data);
-    const totale = chilometri.reduce((acc, curr) => acc + curr, 0);
+    const totale     = chilometri.reduce((acc, curr) => acc + curr, 0);
 
     const percentuali = calculatePercentuali(chilometri, totale);
 
     const rawKmMediPerCorsa = calculatekmMedi(totale, corse);
-    const rawKmMediPerMese = calculatekmMedi(totale, mesi.length);
+    const rawKmMediPerMese  = calculatekmMedi(totale, mesi.length);
 
     const kmMediPerCorsa = formatNumberConditionally(rawKmMediPerCorsa);
-    const kmMediPerMese = formatNumberConditionally(rawKmMediPerMese);
+    const kmMediPerMese  = formatNumberConditionally(rawKmMediPerMese);
 
     const chartData = { year, data, colors };
 
-    // Grafico a barre
+    // Grafico a linea (sopra) — senza riempimento
+    await window.chartRenderer.createChart("anniLine", chartData);
+
+    // Grafico a barre (sotto)
     await window.chartRenderer.createChart("anni", chartData);
 
-    
     renderDataTable(mesi, chilometri, percentuali);
     renderSummary(totale, kmMediPerCorsa, kmMediPerMese, corse);
   } catch (error) {
@@ -110,7 +112,7 @@ function renderDataTable(mesi, chilometri, percentuali) {
 function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
   const mesiCount =
     document.getElementById("mesi")?.querySelectorAll("tr").length - 1 || 0;
-  const validoMesi = mesiCount > 0;
+  const validoMesi  = mesiCount > 0;
   const validoCorse = totaleCorse != null && totaleCorse > 0;
 
   let mediaCorsePerMese = "N/A";
@@ -119,7 +121,7 @@ function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
     mediaCorsePerMese = formatNumberConditionally(rawMedia);
   }
 
-  const formattedTotale = formatItalianNumber(totale);
+  const formattedTotale      = formatItalianNumber(totale);
   const formattedTotaleCorse = formatItalianNumber(totaleCorse);
 
   const stampat = `

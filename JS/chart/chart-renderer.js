@@ -35,9 +35,9 @@ class UniversalChartRenderer {
 
     async processData(processorType, data, chartType) {
         switch (processorType) {
-            case 'processSeasonData':          return this.processSeasonData(data);
-            case 'processGeneralStatsData':    return this.processGeneralStatsData(data);
-            case 'processYearData':            return this.processYearData(data);
+            case 'processSeasonData':          return this.processSeasonData(data, chartType);
+            case 'processGeneralStatsData':    return this.processGeneralStatsData(data, chartType);
+            case 'processYearData':            return this.processYearData(data, chartType);
             case 'processTotalHistoryData':    return this.processTotalHistoryData(data);
             case 'processMonthlyHistoryData':  return this.processMonthlyHistoryData({ ...data, chartType });
             default:
@@ -45,10 +45,32 @@ class UniversalChartRenderer {
         }
     }
 
-    async processSeasonData(data) {
+    async processSeasonData(data, chartType) {
         const { season, image, path, cssclass, colors, subPeriodData } = data;
         const labels = Object.keys(subPeriodData);
         const values = labels.map(label => subPeriodData[label].totalDistance);
+
+        if (chartType === 'line') {
+            return {
+                labels,
+                datasets: [{
+                    label: `km ${season} (andamento)`,
+                    data: values,
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    backgroundColor: "transparent",
+                    borderWidth: 3,
+                    pointBackgroundColor: "rgba(54, 162, 235, 1)",
+                    pointBorderColor: "rgba(255, 255, 255, 1)",
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    tension: 0.35,
+                    fill: false
+                }],
+                metadata: { season, image, path, cssclass }
+            };
+        }
+
         return {
             labels,
             datasets: [{
@@ -62,10 +84,31 @@ class UniversalChartRenderer {
         };
     }
 
-    async processGeneralStatsData(data) {
+    async processGeneralStatsData(data, chartType) {
         const { statistics, colors } = data;
         const labels = statistics.map(entry => entry.year);
         const values = statistics.map(entry => entry.km);
+
+        if (chartType === 'line') {
+            return {
+                labels,
+                datasets: [{
+                    label: "km totali (andamento)",
+                    data: values,
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    backgroundColor: "transparent",
+                    borderWidth: 3,
+                    pointBackgroundColor: "rgba(54, 162, 235, 1)",
+                    pointBorderColor: "rgba(255, 255, 255, 1)",
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    tension: 0.35,
+                    fill: false
+                }]
+            };
+        }
+
         return {
             labels,
             datasets: [{
@@ -78,10 +121,31 @@ class UniversalChartRenderer {
         };
     }
 
-    async processYearData(data) {
+    async processYearData(data, chartType) {
         const { year, data: monthlyData, colors } = data;
         const labels = Object.keys(monthlyData);
         const values = Object.values(monthlyData);
+
+        if (chartType === 'line') {
+            return {
+                labels,
+                datasets: [{
+                    label: `km mensili ${year} (andamento)`,
+                    data: values,
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    backgroundColor: "transparent",
+                    borderWidth: 3,
+                    pointBackgroundColor: "rgba(54, 162, 235, 1)",
+                    pointBorderColor: "rgba(255, 255, 255, 1)",
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    tension: 0.35,
+                    fill: false
+                }]
+            };
+        }
+
         return {
             labels,
             datasets: [{

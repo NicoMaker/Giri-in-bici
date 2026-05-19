@@ -1,6 +1,5 @@
 // Funzione di utilità per la formattazione condizionale
 const formatNumberConditionally = (value) => {
-  // Always show 2 decimal places for tables
   return formatItalianNumber(value, true);
 };
 
@@ -11,21 +10,17 @@ const formatItalianNumber = (num, forceDecimals = false) => {
   }
   if (isNaN(num)) return '0';
   
-  // For tables, always show 2 decimal places
   let decimalString = '';
   if (forceDecimals || !Number.isInteger(num)) {
     const decimalPart = num.toFixed(2).split('.')[1];
-    // Only add decimal part if it's not "00"
     if (decimalPart !== '00') {
       decimalString = ',' + decimalPart;
     }
   }
   
-  // Handle decimal part - use comma for Italian format
   const parts = num.toString().split('.');
   let integerPart = parts[0];
   
-  // Add thousand separators (periods)
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -79,10 +74,7 @@ async function initializeConfiguration(jsonFilePath) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // ✅ CARICA LA CONFIGURAZIONE DAL FILE JSON
   await initializeConfiguration("Js/anni/stagioni/seasons-config.json");
-
-  // ✅ POI ESEGUI LA FUNZIONE PRINCIPALE
   loadAndRenderData();
 
   // ============================================
@@ -117,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // ============================================
-  // RENDERING DINAMICO - CON PERIODI PER SINGOLA STAGIONE
+  // RENDERING DINAMICO
   // ============================================
 
   const renderSeasonDiv = (season, data, numPeriods) => `
@@ -166,26 +158,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         
         <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
         
-        <p class="misuracolore"text-align: center;">📊 DETTAGLIO PERIODI PER STAGIONE</p>
+        <p class="misuracolore" style="text-align: center;">📊 DETTAGLIO PERIODI PER STAGIONE</p>
         
         <div style="display: flex; justify-content: space-between; margin-top: 10px; flex-wrap: wrap;">
           <div style="flex: 1; text-align: center; padding: 5px;">
-            <p class="misuracolore"">🌸 PRIMAVERA</p>
-            <p class="misuracolore"">${numPeriodsPerSeason.primavera} periodi</p>
+            <p class="misuracolore">🌸 PRIMAVERA</p>
+            <p class="misuracolore">${numPeriodsPerSeason.primavera} periodi</p>
           </div>
           <div style="flex: 1; text-align: center; padding: 5px;">
-            <p class="misuracolore"">☀️ ESTATE</p>
-            <p class="misuracolore"">${numPeriodsPerSeason.estate} periodi</p>
+            <p class="misuracolore">☀️ ESTATE</p>
+            <p class="misuracolore">${numPeriodsPerSeason.estate} periodi</p>
           </div>
           <div style="flex: 1; text-align: center; padding: 5px;">
             <p class="misuracolore">🍂 AUTUNNO-INVERNO</p>
-            <p class="misuracolore"">${numPeriodsPerSeason.autunno_inverno} periodi</p>
+            <p class="misuracolore">${numPeriodsPerSeason.autunno_inverno} periodi</p>
           </div>
         </div>
         
         <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
         
-        <p class="misuracolore"">📅 TOTALE PERIODI COMPLESSIVI</p>
+        <p class="misuracolore">📅 TOTALE PERIODI COMPLESSIVI</p>
         <p class="misuracolore">${totalePeriodi} periodi</p>
       </div>`;
   };
@@ -194,18 +186,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   // CALCOLI DATI
   // ============================================
 
-  function calculateData(
-    primaveraData,
-    estateData,
-    autunnoInvernoData,
-    numPeriodi,
-  ) {
+  function calculateData(primaveraData, estateData, autunnoInvernoData, numPeriodi) {
     const primavera = sumData(primaveraData);
     const estate = sumData(estateData);
     const autunno_inverno = sumData(autunnoInvernoData);
 
-    const corsep = countRaces(primaveraData);
-    const corsee = countRaces(estateData);
+    const corsep  = countRaces(primaveraData);
+    const corsee  = countRaces(estateData);
     const corseai = countRaces(autunnoInvernoData);
     const corseTotale = corsep + corsee + corseai;
 
@@ -262,7 +249,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       autunno_inverno: 0,
     };
 
-    // Mappa per associare i nomi del JSON ai nomi della configurazione
     const seasonNameMap = {
       "Primavera": "primavera",
       "Estate": "estate",
@@ -272,7 +258,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const seasonDataPromises = seasonsData.seasons.map(async (season) => {
       console.log(`📋 Processando stagione: "${season.name}"`);
 
-      // Usa la mappa per ottenere la chiave corretta
       const seasonKey = seasonNameMap[season.name] || season.name.toLowerCase().replace("-", "_");
       const periodCount = Object.keys(season.subPeriods).length;
       numPeriodi[seasonKey] = periodCount;
@@ -305,9 +290,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     console.log("📋 Stagioni risolte:", resolvedSeasons.map(s => s.name));
 
-    // Trova le stagioni usando i nomi esatti dal file JSON
-    const primaveraData = resolvedSeasons.find((s) => s.name === "Primavera");
-    const estateData = resolvedSeasons.find((s) => s.name === "Estate");
+    const primaveraData     = resolvedSeasons.find((s) => s.name === "Primavera");
+    const estateData        = resolvedSeasons.find((s) => s.name === "Estate");
     const autunnoInvernoData = resolvedSeasons.find((s) => s.name === "Autunno_Inverno");
 
     console.log("🔍 Ricerca stagioni:", {
@@ -335,10 +319,79 @@ document.addEventListener("DOMContentLoaded", async () => {
         autunno_km: calculatedData.ai
       });
 
-      const labels = ["Primavera", "Estate", "Autunno-Inverno"];
+      const labels   = ["Primavera", "Estate", "Autunno-Inverno"];
       const chartData = [calculatedData.p, calculatedData.e, calculatedData.ai];
-      const canvas = document.getElementById("doughnut-chart");
 
+      // Grafico a linea (sopra il doughnut) — senza riempimento
+      const lineCanvas = document.getElementById("line-chart");
+      if (lineCanvas) {
+        const lineCtx = lineCanvas.getContext("2d");
+
+        if (window.myLineChart) {
+          window.myLineChart.destroy();
+        }
+
+        window.myLineChart = new Chart(lineCtx, {
+          type: "line",
+          data: {
+            labels,
+            datasets: [{
+              label: "km stagioni (andamento)",
+              data: chartData,
+              borderColor: "rgba(54, 162, 235, 1)",
+              backgroundColor: "transparent",
+              borderWidth: 3,
+              pointBackgroundColor: "rgba(54, 162, 235, 1)",
+              pointBorderColor: "rgba(255, 255, 255, 1)",
+              pointBorderWidth: 2,
+              pointRadius: 6,
+              pointHoverRadius: 8,
+              tension: 0.35,
+              fill: false
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: "Chilometri" },
+                ticks: {
+                  callback: function(value) {
+                    return formatItalianNumber(value);
+                  }
+                }
+              },
+              x: {
+                title: { display: true }
+              }
+            },
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: {
+                  font: { size: 12, weight: 'bold' }
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `${context.dataset.label}: ${formatNumberConditionally(context.raw)} km`;
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        console.log("✅ Grafico linea creato");
+      } else {
+        console.warn("⚠️ Canvas line-chart non trovato");
+      }
+
+      // Grafico a ciambella (sotto)
+      const canvas = document.getElementById("doughnut-chart");
       if (!canvas) {
         console.error("❌ Canvas doughnut-chart non trovato!");
         return;
@@ -350,7 +403,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.myChart.destroy();
       }
 
-      const datiElement = document.getElementById("dati");
+      const datiElement   = document.getElementById("dati");
       const totaleElement = document.getElementById("totale");
 
       if (datiElement) {
@@ -403,7 +456,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
       });
 
-      console.log("✅ Grafico creato con successo");
+      console.log("✅ Grafico ciambella creato con successo");
     } else {
       console.error("❌ Stagioni non trovate:", {
         primavera: !!primaveraData,

@@ -11,21 +11,17 @@ const formatItalianNumber = (num, forceDecimals = false) => {
   }
   if (isNaN(num)) return '0';
   
-  // For tables, always show 2 decimal places
   let decimalString = '';
   if (forceDecimals || !Number.isInteger(num)) {
     const decimalPart = num.toFixed(2).split('.')[1];
-    // Only add decimal part if it's not "00"
     if (decimalPart !== '00') {
       decimalString = ',' + decimalPart;
     }
   }
   
-  // Handle decimal part - use comma for Italian format
   const parts = num.toString().split('.');
   let integerPart = parts[0];
   
-  // Add thousand separators (periods)
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -47,13 +43,11 @@ const formatPercentage = (value) => {
   }
   if (isNaN(value)) return '0,00';
   
-  // Force 2 decimal places for percentages
   const fixedNum = value.toFixed(2);
   const parts = fixedNum.split('.');
   let integerPart = parts[0];
   const decimalPart = parts[1];
   
-  // Add thousand separators if needed
   if (integerPart.length > 3) {
     const groups = [];
     let i = integerPart.length;
@@ -69,7 +63,6 @@ const formatPercentage = (value) => {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // Assicurati che le dipendenze siano caricate
   if (!window.chartRenderer || !window.ChartConfigs) {
     console.error('Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js');
     return;
@@ -131,13 +124,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       0,
     );
 
-    const avgkmPerRaceRaw   = totaleCorse > 0 ? totalekm / totaleCorse : 0;
-    const avgkmPerYearRaw   = statistics.length > 0 ? totalekm / statistics.length : 0;
-    const avgkmPerMonthRaw  = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
-    const avgRacesPerYearRaw = statistics.length > 0 ? totaleCorse / statistics.length : 0;
+    const avgkmPerRaceRaw    = totaleCorse > 0 ? totalekm / totaleCorse : 0;
+    const avgkmPerYearRaw    = statistics.length > 0 ? totalekm / statistics.length : 0;
+    const avgkmPerMonthRaw   = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
+    const avgRacesPerYearRaw  = statistics.length > 0 ? totaleCorse / statistics.length : 0;
     const avgRacesPerMonthRaw = totalMonths > 0 ? totaleCorse / totalMonths : 0;
 
-    // Calcola le percentuali con 2 decimali
     const avgValues = statistics.map((entry) => {
       const percentuale = (entry.km / totalekm) * 100;
       return formatPercentage(percentuale);
@@ -276,12 +268,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const itemsPerPage = 2;
 
-    // Usa il sistema centralizzato per creare il grafico
     const chartData = {
       statistics,
       colors
     };
-    
+
+    // Grafico a linea (sopra) — senza riempimento
+    await window.chartRenderer.createChart('generaleStatisticheLine', chartData);
+
+    // Grafico a ciambella (sotto)
     await window.chartRenderer.createChart('generaleStatistiche', chartData);
 
     renderSummary(
