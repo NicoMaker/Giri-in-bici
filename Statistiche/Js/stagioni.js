@@ -157,8 +157,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
         <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
         <p class="misuracolore">Totale corse ${formattedCorseTotale}</p>
-        <p class="misuracolore">Media corse per periodo: ${formatNumberConditionally(data.corseTotale / totalePeriodi)}</p>
-        <p class="misuracolore">Media corse per stagione: ${formatNumberConditionally(data.corseTotale / 3)}</p>
+        <p class="misuracolore">Media corse per periodo ${formatNumberConditionally(data.corseTotale / totalePeriodi)}</p>
+        <p class="misuracolore">Media corse per stagione ${formatNumberConditionally(data.corseTotale / 3)}</p>
         
         <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
         
