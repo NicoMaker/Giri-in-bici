@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       (acc, cur) => acc + cur.numberOfRaces,
       0,
     );
+    const totalYears = statistics.length; // Numero di anni
 
     const totalMonthlykm = statistics.reduce(
       (acc, cur) =>
@@ -129,11 +130,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
 
     const avgkmPerRaceRaw = totaleCorse > 0 ? totalekm / totaleCorse : 0;
-    const avgkmPerYearRaw =
-      statistics.length > 0 ? totalekm / statistics.length : 0;
+    const avgkmPerYearRaw = totalYears > 0 ? totalekm / totalYears : 0;
     const avgkmPerMonthRaw = totalMonths > 0 ? totalMonthlykm / totalMonths : 0;
-    const avgRacesPerYearRaw =
-      statistics.length > 0 ? totaleCorse / statistics.length : 0;
+    const avgRacesPerYearRaw = totalYears > 0 ? totaleCorse / totalYears : 0;
     const avgRacesPerMonthRaw = totalMonths > 0 ? totaleCorse / totalMonths : 0;
 
     const avgValues = statistics.map((entry) => {
@@ -144,6 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return {
       totalekm,
       totaleCorse,
+      totalYears,      // Aggiunto numero di anni
       totalMonths,
 
       avgkmPerRace: formatNumberConditionally(avgkmPerRaceRaw),
@@ -233,11 +233,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     avgRacesPerYear,
     avgRacesPerMonth,
     totalMonths,
+    totalYears,
   ) => {
     const totaleElement = document.getElementById("totale");
     if (totaleElement) {
       const formattedTotaleKm = formatItalianNumber(totalekm);
       const formattedTotaleCorse = formatItalianNumber(totaleCorse);
+      const formattedTotalYears = formatItalianNumber(totalYears);
 
       totaleElement.innerHTML = `
         <a href="Statistiche/History/Statistiche_Totali.html">
@@ -249,6 +251,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>
             <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p>
             <p class="misuracolore">Corse medie per mese ${avgRacesPerMonth}</p>
+            <p class="misuracolore">Totale anni di corsa ${formattedTotalYears}</p>
             <p class="misuracolore">Totale mesi di corsa ${totalMonths}</p>
           </div>
         </a>`;
@@ -263,6 +266,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const {
       totalekm,
       totaleCorse,
+      totalYears,
       totalMonths,
       avgkmPerRace,
       avgkmPerYear,
@@ -297,6 +301,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgRacesPerYear,
       avgRacesPerMonth,
       totalMonths,
+      totalYears,
     );
 
     const savedPage = parseInt(localStorage.getItem("page_statistiche")) || 1;
