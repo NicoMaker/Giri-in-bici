@@ -131,6 +131,7 @@ const fetchJSON = (url) =>
       <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>
       <p class="misuracolore">Media corse per periodo ${mediaCorsePerPeriodo}</p>
       <p class="misuracolore">Media corse per Stagione ${mediaCorsePerStagione}</p>
+      <p class="misuracolore">Totale periodi ${totalePeriodi}</p>
     </div>
   `;
   };
