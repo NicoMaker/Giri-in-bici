@@ -1,7 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mesi = [
-    "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-    "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
   ];
 
   const formatNumber = (value) => ChartConfigs.formatItalianNumber(value);
@@ -50,21 +60,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return ((valoreAttuale - valorePrecedente) / valorePrecedente) * 100;
   }
 
-function badgeVariazione(perc) {
-  if (perc === null) return `<span class="badge badge-neutro">—</span>`;
-  const segno = perc > 0 ? "+" : "";
-  const cls = perc > 0 ? "badge-su" : perc < 0 ? "badge-giu" : "badge-pari";
-  const freccia = perc > 0 ? "▲" : perc < 0 ? "▼" : "●";
-  const decimali = perc % 1 === 0 ? "0" : "2";
-  const percStr = perc.toFixed(decimali);
-  return `<span class="badge ${cls}">${freccia} ${segno}${percStr}%</span>`;
-}
+  function badgeVariazione(perc) {
+    if (perc === null) return `<span class="badge badge-neutro">—</span>`;
+    const segno = perc > 0 ? "+" : "";
+    const cls = perc > 0 ? "badge-su" : perc < 0 ? "badge-giu" : "badge-pari";
+    const freccia = perc > 0 ? "▲" : perc < 0 ? "▼" : "●";
+    const decimali = perc % 1 === 0 ? "0" : "2";
+    const percStr = perc.toFixed(decimali).replace(".", ",");
+    return `<span class="badge ${cls}">${freccia} ${segno}${percStr}%</span>`;
+  }
 
   function renderTable(datasets, yearLabels) {
     const wrapper = document.createElement("div");
     wrapper.className = "storico-tabella-wrapper";
 
-    wrapper.insertAdjacentHTML("beforeend", `
+    wrapper.insertAdjacentHTML(
+      "beforeend",
+      `
       <div class="legenda-variazioni">
         <span class="badge badge-su">▲ aumento</span>
         <span class="badge badge-giu">▼ calo</span>
@@ -74,7 +86,8 @@ function badgeVariazione(perc) {
           (% calcolata rispetto all'anno precedente per lo stesso mese)
         </span>
       </div>
-    `);
+    `,
+    );
 
     const table = document.createElement("table");
     table.className = "storico-tabella";
@@ -196,9 +209,9 @@ function badgeVariazione(perc) {
     graficiDiv.appendChild(canvasWrapper);
 
     const ctxline = document.getElementById("line-chart").getContext("2d");
-    const ctxbar  = document.getElementById("bar-chart").getContext("2d");
+    const ctxbar = document.getElementById("bar-chart").getContext("2d");
     new Chart(ctxline, createConfig("line", datasets));
-    new Chart(ctxbar,  createConfig("bar",  datasets));
+    new Chart(ctxbar, createConfig("bar", datasets));
   }
 
   fetch("../Js/History/JSON/StoricoMensile.json")
@@ -208,9 +221,14 @@ function badgeVariazione(perc) {
       const datasetsPromises = Object.values(yearsData).map((yearInfo) =>
         fetch(yearInfo.data)
           .then((r) => r.json())
-          .then((yearData) => createDataset(yearData, yearInfo.label, yearInfo.color))
+          .then((yearData) =>
+            createDataset(yearData, yearInfo.label, yearInfo.color),
+          ),
       );
-      return Promise.all(datasetsPromises).then((datasets) => ({ datasets, yearLabels }));
+      return Promise.all(datasetsPromises).then((datasets) => ({
+        datasets,
+        yearLabels,
+      }));
     })
     .then(({ datasets, yearLabels }) => renderCharts(datasets, yearLabels))
     .catch((error) => console.error(`Error loading the data:, ${error}`));
