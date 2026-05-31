@@ -290,3 +290,207 @@ canvas {
 .material-icons {
   color: white;
 }
+
+
+/* ── Titolo Storico Mensile ── */
+.titolo-storico {
+  font-family: "Dancing Script", cursive;
+  color: #ff0d05;
+  font-size: 110px;
+  text-align: center;
+  text-shadow:
+    3px 3px 0px #8b0000,
+    5px 5px 8px rgba(0, 0, 0, 0.5);
+  margin: 30px 0 20px;
+  line-height: 1.1;
+}
+
+/* ── Tabella Storico Mensile ── */
+.storico-tabella-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem auto 2rem;
+  border-radius: 16px;
+  border: 3px solid #b1afff;
+  max-width: 99%;
+  box-shadow: 0 8px 32px rgba(120, 100, 255, 0.18);
+}
+
+.storico-tabella {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  min-width: 700px;
+  background: white;
+}
+
+.storico-tabella .th-anno {
+  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
+  font-family: "Dancing Script", cursive;
+  font-size: 1.6rem;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  padding: 12px 10px;
+  border: 1px solid #b1afff;
+  color: #1a0050;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+  letter-spacing: 1px;
+}
+
+.storico-tabella .th-mese {
+  background: linear-gradient(135deg, #ff00e160, #b1afff);
+  font-family: "Dancing Script", cursive;
+  font-size: 1.4rem;
+  font-style: italic;
+  padding: 12px 18px;
+  border: 1px solid #b1afff;
+  text-align: center;
+  color: #1a0050;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.storico-tabella .th-sub {
+  background: #ededff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 8px;
+  border: 1px solid #d0d0ee;
+  color: #555;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.storico-tabella .th-var {
+  color: #7744aa;
+  background: #f3eeff;
+}
+
+.storico-tabella td {
+  padding: 9px 14px;
+  border: 1px solid #e0e0f0;
+  text-align: right;
+}
+
+.storico-tabella .mese-label {
+  text-align: left;
+  font-weight: 600;
+  font-family: "Dancing Script", cursive;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: #1a0050;
+  padding-left: 18px;
+  white-space: nowrap;
+}
+
+.storico-tabella .valore {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.storico-tabella .zero {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.storico-tabella .td-var {
+  text-align: center;
+  background: #fafaff;
+}
+
+/* Righe alternate */
+.storico-tabella tbody tr:nth-child(2n) {
+  background-color: #00ff6e18;
+}
+.storico-tabella tbody tr:nth-child(2n + 3) {
+  background-color: #06f0d918;
+}
+.storico-tabella tbody tr:nth-child(-n + 1) {
+  background-color: #ff00e112;
+}
+.storico-tabella tbody tr:hover {
+  background-color: #e4deff !important;
+  transition: background-color 0.2s ease;
+}
+
+/* Piede totali */
+.storico-tabella tfoot .totale-label,
+.storico-tabella tfoot .totale-valore {
+  background: linear-gradient(to right, #b1afff55, #79e0ee55);
+  font-weight: 700;
+  border-top: 2px solid #b1afff;
+  font-family: "Dancing Script", cursive;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #1a0050;
+}
+
+/* ── Badge variazioni ── */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 30px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.badge-su {
+  background: linear-gradient(135deg, #d4fce8, #b7f5d5);
+  color: #155a2e;
+  border: 1.5px solid #5cb87a;
+}
+
+.badge-giu {
+  background: linear-gradient(135deg, #fce4e4, #ffd0d0);
+  color: #7a1515;
+  border: 1.5px solid #e07070;
+}
+
+.badge-pari {
+  background: #ebebeb;
+  color: #555;
+  border: 1.5px solid #bbb;
+}
+
+.badge-neutro {
+  background: #f5f5f5;
+  color: #aaa;
+  border: 1.5px solid #ddd;
+}
+
+/* ── Legenda sopra la tabella ── */
+.legenda-variazioni {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: linear-gradient(to right, #f9f9ff, #eef9ff, #f9f9ff);
+  border-bottom: 2px solid #d0d0ee;
+  border-radius: 14px 14px 0 0;
+}
+
+.legenda-nota {
+  font-size: 0.75rem;
+  color: #777;
+  margin-left: 6px;
+}
+
+.storico-tabella tbody tr:nth-child(-n + 1) {
+  background-color: unset;
+}
+
+.storico-tabella tbody tr:nth-child(-n + 1) {
+  background-color: unset;
+}
+.storico-tabella tbody tr:nth-child(2n) {
+  background-color: #00ff6e18;
+}
+.storico-tabella tbody tr:nth-child(odd) {
+  background-color: #06f0d918;
+}
