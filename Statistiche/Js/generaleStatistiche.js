@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return {
       totalekm,
       totaleCorse,
-      totalYears,      // Aggiunto numero di anni
+      totalYears, // Aggiunto numero di anni
       totalMonths,
 
       avgkmPerRace: formatNumberConditionally(avgkmPerRaceRaw),
