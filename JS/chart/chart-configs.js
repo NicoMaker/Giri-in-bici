@@ -1,39 +1,12 @@
-// File di configurazione centralizzato per tutti i grafici
+// chart-configs.js — Configurazione centralizzata per tutti i grafici
+// Dipendenze: JS/utils.js (caricato prima in HTML)
+
 const ChartConfigs = {
-  formatNumber: (value) => {
-    return ChartConfigs.formatItalianNumber(value);
-  },
+  // Alias per compatibilità con StoricoMensile.js che chiama ChartConfigs.formatItalianNumber
+  formatItalianNumber: (num, forceDecimals = false) =>
+    formatItalianNumber(num, forceDecimals),
 
-  formatItalianNumber: (num, forceDecimals = false, isPercentage = false) => {
-    if (typeof num === "string") num = parseFloat(num);
-    if (isNaN(num)) return "0";
-
-    const numStr = num.toString();
-    const parts = numStr.split(".");
-    let integerPart = parts[0];
-    let decimalPart = parts[1] || "";
-    let decimalString = "";
-
-    if (forceDecimals || isPercentage || !Number.isInteger(num)) {
-      decimalPart = num.toFixed(2).split(".")[1];
-      decimalString = decimalPart !== "00" ? "," + decimalPart : "";
-    } else if (decimalPart !== "") {
-      decimalString = "," + decimalPart;
-    }
-
-    if (integerPart.length > 3) {
-      const groups = [];
-      let i = integerPart.length;
-      while (i > 0) {
-        const start = Math.max(0, i - 3);
-        groups.unshift(integerPart.substring(start, i));
-        i -= 3;
-      }
-      integerPart = groups.join(".");
-    }
-
-    return integerPart + decimalString;
-  },
+  formatNumber: (value) => formatNumber(value),
 
   // Doughnut
   doughnut: {
@@ -44,10 +17,7 @@ const ChartConfigs = {
       plugins: {
         legend: {
           position: "top",
-          labels: {
-            font: { size: 12, weight: "bold" },
-            padding: 15,
-          },
+          labels: { font: { size: 12, weight: "bold" }, padding: 15 },
         },
         tooltip: {
           callbacks: {
@@ -55,10 +25,8 @@ const ChartConfigs = {
               const label = context.label || "";
               const value = context.raw || 0;
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentageRaw = (value / total) * 100;
-              const percentage =
-                ChartConfigs.formatItalianNumber(percentageRaw);
-              return `${label}: ${ChartConfigs.formatItalianNumber(value)} km (${percentage}%)`;
+              const pct = formatItalianNumber((value / total) * 100);
+              return `${label}: ${formatItalianNumber(value)} km (${pct}%)`;
             },
           },
         },
@@ -74,28 +42,18 @@ const ChartConfigs = {
         y: {
           beginAtZero: true,
           title: { display: true, text: "Chilometri" },
-          ticks: {
-            callback: function (value) {
-              return ChartConfigs.formatItalianNumber(value);
-            },
-          },
+          ticks: { callback: (value) => formatItalianNumber(value) },
         },
-        x: {
-          title: { display: true },
-        },
+        x: { title: { display: true } },
       },
       plugins: {
         tooltip: {
           callbacks: {
             label: function (context) {
-              const km = ChartConfigs.formatItalianNumber(context.raw);
+              const km = formatItalianNumber(context.raw);
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentageRaw = total > 0 ? (context.raw / total) * 100 : 0;
-              const percentage = ChartConfigs.formatItalianNumber(
-                percentageRaw,
-                true,
-              );
-              return `${context.dataset.label}: ${km} km (${percentage}%)`;
+              const pct = total > 0 ? formatNumber((context.raw / total) * 100) : "0";
+              return `${context.dataset.label}: ${km} km (${pct}%)`;
             },
           },
         },
@@ -113,28 +71,18 @@ const ChartConfigs = {
         y: {
           beginAtZero: true,
           title: { display: true, text: "Chilometri" },
-          ticks: {
-            callback: function (value) {
-              return ChartConfigs.formatItalianNumber(value);
-            },
-          },
+          ticks: { callback: (value) => formatItalianNumber(value) },
         },
-        x: {
-          title: { display: true },
-        },
+        x: { title: { display: true } },
       },
       plugins: {
         tooltip: {
           callbacks: {
             label: function (context) {
-              const km = ChartConfigs.formatItalianNumber(context.raw);
+              const km = formatItalianNumber(context.raw);
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentageRaw = total > 0 ? (context.raw / total) * 100 : 0;
-              const percentage = ChartConfigs.formatItalianNumber(
-                percentageRaw,
-                true,
-              );
-              return `${context.dataset.label}: ${km} km (${percentage}%)`;
+              const pct = total > 0 ? formatNumber((context.raw / total) * 100) : "0";
+              return `${context.dataset.label}: ${km} km (${pct}%)`;
             },
           },
         },

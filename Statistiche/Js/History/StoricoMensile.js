@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Dicembre",
   ];
 
-  const formatNumber = (value) => ChartConfigs.formatItalianNumber(value);
+  // formatNumber è disponibile globalmente da JS/utils.js
 
   function createDataset(yearData, yearLabel, yearColor) {
     const data = new Array(12).fill(0);

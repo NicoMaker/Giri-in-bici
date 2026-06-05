@@ -1,38 +1,5 @@
-// Funzione di utilità per la formattazione condizionale
-const formatNumberConditionally = (value) => {
-  return formatItalianNumber(value, true);
-};
-
-const formatItalianNumber = (num, forceDecimals = false) => {
-  if (typeof num === "string") {
-    num = parseFloat(num);
-  }
-  if (isNaN(num)) return "0";
-
-  let decimalString = "";
-  if (forceDecimals || !Number.isInteger(num)) {
-    const decimalPart = num.toFixed(2).split(".")[1];
-    if (decimalPart !== "00") {
-      decimalString = "," + decimalPart;
-    }
-  }
-
-  const parts = num.toString().split(".");
-  let integerPart = parts[0];
-
-  if (integerPart.length > 3) {
-    const groups = [];
-    let i = integerPart.length;
-    while (i > 0) {
-      const start = Math.max(0, i - 3);
-      groups.unshift(integerPart.substring(start, i));
-      i -= 3;
-    }
-    integerPart = groups.join(".");
-  }
-
-  return integerPart + decimalString;
-};
+// anni.js
+// Dipendenze: JS/utils.js (caricato prima in HTML)
 
 const calculatekmMedi = (totale, divider, isPercentage = false) => {
   const result = totale / divider;
@@ -40,10 +7,7 @@ const calculatekmMedi = (totale, divider, isPercentage = false) => {
 };
 
 const calculatePercentuali = (chilometri, totale) =>
-  chilometri.map((km) => {
-    const rawPercentage = calculatekmMedi(km, totale, true);
-    return formatNumberConditionally(rawPercentage);
-  });
+  chilometri.map((km) => formatNumber(calculatekmMedi(km, totale, true)));
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!window.chartRenderer || !window.ChartConfigs) {
@@ -66,19 +30,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const totale = chilometri.reduce((acc, curr) => acc + curr, 0);
 
     const percentuali = calculatePercentuali(chilometri, totale);
-
-    const rawKmMediPerCorsa = calculatekmMedi(totale, corse);
-    const rawKmMediPerMese = calculatekmMedi(totale, mesi.length);
-
-    const kmMediPerCorsa = formatNumberConditionally(rawKmMediPerCorsa);
-    const kmMediPerMese = formatNumberConditionally(rawKmMediPerMese);
+    const kmMediPerCorsa = formatNumber(calculatekmMedi(totale, corse));
+    const kmMediPerMese = formatNumber(calculatekmMedi(totale, mesi.length));
 
     const chartData = { year, data, colors };
 
-    // Grafico a linea (sopra) — senza riempimento
     await window.chartRenderer.createChart("anniLine", chartData);
-
-    // Grafico a barre (sotto)
     await window.chartRenderer.createChart("anni", chartData);
 
     renderDataTable(mesi, chilometri, percentuali);
@@ -89,49 +46,37 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 function renderDataTable(mesi, chilometri, percentuali) {
-  const tabellaDati = `
-        <tr class="grassetto">
-            <th>Mese</th>
-            <th>km <img src="../../Icons/traguardo.png" alt="traguardo"></th>
-            <th>Percentuale sull'anno</th>
-        </tr>
-        ${mesi
-          .map(
-            (mese, index) => `
-                <tr>
-                    <td>${mese}</td>
-                    <td>${formatItalianNumber(chilometri[index])}</td>
-                    <td>${percentuali[index]} %</td>
-                </tr>`,
-          )
-          .join("")}
-    `;
-  document.getElementById("mesi").innerHTML = tabellaDati;
+  document.getElementById("mesi").innerHTML = `
+    <tr class="grassetto">
+      <th>Mese</th>
+      <th>km <img src="../../Icons/traguardo.png" alt="traguardo"></th>
+      <th>Percentuale sull'anno</th>
+    </tr>
+    ${mesi.map((mese, index) => `
+      <tr>
+        <td>${mese}</td>
+        <td>${formatItalianNumber(chilometri[index])}</td>
+        <td>${percentuali[index]} %</td>
+      </tr>`).join("")}
+  `;
 }
 
 function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
   const mesiCount =
     document.getElementById("mesi")?.querySelectorAll("tr").length - 1 || 0;
-  const validoMesi = mesiCount > 0;
-  const validoCorse = totaleCorse != null && totaleCorse > 0;
 
   let mediaCorsePerMese = "N/A";
-  if (validoMesi && validoCorse) {
-    const rawMedia = totaleCorse / mesiCount;
-    mediaCorsePerMese = formatNumberConditionally(rawMedia);
+  if (mesiCount > 0 && totaleCorse > 0) {
+    mediaCorsePerMese = formatNumber(totaleCorse / mesiCount);
   }
 
-  const formattedTotale = formatItalianNumber(totale);
-  const formattedTotaleCorse = formatItalianNumber(totaleCorse);
-
-  const stampat = `
-        <div class="colore">
-            <p class="misuracolore">Totale km ${formattedTotale} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
-            <p class="misuracolore">km medi per corsa ${kmMediPerCorsa}</p>
-            <p class="misuracolore">km medi per mese ${kmMediPerMese}</p>
-            <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>
-            <p class="misuracolore">Medie corse per mese ${mediaCorsePerMese}</p>
-        </div>
-    `;
-  document.getElementById("totale").innerHTML = stampat;
+  document.getElementById("totale").innerHTML = `
+    <div class="colore">
+      <p class="misuracolore">Totale km ${formatItalianNumber(totale)} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
+      <p class="misuracolore">km medi per corsa ${kmMediPerCorsa}</p>
+      <p class="misuracolore">km medi per mese ${kmMediPerMese}</p>
+      <p class="misuracolore">Totale corse ${formatItalianNumber(totaleCorse)}</p>
+      <p class="misuracolore">Medie corse per mese ${mediaCorsePerMese}</p>
+    </div>
+  `;
 }
