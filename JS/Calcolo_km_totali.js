@@ -53,7 +53,13 @@ const processSeasons = (data) => {
     );
 };
 
-const stampaDati = (totalekm, mediakm, avgPeriod, totaleCorse, totalePeriodi) => {
+const stampaDati = (
+  totalekm,
+  mediakm,
+  avgPeriod,
+  totaleCorse,
+  totalePeriodi,
+) => {
   const mediaCorsePerPeriodo =
     totalePeriodi > 0 ? formatNumber(totaleCorse / totalePeriodi) : "N/A";
   const mediaCorsePerStagione =

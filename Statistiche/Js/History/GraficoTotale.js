@@ -3,14 +3,25 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!window.chartRenderer || !window.ChartConfigs) {
-    console.error("Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js");
+    console.error(
+      "Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js",
+    );
     return;
   }
 
   const orderMesi = {
-    Gennaio: 1, Febbraio: 2, Marzo: 3, Aprile: 4,
-    Maggio: 5, Giugno: 6, Luglio: 7, Agosto: 8,
-    Settembre: 9, Ottobre: 10, Novembre: 11, Dicembre: 12,
+    Gennaio: 1,
+    Febbraio: 2,
+    Marzo: 3,
+    Aprile: 4,
+    Maggio: 5,
+    Giugno: 6,
+    Luglio: 7,
+    Agosto: 8,
+    Settembre: 9,
+    Ottobre: 10,
+    Novembre: 11,
+    Dicembre: 12,
   };
 
   async function fetchYearData(url, year) {
@@ -45,7 +56,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const totale = combinedData.reduce((acc, item) => acc + item.chilometri, 0);
-    const chilometri = [], mesi = [], anni = [], percentuali = [];
+    const chilometri = [],
+      mesi = [],
+      anni = [],
+      percentuali = [];
 
     combinedData.forEach(({ chilometri: km, mese, year }) => {
       chilometri.push(km);
@@ -65,18 +79,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         <th>Percentuale sul totale</th>
         <th>Anno</th>
       </tr>
-      ${mesi.map((mese, index) => `
+      ${mesi
+        .map(
+          (mese, index) => `
         <tr>
           <td>${mese || "N/D"}</td>
           <td>${formatNumber(chilometri[index] || 0)}</td>
           <td>${percentuali[index] || "0,00"} %</td>
           <td>${anni[index] || "N/D"}</td>
-        </tr>`).join("")}
+        </tr>`,
+        )
+        .join("")}
     `;
   }
 
-  function createSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse,
-    racesPerYear, racesPerMonth, mesi) {
+  function createSummary(
+    totale,
+    kmMediPerCorsa,
+    kmMediPerMese,
+    totaleCorse,
+    racesPerYear,
+    racesPerMonth,
+    mesi,
+  ) {
     return `
       <a href="Statistiche_Mensili.html">
         <div class="colore">
@@ -93,7 +118,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const data = await fetchJSON("../Js/History/JSON/GraficoTotale.json");
-    if (!data || !data.statistics) { console.error("Struttura statistics mancante"); return; }
+    if (!data || !data.statistics) {
+      console.error("Struttura statistics mancante");
+      return;
+    }
 
     let yearlyData = [];
     let totaleCorse = 0;
@@ -109,26 +137,49 @@ document.addEventListener("DOMContentLoaded", async () => {
       ),
     );
 
-    if (yearlyData.length === 0) { console.error("Nessun dato annuale caricato"); return; }
+    if (yearlyData.length === 0) {
+      console.error("Nessun dato annuale caricato");
+      return;
+    }
 
     const totaleAnni = yearlyData.length;
-    const { totale, chilometri, mesi, anni, percentuali } = calculateTotals(yearlyData);
+    const { totale, chilometri, mesi, anni, percentuali } =
+      calculateTotals(yearlyData);
 
-    const kmMediPerCorsa = formatNumber(totaleCorse > 0 ? totale / totaleCorse : 0);
-    const kmMediPerMese = formatNumber(mesi.length > 0 ? totale / mesi.length : 0);
-    const racesPerYear = formatNumber(totaleAnni > 0 ? totaleCorse / totaleAnni : 0);
-    const racesPerMonth = formatNumber(mesi.length > 0 ? totaleCorse / mesi.length : 0);
+    const kmMediPerCorsa = formatNumber(
+      totaleCorse > 0 ? totale / totaleCorse : 0,
+    );
+    const kmMediPerMese = formatNumber(
+      mesi.length > 0 ? totale / mesi.length : 0,
+    );
+    const racesPerYear = formatNumber(
+      totaleAnni > 0 ? totaleCorse / totaleAnni : 0,
+    );
+    const racesPerMonth = formatNumber(
+      mesi.length > 0 ? totaleCorse / mesi.length : 0,
+    );
 
     await window.chartRenderer.createChart("graficoTotale", {
-      labels: mesi, values: chilometri, anni, percentuali,
+      labels: mesi,
+      values: chilometri,
+      anni,
+      percentuali,
     });
 
     const tableElement = document.getElementById("mesi");
     const summaryElement = document.getElementById("totale");
-    if (tableElement) tableElement.innerHTML = createTable(mesi, chilometri, percentuali, anni);
-    if (summaryElement) summaryElement.innerHTML = createSummary(
-      totale, kmMediPerCorsa, kmMediPerMese, totaleCorse, racesPerYear, racesPerMonth, mesi,
-    );
+    if (tableElement)
+      tableElement.innerHTML = createTable(mesi, chilometri, percentuali, anni);
+    if (summaryElement)
+      summaryElement.innerHTML = createSummary(
+        totale,
+        kmMediPerCorsa,
+        kmMediPerMese,
+        totaleCorse,
+        racesPerYear,
+        racesPerMonth,
+        mesi,
+      );
   } catch (error) {
     console.error(`Errore durante il fetch: ${error}`);
   }

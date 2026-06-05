@@ -3,16 +3,29 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!window.chartRenderer || !window.ChartConfigs) {
-    console.error("Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js");
+    console.error(
+      "Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js",
+    );
     return;
   }
 
   const mesiOrdinati = [
-    "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-    "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
   ];
 
-  const getTotale = (chilometri) => chilometri.reduce((acc, curr) => acc + curr, 0);
+  const getTotale = (chilometri) =>
+    chilometri.reduce((acc, curr) => acc + curr, 0);
   const getPercentuali = (chilometri, totale) =>
     chilometri.map((km) => formatPercentage((km / totale) * 100));
   const getMediaPer12 = (totale) => formatNumber(totale / 12);
@@ -20,15 +33,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   const getkmPerMese = (mesi, chilometri, mesiPercorsi) =>
     mesi.map((mese, index) => ({
       mese,
-      kmMediMese: mesiPercorsi[index] > 0
-        ? formatItalianNumber(chilometri[index] / mesiPercorsi[index], true)
-        : "0,00",
+      kmMediMese:
+        mesiPercorsi[index] > 0
+          ? formatItalianNumber(chilometri[index] / mesiPercorsi[index], true)
+          : "0,00",
     }));
 
   const getTotaleCorse = (allData) =>
     allData.reduce((total, json) => total + (json.numberOfRaces || 0), 0);
 
-  const createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
+  const createTableHTML = (
+    kmPerMese,
+    chilometri,
+    percentuali,
+    mesiPercorsi,
+  ) => `
     <tr class="grassetto">
       <th>Mese</th>
       <th>km <img src="../../Icons/traguardo.png"></th>
@@ -36,17 +55,26 @@ document.addEventListener("DOMContentLoaded", async () => {
       <th>Mesi di Corsa</th>
       <th>km <img src="../../Icons/traguardo.png"> medi mensili</th>
     </tr>
-    ${kmPerMese.map(({ mese, kmMediMese }, index) => `
+    ${kmPerMese
+      .map(
+        ({ mese, kmMediMese }, index) => `
       <tr>
         <td>${mese}</td>
         <td>${formatItalianNumber(chilometri[index])}</td>
         <td>${percentuali[index]} %</td>
         <td>${mesiPercorsi[index]}</td>
         <td>${kmMediMese}</td>
-      </tr>`).join("")}
+      </tr>`,
+      )
+      .join("")}
   `;
 
-  const createSummaryHTML = (totale, mediaComplessiva, totaleCorse, mediacorse) => `
+  const createSummaryHTML = (
+    totale,
+    mediaComplessiva,
+    totaleCorse,
+    mediacorse,
+  ) => `
     <a href="StoricoMensile.html">
       <div class="colore">
         <p class="misuracolore">totale km ${formatItalianNumber(totale)} <img src="../../Icons/traguardo.png"></p>
@@ -79,18 +107,40 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const totaleChilometri = getTotale(chilometriTotali);
     const percentuali = getPercentuali(chilometriTotali, totaleChilometri);
-    const kmPerMese = getkmPerMese(mesiOrdinati, chilometriTotali, mesiPercorsi);
+    const kmPerMese = getkmPerMese(
+      mesiOrdinati,
+      chilometriTotali,
+      mesiPercorsi,
+    );
     const mediaComplessiva = getMediaPer12(totaleChilometri);
     const totaleCorse = getTotaleCorse(allData);
     const mediacorse = getMediaPer12(totaleCorse);
 
-    const chartData = { labels: mesiOrdinati, values: chilometriTotali, colors: coloriGlobali, percentuali };
+    const chartData = {
+      labels: mesiOrdinati,
+      values: chilometriTotali,
+      colors: coloriGlobali,
+      percentuali,
+    };
 
     await window.chartRenderer.createChart("graficoTotaleMensile", chartData);
-    await window.chartRenderer.createChart("graficoTotaleMensileLine", chartData);
+    await window.chartRenderer.createChart(
+      "graficoTotaleMensileLine",
+      chartData,
+    );
 
-    document.getElementById("mesi").innerHTML = createTableHTML(kmPerMese, chilometriTotali, percentuali, mesiPercorsi);
-    document.getElementById("totale").innerHTML = createSummaryHTML(totaleChilometri, mediaComplessiva, totaleCorse, mediacorse);
+    document.getElementById("mesi").innerHTML = createTableHTML(
+      kmPerMese,
+      chilometriTotali,
+      percentuali,
+      mesiPercorsi,
+    );
+    document.getElementById("totale").innerHTML = createSummaryHTML(
+      totaleChilometri,
+      mediaComplessiva,
+      totaleCorse,
+      mediacorse,
+    );
   } catch (error) {
     console.error(`Errore nel caricamento: ${error}`);
   }

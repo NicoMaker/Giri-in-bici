@@ -52,7 +52,8 @@ const ChartConfigs = {
             label: function (context) {
               const km = formatItalianNumber(context.raw);
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const pct = total > 0 ? formatNumber((context.raw / total) * 100) : "0";
+              const pct =
+                total > 0 ? formatNumber((context.raw / total) * 100) : "0";
               return `${context.dataset.label}: ${km} km (${pct}%)`;
             },
           },
@@ -81,7 +82,8 @@ const ChartConfigs = {
             label: function (context) {
               const km = formatItalianNumber(context.raw);
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const pct = total > 0 ? formatNumber((context.raw / total) * 100) : "0";
+              const pct =
+                total > 0 ? formatNumber((context.raw / total) * 100) : "0";
               return `${context.dataset.label}: ${km} km (${pct}%)`;
             },
           },

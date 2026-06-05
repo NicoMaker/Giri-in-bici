@@ -52,12 +52,16 @@ function renderDataTable(mesi, chilometri, percentuali) {
       <th>km <img src="../../Icons/traguardo.png" alt="traguardo"></th>
       <th>Percentuale sull'anno</th>
     </tr>
-    ${mesi.map((mese, index) => `
+    ${mesi
+      .map(
+        (mese, index) => `
       <tr>
         <td>${mese}</td>
         <td>${formatItalianNumber(chilometri[index])}</td>
         <td>${percentuali[index]} %</td>
-      </tr>`).join("")}
+      </tr>`,
+      )
+      .join("")}
   `;
 }
 

@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function fetchData() {
-    const mainData = await fetchJSON("Statistiche/Js/History/JSON/Generale.json");
+    const mainData = await fetchJSON(
+      "Statistiche/Js/History/JSON/Generale.json",
+    );
     if (!mainData || !mainData.statistics) {
       console.error("Main data not available or statistics field missing");
       return null;
@@ -38,7 +40,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function calculateAverages(statistics) {
     const totalekm = statistics.reduce((acc, cur) => acc + cur.km, 0);
-    const totaleCorse = statistics.reduce((acc, cur) => acc + cur.numberOfRaces, 0);
+    const totaleCorse = statistics.reduce(
+      (acc, cur) => acc + cur.numberOfRaces,
+      0,
+    );
     const totalYears = statistics.length;
     const totalMonths = statistics.reduce(
       (acc, cur) => acc + Object.keys(cur.monthlyData).length,
@@ -57,8 +62,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       avgkmPerRace: formatNumber(totaleCorse > 0 ? totalekm / totaleCorse : 0),
       avgkmPerYear: formatNumber(totalYears > 0 ? totalekm / totalYears : 0),
       avgkmPerMonth: formatNumber(totalMonths > 0 ? totalekm / totalMonths : 0),
-      avgRacesPerYear: formatNumber(totalYears > 0 ? totaleCorse / totalYears : 0),
-      avgRacesPerMonth: formatNumber(totalMonths > 0 ? totaleCorse / totalMonths : 0),
+      avgRacesPerYear: formatNumber(
+        totalYears > 0 ? totaleCorse / totalYears : 0,
+      ),
+      avgRacesPerMonth: formatNumber(
+        totalMonths > 0 ? totaleCorse / totalMonths : 0,
+      ),
       avgValues,
     };
   }
@@ -69,14 +78,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     localStorage.setItem("page_statistiche", currentPage);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentStatistics = statistics.slice(startIndex, startIndex + itemsPerPage);
+    const currentStatistics = statistics.slice(
+      startIndex,
+      startIndex + itemsPerPage,
+    );
     const isOdd = currentStatistics.length === 1;
 
     const stampaElement = document.getElementById("stampa");
     if (stampaElement) {
       stampaElement.innerHTML = `
         <div class="${isOdd ? "container odd-items" : "container"}">
-          ${currentStatistics.map((entry, index) => `
+          ${currentStatistics
+            .map(
+              (entry, index) => `
             <div class="Statistiche">
               <a href="Statistiche/Anni/${entry.year}.html">
                 <img class="immaginestagione" src="Icons/Statistiche.png">
@@ -87,7 +101,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <p class="misuracolore">km medi per corsa ${formatNumber(entry.km / entry.numberOfRaces)}</p>
               </a>
             </div>
-          `).join("")}
+          `,
+            )
+            .join("")}
         </div>`;
     }
 
@@ -99,16 +115,35 @@ document.addEventListener("DOMContentLoaded", async () => {
         <button id="next"><span class="material-icons">arrow_forward</span></button>
       `;
       document.getElementById("prev")?.addEventListener("click", () => {
-        renderStampa(statistics, avgValues, itemsPerPage, currentPage === 1 ? lastPage : currentPage - 1);
+        renderStampa(
+          statistics,
+          avgValues,
+          itemsPerPage,
+          currentPage === 1 ? lastPage : currentPage - 1,
+        );
       });
       document.getElementById("next")?.addEventListener("click", () => {
-        renderStampa(statistics, avgValues, itemsPerPage, currentPage === lastPage ? 1 : currentPage + 1);
+        renderStampa(
+          statistics,
+          avgValues,
+          itemsPerPage,
+          currentPage === lastPage ? 1 : currentPage + 1,
+        );
       });
     }
   };
 
-  const renderSummary = (totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth,
-    totaleCorse, avgRacesPerYear, avgRacesPerMonth, totalMonths, totalYears) => {
+  const renderSummary = (
+    totalekm,
+    avgkmPerRace,
+    avgkmPerYear,
+    avgkmPerMonth,
+    totaleCorse,
+    avgRacesPerYear,
+    avgRacesPerMonth,
+    totalMonths,
+    totalYears,
+  ) => {
     const totaleElement = document.getElementById("totale");
     if (totaleElement) {
       totaleElement.innerHTML = `
@@ -133,20 +168,41 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { mainData, statistics } = dataResult;
     const { colors } = mainData;
     const {
-      totalekm, totaleCorse, totalYears, totalMonths,
-      avgkmPerRace, avgkmPerYear, avgkmPerMonth,
-      avgRacesPerYear, avgRacesPerMonth, avgValues,
+      totalekm,
+      totaleCorse,
+      totalYears,
+      totalMonths,
+      avgkmPerRace,
+      avgkmPerYear,
+      avgkmPerMonth,
+      avgRacesPerYear,
+      avgRacesPerMonth,
+      avgValues,
     } = calculateAverages(statistics);
 
     const chartData = { statistics, colors };
-    await window.chartRenderer.createChart("generaleStatisticheLine", chartData);
+    await window.chartRenderer.createChart(
+      "generaleStatisticheLine",
+      chartData,
+    );
     await window.chartRenderer.createChart("generaleStatistiche", chartData);
 
-    renderSummary(totalekm, avgkmPerRace, avgkmPerYear, avgkmPerMonth,
-      totaleCorse, avgRacesPerYear, avgRacesPerMonth, totalMonths, totalYears);
+    renderSummary(
+      totalekm,
+      avgkmPerRace,
+      avgkmPerYear,
+      avgkmPerMonth,
+      totaleCorse,
+      avgRacesPerYear,
+      avgRacesPerMonth,
+      totalMonths,
+      totalYears,
+    );
 
     renderStampa(
-      statistics, avgValues, 2,
+      statistics,
+      avgValues,
+      2,
       parseInt(localStorage.getItem("page_statistiche")) || 1,
     );
   } else {

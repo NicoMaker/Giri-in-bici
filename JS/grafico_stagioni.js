@@ -34,7 +34,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     await window.chartRenderer.createChart("stagioniLine", chartData);
     await window.chartRenderer.createChart("stagioni", chartData);
 
-    renderDataList(labels, subPeriodData, path, image, season, cssclass, avgValues);
+    renderDataList(
+      labels,
+      subPeriodData,
+      path,
+      image,
+      season,
+      cssclass,
+      avgValues,
+    );
     renderSeasonSummary(season, totale, totalePeriodi, totalRaces);
     adjustContainerLayout(cssclass);
   } catch (error) {
@@ -54,9 +62,9 @@ async function fetchSubPeriods(subPeriods) {
 }
 
 const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
-  labels
-    .map(
-      (label, index) => `
+    labels
+      .map(
+        (label, index) => `
       <div class="${cssclass}contorno">
         <a href="${path}/Periodi/${label}.html">
           <img class="immaginestagione" src="Icons/${image}">
@@ -72,13 +80,21 @@ const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
         </a>
       </div>
     `,
-    )
-    .join(""),
+      )
+      .join(""),
   updateStampa = (stampa) =>
     (document.getElementById("stampa").innerHTML =
       `<div class="container">${stampa}</div>`);
 
-function renderDataListPaginated(labels, data, path, image, season, cssclass, avgValues) {
+function renderDataListPaginated(
+  labels,
+  data,
+  path,
+  image,
+  season,
+  cssclass,
+  avgValues,
+) {
   const itemsPerPage = 2;
   const storageKey = `page_${season}`;
   let currentPage = parseInt(localStorage.getItem(storageKey)) || 1;
@@ -93,9 +109,22 @@ function renderDataListPaginated(labels, data, path, image, season, cssclass, av
       acc[label] = data[label];
       return acc;
     }, {});
-    const currentAvgValues = avgValues.slice(startIndex, startIndex + itemsPerPage);
+    const currentAvgValues = avgValues.slice(
+      startIndex,
+      startIndex + itemsPerPage,
+    );
 
-    updateStampa(createStampa(currentLabels, currentData, path, image, season, cssclass, currentAvgValues));
+    updateStampa(
+      createStampa(
+        currentLabels,
+        currentData,
+        path,
+        image,
+        season,
+        cssclass,
+        currentAvgValues,
+      ),
+    );
 
     const pagination = document.getElementById("pagination");
     if (pagination) {
@@ -123,8 +152,24 @@ function renderDataListPaginated(labels, data, path, image, season, cssclass, av
   updatePage();
 }
 
-const renderDataList = (labels, data, path, image, season, cssclass, avgValues) =>
-  renderDataListPaginated(labels, data, path, image, season, cssclass, avgValues);
+const renderDataList = (
+  labels,
+  data,
+  path,
+  image,
+  season,
+  cssclass,
+  avgValues,
+) =>
+  renderDataListPaginated(
+    labels,
+    data,
+    path,
+    image,
+    season,
+    cssclass,
+    avgValues,
+  );
 
 function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
   const avgseason = formatNumber(totale / totalePeriodi);

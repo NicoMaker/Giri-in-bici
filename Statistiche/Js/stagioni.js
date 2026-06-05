@@ -7,7 +7,8 @@ let CHART_CONFIG = {};
 async function loadJSON(jsonFilePath) {
   try {
     const response = await fetch(jsonFilePath);
-    if (!response.ok) throw new Error(`Failed to load ${jsonFilePath}: ${response.status}`);
+    if (!response.ok)
+      throw new Error(`Failed to load ${jsonFilePath}: ${response.status}`);
     return await response.json();
   } catch (error) {
     console.error(`Errore nel caricamento di ${jsonFilePath}:`, error);
@@ -54,9 +55,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const renderStampa = (data, numPeriodsPerSeason) => {
     return SEASONS_CONFIG.map((season) => {
       const numPeriods =
-        season.name === "Primavera" ? numPeriodsPerSeason.primavera :
-        season.name === "Estate" ? numPeriodsPerSeason.estate :
-        numPeriodsPerSeason.autunno_inverno;
+        season.name === "Primavera"
+          ? numPeriodsPerSeason.primavera
+          : season.name === "Estate"
+            ? numPeriodsPerSeason.estate
+            : numPeriodsPerSeason.autunno_inverno;
       return renderSeasonDiv(season, data, numPeriods);
     }).join("");
   };
@@ -97,7 +100,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>`;
   };
 
-  function calculateData(primaveraData, estateData, autunnoInvernoData, numPeriodi) {
+  function calculateData(
+    primaveraData,
+    estateData,
+    autunnoInvernoData,
+    numPeriodi,
+  ) {
     const primavera = sumData(primaveraData);
     const estate = sumData(estateData);
     const autunno_inverno = sumData(autunnoInvernoData);
@@ -106,11 +114,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     const corseai = countRaces(autunnoInvernoData);
     const corseTotale = corsep + corsee + corseai;
     const totale = primavera + estate + autunno_inverno;
-    const totalePeriodi = numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
+    const totalePeriodi =
+      numPeriodi.primavera + numPeriodi.estate + numPeriodi.autunno_inverno;
 
     return {
-      p: primavera, e: estate, ai: autunno_inverno,
-      corsep, corsee, corseai, corseTotale, totale, totalePeriodi,
+      p: primavera,
+      e: estate,
+      ai: autunno_inverno,
+      corsep,
+      corsee,
+      corseai,
+      corseTotale,
+      totale,
+      totalePeriodi,
       avgp: totale > 0 ? (primavera / totale) * 100 : 0,
       avge: totale > 0 ? (estate / totale) * 100 : 0,
       avgai: totale > 0 ? (autunno_inverno / totale) * 100 : 0,
@@ -128,16 +144,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const numPeriodi = { primavera: 0, estate: 0, autunno_inverno: 0 };
-    const seasonNameMap = { Primavera: "primavera", Estate: "estate", Autunno_Inverno: "autunno_inverno" };
+    const seasonNameMap = {
+      Primavera: "primavera",
+      Estate: "estate",
+      Autunno_Inverno: "autunno_inverno",
+    };
 
     const resolvedSeasons = await Promise.all(
       seasonsData.seasons.map(async (season) => {
-        const seasonKey = seasonNameMap[season.name] || season.name.toLowerCase().replace("-", "_");
+        const seasonKey =
+          seasonNameMap[season.name] ||
+          season.name.toLowerCase().replace("-", "_");
         numPeriodi[seasonKey] = Object.keys(season.subPeriods).length;
 
         const subPeriodsData = await Promise.all(
           Object.entries(season.subPeriods).map(async ([, subFile]) => {
-            const correctedPath = subFile.startsWith("../") ? subFile : `../${subFile}`;
+            const correctedPath = subFile.startsWith("../")
+              ? subFile
+              : `../${subFile}`;
             const subData = await loadJSON(correctedPath);
             return subData && Array.isArray(subData) ? subData : [];
           }),
@@ -149,7 +173,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const primaveraData = resolvedSeasons.find((s) => s.name === "Primavera");
     const estateData = resolvedSeasons.find((s) => s.name === "Estate");
-    const autunnoInvernoData = resolvedSeasons.find((s) => s.name === "Autunno_Inverno");
+    const autunnoInvernoData = resolvedSeasons.find(
+      (s) => s.name === "Autunno_Inverno",
+    );
 
     if (!primaveraData || !estateData || !autunnoInvernoData) {
       document.getElementById("dati").innerHTML =
@@ -158,7 +184,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const calculatedData = calculateData(
-      primaveraData.data, estateData.data, autunnoInvernoData.data, numPeriodi,
+      primaveraData.data,
+      estateData.data,
+      autunnoInvernoData.data,
+      numPeriodi,
     );
 
     const labels = ["Primavera", "Estate", "Autunno-Inverno"];
@@ -172,20 +201,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         type: "line",
         data: {
           labels,
-          datasets: [{
-            label: "km stagioni (andamento)",
-            data: chartData,
-            borderColor: "rgba(54, 162, 235, 1)",
-            backgroundColor: "transparent",
-            borderWidth: 3,
-            pointBackgroundColor: "rgba(54, 162, 235, 1)",
-            pointBorderColor: "rgba(255, 255, 255, 1)",
-            pointBorderWidth: 2,
-            pointRadius: 6,
-            pointHoverRadius: 8,
-            tension: 0.35,
-            fill: false,
-          }],
+          datasets: [
+            {
+              label: "km stagioni (andamento)",
+              data: chartData,
+              borderColor: "rgba(54, 162, 235, 1)",
+              backgroundColor: "transparent",
+              borderWidth: 3,
+              pointBackgroundColor: "rgba(54, 162, 235, 1)",
+              pointBorderColor: "rgba(255, 255, 255, 1)",
+              pointBorderWidth: 2,
+              pointRadius: 6,
+              pointHoverRadius: 8,
+              tension: 0.35,
+              fill: false,
+            },
+          ],
         },
         options: {
           responsive: true,
@@ -199,13 +230,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             x: { title: { display: true } },
           },
           plugins: {
-            legend: { position: "top", labels: { font: { size: 12, weight: "bold" } } },
+            legend: {
+              position: "top",
+              labels: { font: { size: 12, weight: "bold" } },
+            },
             tooltip: {
               callbacks: {
                 label: function (context) {
                   const km = formatNumber(context.raw);
                   const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                  const pct = formatItalianNumber(total > 0 ? (context.raw / total) * 100 : 0, true);
+                  const pct = formatItalianNumber(
+                    total > 0 ? (context.raw / total) * 100 : 0,
+                    true,
+                  );
                   return `${context.dataset.label}: ${km} km (${pct}%)`;
                 },
               },
@@ -217,30 +254,48 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Grafico a ciambella
     const canvas = document.getElementById("doughnut-chart");
-    if (!canvas) { console.error("Canvas doughnut-chart non trovato!"); return; }
+    if (!canvas) {
+      console.error("Canvas doughnut-chart non trovato!");
+      return;
+    }
 
     if (window.myChart) window.myChart.destroy();
 
-    document.getElementById("dati").innerHTML = renderStampa(calculatedData, numPeriodi);
-    document.getElementById("totale").innerHTML = createStampat(calculatedData, numPeriodi);
+    document.getElementById("dati").innerHTML = renderStampa(
+      calculatedData,
+      numPeriodi,
+    );
+    document.getElementById("totale").innerHTML = createStampat(
+      calculatedData,
+      numPeriodi,
+    );
 
     window.myChart = new Chart(canvas.getContext("2d"), {
       type: "doughnut",
       data: {
         labels,
-        datasets: [{
-          label: "km totali stagione",
-          backgroundColor: CHART_CONFIG.colors || ["#ff9999", "#66b3ff", "#99ff99"],
-          borderColor: CHART_CONFIG.borderColor || "black",
-          borderWidth: CHART_CONFIG.borderWidth || 1,
-          data: chartData,
-        }],
+        datasets: [
+          {
+            label: "km totali stagione",
+            backgroundColor: CHART_CONFIG.colors || [
+              "#ff9999",
+              "#66b3ff",
+              "#99ff99",
+            ],
+            borderColor: CHART_CONFIG.borderColor || "black",
+            borderWidth: CHART_CONFIG.borderWidth || 1,
+            data: chartData,
+          },
+        ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: true,
         plugins: {
-          legend: { position: "top", labels: { font: { size: 12, weight: "bold" } } },
+          legend: {
+            position: "top",
+            labels: { font: { size: 12, weight: "bold" } },
+          },
           tooltip: {
             callbacks: {
               label: function (context) {
