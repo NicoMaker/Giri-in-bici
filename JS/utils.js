@@ -45,9 +45,7 @@ function formatItalianNumber(num, forceDecimals = false) {
  * @param {number|string} value
  * @returns {string}
  */
-function formatNumber(value) {
-  return formatItalianNumber(value, true);
-}
+const formatNumber = (value) => formatItalianNumber(value, true);
 
 /**
  * Formatta una percentuale con esattamente 2 decimali fissi.
