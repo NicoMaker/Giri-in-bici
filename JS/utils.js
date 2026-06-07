@@ -54,7 +54,7 @@ const formatNumber = (value) => formatItalianNumber(value, true);
  */
 function formatPercentage(value) {
   if (typeof value === "string") value = parseFloat(value);
-  if (isNaN(value)) return "0,00";
+  if (isNaN(value)) return "0";
 
   const fixedNum = value.toFixed(2);
   const parts = fixedNum.split(".");
@@ -72,6 +72,8 @@ function formatPercentage(value) {
     integerPart = groups.join(".");
   }
 
+  // Se i decimali sono "00", non mostrarli
+  if (decimalPart === "00") return integerPart;
   return integerPart + "," + decimalPart;
 }
 
