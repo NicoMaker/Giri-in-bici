@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }).join("");
   };
 
-  const createStampat = (data, numPeriodsPerSeason) => {
+const createStampat = (data, numPeriodsPerSeason) => {
     const totalePeriodi =
       numPeriodsPerSeason.primavera +
       numPeriodsPerSeason.estate +
@@ -79,19 +79,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p class="misuracolore">Media corse per periodo ${formatNumber(data.corseTotale / totalePeriodi)}</p>
         <p class="misuracolore">Media corse per stagione ${formatNumber(data.corseTotale / 3)}</p>
         <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
-        <p class="misuracolore" style="text-align: center;">📊 DETTAGLIO PERIODI PER STAGIONE</p>
+        <p class="misuracolore" style="text-align: center;">📊 DETTAGLIO PERIODI E CORSE PER STAGIONE</p>
         <div style="display: flex; justify-content: space-between; margin-top: 10px; flex-wrap: wrap;">
           <div style="flex: 1; text-align: center; padding: 5px;">
             <p class="misuracolore">🌸 PRIMAVERA</p>
             <p class="misuracolore">${numPeriodsPerSeason.primavera} periodi</p>
+            <p class="misuracolore">${formatItalianNumber(data.corsep)} corse</p>
           </div>
           <div style="flex: 1; text-align: center; padding: 5px;">
             <p class="misuracolore">☀️ ESTATE</p>
             <p class="misuracolore">${numPeriodsPerSeason.estate} periodi</p>
+            <p class="misuracolore">${formatItalianNumber(data.corsee)} corse</p>
           </div>
           <div style="flex: 1; text-align: center; padding: 5px;">
             <p class="misuracolore">🍂 AUTUNNO-INVERNO</p>
             <p class="misuracolore">${numPeriodsPerSeason.autunno_inverno} periodi</p>
+            <p class="misuracolore">${formatItalianNumber(data.corseai)} corse</p>
           </div>
         </div>
         <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
