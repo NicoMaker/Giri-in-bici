@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <a href="Statistiche_Mensili.html">
         <div class="colore">
           <p class="misuracolore">Totale km ${formatNumber(totale)} <img src="../../Icons/traguardo.png"></p>
-          <p class="misuracolore">Km medi per corsa ${kmMediPerCorsa}</p>
+          <p class="misuracolore">km medi per corsa ${kmMediPerCorsa}</p>
           <p class="misuracolore">Km medi per mese ${kmMediPerMese}</p>
           <p class="misuracolore">Totale corse ${formatItalianNumber(totaleCorse)}</p>
           <p class="misuracolore">Corse medie per anno ${racesPerYear}</p>

@@ -179,7 +179,7 @@ function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
   document.getElementById("totale").innerHTML = `
     <div class="colore">
       <p class="misuracolore">Totale km percorsi in ${season} ${formatNumber(totale)} <img src="Icons/traguardo.png"></p>
-      <p class="misuracolore">Km medi per giro in ${season} ${avgcorsa}</p>
+      <p class="misuracolore">km medi per giro in ${season} ${avgcorsa}</p>
       <p class="misuracolore">Media km per periodo ${avgseason}</p>
       <p class="misuracolore">Totale corse ${formattedTotalRaces}</p>
       <p class="misuracolore">Corse medie per periodo ${formatNumber(totalRaces / totalePeriodi)}</p>
