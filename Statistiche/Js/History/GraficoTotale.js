@@ -19,12 +19,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       const config = await response.json();
       orderMesi = config.orderMesi;
     } catch (error) {
-      console.error("Errore nel caricamento di config-mesi.json, uso fallback:", error);
+      console.error(
+        "Errore nel caricamento di config-mesi.json, uso fallback:",
+        error,
+      );
       // Fallback hardcoded
       orderMesi = {
-        Gennaio: 1, Febbraio: 2, Marzo: 3, Aprile: 4,
-        Maggio: 5, Giugno: 6, Luglio: 7, Agosto: 8,
-        Settembre: 9, Ottobre: 10, Novembre: 11, Dicembre: 12
+        Gennaio: 1,
+        Febbraio: 2,
+        Marzo: 3,
+        Aprile: 4,
+        Maggio: 5,
+        Giugno: 6,
+        Luglio: 7,
+        Agosto: 8,
+        Settembre: 9,
+        Ottobre: 10,
+        Novembre: 11,
+        Dicembre: 12,
       };
     }
   }

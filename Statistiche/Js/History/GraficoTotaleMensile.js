@@ -20,11 +20,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Estrae i mesi ordinati dalle chiavi del config
       mesiOrdinati = Object.keys(config.orderMesi);
     } catch (error) {
-      console.error("Errore nel caricamento di config-mesi.json, uso fallback:", error);
+      console.error(
+        "Errore nel caricamento di config-mesi.json, uso fallback:",
+        error,
+      );
       // Fallback hardcoded
       mesiOrdinati = [
-        "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-        "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+        "Gennaio",
+        "Febbraio",
+        "Marzo",
+        "Aprile",
+        "Maggio",
+        "Giugno",
+        "Luglio",
+        "Agosto",
+        "Settembre",
+        "Ottobre",
+        "Novembre",
+        "Dicembre",
       ];
     }
   }
