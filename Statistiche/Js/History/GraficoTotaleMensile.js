@@ -9,20 +9,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const mesiOrdinati = [
-    "Gennaio",
-    "Febbraio",
-    "Marzo",
-    "Aprile",
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Ottobre",
-    "Novembre",
-    "Dicembre",
-  ];
+  let mesiOrdinati = [];
+
+  // Carica la configurazione dei mesi
+  async function loadMonthConfig() {
+    try {
+      const response = await fetch("../Js/History/JSON/config-mesi.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const config = await response.json();
+      // Estrae i mesi ordinati dalle chiavi del config
+      mesiOrdinati = Object.keys(config.orderMesi);
+    } catch (error) {
+      console.error("Errore nel caricamento di config-mesi.json, uso fallback:", error);
+      // Fallback hardcoded
+      mesiOrdinati = [
+        "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+        "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+      ];
+    }
+  }
 
   const getTotale = (chilometri) =>
     chilometri.reduce((acc, curr) => acc + curr, 0);
@@ -54,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <th>Percentuale sul totale</th>
       <th>Mesi di Corsa</th>
       <th>km <img src="../../Icons/traguardo.png"> medi mensili</th>
-    </tr>
+     </tr>
     ${kmPerMese
       .map(
         ({ mese, kmMediMese }, index) => `
@@ -85,6 +90,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     </a>`;
 
   try {
+    // Carica la configurazione dei mesi prima di tutto
+    await loadMonthConfig();
+
     const statistics = await fetchJSON("../Js/History/JSON/GraficoTotale.json");
     const allData = await Promise.all(
       Object.values(statistics.statistics).map((filePath) =>

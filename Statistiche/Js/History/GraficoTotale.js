@@ -9,20 +9,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const orderMesi = {
-    Gennaio: 1,
-    Febbraio: 2,
-    Marzo: 3,
-    Aprile: 4,
-    Maggio: 5,
-    Giugno: 6,
-    Luglio: 7,
-    Agosto: 8,
-    Settembre: 9,
-    Ottobre: 10,
-    Novembre: 11,
-    Dicembre: 12,
-  };
+  let orderMesi = {}; // Verrà popolato dal config
+
+  // Carica la configurazione dei mesi
+  async function loadMonthConfig() {
+    try {
+      const response = await fetch("../Js/History/JSON/config-mesi.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const config = await response.json();
+      orderMesi = config.orderMesi;
+    } catch (error) {
+      console.error("Errore nel caricamento di config-mesi.json, uso fallback:", error);
+      // Fallback hardcoded
+      orderMesi = {
+        Gennaio: 1, Febbraio: 2, Marzo: 3, Aprile: 4,
+        Maggio: 5, Giugno: 6, Luglio: 7, Agosto: 8,
+        Settembre: 9, Ottobre: 10, Novembre: 11, Dicembre: 12
+      };
+    }
+  }
 
   async function fetchYearData(url, year) {
     try {
@@ -78,16 +83,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         <th>km <img src="../../Icons/traguardo.png"></th>
         <th>Percentuale sul totale</th>
         <th>Anno</th>
-      </tr>
+       </tr>
       ${mesi
         .map(
           (mese, index) => `
-        <tr>
-          <td>${mese || "N/D"}</td>
-          <td>${formatNumber(chilometri[index] || 0)}</td>
-          <td>${percentuali[index] || "0,00"} %</td>
-          <td>${anni[index] || "N/D"}</td>
-        </tr>`,
+         <tr>
+           <td>${mese || "N/D"}</td>
+           <td>${formatNumber(chilometri[index] || 0)}</td>
+           <td>${percentuali[index] || "0,00"} %</td>
+           <td>${anni[index] || "N/D"}</td>
+         </tr>`,
         )
         .join("")}
     `;
@@ -117,6 +122,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
+    // Carica la configurazione dei mesi prima di tutto
+    await loadMonthConfig();
+
     const data = await fetchJSON("../Js/History/JSON/GraficoTotale.json");
     if (!data || !data.statistics) {
       console.error("Struttura statistics mancante");

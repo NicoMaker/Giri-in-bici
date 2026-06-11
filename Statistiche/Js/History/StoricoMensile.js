@@ -1,18 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const mesi = [
-    "Gennaio",
-    "Febbraio",
-    "Marzo",
-    "Aprile",
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Ottobre",
-    "Novembre",
-    "Dicembre",
-  ];
+  let mesi = [];
+
+  // Carica la configurazione dei mesi
+  async function loadMonthConfig() {
+    try {
+      const response = await fetch("../Js/History/JSON/config-mesi.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const config = await response.json();
+      mesi = Object.keys(config.orderMesi);
+    } catch (error) {
+      console.error("Errore nel caricamento di config-mesi.json, uso fallback:", error);
+      // Fallback hardcoded
+      mesi = [
+        "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+        "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+      ];
+    }
+  }
 
   // formatNumber è disponibile globalmente da JS/utils.js
 
@@ -214,22 +218,25 @@ document.addEventListener("DOMContentLoaded", () => {
     new Chart(ctxbar, createConfig("bar", datasets));
   }
 
-  fetch("../Js/History/JSON/StoricoMensile.json")
-    .then((response) => response.json())
-    .then((yearsData) => {
-      const yearLabels = Object.values(yearsData).map((y) => y.label);
-      const datasetsPromises = Object.values(yearsData).map((yearInfo) =>
-        fetch(yearInfo.data)
-          .then((r) => r.json())
-          .then((yearData) =>
-            createDataset(yearData, yearInfo.label, yearInfo.color),
-          ),
-      );
-      return Promise.all(datasetsPromises).then((datasets) => ({
-        datasets,
-        yearLabels,
-      }));
-    })
-    .then(({ datasets, yearLabels }) => renderCharts(datasets, yearLabels))
-    .catch((error) => console.error(`Error loading the data:, ${error}`));
+  // Carica la configurazione, poi carica i dati e renderizza
+  loadMonthConfig().then(() => {
+    fetch("../Js/History/JSON/StoricoMensile.json")
+      .then((response) => response.json())
+      .then((yearsData) => {
+        const yearLabels = Object.values(yearsData).map((y) => y.label);
+        const datasetsPromises = Object.values(yearsData).map((yearInfo) =>
+          fetch(yearInfo.data)
+            .then((r) => r.json())
+            .then((yearData) =>
+              createDataset(yearData, yearInfo.label, yearInfo.color),
+            ),
+        );
+        return Promise.all(datasetsPromises).then((datasets) => ({
+          datasets,
+          yearLabels,
+        }));
+      })
+      .then(({ datasets, yearLabels }) => renderCharts(datasets, yearLabels))
+      .catch((error) => console.error(`Error loading the data:, ${error}`));
+  });
 });
