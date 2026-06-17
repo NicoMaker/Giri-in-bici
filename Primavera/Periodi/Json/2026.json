@@ -64,9 +64,14 @@
     "place": "<a href=\"https://www.komoot.it/tour/3020460445?ref=aso&t_s=referral&t_cid=route_share\" target=\"_blank\">Sella Chianzutan</a>",
     "distance": 141
   },
-    {
+  {
     "date": "12 Giugno",
     "place": "<a href=\"https://www.komoot.com/it-it/tour/3032379078?share_token=aJRTdEr0452G1lDTXrB604DRKCJ5O6LnodUekoOuU1Sm2uA9Ob&ref=wtd&t_s=referral&t_cid=route_share&t_ref_username=1372754001803\" target=\"_blank\">Monte di Ragogna + Pordenone</a>",
     "distance": 119
+  },
+  {
+    "date": "17 Giugno",
+    "place": "<a href=\"https://www.komoot.com/it-it/tour/3044080308?share_token=a1Yc9LZq8LQ7as41vWPqsbUkXRSv7nYbHDevWlnD2738eUKEnK&ref=wtd&t_s=referral&t_cid=route_share&t_ref_username=1372754001803\" target=\"_blank\">Arris & Mortegliano</a>",
+    "distance": 70
   }
 ]
