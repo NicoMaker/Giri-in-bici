@@ -8,8 +8,8 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ### Stagione
 
-1. **Aggiorna il file JSON per la stagione Primavera 2026**
-   - **Percorso:** [`Primavera/Periodi/Json/2026.json`](Primavera/Periodi/Json/2026.json)
+1. **Aggiorna il file JSON per la stagione Estate 2026**
+   - **Percorso:** [`Estate/Periodi/Json/2026.json`](Estate/Periodi/Json/2026.json)
    - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.
 
 ### Statistiche
