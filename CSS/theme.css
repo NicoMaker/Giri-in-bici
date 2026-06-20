@@ -149,10 +149,7 @@ a:hover {
   font-size: clamp(2.4rem, 8vw, 4.5rem);
   font-weight: 700;
   margin: 24px auto 8px;
-  background: linear-gradient(90deg, #009246, #009246, #f1f2f1, #f1f2f1, #ce2b37, #ce2b37);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -972,8 +969,8 @@ input:focus {
 .Primaveracontorno,
 .Autunno-Invernocontorno,
 div.Statistiche {
-  flex: 1 1 260px;
-  max-width: 280px;
+  flex: 1 1 380px;
+  max-width: 420px;
   margin: 0;
   box-sizing: border-box;
   border: none;
@@ -989,8 +986,8 @@ div.Statistiche {
 .odd-items .Primaveracontorno:last-child,
 .odd-items .Autunno-Invernocontorno:last-child,
 .odd-items div.Statistiche:last-child {
-  flex: 1 1 100%;
-  max-width: 360px;
+  flex: 1 1 380px;
+  max-width: 420px;
 }
 
 .Estatecontorno:hover,
