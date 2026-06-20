@@ -104,7 +104,9 @@ a:hover {
   background: none;
   border-radius: 14px;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .Bandiera-FVG:hover {
@@ -186,7 +188,9 @@ a:hover {
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .colore_apertura:hover {
@@ -210,7 +214,9 @@ button.principale {
   padding: 10px;
   box-shadow: var(--shadow-md);
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .principale:hover {
@@ -247,7 +253,9 @@ button.principale {
   padding: 4px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   cursor: pointer;
 }
 
@@ -282,19 +290,33 @@ button.principale {
   border-radius: var(--radius-lg);
   padding: 4px;
   box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .primavera {
-  background: linear-gradient(120deg, var(--season-primavera-1), var(--season-primavera-2));
+  background: linear-gradient(
+    120deg,
+    var(--season-primavera-1),
+    var(--season-primavera-2)
+  );
 }
 
 .estate {
-  background: linear-gradient(120deg, var(--season-estate-1), var(--season-estate-2));
+  background: linear-gradient(
+    120deg,
+    var(--season-estate-1),
+    var(--season-estate-2)
+  );
 }
 
 .autunno_inverno {
-  background: linear-gradient(120deg, var(--season-autunno-1), var(--season-autunno-2));
+  background: linear-gradient(
+    120deg,
+    var(--season-autunno-1),
+    var(--season-autunno-2)
+  );
 }
 
 .primavera:hover,
@@ -403,7 +425,9 @@ button.principale {
   display: inline-block;
   object-fit: cover;
   box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .immagini_stagione2 {
@@ -448,7 +472,9 @@ button.principale {
   padding: 22px 26px;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-soft);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .colore:hover {
@@ -496,7 +522,9 @@ button.principale {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .contorno:hover,
@@ -529,7 +557,9 @@ button.principale {
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-soft);
   vertical-align: top;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .Statistiche:hover {
@@ -611,7 +641,9 @@ button.principale {
   color: #fff;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 #pagination button:hover {
@@ -727,7 +759,9 @@ input {
   border: 1px solid var(--border-soft);
   outline: none;
   width: 80%;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 input:focus {
@@ -795,7 +829,10 @@ input:focus {
   align-items: center;
   gap: 10px;
   justify-content: flex-start;
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .menu button:hover {
@@ -828,7 +865,10 @@ input:focus {
   font-weight: 600;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .menu a:hover {
@@ -877,7 +917,9 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .hamburger:hover {
@@ -957,7 +999,9 @@ input:focus {
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   overflow: hidden;
   background: var(--card-bg);
   box-shadow: var(--shadow-md);
@@ -1006,7 +1050,9 @@ div.Statistiche {
   padding: 40px 28px;
   box-shadow: var(--shadow-md);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .odd-items .Estatecontorno:last-child,

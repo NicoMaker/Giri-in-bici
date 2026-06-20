@@ -49,9 +49,7 @@ function renderMenuItems(items) {
 
 function filterMenu(search) {
   const term = search.toLowerCase();
-  return menuItems.filter((item) =>
-    item.name.toLowerCase().startsWith(term),
-  );
+  return menuItems.filter((item) => item.name.toLowerCase().startsWith(term));
 }
 
 async function initMenu() {

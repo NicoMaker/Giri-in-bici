@@ -1,143 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Nico Maker" name="author" />
+    <meta content="italian" name="language" />
+    <meta
+      content="Migliori avventure mai fatte,Avventure in FVG; Avventure in Friuli,Giri in Bici FVG, FVG,Giri in Bici,Bici,Viaggiare in Bici, Viaggare nel Friuli, Friuli, Viaggiare in FVG, Friuli,Nico Maker"
+      name="keyword"
+    />
+    <meta content="HTML, CSS, JavaScript" name="generator" />
+    <link href="Login/StyleLogin.css" rel="stylesheet" type="text/css" />
+    <link href="Img/logo.jpg" rel="icon" type="image/png" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="JS/utils.js"></script>
+    <script defer src="Login/scriptLogin.js"></script>
+    <!-- Titolo -->
+    <title>
+      Giri in Bici FVG | Accedi per Esplorare le Avventure in Friuli
+    </title>
+    <!-- Meta Description -->
+    <meta
+      content="Accedi al sito Giri in Bici per esplorare le migliori avventure in bici in Friuli Venezia Giulia, divise per stagione."
+      name="description"
+    />
+    <!-- Meta Keywords (usalo solo se proprio desideri, Google non lo considera più rilevante) -->
+    <meta
+      content="giri in bici, Friuli Venezia Giulia, ciclismo FVG, bici Friuli, avventure in bici, itinerari cicloturistici, Nico Maker"
+      name="keywords"
+    />
+    <!-- Autore -->
+    <meta content="Nico Maker" name="author" />
+    <!-- Lingua -->
+    <meta content="it" name="language" />
+    <!-- Compatibilità con IE -->
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <!-- Robots (indicizzazione) -->
+    <meta content="index, follow" name="robots" />
+    <!-- Canonical URL (da aggiornare con la tua vera URL) -->
+    <link href="https://giri-in-bici.netlify.app/" rel="canonical" />
+    <!-- Open Graph per Facebook, WhatsApp, LinkedIn -->
+    <meta content="Giri in Bici - Accedi" property="og:title" />
+    <meta
+      content="Accedi per scoprire le migliori avventure in bici nel Friuli Venezia Giulia."
+      property="og:description"
+    />
+    <meta content="website" property="og:type" />
+    <meta
+      content="https://www.nicomaker.it/giri-in-bici/login"
+      property="og:url"
+    />
+    <meta content="https://www.nicomaker.it/Img/logo.jpg" property="og:image" />
+    <!-- Twitter Card -->
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta
+      content="Giri in Bici - Esplora le Avventure in FVG"
+      name="twitter:title"
+    />
+    <meta
+      content="Accedi e scopri i migliori percorsi in bici nel Friuli Venezia Giulia."
+      name="twitter:description"
+    />
+    <meta
+      content="https://www.nicomaker.it/Img/logo.jpg"
+      name="twitter:image"
+    />
+    <!-- Favicon -->
+    <link href="Img/logo.jpg" rel="icon" type="image/png" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <meta content="Nico Maker" name="author" />
-  <meta content="italian" name="language" />
-  <meta
-    content="Migliori avventure mai fatte,Avventure in FVG; Avventure in Friuli,Giri in Bici FVG, FVG,Giri in Bici,Bici,Viaggiare in Bici, Viaggare nel Friuli, Friuli, Viaggiare in FVG, Friuli,Nico Maker"
-    name="keyword" />
-  <meta content="HTML, CSS, JavaScript" name="generator" />
-  <link href="Login/StyleLogin.css" rel="stylesheet" type="text/css" />
-  <link href="Img/logo.jpg" rel="icon" type="image/png" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <script src="JS/utils.js"></script>
-  <script defer src="Login/scriptLogin.js"></script>
-  <!-- Titolo -->
-  <title>
-    Giri in Bici FVG | Accedi per Esplorare le Avventure in Friuli
-  </title>
-  <!-- Meta Description -->
-  <meta
-    content="Accedi al sito Giri in Bici per esplorare le migliori avventure in bici in Friuli Venezia Giulia, divise per stagione."
-    name="description" />
-  <!-- Meta Keywords (usalo solo se proprio desideri, Google non lo considera più rilevante) -->
-  <meta
-    content="giri in bici, Friuli Venezia Giulia, ciclismo FVG, bici Friuli, avventure in bici, itinerari cicloturistici, Nico Maker"
-    name="keywords" />
-  <!-- Autore -->
-  <meta content="Nico Maker" name="author" />
-  <!-- Lingua -->
-  <meta content="it" name="language" />
-  <!-- Compatibilità con IE -->
-  <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <!-- Robots (indicizzazione) -->
-  <meta content="index, follow" name="robots">
-  <!-- Canonical URL (da aggiornare con la tua vera URL) -->
-  <link href="https://giri-in-bici.netlify.app/" rel="canonical" />
-  <!-- Open Graph per Facebook, WhatsApp, LinkedIn -->
-  <meta content="Giri in Bici - Accedi" property="og:title">
-  <meta content="Accedi per scoprire le migliori avventure in bici nel Friuli Venezia Giulia."
-    property="og:description">
-  <meta content="website" property="og:type" />
-  <meta content="https://www.nicomaker.it/giri-in-bici/login" property="og:url" />
-  <meta content="https://www.nicomaker.it/Img/logo.jpg" property="og:image" />
-  <!-- Twitter Card -->
-  <meta content="summary_large_image" name="twitter:card" />
-  <meta content="Giri in Bici - Esplora le Avventure in FVG" name="twitter:title" />
-  <meta content="Accedi e scopri i migliori percorsi in bici nel Friuli Venezia Giulia." name="twitter:description" />
-  <meta content="https://www.nicomaker.it/Img/logo.jpg" name="twitter:image" />
-  <!-- Favicon -->
-  <link href="Img/logo.jpg" rel="icon" type="image/png" />
-</head>
-
-<body>
-  <div class="particles-container" id="particles-js">
-  </div>
-  <div class="container" id="container">
-    <div class="login-card">
-      <div class="card-decoration">
-      </div>
-      <div class="card-decoration-2">
-      </div>
-      <div class="logo-container">
-        <div class="logo-circle">
-          <img alt="Logo Giri in Bici" id="logo" src="Img/logo.jpg" />
-        </div>
-      </div>
-      <h1>
-        Giri in Bici
-      </h1>
-      <p class="subtitle">
-        Accedi per esplorare le avventure
-      </p>
-      <form id="loginForm">
-        <div class="form-group">
-          <div class="input-icon">
-            <i class="fas fa-user">
-            </i>
-            <input autocomplete="new-username" id="username" placeholder="Username" required="" type="text" />
-            <span class="input-focus-effect">
-            </span>
+  <body>
+    <div class="particles-container" id="particles-js"></div>
+    <div class="container" id="container">
+      <div class="login-card">
+        <div class="card-decoration"></div>
+        <div class="card-decoration-2"></div>
+        <div class="logo-container">
+          <div class="logo-circle">
+            <img alt="Logo Giri in Bici" id="logo" src="Img/logo.jpg" />
           </div>
         </div>
-        <div class="form-group">
-          <div class="input-icon">
-            <i class="fas fa-lock">
-            </i>
-            <input autocomplete="new-password" id="password" placeholder="Password" required="" type="password" />
-            <i aria-label="Mostra/nascondi password" class="fas fa-eye toggle-password" id="togglePassword">
-            </i>
-            <span class="input-focus-effect">
-            </span>
+        <h1>Giri in Bici</h1>
+        <p class="subtitle">Accedi per esplorare le avventure</p>
+        <form id="loginForm">
+          <div class="form-group">
+            <div class="input-icon">
+              <i class="fas fa-user"> </i>
+              <input
+                autocomplete="new-username"
+                id="username"
+                placeholder="Username"
+                required=""
+                type="text"
+              />
+              <span class="input-focus-effect"> </span>
+            </div>
           </div>
+          <div class="form-group">
+            <div class="input-icon">
+              <i class="fas fa-lock"> </i>
+              <input
+                autocomplete="new-password"
+                id="password"
+                placeholder="Password"
+                required=""
+                type="password"
+              />
+              <i
+                aria-label="Mostra/nascondi password"
+                class="fas fa-eye toggle-password"
+                id="togglePassword"
+              >
+              </i>
+              <span class="input-focus-effect"> </span>
+            </div>
+          </div>
+          <button class="login-btn" type="submit">
+            <span> Accedi </span>
+            <i class="fas fa-arrow-right"> </i>
+            <div class="btn-ripple"></div>
+          </button>
+        </form>
+        <div class="login-footer">
+          <p>
+            Esplora le migliori avventure in bici nel Friuli Venezia Giulia e
+            dintorni
+          </p>
         </div>
-        <button class="login-btn" type="submit">
-          <span>
-            Accedi
-          </span>
-          <i class="fas fa-arrow-right">
-          </i>
-          <div class="btn-ripple">
-          </div>
-        </button>
-      </form>
-      <div class="login-footer">
+      </div>
+    </div>
+    <!-- Banner dei cookie -->
+    <div class="cookie-banner" id="cookie-banner">
+      <div class="cookie-content">
+        <i class="fas fa-cookie-bite cookie-icon"> </i>
         <p>
-          Esplora le migliori avventure in bici nel Friuli Venezia Giulia e dintorni
+          Questo sito utilizza i cookie per migliorare l'esperienza utente.
+          <a
+            href="https://www.hotelcorso.com/it/cookies#:~:text=Un%20cookie%20%C3%A8%20un%20piccolo,secondo%20momento%20dallo%20stesso%20dispositivo."
+            target="_blank"
+          >
+            Scopri di pi&ugrave;
+          </a>
         </p>
+        <button id="accept-cookies">Accetta</button>
       </div>
     </div>
-  </div>
-  <!-- Banner dei cookie -->
-  <div class="cookie-banner" id="cookie-banner">
-    <div class="cookie-content">
-      <i class="fas fa-cookie-bite cookie-icon">
-      </i>
-      <p>
-        Questo sito utilizza i cookie per migliorare l'esperienza utente.
-        <a href="https://www.hotelcorso.com/it/cookies#:~:text=Un%20cookie%20%C3%A8%20un%20piccolo,secondo%20momento%20dallo%20stesso%20dispositivo."
-          target="_blank">
-          Scopri di pi&ugrave;
-        </a>
-      </p>
-      <button id="accept-cookies">
-        Accetta
-      </button>
-    </div>
-  </div>
-  <!-- Pulsante per revocare i cookie -->
-  <button class="revoke-button" id="revoke-cookies">
-    <i class="fas fa-undo-alt">
-    </i>
-    Revoca Cookie
-  </button>
-  <!-- Particles.js for background effect -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js">
-  </script>
-</body>
-
+    <!-- Pulsante per revocare i cookie -->
+    <button class="revoke-button" id="revoke-cookies">
+      <i class="fas fa-undo-alt"> </i>
+      Revoca Cookie
+    </button>
+    <!-- Particles.js for background effect -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  </body>
 </html>
