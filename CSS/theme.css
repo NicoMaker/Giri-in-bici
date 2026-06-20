@@ -304,14 +304,25 @@ button.principale {
   box-shadow: var(--shadow-lg);
 }
 
-/* Quando le card stagione sono dentro la griglia .container
-   (es. Statistiche/stagioni.html) le affianchiamo come le altre
-   card statistiche, invece del banner largo usato in home. */
-.container > .primavera,
-.container > .estate,
-.container > .autunno_inverno {
-  flex: 1 1 300px;
-  max-width: 360px;
+/* Contenitore per le 3 card stagione generali (Statistiche/stagioni.html),
+   sempre 3 elementi fissi: usa flex-wrap per disporle in riga quando
+   c'e' spazio, andando a capo su schermi stretti. */
+.container-stagioni-generali {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 18px;
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+.container-stagioni-generali > .primavera,
+.container-stagioni-generali > .estate,
+.container-stagioni-generali > .autunno_inverno {
+  flex: 1 1 260px;
+  max-width: 320px;
   margin: 0;
 }
 
@@ -966,22 +977,27 @@ input:focus {
 
 /* ---------- Griglia card periodi / statistiche (generata da JS) ---------- */
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
   gap: 18px;
-  max-width: 1100px;
+  max-width: 900px;
   margin: 20px auto;
   padding: 0 16px;
+}
+
+@media (max-width: 560px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .Estatecontorno,
 .Primaveracontorno,
 .Autunno-Invernocontorno,
 div.Statistiche {
-  flex: 1 1 300px;
-  max-width: 360px;
+  width: 100%;
+  max-width: none;
   margin: 0;
   box-sizing: border-box;
   border: none;
@@ -997,8 +1013,9 @@ div.Statistiche {
 .odd-items .Primaveracontorno:last-child,
 .odd-items .Autunno-Invernocontorno:last-child,
 .odd-items div.Statistiche:last-child {
-  flex: 1 1 300px;
-  max-width: 360px;
+  grid-column: 1 / -1;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .Estatecontorno:hover,
