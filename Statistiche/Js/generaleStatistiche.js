@@ -72,23 +72,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-  const renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {
-    const lastPage = Math.ceil(statistics.length / itemsPerPage);
-    if (currentPage > lastPage) currentPage = 1;
-    localStorage.setItem("page_statistiche", currentPage);
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentStatistics = statistics.slice(
-      startIndex,
-      startIndex + itemsPerPage,
-    );
-    const isOdd = currentStatistics.length === 1;
+  const renderStampa = (statistics, avgValues) => {
+    const isOdd = statistics.length % 2 !== 0;
 
     const stampaElement = document.getElementById("stampa");
     if (stampaElement) {
       stampaElement.innerHTML = `
         <div class="${isOdd ? "container odd-items" : "container"}">
-          ${currentStatistics
+          ${statistics
             .map(
               (entry, index) => `
             <div class="Statistiche">
@@ -96,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <img class="immaginestagione" src="Icons/Statistiche.png">
                 <p class="titoli">Statistiche ${entry.year}</p>
                 <p class="misuracolore">km totali ${formatNumber(entry.km)} <img src="Icons/traguardo.png"></p>
-                <p class="misuracolore">${avgValues[startIndex + index]} %</p>
+                <p class="misuracolore">${avgValues[index]} %</p>
                 <p class="misuracolore">Totale corse ${entry.numberOfRaces}</p>
                 <p class="misuracolore">km medi per corsa ${formatNumber(entry.km / entry.numberOfRaces)}</p>
               </a>
@@ -108,29 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const pagination = document.getElementById("pagination");
-    if (pagination) {
-      pagination.innerHTML = `
-        <button id="prev"><span class="material-icons">arrow_back</span></button>
-        <span id="page-indicator">Dati Statistiche: <br/> Anni ${currentPage} di ${lastPage}</span>
-        <button id="next"><span class="material-icons">arrow_forward</span></button>
-      `;
-      document.getElementById("prev")?.addEventListener("click", () => {
-        renderStampa(
-          statistics,
-          avgValues,
-          itemsPerPage,
-          currentPage === 1 ? lastPage : currentPage - 1,
-        );
-      });
-      document.getElementById("next")?.addEventListener("click", () => {
-        renderStampa(
-          statistics,
-          avgValues,
-          itemsPerPage,
-          currentPage === lastPage ? 1 : currentPage + 1,
-        );
-      });
-    }
+    if (pagination) pagination.innerHTML = "";
   };
 
   const renderSummary = (
@@ -199,12 +168,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       totalYears,
     );
 
-    renderStampa(
-      statistics,
-      avgValues,
-      2,
-      parseInt(localStorage.getItem("page_statistiche")) || 1,
-    );
+    renderStampa(statistics, avgValues);
   } else {
     console.error("Nessun dato ricevuto");
   }
