@@ -1201,3 +1201,68 @@ br {
     font-size: 0.85rem;
   }
 }
+
+/* ---------- Icone di navigazione rapida (FISSA in alto) ---------- */
+.Icons {
+  position: fixed;          /* invece di sticky */
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;             /* più alto del menu hamburger */
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;               /* rimuovo margin */
+  padding: 10px 18px;
+  background: var(--card-bg-soft);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+/* Per la freccia "indietro" nelle pagine anni (2021.html ecc) */
+.Icons-back {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 10px 18px;
+  background: var(--card-bg-soft);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.Icons-back button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Icons-back img {
+  height: 30px;
+  width: 30px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.Icons-back a:hover img {
+  transform: translateY(-2px);
+}
