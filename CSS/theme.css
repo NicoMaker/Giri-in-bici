@@ -980,8 +980,8 @@ input:focus {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
-  gap: 18px;
-  max-width: 900px;
+  gap: 24px;
+  max-width: 1300px;
   margin: 20px auto;
   padding: 0 16px;
 }
@@ -1003,7 +1003,7 @@ div.Statistiche {
   border: none;
   background: var(--card-bg);
   border-radius: var(--radius-lg);
-  padding: 22px 16px;
+  padding: 40px 28px;
   box-shadow: var(--shadow-md);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1016,6 +1016,31 @@ div.Statistiche {
   grid-column: 1 / -1;
   max-width: 400px;
   margin: 0 auto;
+}
+
+.Estatecontorno .immaginestagione,
+.Primaveracontorno .immaginestagione,
+.Autunno-Invernocontorno .immaginestagione,
+div.Statistiche .immaginestagione {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 14px;
+}
+
+.Estatecontorno .titoli,
+.Primaveracontorno .titoli,
+.Autunno-Invernocontorno .titoli,
+div.Statistiche .titoli {
+  font-size: 1.6rem;
+  margin: 10px 0 18px;
+}
+
+.Estatecontorno .misuracolore,
+.Primaveracontorno .misuracolore,
+.Autunno-Invernocontorno .misuracolore,
+div.Statistiche .misuracolore {
+  font-size: 1.3rem;
+  margin: 14px 0;
 }
 
 .Estatecontorno:hover,
