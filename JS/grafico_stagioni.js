@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       avgValues,
     );
     renderSeasonSummary(season, totale, totalePeriodi, totalRaces);
+    adjustContainerLayout(cssclass);
   } catch (error) {
     console.error(`Error loading the JSON data: ${error}`);
   }
@@ -124,7 +125,6 @@ function renderDataListPaginated(
         currentAvgValues,
       ),
     );
-    adjustContainerLayout(cssclass);
 
     const pagination = document.getElementById("pagination");
     if (pagination) {

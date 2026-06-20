@@ -11,8 +11,13 @@
     <script src="JS/utils.js"></script>
     <script src="JS/Hamburger.js" defer></script>
     <script src="JS/Calcolo_km_totali.js" defer></script>
-    <script src="JS/Menu.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"
+      defer
+    ></script>
+    <script src="JS/Alpine.js" defer></script>
     <script type="module" src="JS/animation.js" defer></script>
+    +
   </head>
 
   <body>
@@ -26,13 +31,38 @@
       <br />
       <h1>Riferimenti parti del sito</h1>
 
-      <div>
-        <input id="menuSearch" placeholder="Cerca nel Menu ..." />
-        <p id="menuNoResults" class="no-results" style="display: none">
+      <div x-data="menuHandler()" x-init="loadData()">
+        <input x-model="search" placeholder="Cerca nel Menu ..." />
+        <p x-show="filteredItems.length === 0" class="no-results">
           Nessun elemento trovato
         </p>
 
-        <div id="menuList"></div>
+        <template x-for="item in filteredItems" :key="item.name">
+          <li>
+            <button>
+              <img
+                :src="item.icon"
+                :class="{ 'logo': item.name === 'Apertura Account GitHub' }"
+              />
+
+              <template
+                x-if="item.name === 'Pagina Precedente' && item.link === '#'"
+              >
+                <span x-text="item.name"></span>
+              </template>
+
+              <template
+                x-if="!(item.name === 'Pagina Precedente' && item.link === '#')"
+              >
+                <a
+                  :href="item.link"
+                  :target="item.link.startsWith('http') ? '_blank' : ''"
+                  x-text="item.name"
+                ></a>
+              </template>
+            </button>
+          </li>
+        </template>
       </div>
       <br />
       <br />
