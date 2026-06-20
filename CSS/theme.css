@@ -304,6 +304,17 @@ button.principale {
   box-shadow: var(--shadow-lg);
 }
 
+/* Quando le card stagione sono dentro la griglia .container
+   (es. Statistiche/stagioni.html) le affianchiamo come le altre
+   card statistiche, invece del banner largo usato in home. */
+.container > .primavera,
+.container > .estate,
+.container > .autunno_inverno {
+  flex: 1 1 300px;
+  max-width: 360px;
+  margin: 0;
+}
+
 .contornostagionesx,
 .contornostagionedx {
   position: relative;
@@ -638,7 +649,7 @@ button.principale {
 /* ---------- Grafici ---------- */
 .grafico {
   position: relative;
-  width: min(90vw, 800px);
+  width: min(96vw, 1400px);
   margin: 24px auto;
   padding: 18px;
   background: var(--card-bg);
@@ -652,7 +663,7 @@ button.principale {
 
 /* ---------- Tabelle ---------- */
 table {
-  width: min(94vw, 900px);
+  width: min(96vw, 1400px);
   margin: 24px auto;
   border-collapse: separate;
   border-spacing: 0;
@@ -969,8 +980,8 @@ input:focus {
 .Primaveracontorno,
 .Autunno-Invernocontorno,
 div.Statistiche {
-  flex: 1 1 380px;
-  max-width: 420px;
+  flex: 1 1 300px;
+  max-width: 360px;
   margin: 0;
   box-sizing: border-box;
   border: none;
@@ -986,8 +997,8 @@ div.Statistiche {
 .odd-items .Primaveracontorno:last-child,
 .odd-items .Autunno-Invernocontorno:last-child,
 .odd-items div.Statistiche:last-child {
-  flex: 1 1 380px;
-  max-width: 420px;
+  flex: 1 1 300px;
+  max-width: 360px;
 }
 
 .Estatecontorno:hover,
