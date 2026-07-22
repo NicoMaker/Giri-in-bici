@@ -65,20 +65,6 @@
       </section>
 
       <section class="team-section reveal">
-        <p class="eyebrow">Struttura</p>
-        <h2 class="section-title">La mappa del sito</h2>
-        <p class="section-nota">
-          Come sono collegate fra loro le pagine. Tocca l'immagine per aprirla a
-          schermo intero.
-        </p>
-        <div class="sitemap-card">
-          <a class="sitemap-zoom" href="Img/Mappa.jpg" target="_blank" rel="noopener">
-            <img src="Img/Mappa.jpg" alt="Mappa delle pagine del sito Giri in Bici" loading="lazy" />
-          </a>
-        </div>
-      </section>
-
-      <section class="team-section reveal">
         <p class="eyebrow">Navigazione</p>
         <h2 class="section-title">Cosa trovi nel sito</h2>
         <div class="team-grid">
@@ -87,11 +73,32 @@
             <h3 class="member-name">Home</h3>
             <p>Il punto di partenza, con il totale dei chilometri percorsi.</p>
           </a>
-          <a class="team-member" href="../Primavera.html">
-            <div class="avatar"><img src="../Icons/primavera.png" alt="" /></div>
-            <h3 class="member-name">Le stagioni</h3>
+
+          <!-- Card Le stagioni modificata -->
+          <div class="team-member stagioni-card">
+            <div class="avatar">
+              <img src="../assets/img/stagioni.svg" alt="Icona stagioni" />
+            </div>
+            <h3 class="member-name">
+              <a href="../Statistiche/stagioni.html" class="main-link">Le stagioni</a>
+            </h3>
             <p>Primavera, estate e autunno-inverno, periodo per periodo.</p>
-          </a>
+            <div class="stagioni-sub-links">
+              <a href="../Primavera.html" title="Primavera">
+                <img src="../Icons/primavera.png" alt="Primavera" />
+              </a>
+              <a href="../Estate.html" title="Estate">
+                <img src="../Icons/estate.png" alt="Estate" />
+              </a>
+              <a href="../Autunno_Inverno.html" title="Autunno-Inverno">
+                <img src="../Icons/inverno.png" alt="Autunno-Inverno" />
+              </a>
+            </div>
+            <a href="../Statistiche/stagioni.html" class="stagioni-all-link">
+              Tutte le stagioni →
+            </a>
+          </div>
+
           <a class="team-member" href="../Statistiche.html">
             <div class="avatar"><img src="../Icons/Statistiche.png" alt="" /></div>
             <h3 class="member-name">Statistiche</h3>
@@ -149,5 +156,7 @@
     <footer class="footer">
       <div class="footer-content" id="footer-content"></div>
     </footer>
+
+
   </body>
 </html>
