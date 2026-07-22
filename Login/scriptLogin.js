@@ -145,9 +145,48 @@ async function handleLoginSubmit(event) {
   const username = document.getElementById("username").value.trim(),
     password = document.getElementById("password").value.trim();
 
-  const loginBtn = document.querySelector(".login-btn span");
-  const originalText = loginBtn.textContent;
-  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifica...';
+  // Riferimento al bottone
+  const loginBtn = document.querySelector(".login-btn");
+  // Elemento che contiene il testo (lo teniamo separato dallo spinner)
+  const btnTextSpan = loginBtn.querySelector("span"); // oppure lo creiamo
+
+  // Se non esiste uno span per il testo, lo creiamo
+  let textSpan = loginBtn.querySelector(".btn-text");
+  if (!textSpan) {
+    textSpan = document.createElement("span");
+    textSpan.className = "btn-text";
+    textSpan.textContent = "Accedi";
+    // Inserisce prima dell'icona freccia
+    const icon = loginBtn.querySelector("i.fa-arrow-right");
+    if (icon) {
+      loginBtn.insertBefore(textSpan, icon);
+    } else {
+      loginBtn.prepend(textSpan);
+    }
+    // Rimuove eventuali nodi di testo extra
+    loginBtn.childNodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "") {
+        node.textContent = "";
+      }
+    });
+  }
+
+  // Memorizza il testo originale (non serve più, lo teniamo fisso)
+  // Aggiungi uno spinner
+  let spinner = loginBtn.querySelector(".fa-spinner");
+  if (!spinner) {
+    spinner = document.createElement("i");
+    spinner.className = "fas fa-spinner fa-spin";
+    // Inserisce dopo il testo
+    loginBtn.insertBefore(spinner, loginBtn.querySelector(".fa-arrow-right"));
+  }
+  spinner.style.display = "inline-block";
+  // Nascondi l'icona freccia
+  const arrow = loginBtn.querySelector(".fa-arrow-right");
+  if (arrow) arrow.style.display = "none";
+
+  // Disabilita il bottone per evitare doppi click
+  loginBtn.disabled = true;
 
   try {
     if (!appData) {
@@ -157,27 +196,33 @@ async function handleLoginSubmit(event) {
     const user = appData.users.find((u) => u.username === username);
     const expectedPassword = generatePassword();
 
-    setTimeout(() => {
-      if (user && password === expectedPassword) {
-        showNotification("✅ Accesso riuscito! Reindirizzamento...", "success");
-        setTimeout(() => {
-          window.location.href = "Giri.html";
-        }, 1000);
-      } else {
-        showNotification("❌ Nome utente o password non validi!", "error");
-        loginBtn.textContent = originalText;
-        const form = document.getElementById("loginForm");
-        form.classList.add("shake");
-        setTimeout(() => form.classList.remove("shake"), 500);
-      }
-    }, 800);
+    // Simula un ritardo per l'animazione
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    if (user && password === expectedPassword) {
+      showNotification("✅ Accesso riuscito! Reindirizzamento...", "success");
+      // Rimuovi spinner e ripristina
+      spinner.style.display = "none";
+      if (arrow) arrow.style.display = "inline-block";
+      loginBtn.disabled = false;
+      window.location.href = "Giri.html";
+    } else {
+      showNotification("❌ Nome utente o password non validi!", "error");
+      // Rimuovi spinner e ripristina
+      spinner.style.display = "none";
+      if (arrow) arrow.style.display = "inline-block";
+      loginBtn.disabled = false;
+      // Scuoti il form
+      const form = document.getElementById("loginForm");
+      form.classList.add("shake");
+      setTimeout(() => form.classList.remove("shake"), 500);
+    }
   } catch (error) {
     console.error("Errore durante l'accesso:", error);
-    showNotification(
-      "❌ Errore durante l'accesso. Riprova più tardi.",
-      "error",
-    );
-    loginBtn.textContent = originalText;
+    showNotification("❌ Errore durante l'accesso. Riprova più tardi.", "error");
+    spinner.style.display = "none";
+    if (arrow) arrow.style.display = "inline-block";
+    loginBtn.disabled = false;
   }
 }
 

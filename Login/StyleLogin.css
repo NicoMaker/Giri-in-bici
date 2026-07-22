@@ -210,30 +210,33 @@ body {
   display: none;
 }
 
-/* Pulsante */
+/* ===== Pulsante login — dimensioni fisse ===== */
 .login-btn {
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
   width: 100%;
-  margin-top: 0.6rem;
-  padding: 0.95rem 1.4rem;
+  max-width: 280px;          /* larghezza massima fissa */
+  height: 54px;              /* altezza fissa */
+  padding: 0 1.4rem;         /* padding orizzontale fisso */
   font-family: var(--font-head);
-  font-size: 1.02rem;
+  font-size: 1.02rem;        /* dimensione testo fissa */
   font-weight: 700;
   color: #fff;
   background: linear-gradient(120deg, var(--a1), var(--a2));
   border: 0;
   border-radius: var(--r-full);
-  overflow: hidden;
+  overflow: visible;         /* evita che il ripple venga ritagliato */
   box-shadow: 0 10px 24px -12px rgba(14, 27, 42, 0.45);
   box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--a1) 80%, transparent);
   transition:
     transform 0.2s var(--ease),
     box-shadow 0.25s var(--ease),
     filter 0.2s var(--ease);
+  flex-shrink: 0;            /* impedisce compressione in flex */
+  cursor: pointer;
 }
 
 .login-btn:hover {
@@ -244,7 +247,7 @@ body {
 }
 
 .login-btn:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.97); /* leggero effetto click, non altera dimensioni */
 }
 
 .login-btn i {
@@ -255,6 +258,34 @@ body {
   transform: translateX(4px);
 }
 
+/* Il ripple è solo estetico, non influisce */
+.btn-ripple {
+  display: none;
+}
+
+/* Contenitore del bottone — stabile */
+.login-btn-wrapper {
+  min-height: 80px;          /* spazio per bottone + eventuale errore */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 0.6rem;
+}
+
+/* Messaggio di errore — sempre presente ma vuoto */
+#loginError {
+  min-height: 1.8rem;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #dc2626;
+  text-align: center;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+
+/* Footer */
 .login-footer {
   position: relative;
   z-index: 1;
@@ -378,5 +409,11 @@ body {
 
   #accept-cookies {
     width: 100%;
+  }
+
+  .login-btn {
+    max-width: 100%; /* su mobile occupa tutta la larghezza */
+    height: 50px;
+    font-size: 0.98rem;
   }
 }
