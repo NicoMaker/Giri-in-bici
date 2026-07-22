@@ -72,7 +72,7 @@ const stampaDati = (
     <div class="colore">
       <p class="misuracolore">Totale km ${formattedTotaleKm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
       <p class="misuracolore">km medi per giro ${mediakm}</p>
-      <p class="misuracolore">Media km per Periodo ${avgPeriod} km</p>
+      <p class="misuracolore">Media km per Periodo ${avgPeriod}</p>
       <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>
       <p class="misuracolore">Media corse per periodo ${mediaCorsePerPeriodo}</p>
       <p class="misuracolore">Media corse per Stagione ${mediaCorsePerStagione}</p>
