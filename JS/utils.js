@@ -12,16 +12,24 @@
  */
 function formatItalianNumber(num, forceDecimals = false) {
   if (typeof num === "string") num = parseFloat(num);
-  if (isNaN(num)) return forceDecimals ? "0,00" : "0";
+  if (isNaN(num)) return "0";
+
+  // Arrotonda sempre a 2 decimali prima di decidere se mostrarli,
+  // così un valore come 99,999 non genera un ",00" fantasma dopo l'arrotondamento.
+  const rounded = Math.round((num + Number.EPSILON) * 100) / 100;
 
   let decimalString = "";
-  if (forceDecimals || !Number.isInteger(num)) {
-    const decimalPart = num.toFixed(2).split(".")[1];
-    decimalString = "," + decimalPart;
+  // Regola: se i decimali sono ,00 non si mostrano mai, indipendentemente
+  // da dove viene chiamata la funzione in tutto il sito.
+  if (forceDecimals || !Number.isInteger(rounded)) {
+    const decimalPart = rounded.toFixed(2).split(".")[1];
+    if (decimalPart !== "00") {
+      decimalString = "," + decimalPart;
+    }
   }
 
-  let integerPart = Math.trunc(Math.abs(num)).toString();
-  const sign = num < 0 ? "-" : "";
+  let integerPart = Math.trunc(Math.abs(rounded)).toString();
+  const sign = rounded < 0 ? "-" : "";
 
   if (integerPart.length > 3) {
     const groups = [];
@@ -38,39 +46,20 @@ function formatItalianNumber(num, forceDecimals = false) {
 }
 
 /**
- * Formatta un numero con 2 decimali (alias conveniente).
- * Usato principalmente per tabelle e medie.
+ * Formatta un numero mostrando i decimali solo se sono diversi da ,00.
+ * Usato in tutto il sito per tabelle, medie e totali.
  * @param {number|string} value
  * @returns {string}
  */
-const formatNumber = (value) => formatItalianNumber(value, true);
+const formatNumber = (value) => formatItalianNumber(value, false);
 
 /**
- * Formatta una percentuale con esattamente 2 decimali fissi.
+ * Formatta una percentuale, senza mostrare mai ",00" se non necessario.
  * @param {number|string} value
  * @returns {string}
  */
 function formatPercentage(value) {
-  if (typeof value === "string") value = parseFloat(value);
-  if (isNaN(value)) return "0,00";
-
-  const fixedNum = value.toFixed(2);
-  const parts = fixedNum.split(".");
-  let integerPart = parts[0];
-  const decimalPart = parts[1];
-
-  if (integerPart.length > 3) {
-    const groups = [];
-    let i = integerPart.length;
-    while (i > 0) {
-      const start = Math.max(0, i - 3);
-      groups.unshift(integerPart.substring(start, i));
-      i -= 3;
-    }
-    integerPart = groups.join(".");
-  }
-
-  return integerPart + "," + decimalPart;
+  return formatItalianNumber(value, false);
 }
 
 /**
