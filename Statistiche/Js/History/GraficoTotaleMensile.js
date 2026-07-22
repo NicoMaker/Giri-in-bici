@@ -177,7 +177,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 (function () {
   const contenitore = document.getElementById("grafici");
   if (!contenitore) return;
-  if (document.getElementById("line-chart") && document.getElementById("bar-chart"))
+  if (
+    document.getElementById("line-chart") &&
+    document.getElementById("bar-chart")
+  )
     return;
   contenitore.innerHTML = `
     <div class="grafico"><canvas id="line-chart"></canvas></div>
