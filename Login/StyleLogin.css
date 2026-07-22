@@ -213,10 +213,10 @@ body {
 
 /* Wrapper che isola il bottone e l'eventuale messaggio di errore */
 .login-btn-wrapper {
-  min-height: 80px;          /* altezza fissa per contenere bottone + spazio per errore */
+  min-height: 80px; /* altezza fissa per contenere bottone + spazio per errore */
   display: flex;
   flex-direction: column;
-  align-items: stretch;      /* il bottone si allarga a tutto il wrapper */
+  align-items: stretch; /* il bottone si allarga a tutto il wrapper */
   justify-content: flex-start;
   margin-top: 0.6rem;
 }
@@ -224,15 +224,15 @@ body {
 /* Il bottone */
 .login-btn {
   position: relative;
-  display: inline-flex;      /* flex interno per allineare icona e testo */
+  display: inline-flex; /* flex interno per allineare icona e testo */
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  width: 100%;               /* OCCUPA TUTTA LA LARGHEZZA DISPONIBILE */
-  height: 54px;              /* ALTEZZA FISSA */
-  padding: 0 1.4rem;         /* PADDING ORIZZONTALE FISSO (non varia) */
+  width: 100%; /* OCCUPA TUTTA LA LARGHEZZA DISPONIBILE */
+  height: 54px; /* ALTEZZA FISSA */
+  padding: 0 1.4rem; /* PADDING ORIZZONTALE FISSO (non varia) */
   font-family: var(--font-head);
-  font-size: 1.02rem;        /* DIMENSIONE TESTO FISSA */
+  font-size: 1.02rem; /* DIMENSIONE TESTO FISSA */
   font-weight: 700;
   color: #fff;
   background: linear-gradient(120deg, var(--a1), var(--a2));
@@ -244,7 +244,7 @@ body {
     transform 0.2s var(--ease),
     box-shadow 0.25s var(--ease),
     filter 0.2s var(--ease);
-  flex-shrink: 0;            /* impedisce compressioni in contesti flex */
+  flex-shrink: 0; /* impedisce compressioni in contesti flex */
   cursor: pointer;
 }
 

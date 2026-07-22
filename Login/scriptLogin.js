@@ -197,7 +197,7 @@ async function handleLoginSubmit(event) {
     const expectedPassword = generatePassword();
 
     // Simula un ritardo per l'animazione
-    await new Promise(resolve => setTimeout(resolve, 800));
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
     if (user && password === expectedPassword) {
       showNotification("✅ Accesso riuscito! Reindirizzamento...", "success");
@@ -219,7 +219,10 @@ async function handleLoginSubmit(event) {
     }
   } catch (error) {
     console.error("Errore durante l'accesso:", error);
-    showNotification("❌ Errore durante l'accesso. Riprova più tardi.", "error");
+    showNotification(
+      "❌ Errore durante l'accesso. Riprova più tardi.",
+      "error",
+    );
     spinner.style.display = "none";
     if (arrow) arrow.style.display = "inline-block";
     loginBtn.disabled = false;
