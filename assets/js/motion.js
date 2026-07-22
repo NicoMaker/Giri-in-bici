@@ -22,8 +22,7 @@
     var inCorso = false;
 
     function aggiorna() {
-      var altezza =
-        document.documentElement.scrollHeight - window.innerHeight;
+      var altezza = document.documentElement.scrollHeight - window.innerHeight;
       var quota = altezza > 0 ? window.scrollY / altezza : 0;
       barra.style.transform = "scaleX(" + Math.min(quota, 1) + ")";
       inCorso = false;
@@ -123,9 +122,7 @@
       if (!trovato) continue;
 
       var grezzo = trovato[0];
-      var valore = parseFloat(
-        grezzo.replace(/\./g, "").replace(",", "."),
-      );
+      var valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
       if (!isFinite(valore) || valore <= 0) continue;
 
       var decimali = trovato[2] ? trovato[2].length - 1 : 0;

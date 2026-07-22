@@ -137,18 +137,18 @@ Tutto l'aspetto del sito nasce da un unico foglio di stile condiviso.
 
 ### Dove si trova cosa
 
-| File | A cosa serve |
-| --- | --- |
-| [`assets/css/core.css`](assets/css/core.css) | Design system completo: variabili, tipografia, barra, card, tabelle, grafici, menu, piè di pagina |
-| [`assets/js/ui.js`](assets/js/ui.js) | Anno nel piè di pagina, comparsa dei blocchi allo scroll, tasto Esc, voce attiva nella barra |
-| [`assets/js/motion.js`](assets/js/motion.js) | Numeri che salgono da zero, entrata scaglionata delle card, barra di lettura, pulsante torna su |
-| [`giri.css`](giri.css) | Tema della home, delle bici, del QR code e del confronto stagioni |
-| [`Primavera/Primavera.css`](Primavera/Primavera.css) | Solo i colori della primavera |
-| [`Estate/Estate.css`](Estate/Estate.css) | Solo i colori dell'estate |
-| [`Autunno_Inverno/Autunno_Inverno.css`](Autunno_Inverno/Autunno_Inverno.css) | Solo i colori di autunno e inverno |
-| [`Statistiche/Style_statistiche.css`](Statistiche/Style_statistiche.css) | Solo i colori delle statistiche |
-| [`Login/StyleLogin.css`](Login/StyleLogin.css) | Pagina di accesso |
-| [`About_US/StyleAbout.css`](About_US/StyleAbout.css) | Pagina informazioni |
+| File                                                                         | A cosa serve                                                                                      |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [`assets/css/core.css`](assets/css/core.css)                                 | Design system completo: variabili, tipografia, barra, card, tabelle, grafici, menu, piè di pagina |
+| [`assets/js/ui.js`](assets/js/ui.js)                                         | Anno nel piè di pagina, comparsa dei blocchi allo scroll, tasto Esc, voce attiva nella barra      |
+| [`assets/js/motion.js`](assets/js/motion.js)                                 | Numeri che salgono da zero, entrata scaglionata delle card, barra di lettura, pulsante torna su   |
+| [`giri.css`](giri.css)                                                       | Tema della home, delle bici, del QR code e del confronto stagioni                                 |
+| [`Primavera/Primavera.css`](Primavera/Primavera.css)                         | Solo i colori della primavera                                                                     |
+| [`Estate/Estate.css`](Estate/Estate.css)                                     | Solo i colori dell'estate                                                                         |
+| [`Autunno_Inverno/Autunno_Inverno.css`](Autunno_Inverno/Autunno_Inverno.css) | Solo i colori di autunno e inverno                                                                |
+| [`Statistiche/Style_statistiche.css`](Statistiche/Style_statistiche.css)     | Solo i colori delle statistiche                                                                   |
+| [`Login/StyleLogin.css`](Login/StyleLogin.css)                               | Pagina di accesso                                                                                 |
+| [`About_US/StyleAbout.css`](About_US/StyleAbout.css)                         | Pagina informazioni                                                                               |
 
 Ogni tema importa `core.css` e ridefinisce **tre sole variabili**:
 
@@ -156,9 +156,9 @@ Ogni tema importa `core.css` e ridefinisce **tre sole variabili**:
 @import url("../assets/css/core.css");
 
 :root {
-  --a1: #0ca678;                       /* colore principale */
-  --a2: #63c65f;                       /* colore secondario del gradiente */
-  --a-soft: rgba(12, 166, 120, 0.13);  /* versione trasparente per gli sfondi */
+  --a1: #0ca678; /* colore principale */
+  --a2: #63c65f; /* colore secondario del gradiente */
+  --a-soft: rgba(12, 166, 120, 0.13); /* versione trasparente per gli sfondi */
 }
 ```
 
@@ -198,7 +198,6 @@ I nomi delle classi generate da JavaScript (`.colore`, `.misuracolore`, `.contai
 - Animazioni disattivate per chi imposta `prefers-reduced-motion`
 - Tutte le pagine hanno `charset`, `viewport`, `lang="it"`, descrizione e anteprima social
 
-
 ---
 
 ## ✨ Animazioni
@@ -207,17 +206,17 @@ Tutte le animazioni stanno nella sezione 22 di
 [`assets/css/core.css`](assets/css/core.css) e in
 [`assets/js/motion.js`](assets/js/motion.js). Nessuna libreria esterna.
 
-| Effetto | Dove si vede |
-| --- | --- |
+| Effetto              | Dove si vede                                                                            |
+| -------------------- | --------------------------------------------------------------------------------------- |
 | Apertura in sequenza | La barra scende, poi occhiello, titolo, sottotitolo e immagine entrano uno dopo l'altro |
-| Titoli che respirano | I titoli in gradiente scorrono lentamente avanti e indietro |
-| Comparsa allo scroll | Ogni sezione con classe `.reveal` sale in dissolvenza quando entra nello schermo |
-| Entrata scaglionata | Le card dei periodi, delle statistiche, delle bici e le foto compaiono a cascata |
-| Numeri che salgono | I chilometri e i totali contano da zero quando la card entra nello schermo |
-| Segnaposto luminoso | Mentre i JSON si caricano, i riquadri mostrano un'onda di luce |
-| Barra di lettura | Sottile linea in alto che segue lo scorrimento della pagina |
-| Torna su | Pulsante in basso a destra che compare dopo 600 px di scroll |
-| Micro-interazioni | Icone che saltano, card che si sollevano, foto che zoomano, righe che scorrono |
+| Titoli che respirano | I titoli in gradiente scorrono lentamente avanti e indietro                             |
+| Comparsa allo scroll | Ogni sezione con classe `.reveal` sale in dissolvenza quando entra nello schermo        |
+| Entrata scaglionata  | Le card dei periodi, delle statistiche, delle bici e le foto compaiono a cascata        |
+| Numeri che salgono   | I chilometri e i totali contano da zero quando la card entra nello schermo              |
+| Segnaposto luminoso  | Mentre i JSON si caricano, i riquadri mostrano un'onda di luce                          |
+| Barra di lettura     | Sottile linea in alto che segue lo scorrimento della pagina                             |
+| Torna su             | Pulsante in basso a destra che compare dopo 600 px di scroll                            |
+| Micro-interazioni    | Icone che saltano, card che si sollevano, foto che zoomano, righe che scorrono          |
 
 ### Aggiungere l'animazione a una sezione nuova
 
@@ -248,13 +247,13 @@ Nessuna immagine viene ritagliata: `object-fit: contain`, altezza automatica e
 nessuno zoom al passaggio del mouse. La galleria dei periodi usa colonne da
 170–220 px, così le foto restano piccole e ordinate.
 
-| Elemento | Larghezza massima |
-| --- | --- |
-| Foto dei periodi (`.shot`) | 220 px |
-| Copertina della stagione (`.immagini_stagione`) | 340 px |
-| Logo della home (`.hero-logo`) | 280 px |
-| Foto squadra (`.immmaginejnrobot`) | 260 px |
-| Foto delle bici (`.immagine_bicisx`) | 340 px |
+| Elemento                                        | Larghezza massima |
+| ----------------------------------------------- | ----------------- |
+| Foto dei periodi (`.shot`)                      | 220 px            |
+| Copertina della stagione (`.immagini_stagione`) | 340 px            |
+| Logo della home (`.hero-logo`)                  | 280 px            |
+| Foto squadra (`.immmaginejnrobot`)              | 260 px            |
+| Foto delle bici (`.immagine_bicisx`)            | 340 px            |
 
 Per cambiare la dimensione delle foto basta la riga `grid-template-columns`
 di `.gallery` nella sezione 13 di [`assets/css/core.css`](assets/css/core.css).
