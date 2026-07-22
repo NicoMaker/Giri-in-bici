@@ -219,9 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const canvasWrapper = document.createElement("div");
     canvasWrapper.innerHTML = `
-      <canvas id="line-chart" class="grafico"></canvas>
-      <br>
-      <canvas id="bar-chart" class="grafico"></canvas>
+      <div class="grafico"><canvas id="line-chart"></canvas></div>
+      <div class="grafico"><canvas id="bar-chart"></canvas></div>
     `;
     graficiDiv.appendChild(canvasWrapper);
 

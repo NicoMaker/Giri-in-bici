@@ -37,6 +37,18 @@ class UniversalChartRenderer {
       this.destroyChart(pageConfig.containerId);
       const chart = new Chart(ctx, chartConfig);
       this.charts.set(pageConfig.containerId, chart);
+
+      // Se il grafico è stato misurato prima che il contenitore avesse
+      // un'altezza reale (sezioni animate, canvas appena inseriti nel DOM),
+      // lo rimisuro dopo il primo paint.
+      requestAnimationFrame(() => {
+        try {
+          if (chart.canvas && chart.canvas.isConnected) chart.resize();
+        } catch (e) {
+          /* grafico già distrutto */
+        }
+      });
+
       return chart;
     } catch (error) {
       console.error("Errore nella creazione del grafico:", error);

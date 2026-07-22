@@ -164,16 +164,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   } catch (error) {
     console.error(`Errore nel caricamento: ${error}`);
+    const box = document.getElementById("grafici");
+    if (box)
+      box.innerHTML =
+        '<p class="errore-grafico">Non è stato possibile caricare i dati dei grafici: ' +
+        error.message +
+        "</p>";
   }
 });
 
-// Aggiungi i canvas per i grafici se non esistono già
-if (document.getElementById("grafici")) {
-  document.getElementById("grafici").innerHTML = `
-    <br />
-    <canvas id="line-chart"></canvas>
-    <br /><br />
-    <canvas id="bar-chart"></canvas>
-    <br />
+// Crea i canvas solo se non esistono già nell'HTML della pagina
+(function () {
+  const contenitore = document.getElementById("grafici");
+  if (!contenitore) return;
+  if (document.getElementById("line-chart") && document.getElementById("bar-chart"))
+    return;
+  contenitore.innerHTML = `
+    <div class="grafico"><canvas id="line-chart"></canvas></div>
+    <div class="grafico"><canvas id="bar-chart"></canvas></div>
   `;
-}
+})();

@@ -502,11 +502,16 @@ a > .colore:hover {
 }
 
 /* Righe dato dentro la card */
+/* Riga "etichetta ..... valore".
+   Il testo è scritto di seguito nel markup, ma motion.js incapsula il
+   numero in <span class="num">: da lì in poi tutto viene spinto a
+   destra come un blocco unico (numero + unità + icona). Senza questo,
+   flex crea tre elementi anonimi e il numero finisce al centro. */
 .misuracolore {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  justify-content: flex-start;
+  gap: 0.5rem;
   flex-wrap: wrap;
   margin: 0;
   padding: 0.62rem 0;
@@ -517,6 +522,24 @@ a > .colore:hover {
   color: var(--ink);
   text-align: left;
   font-variant-numeric: tabular-nums;
+}
+
+/* Il numero e tutto ciò che lo segue vanno a destra */
+.misuracolore .num {
+  margin-left: auto;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Unità di misura e icone restano attaccate al numero */
+.misuracolore .num ~ * {
+  flex: 0 0 auto;
+}
+
+/* Riga senza numero (titoli tipo "🌸 PRIMAVERA"): resta com'era */
+.misuracolore:not(:has(.num)) {
+  justify-content: space-between;
 }
 
 .colore .misuracolore:last-child {
@@ -922,24 +945,42 @@ th:first-child {
 }
 
 /* ---------- 12. Grafici ---------- */
+/* L'altezza del riquadro è decisa qui: Chart.js gira con
+   maintainAspectRatio:false e riempie il contenitore.        */
+:root {
+  --chart-h: 460px;
+}
+
 .grafico,
 canvas.grafico {
   display: block;
   position: relative;
   width: 100%;
   max-width: 940px;
-  height: auto;
+  height: var(--chart-h, 460px);
+  min-height: var(--chart-h, 460px);
   left: auto;
   transform: none;
   margin: 0 auto 1.5rem;
-  padding: clamp(0.9rem, 2.2vw, 1.4rem);
+  padding: clamp(0.6rem, 2.2vw, 1.4rem);
   background: var(--chart-surface);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   box-shadow: var(--sh-2);
+  overflow: hidden;
 }
 
-.grafico canvas,
+/* Il canvas riempie esattamente il riquadro: niente tagli, niente
+   scrollbar orizzontali, niente grafico schiacciato. */
+.grafico > canvas,
+canvas.grafico {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  background: transparent;
+}
+
 canvas {
   display: block;
   max-width: 100%;
@@ -955,17 +996,76 @@ canvas {
   display: block;
 }
 
-#grafici canvas,
-#Grafici canvas:not(.grafico) {
+#grafici > canvas,
+#Grafici > canvas:not(.grafico) {
   display: block;
   width: 100%;
   max-width: 940px;
+  height: var(--chart-h, 460px);
   margin: 0 auto 1.5rem;
-  padding: clamp(0.9rem, 2.2vw, 1.4rem);
+  padding: clamp(0.6rem, 2.2vw, 1.4rem);
   background: var(--chart-surface);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   box-shadow: var(--sh-2);
+}
+
+/* --- Tablet --- */
+@media (max-width: 900px) {
+  :root {
+    --chart-h: 420px;
+  }
+}
+
+/* --- Mobile: più alto in proporzione, così le etichette respirano --- */
+@media (max-width: 640px) {
+  :root {
+    --chart-h: 380px;
+  }
+  .grafico,
+  canvas.grafico {
+    margin-bottom: 1.1rem;
+    border-radius: var(--r-md, 12px);
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --chart-h: 340px;
+  }
+  .grafico,
+  canvas.grafico {
+    padding: 0.5rem 0.4rem;
+  }
+}
+
+/* Le ciambelle su mobile stanno meglio in un riquadro quasi quadrato,
+   con la legenda sotto. */
+@media (max-width: 640px) {
+  .grafico:has(> #doughnut-chart),
+  .grafico:has(> canvas[id*="doughnut"]) {
+    height: min(88vw, 420px);
+    min-height: min(88vw, 420px);
+  }
+}
+
+/* Telefono in orizzontale: schermo basso, riquadro più contenuto */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  :root {
+    --chart-h: 78vh;
+  }
+}
+
+/* Messaggio di errore al posto di un riquadro bianco vuoto */
+.errore-grafico {
+  max-width: 940px;
+  margin: 0 auto 1.5rem;
+  padding: 1.2rem 1.4rem;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-lg);
+  text-align: center;
 }
 
 /* ---------- 13. Galleria foto periodi ---------- */
@@ -1199,6 +1299,13 @@ canvas {
   text-align: center;
   padding: 1.4rem 0;
   width: 100%;
+}
+
+/* L'hamburger è fisso in alto a destra: sulle pagine che ce l'hanno
+   (classe messa da Hamburger.js) la barra deve lasciargli il posto,
+   altrimenti finisce sopra il pulsante "Stagioni". */
+.con-hamburger .site-bar {
+  padding-right: calc(clamp(0.9rem, 3vw, 1.6rem) + 62px);
 }
 
 .hamburger {

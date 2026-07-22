@@ -13,7 +13,7 @@ const ChartConfigs = {
     type: "doughnut",
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: "top",
@@ -67,7 +67,7 @@ const ChartConfigs = {
     type: "line",
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,

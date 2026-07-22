@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
         options: {
           responsive: true,
-          maintainAspectRatio: true,
+          maintainAspectRatio: false,
           scales: {
             y: {
               beginAtZero: true,
@@ -332,7 +332,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: "top",
