@@ -1,57 +1,109 @@
 <!doctype html>
-<html>
+<html lang="it">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0ca678" />
+    <meta name="author" content="Nico Maker" />
+    <meta name="description" content="Elenco completo dei giri in bicicletta di Primavera 2022: data, luogo e distanza di ogni uscita." />
+    <meta property="og:title" content="Giri in Bici Primavera 2022 | Percorsi e chilometri" />
+    <meta property="og:description" content="Elenco completo dei giri in bicicletta di Primavera 2022: data, luogo e distanza di ogni uscita." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://giri-in-bici.netlify.app/Img/logo.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <title>Giri in Bici Primavera 2022 | Percorsi e chilometri</title>
+
+    <link rel="icon" href="../Img/Primavera.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="../Primavera.css" />
-    <link rel="icon" href="../Img/Primavera.jpg" type="image/jpg" />
-    <title>Primavera 2022</title>
     <script src="../../JS/utils.js"></script>
     <script src="../../JS/calcolo_km_media_periodi.js" defer></script>
+    <script src="../../assets/js/ui.js" defer></script>
+    <script src="../../assets/js/motion.js" defer></script>
   </head>
 
   <body>
-    <a href="../../Giri.html">
-      <img class="Bandiera-FVG" src="../../Img/logo.jpg" />
-    </a>
-
-    <p>
-      <button class="Icons">
-        <a class="colore_apertura" href="../../Primavera.html">
-          <img src="../../Icons/freccia.png" />
-        </a>
-      </button>
-    </p>
-
-    <br />
-
-    <h1 class="Primavera">Giri in Bici Primavera 2022</h1>
-
-    <br />
-
-    <div id="json" link="Json/2022.json"></div>
-
-    <table>
-      <tr class="grassetto">
-        <th>Data</th>
-        <th>Numero Percorso</th>
-        <th>luogo</th>
-        <th>distanza percorsa</th>
-        <th><img src="../../Icons/traguardo.png" /></th>
-      </tr>
-    </table>
-
-    <br />
-    <button class="principale">
-      <a href="../Img/2022/1.jpg" download target="_blank">
-        <img class="immagine" src="../Img/2022/1.jpg" />
+    <header class="site-bar">
+      <a class="brand" href="../../Giri.html">
+        <img class="Bandiera-FVG" src="../../Img/logo.jpg" alt="Giri in Bici" />
+        <span class="brand-text">Giri in Bici<small>Friuli Venezia Giulia</small></span>
       </a>
-    </button>
-    <button class="principale">
-      <a href="../Img/2022/2.jpg" download target="_blank">
-        <img class="immagine" src="../Img/2022/2.jpg" />
-      </a>
-    </button>
 
-    <br />
-    <div id="km"></div>
+      <nav class="Icons" aria-label="Sezioni del sito">
+        <a class="colore_apertura" href="../../Primavera.html" title="Torna a Primavera" aria-label="Torna a Primavera"><img src="../../Icons/freccia.png" alt="" /></a>
+        <a href="../../Giri.html" title="Home" aria-label="Home"><img src="../../Icons/home.png" alt="" /></a>
+        <a href="../../Primavera.html" title="Primavera" aria-label="Primavera"><img src="../../Icons/primavera.png" alt="" /></a>
+        <a href="../../Estate.html" title="Estate" aria-label="Estate"><img src="../../Icons/estate.png" alt="" /></a>
+        <a href="../../Autunno_Inverno.html" title="Autunno e Inverno" aria-label="Autunno e Inverno"><img src="../../Icons/inverno.png" alt="" /></a>
+        <a href="../../Statistiche.html" title="Statistiche" aria-label="Statistiche"><img src="../../Icons/Statistiche.png" alt="" /></a>
+        <a href="../../Bici/Bici.html" title="Le nostre bici" aria-label="Le nostre bici"><img src="../../Icons/bici.png" alt="" /></a>
+        <a href="../../About_US/About_us.html" title="Informazioni" aria-label="Informazioni"><img src="../../Icons/informazioni.png" alt="" /></a>
+        <a href="../../index.html" title="Accesso" aria-label="Accesso"><img src="../../Icons/login.png" alt="" /></a>
+      </nav>
+    </header>
+
+    <div id="json" link="Json/2022.json" hidden></div>
+
+    <main class="wrap stack">
+      <section class="hero">
+        <p class="eyebrow">Periodo</p>
+        <h1 class="Primavera">Giri in Bici Primavera 2022</h1>
+        <p class="hero-sub">Tutte le uscite registrate in questo periodo, in ordine cronologico.</p>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Diario</p>
+        <h2>Le uscite</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr class="grassetto">
+                <th scope="col">Data</th>
+                <th scope="col">N. percorso</th>
+                <th scope="col">Luogo</th>
+                <th scope="col">Distanza</th>
+                <th scope="col"><img src="../../Icons/traguardo.png" alt="chilometri" /></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Album</p>
+        <h2>Le foto del periodo</h2>
+        <div class="gallery">
+          <a class="shot" href="../Img/2022/1.jpg" download target="_blank" rel="noopener">
+            <img class="immagine" src="../Img/2022/1.jpg" alt="Foto Primavera 2022 numero 1" loading="lazy" />
+          </a>
+          <a class="shot" href="../Img/2022/2.jpg" download target="_blank" rel="noopener">
+            <img class="immagine" src="../Img/2022/2.jpg" alt="Foto Primavera 2022 numero 2" loading="lazy" />
+          </a>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Riepilogo</p>
+        <h2>Totali del periodo</h2>
+        <div id="km"></div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap">
+        <p>&copy; 2020&ndash;<span data-anno>2026</span> Giri in Bici &middot; Nico Maker &middot; Friuli Venezia Giulia</p>
+        <nav class="foot-links" aria-label="Collegamenti utili">
+          <a href="../../Giri.html">Home</a>
+          <a href="../../Statistiche.html">Statistiche</a>
+          <a href="../../Bici/Bici.html">Le nostre bici</a>
+          <a href="../../About_US/About_us.html">Informazioni</a>
+          <a href="../../QR_CODE/Logo.html">QR Code</a>
+          <a href="https://github.com/NicoMaker/Giri-in-bici" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>

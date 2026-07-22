@@ -1,622 +1,228 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Hubballi&family=Roboto:wght@100;300&family=Poppins:wght@100&display=swap");
+/* ============================================================
+   Giri in Bici — Tema principale (home, bici, QR, stagioni)
+   Il design system condiviso vive in assets/css/core.css
+   ============================================================ */
 
-h1 {
-  font-family: "Dancing Script", cursive;
-  color: #ff0d05;
-  font-size: 50px;
-  text-align: center;
+@import url("assets/css/core.css");
+
+:root {
+  --a1: #0e8bd4;
+  --a2: #6f5bf0;
+  --a-soft: rgba(14, 139, 212, 0.12);
 }
 
-p {
-  font-family: "Hubballi", cursive;
-  text-align: center;
-  color: black;
-  font-size: 30px;
-}
-
-.grasetto {
-  font-weight: bold;
-}
-
-.immagine {
+/* Blocco chilometri della home: la card riepilogo è cliccabile */
+#km {
   display: block;
   margin: 0 auto;
-  width: auto;
-  height: 700px;
-  border: dashed #00ff9d 10px;
-  background-color: yellow;
 }
 
-.Bandiera-FVG {
-  margin: 10px;
-  width: auto;
-  height: 200px;
-  border: dashed #00ff9d 10px;
-  background-color: yellow;
+#km .colore {
+  cursor: pointer;
 }
 
-.Titolo {
-  font-size: 100px;
-  text-shadow: 2px 2px 4px #000000;
-}
+/* ============================================================
+   "Le nostre bici" — catalogo
+   ============================================================ */
 
-a {
-  text-decoration: none;
-  color: blue;
-}
-
-body {
-  margin: 0;
-  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
-}
-
-a {
-  text-decoration: none;
-}
-
-.container_stagione {
-  text-align: center;
-}
-
-.immagini_stagione {
+#StampaBici {
   display: block;
-  margin: 0 auto;
-  width: auto;
-  height: 250px;
-  border: dashed #00ff9d 10px;
-  background-color: yellow;
+  width: min(100% - 2.5rem, var(--wrap));
+  margin: 2rem auto 0;
 }
 
-.immagini_stagione2,
-.immmaginejnrobot {
-  background-color: yellow;
-  display: inline-block;
+#StampaBici .container_stagione + .container_stagione {
+  margin-top: 1.5rem;
 }
 
-.immagini_stagione2 {
-  width: 300px;
-  height: 300px;
-  border: dashed #00ff9d 5px;
+/* Striscia delle intestazioni AI (galleria a 3 per riga) */
+.bici-hero-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.85rem;
+  margin: 0 0 2rem;
 }
 
-.immmaginejnrobot {
-  width: 450px;
-  height: 450px;
-  border: dashed #00ff9d 10px;
-  border-radius: 50px;
+.bici-hero-row img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-1);
 }
 
-.estate {
-  background: linear-gradient(to right, #f6fa70, #ff0060);
-  border-radius: 50px;
+/* Griglia di card, una per bici */
+.bici-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: clamp(1.1rem, 2.4vw, 1.6rem);
 }
 
-.primavera {
-  background: linear-gradient(to right, #00ff9d, #21b17a);
-  border-radius: 50px;
+.bici-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  box-shadow: var(--sh-2);
+  overflow: hidden;
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
 }
 
-.autunno_inverno {
-  background: linear-gradient(to right, #b8e8fc, #b1afff);
-  border-radius: 50px;
+.bici-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-3);
 }
 
-.colore_apertura {
-  font-size: 2rem;
-  color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(cyan, cyan);
-  background-repeat: no-repeat;
-  background-position: bottom left;
-  background-size: 0% 50%;
-  transition: background-size 300ms ease-in-out;
-  font-family: "Dancing Script", cursive;
-  color: orangered;
-}
-
-.colore_apertura:hover {
-  font-family: "Dancing Script", cursive;
-  background-size: 100% 25%;
-}
-
-.colore {
-  background: linear-gradient(to right, #9bf6ff, #a0c4ff, #9bf6ff);
-  border-radius: 50px;
-}
-
-.misuracolore {
-  font-size: 40px;
-}
-
-.colore:hover {
-  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
-}
-
-.colore_sfondo_italia {
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  margin-top: 20px;
-  font-family: "Dancing Script", cursive;
-  text-align: center;
-  font-size: 120px;
-}
-
-.immagine_bicisx,
-.immagine_bicidx,
-.contornostagionedx,
-.contornostagionesx {
-  display: block;
-  margin: 0 auto;
-  margin: 10px;
-  border-radius: 20%;
-  text-align: center;
-}
-
-.contornostagionedx:hover,
-.contornostagionesx:hover {
-  color: black;
-}
-
-.immaginestagionesx,
-.immagine_bicisx {
-  float: left;
-}
-
-.immaginestagionedx,
-.immagine_bicidx {
-  float: right;
-}
-
-.immaginestagionedx,
-.immaginestagionesx {
-  width: 50px;
-  height: 50px;
-  margin: 10px;
-}
-
-.contornostagionesx,
-.contornostagionedx {
+.bici-card__media {
   position: relative;
-  font-size: 50px;
-  font-family: "Dancing Script", cursive;
-  color: blue;
-  display: block;
-  margin: 5px auto;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2);
 }
 
-.immagine_bicisx,
-.immagine_bicidx {
-  border-radius: 20%;
-}
-
-@media all and (max-width: 1024px) {
-  .colore_sfondo_italia {
-    text-shadow: 2px 2px 4px
-      linear-gradiennt(
-        to right,
-        green,
-        green,
-        green,
-        green,
-        green,
-        green,
-        white,
-        white,
-        red,
-        red,
-        red,
-        red,
-        red,
-        red,
-        red
-      );
-    background-image: linear-gradient(
-      to right,
-      green,
-      green,
-      green,
-      green,
-      green,
-      green,
-      green,
-      white,
-      white,
-      red,
-      red,
-      red,
-      red,
-      red,
-      red,
-      red
-    );
-  }
-
-  .immagine_bicisx,
-  .immagine_bicidx {
-    width: 500px;
-    height: 350px;
-    margin: 10px;
-  }
-
-  .immagine_bicisx,
-  .immagine_bicidx {
-    width: 500px;
-    height: 350px;
-    margin: 10px;
-    border-radius: 20%;
-  }
-
-  .menu button {
-    width: 150px;
-  }
-
-  input {
-    width: 170px;
-  }
-}
-
-@media all and (min-width: 1024px) {
-  .colore_sfondo_italia {
-    text-shadow: 2px 2px 4px
-      linear-gradiennt(
-        to right,
-        green,
-        green,
-        green,
-        green,
-        green,
-        green,
-        green,
-        white,
-        white,
-        red,
-        red,
-        red,
-        red,
-        red,
-        red,
-        red
-      );
-    background-image: linear-gradient(
-      to right,
-      green,
-      green,
-      green,
-      green,
-      green,
-      green,
-      green,
-      white,
-      white,
-      red,
-      red,
-      red,
-      red,
-      red,
-      red,
-      red
-    );
-  }
-
-  .immagine_bicisx,
-  .immagine_bicidx {
-    width: 600px;
-    height: 400px;
-    margin: 10px;
-  }
-
-  .menu button {
-    width: 250px;
-  }
-
-  input {
-    width: 270px;
-  }
-}
-
-.animazione-bici {
-  font-size: 2rem;
-  color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(cyan, cyan);
-  background-repeat: no-repeat;
-  background-position: bottom left;
-  background-size: 0% 50%;
-  transition: background-size 300ms ease-in-out;
-  font-family: "Dancing Script", cursive;
-  color: orangered;
-
-  display: block;
-  margin: 0 auto;
-  width: auto;
-  height: 250px;
-}
-
-.animazione-bici:hover {
-  background-size: 100% 7%;
-}
-
-.bici {
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  border-radius: 50px;
-  background: linear-gradient(600deg, pink, pink, yellow, yellow, red, red);
-  border: white;
-}
-
-.contorno {
-  border: 3px solid red;
-  margin: 10px;
-  border-radius: 10px;
-}
-
-/**colore riga alternato pari**/
-.contorno:nth-child(2n):hover {
-  background: linear-gradient(600deg, red, red, yellow, yellow, pink, pink);
-}
-
-/**colore riga alternato dispari**/
-.contorno:nth-child(2n + 3):hover {
-  background: linear-gradient(600deg, pink, pink, yellow, yellow, red, red);
-}
-
-/***colore prima linea tabella**/
-.contorno:nth-child(-n + 1):hover {
-  background: linear-gradient(600deg, pink, pink, yellow, yellow, red, red);
-}
-
-.Titolo2 {
-  color: orangered;
-  font-weight: bold;
-  font-size: 40px;
-  text-align: center;
-}
-
-.principale {
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
-  border: white;
-  border-radius: 0px;
-}
-
-.stylebuttonbiciMTB {
-  right: 10px;
-}
-
-.contornostagione {
-  font-size: 50px;
-  font-family: "Dancing Script", cursive;
-  color: blue;
-}
-.contornostagione:hover {
-  color: black;
-}
-
-.immaginestagionestat,
-.immaginestagionestatsx {
-  width: 180px;
-  height: 180px;
-  margin: 10px;
-}
-
-.immaginestagionestat {
-  float: left;
-}
-
-.immaginestagionestatsx {
-  float: right;
-}
-
-.Icons {
-  position: fixed;
-  top: 30px;
-  z-index: 10;
-  left: 240px;
-  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
-}
-
-.grafico {
-  position: relative;
-  width: 1000px;
-  height: 1000px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.menu {
-  position: fixed;
-  width: 20vw;
-  min-width: 200px;
+.bici-card__media img {
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bici-card__anno {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--r-full);
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.82rem;
+  box-shadow: var(--sh-2);
+}
+
+.bici-card__body {
+  padding: clamp(1rem, 2.4vw, 1.35rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.bici-card__nome {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  color: var(--ink);
+}
+
+.bici-card__tipo {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--r-full);
+  background: var(--a-soft);
+  color: var(--a1);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.bici-card__specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
   list-style: none;
-  right: -100%;
-  transition: right 550ms;
-  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
-  top: 0;
-  z-index: 10;
-  overflow-y: auto;
-  border-radius: 20px;
 }
 
-.menu.showMenu {
-  right: 0;
-}
-
-.hamburger {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 20;
-  border-radius: 50%;
-  color: black;
-  text-shadow: 2px 2px 4px black;
-  font-size: 30px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(to right, green, white, white, red);
-}
-
-.hamburger .MenuIcon,
-.hamburger .CloseIcon {
-  display: block;
-  text-align: center;
-}
-
-.hamburger .CloseIcon {
-  display: none;
-}
-
-.hamburger.closeIcon {
-  background: none;
-}
-
-.hamburger.closeIcon .MenuIcon {
-  display: none;
-}
-
-.hamburger.closeIcon .CloseIcon {
-  display: block;
-}
-
-.menu li {
-  padding: 20px;
-}
-
-.menu button {
-  padding: 10px;
-  background: none;
-  border: 2px solid darkblue;
-  color: darkblue;
-  cursor: pointer;
-  font-size: 25px;
-  border-radius: 20px;
-}
-
-.CloseIcon span,
-.MenuIcon span {
-  cursor: pointer;
+.bici-card__spec {
   display: flex;
-  justify-content: center;
-}
-
-.CloseIcon,
-.MenuIcon,
-.CloseIcon span,
-.MenuIcon span {
-  font-size: 50px;
-}
-
-.menu a:hover,
-.bicimenu:hover {
-  color: red;
-}
-
-.MenuIcon:hover,
-.CloseIcon:hover {
-  color: blue;
-}
-
-.menu a {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
 }
 
-.menu h1 {
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  font-size: 40px;
+.bici-card__spec .material-icons {
+  font-size: 1.1rem;
+  color: var(--a1);
 }
 
-.bicimenu {
-  font-size: 50px;
-}
-
-.logo {
-  height: 50px;
-  width: 50px;
-}
-
-input {
-  font-size: 20px;
-  border-radius: 50px;
-  text-align: center;
-}
-
-.coloregrafico {
-  background-color: white;
-}
-
-/* Contenitore per centrare il bottone */
-.centra-bottone {
+.bici-card__spec-text {
   display: flex;
-  justify-content: center; /* Centra orizzontalmente */
-  align-items: center; /* Centra verticalmente */
-  height: 100vh; /* Imposta l'altezza al 100% della viewport */
-  width: 100%; /* Imposta la larghezza al 100% */
+  flex-direction: column;
+  line-height: 1.2;
 }
 
-/* Contenitore generale */
-.Container {
-  display: flex;
-  justify-content: center; /* Allinea i pulsanti orizzontalmente al centro */
-  align-items: center; /* Allinea i pulsanti verticalmente al centro */
-  background-color: #f4f4f4; /* Colore di sfondo del contenitore */
-  gap: 20px; /* Spazio tra i pulsanti */
-  background: linear-gradient(to right, #79e0ee, #b1afff, #79e0ee);
+.bici-card__spec-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ink-2);
 }
 
-/* Stile per i pulsanti */
-.Icona {
+.bici-card__spec-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.bici-card__spec--wide {
+  grid-column: 1 / -1;
+}
+
+/* Barra dei filtri categoria, sempre visibile sopra la griglia */
+.bici-filtri {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%; /* Forma circolare */
-  border: none; /* Nessun bordo */
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 1.6rem;
+}
+
+.bici-filtro {
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--r-full);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease; /* Transizioni fluide */
-  overflow: hidden; /* Nasconde il contenuto eccedente */
-  border: 2px solid #e63946; /* Bordo rosso */
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.2s var(--ease),
+    color 0.2s var(--ease);
 }
 
-/* Effetto al passaggio del mouse */
-.Icona:hover {
-  transform: scale(1.1); /* Ingrandisce leggermente il bottone */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più evidente */
+.bici-filtro:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sh-1);
 }
 
-/* Stile per l'immagine dentro il bottone */
-.Icona img {
-  width: 100%; /* Riempie il bottone */
-  height: 100%; /* Mantiene le proporzioni */
-  object-fit: cover; /* Adatta l'immagine al bottone */
+.bici-filtro.attivo {
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: var(--sh-2);
 }
 
-.contorno p {
-  font-size: 30px;
-}
-
-/*  media all query per pc */
-@media (min-width: 1024px) {
-  .menu {
-    width: 300px;
+@media (max-width: 640px) {
+  .bici-card__specs {
+    grid-template-columns: 1fr;
   }
 }
 
-.no-results {
-  color: red;
-  font-size: 24px;
+/* Card chilometri della home cliccabile */
+.km-link {
   display: block;
-  width: 75%;
-  text-align: center;
-  font-weight: bold;
+  color: inherit;
 }

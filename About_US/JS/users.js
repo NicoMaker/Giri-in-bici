@@ -78,16 +78,7 @@ class TeamManager {
   }
 
   initializeAnimations() {
-    const teamMembers = document.querySelectorAll(".team-member");
-    teamMembers.forEach((member) => {
-      member.addEventListener("mouseenter", function () {
-        this.style.background =
-          "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(240, 147, 251, 0.2))";
-      });
-      member.addEventListener("mouseleave", function () {
-        this.style.background = "rgba(255, 255, 255, 0.5)";
-      });
-    });
+    // Gli effetti al passaggio del mouse sono gestiti dal CSS del tema.
   }
 }
 

@@ -1,41 +1,7 @@
-// Mermaid configuration
-document.addEventListener("DOMContentLoaded", function () {
-  mermaid.initialize({
-    startOnLoad: true,
-    theme: "base",
-    themeVariables: {
-      primaryColor: "#667eea",
-      primaryTextColor: "#2d3748",
-      primaryBorderColor: "#764ba2",
-      lineColor: "#4a5568",
-      secondaryColor: "#f093fb",
-      tertiaryColor: "#e2e8f0",
-      background: "#ffffff",
-      mainBkg: "#ffffff",
-      secondBkg: "#f7fafc",
-      tertiaryBkg: "#edf2f7",
-      cScale0: "#667eea",
-      cScale1: "#764ba2",
-      cScale2: "#f093fb",
-      fontFamily: "Inter, sans-serif",
-      fontSize: "14px",
-    },
-    flowchart: {
-      htmlLabels: true,
-      curve: "basis",
-      nodeSpacing: 50,
-      rankSpacing: 50,
-      padding: 20,
-    },
-  });
+// ============================================================
+// script.js — Piè di pagina dinamico e comparsa dei blocchi
+// ============================================================
 
-  // Hide loading spinner once mermaid is rendered
-  setTimeout(() => {
-    document.getElementById("mermaid-loading").style.display = "none";
-  }, 1000);
-});
-
-// Footer content generation
 const months = [
   "Gennaio",
   "Febbraio",
@@ -58,95 +24,77 @@ const generateFooter = () => {
   const year = now.getFullYear();
 
   return `
-    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-      <span style="font-size: 1.5rem;">🚴‍♂️</span>
+    <div class="footer-line">
+      <span aria-hidden="true">🚴‍♂️</span>
       <div>
-        <div style="color: purple;">&copy; 30 Maggio 2020 - ${day} ${month} ${year}</div>
-        <div style="margin-top: 0.5rem; font-weight: 600; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-          Nico Maker Giri in Bici
-        </div>
+        <div class="footer-dates">Dal 30 Maggio 2020 al ${day} ${month} ${year}</div>
+        <div class="footer-brand">Nico Maker &middot; Giri in Bici</div>
       </div>
-      <span style="font-size: 1.5rem;">🚴‍♀️</span>
+      <span aria-hidden="true">🚴‍♀️</span>
     </div>
   `;
 };
 
 const updateFooter = () => {
-  document.getElementById("footer-content").innerHTML = generateFooter();
+  const el = document.getElementById("footer-content");
+  if (el) el.innerHTML = generateFooter();
 };
 
-// Aggiorna subito il footer
-updateFooter();
-
-// Calcola i millisecondi che mancano alla mezzanotte successiva
-// e programma l'aggiornamento esatto in quel momento, poi ogni 24h
+// Riallinea la data esattamente a mezzanotte, poi ogni 24 ore
 const scheduleMidnightUpdate = () => {
   const now = new Date();
   const midnight = new Date(
     now.getFullYear(),
     now.getMonth(),
-    now.getDate() + 1, // giorno successivo
+    now.getDate() + 1,
     0,
     0,
     0,
-    0, // mezzanotte esatta
+    0,
   );
-  const msToMidnight = midnight - now;
 
   setTimeout(() => {
     updateFooter();
-    // Dopo il primo aggiornamento a mezzanotte, ripeti ogni 24 ore
     setInterval(updateFooter, 24 * 60 * 60 * 1000);
-  }, msToMidnight);
+  }, midnight - now);
 };
 
-scheduleMidnightUpdate();
+// Comparsa graduale dei blocchi
+const initReveal = () => {
+  const blocchi = document.querySelectorAll(".fade-in");
+  if (!blocchi.length || !("IntersectionObserver" in window)) return;
 
-// Intersection Observer for animations
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: "0px 0px -50px 0px",
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.style.animationDelay = "0.1s";
-      entry.target.classList.add("fade-in");
-    }
-  });
-}, observerOptions);
-
-// Observe all fade-in elements
-document.querySelectorAll(".fade-in").forEach((el) => {
-  observer.observe(el);
-});
-
-// Smooth scrolling for anchor links
-document.addEventListener("click", function (e) {
-  if (
-    e.target.tagName === "A" &&
-    e.target.getAttribute("href")?.startsWith("#")
-  ) {
-    e.preventDefault();
-    const target = document.querySelector(e.target.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-in");
+          observer.unobserve(entry.target);
+        }
       });
-    }
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+  );
+
+  blocchi.forEach((el) => observer.observe(el));
+};
+
+// Scorrimento morbido per i collegamenti interni
+document.addEventListener("click", (e) => {
+  const link = e.target.closest("a");
+  if (!link) return;
+  const href = link.getAttribute("href");
+  if (!href || !href.startsWith("#")) return;
+
+  const target = document.querySelector(href);
+  if (target) {
+    e.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 });
 
-// Add sparkle effect on hover for team members
-document.querySelectorAll(".team-member").forEach((member) => {
-  member.addEventListener("mouseenter", function () {
-    this.style.background =
-      "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(240, 147, 251, 0.2))";
-  });
-
-  member.addEventListener("mouseleave", function () {
-    this.style.background = "rgba(255, 255, 255, 0.5)";
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  updateFooter();
+  scheduleMidnightUpdate();
+  initReveal();
 });

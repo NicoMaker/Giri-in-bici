@@ -4,54 +4,118 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((data) => {
       const bici = document.getElementById("StampaBici");
 
-      // Funzione per mostrare solo l'intestazione Home
-      const Home = () =>
-        (bici.innerHTML = `<img class="immagini_stagione" src="${data.intestazioni.home}" /><br />`);
+      const ETICHETTE_TIPO = { mtb: "Mountain bike", corsa: "Bici da corsa" };
 
-      // Funzione generica per mostrare le bici filtrate
-      function mostraBiciFiltrate(tipo) {
-        let html = `<div class="container_stagione">`;
-
-        // Mostra intestazioni per la categoria selezionata con layout a 3 per riga
-        if (data.intestazioni[tipo]) {
-          html += `<div class="container_stagione">`;
-          data.intestazioni[tipo].forEach((img, index) => {
-            if (index % 3 === 0) html += `<div class="row">`; // Inizio riga ogni 3 immagini
-            html += `<img class="immagini_stagione2" src="${img}" />`;
-            if (index % 3 === 2 || index === data.intestazioni[tipo].length - 1)
-              html += `</div>`; // Chiudi riga ogni 3 immagini o alla fine
-          });
-          html += `</div><br />`;
-        }
-
-        // Filtra e mostra solo le bici del tipo selezionato
-        const biciFiltrate = data.bici.filter((bici) => bici.tipo === tipo);
-
-        biciFiltrate.forEach((bici, index) => {
-          const classeImmagine =
-            index % 2 === 0 ? "immagine_bicisx" : "immagine_bicidx";
-          html += `
-            <div class="contorno">
-                <img class="${classeImmagine}" src="${bici.immagine}">
-                <h1 class="Titolo2">${bici.nome}</h1>
-                <p><strong>Tipo Freni:</strong> ${bici.tipo_freni}</p>
-                <p><strong>Materiale:</strong> ${bici.materiale}</p>
-                <p><strong>Misura Ruote:</strong> ${bici.misura_ruote}</p>
-                <p><strong>Cambi:</strong> ${bici.avanti} avanti ${bici.dietro} dietro <br> Totale ${bici.avanti * bici.dietro}</p>
-                <p><strong>Anno di Produzione:</strong> ${bici.anno}</p>
-            </div>`;
-        });
-
-        bici.innerHTML = html;
+      // Riga di intestazioni AI per la categoria selezionata (3 per riga)
+      function renderIntestazioni(tipo) {
+        const immagini = data.intestazioni[tipo];
+        if (!immagini || !immagini.length) return "";
+        return `
+          <div class="bici-hero-row">
+            ${immagini.map((img) => `<img src="${img}" alt="" loading="lazy" />`).join("")}
+          </div>`;
       }
 
-      // Funzioni per mostrare MTB e Corsa
+      // Una singola card scheda tecnica
+      function renderCard(bici) {
+        const rapportoTotale = bici.avanti * bici.dietro;
+        return `
+          <article class="bici-card">
+            <div class="bici-card__media">
+              <img src="${bici.immagine}" alt="${bici.nome}" loading="lazy" />
+              <span class="bici-card__anno">${bici.anno}</span>
+            </div>
+            <div class="bici-card__body">
+              <h3 class="bici-card__nome">${bici.nome}</h3>
+              <span class="bici-card__tipo">${ETICHETTE_TIPO[bici.tipo] || bici.tipo}</span>
+              <ul class="bici-card__specs">
+                <li class="bici-card__spec">
+                  <span class="material-icons">adjust</span>
+                  <span class="bici-card__spec-text">
+                    <span class="bici-card__spec-label">Freni</span>
+                    <span class="bici-card__spec-value">${bici.tipo_freni}</span>
+                  </span>
+                </li>
+                <li class="bici-card__spec">
+                  <span class="material-icons">construction</span>
+                  <span class="bici-card__spec-text">
+                    <span class="bici-card__spec-label">Materiale</span>
+                    <span class="bici-card__spec-value">${bici.materiale}</span>
+                  </span>
+                </li>
+                <li class="bici-card__spec">
+                  <span class="material-icons">circle</span>
+                  <span class="bici-card__spec-text">
+                    <span class="bici-card__spec-label">Ruote</span>
+                    <span class="bici-card__spec-value">${bici.misura_ruote}"</span>
+                  </span>
+                </li>
+                <li class="bici-card__spec">
+                  <span class="material-icons">event</span>
+                  <span class="bici-card__spec-text">
+                    <span class="bici-card__spec-label">Anno</span>
+                    <span class="bici-card__spec-value">${bici.anno}</span>
+                  </span>
+                </li>
+                <li class="bici-card__spec bici-card__spec--wide">
+                  <span class="material-icons">settings</span>
+                  <span class="bici-card__spec-text">
+                    <span class="bici-card__spec-label">Cambio</span>
+                    <span class="bici-card__spec-value">${bici.avanti} avanti &times; ${bici.dietro} dietro &mdash; ${rapportoTotale} rapporti totali</span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </article>`;
+      }
+
+      // Mostra solo l'intestazione Home (schermata di benvenuto)
+      function mostraHome() {
+        bici.innerHTML = `<img class="immagini_stagione" src="${data.intestazioni.home}" alt="" /><br />`;
+        impostaFiltroAttivo("home");
+      }
+
+      // Mostra le bici filtrate per tipo ("mtb", "corsa" o "tutte")
+      function mostraBiciFiltrate(tipo) {
+        const biciFiltrate =
+          tipo === "tutte"
+            ? data.bici
+            : data.bici.filter((b) => b.tipo === tipo);
+
+        const intestazioni = tipo === "tutte" ? "" : renderIntestazioni(tipo);
+
+        bici.innerHTML = `
+          ${intestazioni}
+          <div class="bici-grid">
+            ${biciFiltrate.map(renderCard).join("")}
+          </div>`;
+
+        impostaFiltroAttivo(tipo);
+      }
+
+      // Evidenzia il filtro attivo sia nella barra pillole sia nel menu a comparsa
+      function impostaFiltroAttivo(tipo) {
+        document.querySelectorAll(".bici-filtro").forEach((btn) => {
+          btn.classList.toggle("attivo", btn.dataset.filtro === tipo);
+        });
+      }
+
       window.CalcolaMTB = () => mostraBiciFiltrate("mtb");
       window.CalcolaCorsa = () => mostraBiciFiltrate("corsa");
-      window.Home = Home;
+      window.CalcolaTutte = () => mostraBiciFiltrate("tutte");
+      window.Home = mostraHome;
 
-      // Carica la home all'avvio
-      Home();
+      // Collega la barra dei filtri, se presente in pagina
+      document.querySelectorAll(".bici-filtro").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tipo = btn.dataset.filtro;
+          if (tipo === "home") window.Home();
+          else mostraBiciFiltrate(tipo);
+        });
+      });
+
+      // All'avvio mostra subito tutto il catalogo
+      mostraBiciFiltrate("tutte");
     })
     .catch((error) => console.error("Errore nel caricamento del JSON:", error));
 });

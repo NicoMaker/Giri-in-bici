@@ -99,11 +99,11 @@ function initInputFocusEffects() {
   inputs.forEach((input) => {
     input.addEventListener("focus", function () {
       const icon = this.parentElement.querySelector("i:not(.toggle-password)");
-      if (icon) icon.style.color = "var(--accent-color)";
+      if (icon) icon.style.color = "var(--a1)";
     });
     input.addEventListener("blur", function () {
       const icon = this.parentElement.querySelector("i:not(.toggle-password)");
-      if (icon) icon.style.color = "var(--primary-color)";
+      if (icon) icon.style.color = "var(--ink-3)";
     });
   });
 }
@@ -113,6 +113,13 @@ function initPasswordToggle() {
   const passwordInput = document.getElementById("password");
 
   if (togglePassword && passwordInput) {
+    togglePassword.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        this.click();
+      }
+    });
+
     togglePassword.addEventListener("click", function () {
       const type =
         passwordInput.getAttribute("type") === "password" ? "text" : "password";
@@ -192,8 +199,8 @@ function showNotification(message, type) {
           top: 20px;
           left: 50%;
           transform: translateX(-50%);
-          padding: 12px 20px;
-          border-radius: 8px;
+          padding: 12px 22px;
+          border-radius: 999px;
           color: white;
           font-weight: 500;
           z-index: 1000;
@@ -207,9 +214,9 @@ function showNotification(message, type) {
           from { opacity: 1; transform: translate(-50%, 0); }
           to { opacity: 0; transform: translate(-50%, -20px); }
         }
-        .notification.success { background-color: #06d6a0; }
-        .notification.error { background-color: #ef476f; }
-        .notification.warning { background-color: #ffd166; color: #333; }
+        .notification.success { background-color: #0ca678; }
+        .notification.error { background-color: #e03131; }
+        .notification.warning { background-color: #f2701a; color: #fff; }
         .shake {
           animation: shake 0.5s;
         }
@@ -239,18 +246,24 @@ function generatePassword() {
 
 function initBackgroundAnimation() {
   setAbstractBackground();
-  setInterval(setAbstractBackground, 3000);
+  setInterval(setAbstractBackground, 7000);
 }
+
+// Gradienti del marchio: niente colori casuali, solo la palette del sito
+const GRADIENTI = [
+  "linear-gradient(135deg, rgba(14,139,212,.16), rgba(111,91,240,.14))",
+  "linear-gradient(135deg, rgba(12,166,120,.16), rgba(99,198,95,.14))",
+  "linear-gradient(135deg, rgba(242,112,26,.15), rgba(247,201,72,.14))",
+  "linear-gradient(135deg, rgba(27,111,196,.16), rgba(94,194,224,.14))",
+];
+
+let indiceGradiente = 0;
 
 function setAbstractBackground() {
   const container = document.getElementById("container");
-  if (container) {
-    const bgColor = getRandomColor(0.2);
-    const bgImage = `linear-gradient(45deg, ${getRandomColor(0.3)}, ${getRandomColor(0.3)})`;
-    container.style.transition = "background 2s ease";
-    container.style.backgroundColor = bgColor;
-    container.style.backgroundImage = bgImage;
-  }
+  if (!container) return;
+  container.style.backgroundImage = GRADIENTI[indiceGradiente];
+  indiceGradiente = (indiceGradiente + 1) % GRADIENTI.length;
 }
 
 function initRippleEffect() {
@@ -302,15 +315,15 @@ function initParticlesJS() {
     particlesJS("particles-js", {
       particles: {
         number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: "#4361ee" },
+        color: { value: "#0e8bd4" },
         shape: { type: "circle" },
         opacity: { value: 0.5, random: true },
         size: { value: 3, random: true },
         line_linked: {
           enable: true,
           distance: 150,
-          color: "#4361ee",
-          opacity: 0.4,
+          color: "#6f5bf0",
+          opacity: 0.25,
           width: 1,
         },
         move: {
