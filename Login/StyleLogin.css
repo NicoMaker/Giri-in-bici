@@ -1,5 +1,5 @@
 /* ============================================================
-   Giri in Bici — Accesso
+   Giri in Bici — Accesso (full-width button)
    ============================================================ */
 
 @import url("../assets/css/core.css");
@@ -17,7 +17,6 @@ body {
   padding: 1.25rem;
 }
 
-/* Sfondo particelle */
 .particles-container {
   position: fixed;
   inset: 0;
@@ -25,7 +24,7 @@ body {
   pointer-events: none;
 }
 
-/* Wrapper a schermo intero — sovrascrive la griglia .container del core */
+/* Sovrascrive la griglia .container del core */
 .container {
   display: grid;
   place-items: center;
@@ -40,7 +39,7 @@ body {
   transition: background 1.8s var(--ease);
 }
 
-/* Card di accesso */
+/* Card */
 .login-card {
   position: relative;
   width: 100%;
@@ -210,44 +209,53 @@ body {
   display: none;
 }
 
-/* ===== Pulsante login — dimensioni fisse ===== */
+/* ====== BOTTONE ACCEDI – FULL-WIDTH E DIMENSIONI FISSE ====== */
+
+/* Wrapper che isola il bottone e l'eventuale messaggio di errore */
+.login-btn-wrapper {
+  min-height: 80px;          /* altezza fissa per contenere bottone + spazio per errore */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;      /* il bottone si allarga a tutto il wrapper */
+  justify-content: flex-start;
+  margin-top: 0.6rem;
+}
+
+/* Il bottone */
 .login-btn {
   position: relative;
-  display: inline-flex;
+  display: inline-flex;      /* flex interno per allineare icona e testo */
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  width: 100%;
-  max-width: 280px;          /* larghezza massima fissa */
-  height: 54px;              /* altezza fissa */
-  padding: 0 1.4rem;         /* padding orizzontale fisso */
+  width: 100%;               /* OCCUPA TUTTA LA LARGHEZZA DISPONIBILE */
+  height: 54px;              /* ALTEZZA FISSA */
+  padding: 0 1.4rem;         /* PADDING ORIZZONTALE FISSO (non varia) */
   font-family: var(--font-head);
-  font-size: 1.02rem;        /* dimensione testo fissa */
+  font-size: 1.02rem;        /* DIMENSIONE TESTO FISSA */
   font-weight: 700;
   color: #fff;
   background: linear-gradient(120deg, var(--a1), var(--a2));
   border: 0;
   border-radius: var(--r-full);
-  overflow: visible;         /* evita che il ripple venga ritagliato */
-  box-shadow: 0 10px 24px -12px rgba(14, 27, 42, 0.45);
+  overflow: hidden;
   box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--a1) 80%, transparent);
   transition:
     transform 0.2s var(--ease),
     box-shadow 0.25s var(--ease),
     filter 0.2s var(--ease);
-  flex-shrink: 0;            /* impedisce compressione in flex */
+  flex-shrink: 0;            /* impedisce compressioni in contesti flex */
   cursor: pointer;
 }
 
 .login-btn:hover {
   transform: translateY(-2px);
   filter: saturate(1.12);
-  box-shadow: 0 16px 32px -14px rgba(14, 27, 42, 0.5);
   box-shadow: 0 16px 32px -14px color-mix(in srgb, var(--a1) 90%, transparent);
 }
 
 .login-btn:active {
-  transform: translateY(0) scale(0.97); /* leggero effetto click, non altera dimensioni */
+  transform: translateY(0) scale(0.98); /* leggero effetto click, ma non cambia la dimensione finale */
 }
 
 .login-btn i {
@@ -258,34 +266,35 @@ body {
   transform: translateX(4px);
 }
 
-/* Il ripple è solo estetico, non influisce */
+/* Ripple (se presente) */
 .btn-ripple {
-  display: none;
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple 0.6s linear;
 }
 
-/* Contenitore del bottone — stabile */
-.login-btn-wrapper {
-  min-height: 80px;          /* spazio per bottone + eventuale errore */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 0.6rem;
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }
 
-/* Messaggio di errore — sempre presente ma vuoto */
+/* Messaggio di errore (statico, se mai lo userai) – non modifica il layout */
 #loginError {
   min-height: 1.8rem;
-  margin-top: 0.4rem;
-  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: #dc2626;
   text-align: center;
+  opacity: 0;
   transition: opacity 0.2s;
-  width: 100%;
 }
 
-/* Footer */
 .login-footer {
   position: relative;
   z-index: 1;
@@ -300,7 +309,7 @@ body {
   color: var(--ink-3);
 }
 
-/* Banner cookie */
+/* ====== COOKIE BANNER ====== */
 .cookie-banner {
   position: fixed;
   left: 50%;
@@ -398,22 +407,15 @@ body {
   color: var(--a1);
 }
 
+/* Responsive */
 @media (max-width: 520px) {
   .cookie-content {
     justify-content: center;
   }
-
   .cookie-content p {
     text-align: center;
   }
-
   #accept-cookies {
     width: 100%;
-  }
-
-  .login-btn {
-    max-width: 100%; /* su mobile occupa tutta la larghezza */
-    height: 50px;
-    font-size: 0.98rem;
   }
 }
