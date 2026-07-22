@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p class="contornostagione misuracolore">${season.name}</p>
         
         <p class="misuracolore">
-          km totali ${formatNumber(totalKm)}
+          km totali ${formatItalianNumber(totalKm)}
           <img src="../Icons/traguardo.png" onerror="this.style.display='none'">
         </p>
         
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     return `
       <div class="colore">
-        <p class="misuracolore">Totale km ${formatNumber(data.totale)} <img src="../Icons/traguardo.png" onerror="this.style.display='none'"></p>
+        <p class="misuracolore">Totale km ${formatItalianNumber(data.totale)} <img src="../Icons/traguardo.png" onerror="this.style.display='none'"></p>
         <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
         <p class="misuracolore">Media km per Periodo ${data.avgperiod} km</p>
         <p class="misuracolore">Totale corse ${formatItalianNumber(data.corseTotale)}</p>

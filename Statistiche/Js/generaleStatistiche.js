@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               <a href="Statistiche/Anni/${entry.year}.html">
                 <img class="immaginestagione" src="Icons/Statistiche.png">
                 <p class="titoli">Statistiche ${entry.year}</p>
-                <p class="misuracolore">km totali ${formatNumber(entry.km)} <img src="Icons/traguardo.png"></p>
+                <p class="misuracolore">km totali ${formatItalianNumber(entry.km)} <img src="Icons/traguardo.png"></p>
                 <p class="misuracolore">${avgValues[startIndex + index]} %</p>
                 <p class="misuracolore">Totale corse ${entry.numberOfRaces}</p>
                 <p class="misuracolore">km medi per corsa ${formatNumber(entry.km / entry.numberOfRaces)}</p>

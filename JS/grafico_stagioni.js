@@ -70,7 +70,7 @@ const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
           <img class="immaginestagione" src="Icons/${image}">
           <p class="titoli">
             ${season} ${label}
-            <p class="misuracolore">Totale km ${formatNumber(data[label].totalDistance)}
+            <p class="misuracolore">Totale km ${formatItalianNumber(data[label].totalDistance)}
               <img src="Icons/traguardo.png">
             </p>
             <p class="misuracolore">${avgValues[index]} %</p>
@@ -178,7 +178,7 @@ function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
 
   document.getElementById("totale").innerHTML = `
     <div class="colore">
-      <p class="misuracolore">Totale km percorsi in ${season} ${formatNumber(totale)} <img src="Icons/traguardo.png"></p>
+      <p class="misuracolore">Totale km percorsi in ${season} ${formatItalianNumber(totale)} <img src="Icons/traguardo.png"></p>
       <p class="misuracolore">km medi per giro in ${season} ${avgcorsa}</p>
       <p class="misuracolore">Media km per periodo ${avgseason}</p>
       <p class="misuracolore">Totale corse ${formattedTotalRaces}</p>
