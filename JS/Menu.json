@@ -70,6 +70,11 @@
       "icona": "qr",
       "icon": "Icons/qr_code.png",
       "link": "QR_CODE/Logo.html"
+    },
+    {
+      "name":"Stagioni",
+      "icona":"assets/img/stagioni.svg",
+      "link":"Statistiche/stagioni.html"
     }
   ]
 }
