@@ -6,9 +6,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const ETICHETTE_TIPO = { mtb: "Mountain bike", corsa: "Bici da corsa" };
 
-      // Riga di intestazioni AI per la categoria selezionata (3 per riga)
+      // Riga di intestazioni AI per la categoria selezionata (3 per riga).
+      // Con "tutte" uniamo le gallerie di mtb e corsa cosi' si vedono tutte
+      // le immagini celebrative, non solo quelle di una categoria.
       function renderIntestazioni(tipo) {
-        const immagini = data.intestazioni[tipo];
+        const immagini =
+          tipo === "tutte"
+            ? [
+                ...(data.intestazioni.mtb || []),
+                ...(data.intestazioni.corsa || []),
+              ]
+            : data.intestazioni[tipo];
         if (!immagini || !immagini.length) return "";
         return `
           <div class="bici-hero-row">
@@ -82,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ? data.bici
             : data.bici.filter((b) => b.tipo === tipo);
 
-        const intestazioni = tipo === "tutte" ? "" : renderIntestazioni(tipo);
+        const intestazioni = renderIntestazioni(tipo);
 
         bici.innerHTML = `
           ${intestazioni}
