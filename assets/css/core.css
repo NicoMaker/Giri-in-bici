@@ -401,11 +401,33 @@ hr {
 }
 
 
+/* Pulsante grafico stagioni nella barra */
+.graficostagioni {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 0 0 auto;
+  padding: 0.35rem 0.95rem 0.35rem 0.4rem;
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: var(--r-full);
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  box-shadow: var(--sh-2);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    color 0.2s var(--ease);
+}
+
+/* Passandoci sopra si alza appena: il colore della scritta non
+   viene toccato, resta quello del pulsante. */
 .graficostagioni:hover {
   transform: translateY(-2px);
   box-shadow: var(--sh-3);
-  filter: brightness(1.08);
-  color: #fff;
 }
 
 .Stagioni {
@@ -2018,12 +2040,6 @@ p.contornostagione {
   }
 }
 
-@keyframes floatSoft {
-  50% {
-    transform: translateY(-9px);
-  }
-}
-
 @keyframes pulseRing {
   70% {
     box-shadow: 0 0 0 14px rgba(0, 0, 0, 0);
@@ -2069,11 +2085,8 @@ p.contornostagione {
     gradientShift 9s ease-in-out 1s infinite alternate;
 }
 
-.hero > .immagini_stagione {
-  animation:
-    riseIn 0.85s var(--ease) both,
-    floatSoft 7s ease-in-out 1.2s infinite;
-}
+/* La copertina della stagione non galleggia piu': salendo di continuo
+   finiva sopra il sottotitolo. Le resta solo l'entrata di .hero > *. */
 
 /* ---------- Entrata scaglionata delle card ---------- */
 #stampa .container > *,

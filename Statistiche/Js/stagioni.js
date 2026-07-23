@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return `
     <div class="${season.containerClass}">
       <a href="${season.link}">
-        <img class="${season.imgClass}" src="../Icons/${season.icon}" onerror="this.src='../Icons/default.png'">
+        <img class="${season.imgClass}" src="../Icons/${season.icon}" alt="" onerror="this.style.display='none'">
         <p class="contornostagione misuracolore">${season.name}</p>
         
         <p class="misuracolore">
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <img src="../Icons/traguardo.png" onerror="this.style.display='none'">
         </p>
         
-        <p class="misuracolore">${formatNumber(seasonKmPercentage)} %</p>
+        <p class="misuracolore">Percentuale km sul totale ${formatNumber(seasonKmPercentage)} %</p>
         
         <p class="misuracolore">
           Totale corse ${formatItalianNumber(currentSeasonRaces)} corse 
