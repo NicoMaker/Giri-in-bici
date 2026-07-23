@@ -101,9 +101,7 @@
       intero = gruppi.join(".");
     }
 
-    return (
-      (negativo ? "-" : "") + intero + (pezzi[1] ? "," + pezzi[1] : "")
-    );
+    return (negativo ? "-" : "") + intero + (pezzi[1] ? "," + pezzi[1] : "");
   }
 
   function conta(elemento, obiettivo, decimali) {

@@ -219,9 +219,9 @@
   function gruppoDi(el) {
     var contenitore = el.closest(SEL_GRUPPO);
     if (!contenitore) return [el]; // foto isolata: nessuna freccia
-    var vicine = Array.prototype.slice.call(
-      contenitore.querySelectorAll(SEL_FOTO),
-    ).filter(eApribile);
+    var vicine = Array.prototype.slice
+      .call(contenitore.querySelectorAll(SEL_FOTO))
+      .filter(eApribile);
     return vicine.indexOf(el) === -1 ? [el] : vicine;
   }
 

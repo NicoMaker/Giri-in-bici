@@ -72,9 +72,9 @@
       "link": "QR_CODE/Logo.html"
     },
     {
-      "name":"Stagioni",
-      "icona":"assets/img/stagioni.svg",
-      "link":"Statistiche/stagioni.html"
+      "name": "Stagioni",
+      "icona": "assets/img/stagioni.svg",
+      "link": "Statistiche/stagioni.html"
     }
   ]
 }
