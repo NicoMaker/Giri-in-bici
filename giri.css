@@ -85,8 +85,9 @@
 /* Riquadro foto identico in ogni scheda. .bici-card e' un flex in
    colonna: senza min-height: 0 la foto piu' alta allungava il riquadro
    e l'aspect-ratio veniva ignorato (era il caso de "La Bianconera").
-   L'immagine sta in posizione assoluta e resta intera dentro il
-   riquadro, quindi le bici non vengono mai tagliate. */
+   Qui usiamo "cover": la foto riempie tutto il riquadro, quindi le
+   immagini si vedono tutte della stessa identica misura, senza bande
+   vuote. Il ritaglio avviene dai bordi, il centro resta sempre intero. */
 .bici-card__media {
   position: relative;
   flex: 0 0 auto;
@@ -101,8 +102,37 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   display: block;
+}
+
+/* Segnale che la foto si puo' aprire, come nelle gallerie */
+.bici-card__media::after {
+  content: "⤢";
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-full);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--ink);
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.25s var(--ease),
+    transform 0.25s var(--ease);
+  pointer-events: none;
+}
+
+.bici-card:hover .bici-card__media::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .bici-card__anno {

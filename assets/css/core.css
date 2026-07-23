@@ -1562,6 +1562,41 @@ p.contornostagione {
   color: var(--a1);
 }
 
+/* Il nome della stagione prende il colore della stagione stessa,
+   gli stessi di cui e' fatta la striscia in cima alla card. */
+.primavera .contornostagione,
+.primavera p.contornostagione {
+  color: #0ca678;
+}
+
+.estate .contornostagione,
+.estate p.contornostagione {
+  color: #e8590c;
+}
+
+.autunno_inverno .contornostagione,
+.autunno_inverno p.contornostagione {
+  color: #1971c2;
+}
+
+/* In tema scuro le stesse tinte, schiarite per restare leggibili */
+@media (prefers-color-scheme: dark) {
+  .primavera .contornostagione,
+  .primavera p.contornostagione {
+    color: #38d9a9;
+  }
+
+  .estate .contornostagione,
+  .estate p.contornostagione {
+    color: #ffa94d;
+  }
+
+  .autunno_inverno .contornostagione,
+  .autunno_inverno p.contornostagione {
+    color: #74c0fc;
+  }
+}
+
 .immaginestagionesx,
 .immaginestagionedx {
   float: none;
@@ -2420,6 +2455,21 @@ tbody tr td {
 }
 
 /* ---------- Lightbox: apre le foto della galleria a grandezza piena ---------- */
+
+/* Tutte le foto del sito si aprono a grandezza piena. Il marcatore
+   data-apribile lo mette ui.js sulle sole immagini che ha davvero
+   attivato, cosi' l'aspetto non puo' mai discostarsi dal
+   comportamento: niente cursore a lente su icone o loghi. */
+[data-apribile],
+.gallery a.shot {
+  cursor: zoom-in;
+}
+
+[data-apribile]:focus-visible {
+  outline: 3px solid var(--a1);
+  outline-offset: 3px;
+}
+
 .lightbox-overlay {
   position: fixed;
   inset: 0;
