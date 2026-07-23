@@ -82,9 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const segno = perc > 0 ? "+" : "";
     const cls = perc > 0 ? "badge-su" : perc < 0 ? "badge-giu" : "badge-pari";
     const freccia = perc > 0 ? "▲" : perc < 0 ? "▼" : "●";
-    const decimali = perc % 1 === 0 ? "0" : "2";
-    const percStr = perc.toFixed(decimali).replace(".", ",");
-    return `<span class="badge ${cls}">${freccia} ${segno}${percStr}%</span>`;
+    // formatNumber e' l'unico punto in cui si decide come si scrive un
+    // numero: virgola per i decimali e punto per le migliaia, cosi' una
+    // variazione oltre il mille si legge "+1.250%" e non "+1250%".
+    const percStr = formatNumber(Math.abs(perc));
+    const meno = perc < 0 ? "-" : "";
+    return `<span class="badge ${cls}">${freccia} ${meno}${segno}${percStr}%</span>`;
   }
 
   function renderTable(datasets, yearLabels) {
