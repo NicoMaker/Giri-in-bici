@@ -184,7 +184,6 @@
     ".immagine_bicisx",
     ".immagine_bicidx",
     ".immagineParticolare",
-    ".avatar img", // foto del team in Informazioni
   ].join(",");
 
   // Le cartelle Icons/ e assets/img/ contengono l'interfaccia: icone,
@@ -197,8 +196,9 @@
   }
 
   // Contenitori che formano un gruppo: le frecce girano dentro il gruppo,
-  // cosi' dalle bici non si finisce nelle foto del team.
-  var SEL_GRUPPO = ".gallery, .bici-grid, .bici-hero-row, .team-grid";
+  // cosi' dalle bici non si finisce in altre foto. Gli avatar del team in
+  // "Informazioni" non si aprono piu', quindi .team-grid non serve piu'.
+  var SEL_GRUPPO = ".gallery, .bici-grid, .bici-hero-row";
 
   // Indirizzo e descrizione della foto, sia che sia un link sia un'immagine
   function datiFoto(el) {
