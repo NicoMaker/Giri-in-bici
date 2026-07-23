@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return `
       <div class="colore">
         <p class="misuracolore">Totale km ${formatItalianNumber(data.totale)} <img src="../Icons/traguardo.png" onerror="this.style.display='none'"></p>
-        <p class="misuracolore">Media km per Stagione ${data.avgmediastagione} km</p>
+        <p class="misuracolore">Media km per Stagione ${data.avgmediastagione}</p>
         <p class="misuracolore">Media km per Periodo ${data.avgperiod}</p>
         <p class="misuracolore">Totale corse ${formatItalianNumber(data.corseTotale)}</p>
         <p class="misuracolore">Media corse per periodo ${formatNumber(data.corseTotale / totalePeriodi)}</p>
