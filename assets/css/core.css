@@ -426,6 +426,7 @@ hr {
 /* Passandoci sopra si alza appena: il colore della scritta non
    viene toccato, resta quello del pulsante. */
 .graficostagioni:hover {
+  color: #fff;
   transform: translateY(-2px);
   box-shadow: var(--sh-3);
 }
