@@ -167,31 +167,71 @@
     });
   }
 
-  // Apre le foto della galleria (.shot) a grandezza piena invece di scaricarle
+  // Apre le foto della galleria (.shot) a grandezza piena invece di scaricarle.
+  // Le frecce scorrono tutte le foto del periodo in modo circolare: dopo
+  // l'ultima si torna alla prima, prima della prima si va all'ultima.
   function abilitaLightbox() {
-    var link = document.querySelectorAll("a.shot");
+    var link = Array.prototype.slice.call(document.querySelectorAll("a.shot"));
     if (!link.length) return;
 
     var overlay = document.createElement("div");
     overlay.className = "lightbox-overlay";
     overlay.innerHTML =
       '<button class="lightbox-chiudi" type="button" aria-label="Chiudi foto">&times;</button>' +
+      '<span class="lightbox-conta" aria-live="polite"></span>' +
+      '<button class="lightbox-freccia lightbox-freccia--prec" type="button" aria-label="Foto precedente">&#10094;</button>' +
       '<img class="lightbox-img" alt="" />' +
+      '<button class="lightbox-freccia lightbox-freccia--succ" type="button" aria-label="Foto successiva">&#10095;</button>' +
       '<a class="lightbox-scarica" download rel="noopener">Scarica la foto</a>';
     document.body.appendChild(overlay);
 
     var img = overlay.querySelector(".lightbox-img");
     var scarica = overlay.querySelector(".lightbox-scarica");
+    var conta = overlay.querySelector(".lightbox-conta");
     var chiudiBtn = overlay.querySelector(".lightbox-chiudi");
+    var precBtn = overlay.querySelector(".lightbox-freccia--prec");
+    var succBtn = overlay.querySelector(".lightbox-freccia--succ");
+    var indice = 0;
     var ultimoFocus = null;
 
-    function apri(a) {
-      var immagine = a.querySelector("img");
+    // Con una foto sola frecce e contatore non servono
+    if (link.length < 2) {
+      precBtn.hidden = true;
+      succBtn.hidden = true;
+      conta.hidden = true;
+    }
+
+    // Riporta sempre l'indice dentro l'elenco: -1 diventa l'ultima foto,
+    // il numero oltre l'ultima torna alla prima. È qui che sta il giro.
+    function normalizza(i) {
+      var totale = link.length;
+      return ((i % totale) + totale) % totale;
+    }
+
+    function mostra(i) {
+      indice = normalizza(i);
+
+      var a = link[indice];
+      var interna = a.querySelector("img");
       var href = a.getAttribute("href");
-      ultimoFocus = document.activeElement;
+
       img.src = href;
-      img.alt = immagine ? immagine.alt || "" : "";
+      img.alt = interna ? interna.alt || "" : "";
       scarica.href = href;
+      conta.textContent = indice + 1 + " / " + link.length;
+    }
+
+    function precedente() {
+      mostra(indice - 1);
+    }
+
+    function successiva() {
+      mostra(indice + 1);
+    }
+
+    function apri(i) {
+      ultimoFocus = document.activeElement;
+      mostra(i);
       overlay.classList.add("is-aperta");
       document.body.style.overflow = "hidden";
       chiudiBtn.focus();
@@ -206,22 +246,52 @@
       }
     }
 
-    link.forEach(function (a) {
+    link.forEach(function (a, i) {
       a.addEventListener("click", function (e) {
         e.preventDefault();
-        apri(a);
+        apri(i);
       });
     });
 
     chiudiBtn.addEventListener("click", chiudi);
+    precBtn.addEventListener("click", precedente);
+    succBtn.addEventListener("click", successiva);
+
+    // Il click sullo sfondo chiude, quello sulle frecce no
     overlay.addEventListener("click", function (e) {
       if (e.target === overlay) chiudi();
     });
+
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && overlay.classList.contains("is-aperta")) {
-        chiudi();
-      }
+      if (!overlay.classList.contains("is-aperta")) return;
+      if (e.key === "Escape") chiudi();
+      if (link.length < 2) return;
+      if (e.key === "ArrowLeft") precedente();
+      if (e.key === "ArrowRight") successiva();
     });
+
+    // Scorrimento con il dito su telefono e tablet
+    var partenzaX = null;
+    overlay.addEventListener(
+      "touchstart",
+      function (e) {
+        partenzaX = e.changedTouches[0].clientX;
+      },
+      { passive: true },
+    );
+
+    overlay.addEventListener(
+      "touchend",
+      function (e) {
+        if (partenzaX === null || link.length < 2) return;
+        var spostamento = e.changedTouches[0].clientX - partenzaX;
+        partenzaX = null;
+        if (Math.abs(spostamento) < 45) return;
+        if (spostamento > 0) precedente();
+        else successiva();
+      },
+      { passive: true },
+    );
   }
 
   function avvia() {

@@ -82,16 +82,26 @@
   box-shadow: var(--sh-3);
 }
 
+/* Riquadro foto identico in ogni scheda. .bici-card e' un flex in
+   colonna: senza min-height: 0 la foto piu' alta allungava il riquadro
+   e l'aspect-ratio veniva ignorato (era il caso de "La Bianconera").
+   L'immagine sta in posizione assoluta e resta intera dentro il
+   riquadro, quindi le bici non vengono mai tagliate. */
 .bici-card__media {
   position: relative;
-  aspect-ratio: 16 / 9;
+  flex: 0 0 auto;
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+  overflow: hidden;
   background: var(--surface-2);
 }
 
 .bici-card__media img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
