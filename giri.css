@@ -183,6 +183,15 @@
   grid-column: 1 / -1;
 }
 
+.bici-home-frase {
+  max-width: 46ch;
+  margin: 1.1rem auto 0;
+  text-align: center;
+  color: var(--ink-2);
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
 /* Barra dei filtri categoria, sempre visibile sopra la griglia */
 .bici-filtri {
   display: flex;

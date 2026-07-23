@@ -79,7 +79,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Mostra solo l'intestazione Home (schermata di benvenuto)
       function mostraHome() {
-        bici.innerHTML = `<img class="immagini_stagione" src="${data.intestazioni.home}" alt="" /><br />`;
+        bici.innerHTML = `
+          <img class="immagini_stagione" src="${data.intestazioni.home}" alt="" />
+          <p class="bici-home-frase">
+            La Madonnina in Bici ci ricorda perch&eacute; pedaliamo: benessere,
+            salute e libert&agrave; a ogni giro di pedale.
+          </p>`;
         impostaFiltroAttivo("home");
       }
 
@@ -122,8 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
 
-      // All'avvio mostra subito tutto il catalogo
-      mostraBiciFiltrate("tutte");
+      // All'avvio mostra la Madonnina in Bici, non subito tutto il catalogo
+      mostraHome();
     })
     .catch((error) => console.error("Errore nel caricamento del JSON:", error));
 });
