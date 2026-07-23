@@ -31,6 +31,7 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <script src="../JS/utils.js"></script>
+    <script src="../assets/js/icone.js" defer></script>
     <script src="ScriptBici.js" defer></script>
     <script src="../JS/Hamburger.js" defer></script>
     <script src="../assets/js/ui.js" defer></script>
@@ -140,32 +141,34 @@
       <ul>
         <li>
           <button class="bicimenu" type="button" onclick="CalcolaTutte()">
-            Tutte le bici
+            <span class="ico-tile" data-icona="tutte"></span>
+            <span>Tutte le bici</span>
           </button>
         </li>
         <li>
           <button class="bicimenu" type="button" onclick="CalcolaMTB()">
-            Mountain bike
+            <span class="ico-tile" data-icona="montagna"></span>
+            <span>Mountain bike</span>
           </button>
         </li>
         <li>
           <button class="bicimenu" type="button" onclick="CalcolaCorsa()">
-            Bici da corsa
+            <span class="ico-tile" data-icona="velocita"></span>
+            <span>Bici da corsa</span>
           </button>
         </li>
         <li>
           <button class="bicimenu" type="button" onclick="Home()">
-            Madonnina in Bici
+            <span class="ico-tile" data-icona="santuario"></span>
+            <span>Madonnina in Bici</span>
           </button>
         </li>
       </ul>
     </nav>
 
     <button class="hamburger" type="button" aria-label="Apri le categorie">
-      <i class="MenuIcon"
-        ><span class="material-icons">directions_bike</span></i
-      >
-      <i class="CloseIcon"><span class="material-icons">close</span></i>
+      <i class="MenuIcon"><span data-icona="bici"></span></i>
+      <i class="CloseIcon"><span data-icona="chiudi"></span></i>
     </button>
   </body>
 </html>

@@ -5,6 +5,24 @@
 
 let menuItems = [];
 
+function iconaVoce(item) {
+  // Prima scelta: l'icona disegnata a tratto (campo "icona" del JSON).
+  // Ripiego: la vecchia immagine PNG, cosi' niente resta senza icona.
+  var svg =
+    item.icona && window.Icone ? window.Icone.svg(item.icona) : "";
+  if (svg) return '<span class="ico-tile">' + svg + "</span>";
+
+  var isLogo = item.name === "Apertura Account GitHub";
+  var classe = isLogo ? ' class="logo"' : "";
+  return (
+    '<span class="ico-tile"><img src="' +
+    item.icon +
+    '"' +
+    classe +
+    ' alt="" /></span>'
+  );
+}
+
 function renderMenuItems(items) {
   const list = document.getElementById("menuList");
   const noResults = document.getElementById("menuNoResults");
@@ -20,14 +38,13 @@ function renderMenuItems(items) {
 
   list.innerHTML = items
     .map((item) => {
-      const isLogo = item.name === "Apertura Account GitHub";
-      const imgClass = isLogo ? ' class="logo"' : "";
+      const icona = iconaVoce(item);
 
       if (item.name === "Pagina Precedente" && item.link === "#") {
         return `
           <li>
             <button type="button" onclick="history.back()">
-              <img src="${item.icon}"${imgClass} alt="" />
+              ${icona}
               <span>${item.name}</span>
             </button>
           </li>
@@ -38,8 +55,8 @@ function renderMenuItems(items) {
       return `
         <li>
           <a href="${item.link}"${target}>
-            <img src="${item.icon}"${imgClass} alt="" />
-            ${item.name}
+            ${icona}
+            <span>${item.name}</span>
           </a>
         </li>
       `;
