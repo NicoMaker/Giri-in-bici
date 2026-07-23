@@ -400,7 +400,6 @@ hr {
   background: color-mix(in srgb, var(--a1) 18%, transparent);
 }
 
-
 /* Pulsante grafico stagioni nella barra */
 .graficostagioni {
   position: static;

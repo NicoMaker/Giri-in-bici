@@ -8,8 +8,7 @@ let menuItems = [];
 function iconaVoce(item) {
   // Prima scelta: l'icona disegnata a tratto (campo "icona" del JSON).
   // Ripiego: la vecchia immagine PNG, cosi' niente resta senza icona.
-  var svg =
-    item.icona && window.Icone ? window.Icone.svg(item.icona) : "";
+  var svg = item.icona && window.Icone ? window.Icone.svg(item.icona) : "";
   if (svg) return '<span class="ico-tile">' + svg + "</span>";
 
   var isLogo = item.name === "Apertura Account GitHub";
