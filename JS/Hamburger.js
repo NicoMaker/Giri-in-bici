@@ -20,13 +20,20 @@
       aperto ? "Chiudi il menu" : "Apri il menu",
     );
 
-    if (aperto) {
+    // Il campo di ricerca NON viene messo a fuoco automaticamente:
+    // altrimenti su telefono si apriva subito la tastiera.
+    if (!aperto) {
       const campo = menu.querySelector("input");
-      if (campo) campo.focus();
+      if (campo && document.activeElement === campo) campo.blur();
+      hamburger.focus();
     }
   }
 
   if (hamburger && menu) {
+    // Segnala alla pagina che c'è l'hamburger fisso, così la barra
+    // in alto gli lascia il posto e non finisce sopra "Stagioni".
+    document.body.classList.add("con-hamburger");
+
     hamburger.setAttribute("aria-expanded", "false");
     hamburger.addEventListener("click", toggleMenu);
 
@@ -34,6 +41,13 @@
     document.addEventListener("click", function (e) {
       if (!menu.classList.contains("showMenu")) return;
       if (menu.contains(e.target) || hamburger.contains(e.target)) return;
+      toggleMenu();
+    });
+
+    // Esc chiude il pannello
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      if (!menu.classList.contains("showMenu")) return;
       toggleMenu();
     });
   }

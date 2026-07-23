@@ -147,31 +147,31 @@ async function handleLoginSubmit(event) {
 
   // Riferimento al bottone
   const loginBtn = document.querySelector(".login-btn");
-  // Elemento che contiene il testo (lo teniamo separato dallo spinner)
-  const btnTextSpan = loginBtn.querySelector("span"); // oppure lo creiamo
 
-  // Se non esiste uno span per il testo, lo creiamo
+  // L'etichetta "Accedi" è già nell'HTML: la riusiamo, non la ricreiamo.
+  // (Prima veniva aggiunto un secondo span e si leggeva "Accedi Accedi".)
   let textSpan = loginBtn.querySelector(".btn-text");
+  if (!textSpan) {
+    // Compatibilità con pagine vecchie: prende il primo span che non sia il ripple
+    textSpan = loginBtn.querySelector("span:not(.btn-ripple)");
+  }
   if (!textSpan) {
     textSpan = document.createElement("span");
     textSpan.className = "btn-text";
     textSpan.textContent = "Accedi";
-    // Inserisce prima dell'icona freccia
     const icon = loginBtn.querySelector("i.fa-arrow-right");
-    if (icon) {
-      loginBtn.insertBefore(textSpan, icon);
-    } else {
-      loginBtn.prepend(textSpan);
-    }
-    // Rimuove eventuali nodi di testo extra
-    loginBtn.childNodes.forEach((node) => {
-      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "") {
-        node.textContent = "";
-      }
-    });
+    if (icon) loginBtn.insertBefore(textSpan, icon);
+    else loginBtn.prepend(textSpan);
   }
+  textSpan.classList.add("btn-text");
 
-  // Memorizza il testo originale (non serve più, lo teniamo fisso)
+  // Rimuove eventuali testi sciolti dentro al bottone (doppioni)
+  loginBtn.childNodes.forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "") {
+      node.textContent = "";
+    }
+  });
+
   // Aggiungi uno spinner
   let spinner = loginBtn.querySelector(".fa-spinner");
   if (!spinner) {

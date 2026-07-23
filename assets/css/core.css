@@ -1304,8 +1304,19 @@ canvas {
 /* L'hamburger è fisso in alto a destra: sulle pagine che ce l'hanno
    (classe messa da Hamburger.js) la barra deve lasciargli il posto,
    altrimenti finisce sopra il pulsante "Stagioni". */
+/* Larghezza dell'hamburger (46px) + distanza dal bordo (14px) + aria */
+:root {
+  --hamburger-slot: 74px;
+}
+
 .con-hamburger .site-bar {
-  padding-right: calc(clamp(0.9rem, 3vw, 1.6rem) + 62px);
+  padding-right: calc(clamp(0.9rem, 3vw, 1.6rem) + var(--hamburger-slot));
+}
+
+/* Ultimo elemento della barra (di solito il pulsante "Stagioni"):
+   non deve mai finire sotto l'hamburger. */
+.con-hamburger .site-bar > .graficostagioni {
+  margin-right: 0;
 }
 
 .hamburger {
@@ -1770,8 +1781,8 @@ p.contornostagione {
     display: none;
   }
 
-  .site-bar {
-    padding-right: 70px;
+  .con-hamburger .site-bar {
+    padding-right: calc(0.9rem + var(--hamburger-slot));
   }
 }
 
