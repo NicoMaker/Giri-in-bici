@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <p class="titoli">Statistiche ${entry.year}</p>
                 <p class="misuracolore">km totali ${formatItalianNumber(entry.km)} <img src="Icons/traguardo.png"></p>
                 <p class="misuracolore">Percentuale periodo ${avgValues[startIndex + index]} %</p>
-                <p class="misuracolore">Totale corse ${entry.numberOfRaces}</p>
+                <p class="misuracolore">Totale corse ${formatItalianNumber(entry.numberOfRaces)}</p>
                 <p class="misuracolore">km medi per corsa ${formatNumber(entry.km / entry.numberOfRaces)}</p>
               </a>
             </div>
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p>
             <p class="misuracolore">Corse medie per mese ${avgRacesPerMonth}</p>
             <p class="misuracolore">Totale anni di corsa ${formatItalianNumber(totalYears)}</p>
-            <p class="misuracolore">Totale mesi di corsa ${totalMonths}</p>
+            <p class="misuracolore">Totale mesi di corsa ${formatItalianNumber(totalMonths)}</p>
           </div>
         </a>`;
     }

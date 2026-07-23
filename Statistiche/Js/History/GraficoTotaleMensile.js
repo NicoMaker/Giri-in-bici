@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <td>${mese}</td>
         <td>${formatItalianNumber(chilometri[index])}</td>
         <td>${percentuali[index]} %</td>
-        <td>${mesiPercorsi[index]}</td>
+        <td>${formatItalianNumber(mesiPercorsi[index])}</td>
         <td>${kmMediMese}</td>
       </tr>`,
       )

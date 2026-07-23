@@ -74,7 +74,7 @@ const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
               <img src="Icons/traguardo.png">
             </p>
             <p class="misuracolore">Percentuale periodo ${avgValues[index]} %</p>
-            <p class="misuracolore">Totale corse ${data[label].numberOfRaces}</p>
+            <p class="misuracolore">Totale corse ${formatItalianNumber(data[label].numberOfRaces)}</p>
             <p class="misuracolore">km medi per corsa ${formatNumber(data[label].totalDistance / data[label].numberOfRaces)}</p>
           </p>
         </a>
@@ -184,7 +184,7 @@ function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
       <p class="misuracolore">Totale corse ${formattedTotalRaces}</p>
       <p class="misuracolore">Corse medie per periodo ${formatNumber(totalRaces / totalePeriodi)}</p>
       <hr style="margin: 10px 0; border-color: rgba(255,255,255,0.3);">
-      <p class="misuracolore">Totale periodi: ${totalePeriodi}</p>
+      <p class="misuracolore">Totale periodi: ${formatItalianNumber(totalePeriodi)}</p>
     </div>
   `;
 }

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
       <td>${row.date}</td>
-      <td>${index + 1}</td>
+      <td>${formatItalianNumber(index + 1)}</td>
       <td>${row.place}</td>
       <td>${formatItalianNumber(row.distance)}</td>
       <td>km</td>

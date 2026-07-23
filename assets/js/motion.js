@@ -80,11 +80,30 @@
   // ---------------------------------------------------------
   // 3. Conteggio animato dei numeri
   // ---------------------------------------------------------
+  // Formattazione italiana con separatore delle migliaia SEMPRE attivo da
+  // 1.000 in su. Non si usa toLocaleString("it-IT") perche' la regola CLDR
+  // italiana non raggruppa i numeri a 4 cifre (1234 restava "1234" mentre
+  // 12345 diventava "12.345"): l'animazione sovrascriveva cosi' la
+  // formattazione corretta prodotta da JS/utils.js.
   function formattaNumero(valore, decimali) {
-    return valore.toLocaleString("it-IT", {
-      minimumFractionDigits: decimali,
-      maximumFractionDigits: decimali,
-    });
+    var negativo = valore < 0;
+    var fisso = Math.abs(valore).toFixed(decimali);
+    var pezzi = fisso.split(".");
+    var intero = pezzi[0];
+
+    if (intero.length > 3) {
+      var gruppi = [];
+      var i = intero.length;
+      while (i > 0) {
+        gruppi.unshift(intero.substring(Math.max(0, i - 3), i));
+        i -= 3;
+      }
+      intero = gruppi.join(".");
+    }
+
+    return (
+      (negativo ? "-" : "") + intero + (pezzi[1] ? "," + pezzi[1] : "")
+    );
   }
 
   function conta(elemento, obiettivo, decimali) {

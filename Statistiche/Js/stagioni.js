@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           (${formatItalianNumber(racePercentage, true)}%)
         </p>
         
-        <p class="misuracolore">📅 Periodi: ${numPeriods}</p>
+        <p class="misuracolore">📅 Periodi: ${formatItalianNumber(numPeriods)}</p>
         <p class="misuracolore">km medi per periodo ${formatNumber(avgKmPerPeriod)}</p>
         <p class="misuracolore">km medi per corsa ${formatNumber(avgKmPerRace)}</p>
       </a>
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <div style="display: flex; justify-content: space-between; margin-top: 10px; flex-wrap: wrap;">
           <div style="flex: 1; text-align: center; padding: 5px;">
             <p class="misuracolore">🌸 PRIMAVERA</p>
-            <p class="misuracolore">${numPeriodsPerSeason.primavera} periodi</p>
+            <p class="misuracolore">${formatItalianNumber(numPeriodsPerSeason.primavera)} periodi</p>
             <p class="misuracolore">
               ${formatItalianNumber(data.corsep)} corse 
               (${formatItalianNumber(data.corseTotale > 0 ? (data.corsep / data.corseTotale) * 100 : 0, true)}%)
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           </div>
           <div style="flex: 1; text-align: center; padding: 5px;">
             <p class="misuracolore">☀️ ESTATE</p>
-            <p class="misuracolore">${numPeriodsPerSeason.estate} periodi</p>
+            <p class="misuracolore">${formatItalianNumber(numPeriodsPerSeason.estate)} periodi</p>
             <p class="misuracolore">
               ${formatItalianNumber(data.corsee)} corse 
               (${formatItalianNumber(data.corseTotale > 0 ? (data.corsee / data.corseTotale) * 100 : 0, true)}%)
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           </div>
           <div style="flex: 1; text-align: center; padding: 5px;">
             <p class="misuracolore">🍂 AUTUNNO-INVERNO</p>
-            <p class="misuracolore">${numPeriodsPerSeason.autunno_inverno} periodi</p>
+            <p class="misuracolore">${formatItalianNumber(numPeriodsPerSeason.autunno_inverno)} periodi</p>
             <p class="misuracolore">
               ${formatItalianNumber(data.corseai)} corse 
               (${formatItalianNumber(data.corseTotale > 0 ? (data.corseai / data.corseTotale) * 100 : 0, true)}%)
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
         <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
         <p class="misuracolore">📅 TOTALE PERIODI COMPLESSIVI</p>
-        <p class="misuracolore">${totalePeriodi} periodi</p>
+        <p class="misuracolore">${formatItalianNumber(totalePeriodi)} periodi</p>
       </div>`;
   };
 

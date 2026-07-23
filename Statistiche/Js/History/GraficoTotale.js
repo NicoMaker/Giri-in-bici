@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <p class="misuracolore">Totale corse ${formatItalianNumber(totaleCorse)}</p>
           <p class="misuracolore">Corse medie per anno ${racesPerYear}</p>
           <p class="misuracolore">Corse medie per mese ${racesPerMonth}</p>
-          <p class="misuracolore">Totale mesi di corsa ${mesi.length}</p>
+          <p class="misuracolore">Totale mesi di corsa ${formatItalianNumber(mesi.length)}</p>
         </div>
       </a>`;
   }
