@@ -71,24 +71,6 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
    - **Grafico Totale:** Modifica [`json/Statistiche/History/GraficoTotale.json`](json/Statistiche/History/GraficoTotale.json), aggiungendo il percorso corretto del nuovo anno (`json/Statistiche/anni/<anno>.json`) e il colore.
    - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`json/Statistiche/History/StoricoMensile.json`](json/Statistiche/History/StoricoMensile.json), specificando il percorso corretto (`json/Statistiche/anni/<anno>.json`) e il colore.
 
-   > ⚠️ In tutti e tre i file i percorsi vanno scritti **relativi alla root del sito** (es. `json/Statistiche/anni/2026.json`), non relativi alla cartella del file (niente `../`).
-
----
-
-## 🖼️ Convenzione Percorsi Immagini
-
-Tutte le immagini del sito vivono sotto un'unica cartella `img/` in radice, organizzata per categoria (rispecchia la stessa logica di `json/`):
-
-- `img/About_US/` — avatar e mappa
-- `img/Autunno_Inverno/`, `img/Estate/`, `img/Primavera/` — foto dei periodi, per anno
-- `img/Bici/` — foto e intestazioni della sezione Bici
-- `img/Icons/` — icone condivise dall'interfaccia (menu, pulsanti, bandierine)
-- `img/Statistiche/Anni/` — copertine delle pagine annuali di Statistiche
-- `img/assets/` — grafica dell'interfaccia (es. `stagioni.svg`)
-- file di uso generale (logo, animazioni) direttamente in `img/`
-
-**Importante:** ovunque venga referenziata un'immagine — `<img src="...">`, `<link rel="icon" href="...">`, campi nei file JSON (es. `icon` in `Menu.json`, `immagine`/`intestazioni` in `bici.json`) — il percorso va scritto **assoluto dalla root del sito**, con la barra iniziale (es. `/img/Icons/home.png`, `/img/Estate/2026/1.jpg`). In questo modo il riferimento funziona indipendentemente dalla profondità della pagina che lo usa, senza dover calcolare `../` a mano.
-
 ---
 
 ## 🔐 Credenziali
