@@ -87,7 +87,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ## 🌐 Logo e Apertura del Sito
 
-![Logo](img/logo.jpg)
+![Logo](Img/logo.jpg)
 
 - Link al sito: [Vai al sito](https://giri-in-bici.netlify.app/)
 
@@ -95,7 +95,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ## 🗺 Mappa del Sito
 
-![Mappa del Sito](img/About_US/Mappa.jpg)
+![Mappa del Sito](Img/About_US/Mappa.jpg)
 
 ---
 
@@ -103,11 +103,11 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 - [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
 
-  ![Avatar NM](img/About_US/AvatarNM.jpg)
+  ![Avatar NM](Img/About_US/AvatarNM.jpg)
 
 - [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)
 
-  ![Avatar JR](img/About_US/AvatarJR.png)
+  ![Avatar JR](Img/About_US/AvatarJR.png)
 
 ---
 
