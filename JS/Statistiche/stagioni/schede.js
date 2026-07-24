@@ -77,7 +77,14 @@ window.Stagioni = window.Stagioni || {};
   // quotaStagione — genera una singola card per il riepilogo
   // (sezione "Dettaglio periodi e corse")
   // ------------------------------------------------------------
-  var quotaStagione = function (chiave, emoji, nome, periodi, corse, totaleCorse) {
+  var quotaStagione = function (
+    chiave,
+    emoji,
+    nome,
+    periodi,
+    corse,
+    totaleCorse,
+  ) {
     var percentuale = totaleCorse > 0 ? (corse / totaleCorse) * 100 : 0;
     return `
         <article class="quota quota--${chiave}">
@@ -156,15 +163,14 @@ window.Stagioni = window.Stagioni || {};
     // per garantire che le tre card siano sempre in riga.
     // ----------------------------------------------------------
     setTimeout(function () {
-      var quote = document.querySelector('.quote');
+      var quote = document.querySelector(".quote");
       if (quote) {
-        quote.style.display = 'grid';
-        quote.style.gridTemplateColumns = 'repeat(3, 1fr)';
-        quote.style.gap = '1.2rem';
+        quote.style.display = "grid";
+        quote.style.gridTemplateColumns = "repeat(3, 1fr)";
+        quote.style.gap = "1.2rem";
       }
     }, 50);
 
     return html;
   };
-
 })(window.Stagioni);
