@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p class="misuracolore">Percentuale km sul totale ${formatNumber(seasonKmPercentage)} %</p>
         
         <p class="misuracolore">
-          Totale corse ${formatItalianNumber(currentSeasonRaces)} corse 
+          Totale corse ${formatItalianNumber(currentSeasonRaces)} 
           (${formatItalianNumber(racePercentage, true)}%)
         </p>
         
