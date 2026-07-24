@@ -1,13 +1,14 @@
-// anni.js
-// Dipendenze: JS/utils.js (caricato prima in HTML)
-
-const calculatekmMedi = (totale, divider, isPercentage = false) => {
-  const result = totale / divider;
-  return isPercentage ? result * 100 : result;
-};
-
-const calculatePercentuali = (chilometri, totale) =>
-  chilometri.map((km) => formatNumber(calculatekmMedi(km, totale, true)));
+// ============================================================
+// anni.js — Avvio della pagina di un singolo anno
+//
+// Solo l'avvio. I pezzi stanno in Statistiche/Js/anni_pagina/:
+//   calcoli.js    medie e percentuali
+//   tabella.js    tabella dei mesi
+//   riepilogo.js  riquadro dei totali
+//
+// Dipendenze: JS/utils.js, JS/chart/chart-configs.js,
+//             JS/chart/chart-renderer.js
+// ============================================================
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!window.chartRenderer || !window.ChartConfigs) {
@@ -44,43 +45,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error(`Errore nel caricamento o elaborazione del JSON: ${error}`);
   }
 });
-
-function renderDataTable(mesi, chilometri, percentuali) {
-  document.getElementById("mesi").innerHTML = `
-    <tr class="grassetto">
-      <th>Mese</th>
-      <th>km <img src="../../Icons/traguardo.png" alt="traguardo"></th>
-      <th>Percentuale sull'anno</th>
-    </tr>
-    ${mesi
-      .map(
-        (mese, index) => `
-      <tr>
-        <td>${mese}</td>
-        <td>${formatItalianNumber(chilometri[index])}</td>
-        <td>${percentuali[index]} %</td>
-      </tr>`,
-      )
-      .join("")}
-  `;
-}
-
-function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
-  const mesiCount =
-    document.getElementById("mesi")?.querySelectorAll("tr").length - 1 || 0;
-
-  let mediaCorsePerMese = "N/A";
-  if (mesiCount > 0 && totaleCorse > 0) {
-    mediaCorsePerMese = formatNumber(totaleCorse / mesiCount);
-  }
-
-  document.getElementById("totale").innerHTML = `
-    <div class="colore">
-      <p class="misuracolore">Totale km ${formatItalianNumber(totale)} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
-      <p class="misuracolore">km medi per corsa ${kmMediPerCorsa}</p>
-      <p class="misuracolore">km medi per mese ${kmMediPerMese}</p>
-      <p class="misuracolore">Totale corse ${formatItalianNumber(totaleCorse)}</p>
-      <p class="misuracolore">Medie corse per mese ${mediaCorsePerMese}</p>
-    </div>
-  `;
-}
