@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const S = window.Stagioni;
 
-  await S.initializeConfiguration("Js/anni/stagioni/seasons-config.json");
+  await S.initializeConfiguration("json/Statistiche/anni/stagioni/seasons-config.json");
 
-  const seasonsData = await S.loadJSON("Js/anni/stagioni/stagioni.json");
+  const seasonsData = await S.loadJSON("json/Statistiche/anni/stagioni/stagioni.json");
   if (!seasonsData || !Array.isArray(seasonsData.seasons)) {
     document.getElementById("dati").innerHTML =
       '<p class="errore">Errore nel caricamento dei dati delle stagioni</p>';

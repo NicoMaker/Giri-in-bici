@@ -1,5 +1,5 @@
 class TeamManager {
-  constructor(jsonPath = "JS/Users.json") {
+  constructor(jsonPath = "json/About_US/Users.json") {
     this.jsonPath = jsonPath;
     this.data = null;
   }

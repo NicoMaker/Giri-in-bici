@@ -2,36 +2,36 @@
   "data2020": {
     "label": "2020",
     "color": "yellow",
-    "data": "../Js/anni/2020.json"
+    "data": "json/Statistiche/anni/2020.json"
   },
   "data2021": {
     "label": "2021",
     "color": "lightgreen",
-    "data": "../Js/anni/2021.json"
+    "data": "json/Statistiche/anni/2021.json"
   },
   "data2022": {
     "label": "2022",
     "color": "orange",
-    "data": "../Js/anni/2022.json"
+    "data": "json/Statistiche/anni/2022.json"
   },
   "data2023": {
     "label": "2023",
     "color": "cyan",
-    "data": "../Js/anni/2023.json"
+    "data": "json/Statistiche/anni/2023.json"
   },
   "data2024": {
     "label": "2024",
     "color": "red",
-    "data": "../Js/anni/2024.json"
+    "data": "json/Statistiche/anni/2024.json"
   },
   "data2025": {
     "label": "2025",
     "color": "blue",
-    "data": "../Js/anni/2025.json"
+    "data": "json/Statistiche/anni/2025.json"
   },
   "data2026": {
     "label": "2026",
     "color": "pink",
-    "data": "../Js/anni/2026.json"
+    "data": "json/Statistiche/anni/2026.json"
   }
 }

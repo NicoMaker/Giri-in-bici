@@ -36,7 +36,7 @@ window.ConfigMesi = window.ConfigMesi || {};
 
   C.carica = async function () {
     try {
-      const config = await Json.leggi("../Js/History/JSON/config-mesi.json");
+      const config = await Json.leggi("json/Statistiche/History/config-mesi.json");
       C.ordine = config.orderMesi;
     } catch (error) {
       console.error(

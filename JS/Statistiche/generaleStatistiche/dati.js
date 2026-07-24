@@ -11,7 +11,7 @@ window.StatGenerali = window.StatGenerali || {};
 
   SG.fetchData = async function () {
     const mainData = await fetchJSON(
-      "Statistiche/Js/History/JSON/Generale.json",
+      "json/Statistiche/History/Generale.json",
     );
     if (!mainData || !mainData.statistics) {
       console.error("Main data not available or statistics field missing");

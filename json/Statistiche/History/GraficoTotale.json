@@ -1,0 +1,26 @@
+{
+  "statistics": {
+    "2020": "json/Statistiche/anni/2020.json",
+    "2021": "json/Statistiche/anni/2021.json",
+    "2022": "json/Statistiche/anni/2022.json",
+    "2023": "json/Statistiche/anni/2023.json",
+    "2024": "json/Statistiche/anni/2024.json",
+    "2025": "json/Statistiche/anni/2025.json",
+    "2026": "json/Statistiche/anni/2026.json"
+  },
+  "colors": [
+    "darkblue",
+    "blue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue",
+    "pink"
+  ]
+}

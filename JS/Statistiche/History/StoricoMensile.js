@@ -16,7 +16,7 @@ const SM = window.StoricoMensile;
 document.addEventListener("DOMContentLoaded", () => {
   // Carica la configurazione, poi carica i dati e disegna
   ConfigMesi.carica().then(() => {
-    Json.leggi("../Js/History/JSON/StoricoMensile.json")
+    Json.leggi("json/Statistiche/History/StoricoMensile.json")
       .then((yearsData) => {
         const yearLabels = Object.values(yearsData).map((y) => y.label);
         const datasetsPromises = Object.values(yearsData).map((yearInfo) =>

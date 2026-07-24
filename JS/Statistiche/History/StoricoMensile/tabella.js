@@ -71,7 +71,7 @@ window.StoricoMensile = window.StoricoMensile || {};
     const tbody = document.createElement("tbody");
     const totals = new Array(datasets.length).fill(0);
 
-    mesi.forEach((mese, monthIndex) => {
+    ConfigMesi.elenco.forEach((mese, monthIndex) => {
       const row = document.createElement("tr");
 
       const tdMese = document.createElement("td");

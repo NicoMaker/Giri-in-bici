@@ -9,13 +9,13 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 ### Stagione
 
 1. **Aggiorna il file JSON per la stagione Estate 2026**
-   - **Percorso:** [`Estate/Periodi/Json/2026.json`](Estate/Periodi/Json/2026.json)
+   - **Percorso:** [`json/Estate/Periodi/2026.json`](json/Estate/Periodi/2026.json)
    - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.
 
 ### Statistiche
 
 1. **Aggiorna il file JSON per le statistiche per il 2026**
-   - **Percorso:** [`Statistiche/Js/anni/2026.json`](Statistiche/Js/anni/2026.json)
+   - **Percorso:** [`json/Statistiche/anni/2026.json`](json/Statistiche/anni/2026.json)
    - Modifica i chilometri (km) di Giugno e aggiorna e il numero totale di corse dell'anno.
 
 ---
@@ -36,20 +36,20 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 2. **File JSON per la Nuova Stagione**
 
    Crea un file JSON per la nuova stagione all’interno delle cartella di riferimento con il nome dell’anno:
-   - **Primavera** 🌸: [`Primavera/Periodi/Json`](Primavera/Periodi/Json)
-   - **Estate** 🌞: [`Estate/Periodi/Json`](Estate/Periodi/Json)
-   - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/Json`](Autunno_Inverno/Periodi/Json)
+   - **Primavera** 🌸: [`json/Primavera/Periodi/`](json/Primavera/Periodi/)
+   - **Estate** 🌞: [`json/Estate/Periodi/`](json/Estate/Periodi/)
+   - **Autunno Inverno** 🍁❄️: [`json/Autunno_Inverno/Periodi/`](json/Autunno_Inverno/Periodi/)
 
 3. **Aggiornamento del File Principale della Stagione 🌸🌞🍁❄️**
 
-   Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato la nuova sottostagione, specificando il percorso del file con il nome e il colore del nuovo periodo come fatto per gli altri:
-   - **Primavera** 🌸: [`Primavera/primavera.json`](Primavera/primavera.json)
-   - **Estate** 🌞: [`Estate/estate.json`](Estate/estate.json)
-   - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/autunno-inverno.json`](Autunno_Inverno/autunno-inverno.json)
+   Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato la nuova sottostagione, specificando il percorso del file con il nome e il colore del nuovo periodo come fatto per gli altri. Il percorso da inserire nel campo `subPeriods` deve puntare al file JSON reale sotto `json/`, non alla vecchia cartella `Periodi/Json`:
+   - **Primavera** 🌸: [`json/Primavera/primavera.json`](json/Primavera/primavera.json)
+   - **Estate** 🌞: [`json/Estate/estate.json`](json/Estate/estate.json)
+   - **Autunno Inverno** 🍁❄️: [`json/Autunno_Inverno/autunno-inverno.json`](json/Autunno_Inverno/autunno-inverno.json)
 
 4. **Sistemazione file Stagioni.json**
-   - **Stagione Generale** 🌸🌞🍁❄️: [`Statistiche/Js/anni/stagioni/stagioni.json`](Statistiche/Js/anni/Stagioni/stagioni.json)  
-     Aggiungi il percorso del nuovo anno nella stagione interessata all’interno dei vari sottoperiodi.
+   - **Stagione Generale** 🌸🌞🍁❄️: [`json/Statistiche/anni/stagioni/stagioni.json`](json/Statistiche/anni/stagioni/stagioni.json)  
+     Aggiungi il percorso del nuovo anno nella stagione interessata all’interno dei vari sottoperiodi, usando il percorso reale `json/<Stagione>/Periodi/<anno>.json`.
 
 ---
 
@@ -61,22 +61,24 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
    - Crea un nuovo file HTML per il nuovo anno nella cartella: [`Statistiche/Anni/`](Statistiche/Anni/) con il nome del nuovo anno.
 
 2. **Creare il File JSON**
-   - Crea un nuovo file JSON per l’anno nella cartella: [`Statistiche/Js/anni/`](Statistiche/Js/anni/) con il nome del nuovo anno.
+   - Crea un nuovo file JSON per l’anno nella cartella: [`json/Statistiche/anni/`](json/Statistiche/anni/) con il nome del nuovo anno.
 
 3. **Aggiornare le Immagini**
    - Aggiungi un’immagine per il nuovo anno nella cartella: [`Statistiche/Anni/Img/`](Statistiche/Anni/Img/) con il nome del nuovo anno.
 
 4. **Aggiornare i File di Storia Generale**
-   - **Generale:** Modifica [`Statistiche/Js/History/JSON/Generale.json`](Statistiche/Js/History/JSON/Generale.json), aggiungendo il percorso e il colore del nuovo anno.
-   - **Grafico Totale:** Modifica [`Statistiche/Js/History/JSON/GraficoTotale.json`](Statistiche/Js/History/JSON/GraficoTotale.json), aggiungendo il percorso corretto del nuovo anno e il colore.
-   - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`Statistiche/Js/History/JSON/StoricoMensile.json`](Statistiche/Js/History/JSON/StoricoMensile.json), specificando il percorso corretto e il colore.
+   - **Generale:** Modifica [`json/Statistiche/History/Generale.json`](json/Statistiche/History/Generale.json), aggiungendo il percorso (`json/Statistiche/anni/<anno>.json`) e il colore del nuovo anno.
+   - **Grafico Totale:** Modifica [`json/Statistiche/History/GraficoTotale.json`](json/Statistiche/History/GraficoTotale.json), aggiungendo il percorso corretto del nuovo anno (`json/Statistiche/anni/<anno>.json`) e il colore.
+   - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`json/Statistiche/History/StoricoMensile.json`](json/Statistiche/History/StoricoMensile.json), specificando il percorso corretto (`json/Statistiche/anni/<anno>.json`) e il colore.
+
+   > ⚠️ In tutti e tre i file i percorsi vanno scritti **relativi alla root del sito** (es. `json/Statistiche/anni/2026.json`), non relativi alla cartella del file (niente `../`).
 
 ---
 
 ## 🔐 Credenziali
 
 1. **Nome Utente**
-   - **Percorso:** [`About_US/JS/Users.json`](About_US/JS/Users.json)
+   - **Percorso:** [`json/About_US/Users.json`](json/About_US/Users.json)
 
 2. **Password Giornaliera**
    - Formato della password: `Giri DD/MM/YYYY`

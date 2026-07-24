@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Carica la configurazione dei mesi prima di tutto
     await ConfigMesi.carica();
 
-    const data = await fetchJSON("../Js/History/JSON/GraficoTotale.json");
+    const data = await fetchJSON("json/Statistiche/History/GraficoTotale.json");
     if (!data || !data.statistics) {
       console.error("Struttura statistics mancante");
       return;

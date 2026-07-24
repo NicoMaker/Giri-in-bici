@@ -81,7 +81,7 @@ const stampaDati = (
   `;
 };
 
-fetchJSON("Statistiche/Js/anni/stagioni/stagioni.json")
+fetchJSON("json/Statistiche/anni/stagioni/stagioni.json")
   .then(processSeasons)
   .catch((error) =>
     console.error(`Errore nel caricamento del file principale: ${error}`),
