@@ -26,10 +26,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Carica la configurazione dei mesi prima di tutto
     await ConfigMesi.carica();
 
-    const statistics = await fetchJSON("json/Statistiche/History/GraficoTotale.json");
-    const allData = await Json.leggiTutti(
-      Object.values(statistics.statistics),
+    const statistics = await fetchJSON(
+      "json/Statistiche/History/GraficoTotale.json",
     );
+    const allData = await Json.leggiTutti(Object.values(statistics.statistics));
 
     let chilometriTotali = new Array(12).fill(0);
     let mesiPercorsi = new Array(12).fill(0);

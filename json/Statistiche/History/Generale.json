@@ -8,13 +8,5 @@
     "2025": "json/Statistiche/anni/2025.json",
     "2026": "json/Statistiche/anni/2026.json"
   },
-  "colors": [
-    "yellow",
-    "lightgreen",
-    "orange",
-    "cyan",
-    "red",
-    "blue",
-    "pink"
-  ]
+  "colors": ["yellow", "lightgreen", "orange", "cyan", "red", "blue", "pink"]
 }

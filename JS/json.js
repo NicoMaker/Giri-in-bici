@@ -38,15 +38,17 @@ window.Json = window.Json || {};
   // document.currentScript e' valido solo durante l'esecuzione
   // sincrona di questo file, quindi il valore va catturato subito qui
   // in cima e non dentro le funzioni async piu' sotto.
-  const percorsoScript =
-    document.currentScript && document.currentScript.src;
+  const percorsoScript = document.currentScript && document.currentScript.src;
   const RADICE_SITO = percorsoScript
     ? percorsoScript.replace(/js\/json\.js(?:[?#].*)?$/, "")
     : "";
 
   function risolvi(percorso) {
     // Lascia stare i percorsi gia' assoluti (http://, https://, //, /...)
-    if (/^([a-z][a-z0-9+.-]*:)?\/\//i.test(percorso) || percorso.startsWith("/")) {
+    if (
+      /^([a-z][a-z0-9+.-]*:)?\/\//i.test(percorso) ||
+      percorso.startsWith("/")
+    ) {
       return percorso;
     }
     return RADICE_SITO ? RADICE_SITO + percorso : percorso;

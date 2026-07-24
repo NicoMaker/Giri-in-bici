@@ -10,9 +10,7 @@ window.StatGenerali = window.StatGenerali || {};
   "use strict";
 
   SG.fetchData = async function () {
-    const mainData = await fetchJSON(
-      "json/Statistiche/History/Generale.json",
-    );
+    const mainData = await fetchJSON("json/Statistiche/History/Generale.json");
     if (!mainData || !mainData.statistics) {
       console.error("Main data not available or statistics field missing");
       return null;

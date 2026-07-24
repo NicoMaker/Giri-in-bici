@@ -8,7 +8,7 @@
 
 @import url("../assets/core.css");
 
-@import url("tema.css");                /* Colori d'accento */
-@import url("tabella-mesi.css");        /* Tabella dei mesi */
-@import url("griglia.css");             /* Griglia delle schede anno */
-@import url("riepilogo-stagioni.css");  /* Riepilogo "Totali per stagione" */
+@import url("tema.css"); /* Colori d'accento */
+@import url("tabella-mesi.css"); /* Tabella dei mesi */
+@import url("griglia.css"); /* Griglia delle schede anno */
+@import url("riepilogo-stagioni.css"); /* Riepilogo "Totali per stagione" */

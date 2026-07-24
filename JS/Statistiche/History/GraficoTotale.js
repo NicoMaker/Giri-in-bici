@@ -77,7 +77,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tableElement = document.getElementById("mesi");
     const summaryElement = document.getElementById("totale");
     if (tableElement)
-      tableElement.innerHTML = GT.createTable(mesi, chilometri, percentuali, anni);
+      tableElement.innerHTML = GT.createTable(
+        mesi,
+        chilometri,
+        percentuali,
+        anni,
+      );
     if (summaryElement)
       summaryElement.innerHTML = GT.createSummary(
         totale,

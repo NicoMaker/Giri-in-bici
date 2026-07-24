@@ -9,12 +9,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
 (function (GTM) {
   "use strict";
 
-  GTM.createTableHTML = (
-    kmPerMese,
-    chilometri,
-    percentuali,
-    mesiPercorsi,
-  ) => `
+  GTM.createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
     <tr class="grassetto">
       <th>Mese</th>
       <th>km <img src="/img/Icons/traguardo.png"></th>

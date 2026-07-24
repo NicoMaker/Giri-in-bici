@@ -11,12 +11,5 @@
     "2025": "json/Primavera/Periodi/2025.json",
     "2026": "json/Primavera/Periodi/2026.json"
   },
-  "colors": [
-    "pink",
-    "antiquewhite",
-    "cyan",
-    "#97ed86ce",
-    "#e6e6ff",
-    "#90D5A0"
-  ]
+  "colors": ["pink", "antiquewhite", "cyan", "#97ed86ce", "#e6e6ff", "#90D5A0"]
 }

@@ -31,7 +31,9 @@ window.GraficoTotale = window.GraficoTotale || {};
 
     combinedData.sort((a, b) => {
       if (a.year !== b.year) return a.year - b.year;
-      return (ConfigMesi.ordine[a.mese] || 0) - (ConfigMesi.ordine[b.mese] || 0);
+      return (
+        (ConfigMesi.ordine[a.mese] || 0) - (ConfigMesi.ordine[b.mese] || 0)
+      );
     });
 
     const totale = combinedData.reduce((acc, item) => acc + item.chilometri, 0);
