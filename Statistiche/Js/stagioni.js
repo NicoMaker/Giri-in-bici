@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <div class="${season.containerClass}">
       <a href="${season.link}">
         <img class="${season.imgClass}" src="../Icons/${season.icon}" alt="" onerror="this.style.display='none'">
-        <p class="contornostagione misuracolore">${season.name}</p>
+        <p class="contornostagione misuracolore"><strong>${season.name}</strong></p>
         
         <p class="misuracolore">
           km totali ${formatItalianNumber(totalKm)}
