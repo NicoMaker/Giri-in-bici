@@ -128,6 +128,7 @@ window.Stagioni = window.Stagioni || {};
 
         <section class="riepilogo__sezione">
           <h3 class="riepilogo__titolo">
+            <br>
             <span aria-hidden="true">📊</span> Dettaglio periodi e corse
           </h3>
           <div class="quote">
