@@ -1,0 +1,18 @@
+/* ============================================================
+   Giri in Bici — Accesso
+
+   Indice dei componenti. Il tema condiviso arriva da
+   assets/css/core.css; qui sotto solo cio' che e' proprio
+   di questa pagina, un file per ogni parte.
+   ============================================================ */
+
+@import url("../assets/core.css");
+
+@import url("tema.css");           /* Colori d'accento e impostazioni di base */
+@import url("contenitore.css");    /* Sovrascrive la griglia .container del tema */
+@import url("card.css");           /* Riquadro dell'accesso */
+@import url("logo.css");           /* Logo sopra il modulo */
+@import url("form.css");           /* Campi del modulo */
+@import url("bottone.css");        /* Bottone Accedi, ripple e messaggio di errore */
+@import url("cookie.css");         /* Banner dei cookie */
+@import url("responsive.css");     /* Adattamenti per schermi piccoli */

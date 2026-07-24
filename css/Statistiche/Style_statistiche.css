@@ -1,0 +1,14 @@
+/* ============================================================
+   Giri in Bici — Statistiche
+
+   Indice dei componenti. Il tema condiviso arriva da
+   assets/css/core.css; qui sotto solo cio' che e' proprio
+   di questa sezione, un file per ogni parte.
+   ============================================================ */
+
+@import url("../assets/core.css");
+
+@import url("tema.css");                /* Colori d'accento */
+@import url("tabella-mesi.css");        /* Tabella dei mesi */
+@import url("griglia.css");             /* Griglia delle schede anno */
+@import url("riepilogo-stagioni.css");  /* Riepilogo "Totali per stagione" */
