@@ -10,7 +10,7 @@
 
 @import url("tema.css"); /* Colori d'accento del tema principale */
 @import url("km-home.css"); /* Blocco chilometri della home, cliccabile */
-@import url("bici-griglia.css"); /* Catalogo bici: griglia, striscia AI, riquadro foto */
-@import url("bici-scheda.css"); /* Scheda della singola bici */
-@import url("bici-filtri.css"); /* Barra dei filtri per categoria */
+@import url("bici/bici-griglia.css"); /* Catalogo bici: griglia, striscia AI, riquadro foto */
+@import url("bici/bici-scheda.css"); /* Scheda della singola bici */
+@import url("bici/bici-filtri.css"); /* Barra dei filtri per categoria */
 @import url("km-card.css"); /* Card chilometri cliccabile */
