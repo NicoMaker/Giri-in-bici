@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("km").innerHTML = `
       <div class="colore">
         <p class="misuracolore">Totale km percorsi ${formattedTotalKm}
-          <img src="../../Icons/traguardo.png" alt="Icona traguardo">
+          <img src="/img/Icons/traguardo.png" alt="Icona traguardo">
         </p>
         <p class="misuracolore">Media km percorsi ${mediaValue}</p>
       </div>

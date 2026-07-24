@@ -39,12 +39,12 @@ window.Stagioni = window.Stagioni || {};
     return `
     <div class="${season.containerClass}">
       <a href="${season.link}">
-        <img class="${season.imgClass}" src="../Icons/${season.icon}" alt="" onerror="this.style.display='none'">
+        <img class="${season.imgClass}" src="/img/Icons/${season.icon}" alt="" onerror="this.style.display='none'">
         <p class="contornostagione misuracolore"><strong>${season.name}</strong></p>
         
         <p class="misuracolore">
           km totali ${formatItalianNumber(totalKm)}
-          <img src="../Icons/traguardo.png" onerror="this.style.display='none'">
+          <img src="/img/Icons/traguardo.png" onerror="this.style.display='none'">
         </p>
         
         <p class="misuracolore">Percentuale km sul totale ${formatNumber(seasonKmPercentage)} %</p>
@@ -113,7 +113,7 @@ window.Stagioni = window.Stagioni || {};
 
     return `
       <div class="colore riepilogo">
-        <p class="misuracolore">Totale km ${formatItalianNumber(data.totale)} <img src="../Icons/traguardo.png" onerror="this.style.display='none'"></p>
+        <p class="misuracolore">Totale km ${formatItalianNumber(data.totale)} <img src="/img/Icons/traguardo.png" onerror="this.style.display='none'"></p>
         <p class="misuracolore">Media km per Stagione ${data.avgmediastagione}</p>
         <p class="misuracolore">Media km per Periodo ${data.avgperiod}</p>
         <p class="misuracolore">Totale corse ${formatItalianNumber(data.corseTotale)}</p>

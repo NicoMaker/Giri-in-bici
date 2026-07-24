@@ -30,9 +30,9 @@ window.StatGenerali = window.StatGenerali || {};
               (entry, index) => `
             <div class="Statistiche">
               <a href="Statistiche/Anni/${entry.year}.html">
-                <img class="immaginestagione" src="Icons/Statistiche.png">
+                <img class="immaginestagione" src="/img/Icons/Statistiche.png">
                 <p class="titoli">Statistiche ${entry.year}</p>
-                <p class="misuracolore">km totali ${formatItalianNumber(entry.km)} <img src="Icons/traguardo.png"></p>
+                <p class="misuracolore">km totali ${formatItalianNumber(entry.km)} <img src="/img/Icons/traguardo.png"></p>
                 <p class="misuracolore">Percentuale periodo ${avgValues[startIndex + index]} %</p>
                 <p class="misuracolore">Totale corse ${formatItalianNumber(entry.numberOfRaces)}</p>
                 <p class="misuracolore">km medi per corsa ${formatNumber(entry.km / entry.numberOfRaces)}</p>

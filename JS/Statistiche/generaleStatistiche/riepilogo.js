@@ -25,7 +25,7 @@ window.StatGenerali = window.StatGenerali || {};
       totaleElement.innerHTML = `
         <a href="Statistiche/History/Statistiche_Totali.html">
           <div class="colore">
-            <p class="misuracolore">Totale km ${formatItalianNumber(totalekm)} <img src="Icons/traguardo.png"></p>
+            <p class="misuracolore">Totale km ${formatItalianNumber(totalekm)} <img src="/img/Icons/traguardo.png"></p>
             <p class="misuracolore">km medi per giro ${avgkmPerRace}</p>
             <p class="misuracolore">km medi per anno ${avgkmPerYear}</p>
             <p class="misuracolore">km medi per mese ${avgkmPerMonth}</p>

@@ -1,21 +1,21 @@
 {
   "intestazioni": {
-    "home": "img/Intestazione/madonnina_Bici.jpg",
+    "home": "/img/Bici/Intestazione/madonnina_Bici.jpg",
     "mtb": [
-      "img/Intestazione/AI/MTB/MarioMTB.jpeg",
-      "img/Intestazione/AI/MTB/SonicMTB.jpg",
-      "img/Intestazione/AI/MTB/MarioSonicMTB.jpg",
-      "img/Intestazione/AI/MTB/Sonichu01.jpg",
-      "img/Intestazione/AI/MTB/Sonichu02.jpg",
-      "img/Intestazione/AI/MTB/Sonichu03.jpg"
+      "/img/Bici/Intestazione/AI/MTB/MarioMTB.jpeg",
+      "/img/Bici/Intestazione/AI/MTB/SonicMTB.jpg",
+      "/img/Bici/Intestazione/AI/MTB/MarioSonicMTB.jpg",
+      "/img/Bici/Intestazione/AI/MTB/Sonichu01.jpg",
+      "/img/Bici/Intestazione/AI/MTB/Sonichu02.jpg",
+      "/img/Bici/Intestazione/AI/MTB/Sonichu03.jpg"
     ],
     "corsa": [
-      "img/Intestazione/AI/Corsa/SonicCorsa.jpg",
-      "img/Intestazione/AI/Corsa/MarioSonicCorsa.jpg",
-      "img/Intestazione/AI/Corsa/SonicCorsa2.jpg",
-      "img/Intestazione/AI/Corsa/SonicPikaku1.jpg",
-      "img/Intestazione/AI/Corsa/SonicPikaku2.jpg",
-      "img/Intestazione/AI/Corsa/SonicPikaku3.jpg"
+      "/img/Bici/Intestazione/AI/Corsa/SonicCorsa.jpg",
+      "/img/Bici/Intestazione/AI/Corsa/MarioSonicCorsa.jpg",
+      "/img/Bici/Intestazione/AI/Corsa/SonicCorsa2.jpg",
+      "/img/Bici/Intestazione/AI/Corsa/SonicPikaku1.jpg",
+      "/img/Bici/Intestazione/AI/Corsa/SonicPikaku2.jpg",
+      "/img/Bici/Intestazione/AI/Corsa/SonicPikaku3.jpg"
     ]
   },
   "bici": [
@@ -28,7 +28,7 @@
       "avanti": 3,
       "dietro": 7,
       "anno": 2016,
-      "immagine": "img/MTB/La Pantera Nera .jpg"
+      "immagine": "/img/Bici/MTB/La Pantera Nera .jpg"
     },
     {
       "nome": "La Fluo",
@@ -39,7 +39,7 @@
       "avanti": 3,
       "dietro": 7,
       "anno": 2020,
-      "immagine": "img/MTB/La Fluo.jpg"
+      "immagine": "/img/Bici/MTB/La Fluo.jpg"
     },
     {
       "nome": "La Bianconera",
@@ -50,7 +50,7 @@
       "avanti": 3,
       "dietro": 7,
       "anno": 2020,
-      "immagine": "img/MTB/La Bianconera .jpg"
+      "immagine": "/img/Bici/MTB/La Bianconera .jpg"
     },
     {
       "nome": "La Pimpa",
@@ -61,7 +61,7 @@
       "avanti": 3,
       "dietro": 8,
       "anno": 2021,
-      "immagine": "img/MTB/La Pimpa.jpg"
+      "immagine": "/img/Bici/MTB/La Pimpa.jpg"
     },
     {
       "nome": "La Splendente",
@@ -72,7 +72,7 @@
       "avanti": 3,
       "dietro": 7,
       "anno": 2022,
-      "immagine": "img/MTB/La Splendente.jpg"
+      "immagine": "/img/Bici/MTB/La Splendente.jpg"
     },
     {
       "nome": "La Corsara",
@@ -83,7 +83,7 @@
       "avanti": 2,
       "dietro": 11,
       "anno": 2022,
-      "immagine": "img/Corsa/La Corsara .jpg"
+      "immagine": "/img/Bici/Corsa/La Corsara .jpg"
     }
   ]
 }

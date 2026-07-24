@@ -70,7 +70,7 @@ const stampaDati = (
 
   document.getElementById("km").innerHTML = `
     <div class="colore">
-      <p class="misuracolore">Totale km ${formattedTotaleKm} <img src="Icons/traguardo.png" alt="Icona traguardo"></p>
+      <p class="misuracolore">Totale km ${formattedTotaleKm} <img src="/img/Icons/traguardo.png" alt="Icona traguardo"></p>
       <p class="misuracolore">km medi per giro ${mediakm}</p>
       <p class="misuracolore">Media km per Periodo ${avgPeriod}</p>
       <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>

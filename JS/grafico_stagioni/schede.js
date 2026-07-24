@@ -9,11 +9,11 @@ const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
         (label, index) => `
       <div class="${cssclass}contorno">
         <a href="${path}/Periodi/${label}.html">
-          <img class="immaginestagione" src="Icons/${image}">
+          <img class="immaginestagione" src="/img/Icons/${image}">
           <p class="titoli">
             ${season} ${label}
             <p class="misuracolore">Totale km ${formatItalianNumber(data[label].totalDistance)}
-              <img src="Icons/traguardo.png">
+              <img src="/img/Icons/traguardo.png">
             </p>
             <p class="misuracolore">Percentuale periodo ${avgValues[index]} %</p>
             <p class="misuracolore">Totale corse ${formatItalianNumber(data[label].numberOfRaces)}</p>

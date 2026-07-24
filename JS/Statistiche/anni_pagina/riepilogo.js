@@ -14,7 +14,7 @@ function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
 
   document.getElementById("totale").innerHTML = `
     <div class="colore">
-      <p class="misuracolore">Totale km ${formatItalianNumber(totale)} <img src="../../Icons/traguardo.png" alt="traguardo"></p>
+      <p class="misuracolore">Totale km ${formatItalianNumber(totale)} <img src="/img/Icons/traguardo.png" alt="traguardo"></p>
       <p class="misuracolore">km medi per corsa ${kmMediPerCorsa}</p>
       <p class="misuracolore">km medi per mese ${kmMediPerMese}</p>
       <p class="misuracolore">Totale corse ${formatItalianNumber(totaleCorse)}</p>

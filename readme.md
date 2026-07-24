@@ -64,7 +64,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
    - Crea un nuovo file JSON per l’anno nella cartella: [`json/Statistiche/anni/`](json/Statistiche/anni/) con il nome del nuovo anno.
 
 3. **Aggiornare le Immagini**
-   - Aggiungi un’immagine per il nuovo anno nella cartella: [`Statistiche/Anni/Img/`](Statistiche/Anni/Img/) con il nome del nuovo anno.
+   - Aggiungi un’immagine per il nuovo anno nella cartella: [`img/Statistiche/Anni/`](img/Statistiche/Anni/) con il nome del nuovo anno.
 
 4. **Aggiornare i File di Storia Generale**
    - **Generale:** Modifica [`json/Statistiche/History/Generale.json`](json/Statistiche/History/Generale.json), aggiungendo il percorso (`json/Statistiche/anni/<anno>.json`) e il colore del nuovo anno.
@@ -72,6 +72,22 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
    - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`json/Statistiche/History/StoricoMensile.json`](json/Statistiche/History/StoricoMensile.json), specificando il percorso corretto (`json/Statistiche/anni/<anno>.json`) e il colore.
 
    > ⚠️ In tutti e tre i file i percorsi vanno scritti **relativi alla root del sito** (es. `json/Statistiche/anni/2026.json`), non relativi alla cartella del file (niente `../`).
+
+---
+
+## 🖼️ Convenzione Percorsi Immagini
+
+Tutte le immagini del sito vivono sotto un'unica cartella `img/` in radice, organizzata per categoria (rispecchia la stessa logica di `json/`):
+
+- `img/About_US/` — avatar e mappa
+- `img/Autunno_Inverno/`, `img/Estate/`, `img/Primavera/` — foto dei periodi, per anno
+- `img/Bici/` — foto e intestazioni della sezione Bici
+- `img/Icons/` — icone condivise dall'interfaccia (menu, pulsanti, bandierine)
+- `img/Statistiche/Anni/` — copertine delle pagine annuali di Statistiche
+- `img/assets/` — grafica dell'interfaccia (es. `stagioni.svg`)
+- file di uso generale (logo, animazioni) direttamente in `img/`
+
+**Importante:** ovunque venga referenziata un'immagine — `<img src="...">`, `<link rel="icon" href="...">`, campi nei file JSON (es. `icon` in `Menu.json`, `immagine`/`intestazioni` in `bici.json`) — il percorso va scritto **assoluto dalla root del sito**, con la barra iniziale (es. `/img/Icons/home.png`, `/img/Estate/2026/1.jpg`). In questo modo il riferimento funziona indipendentemente dalla profondità della pagina che lo usa, senza dover calcolare `../` a mano.
 
 ---
 
@@ -89,7 +105,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ## 🌐 Logo e Apertura del Sito
 
-![Logo](Img/logo.jpg)
+![Logo](img/logo.jpg)
 
 - Link al sito: [Vai al sito](https://giri-in-bici.netlify.app/)
 
@@ -97,7 +113,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ## 🗺 Mappa del Sito
 
-![Mappa del Sito](About_US/Img/Mappa.jpg)
+![Mappa del Sito](img/About_US/Mappa.jpg)
 
 ---
 
@@ -105,11 +121,11 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 - [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
 
-  ![Avatar NM](About_US/Img/AvatarNM.jpg)
+  ![Avatar NM](img/About_US/AvatarNM.jpg)
 
 - [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)
 
-  ![Avatar JR](About_US/Img/AvatarJR.png)
+  ![Avatar JR](img/About_US/AvatarJR.png)
 
 ---
 

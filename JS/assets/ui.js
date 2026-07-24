@@ -186,13 +186,13 @@
     ".immagineParticolare",
   ].join(",");
 
-  // Le cartelle Icons/ e assets/img/ contengono l'interfaccia: icone,
+  // Le cartelle img/Icons/ e img/assets/ contengono l'interfaccia: icone,
   // bandierine, il traguardo, i disegni dei pulsanti. Non sono foto e
   // non devono aprirsi, nemmeno quando finiscono dentro una scheda
   // che per il resto contiene foto (succede in "Informazioni").
   function eUnIcona(el) {
     var src = (el.getAttribute("src") || "").toLowerCase();
-    return src.indexOf("/icons/") !== -1 || src.indexOf("assets/img/") !== -1;
+    return src.indexOf("/icons/") !== -1 || src.indexOf("/img/assets/") !== -1;
   }
 
   // Contenitori che formano un gruppo: le frecce girano dentro il gruppo,

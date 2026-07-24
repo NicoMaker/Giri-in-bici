@@ -51,7 +51,7 @@ class TeamManager {
 
   createTeamMemberCard(user) {
     const avatarHtml = user.avatar
-      ? `<img src="Img/${user.avatar}" alt="Avatar ${user.name}" />`
+      ? `<img src="/img/About_US/${user.avatar}" alt="Avatar ${user.name}" />`
       : "";
     const descriptionHtml = user.description
       ? `<p>${user.description}</p>`

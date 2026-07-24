@@ -17,7 +17,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
   ) => `
     <a href="StoricoMensile.html">
       <div class="colore">
-        <p class="misuracolore">totale km ${formatItalianNumber(totale)} <img src="../../Icons/traguardo.png"></p>
+        <p class="misuracolore">totale km ${formatItalianNumber(totale)} <img src="/img/Icons/traguardo.png"></p>
         <p class="misuracolore">km totali medi per mese ${mediaComplessiva}</p>
         <p class="misuracolore">Totale corse ${formatItalianNumber(totaleCorse)}</p>
         <p class="misuracolore">Medie corse per mese (12 mesi) ${mediacorse}</p>

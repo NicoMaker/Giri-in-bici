@@ -7,7 +7,7 @@ function renderDataTable(mesi, chilometri, percentuali) {
   document.getElementById("mesi").innerHTML = `
     <tr class="grassetto">
       <th>Mese</th>
-      <th>km <img src="../../Icons/traguardo.png" alt="traguardo"></th>
+      <th>km <img src="/img/Icons/traguardo.png" alt="traguardo"></th>
       <th>Percentuale sull'anno</th>
     </tr>
     ${mesi
