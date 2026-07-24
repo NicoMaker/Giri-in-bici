@@ -1,0 +1,117 @@
+/* ============================================================
+   Reazioni al passaggio del mouse e al tocco
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+/* ---------- Micro-interazioni ---------- */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* L'icona della card fa un piccolo salto al passaggio del mouse */
+.immaginestagione,
+.immaginestagionestat,
+.immaginestagionestatsx,
+.immaginestagionesx,
+.immaginestagionedx {
+  transition:
+    transform 0.35s var(--ease),
+    background 0.3s var(--ease);
+}
+
+.Primaveracontorno:hover .immaginestagione,
+.Estatecontorno:hover .immaginestagione,
+.Autunno-Invernocontorno:hover .immaginestagione,
+.Statistiche:hover .immaginestagione,
+#dati > *:hover .immaginestagionestat,
+#dati > *:hover .immaginestagionestatsx,
+.primavera:hover .immaginestagionesx,
+.estate:hover .immaginestagionedx,
+.autunno_inverno:hover .immaginestagionesx {
+  transform: translateY(-4px) rotate(-6deg) scale(1.08);
+  background: var(--a-soft);
+}
+
+/* Riga della card riepilogo: leggero scorrimento al passaggio */
+.misuracolore {
+  transition:
+    padding-left 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+
+.colore .misuracolore:hover {
+  padding-left: 0.5rem;
+  color: var(--a1);
+}
+
+/* Freccia della paginazione */
+#pagination button {
+  will-change: transform;
+}
+
+#pagination button:active {
+  transform: scale(0.94);
+}
+
+/* Pulsanti contatto: alone al passaggio */
+.Icona:hover {
+  animation: pulseRing 1.2s var(--ease);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--a1) 55%, transparent);
+}
+
+/* Le voci del menu entrano una dopo l'altra */
+.menu.showMenu li {
+  animation: riseIn 0.4s var(--ease) both;
+}
+
+.menu.showMenu li:nth-child(1) {
+  animation-delay: 0.04s;
+}
+.menu.showMenu li:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.menu.showMenu li:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.menu.showMenu li:nth-child(4) {
+  animation-delay: 0.16s;
+}
+.menu.showMenu li:nth-child(5) {
+  animation-delay: 0.2s;
+}
+.menu.showMenu li:nth-child(6) {
+  animation-delay: 0.24s;
+}
+.menu.showMenu li:nth-child(n + 7) {
+  animation-delay: 0.28s;
+}
+
+/* Righe di tabella: evidenziazione morbida */
+tbody tr td {
+  transition: transform 0.2s var(--ease);
+}
+
+/* Sottolineatura animata dei link nel piè di pagina */
+.foot-links a {
+  position: relative;
+}
+
+.foot-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s var(--ease);
+}
+
+.foot-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}

@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <div class="${season.containerClass}">
       <a href="${season.link}">
         <img class="${season.imgClass}" src="../Icons/${season.icon}" alt="" onerror="this.style.display='none'">
-        <p class="contornostagione misuracolore"><strong>${season.name}</strong></p>
+        <p class="contornostagione misuracolore">${season.name}</p>
         
         <p class="misuracolore">
           km totali ${formatItalianNumber(totalKm)}
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p class="misuracolore">Percentuale km sul totale ${formatNumber(seasonKmPercentage)} %</p>
         
         <p class="misuracolore">
-          Totale corse ${formatItalianNumber(currentSeasonRaces)} 
+          Totale corse ${formatItalianNumber(currentSeasonRaces)} corse 
           (${formatItalianNumber(racePercentage, true)}%)
         </p>
         

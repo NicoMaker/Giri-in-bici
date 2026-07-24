@@ -1,0 +1,194 @@
+/* ============================================================
+   Barra di navigazione in alto
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+/* ---------- 5. Barra superiore ---------- */
+.site-bar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  min-height: var(--bar-h);
+  padding: 0.6rem clamp(0.9rem, 3vw, 1.6rem);
+  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  backdrop-filter: saturate(1.5) blur(16px);
+  -webkit-backdrop-filter: saturate(1.5) blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-right: auto;
+}
+
+.brand:hover {
+  color: var(--ink);
+}
+
+.brand-text {
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.brand-text small {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Logo storico: da bordo tratteggiato giallo a pastiglia moderna */
+.Bandiera-FVG {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 13px;
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-1);
+  background: var(--surface);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.brand:hover .Bandiera-FVG {
+  transform: rotate(-4deg) scale(1.06);
+  box-shadow: var(--sh-2);
+}
+
+/* Navigazione a icone (classe storica .Icons) */
+.Icons {
+  display: inline-flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  box-shadow: var(--sh-1);
+  position: static;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.Icons a,
+.Icons .colore_apertura {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-full);
+  color: var(--ink-2);
+  background: transparent;
+  transition:
+    background 0.2s var(--ease),
+    color 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+/* Icona a tratto al posto del PNG (la sostituzione la fa ui.js) */
+.Icons .ico-nav {
+  display: grid;
+  place-items: center;
+}
+
+.Icons .ico {
+  width: 24px;
+  height: 24px;
+}
+
+.Icons a:hover,
+.Icons a:focus-visible {
+  color: var(--a1);
+  background: var(--a-soft);
+  transform: translateY(-2px);
+}
+
+.Icons img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Pagina in cui ci si trova: pastiglia colorata e icona nel colore
+   d'accento della stagione. Regole dopo :hover cosi' l'evidenziazione
+   resta anche passandoci sopra il mouse. */
+.Icons a[aria-current="page"],
+.Icons a.is-attivo {
+  color: var(--a1);
+  background: var(--a-soft);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--a1) 40%, transparent);
+}
+
+.Icons a[aria-current="page"]:hover,
+.Icons a.is-attivo:hover {
+  background: color-mix(in srgb, var(--a1) 18%, transparent);
+}
+
+/* Pulsante grafico stagioni nella barra */
+.graficostagioni {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 0 0 auto;
+  padding: 0.35rem 0.95rem 0.35rem 0.4rem;
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: var(--r-full);
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  box-shadow: var(--sh-2);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    color 0.2s var(--ease);
+}
+
+/* Passandoci sopra si alza appena: il colore della scritta non
+   viene toccato, resta quello del pulsante. */
+.graficostagioni:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--sh-3);
+}
+
+.Stagioni {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.graficostagioni-testo {
+  white-space: nowrap;
+}
+
+/* Logo grande delle stagioni nell'intestazione della pagina dedicata */
+.stagioni-hero {
+  display: block;
+  width: min(100%, 190px);
+  height: auto;
+  margin: 1.4rem auto 0;
+  filter: drop-shadow(0 12px 26px rgba(14, 27, 42, 0.18));
+}

@@ -1,0 +1,66 @@
+/* ============================================================
+   Variabili di progetto: colori, tipi, spazi, ombre, misure
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+/* I temi (giri.css, Primavera.css, Estate.css, ...) importano core.css
+   e ridefiniscono solo gli accenti --a1, --a2, --a-soft. */
+
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap");
+
+/* ---------- 1. Token ---------- */
+:root {
+  /* Accenti: sovrascritti dai singoli temi stagionali */
+  --a1: #0ea5e9;
+  --a2: #6366f1;
+  --a-soft: rgba(14, 165, 233, 0.12);
+
+  /* Inchiostro e superfici */
+  --ink: #0e1b2a;
+  --ink-2: #46586d;
+  --ink-3: #7d8ea1;
+  --surface: #ffffff;
+  --surface-2: #f3f7fb;
+  --surface-3: #e9eff6;
+  --line: rgba(14, 27, 42, 0.1);
+  --line-strong: rgba(14, 27, 42, 0.18);
+
+  /* Sfondo pagina — l'azzurro/lavanda storico del sito, ammorbidito */
+  --bg-1: #eef6fb;
+  --bg-2: #e7ecfb;
+  --bg-3: #f6fbfd;
+
+  /* Grafici: restano sempre chiari, anche in tema scuro */
+  --chart-surface: #ffffff;
+
+  /* Tipografia */
+  --font-display: "Dancing Script", "Segoe Script", cursive;
+  --font-head: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Forma */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-full: 999px;
+
+  /* Ombre */
+  --sh-1: 0 1px 2px rgba(14, 27, 42, 0.05);
+  --sh-2:
+    0 1px 2px rgba(14, 27, 42, 0.06), 0 10px 24px -14px rgba(14, 27, 42, 0.28);
+  --sh-3:
+    0 2px 4px rgba(14, 27, 42, 0.06), 0 22px 48px -20px rgba(14, 27, 42, 0.35);
+
+  /* Misure */
+  --wrap: 1180px;
+  --bar-h: 68px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tema chiaro forzato: niente adattamento al tema scuro di sistema.
+   color-scheme: light impedisce anche a browser e WebView mobile di
+   invertire automaticamente controlli, scrollbar e campi form. */
+:root {
+  color-scheme: light;
+}

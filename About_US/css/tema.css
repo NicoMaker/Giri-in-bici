@@ -1,0 +1,10 @@
+/* ============================================================
+   Colori d'accento della pagina Informazioni
+   Parte della pagina Informazioni: About_US/StyleAbout.css
+   ============================================================ */
+
+:root {
+  --a1: #0e8bd4;
+  --a2: #6f5bf0;
+  --a-soft: rgba(14, 139, 212, 0.12);
+}

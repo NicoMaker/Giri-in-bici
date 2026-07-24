@@ -1,0 +1,47 @@
+/* ============================================================
+   Piè di pagina
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+/* ---------- 17. Footer ---------- */
+.site-foot {
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding: clamp(1.6rem, 4vw, 2.4rem) 0 2rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 62%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.site-foot .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.6rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-foot p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink-3);
+  text-align: left;
+}
+
+.foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  font-family: var(--font-head);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.foot-links a {
+  color: var(--ink-2);
+}
+
+.foot-links a:hover {
+  color: var(--a1);
+}

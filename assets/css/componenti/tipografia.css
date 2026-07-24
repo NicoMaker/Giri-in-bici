@@ -1,0 +1,74 @@
+/* ============================================================
+   Titoli, paragrafi, testo di servizio
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+/* ---------- 3. Tipografia ---------- */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-head);
+  color: var(--ink);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.4em;
+  text-align: center;
+}
+
+h1 {
+  font-size: clamp(2rem, 5.2vw, 3.4rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1rem;
+  color: var(--ink-2);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.grasetto,
+.grassetto {
+  font-weight: 700;
+}
+
+.corsivo {
+  font-style: italic;
+}
+
+/* Titolo firma del sito: gradiente tricolore (identità storica) */
+.colore_sfondo_italia {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 11vw, 7rem);
+  line-height: 1;
+  margin: 0.1em 0 0.25em;
+  background-image: linear-gradient(
+    100deg,
+    #00934a 0%,
+    #35c07a 26%,
+    #f2f6f8 46%,
+    #f2f6f8 54%,
+    #ef4b4b 74%,
+    #c8102e 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 6px 18px rgba(14, 27, 42, 0.18));
+}
+
+.colore_sfondo_italia img {
+  display: inline-block;
+  width: clamp(28px, 5vw, 52px);
+  height: auto;
+  vertical-align: middle;
+  filter: none;
+}
