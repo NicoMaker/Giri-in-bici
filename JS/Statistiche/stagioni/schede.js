@@ -2,11 +2,15 @@
 // schede.js — Le schede delle stagioni e il riquadro riepilogo
 //
 // Costruisce l'HTML: la scheda di ogni stagione e il riquadro
-// "totale" con il dettaglio periodi e corse. Riceve i numeri gia'
+// "totale" con il dettaglio periodi e corse. Riceve i numeri già
 // calcolati da dati.js, non fa conti propri.
 //
 // Dipendenze: JS/utils.js (formatItalianNumber, formatNumber)
 //             Statistiche/Js/stagioni/dati.js (SEASONS_CONFIG)
+//
+// MODIFICA 2026-07-24: aggiunto setTimeout per forzare il layout
+// a griglia 3 colonne via JS, come fallback per garantire
+// che le tre card siano sempre in riga.
 // ============================================================
 
 window.Stagioni = window.Stagioni || {};
@@ -14,24 +18,17 @@ window.Stagioni = window.Stagioni || {};
 (function (S) {
   "use strict";
 
-  S.renderSeasonDiv = (season, data, numPeriods) => {
-    // 1. Recupero dinamico dei dati in base alla stagione corrente
+  // ------------------------------------------------------------
+  // renderSeasonDiv — genera l'HTML di una singola scheda stagione
+  // (usato per la sezione "Le tre stagioni" in alto)
+  // ------------------------------------------------------------
+  S.renderSeasonDiv = function (season, data, numPeriods) {
     const totalKm = data[season.dataKey] || 0;
-
-    // Prendiamo le corse specifiche di QUESTA stagione usando la chiave dinamica
     const currentSeasonRaces = data[season.raceKey] || 0;
-
-    // Il totale complessivo di tutte le stagioni
     const totalYearRaces = data.corseTotale || 0;
-
-    // 2. Calcolo dinamico della percentuale delle corse per QUESTA stagione
     const racePercentage =
       totalYearRaces > 0 ? (currentSeasonRaces / totalYearRaces) * 100 : 0;
-
-    // Percentuale dei KM della stagione
     const seasonKmPercentage = parseFloat(data[season.avgKey]) || 0;
-
-    // 3. Calcolo delle medie
     const avgKmPerPeriod = numPeriods > 0 ? totalKm / numPeriods : 0;
     const avgKmPerRace =
       currentSeasonRaces > 0 ? totalKm / currentSeasonRaces : 0;
@@ -61,9 +58,12 @@ window.Stagioni = window.Stagioni || {};
     </div>`;
   };
 
-  S.renderStampa = (data, numPeriodsPerSeason) => {
-    return S.SEASONS_CONFIG.map((season) => {
-      const numPeriods =
+  // ------------------------------------------------------------
+  // renderStampa — genera l'HTML delle tre schede (usato in alto)
+  // ------------------------------------------------------------
+  S.renderStampa = function (data, numPeriodsPerSeason) {
+    return S.SEASONS_CONFIG.map(function (season) {
+      var numPeriods =
         season.name === "Primavera"
           ? numPeriodsPerSeason.primavera
           : season.name === "Estate"
@@ -73,10 +73,12 @@ window.Stagioni = window.Stagioni || {};
     }).join("");
   };
 
-  // Una quota di stagione: stessa struttura per tutte e tre, scritta
-  // una volta sola invece che copiata tre volte come prima.
-  const quotaStagione = (chiave, emoji, nome, periodi, corse, totaleCorse) => {
-    const percentuale = totaleCorse > 0 ? (corse / totaleCorse) * 100 : 0;
+  // ------------------------------------------------------------
+  // quotaStagione — genera una singola card per il riepilogo
+  // (sezione "Dettaglio periodi e corse")
+  // ------------------------------------------------------------
+  var quotaStagione = function (chiave, emoji, nome, periodi, corse, totaleCorse) {
+    var percentuale = totaleCorse > 0 ? (corse / totaleCorse) * 100 : 0;
     return `
         <article class="quota quota--${chiave}">
           <header class="quota__testa">
@@ -105,13 +107,17 @@ window.Stagioni = window.Stagioni || {};
         </article>`;
   };
 
-  S.createStampat = (data, numPeriodsPerSeason) => {
-    const totalePeriodi =
+  // ------------------------------------------------------------
+  // createStampat — genera tutto il blocco "Totali per stagione"
+  // (quello che appare sotto i grafici)
+  // ------------------------------------------------------------
+  S.createStampat = function (data, numPeriodsPerSeason) {
+    var totalePeriodi =
       numPeriodsPerSeason.primavera +
       numPeriodsPerSeason.estate +
       numPeriodsPerSeason.autunno_inverno;
 
-    return `
+    var html = `
       <div class="colore riepilogo">
         <p class="misuracolore">Totale km ${formatItalianNumber(data.totale)} <img src="/img/Icons/traguardo.png" onerror="this.style.display='none'"></p>
         <p class="misuracolore">Media km per Stagione ${data.avgmediastagione}</p>
@@ -141,5 +147,23 @@ window.Stagioni = window.Stagioni || {};
           </p>
         </section>
       </div>`;
+
+    // ----------------------------------------------------------
+    // FORZATURA LAYOUT A 3 COLONNE VIA JAVASCRIPT (FALLBACK)
+    // Se il CSS non dovesse funzionare (cache, conflitti, ecc.),
+    // questo codice imposta lo stile inline sull'elemento .quote
+    // per garantire che le tre card siano sempre in riga.
+    // ----------------------------------------------------------
+    setTimeout(function () {
+      var quote = document.querySelector('.quote');
+      if (quote) {
+        quote.style.display = 'grid';
+        quote.style.gridTemplateColumns = 'repeat(3, 1fr)';
+        quote.style.gap = '1.2rem';
+      }
+    }, 50);
+
+    return html;
   };
+
 })(window.Stagioni);
