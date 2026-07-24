@@ -1,0 +1,10 @@
+/* ============================================================
+   Colori d'accento della sezione Statistiche
+   Parte della pagina Statistiche: Statistiche/Style_statistiche.css
+   ============================================================ */
+
+:root {
+  --a1: #6d47e0;
+  --a2: #c07ae8;
+  --a-soft: rgba(109, 71, 224, 0.13);
+}

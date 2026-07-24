@@ -1,18 +1,14 @@
-/* Giri in Bici — Tema Statistiche */
+/* ============================================================
+   Giri in Bici — Statistiche
+
+   Indice dei componenti. Il tema condiviso arriva da
+   assets/css/core.css; qui sotto solo cio' che e' proprio
+   di questa sezione, un file per ogni parte.
+   ============================================================ */
+
 @import url("../assets/css/core.css");
 
-:root {
-  --a1: #6d47e0;
-  --a2: #c07ae8;
-  --a-soft: rgba(109, 71, 224, 0.13);
-}
-
-/* Tabella dei mesi: contenitore scorrevole con angoli morbidi */
-#mesi {
-  min-width: 520px;
-}
-
-/* Ultima card dispari a tutta larghezza */
-.odd-items .Statistiche:last-child {
-  grid-column: 1 / -1;
-}
+@import url("css/tema.css");                /* Colori d'accento */
+@import url("css/tabella-mesi.css");        /* Tabella dei mesi */
+@import url("css/griglia.css");             /* Griglia delle schede anno */
+@import url("css/riepilogo-stagioni.css");  /* Riepilogo "Totali per stagione" */

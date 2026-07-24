@@ -11,8 +11,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const B = window.Bici;
 
-  fetch("bici.json")
-    .then((response) => response.json())
+  Json.leggi("bici.json")
     .then((data) => {
       B.dati = data;
       B.contenitore = document.getElementById("StampaBici");

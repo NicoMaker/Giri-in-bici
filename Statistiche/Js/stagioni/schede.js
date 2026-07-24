@@ -73,6 +73,38 @@ window.Stagioni = window.Stagioni || {};
     }).join("");
   };
 
+  // Una quota di stagione: stessa struttura per tutte e tre, scritta
+  // una volta sola invece che copiata tre volte come prima.
+  const quotaStagione = (chiave, emoji, nome, periodi, corse, totaleCorse) => {
+    const percentuale = totaleCorse > 0 ? (corse / totaleCorse) * 100 : 0;
+    return `
+        <article class="quota quota--${chiave}">
+          <header class="quota__testa">
+            <span class="quota__emoji" aria-hidden="true">${emoji}</span>
+            <h4 class="quota__nome">${nome}</h4>
+          </header>
+          <dl class="quota__dati">
+            <div class="quota__voce">
+              <dt>Periodi</dt>
+              <dd class="anima-numero">${formatItalianNumber(periodi)}</dd>
+            </div>
+            <div class="quota__voce">
+              <dt>Corse</dt>
+              <dd class="anima-numero">${formatItalianNumber(corse)}</dd>
+            </div>
+          </dl>
+          <div
+            class="quota__barra"
+            style="--quota: ${percentuale.toFixed(2)}%"
+            role="img"
+            aria-label="${formatItalianNumber(percentuale, true)}% delle corse"
+          ></div>
+          <p class="quota__percentuale">
+            ${formatItalianNumber(percentuale, true)}% delle corse
+          </p>
+        </article>`;
+  };
+
   S.createStampat = (data, numPeriodsPerSeason) => {
     const totalePeriodi =
       numPeriodsPerSeason.primavera +
@@ -80,44 +112,34 @@ window.Stagioni = window.Stagioni || {};
       numPeriodsPerSeason.autunno_inverno;
 
     return `
-      <div class="colore">
+      <div class="colore riepilogo">
         <p class="misuracolore">Totale km ${formatItalianNumber(data.totale)} <img src="../Icons/traguardo.png" onerror="this.style.display='none'"></p>
         <p class="misuracolore">Media km per Stagione ${data.avgmediastagione}</p>
         <p class="misuracolore">Media km per Periodo ${data.avgperiod}</p>
         <p class="misuracolore">Totale corse ${formatItalianNumber(data.corseTotale)}</p>
         <p class="misuracolore">Media corse per periodo ${formatNumber(data.corseTotale / totalePeriodi)}</p>
         <p class="misuracolore">Media corse per stagione ${formatNumber(data.corseTotale / 3)}</p>
-        <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
-        <p class="misuracolore" style="text-align: center;">📊 DETTAGLIO PERIODI E CORSE PER STAGIONE</p>
-        <div style="display: flex; justify-content: space-between; margin-top: 10px; flex-wrap: wrap;">
-          <div style="flex: 1; text-align: center; padding: 5px;">
-            <p class="misuracolore">🌸 PRIMAVERA</p>
-            <p class="misuracolore">${formatItalianNumber(numPeriodsPerSeason.primavera)} periodi</p>
-            <p class="misuracolore">
-              ${formatItalianNumber(data.corsep)} corse 
-              (${formatItalianNumber(data.corseTotale > 0 ? (data.corsep / data.corseTotale) * 100 : 0, true)}%)
-            </p>
+
+        <section class="riepilogo__sezione">
+          <h3 class="riepilogo__titolo">
+            <span aria-hidden="true">📊</span> Dettaglio periodi e corse
+          </h3>
+          <div class="quote">
+            ${quotaStagione("primavera", "🌸", "Primavera", numPeriodsPerSeason.primavera, data.corsep, data.corseTotale)}
+            ${quotaStagione("estate", "☀️", "Estate", numPeriodsPerSeason.estate, data.corsee, data.corseTotale)}
+            ${quotaStagione("autunno-inverno", "🍂", "Autunno-Inverno", numPeriodsPerSeason.autunno_inverno, data.corseai, data.corseTotale)}
           </div>
-          <div style="flex: 1; text-align: center; padding: 5px;">
-            <p class="misuracolore">☀️ ESTATE</p>
-            <p class="misuracolore">${formatItalianNumber(numPeriodsPerSeason.estate)} periodi</p>
-            <p class="misuracolore">
-              ${formatItalianNumber(data.corsee)} corse 
-              (${formatItalianNumber(data.corseTotale > 0 ? (data.corsee / data.corseTotale) * 100 : 0, true)}%)
-            </p>
-          </div>
-          <div style="flex: 1; text-align: center; padding: 5px;">
-            <p class="misuracolore">🍂 AUTUNNO-INVERNO</p>
-            <p class="misuracolore">${formatItalianNumber(numPeriodsPerSeason.autunno_inverno)} periodi</p>
-            <p class="misuracolore">
-              ${formatItalianNumber(data.corseai)} corse 
-              (${formatItalianNumber(data.corseTotale > 0 ? (data.corseai / data.corseTotale) * 100 : 0, true)}%)
-            </p>
-          </div>
-        </div>
-        <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.3);">
-        <p class="misuracolore">📅 TOTALE PERIODI COMPLESSIVI</p>
-        <p class="misuracolore">${formatItalianNumber(totalePeriodi)} periodi</p>
+        </section>
+
+        <section class="riepilogo__sezione">
+          <h3 class="riepilogo__titolo">
+            <span aria-hidden="true">📅</span> Totale periodi complessivi
+          </h3>
+          <p class="riepilogo__totale">
+            <span class="anima-numero">${formatItalianNumber(totalePeriodi)}</span>
+            <span class="riepilogo__unita">periodi</span>
+          </p>
+        </section>
       </div>`;
   };
 })(window.Stagioni);

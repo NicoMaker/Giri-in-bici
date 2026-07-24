@@ -27,10 +27,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     await ConfigMesi.carica();
 
     const statistics = await fetchJSON("../Js/History/JSON/GraficoTotale.json");
-    const allData = await Promise.all(
-      Object.values(statistics.statistics).map((filePath) =>
-        fetch(filePath).then((r) => r.json()),
-      ),
+    const allData = await Json.leggiTutti(
+      Object.values(statistics.statistics),
     );
 
     let chilometriTotali = new Array(12).fill(0);

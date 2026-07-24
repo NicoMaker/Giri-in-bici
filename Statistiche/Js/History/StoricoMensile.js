@@ -16,16 +16,13 @@ const SM = window.StoricoMensile;
 document.addEventListener("DOMContentLoaded", () => {
   // Carica la configurazione, poi carica i dati e disegna
   ConfigMesi.carica().then(() => {
-    fetch("../Js/History/JSON/StoricoMensile.json")
-      .then((response) => response.json())
+    Json.leggi("../Js/History/JSON/StoricoMensile.json")
       .then((yearsData) => {
         const yearLabels = Object.values(yearsData).map((y) => y.label);
         const datasetsPromises = Object.values(yearsData).map((yearInfo) =>
-          fetch(yearInfo.data)
-            .then((r) => r.json())
-            .then((yearData) =>
-              SM.createDataset(yearData, yearInfo.label, yearInfo.color),
-            ),
+          Json.leggi(yearInfo.data).then((yearData) =>
+            SM.createDataset(yearData, yearInfo.label, yearInfo.color),
+          ),
         );
         return Promise.all(datasetsPromises).then((datasets) => ({
           datasets,

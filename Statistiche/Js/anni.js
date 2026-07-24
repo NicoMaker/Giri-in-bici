@@ -21,8 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const jsonUrl = document.getElementById("json").getAttribute("link");
 
   try {
-    const response = await fetch(jsonUrl);
-    const jsonData = await response.json();
+    const jsonData = await Json.leggi(jsonUrl);
 
     const { year, numberOfRaces: corse, data, colors } = jsonData;
 

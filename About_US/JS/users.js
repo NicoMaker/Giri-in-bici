@@ -21,11 +21,7 @@ class TeamManager {
 
   async loadData() {
     try {
-      const response = await fetch(this.jsonPath);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      this.data = await response.json();
+      this.data = await Json.leggi(this.jsonPath);
     } catch (error) {
       console.error("Errore durante il caricamento dei dati:", error);
       throw error;

@@ -109,8 +109,12 @@
   function preparaNumeri(radice) {
     if (motoRidotto) return;
 
+    // .misuracolore sono le righe delle card; .anima-numero e' l'aggancio
+    // per i numeri che stanno fuori da quelle righe (es. le quote di
+    // stagione nel riepilogo), dove la posizione la decide gia' il CSS.
     var elementi = (radice || document).querySelectorAll(
-      ".misuracolore:not([data-contato]):not([data-osservato])",
+      ".misuracolore:not([data-contato]):not([data-osservato])," +
+        ".anima-numero:not([data-contato]):not([data-osservato])",
     );
     if (!elementi.length) return;
 

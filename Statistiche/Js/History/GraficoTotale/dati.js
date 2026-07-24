@@ -1,6 +1,6 @@
 // ============================================================
 // dati.js — Legge i dati di ogni anno e li ordina per anno e mese
-// Dipendenze: JS/utils.js, History/comune/config-mesi.js
+// Dipendenze: JS/json.js, JS/utils.js, History/comune/config-mesi.js
 // Richiamato da Statistiche/Js/History/GraficoTotale.js
 // ============================================================
 
@@ -9,18 +9,12 @@ window.GraficoTotale = window.GraficoTotale || {};
 (function (GT) {
   "use strict";
 
+  // Un anno che non si carica non deve far sparire tutti gli altri.
   GT.fetchYearData = async function (url, year) {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
-      if (!data || typeof data !== "object") throw new Error("Dati non validi");
-      if (!data.year && year) data.year = year;
-      return data;
-    } catch (error) {
-      console.error(`Errore nel caricamento dei dati da ${url}: ${error}`);
-      return null;
-    }
+    const data = await Json.leggiOppureNull(url);
+    if (!data || typeof data !== "object") return null;
+    if (!data.year && year) data.year = year;
+    return data;
   };
 
   GT.calculateTotals = function (yearlyData) {

@@ -4,7 +4,7 @@
 // Legge i file JSON, somma i chilometri, conta le corse e calcola
 // medie e percentuali. Non tocca mai la pagina: restituisce numeri.
 //
-// Dipendenze: JS/utils.js (formatNumber)
+// Dipendenze: JS/json.js, JS/utils.js (formatNumber)
 // ============================================================
 
 window.Stagioni = window.Stagioni || {};
@@ -16,17 +16,9 @@ window.Stagioni = window.Stagioni || {};
   S.SEASONS_CONFIG = [];
   S.CHART_CONFIG = {};
 
-  S.loadJSON = async function (jsonFilePath) {
-    try {
-      const response = await fetch(jsonFilePath);
-      if (!response.ok)
-        throw new Error(`Failed to load ${jsonFilePath}: ${response.status}`);
-      return await response.json();
-    } catch (error) {
-      console.error(`Errore nel caricamento di ${jsonFilePath}:`, error);
-      return null;
-    }
-  };
+  // Un pezzo mancante non deve fermare la pagina: se un file non
+  // arriva si va avanti con gli altri.
+  S.loadJSON = Json.leggiOppureNull;
 
   S.initializeConfiguration = async function (jsonFilePath) {
     const config = await S.loadJSON(jsonFilePath);

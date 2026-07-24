@@ -36,9 +36,7 @@ window.ConfigMesi = window.ConfigMesi || {};
 
   C.carica = async function () {
     try {
-      const response = await fetch("../Js/History/JSON/config-mesi.json");
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const config = await response.json();
+      const config = await Json.leggi("../Js/History/JSON/config-mesi.json");
       C.ordine = config.orderMesi;
     } catch (error) {
       console.error(

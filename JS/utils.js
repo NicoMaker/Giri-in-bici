@@ -1,5 +1,7 @@
 // ============================================================
-// utils.js — Funzioni di utilità condivise in tutto il sito
+// utils.js — Come si scrivono i numeri in tutto il sito
+// Separatore delle migliaia col punto, decimali con la virgola.
+// La lettura dei file JSON sta in JS/json.js.
 // Includere PRIMA di qualsiasi altro script JS del progetto.
 // ============================================================
 
@@ -62,19 +64,7 @@ function formatPercentage(value) {
   return formatItalianNumber(value, false);
 }
 
-/**
- * Recupera un file JSON da un URL.
- * @param {string} url
- * @returns {Promise<any>}
- */
-async function fetchJSON(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-  return response.json();
-}
-
 // Espone le funzioni globalmente
 window.formatItalianNumber = formatItalianNumber;
 window.formatNumber = formatNumber;
 window.formatPercentage = formatPercentage;
-window.fetchJSON = fetchJSON;

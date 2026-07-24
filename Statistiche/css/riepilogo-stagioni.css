@@ -1,0 +1,210 @@
+/* ============================================================
+   Riepilogo "Totali per stagione"
+   Parte della pagina Statistiche: Statistiche/Style_statistiche.css
+
+   Le tre quote di stagione stanno in una griglia: cosi' restano
+   allineate anche quando un nome va a capo (era il caso di
+   "Autunno-Inverno", che prima spingeva le sue righe piu' in basso
+   delle altre due).
+   ============================================================ */
+
+/* ---------- Sezioni della scheda ---------- */
+
+.riepilogo__sezione {
+  margin-top: 1.6rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--line);
+}
+
+.riepilogo__titolo {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 1rem;
+  font-family: var(--font-head);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Il totale finale, in evidenza */
+.riepilogo__totale {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.riepilogo__unita {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+/* ---------- Le tre quote di stagione ---------- */
+
+.quote {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.85rem;
+}
+
+.quota {
+  --tinta: var(--a1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.05rem 1.1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  transition:
+    transform 0.25s var(--ease),
+    border-color 0.25s var(--ease);
+}
+
+.quota:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--tinta) 45%, var(--line));
+}
+
+.quota--primavera {
+  --tinta: #0ca678;
+}
+
+.quota--estate {
+  --tinta: #e8590c;
+}
+
+.quota--autunno-inverno {
+  --tinta: #1971c2;
+}
+
+/* Intestazione: emoji in una pastiglia colorata + nome */
+.quota__testa {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.4rem;
+}
+
+.quota__emoji {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  font-size: 1.05rem;
+  line-height: 1;
+  border-radius: var(--r-full);
+  background: color-mix(in srgb, var(--tinta) 15%, transparent);
+}
+
+.quota__nome {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--tinta);
+  text-wrap: balance;
+}
+
+/* Righe dato: etichetta a sinistra, numero a destra */
+.quota__dati {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+}
+
+.quota__voce {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.quota__voce:last-child {
+  border-bottom: 0;
+}
+
+.quota__voce dt {
+  font-size: 0.87rem;
+  color: var(--ink-2);
+}
+
+.quota__voce dd {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Barra della quota sul totale delle corse.
+   La percentuale arriva dal markup come --quota, calcolata in JS. */
+.quota__barra {
+  height: 6px;
+  margin-top: auto;
+  overflow: hidden;
+  border-radius: var(--r-full);
+  background: color-mix(in srgb, var(--tinta) 14%, transparent);
+}
+
+.quota__barra::after {
+  content: "";
+  display: block;
+  width: var(--quota, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    var(--tinta),
+    color-mix(in srgb, var(--tinta) 55%, #fff)
+  );
+  animation: quotaCresce 0.9s var(--ease) both;
+}
+
+@keyframes quotaCresce {
+  from {
+    width: 0;
+  }
+}
+
+.quota__percentuale {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--tinta);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Conteggio animato: qui il numero non va spinto a destra,
+   la posizione la decide gia' .quota__voce. */
+.anima-numero .num {
+  margin-left: 0;
+  font-weight: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quota:hover {
+    transform: none;
+  }
+
+  .quota__barra::after {
+    animation: none;
+  }
+}

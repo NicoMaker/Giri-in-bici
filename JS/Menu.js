@@ -17,8 +17,7 @@ let menuItems = [];
  */
 async function initMenu() {
   try {
-    const response = await fetch("JS/Menu.json");
-    const data = await response.json();
+    const data = await Json.leggi("JS/Menu.json");
     menuItems = [...data.items].sort((a, b) => a.name.localeCompare(b.name));
     renderMenuItems(menuItems);
   } catch (error) {

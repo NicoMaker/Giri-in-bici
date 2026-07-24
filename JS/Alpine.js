@@ -5,8 +5,7 @@ function menuHandler() {
 
     // Funzione per caricare i dati dal JSON
     async loadData() {
-      const response = await fetch("JS/Menu.json"),
-        data = await response.json();
+      const data = await Json.leggi("JS/Menu.json");
       this.items = data.items;
       // Ordina gli elementi alfabeticamente per nome
       this.items = data.items.sort((a, b) => a.name.localeCompare(b.name));
