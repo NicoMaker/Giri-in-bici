@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     SG.renderStampa(
       statistics,
       avgValues,
-      2,
+      1,
       parseInt(localStorage.getItem("page_statistiche")) || 1,
     );
   } else {

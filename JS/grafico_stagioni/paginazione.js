@@ -12,7 +12,7 @@ function renderDataListPaginated(
   cssclass,
   avgValues,
 ) {
-  const itemsPerPage = 2;
+  const itemsPerPage = 1;
   const storageKey = `page_${season}`;
   let currentPage = parseInt(localStorage.getItem(storageKey)) || 1;
   const totalPages = Math.ceil(labels.length / itemsPerPage);

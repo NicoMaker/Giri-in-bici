@@ -5,8 +5,31 @@
 
 /* ---------- 6. Hero ---------- */
 .hero {
+  position: relative;
   text-align: center;
   padding: clamp(2rem, 6vw, 4rem) 0 clamp(1rem, 3vw, 2rem);
+  isolation: isolate;
+}
+
+/* Bagliore sfumato dietro al titolo: profondità in più senza
+   appesantire la pagina, sempre nei colori del tema attivo. */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  width: min(720px, 92vw);
+  height: 340px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--a1) 20%, transparent),
+    color-mix(in srgb, var(--a2) 12%, transparent) 55%,
+    transparent 78%
+  );
+  filter: blur(6px);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .hero .Titolo,
