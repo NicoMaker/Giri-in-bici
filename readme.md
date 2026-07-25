@@ -66,10 +66,11 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 3. **Aggiornare le Immagini**
    - Aggiungi un’immagine per il nuovo anno nella cartella: [`img/Statistiche/Anni/`](img/Statistiche/Anni/) con il nome del nuovo anno.
 
-4. **Aggiornare i File di Storia Generale**
-   - **Generale:** Modifica [`json/Statistiche/History/Generale.json`](json/Statistiche/History/Generale.json), aggiungendo il percorso (`json/Statistiche/anni/<anno>.json`) e il colore del nuovo anno.
-   - **Grafico Totale:** Modifica [`json/Statistiche/History/GraficoTotale.json`](json/Statistiche/History/GraficoTotale.json), aggiungendo il percorso corretto del nuovo anno (`json/Statistiche/anni/<anno>.json`) e il colore.
-   - **Storico Mensile:** Aggiungi un nuovo record con i dati del nuovo anno in [`json/Statistiche/History/StoricoMensile.json`](json/Statistiche/History/StoricoMensile.json), specificando il percorso corretto (`json/Statistiche/anni/<anno>.json`) e il colore.
+4. **Aggiornare il File di Storia Generale**
+   - Tutte le pagine di Statistiche (Statistiche, Statistiche Totali, Statistiche Mensili, Storico Mensile) leggono ora un unico file: [`json/Statistiche/History/Storico.json`](json/Statistiche/History/Storico.json). I vecchi `Generale.json`, `GraficoTotale.json` e `StoricoMensile.json` sono stati uniti qui perché contenevano tutti la stessa mappa anno→percorso ripetuta tre volte.
+   - Aggiungi il nuovo anno in `anni` con il percorso (`json/Statistiche/anni/<anno>.json`).
+   - Aggiungi il colore del nuovo anno in fondo a `coloriAnni` (usato dalle pagine Statistiche e Storico Mensile).
+   - `coloriMesi` è la tavolozza usata solo per il grafico mensile a barre e di norma non va toccata quando si aggiunge un anno.
 
 ---
 

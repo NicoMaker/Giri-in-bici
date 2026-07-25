@@ -1,6 +1,6 @@
 // ============================================================
 // canvas.js — Crea i riquadri dei grafici se mancano nell'HTML
-// Richiamato da Statistiche/Js/History/GraficoTotaleMensile.js
+// Richiamato da Statistiche/History/statistiche-mensili.js
 // ============================================================
 
 // Crea i canvas solo se non esistono già nell'HTML della pagina

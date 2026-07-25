@@ -2,7 +2,7 @@
 // Dipendenze: JS/utils.js (caricato prima in HTML)
 
 const ChartConfigs = {
-  // Alias per compatibilità con StoricoMensile.js che chiama ChartConfigs.formatItalianNumber
+  // Alias per compatibilità con storico-mensile.js che chiama ChartConfigs.formatItalianNumber
   formatItalianNumber: (num, forceDecimals = false) =>
     formatItalianNumber(num, forceDecimals),
 

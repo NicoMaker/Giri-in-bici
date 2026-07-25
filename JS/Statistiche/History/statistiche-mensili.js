@@ -1,12 +1,17 @@
 // ============================================================
-// GraficoTotaleMensile.js — Avvio della pagina Statistiche Mensili
+// statistiche-mensili.js — Avvio della pagina Statistiche Mensili
 //
-// Solo l'avvio. I pezzi stanno in History/GraficoTotaleMensile/:
+// Solo l'avvio. I pezzi stanno in History/statistiche-mensili/:
 //   calcoli.js    totali, percentuali e medie
 //   tabella.js    tabella dei dodici mesi
 //   riepilogo.js  riquadro dei totali
 //   canvas.js     crea i riquadri dei grafici se mancano
 // L'ordine dei mesi arriva da History/comune/config-mesi.js
+//
+// Dati letti da json/Statistiche/History/Storico.json: gli anni
+// vengono da "anni", la tavolozza dei 12+ colori per i mesi da
+// "coloriMesi" (prima erano "statistics" e "colors" dentro il
+// vecchio GraficoTotale.json).
 //
 // Dipendenze: JS/utils.js, JS/chart/chart-configs.js,
 //             JS/chart/chart-renderer.js
@@ -26,14 +31,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Carica la configurazione dei mesi prima di tutto
     await ConfigMesi.carica();
 
-    const statistics = await fetchJSON(
-      "json/Statistiche/History/GraficoTotale.json",
-    );
-    const allData = await Json.leggiTutti(Object.values(statistics.statistics));
+    const storico = await fetchJSON("json/Statistiche/History/Storico.json");
+    const allData = await Json.leggiTutti(Object.values(storico.anni));
 
     let chilometriTotali = new Array(12).fill(0);
     let mesiPercorsi = new Array(12).fill(0);
-    const coloriGlobali = statistics.colors;
+    const coloriGlobali = storico.coloriMesi;
 
     allData.forEach((json) => {
       ConfigMesi.elenco.forEach((mese, index) => {

@@ -1,7 +1,7 @@
 // ============================================================
 // dati.js — Trasforma i dati di un anno nei dodici valori mensili
 // Dipendenze: History/comune/config-mesi.js
-// Richiamato da Statistiche/Js/History/StoricoMensile.js
+// Richiamato da Statistiche/History/storico-mensile.js
 // ============================================================
 
 window.StoricoMensile = window.StoricoMensile || {};

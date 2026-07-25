@@ -1,7 +1,7 @@
 /* ============================================================
    chart-responsive.js  —  Giri in Bici
    Rende leggibili su mobile TUTTI i grafici Chart.js del sito,
-   compresi quelli scritti a mano (stagioni.js, StoricoMensile.js).
+   compresi quelli scritti a mano (stagioni.js, storico-mensile.js).
 
    Come funziona: scrive le impostazioni nella config GREZZA del
    grafico (chart.config.options) in base alla larghezza reale del

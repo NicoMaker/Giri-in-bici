@@ -1,8 +1,8 @@
 // ============================================================
 // config-mesi.js — L'ordine dei mesi, letto una volta sola
 //
-// Prima questa stessa funzione era copiata dentro GraficoTotale.js,
-// GraficoTotaleMensile.js e StoricoMensile.js. Ora sta qui e i tre
+// Prima questa stessa funzione era copiata dentro statistiche-totali.js,
+// statistiche-mensili.js e storico-mensile.js. Ora sta qui e i tre
 // file la richiamano.
 //
 // Dopo carica() sono disponibili:

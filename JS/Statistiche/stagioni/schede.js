@@ -8,6 +8,12 @@
 // Dipendenze: JS/utils.js (formatItalianNumber, formatNumber)
 //             Statistiche/Js/stagioni/dati.js (SEASONS_CONFIG)
 //
+// MODIFICA 2026-07-25: la parte alta del riepilogo ("Totale km",
+// "Media km per Stagione", ecc.) non è più un elenco piatto di
+// righe, ma un hero numerico + una griglia di schede con icona,
+// in linea con lo stile "glass" già usato per le tre stagioni
+// più sotto.
+//
 // MODIFICA 2026-07-24: aggiunto setTimeout per forzare il layout
 // a griglia 3 colonne via JS, come fallback per garantire
 // che le tre card siano sempre in riga.
@@ -115,6 +121,21 @@ window.Stagioni = window.Stagioni || {};
   };
 
   // ------------------------------------------------------------
+  // rigaStatistica — una singola voce della griglia in cima al
+  // riepilogo (icona + etichetta + valore)
+  // ------------------------------------------------------------
+  var rigaStatistica = function (icona, etichetta, valore) {
+    return `
+        <div class="riepilogo__voce">
+          <span class="riepilogo__voce-icona" aria-hidden="true">${icona}</span>
+          <div class="riepilogo__voce-testo">
+            <p class="riepilogo__voce-etichetta">${etichetta}</p>
+            <p class="riepilogo__voce-valore anima-numero">${valore}</p>
+          </div>
+        </div>`;
+  };
+
+  // ------------------------------------------------------------
   // createStampat — genera tutto il blocco "Totali per stagione"
   // (quello che appare sotto i grafici)
   // ------------------------------------------------------------
@@ -126,12 +147,21 @@ window.Stagioni = window.Stagioni || {};
 
     var html = `
       <div class="colore riepilogo">
-        <p class="misuracolore">Totale km ${formatItalianNumber(data.totale)} <img src="/img/Icons/traguardo.png" onerror="this.style.display='none'"></p>
-        <p class="misuracolore">Media km per Stagione ${data.avgmediastagione}</p>
-        <p class="misuracolore">Media km per Periodo ${data.avgperiod}</p>
-        <p class="misuracolore">Totale corse ${formatItalianNumber(data.corseTotale)}</p>
-        <p class="misuracolore">Media corse per periodo ${formatNumber(data.corseTotale / totalePeriodi)}</p>
-        <p class="misuracolore">Media corse per stagione ${formatNumber(data.corseTotale / 3)}</p>
+        <div class="riepilogo__hero">
+          <span class="riepilogo__hero-icona" aria-hidden="true">🚴</span>
+          <div class="riepilogo__hero-testo">
+            <p class="riepilogo__hero-etichetta">Totale km percorsi</p>
+            <p class="riepilogo__hero-valore anima-numero">${formatItalianNumber(data.totale)}</p>
+          </div>
+        </div>
+
+        <div class="riepilogo__griglia">
+          ${rigaStatistica("🌍", "Media km per stagione", data.avgmediastagione)}
+          ${rigaStatistica("📈", "Media km per periodo", data.avgperiod)}
+          ${rigaStatistica("🏁", "Totale corse", formatItalianNumber(data.corseTotale))}
+          ${rigaStatistica("🔁", "Media corse per periodo", formatNumber(data.corseTotale / totalePeriodi))}
+          ${rigaStatistica("⚡", "Media corse per stagione", formatNumber(data.corseTotale / 3))}
+        </div>
 
         <section class="riepilogo__sezione">
           <h3 class="riepilogo__titolo">

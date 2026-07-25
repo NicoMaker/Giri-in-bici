@@ -1,7 +1,7 @@
 // ============================================================
 // riepilogo.js — Riquadro con i totali di tutti gli anni
 // Dipendenze: JS/utils.js (formatItalianNumber)
-// Richiamato da Statistiche/Js/generaleStatistiche.js
+// Richiamato da Statistiche/statistiche-generali.js
 // ============================================================
 
 window.StatGenerali = window.StatGenerali || {};

@@ -1,7 +1,7 @@
 // ============================================================
 // tabella.js — Tabella dei dodici mesi con medie e percentuali
 // Dipendenze: JS/utils.js (formatItalianNumber)
-// Richiamato da Statistiche/Js/History/GraficoTotaleMensile.js
+// Richiamato da Statistiche/History/statistiche-mensili.js
 // ============================================================
 
 window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};

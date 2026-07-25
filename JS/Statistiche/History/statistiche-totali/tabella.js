@@ -1,7 +1,7 @@
 // ============================================================
 // tabella.js — Tabella mese per mese con anno e percentuale
 // Dipendenze: JS/utils.js (formatNumber)
-// Richiamato da Statistiche/Js/History/GraficoTotale.js
+// Richiamato da Statistiche/History/statistiche-totali.js
 // ============================================================
 
 window.GraficoTotale = window.GraficoTotale || {};

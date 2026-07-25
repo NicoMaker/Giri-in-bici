@@ -1,7 +1,7 @@
 // ============================================================
 // tabella.js — Tabella dello storico con le variazioni mese su mese
-// Dipendenze: JS/utils.js, StoricoMensile/variazioni.js
-// Richiamato da Statistiche/Js/History/StoricoMensile.js
+// Dipendenze: JS/utils.js, storico-mensile/variazioni.js
+// Richiamato da Statistiche/History/storico-mensile.js
 // ============================================================
 
 window.StoricoMensile = window.StoricoMensile || {};

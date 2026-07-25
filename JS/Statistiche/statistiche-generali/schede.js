@@ -1,7 +1,7 @@
 // ============================================================
 // schede.js — Schede degli anni, due per pagina, con avanti e indietro
 // Dipendenze: JS/utils.js (formatItalianNumber, formatNumber)
-// Richiamato da Statistiche/Js/generaleStatistiche.js
+// Richiamato da Statistiche/statistiche-generali.js
 // ============================================================
 
 window.StatGenerali = window.StatGenerali || {};

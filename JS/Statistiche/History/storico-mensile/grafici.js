@@ -1,7 +1,7 @@
 // ============================================================
 // grafici.js — Riquadri dei grafici e impostazioni di Chart.js
-// Dipendenze: Chart.js, JS/utils.js, StoricoMensile/tabella.js, comune/config-mesi.js
-// Richiamato da Statistiche/Js/History/StoricoMensile.js
+// Dipendenze: Chart.js, JS/utils.js, storico-mensile/tabella.js, comune/config-mesi.js
+// Richiamato da Statistiche/History/storico-mensile.js
 // ============================================================
 
 window.StoricoMensile = window.StoricoMensile || {};

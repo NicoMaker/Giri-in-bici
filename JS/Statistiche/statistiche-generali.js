@@ -1,11 +1,13 @@
 // ============================================================
-// generaleStatistiche.js — Avvio della pagina Statistiche
+// statistiche-generali.js — Avvio della pagina Statistiche
 //
 // Solo l'avvio: prende i dati, disegna i grafici e richiama i
-// componenti in Statistiche/Js/generaleStatistiche/:
+// componenti in Statistiche/statistiche-generali/:
 //   dati.js       lettura dei JSON e calcolo delle medie
 //   schede.js     schede degli anni con la paginazione
 //   riepilogo.js  riquadro dei totali
+//
+// I dati vengono da json/Statistiche/History/Storico.json.
 //
 // Dipendenze: JS/utils.js, JS/chart/chart-configs.js,
 //             JS/chart/chart-renderer.js
@@ -22,9 +24,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   const dataResult = await SG.fetchData();
-  if (dataResult && dataResult.mainData) {
-    const { mainData, statistics } = dataResult;
-    const { colors } = mainData;
+  if (dataResult) {
+    const { colors, statistics } = dataResult;
     const {
       totalekm,
       totaleCorse,

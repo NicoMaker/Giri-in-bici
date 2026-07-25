@@ -1,7 +1,10 @@
 // ============================================================
 // dati.js — Legge i JSON degli anni e calcola totali e medie
 // Dipendenze: JS/utils.js (fetchJSON, formatNumber, formatPercentage)
-// Richiamato da Statistiche/Js/generaleStatistiche.js
+// Richiamato da Statistiche/statistiche-generali.js
+//
+// I dati vengono da json/Statistiche/History/Storico.json (campi
+// "anni" e "coloriAnni"), che sostituisce il vecchio Generale.json.
 // ============================================================
 
 window.StatGenerali = window.StatGenerali || {};
@@ -10,15 +13,15 @@ window.StatGenerali = window.StatGenerali || {};
   "use strict";
 
   SG.fetchData = async function () {
-    const mainData = await fetchJSON("json/Statistiche/History/Generale.json");
-    if (!mainData || !mainData.statistics) {
-      console.error("Main data not available or statistics field missing");
+    const storico = await fetchJSON("json/Statistiche/History/Storico.json");
+    if (!storico || !storico.anni) {
+      console.error("Storico.json non disponibile o campo anni mancante");
       return null;
     }
 
     const statistics = await Promise.all(
-      Object.keys(mainData.statistics).map(async (year) => {
-        const data = await fetchJSON(mainData.statistics[year]);
+      Object.keys(storico.anni).map(async (year) => {
+        const data = await fetchJSON(storico.anni[year]);
         return data
           ? {
               year: data.year,
@@ -31,7 +34,7 @@ window.StatGenerali = window.StatGenerali || {};
     );
 
     return {
-      mainData,
+      colors: storico.coloriAnni,
       statistics: statistics.filter((d) => d !== null),
     };
   };

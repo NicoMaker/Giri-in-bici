@@ -1,7 +1,7 @@
 // ============================================================
 // calcoli.js — Totali, percentuali e medie mensili
 // Dipendenze: JS/utils.js (formatNumber, formatPercentage, formatItalianNumber)
-// Richiamato da Statistiche/Js/History/GraficoTotaleMensile.js
+// Richiamato da Statistiche/History/statistiche-mensili.js
 // ============================================================
 
 window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};

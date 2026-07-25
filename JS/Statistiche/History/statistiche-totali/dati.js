@@ -1,7 +1,7 @@
 // ============================================================
 // dati.js — Legge i dati di ogni anno e li ordina per anno e mese
 // Dipendenze: JS/json.js, JS/utils.js, History/comune/config-mesi.js
-// Richiamato da Statistiche/Js/History/GraficoTotale.js
+// Richiamato da Statistiche/History/statistiche-totali.js
 // ============================================================
 
 window.GraficoTotale = window.GraficoTotale || {};

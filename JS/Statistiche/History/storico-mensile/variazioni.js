@@ -1,7 +1,7 @@
 // ============================================================
 // variazioni.js — Calcola la variazione fra due mesi e disegna il distintivo
 // Dipendenze: JS/utils.js (formatNumber)
-// Richiamato da Statistiche/Js/History/StoricoMensile.js
+// Richiamato da Statistiche/History/storico-mensile.js
 // ============================================================
 
 window.StoricoMensile = window.StoricoMensile || {};

@@ -1,7 +1,7 @@
 // ============================================================
 // riepilogo.js — Riquadro con i totali complessivi
 // Dipendenze: JS/utils.js (formatItalianNumber)
-// Richiamato da Statistiche/Js/History/GraficoTotaleMensile.js
+// Richiamato da Statistiche/History/statistiche-mensili.js
 // ============================================================
 
 window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};

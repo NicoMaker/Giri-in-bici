@@ -1,11 +1,16 @@
 // ============================================================
-// GraficoTotale.js — Avvio della pagina Statistiche Totali
+// statistiche-totali.js — Avvio della pagina Statistiche Totali
 //
-// Solo l'avvio. I pezzi stanno in History/GraficoTotale/:
+// Solo l'avvio. I pezzi stanno in History/statistiche-totali/:
 //   dati.js       lettura e ordinamento dei dati annuali
 //   tabella.js    tabella mese per mese
 //   riepilogo.js  riquadro dei totali
 // L'ordine dei mesi arriva da History/comune/config-mesi.js
+//
+// Dati letti da json/Statistiche/History/Storico.json (campo
+// "anni"): sostituisce il vecchio GraficoTotale.json, che
+// ripeteva la stessa mappa anno->percorso già presente in
+// Generale.json e StoricoMensile.json.
 //
 // Dipendenze: JS/utils.js, JS/chart/chart-configs.js,
 //             JS/chart/chart-renderer.js
@@ -25,9 +30,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Carica la configurazione dei mesi prima di tutto
     await ConfigMesi.carica();
 
-    const data = await fetchJSON("json/Statistiche/History/GraficoTotale.json");
-    if (!data || !data.statistics) {
-      console.error("Struttura statistics mancante");
+    const storico = await fetchJSON("json/Statistiche/History/Storico.json");
+    if (!storico || !storico.anni) {
+      console.error("Struttura anni mancante");
       return;
     }
 
@@ -35,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let totaleCorse = 0;
 
     await Promise.all(
-      Object.entries(data.statistics).map(([year, url]) =>
+      Object.entries(storico.anni).map(([year, url]) =>
         GT.fetchYearData(url, year).then((yearData) => {
           if (yearData) {
             yearlyData.push(yearData);
