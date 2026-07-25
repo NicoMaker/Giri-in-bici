@@ -80,64 +80,29 @@ window.Stagioni = window.Stagioni || {};
   };
 
   // ------------------------------------------------------------
-  // quotaStagione — genera una singola card per il riepilogo
-  // (sezione "Dettaglio periodi e corse")
+  // rigaStagione — le tre righe di dettaglio di una stagione
+  // dentro il riepilogo (sezione "Dettaglio periodi e corse")
+  // Stessa identità visiva delle altre righe: <p class="misuracolore">,
+  // niente più card "glass" a sé stanti.
   // ------------------------------------------------------------
-  var quotaStagione = function (
-    chiave,
-    emoji,
-    nome,
-    periodi,
-    corse,
-    totaleCorse,
-  ) {
+  var rigaStagione = function (emoji, nome, periodi, corse, totaleCorse) {
     var percentuale = totaleCorse > 0 ? (corse / totaleCorse) * 100 : 0;
     return `
-        <article class="quota quota--${chiave}">
-          <header class="quota__testa">
-            <span class="quota__emoji" aria-hidden="true">${emoji}</span>
-            <h4 class="quota__nome">${nome}</h4>
-          </header>
-          <dl class="quota__dati">
-            <div class="quota__voce">
-              <dt>Periodi</dt>
-              <dd class="anima-numero">${formatItalianNumber(periodi)}</dd>
-            </div>
-            <div class="quota__voce">
-              <dt>Corse</dt>
-              <dd class="anima-numero">${formatItalianNumber(corse)}</dd>
-            </div>
-          </dl>
-          <div
-            class="quota__barra"
-            style="--quota: ${percentuale.toFixed(2)}%"
-            role="img"
-            aria-label="${formatItalianNumber(percentuale, true)}% delle corse"
-          ></div>
-          <p class="quota__percentuale">
-            ${formatItalianNumber(percentuale, true)}% delle corse
-          </p>
-        </article>`;
-  };
-
-  // ------------------------------------------------------------
-  // rigaStatistica — una singola voce della griglia in cima al
-  // riepilogo (icona + etichetta + valore)
-  // ------------------------------------------------------------
-  var rigaStatistica = function (icona, etichetta, valore) {
-    return `
-        <div class="riepilogo__voce">
-          <span class="riepilogo__voce-icona" aria-hidden="true">${icona}</span>
-          <div class="riepilogo__voce-testo">
-            <p class="riepilogo__voce-etichetta">${etichetta}</p>
-            <p class="riepilogo__voce-valore anima-numero">${valore}</p>
-          </div>
-        </div>`;
+        <p class="misuracolore"><strong>${emoji} ${nome}</strong></p>
+        <p class="misuracolore">Periodi ${formatItalianNumber(periodi)}</p>
+        <p class="misuracolore">Corse ${formatItalianNumber(corse)} (${formatItalianNumber(percentuale, true)}% delle corse)</p>`;
   };
 
   // ------------------------------------------------------------
   // createStampat — genera tutto il blocco "Totali per stagione"
   // (quello che appare sotto i grafici)
+  //
+  // MODIFICA 2026-07-25: stessa estetica delle altre card
+  // riepilogative del sito (.colore / .misuracolore — vedi
+  // "Tutti i chilometri" in Statistiche_Totali.html): elenco
+  // piatto di righe con separatore sottile e valore allineato a
+  // destra, niente più hero/griglia/quota in stile "glass".
+  // I dati restano identici, cambia solo il markup.
   // ------------------------------------------------------------
   S.createStampat = function (data, numPeriodsPerSeason) {
     var totalePeriodi =
@@ -145,62 +110,28 @@ window.Stagioni = window.Stagioni || {};
       numPeriodsPerSeason.estate +
       numPeriodsPerSeason.autunno_inverno;
 
-    var html = `
-      <div class="colore riepilogo">
-        <div class="riepilogo__hero">
-          <span class="riepilogo__hero-icona" aria-hidden="true">🚴</span>
-          <div class="riepilogo__hero-testo">
-            <p class="riepilogo__hero-etichetta">Totale km percorsi</p>
-            <p class="riepilogo__hero-valore anima-numero">${formatItalianNumber(data.totale)}</p>
-          </div>
-        </div>
+    return `
+      <div class="colore">
+        <p class="misuracolore">
+          Totale km percorsi ${formatItalianNumber(data.totale)}
+          <img src="/img/Icons/traguardo.png" onerror="this.style.display='none'">
+        </p>
+        <p class="misuracolore">Media km per stagione ${data.avgmediastagione}</p>
+        <p class="misuracolore">Media km per periodo ${data.avgperiod}</p>
+        <p class="misuracolore">Totale corse ${formatItalianNumber(data.corseTotale)}</p>
+        <p class="misuracolore">Media corse per periodo ${formatNumber(data.corseTotale / totalePeriodi)}</p>
+        <p class="misuracolore">Media corse per stagione ${formatNumber(data.corseTotale / 3)}</p>
 
-        <div class="riepilogo__griglia">
-          ${rigaStatistica("🌍", "Media km per stagione", data.avgmediastagione)}
-          ${rigaStatistica("📈", "Media km per periodo", data.avgperiod)}
-          ${rigaStatistica("🏁", "Totale corse", formatItalianNumber(data.corseTotale))}
-          ${rigaStatistica("🔁", "Media corse per periodo", formatNumber(data.corseTotale / totalePeriodi))}
-          ${rigaStatistica("⚡", "Media corse per stagione", formatNumber(data.corseTotale / 3))}
-        </div>
+        <hr>
 
-        <section class="riepilogo__sezione">
-          <h3 class="riepilogo__titolo">
-            <br>
-            <span aria-hidden="true">📊</span> Dettaglio periodi e corse
-          </h3>
-          <div class="quote">
-            ${quotaStagione("primavera", "🌸", "Primavera", numPeriodsPerSeason.primavera, data.corsep, data.corseTotale)}
-            ${quotaStagione("estate", "☀️", "Estate", numPeriodsPerSeason.estate, data.corsee, data.corseTotale)}
-            ${quotaStagione("autunno-inverno", "🍂", "Autunno-Inverno", numPeriodsPerSeason.autunno_inverno, data.corseai, data.corseTotale)}
-          </div>
-        </section>
+        <p class="misuracolore"><strong>📊 Dettaglio periodi e corse</strong></p>
+        ${rigaStagione("🌸", "Primavera", numPeriodsPerSeason.primavera, data.corsep, data.corseTotale)}
+        ${rigaStagione("☀️", "Estate", numPeriodsPerSeason.estate, data.corsee, data.corseTotale)}
+        ${rigaStagione("🍂", "Autunno-Inverno", numPeriodsPerSeason.autunno_inverno, data.corseai, data.corseTotale)}
 
-        <section class="riepilogo__sezione">
-          <h3 class="riepilogo__titolo">
-            <span aria-hidden="true">📅</span> Totale periodi complessivi
-          </h3>
-          <p class="riepilogo__totale">
-            <span class="anima-numero">${formatItalianNumber(totalePeriodi)}</span>
-            <span class="riepilogo__unita">periodi</span>
-          </p>
-        </section>
+        <hr>
+
+        <p class="misuracolore">📅 Totale periodi complessivi ${formatItalianNumber(totalePeriodi)}</p>
       </div>`;
-
-    // ----------------------------------------------------------
-    // FORZATURA LAYOUT A 3 COLONNE VIA JAVASCRIPT (FALLBACK)
-    // Se il CSS non dovesse funzionare (cache, conflitti, ecc.),
-    // questo codice imposta lo stile inline sull'elemento .quote
-    // per garantire che le tre card siano sempre in riga.
-    // ----------------------------------------------------------
-    setTimeout(function () {
-      var quote = document.querySelector(".quote");
-      if (quote) {
-        quote.style.display = "grid";
-        quote.style.gridTemplateColumns = "repeat(3, 1fr)";
-        quote.style.gap = "1.2rem";
-      }
-    }, 50);
-
-    return html;
   };
 })(window.Stagioni);
