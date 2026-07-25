@@ -8,7 +8,7 @@
 
 @import url("../assets/core.css");
 
-@import url("tema.css"); /* Colori d'accento della pagina Informazioni */
+@import url("../tema.css"); /* Colori d'accento condivisi (file unico) */
 @import url("particelle.css"); /* Particelle ambientali sullo sfondo */
 @import url("pulsante-indietro.css"); /* Pulsante indietro */
 @import url("intestazione.css"); /* Intestazione della pagina */

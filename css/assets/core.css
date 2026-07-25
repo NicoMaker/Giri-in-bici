@@ -39,3 +39,4 @@
 @import url("componenti/animazioni-preferenze.css"); /* Spegne le animazioni se l'utente le ha disattivate */
 @import url("componenti/adattamenti-immagini.css"); /* Immagini e pulsante stagioni su schermi stretti */
 @import url("componenti/lightbox.css"); /* Apertura delle foto a grandezza piena */
+@import url("componenti/animazioni-extra.css"); /* Movimento in più: respiri, sfavillii, hover ricchi */

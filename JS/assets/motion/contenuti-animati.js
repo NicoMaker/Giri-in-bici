@@ -61,10 +61,22 @@
     window.requestAnimationFrame(passo);
   }
 
-  // Trova il primo numero in italiano dentro l'elemento e lo anima
+  // Anima TUTTI i numeri in italiano dentro l'elemento (non solo il primo).
+  //
+  // Il primo numero delle righe .misuracolore / .anima-numero resta in un
+  // <span class="num">, come prima: così la posizione a destra e il grassetto
+  // decisi dal CSS non cambiano di una virgola. Ogni numero in più (e i numeri
+  // nelle tabelle, nelle schede bici, ecc.) va in <span class="num-anim">, una
+  // classe neutra che conta senza toccare l'impaginazione.
   function animaNumero(elemento) {
     if (elemento.dataset.contato) return;
     elemento.dataset.contato = "1";
+
+    // Solo per queste righe il primo numero mantiene la classe storica .num.
+    var vuolePrimoNum =
+      elemento.classList &&
+      (elemento.classList.contains("misuracolore") ||
+        elemento.classList.contains("anima-numero"));
 
     var walker = document.createTreeWalker(
       elemento,
@@ -74,32 +86,57 @@
     var nodi = [];
     while (walker.nextNode()) nodi.push(walker.currentNode);
 
+    var primo = true;
+    var daContare = [];
+    var regex = /(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/g;
+
     for (var i = 0; i < nodi.length; i++) {
       var nodo = nodi[i];
-      var trovato = nodo.nodeValue.match(/(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/);
-      if (!trovato) continue;
-
-      var grezzo = trovato[0];
-      var valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
-      if (!isFinite(valore) || valore <= 0) continue;
-
-      var decimali = trovato[2] ? trovato[2].length - 1 : 0;
       var testo = nodo.nodeValue;
-      var prima = testo.slice(0, trovato.index);
-      var dopo = testo.slice(trovato.index + grezzo.length);
-
-      var span = document.createElement("span");
-      span.className = "num";
-      span.textContent = formattaNumero(0, decimali);
+      regex.lastIndex = 0;
+      if (!regex.test(testo)) continue;
+      regex.lastIndex = 0;
 
       var frammento = document.createDocumentFragment();
-      if (prima) frammento.appendChild(document.createTextNode(prima));
-      frammento.appendChild(span);
-      if (dopo) frammento.appendChild(document.createTextNode(dopo));
+      var ultimo = 0;
+      var m;
+
+      while ((m = regex.exec(testo)) !== null) {
+        var grezzo = m[0];
+        var idx = m.index;
+        var valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
+
+        if (idx > ultimo) {
+          frammento.appendChild(
+            document.createTextNode(testo.slice(ultimo, idx)),
+          );
+        }
+
+        if (!isFinite(valore) || valore <= 0) {
+          // Zeri o valori non animabili: lasciati come testo, fermi.
+          frammento.appendChild(document.createTextNode(grezzo));
+        } else {
+          var decimali = m[2] ? m[2].length - 1 : 0;
+          var span = document.createElement("span");
+          span.className = primo && vuolePrimoNum ? "num" : "num-anim";
+          span.textContent = formattaNumero(0, decimali);
+          frammento.appendChild(span);
+          daContare.push({ span: span, valore: valore, decimali: decimali });
+          primo = false;
+        }
+
+        ultimo = idx + grezzo.length;
+      }
+
+      if (ultimo < testo.length) {
+        frammento.appendChild(document.createTextNode(testo.slice(ultimo)));
+      }
 
       nodo.parentNode.replaceChild(frammento, nodo);
-      conta(span, valore, decimali);
-      return;
+    }
+
+    for (var j = 0; j < daContare.length; j++) {
+      conta(daContare[j].span, daContare[j].valore, daContare[j].decimali);
     }
   }
 
@@ -110,12 +147,16 @@
     if (motoRidotto) return;
 
     // .misuracolore sono le righe delle card; .anima-numero e' l'aggancio
-    // per i numeri che stanno fuori da quelle righe (es. le quote di
-    // stagione nel riepilogo), dove la posizione la decide gia' il CSS.
-    var elementi = (radice || document).querySelectorAll(
+    // per i numeri fuori da quelle righe. In piu' ora si animano anche i
+    // numeri delle tabelle (celle td: storico mensile, mesi, totali...) e
+    // i valori delle schede bici: cosi' "tutti i numeri, da ogni parte"
+    // entrano contando. Le intestazioni (th) e le etichette restano ferme.
+    var selettore =
       ".misuracolore:not([data-contato]):not([data-osservato])," +
-        ".anima-numero:not([data-contato]):not([data-osservato])",
-    );
+      ".anima-numero:not([data-contato]):not([data-osservato])," +
+      "td:not([data-contato]):not([data-osservato])," +
+      ".bici-card__spec-value:not([data-contato]):not([data-osservato])";
+    var elementi = (radice || document).querySelectorAll(selettore);
     if (!elementi.length) return;
 
     if (!("IntersectionObserver" in window)) {
@@ -195,14 +236,16 @@
     osservaContenuti();
     preparaNumeri(document);
 
-    // Rete di sicurezza: se qualcosa arriva tardi, lo anima comunque
+    // Rete di sicurezza: se qualcosa arriva tardi (tabelle, card...), lo
+    // anima comunque. Si ripassa anche tutto il documento, così i numeri
+    // delle tabelle finite in contenitori non osservati non restano fermi.
     setTimeout(function () {
       CONTENITORI.forEach(function (selettore) {
         document.querySelectorAll(selettore).forEach(function (el) {
           if (!motoRidotto) scaglionaFigli(el);
-          preparaNumeri(el);
         });
       });
+      preparaNumeri(document);
     }, 1500);
   }
 

@@ -8,7 +8,16 @@
 
 @import url("../assets/core.css");
 
-@import url("tema.css"); /* Colori d'accento */
+@import url("../tema.css"); /* Colori d'accento condivisi (file unico) */
 @import url("tabella-mesi.css"); /* Tabella dei mesi */
 @import url("griglia.css"); /* Griglia delle schede anno */
 @import url("riepilogo-stagioni.css"); /* Riepilogo "Totali per stagione" */
+
+/* Accenti propri della sezione Statistiche (viola).
+   Prima stavano in Statistiche/tema.css: ora che il tema è un file
+   unico, l'accento specifico di questa pagina vive qui e resta identico. */
+:root {
+  --a1: #6d47e0;
+  --a2: #c07ae8;
+  --a-soft: rgba(109, 71, 224, 0.13);
+}

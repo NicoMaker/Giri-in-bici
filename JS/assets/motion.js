@@ -120,10 +120,18 @@
     window.requestAnimationFrame(passo);
   }
 
-  // Trova il primo numero in italiano dentro l'elemento e lo anima
+  // Anima TUTTI i numeri in italiano dentro l'elemento (non solo il primo).
+  // Il primo numero delle righe .misuracolore / .anima-numero resta in un
+  // <span class="num"> (aspetto invariato); ogni numero in piu' e i numeri
+  // di tabelle/schede vanno in <span class="num-anim">, neutro.
   function animaNumero(elemento) {
     if (elemento.dataset.contato) return;
     elemento.dataset.contato = "1";
+
+    var vuolePrimoNum =
+      elemento.classList &&
+      (elemento.classList.contains("misuracolore") ||
+        elemento.classList.contains("anima-numero"));
 
     var walker = document.createTreeWalker(
       elemento,
@@ -133,32 +141,56 @@
     var nodi = [];
     while (walker.nextNode()) nodi.push(walker.currentNode);
 
+    var primo = true;
+    var daContare = [];
+    var regex = /(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/g;
+
     for (var i = 0; i < nodi.length; i++) {
       var nodo = nodi[i];
-      var trovato = nodo.nodeValue.match(/(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/);
-      if (!trovato) continue;
-
-      var grezzo = trovato[0];
-      var valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
-      if (!isFinite(valore) || valore <= 0) continue;
-
-      var decimali = trovato[2] ? trovato[2].length - 1 : 0;
       var testo = nodo.nodeValue;
-      var prima = testo.slice(0, trovato.index);
-      var dopo = testo.slice(trovato.index + grezzo.length);
-
-      var span = document.createElement("span");
-      span.className = "num";
-      span.textContent = formattaNumero(0, decimali);
+      regex.lastIndex = 0;
+      if (!regex.test(testo)) continue;
+      regex.lastIndex = 0;
 
       var frammento = document.createDocumentFragment();
-      if (prima) frammento.appendChild(document.createTextNode(prima));
-      frammento.appendChild(span);
-      if (dopo) frammento.appendChild(document.createTextNode(dopo));
+      var ultimo = 0;
+      var m;
+
+      while ((m = regex.exec(testo)) !== null) {
+        var grezzo = m[0];
+        var idx = m.index;
+        var valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
+
+        if (idx > ultimo) {
+          frammento.appendChild(
+            document.createTextNode(testo.slice(ultimo, idx)),
+          );
+        }
+
+        if (!isFinite(valore) || valore <= 0) {
+          frammento.appendChild(document.createTextNode(grezzo));
+        } else {
+          var decimali = m[2] ? m[2].length - 1 : 0;
+          var span = document.createElement("span");
+          span.className = primo && vuolePrimoNum ? "num" : "num-anim";
+          span.textContent = formattaNumero(0, decimali);
+          frammento.appendChild(span);
+          daContare.push({ span: span, valore: valore, decimali: decimali });
+          primo = false;
+        }
+
+        ultimo = idx + grezzo.length;
+      }
+
+      if (ultimo < testo.length) {
+        frammento.appendChild(document.createTextNode(testo.slice(ultimo)));
+      }
 
       nodo.parentNode.replaceChild(frammento, nodo);
-      conta(span, valore, decimali);
-      return;
+    }
+
+    for (var j = 0; j < daContare.length; j++) {
+      conta(daContare[j].span, daContare[j].valore, daContare[j].decimali);
     }
   }
 
@@ -169,7 +201,10 @@
     if (motoRidotto) return;
 
     var elementi = (radice || document).querySelectorAll(
-      ".misuracolore:not([data-contato]):not([data-osservato])",
+      ".misuracolore:not([data-contato]):not([data-osservato])," +
+        ".anima-numero:not([data-contato]):not([data-osservato])," +
+        "td:not([data-contato]):not([data-osservato])," +
+        ".bici-card__spec-value:not([data-contato]):not([data-osservato])",
     );
     if (!elementi.length) return;
 
