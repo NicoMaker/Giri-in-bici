@@ -120,15 +120,14 @@
     window.requestAnimationFrame(passo);
   }
 
-  // Anima TUTTI i numeri in italiano dentro l'elemento (non solo il primo).
-  // Il primo numero delle righe .misuracolore / .anima-numero resta in un
-  // <span class="num"> (aspetto invariato); ogni numero in piu' e i numeri
-  // di tabelle/schede vanno in <span class="num-anim">, neutro.
+  // Anima TUTTI i numeri; il VALORE a destra (.num) è l'ultimo numero
+  // FUORI dalle parentesi, gli altri sono .num-anim (neutri). Così
+  // "(12 mesi) 27,92" allinea 27,92 e lascia "(12 mesi)" nell'etichetta.
   function animaNumero(elemento) {
     if (elemento.dataset.contato) return;
     elemento.dataset.contato = "1";
 
-    var vuolePrimoNum =
+    var vuoleValore =
       elemento.classList &&
       (elemento.classList.contains("misuracolore") ||
         elemento.classList.contains("anima-numero"));
@@ -139,26 +138,48 @@
       null,
     );
     var nodi = [];
-    while (walker.nextNode()) nodi.push(walker.currentNode);
+    var inizi = [];
+    var unito = "";
+    while (walker.nextNode()) {
+      inizi.push(unito.length);
+      nodi.push(walker.currentNode);
+      unito += walker.currentNode.nodeValue;
+    }
 
-    var primo = true;
+    var numero = /(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/g;
+
+    var posValore = -1;
+    if (vuoleValore) {
+      var mm;
+      var ultimoQualsiasi = -1;
+      numero.lastIndex = 0;
+      while ((mm = numero.exec(unito)) !== null) {
+        ultimoQualsiasi = mm.index;
+        var testa = unito.slice(0, mm.index);
+        var aperte = (testa.match(/\(/g) || []).length;
+        var chiuse = (testa.match(/\)/g) || []).length;
+        if (aperte <= chiuse) posValore = mm.index;
+      }
+      if (posValore === -1) posValore = ultimoQualsiasi;
+    }
+
     var daContare = [];
-    var regex = /(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/g;
 
     for (var i = 0; i < nodi.length; i++) {
       var nodo = nodi[i];
       var testo = nodo.nodeValue;
-      regex.lastIndex = 0;
-      if (!regex.test(testo)) continue;
-      regex.lastIndex = 0;
+      numero.lastIndex = 0;
+      if (!numero.test(testo)) continue;
+      numero.lastIndex = 0;
 
       var frammento = document.createDocumentFragment();
       var ultimo = 0;
       var m;
 
-      while ((m = regex.exec(testo)) !== null) {
+      while ((m = numero.exec(testo)) !== null) {
         var grezzo = m[0];
         var idx = m.index;
+        var assoluto = inizi[i] + idx;
         var valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
 
         if (idx > ultimo) {
@@ -172,11 +193,11 @@
         } else {
           var decimali = m[2] ? m[2].length - 1 : 0;
           var span = document.createElement("span");
-          span.className = primo && vuolePrimoNum ? "num" : "num-anim";
+          span.className =
+            vuoleValore && assoluto === posValore ? "num" : "num-anim";
           span.textContent = formattaNumero(0, decimali);
           frammento.appendChild(span);
           daContare.push({ span: span, valore: valore, decimali: decimali });
-          primo = false;
         }
 
         ultimo = idx + grezzo.length;

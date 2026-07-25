@@ -360,25 +360,19 @@ footer {
 }
 
 /* ============================================================
-   5. SFAVILLII — luce che passa sulle card con striscia superiore
-      Sfrutta un ::after nuovo su selettori che NON usano già
-      ::after (contorno, km-link, contornostagione): niente scontri.
+   5. SFAVILLII — luce che passa sulle card grandi al passaggio
+      Solo su .contorno e .km-link (riquadri ampi). Sugli elementi
+      piccoli il riflesso non serviva: tolto per pulizia.
    ============================================================ */
 
 .contorno,
-.km-link,
-.contornostagione,
-.contornostagionesx,
-.contornostagionedx {
+.km-link {
   position: relative;
   overflow: hidden;
 }
 
 .contorno::after,
-.km-link::after,
-.contornostagione::after,
-.contornostagionesx::after,
-.contornostagionedx::after {
+.km-link::after {
   content: "";
   position: absolute;
   top: 0;
@@ -397,10 +391,7 @@ footer {
 }
 
 .contorno:hover::after,
-.km-link:hover::after,
-.contornostagione:hover::after,
-.contornostagionesx:hover::after,
-.contornostagionedx:hover::after {
+.km-link:hover::after {
   opacity: 1;
   animation: fx-sheen 0.9s var(--ease);
 }
@@ -425,47 +416,71 @@ footer {
   animation: fx-bar-sheen 2.4s linear infinite;
 }
 
-/* Riga di tabella: evidenziazione con micro-scatto */
-tbody tr {
-  transition:
-    background 0.25s var(--ease),
-    transform 0.25s var(--ease);
-}
-tbody tr:hover {
-  transform: scale(1.006);
-}
-
-/* Sottolineatura animata anche sui titoli di sezione al passaggio */
-.titolo-storico {
-  position: relative;
-}
-.titolo-storico::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 2px;
-  width: 100%;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--a1), var(--a2));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s var(--ease);
-}
-.titolo-storico:hover::after {
-  transform: scaleX(1);
-}
-
-/* Anello di messa a fuoco che pulsa sui link e bottoni (accessibile) */
-a:focus-visible,
-button:focus-visible {
-  animation: fx-heartbeat 0.5s var(--ease);
-}
-
 /* Il segnaposto/gif della bici respira mentre carica */
 .animazione-bici,
 .Immaginebici {
   animation: fx-breathe 5s ease-in-out infinite;
+}
+
+/* ============================================================
+   6c. TABELLE CHE ENTRANO — ovunque nel sito
+       Quando una tabella compare (storico mensile, mesi per anno,
+       totali...), l'intestazione e le righe entrano a cascata, una
+       dopo l'altra, mentre i numeri dentro salgono da 0. Vale per
+       tutte le tabelle perché aggancia i tag td/tr generici.
+   ============================================================ */
+
+thead {
+  animation: fx-fade-up 0.45s var(--ease) both;
+}
+
+tbody tr {
+  animation: fx-fade-up 0.5s var(--ease) both;
+  will-change: transform, opacity;
+}
+tbody tr:nth-child(1) {
+  animation-delay: 0.05s;
+}
+tbody tr:nth-child(2) {
+  animation-delay: 0.1s;
+}
+tbody tr:nth-child(3) {
+  animation-delay: 0.15s;
+}
+tbody tr:nth-child(4) {
+  animation-delay: 0.2s;
+}
+tbody tr:nth-child(5) {
+  animation-delay: 0.25s;
+}
+tbody tr:nth-child(6) {
+  animation-delay: 0.3s;
+}
+tbody tr:nth-child(7) {
+  animation-delay: 0.35s;
+}
+tbody tr:nth-child(8) {
+  animation-delay: 0.4s;
+}
+tbody tr:nth-child(9) {
+  animation-delay: 0.45s;
+}
+tbody tr:nth-child(10) {
+  animation-delay: 0.5s;
+}
+tbody tr:nth-child(11) {
+  animation-delay: 0.55s;
+}
+tbody tr:nth-child(12) {
+  animation-delay: 0.6s;
+}
+tbody tr:nth-child(n + 13) {
+  animation-delay: 0.65s;
+}
+
+/* Il totale in fondo arriva per ultimo, come chiusura */
+tfoot tr {
+  animation: fx-fade-up 0.5s var(--ease) 0.55s both;
 }
 
 /* ============================================================
@@ -477,6 +492,25 @@ button:focus-visible {
 .num-anim {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+}
+
+/* Entrata elegante dei numeri: mentre salgono da 0, compaiono con
+   una comparsa morbida (ispirata allo stile pulito del riferimento).
+   Il transform non tocca l'impaginazione (niente a-capo o salti). */
+@keyframes fx-num-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.num,
+.num-anim {
+  animation: fx-num-in 0.55s var(--ease) both;
 }
 
 /* ============================================================
@@ -500,7 +534,12 @@ button:focus-visible {
   .to-top.is-visible,
   .scroll-progress,
   .animazione-bici,
-  .Immaginebici {
+  .Immaginebici,
+  thead,
+  tbody tr,
+  tfoot tr,
+  .num,
+  .num-anim {
     animation: none !important;
   }
 
@@ -514,18 +553,13 @@ button:focus-visible {
   .Autunno-Invernocontorno,
   .Statistiche,
   .bici-card,
-  .bici-card__media img,
-  tbody tr {
+  .bici-card__media img {
     transition: none !important;
     transform: none !important;
   }
 
   .contorno::after,
-  .km-link::after,
-  .contornostagione::after,
-  .contornostagionesx::after,
-  .contornostagionedx::after,
-  .titolo-storico::after {
+  .km-link::after {
     display: none !important;
   }
 
@@ -534,9 +568,7 @@ button:focus-visible {
   .fvg-link:hover,
   .login-btn:hover,
   .Icona:hover .Immagineicona,
-  .Icona:hover img,
-  a:focus-visible,
-  button:focus-visible {
+  .Icona:hover img {
     animation: none !important;
   }
 }
