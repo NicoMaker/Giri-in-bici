@@ -110,6 +110,9 @@ window.Stagioni = window.Stagioni || {};
       numPeriodsPerSeason.estate +
       numPeriodsPerSeason.autunno_inverno;
 
+    // Calcolo media km per corsa (evitiamo divisione per zero)
+    var mediaKmPerCorsa = data.corseTotale > 0 ? data.totale / data.corseTotale : 0;
+
     return `
       <div class="colore">
         <p class="misuracolore">
@@ -121,6 +124,7 @@ window.Stagioni = window.Stagioni || {};
         <p class="misuracolore">Totale corse ${formatItalianNumber(data.corseTotale)}</p>
         <p class="misuracolore">Media corse per periodo ${formatNumber(data.corseTotale / totalePeriodi)}</p>
         <p class="misuracolore">Media corse per stagione ${formatNumber(data.corseTotale / 3)}</p>
+        <p class="misuracolore">Media km per corsa ${formatNumber(mediaKmPerCorsa)}</p>
 
         <hr>
 
