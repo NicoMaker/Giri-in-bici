@@ -26,11 +26,17 @@
   // italiana non raggruppa i numeri a 4 cifre (1234 restava "1234" mentre
   // 12345 diventava "12.345"): l'animazione sovrascriveva cosi' la
   // formattazione corretta prodotta da JS/utils.js.
-  function formattaNumero(valore, decimali) {
+  function formattaNumero(valore, decimali, minInteri) {
     var negativo = valore < 0;
     var fisso = Math.abs(valore).toFixed(decimali);
     var pezzi = fisso.split(".");
     var intero = pezzi[0];
+
+    // Zero iniziale: se la sorgente aveva piu' cifre (es. "08"), si mantiene
+    // la larghezza paddizzando con zeri prima di raggruppare le migliaia.
+    if (minInteri && intero.length < minInteri) {
+      intero = intero.padStart(minInteri, "0");
+    }
 
     if (intero.length > 3) {
       var gruppi = [];
@@ -45,7 +51,7 @@
     return (negativo ? "-" : "") + intero + (pezzi[1] ? "," + pezzi[1] : "");
   }
 
-  function conta(elemento, obiettivo, decimali) {
+  function conta(elemento, obiettivo, decimali, minInteri) {
     var durata = 1100;
     var avvio = null;
 
@@ -53,9 +59,9 @@
       if (avvio === null) avvio = ora;
       var t = Math.min((ora - avvio) / durata, 1);
       var eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-      elemento.textContent = formattaNumero(obiettivo * eased, decimali);
+      elemento.textContent = formattaNumero(obiettivo * eased, decimali, minInteri);
       if (t < 1) window.requestAnimationFrame(passo);
-      else elemento.textContent = formattaNumero(obiettivo, decimali);
+      else elemento.textContent = formattaNumero(obiettivo, decimali, minInteri);
     }
 
     window.requestAnimationFrame(passo);
@@ -142,12 +148,20 @@
           frammento.appendChild(document.createTextNode(grezzo));
         } else {
           var decimali = m[2] ? m[2].length - 1 : 0;
+          // Cifre intere presenti nella sorgente (senza i punti delle
+          // migliaia): cosi' "08" -> 2, per rimettere lo zero iniziale.
+          var cifreIntere = m[1].replace(/\./g, "").length;
           var span = document.createElement("span");
           span.className =
             vuoleValore && assoluto === posValore ? "num" : "num-anim";
-          span.textContent = formattaNumero(0, decimali);
+          span.textContent = formattaNumero(0, decimali, cifreIntere);
           frammento.appendChild(span);
-          daContare.push({ span: span, valore: valore, decimali: decimali });
+          daContare.push({
+            span: span,
+            valore: valore,
+            decimali: decimali,
+            minInteri: cifreIntere,
+          });
         }
 
         ultimo = idx + grezzo.length;
@@ -161,7 +175,12 @@
     }
 
     for (var j = 0; j < daContare.length; j++) {
-      conta(daContare[j].span, daContare[j].valore, daContare[j].decimali);
+      conta(
+        daContare[j].span,
+        daContare[j].valore,
+        daContare[j].decimali,
+        daContare[j].minInteri,
+      );
     }
   }
 
