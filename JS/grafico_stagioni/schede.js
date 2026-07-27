@@ -8,7 +8,7 @@ const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
       .map(
         (label, index) => `
       <div class="${cssclass}contorno">
-        <a href="${path}/Periodi/${label}.html">
+        <a href="${path}/${label}.html">
           <img class="immaginestagione" src="/img/Icons/${image}">
           <p class="titoli">
             ${season} ${label}
