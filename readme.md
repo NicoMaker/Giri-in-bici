@@ -29,9 +29,9 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 1. **Struttura HTML**
 
    Crea il file HTML per la stagione nelle cartelle di riferimento, seguendo il percorso indicato, e inserendo l’anno della stagione:
-   - **Primavera** 🌸: [`Primavera/Periodi/`](Primavera/Periodi/)
-   - **Estate** 🌞: [`Estate/Periodi/`](Estate/Periodi/)
-   - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/Periodi/`](Autunno_Inverno/Periodi/)
+   - **Primavera** 🌸: [`Primavera/`](Primavera/)
+   - **Estate** 🌞: [`Estate/`](Estate/)
+   - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/`](Autunno_Inverno/)
 
 2. **File JSON per la Nuova Stagione**
 
