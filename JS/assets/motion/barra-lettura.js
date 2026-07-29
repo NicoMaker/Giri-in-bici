@@ -1,7 +1,7 @@
 // ============================================================
 // barra-lettura.js — Barra di avanzamento della lettura
 // Crea la barra in cima e la allunga man mano che si scorre.
-// Stili corrispondenti: assets/css/componenti/barra-lettura.css
+// Stili corrispondenti: assets/css/componenti/interazioni/barra-lettura.css
 // Nessuna dipendenza.
 // ============================================================
 

@@ -1,7 +1,7 @@
 // ============================================================
 // rivelazione.js — Comparsa graduale dei blocchi al primo scroll
 // Aggiunge .is-visible agli elementi .reveal quando entrano nello
-// schermo. Stili corrispondenti: assets/css/componenti/rivelazione.css
+// schermo. Stili corrispondenti: assets/css/componenti/interazioni/rivelazione.css
 // Nessuna dipendenza.
 // ============================================================
 

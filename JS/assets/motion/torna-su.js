@@ -1,7 +1,7 @@
 // ============================================================
 // torna-su.js — Pulsante "torna su"
 // Compare dopo 600px di scorrimento e riporta in cima alla pagina.
-// Stili corrispondenti: assets/css/componenti/torna-su.css
+// Stili corrispondenti: assets/css/componenti/interazioni/torna-su.css
 // Nessuna dipendenza.
 // ============================================================
 

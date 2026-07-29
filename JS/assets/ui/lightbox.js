@@ -1,7 +1,7 @@
 // ============================================================
 // lightbox.js — Ogni foto del sito si apre a grandezza piena
 // Frecce, tastiera, scorrimento col dito e scaricamento.
-// Stili corrispondenti: assets/css/componenti/lightbox.css
+// Stili corrispondenti: assets/css/componenti/media/lightbox.css
 // Nessuna dipendenza.
 // ============================================================
 

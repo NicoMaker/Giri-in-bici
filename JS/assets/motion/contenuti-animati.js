@@ -7,7 +7,7 @@
 //   1. conteggio animato dei numeri (.misuracolore)
 //   2. entrata scaglionata delle card appena inserite
 //
-// Stili corrispondenti: assets/css/componenti/animazioni.css
+// Stili corrispondenti: assets/css/componenti/animazioni/animazioni.css
 // Nessuna dipendenza. Rispetta prefers-reduced-motion.
 // ============================================================
 

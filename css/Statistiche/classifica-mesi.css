@@ -3,14 +3,14 @@
    Parte della pagina Statistiche: Statistiche/Style_statistiche.css
 
    L'entrata a comparsa (podio e righe) arriva gratis da
-   assets/css/componenti/animazioni.css: #podio e #classifica sono
+   assets/css/componenti/animazioni/animazioni.css: #podio e #classifica sono
    nell'elenco dei contenitori osservati in
    assets/motion/contenuti-animati.js, quindi i loro figli diretti
    (i gradini, le righe <li>) prendono già la classe .entra scaglionata.
    Qui sotto solo l'aspetto, non il movimento.
 
    Il pulsante ".cta-classifica" per raggiungere questa pagina da
-   altre pagine del sito vive in assets/css/componenti/micro-interazioni.css,
+   altre pagine del sito vive in assets/css/componenti/interazioni/micro-interazioni.css,
    cosi' e' disponibile ovunque, non solo qui.
    ============================================================ */
 
