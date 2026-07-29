@@ -248,6 +248,8 @@
     "#record-mesi",
     "#podio-stagioni",
     "#classifica-periodi",
+    "#podio-mensili",
+    "#classifica-mensili",
   ];
 
   function scaglionaFigli(contenitore) {
