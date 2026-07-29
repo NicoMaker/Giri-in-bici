@@ -134,47 +134,112 @@
       </section>
 
       <section class="section reveal">
-        <p class="eyebrow">Podio</p>
-        <h2>I tre mesi migliori</h2>
-        <p class="classifica-titolo" id="classifica-titolo"></p>
-        <div id="podio" class="podio"></div>
+        <div
+          class="selettore-metrica"
+          id="selettore-vista"
+          role="tablist"
+          aria-label="Scegli cosa vedere"
+        >
+          <button
+            type="button"
+            class="selettore-metrica__pulsante attivo"
+            data-vista="tutto"
+          >
+            Tutto
+          </button>
+          <button
+            type="button"
+            class="selettore-metrica__pulsante"
+            data-vista="mesi"
+          >
+            Mesi migliori
+          </button>
+          <button
+            type="button"
+            class="selettore-metrica__pulsante"
+            data-vista="record"
+          >
+            Record per anno
+          </button>
+          <button
+            type="button"
+            class="selettore-metrica__pulsante"
+            data-vista="stagioni"
+          >
+            Stagioni
+          </button>
+          <button
+            type="button"
+            class="selettore-metrica__pulsante"
+            data-vista="periodi"
+          >
+            Periodi
+          </button>
+        </div>
       </section>
 
-      <section class="section reveal">
-        <p class="eyebrow">Classifica completa</p>
-        <h2>Tutti e dodici i mesi</h2>
-        <ol id="classifica" class="classifica-lista"></ol>
-      </section>
+      <div data-vista-gruppo="mesi">
+        <section class="section reveal">
+          <p class="eyebrow">Podio</p>
+          <h2>I tre mesi migliori</h2>
+          <p class="classifica-titolo" id="classifica-titolo"></p>
+          <div id="podio" class="podio"></div>
+        </section>
 
-      <section class="section reveal">
-        <p class="eyebrow">Ogni anno</p>
-        <h2>I record mese per mese</h2>
-        <p class="hero-sub">
-          Non il totale di ogni mese, ma ogni mese di ogni singolo anno:
-          per esempio Settembre 2024 contro Ottobre 2025, uno per uno.
-        </p>
-        <p class="classifica-titolo" id="record-mesi-titolo"></p>
-        <ol id="record-mesi" class="classifica-lista"></ol>
-      </section>
+        <section class="section reveal">
+          <p class="eyebrow">Classifica completa</p>
+          <h2>Tutti e dodici i mesi</h2>
+          <ol id="classifica" class="classifica-lista"></ol>
+        </section>
+      </div>
 
-      <section class="section reveal">
-        <p class="eyebrow">Stagioni</p>
-        <h2>Le tre stagioni a confronto</h2>
-        <p class="classifica-titolo" id="classifica-stagioni-titolo"></p>
-        <div id="podio-stagioni" class="podio"></div>
-      </section>
+      <div data-vista-gruppo="record">
+        <section class="section reveal">
+          <p class="eyebrow">Podio</p>
+          <h2>Ogni anno: i tre record migliori</h2>
+          <p class="hero-sub">
+            Non il totale di ogni mese, ma ogni mese di ogni singolo anno:
+            per esempio Settembre 2024 contro Ottobre 2025, uno per uno.
+          </p>
+          <p class="classifica-titolo" id="record-mesi-titolo"></p>
+          <div id="podio-record-mesi" class="podio"></div>
+        </section>
 
-      <section class="section reveal">
-        <p class="eyebrow">Ogni periodo</p>
-        <h2>Tutti i periodi a confronto</h2>
-        <p class="hero-sub">
-          Non solo stagione contro stagione: ogni periodo completo, uno
-          per uno, per esempio Estate 2020 contro Autunno &middot;
-          Inverno 2020-2021.
-        </p>
-        <p class="classifica-titolo" id="classifica-periodi-titolo"></p>
-        <ol id="classifica-periodi" class="classifica-lista"></ol>
-      </section>
+        <section class="section reveal">
+          <p class="eyebrow">Classifica completa</p>
+          <h2>I record mese per mese</h2>
+          <ol id="record-mesi" class="classifica-lista"></ol>
+        </section>
+      </div>
+
+      <div data-vista-gruppo="stagioni">
+        <section class="section reveal">
+          <p class="eyebrow">Podio</p>
+          <h2>Le tre stagioni a confronto</h2>
+          <p class="classifica-titolo" id="classifica-stagioni-titolo"></p>
+          <div id="podio-stagioni" class="podio"></div>
+        </section>
+      </div>
+
+      <div data-vista-gruppo="periodi">
+        <section class="section reveal">
+          <p class="eyebrow">Podio</p>
+          <h2>Ogni periodo: i tre record migliori</h2>
+          <p class="hero-sub">
+            Non solo stagione contro stagione: ogni periodo completo, uno
+            per uno, per esempio Estate 2020 contro Autunno &middot;
+            Inverno 2020-2021.
+          </p>
+          <p class="classifica-titolo" id="classifica-periodi-titolo"></p>
+          <div id="podio-periodi" class="podio"></div>
+        </section>
+
+        <section class="section reveal">
+          <p class="eyebrow">Classifica completa</p>
+          <h2>Tutti i periodi a confronto</h2>
+          <ol id="classifica-periodi" class="classifica-lista"></ol>
+        </section>
+      </div>
     </main>
 
     <footer class="site-foot">

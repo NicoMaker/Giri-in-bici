@@ -246,8 +246,10 @@
     "#podio",
     "#classifica",
     "#record-mesi",
+    "#podio-record-mesi",
     "#podio-stagioni",
     "#classifica-periodi",
+    "#podio-periodi",
     "#podio-mensili",
     "#classifica-mensili",
   ];

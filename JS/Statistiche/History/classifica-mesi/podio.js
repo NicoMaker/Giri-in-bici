@@ -12,6 +12,24 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
   const MEDAGLIE = ["🥇", "🥈", "🥉"];
 
+  // Podio "semplice": solo nome, km e percentuale — usato per elenchi di
+  // singole voci (un mese di un anno, un periodo di una stagione) dove
+  // non ha senso una media o un conteggio di occorrenze.
+  CM.creaPodioSemplice = function (righe) {
+    return righe
+      .slice(0, 3)
+      .map(
+        (r, i) => `
+      <div class="podio__gradino podio__gradino--${i + 1}">
+        <span class="podio__medaglia" aria-hidden="true">${MEDAGLIE[i]}</span>
+        <span class="podio__mese">${r.nome}</span>
+        <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
+        <span class="podio__dettaglio">${formatNumber(r.percentuale)} % del totale</span>
+      </div>`,
+      )
+      .join("");
+  };
+
   // Solo i tre gradini: vanno dentro #podio, che nell'HTML è già la
   // griglia (classe .podio), così ogni gradino resta figlio diretto e
   // l'entrata scaglionata di contenuti-animati.js li anima uno a uno.
