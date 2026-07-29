@@ -72,6 +72,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
     righe.sort((a, b) => b.km - a.km);
 
-    return righe;
+    return { righe, totale };
   };
 })(window.ClassificaMesi);

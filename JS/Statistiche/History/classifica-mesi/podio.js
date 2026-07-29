@@ -62,7 +62,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         return `
       <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
-        <span class="classifica-riga__mese">${r.mese}</span>
+        <span class="classifica-riga__mese"
+          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.occorrenze)} anni pedalati</small></span
+        >
         <span class="classifica-riga__barra"
           ><span style="--percentuale:${quota}%"></span
         ></span>
@@ -71,6 +73,20 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       </li>`;
       })
       .join("");
+  };
+
+  // Riga di chiusura con il totale: uguale nell'aspetto alle righe
+  // normali, ma senza numero di posizione né barra, cosi' si legge
+  // subito come somma finale e non come un'altra voce in classifica.
+  CM.creaRigaTotale = function (totaleKm, etichetta) {
+    return `
+      <li class="classifica-riga classifica-riga--totale">
+        <span class="classifica-riga__posizione" aria-hidden="true">&sum;</span>
+        <span class="classifica-riga__mese">Totale ${etichetta}</span>
+        <span class="classifica-riga__barra"></span>
+        <span class="classifica-riga__km">${formatItalianNumber(totaleKm)} km</span>
+        <span class="classifica-riga__percentuale">100 %</span>
+      </li>`;
   };
 
   // Frase di apertura sopra il podio

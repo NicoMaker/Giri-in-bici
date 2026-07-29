@@ -30,22 +30,35 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ---------- Selettore in cima: cosa mostrare ----------
   // Indipendente dal caricamento dei dati: funziona subito, anche se
   // il fetch qui sotto è ancora in corso o fallisce.
+  //
+  // La vista iniziale arriva da "?vista=" nell'indirizzo: ogni pagina
+  // del sito che porta qui sceglie già la scheda giusta (es. dalla
+  // pagina di una stagione arriva "?vista=stagioni"). Senza il
+  // parametro, o con un valore che non esiste, si parte da "tutto".
+  const VISTE_VALIDE = ["tutto", "mesi", "record", "stagioni", "periodi"];
   const gruppiVista = document.querySelectorAll("[data-vista-gruppo]");
-  document
-    .querySelectorAll("#selettore-vista .selettore-metrica__pulsante")
-    .forEach((pulsante) => {
-      pulsante.addEventListener("click", () => {
-        document
-          .querySelectorAll("#selettore-vista .selettore-metrica__pulsante")
-          .forEach((p) => p.classList.toggle("attivo", p === pulsante));
+  const pulsantiVista = document.querySelectorAll(
+    "#selettore-vista .selettore-metrica__pulsante",
+  );
 
-        const vista = pulsante.dataset.vista;
-        gruppiVista.forEach((gruppo) => {
-          const mostra = vista === "tutto" || gruppo.dataset.vistaGruppo === vista;
-          gruppo.style.display = mostra ? "" : "none";
-        });
-      });
+  function attivaVista(vista) {
+    pulsantiVista.forEach((p) =>
+      p.classList.toggle("attivo", p.dataset.vista === vista),
+    );
+    gruppiVista.forEach((gruppo) => {
+      const mostra = vista === "tutto" || gruppo.dataset.vistaGruppo === vista;
+      gruppo.style.display = mostra ? "" : "none";
     });
+  }
+
+  const vistaIniziale = new URLSearchParams(window.location.search).get(
+    "vista",
+  );
+  attivaVista(VISTE_VALIDE.includes(vistaIniziale) ? vistaIniziale : "tutto");
+
+  pulsantiVista.forEach((pulsante) => {
+    pulsante.addEventListener("click", () => attivaVista(pulsante.dataset.vista));
+  });
 
   const podioEl = document.getElementById("podio");
   const listaEl = document.getElementById("classifica");
@@ -72,17 +85,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     const totaleAnni = percorsi.length;
     const allData = await Json.leggiTutti(percorsi);
 
-    const { righe } = CM.calcolaClassifica(allData, ConfigMesi.elenco);
-    const righeRecord = CM.calcolaRecordMesi(allData, ConfigMesi.elenco);
+    const { righe, totale } = CM.calcolaClassifica(allData, ConfigMesi.elenco);
+    const { righe: righeRecord, totale: totaleRecord } = CM.calcolaRecordMesi(
+      allData,
+      ConfigMesi.elenco,
+    );
 
     if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(righe);
     if (podioEl) podioEl.innerHTML = CM.creaPodio(righe, totaleAnni);
-    if (listaEl) listaEl.innerHTML = CM.creaClassifica(righe);
+    if (listaEl)
+      listaEl.innerHTML =
+        CM.creaClassifica(righe) + CM.creaRigaTotale(totale, "12 mesi");
     if (titoloRecordMesiEl)
       titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(righeRecord);
     if (podioRecordMesiEl)
       podioRecordMesiEl.innerHTML = CM.creaPodioSemplice(righeRecord);
-    if (recordMesiEl) recordMesiEl.innerHTML = CM.creaRecordMesi(righeRecord);
+    if (recordMesiEl)
+      recordMesiEl.innerHTML =
+        CM.creaRecordMesi(righeRecord) +
+        CM.creaRigaTotale(totaleRecord, `${righeRecord.length} record`);
   } catch (error) {
     console.error(`Errore nel caricamento della classifica: ${error}`);
     if (listaEl)
@@ -107,13 +128,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const righePeriodi = await CM.calcolaPeriodi();
+    const { righe: righePeriodi, totale: totalePeriodi } =
+      await CM.calcolaPeriodi();
     if (titoloPeriodiEl)
       titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(righePeriodi);
     if (podioPeriodiEl)
       podioPeriodiEl.innerHTML = CM.creaPodioSemplice(righePeriodi);
     if (listaPeriodiEl)
-      listaPeriodiEl.innerHTML = CM.creaClassificaPeriodi(righePeriodi);
+      listaPeriodiEl.innerHTML =
+        CM.creaClassificaPeriodi(righePeriodi) +
+        CM.creaRigaTotale(totalePeriodi, `${righePeriodi.length} periodi`);
   } catch (error) {
     console.error(`Errore nel caricamento del confronto fra i periodi: ${error}`);
     if (listaPeriodiEl)

@@ -56,3 +56,28 @@
     text-align: center;
   }
 }
+
+/* ---------- Barra del selettore "cosa vedere", fissa mentre si scorre ---------- */
+.selettore-vista-barra {
+  position: sticky;
+  top: calc(var(--bar-h) + 0.7rem);
+  z-index: 40;
+  margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+  padding: 0.7rem;
+  border-radius: var(--r-full);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  box-shadow: var(--sh-1);
+}
+
+.selettore-vista-barra .selettore-metrica {
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .selettore-vista-barra {
+    top: calc(var(--bar-h) + 0.4rem);
+    padding: 0.5rem;
+  }
+}

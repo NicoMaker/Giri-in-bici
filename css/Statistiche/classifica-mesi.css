@@ -171,6 +171,14 @@
   color: var(--ink);
 }
 
+.classifica-riga__sotto {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+}
+
 .classifica-riga__barra {
   display: block;
   height: 8px;
@@ -198,6 +206,30 @@
   font-size: 0.85rem;
   color: var(--ink-3);
   white-space: nowrap;
+}
+
+/* Riga del totale, in fondo a ogni elenco: sfondo pieno del tema e
+   testo in grassetto, cosi' si distingue subito dalle voci normali. */
+.classifica-riga--totale {
+  margin-top: 0.3rem;
+  border-color: transparent;
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  box-shadow: var(--sh-2);
+}
+
+.classifica-riga--totale:hover {
+  transform: none;
+}
+
+.classifica-riga--totale .classifica-riga__posizione,
+.classifica-riga--totale .classifica-riga__mese,
+.classifica-riga--totale .classifica-riga__km,
+.classifica-riga--totale .classifica-riga__percentuale {
+  color: #fff;
+}
+
+.classifica-riga--totale .classifica-riga__barra {
+  visibility: hidden;
 }
 
 @media (max-width: 560px) {
