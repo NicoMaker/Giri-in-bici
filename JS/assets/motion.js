@@ -225,7 +225,7 @@
       ".misuracolore:not([data-contato]):not([data-osservato])," +
         ".anima-numero:not([data-contato]):not([data-osservato])," +
         "td:not([data-contato]):not([data-osservato])," +
-        ".bici-card__spec-value:not([data-contato]):not([data-osservato])",
+        ".bici-card__spec-value:not(.bici-card__spec-value--anno):not([data-contato]):not([data-osservato])",
     );
     if (!elementi.length) return;
 

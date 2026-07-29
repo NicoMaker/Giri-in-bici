@@ -195,11 +195,14 @@
     // numeri delle tabelle (celle td: storico mensile, mesi, totali...) e
     // i valori delle schede bici: cosi' "tutti i numeri, da ogni parte"
     // entrano contando. Le intestazioni (th) e le etichette restano ferme.
+    // L'anno della bici (.bici-card__spec-value--anno) resta escluso: e'
+    // un anno, non una quantita', e non va scritto con il punto delle
+    // migliaia (es. 2020, mai 2.020).
     var selettore =
       ".misuracolore:not([data-contato]):not([data-osservato])," +
       ".anima-numero:not([data-contato]):not([data-osservato])," +
       "td:not([data-contato]):not([data-osservato])," +
-      ".bici-card__spec-value:not([data-contato]):not([data-osservato])";
+      ".bici-card__spec-value:not(.bici-card__spec-value--anno):not([data-contato]):not([data-osservato])";
     var elementi = (radice || document).querySelectorAll(selettore);
     if (!elementi.length) return;
 

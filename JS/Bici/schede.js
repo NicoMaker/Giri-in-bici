@@ -66,7 +66,7 @@ window.Bici = window.Bici || {};
                   <span class="material-icons">event</span>
                   <span class="bici-card__spec-text">
                     <span class="bici-card__spec-label">Anno</span>
-                    <span class="bici-card__spec-value">${bici.anno}</span>
+                    <span class="bici-card__spec-value bici-card__spec-value--anno">${bici.anno}</span>
                   </span>
                 </li>
                 <li class="bici-card__spec bici-card__spec--wide">
