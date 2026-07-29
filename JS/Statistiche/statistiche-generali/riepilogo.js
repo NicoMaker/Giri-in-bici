@@ -34,6 +34,7 @@ window.StatGenerali = window.StatGenerali || {};
             <p class="misuracolore">Corse medie per mese ${avgRacesPerMonth}</p>
             <p class="misuracolore">Totale anni di corsa ${formatItalianNumber(totalYears)}</p>
             <p class="misuracolore">Totale mesi di corsa ${formatItalianNumber(totalMonths)}</p>
+            <span class="colore__vai-a">Vai alle statistiche totali <span class="freccia" aria-hidden="true">→</span></span>
           </div>
         </a>`;
     }

@@ -42,4 +42,36 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
     return { righe, totale };
   };
+
+  // Una riga per OGNI mese di OGNI anno, senza aggregare per nome
+  // mese: "Settembre 2024", "Ottobre 2025", ecc. Così si vede quale
+  // singolo mese, in quale anno preciso, ha totalizzato più
+  // chilometri di tutti — un vero e proprio record per record.
+  CM.calcolaRecordMesi = function (allData, mesiElenco) {
+    const righe = [];
+
+    allData.forEach((json) => {
+      if (!json || !json.data) return;
+      const anno = json.year || "Sconosciuto";
+      mesiElenco.forEach((mese) => {
+        if (json.data[mese]) {
+          righe.push({
+            nome: `${mese} ${anno}`,
+            mese,
+            anno,
+            km: json.data[mese],
+          });
+        }
+      });
+    });
+
+    const totale = righe.reduce((tot, r) => tot + r.km, 0);
+    righe.forEach((r) => {
+      r.percentuale = totale > 0 ? (r.km / totale) * 100 : 0;
+    });
+
+    righe.sort((a, b) => b.km - a.km);
+
+    return righe;
+  };
 })(window.ClassificaMesi);

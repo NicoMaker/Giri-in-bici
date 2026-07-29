@@ -245,7 +245,9 @@
     ".team-grid",
     "#podio",
     "#classifica",
+    "#record-mesi",
     "#podio-stagioni",
+    "#classifica-periodi",
   ];
 
   function scaglionaFigli(contenitore) {

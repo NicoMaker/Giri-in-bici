@@ -28,6 +28,7 @@ window.GraficoTotale = window.GraficoTotale || {};
           <p class="misuracolore">Corse medie per anno ${racesPerYear}</p>
           <p class="misuracolore">Corse medie per mese ${racesPerMonth}</p>
           <p class="misuracolore">Totale mesi di corsa ${formatItalianNumber(mesi.length)}</p>
+          <span class="colore__vai-a">Vai ai totali per mese <span class="freccia" aria-hidden="true">→</span></span>
         </div>
       </a>`;
   };

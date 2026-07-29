@@ -8,36 +8,12 @@
    assets/motion/contenuti-animati.js, quindi i loro figli diretti
    (i gradini, le righe <li>) prendono già la classe .entra scaglionata.
    Qui sotto solo l'aspetto, non il movimento.
+
+   Il pulsante ".cta-classifica" per raggiungere questa pagina da
+   altre pagine del sito vive in assets/css/componenti/micro-interazioni.css,
+   cosi' e' disponibile ovunque, non solo qui.
    ============================================================ */
 
-/* ---------- Pulsante verso la classifica, da Statistiche Totali ---------- */
-.cta-classifica-wrap {
-  text-align: center;
-  margin-top: 1.2rem;
-}
-
-.cta-classifica {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.75rem 1.5rem;
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 0.98rem;
-  color: #fff;
-  border-radius: var(--r-full);
-  background: linear-gradient(120deg, var(--a1), var(--a2));
-  box-shadow: var(--sh-2);
-  transition:
-    transform 0.25s var(--ease),
-    box-shadow 0.25s var(--ease);
-}
-
-.cta-classifica:hover {
-  color: #fff;
-  transform: translateY(-3px);
-  box-shadow: var(--sh-3);
-}
 
 .classifica-titolo {
   max-width: 62ch;

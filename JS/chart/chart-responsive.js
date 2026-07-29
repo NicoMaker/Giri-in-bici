@@ -147,8 +147,11 @@
     tip.position = "nearest";
 
     if (!isPie) {
+      // "nearest" invece di "index": tocchi un punto e vedi SOLO quel
+      // punto (es. solo "2024: 386"), non tutte le linee sovrapposte
+      // alla stessa posizione (es. tutti gli anni di quel mese insieme).
       var it = obj(opts, "interaction");
-      it.mode = "index";
+      it.mode = "nearest";
       it.intersect = false;
     }
 

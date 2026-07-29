@@ -21,6 +21,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
         <p class="misuracolore">km totali medi per mese ${mediaComplessiva}</p>
         <p class="misuracolore">Totale corse ${formatItalianNumber(totaleCorse)}</p>
         <p class="misuracolore">Medie corse per mese (12 mesi) ${mediacorse}</p>
+        <span class="colore__vai-a">Vai allo storico mensile <span class="freccia" aria-hidden="true">→</span></span>
       </div>
     </a>`;
 })(window.GraficoTotaleMensile);

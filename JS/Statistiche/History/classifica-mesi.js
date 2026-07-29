@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const titoloEl = document.getElementById("classifica-titolo");
   const podioStagioniEl = document.getElementById("podio-stagioni");
   const titoloStagioniEl = document.getElementById("classifica-stagioni-titolo");
+  const listaPeriodiEl = document.getElementById("classifica-periodi");
+  const titoloPeriodiEl = document.getElementById("classifica-periodi-titolo");
+  const recordMesiEl = document.getElementById("record-mesi");
+  const titoloRecordMesiEl = document.getElementById("record-mesi-titolo");
 
   try {
     await ConfigMesi.carica();
@@ -43,15 +47,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const allData = await Json.leggiTutti(percorsi);
 
     const { righe } = CM.calcolaClassifica(allData, ConfigMesi.elenco);
+    const righeRecord = CM.calcolaRecordMesi(allData, ConfigMesi.elenco);
 
     if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(righe);
     if (podioEl) podioEl.innerHTML = CM.creaPodio(righe, totaleAnni);
     if (listaEl) listaEl.innerHTML = CM.creaClassifica(righe);
+    if (titoloRecordMesiEl)
+      titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(righeRecord);
+    if (recordMesiEl) recordMesiEl.innerHTML = CM.creaRecordMesi(righeRecord);
   } catch (error) {
     console.error(`Errore nel caricamento della classifica: ${error}`);
     if (listaEl)
       listaEl.innerHTML =
         '<li class="errore-grafico">Non è stato possibile caricare la classifica dei mesi.</li>';
+    if (recordMesiEl)
+      recordMesiEl.innerHTML =
+        '<li class="errore-grafico">Non è stato possibile caricare i record mese per mese.</li>';
   }
 
   try {
@@ -65,5 +76,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (podioStagioniEl)
       podioStagioniEl.innerHTML =
         '<p class="errore-grafico">Non è stato possibile caricare la classifica delle stagioni.</p>';
+  }
+
+  try {
+    const righePeriodi = await CM.calcolaPeriodi();
+    if (titoloPeriodiEl)
+      titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(righePeriodi);
+    if (listaPeriodiEl)
+      listaPeriodiEl.innerHTML = CM.creaClassificaPeriodi(righePeriodi);
+  } catch (error) {
+    console.error(`Errore nel caricamento del confronto fra i periodi: ${error}`);
+    if (listaPeriodiEl)
+      listaPeriodiEl.innerHTML =
+        '<li class="errore-grafico">Non è stato possibile caricare il confronto fra i periodi.</li>';
   }
 });

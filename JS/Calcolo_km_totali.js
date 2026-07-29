@@ -77,6 +77,7 @@ const stampaDati = (
       <p class="misuracolore">Media corse per periodo ${mediaCorsePerPeriodo}</p>
       <p class="misuracolore">Media corse per Stagione ${mediaCorsePerStagione}</p>
       <p class="misuracolore">Totale periodi ${formatItalianNumber(totalePeriodi)}</p>
+      <span class="colore__vai-a">Vai alle statistiche complete <span class="freccia" aria-hidden="true">→</span></span>
     </div>
   `;
 };
