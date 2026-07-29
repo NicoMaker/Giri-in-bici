@@ -59,42 +59,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     pulsante.addEventListener("click", () => attivaVista(pulsante.dataset.vista));
   });
 
-  // ---------- Il podio fisso si ferma appena sotto la barra del selettore ----------
-  // L'altezza della barra cambia (le pillole vanno a capo sugli schermi
-  // stretti), quindi si misura invece di indovinarla: dopo un frame la
-  // barra è già "appiccicata" in alto e il suo bordo inferiore è la
-  // posizione giusta per il podio.
-  const barraSelettore = document.getElementById("barra-selettore");
-  function aggiornaCimaPodioFisso() {
-    if (!barraSelettore) return;
-    const cima = barraSelettore.getBoundingClientRect().bottom + 8;
-    document.documentElement.style.setProperty(
-      "--cima-podio-fisso",
-      `${Math.max(cima, 0)}px`,
-    );
-  }
-  requestAnimationFrame(aggiornaCimaPodioFisso);
-  window.addEventListener("resize", aggiornaCimaPodioFisso);
-  window.addEventListener("orientationchange", aggiornaCimaPodioFisso);
-
-  // Sa quando il podio è davvero "attaccato" in alto: quando la sua
-  // sentinella (un segnaposto invisibile appena sopra) esce dallo
-  // schermo, il podio ha raggiunto la posizione fissa.
-  if ("IntersectionObserver" in window) {
-    const osservatorePodio = new IntersectionObserver(
-      (voci) => {
-        voci.forEach((voce) => {
-          const podio = voce.target.nextElementSibling;
-          if (podio) podio.classList.toggle("podio-fisso--attaccato", !voce.isIntersecting);
-        });
-      },
-      { rootMargin: `-${document.getElementById("barra-selettore")?.offsetHeight || 60}px 0px 0px 0px` },
-    );
-    document
-      .querySelectorAll(".podio-fisso__sentinella")
-      .forEach((sentinella) => osservatorePodio.observe(sentinella));
-  }
-
   const podioEl = document.getElementById("podio");
   const listaEl = document.getElementById("classifica");
   const titoloEl = document.getElementById("classifica-titolo");
