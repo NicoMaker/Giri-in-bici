@@ -86,7 +86,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (titoloPodioEl)
         titoloPodioEl.innerHTML = GTM.creaTitoloPodio(ordinate, metricaAttiva);
       if (podioEl) podioEl.innerHTML = GTM.creaPodio(ordinate, metricaAttiva);
-      if (listaEl) listaEl.innerHTML = GTM.creaClassifica(ordinate, metricaAttiva);
+      if (listaEl)
+        listaEl.innerHTML = GTM.creaClassifica(ordinate, metricaAttiva);
     }
 
     disegnaClassificaMensile();

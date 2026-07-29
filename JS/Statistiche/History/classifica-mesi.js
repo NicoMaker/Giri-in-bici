@@ -56,14 +56,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   attivaVista(VISTE_VALIDE.includes(vistaIniziale) ? vistaIniziale : "mesi");
 
   pulsantiVista.forEach((pulsante) => {
-    pulsante.addEventListener("click", () => attivaVista(pulsante.dataset.vista));
+    pulsante.addEventListener("click", () =>
+      attivaVista(pulsante.dataset.vista),
+    );
   });
 
   const podioEl = document.getElementById("podio");
   const listaEl = document.getElementById("classifica");
   const titoloEl = document.getElementById("classifica-titolo");
   const podioStagioniEl = document.getElementById("podio-stagioni");
-  const titoloStagioniEl = document.getElementById("classifica-stagioni-titolo");
+  const titoloStagioniEl = document.getElementById(
+    "classifica-stagioni-titolo",
+  );
   const listaPeriodiEl = document.getElementById("classifica-periodi");
   const titoloPeriodiEl = document.getElementById("classifica-periodi-titolo");
   const podioPeriodiEl = document.getElementById("podio-periodi");
@@ -95,9 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ecc. con "?anno=2020"), il record per anno si restringe a quel
     // solo anno: percentuali ricalcolate su quel sottoinsieme, non sul
     // totale di sempre, e l'etichetta della scheda lo dice chiaramente.
-    const annoFiltro = new URLSearchParams(window.location.search).get(
-      "anno",
-    );
+    const annoFiltro = new URLSearchParams(window.location.search).get("anno");
     const filtratoPerAnno =
       annoFiltro && righeRecordTutti.some((r) => String(r.anno) === annoFiltro);
 
@@ -148,7 +150,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         CM.creaRecordMesi(righeRecord) +
         CM.creaRigaTotale(
           totaleRecord,
-          filtratoPerAnno ? `mesi del ${annoFiltro}` : `${righeRecord.length} record`,
+          filtratoPerAnno
+            ? `mesi del ${annoFiltro}`
+            : `${righeRecord.length} record`,
         );
 
     const { righe: righeAnni, totale: totaleAnniKm } = CM.calcolaAnni(allData);
@@ -196,7 +200,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         CM.creaClassificaPeriodi(righePeriodi) +
         CM.creaRigaTotale(totalePeriodi, `${righePeriodi.length} periodi`);
   } catch (error) {
-    console.error(`Errore nel caricamento del confronto fra i periodi: ${error}`);
+    console.error(
+      `Errore nel caricamento del confronto fra i periodi: ${error}`,
+    );
     if (listaPeriodiEl)
       listaPeriodiEl.innerHTML =
         '<li class="errore-grafico">Non è stato possibile caricare il confronto fra i periodi.</li>';

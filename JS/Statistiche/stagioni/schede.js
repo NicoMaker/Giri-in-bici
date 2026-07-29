@@ -111,7 +111,8 @@ window.Stagioni = window.Stagioni || {};
       numPeriodsPerSeason.autunno_inverno;
 
     // Calcolo media km per corsa (evitiamo divisione per zero)
-    var mediaKmPerCorsa = data.corseTotale > 0 ? data.totale / data.corseTotale : 0;
+    var mediaKmPerCorsa =
+      data.corseTotale > 0 ? data.totale / data.corseTotale : 0;
 
     return `
       <div class="colore">

@@ -59,9 +59,14 @@
       if (avvio === null) avvio = ora;
       var t = Math.min((ora - avvio) / durata, 1);
       var eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-      elemento.textContent = formattaNumero(obiettivo * eased, decimali, minInteri);
+      elemento.textContent = formattaNumero(
+        obiettivo * eased,
+        decimali,
+        minInteri,
+      );
       if (t < 1) window.requestAnimationFrame(passo);
-      else elemento.textContent = formattaNumero(obiettivo, decimali, minInteri);
+      else
+        elemento.textContent = formattaNumero(obiettivo, decimali, minInteri);
     }
 
     window.requestAnimationFrame(passo);

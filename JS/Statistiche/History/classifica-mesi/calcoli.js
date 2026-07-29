@@ -33,8 +33,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       mese,
       km: chilometri[index],
       occorrenze: occorrenze[index],
-      kmMedi:
-        occorrenze[index] > 0 ? chilometri[index] / occorrenze[index] : 0,
+      kmMedi: occorrenze[index] > 0 ? chilometri[index] / occorrenze[index] : 0,
       percentuale: totale > 0 ? (chilometri[index] / totale) * 100 : 0,
     }));
 

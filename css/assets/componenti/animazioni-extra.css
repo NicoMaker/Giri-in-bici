@@ -403,12 +403,7 @@ footer {
 /* Barra di avanzamento lettura: un riflesso che scorre dentro */
 .scroll-progress {
   background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.6),
-      transparent
-    ),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent),
     linear-gradient(90deg, var(--a1), var(--a2));
   background-size:
     180% 100%,
