@@ -6,12 +6,12 @@
     <meta name="author" content="Nico Maker" />
     <meta
       name="description"
-      content="La classifica dei dodici mesi in base ai chilometri percorsi in tutti gli anni: qual è il mese in cui hai pedalato di più."
+      content="Le classifiche di Giri in Bici: mesi, anni, stagioni e singoli periodi, dal più al meno pedalato."
     />
-    <meta property="og:title" content="Giri in Bici | Classifica dei mesi" />
+    <meta property="og:title" content="Giri in Bici | Classifiche e record" />
     <meta
       property="og:description"
-      content="La classifica dei dodici mesi in base ai chilometri percorsi in tutti gli anni: qual è il mese in cui hai pedalato di più."
+      content="Le classifiche di Giri in Bici: mesi, anni, stagioni e singoli periodi, dal più al meno pedalato."
     />
     <meta property="og:type" content="website" />
     <meta
@@ -20,7 +20,7 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <title>Giri in Bici | Classifica dei mesi</title>
+    <title>Giri in Bici | Classifiche e record</title>
 
     <link rel="icon" href="/img/Statistiche/Logo_statistiche.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -126,27 +126,21 @@
     <main class="wrap stack">
       <section class="hero">
         <p class="eyebrow">Classifica</p>
-        <h1 class="Titolo">In quali mesi pedali di più</h1>
+        <h1 class="Titolo">Dove hai pedalato di più</h1>
         <p class="hero-sub">
-          I dodici mesi dell'anno, messi in fila dal più al meno
-          pedalato, sommando tutti gli anni.
+          Mesi, anni, stagioni e singoli periodi: tutti i chilometri
+          percorsi, messi in fila dal più al meno pedalato. Scegli cosa
+          vedere qui sotto.
         </p>
       </section>
 
-      <div class="selettore-vista-barra">
+      <div class="selettore-vista-barra" id="barra-selettore">
         <div
           class="selettore-metrica"
           id="selettore-vista"
           role="tablist"
           aria-label="Scegli cosa vedere"
         >
-          <button
-            type="button"
-            class="selettore-metrica__pulsante"
-            data-vista="tutto"
-          >
-            Tutto
-          </button>
           <button
             type="button"
             class="selettore-metrica__pulsante"
@@ -160,6 +154,13 @@
             data-vista="record"
           >
             Record per anno
+          </button>
+          <button
+            type="button"
+            class="selettore-metrica__pulsante"
+            data-vista="anni"
+          >
+            Anni
           </button>
           <button
             type="button"
@@ -179,7 +180,8 @@
       </div>
 
       <div data-vista-gruppo="mesi">
-        <section class="section reveal">
+        <div class="podio-fisso__sentinella" aria-hidden="true"></div>
+        <section class="section reveal podio-fisso">
           <p class="eyebrow">Podio</p>
           <h2>I tre mesi migliori</h2>
           <p class="classifica-titolo" id="classifica-titolo"></p>
@@ -194,13 +196,15 @@
       </div>
 
       <div data-vista-gruppo="record">
-        <section class="section reveal">
+        <div class="podio-fisso__sentinella" aria-hidden="true"></div>
+        <section class="section reveal podio-fisso">
           <p class="eyebrow">Podio</p>
           <h2>Ogni anno: i tre record migliori</h2>
           <p class="hero-sub">
             Non il totale di ogni mese, ma ogni mese di ogni singolo anno:
             per esempio Settembre 2024 contro Ottobre 2025, uno per uno.
           </p>
+          <p class="hero-sub" id="record-mesi-nota"></p>
           <p class="classifica-titolo" id="record-mesi-titolo"></p>
           <div id="podio-record-mesi" class="podio"></div>
         </section>
@@ -212,8 +216,29 @@
         </section>
       </div>
 
-      <div data-vista-gruppo="stagioni">
+      <div data-vista-gruppo="anni">
+        <div class="podio-fisso__sentinella" aria-hidden="true"></div>
+        <section class="section reveal podio-fisso">
+          <p class="eyebrow">Podio</p>
+          <h2>Gli anni a confronto</h2>
+          <p class="hero-sub">
+            Non un mese di un anno, ma l'anno intero, uno contro l'altro:
+            per esempio 2020 contro 2021 contro 2022, e così via.
+          </p>
+          <p class="classifica-titolo" id="classifica-anni-titolo"></p>
+          <div id="podio-anni" class="podio"></div>
+        </section>
+
         <section class="section reveal">
+          <p class="eyebrow">Classifica completa</p>
+          <h2>Tutti gli anni a confronto</h2>
+          <ol id="classifica-anni" class="classifica-lista"></ol>
+        </section>
+      </div>
+
+      <div data-vista-gruppo="stagioni">
+        <div class="podio-fisso__sentinella" aria-hidden="true"></div>
+        <section class="section reveal podio-fisso">
           <p class="eyebrow">Podio</p>
           <h2>Le tre stagioni a confronto</h2>
           <p class="classifica-titolo" id="classifica-stagioni-titolo"></p>
@@ -222,7 +247,8 @@
       </div>
 
       <div data-vista-gruppo="periodi">
-        <section class="section reveal">
+        <div class="podio-fisso__sentinella" aria-hidden="true"></div>
+        <section class="section reveal podio-fisso">
           <p class="eyebrow">Podio</p>
           <h2>Ogni periodo: i tre record migliori</h2>
           <p class="hero-sub">

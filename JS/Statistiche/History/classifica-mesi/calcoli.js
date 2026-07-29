@@ -74,4 +74,28 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
     return { righe, totale };
   };
+
+  // Una riga per OGNI ANNO INTERO (2020, 2021, ecc.), non per mese:
+  // qui si confronta un anno intero con un altro, non un mese con un
+  // altro mese. Ogni riga somma tutti i mesi presenti in quell'anno.
+  CM.calcolaAnni = function (allData) {
+    const righe = allData
+      .filter((json) => json && json.data)
+      .map((json) => {
+        const km = Object.values(json.data).reduce(
+          (tot, valore) => tot + (valore || 0),
+          0,
+        );
+        return { nome: `${json.year}`, anno: json.year, km };
+      });
+
+    const totale = righe.reduce((tot, r) => tot + r.km, 0);
+    righe.forEach((r) => {
+      r.percentuale = totale > 0 ? (r.km / totale) * 100 : 0;
+    });
+
+    righe.sort((a, b) => b.km - a.km);
+
+    return { righe, totale };
+  };
 })(window.ClassificaMesi);

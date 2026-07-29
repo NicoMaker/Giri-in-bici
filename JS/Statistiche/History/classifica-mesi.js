@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // La vista iniziale arriva da "?vista=" nell'indirizzo: ogni pagina
   // del sito che porta qui sceglie già la scheda giusta (es. dalla
   // pagina di una stagione arriva "?vista=stagioni"). Senza il
-  // parametro, o con un valore che non esiste, si parte da "tutto".
-  const VISTE_VALIDE = ["tutto", "mesi", "record", "stagioni", "periodi"];
+  // parametro, o con un valore che non esiste, si parte da "mesi".
+  const VISTE_VALIDE = ["mesi", "record", "anni", "stagioni", "periodi"];
   const gruppiVista = document.querySelectorAll("[data-vista-gruppo]");
   const pulsantiVista = document.querySelectorAll(
     "#selettore-vista .selettore-metrica__pulsante",
@@ -46,19 +46,54 @@ document.addEventListener("DOMContentLoaded", async () => {
       p.classList.toggle("attivo", p.dataset.vista === vista),
     );
     gruppiVista.forEach((gruppo) => {
-      const mostra = vista === "tutto" || gruppo.dataset.vistaGruppo === vista;
-      gruppo.style.display = mostra ? "" : "none";
+      gruppo.style.display = gruppo.dataset.vistaGruppo === vista ? "" : "none";
     });
   }
 
   const vistaIniziale = new URLSearchParams(window.location.search).get(
     "vista",
   );
-  attivaVista(VISTE_VALIDE.includes(vistaIniziale) ? vistaIniziale : "tutto");
+  attivaVista(VISTE_VALIDE.includes(vistaIniziale) ? vistaIniziale : "mesi");
 
   pulsantiVista.forEach((pulsante) => {
     pulsante.addEventListener("click", () => attivaVista(pulsante.dataset.vista));
   });
+
+  // ---------- Il podio fisso si ferma appena sotto la barra del selettore ----------
+  // L'altezza della barra cambia (le pillole vanno a capo sugli schermi
+  // stretti), quindi si misura invece di indovinarla: dopo un frame la
+  // barra è già "appiccicata" in alto e il suo bordo inferiore è la
+  // posizione giusta per il podio.
+  const barraSelettore = document.getElementById("barra-selettore");
+  function aggiornaCimaPodioFisso() {
+    if (!barraSelettore) return;
+    const cima = barraSelettore.getBoundingClientRect().bottom + 8;
+    document.documentElement.style.setProperty(
+      "--cima-podio-fisso",
+      `${Math.max(cima, 0)}px`,
+    );
+  }
+  requestAnimationFrame(aggiornaCimaPodioFisso);
+  window.addEventListener("resize", aggiornaCimaPodioFisso);
+  window.addEventListener("orientationchange", aggiornaCimaPodioFisso);
+
+  // Sa quando il podio è davvero "attaccato" in alto: quando la sua
+  // sentinella (un segnaposto invisibile appena sopra) esce dallo
+  // schermo, il podio ha raggiunto la posizione fissa.
+  if ("IntersectionObserver" in window) {
+    const osservatorePodio = new IntersectionObserver(
+      (voci) => {
+        voci.forEach((voce) => {
+          const podio = voce.target.nextElementSibling;
+          if (podio) podio.classList.toggle("podio-fisso--attaccato", !voce.isIntersecting);
+        });
+      },
+      { rootMargin: `-${document.getElementById("barra-selettore")?.offsetHeight || 60}px 0px 0px 0px` },
+    );
+    document
+      .querySelectorAll(".podio-fisso__sentinella")
+      .forEach((sentinella) => osservatorePodio.observe(sentinella));
+  }
 
   const podioEl = document.getElementById("podio");
   const listaEl = document.getElementById("classifica");
@@ -71,6 +106,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const recordMesiEl = document.getElementById("record-mesi");
   const titoloRecordMesiEl = document.getElementById("record-mesi-titolo");
   const podioRecordMesiEl = document.getElementById("podio-record-mesi");
+  const podioAnniEl = document.getElementById("podio-anni");
+  const listaAnniEl = document.getElementById("classifica-anni");
+  const titoloAnniEl = document.getElementById("classifica-anni-titolo");
 
   try {
     await ConfigMesi.carica();
@@ -86,10 +124,51 @@ document.addEventListener("DOMContentLoaded", async () => {
     const allData = await Json.leggiTutti(percorsi);
 
     const { righe, totale } = CM.calcolaClassifica(allData, ConfigMesi.elenco);
-    const { righe: righeRecord, totale: totaleRecord } = CM.calcolaRecordMesi(
-      allData,
-      ConfigMesi.elenco,
+    const { righe: righeRecordTutti, totale: totaleRecordTutti } =
+      CM.calcolaRecordMesi(allData, ConfigMesi.elenco);
+
+    // Se si arriva da una singola pagina-anno (Statistiche/Anni/2020.html
+    // ecc. con "?anno=2020"), il record per anno si restringe a quel
+    // solo anno: percentuali ricalcolate su quel sottoinsieme, non sul
+    // totale di sempre, e l'etichetta della scheda lo dice chiaramente.
+    const annoFiltro = new URLSearchParams(window.location.search).get(
+      "anno",
     );
+    const filtratoPerAnno =
+      annoFiltro && righeRecordTutti.some((r) => String(r.anno) === annoFiltro);
+
+    let righeRecord = righeRecordTutti;
+    let totaleRecord = totaleRecordTutti;
+
+    if (filtratoPerAnno) {
+      righeRecord = righeRecordTutti
+        .filter((r) => String(r.anno) === annoFiltro)
+        .map((r) => ({ ...r }));
+      totaleRecord = righeRecord.reduce((tot, r) => tot + r.km, 0);
+      righeRecord.forEach((r) => {
+        r.percentuale = totaleRecord > 0 ? (r.km / totaleRecord) * 100 : 0;
+      });
+
+      const pulsanteRecord = document.querySelector(
+        '#selettore-vista .selettore-metrica__pulsante[data-vista="record"]',
+      );
+      if (pulsanteRecord) pulsanteRecord.textContent = `Mesi ${annoFiltro}`;
+
+      const intestazioniRecord = document.querySelectorAll(
+        '[data-vista-gruppo="record"] h2',
+      );
+      if (intestazioniRecord[0])
+        intestazioniRecord[0].textContent = `I mesi migliori del ${annoFiltro}`;
+      if (intestazioniRecord[1])
+        intestazioniRecord[1].textContent = `Tutti i mesi del ${annoFiltro}`;
+
+      const notaRecordEl = document.getElementById("record-mesi-nota");
+      if (notaRecordEl) {
+        notaRecordEl.innerHTML = `
+          Solo l'anno ${annoFiltro}, uno o due mesi alla volta.
+          <a href="ClassificaMesi.html?vista=record">Vedi tutti gli anni insieme</a>.`;
+      }
+    }
 
     if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(righe);
     if (podioEl) podioEl.innerHTML = CM.creaPodio(righe, totaleAnni);
@@ -103,7 +182,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (recordMesiEl)
       recordMesiEl.innerHTML =
         CM.creaRecordMesi(righeRecord) +
-        CM.creaRigaTotale(totaleRecord, `${righeRecord.length} record`);
+        CM.creaRigaTotale(
+          totaleRecord,
+          filtratoPerAnno ? `mesi del ${annoFiltro}` : `${righeRecord.length} record`,
+        );
+
+    const { righe: righeAnni, totale: totaleAnniKm } = CM.calcolaAnni(allData);
+    if (titoloAnniEl) titoloAnniEl.innerHTML = CM.creaTitoloAnni(righeAnni);
+    if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioSemplice(righeAnni);
+    if (listaAnniEl)
+      listaAnniEl.innerHTML =
+        CM.creaClassificaAnni(righeAnni) +
+        CM.creaRigaTotale(totaleAnniKm, `${righeAnni.length} anni`);
   } catch (error) {
     console.error(`Errore nel caricamento della classifica: ${error}`);
     if (listaEl)
@@ -112,6 +202,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (recordMesiEl)
       recordMesiEl.innerHTML =
         '<li class="errore-grafico">Non è stato possibile caricare i record mese per mese.</li>';
+    if (listaAnniEl)
+      listaAnniEl.innerHTML =
+        '<li class="errore-grafico">Non è stato possibile caricare la classifica degli anni.</li>';
   }
 
   try {

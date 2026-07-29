@@ -203,4 +203,37 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       <strong>${migliore.nome}</strong>, con
       <strong>${formatItalianNumber(migliore.km)} km</strong> percorsi.`;
   };
+
+  // ---------- Anni interi a confronto (non mesi: l'anno intero) ----------
+  // Stessa riga di classifica-riga già usata per periodi e record mesi:
+  // qui il "nome" è l'anno stesso (es. "2024").
+  CM.creaClassificaAnni = function (righe) {
+    const massimo = righe.length ? righe[0].km : 0;
+    return righe
+      .map((r, i) => {
+        const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
+        return `
+      <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
+        <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
+        <span class="classifica-riga__mese">${r.nome}</span>
+        <span class="classifica-riga__barra"
+          ><span style="--percentuale:${quota}%"></span
+        ></span>
+        <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
+        <span class="classifica-riga__percentuale">${formatNumber(r.percentuale)} %</span>
+      </li>`;
+      })
+      .join("");
+  };
+
+  CM.creaTitoloAnni = function (righe) {
+    if (!righe.length || righe[0].km <= 0) {
+      return "Non ci sono ancora dati a sufficienza per una classifica.";
+    }
+    const migliore = righe[0];
+    return `
+      L'anno in cui hai pedalato di pi&ugrave; in assoluto &egrave;
+      <strong>${migliore.nome}</strong>, con
+      <strong>${formatItalianNumber(migliore.km)} km</strong> percorsi.`;
+  };
 })(window.ClassificaMesi);

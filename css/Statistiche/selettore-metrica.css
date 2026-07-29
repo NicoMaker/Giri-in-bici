@@ -81,3 +81,28 @@
     padding: 0.5rem;
   }
 }
+
+/* ---------- Podio fisso: resta visibile mentre si scorre l'elenco sotto ---------- */
+.podio-fisso {
+  position: sticky;
+  top: var(--cima-podio-fisso, calc(var(--bar-h) + 4.6rem));
+  z-index: 30;
+  padding: 0.9rem 0.9rem 1.3rem;
+  background: color-mix(in srgb, var(--bg-1) 92%, transparent);
+  backdrop-filter: saturate(1.3) blur(12px);
+  -webkit-backdrop-filter: saturate(1.3) blur(12px);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-2);
+}
+
+@media (max-width: 640px) {
+  /* Da fisso, il podio compatta titolo e sottotitolo per lasciare più
+     spazio all'elenco sotto. Si attiva solo quando è davvero
+     "attaccato" in alto (classe aggiunta da un IntersectionObserver in
+     classifica-mesi.js), non sempre su mobile: appena si scorre di
+     nuovo su, il testo torna. */
+  .podio-fisso--attaccato .hero-sub,
+  .podio-fisso--attaccato .classifica-titolo {
+    display: none;
+  }
+}
