@@ -208,7 +208,35 @@
       var grid = obj(sc, "grid");
       grid.tickLength = t.name === "lg" ? 8 : 4;
 
-      if (isX) {
+      // Grafici dentro .grafico-tutti-mesi (es. Statistiche Totali):
+      // il contenitore scorre in orizzontale apposta per non dover mai
+      // nascondere un'etichetta. Qui si spegne autoSkip e si scrive in
+      // verticale, così anche col mouse fermo si legge ogni mese.
+      var tuttiIMesi =
+        isX &&
+        chart.canvas &&
+        chart.canvas.closest &&
+        chart.canvas.closest(".grafico-tutti-mesi");
+
+      if (tuttiIMesi) {
+        ticks.autoSkip = false;
+        ticks.maxTicksLimit = undefined;
+        ticks.maxRotation = 90;
+        ticks.minRotation = 90;
+        obj(ticks, "font").size = Math.max(t.font - 2, 9);
+
+        if (ticks.__origCallback === undefined)
+          ticks.__origCallback = ticks.callback || null;
+        var origTM = ticks.__origCallback;
+        ticks.callback = function (value, index, all) {
+          var out = origTM
+            ? origTM.call(this, value, index, all)
+            : this.getLabelForValue
+              ? this.getLabelForValue(value)
+              : value;
+          return shorten(out);
+        };
+      } else if (isX) {
         ticks.maxRotation = t.maxRotation;
         ticks.minRotation = t.minRotation;
         ticks.maxTicksLimit = t.maxTicksX;

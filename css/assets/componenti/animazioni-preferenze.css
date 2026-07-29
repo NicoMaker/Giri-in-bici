@@ -9,6 +9,7 @@
   .hero > *,
   .hero > h1,
   .hero > .immagini_stagione,
+  .hero::before,
   #stampa .container > *,
   #dati > *,
   .season-grid > *,
@@ -36,5 +37,13 @@
 
   .scroll-progress {
     display: none;
+  }
+
+  /* Riflesso che segue il cursore sulle card: spento con le altre
+     animazioni. Il JS in contenuti-animati.js non aggiunge nemmeno
+     l'ascoltatore in questo caso, qui si copre solo il CSS. */
+  .colore::after,
+  .bici-card::after {
+    display: none !important;
   }
 }

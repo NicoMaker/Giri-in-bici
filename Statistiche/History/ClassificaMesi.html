@@ -6,12 +6,12 @@
     <meta name="author" content="Nico Maker" />
     <meta
       name="description"
-      content="Lo storico completo mese per mese di tutti i chilometri percorsi in bicicletta dal 2020."
+      content="La classifica dei dodici mesi in base ai chilometri percorsi in tutti gli anni: qual è il mese in cui hai pedalato di più."
     />
-    <meta property="og:title" content="Giri in Bici | Statistiche totali" />
+    <meta property="og:title" content="Giri in Bici | Classifica dei mesi" />
     <meta
       property="og:description"
-      content="Lo storico completo mese per mese di tutti i chilometri percorsi in bicicletta dal 2020."
+      content="La classifica dei dodici mesi in base ai chilometri percorsi in tutti gli anni: qual è il mese in cui hai pedalato di più."
     />
     <meta property="og:type" content="website" />
     <meta
@@ -20,7 +20,7 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <title>Giri in Bici | Statistiche totali</title>
+    <title>Giri in Bici | Classifica dei mesi</title>
 
     <link rel="icon" href="/img/Statistiche/Logo_statistiche.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,28 +29,24 @@
     <script src="../../js/assets/icone.js" defer></script>
     <script src="../../js/json.js"></script>
     <script src="../../js/utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../../js/chart/chart-responsive.js"></script>
-    <script src="../../js/chart/chart-configs.js"></script>
-    <script src="../../js/chart/chart-renderer.js"></script>
     <script
       src="../../js/Statistiche/History/comune/config-mesi.js"
       defer
     ></script>
     <script
-      src="../../js/Statistiche/History/statistiche-totali/dati.js"
+      src="../../js/Statistiche/History/classifica-mesi/calcoli.js"
       defer
     ></script>
     <script
-      src="../../js/Statistiche/History/statistiche-totali/tabella.js"
+      src="../../js/Statistiche/History/classifica-mesi/stagioni.js"
       defer
     ></script>
     <script
-      src="../../js/Statistiche/History/statistiche-totali/riepilogo.js"
+      src="../../js/Statistiche/History/classifica-mesi/podio.js"
       defer
     ></script>
     <script
-      src="../../js/Statistiche/History/statistiche-totali.js"
+      src="../../js/Statistiche/History/classifica-mesi.js"
       defer
     ></script>
     <script src="../../js/assets/ui/anno.js" defer></script>
@@ -75,9 +71,9 @@
       <nav class="Icons" aria-label="Sezioni del sito">
         <a
           class="colore_apertura"
-          href="../../Statistiche.html"
-          title="Torna alle statistiche"
-          aria-label="Torna alle statistiche"
+          href="Statistiche_Totali.html"
+          title="Torna alle statistiche totali"
+          aria-label="Torna alle statistiche totali"
           ><img src="/img/Icons/freccia.png" alt=""
         /></a>
         <a href="../../Giri.html" title="Home" aria-label="Home"
@@ -129,51 +125,32 @@
 
     <main class="wrap stack">
       <section class="hero">
-        <p class="eyebrow">Storico</p>
-        <h1 class="Titolo">Statistiche totali</h1>
-        <p class="hero-sub">
-          Ogni mese di ogni anno, in fila dal primo giro a oggi.
-        </p>
-      </section>
-
-      <section class="section reveal">
-        <p class="eyebrow">Dettaglio</p>
-        <h2>Mese per mese</h2>
-        <div class="table-wrap"><table id="mesi"></table></div>
-      </section>
-
-      <section class="section reveal">
-        <p class="eyebrow">Andamento</p>
-        <h2>La linea dei chilometri</h2>
-        <p class="hero-sub grafico-nota">
-          Ogni mese ha la sua etichetta: scorri il grafico in orizzontale
-          per vederli tutti.
-        </p>
-        <div class="grafico grafico-tutti-mesi" id="grafico-totale-scorrevole">
-          <div class="grafico-tutti-mesi__scorri">
-            <canvas id="line-chart"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal">
-        <p class="eyebrow">Riepilogo</p>
-        <h2>Totali complessivi</h2>
-        <div id="totale"></div>
-      </section>
-
-      <section class="section reveal">
         <p class="eyebrow">Classifica</p>
-        <h2>In quali mesi pedali di più</h2>
+        <h1 class="Titolo">In quali mesi pedali di più</h1>
         <p class="hero-sub">
-          Tutti i chilometri di ogni mese, sommati anno per anno: scopri
-          il podio.
+          I dodici mesi dell'anno, messi in fila dal più al meno
+          pedalato, sommando tutti gli anni.
         </p>
-        <div class="cta-classifica-wrap">
-          <a class="cta-classifica" href="ClassificaMesi.html">
-            Vedi la classifica dei mesi
-          </a>
-        </div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Podio</p>
+        <h2>I tre mesi migliori</h2>
+        <p class="classifica-titolo" id="classifica-titolo"></p>
+        <div id="podio" class="podio"></div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Classifica completa</p>
+        <h2>Tutti e dodici i mesi</h2>
+        <ol id="classifica" class="classifica-lista"></ol>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Stagioni</p>
+        <h2>Le tre stagioni a confronto</h2>
+        <p class="classifica-titolo" id="classifica-stagioni-titolo"></p>
+        <div id="podio-stagioni" class="podio"></div>
       </section>
     </main>
 

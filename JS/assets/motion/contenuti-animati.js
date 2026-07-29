@@ -243,6 +243,9 @@
     "#grafici",
     "#mesi",
     ".team-grid",
+    "#podio",
+    "#classifica",
+    "#podio-stagioni",
   ];
 
   function scaglionaFigli(contenitore) {
@@ -276,12 +279,36 @@
   }
 
   // ---------------------------------------------------------
-  // 3. Avvio
+  // 3. Riflesso che segue il cursore sulle card principali
+  // ---------------------------------------------------------
+  // Un solo ascoltatore delegato sul documento: funziona anche per le
+  // card create dopo, senza doverle osservare una per una. Sposta solo
+  // due variabili CSS (--mx/--my): il resto lo fa micro-interazioni.css.
+  function seguiCursoreSuCard() {
+    if (motoRidotto) return;
+    document.addEventListener(
+      "pointermove",
+      function (e) {
+        var card = e.target.closest && e.target.closest(".colore, .bici-card");
+        if (!card) return;
+        var rect = card.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty("--mx", x + "%");
+        card.style.setProperty("--my", y + "%");
+      },
+      { passive: true },
+    );
+  }
+
+  // ---------------------------------------------------------
+  // 4. Avvio
   // ---------------------------------------------------------
   function avvia() {
     document.documentElement.classList.add("motion-ready");
     osservaContenuti();
     preparaNumeri(document);
+    seguiCursoreSuCard();
 
     // Rete di sicurezza: se qualcosa arriva tardi (tabelle, card...), lo
     // anima comunque. Si ripassa anche tutto il documento, così i numeri

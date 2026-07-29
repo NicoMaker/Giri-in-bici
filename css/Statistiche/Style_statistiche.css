@@ -12,6 +12,7 @@
 @import url("tabella-mesi.css"); /* Tabella dei mesi */
 @import url("griglia.css"); /* Griglia delle schede anno */
 @import url("riepilogo-stagioni.css"); /* Riepilogo "Totali per stagione" */
+@import url("classifica-mesi.css"); /* Podio e classifica dei mesi più pedalati */
 
 /* Accenti propri della sezione Statistiche (viola).
    Prima stavano in Statistiche/tema.css: ora che il tema è un file

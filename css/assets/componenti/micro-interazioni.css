@@ -115,3 +115,36 @@ tbody tr td {
   transform: scaleX(1);
   transform-origin: left;
 }
+
+/* Riflesso "faretto" che segue il cursore sulle card principali:
+   --mx/--my sono impostate al passaggio del mouse da
+   assets/motion/contenuti-animati.js. Card statiche (senza mouse
+   sopra) restano com'erano: l'opacita' parte da 0. */
+.colore,
+.bici-card {
+  position: relative;
+  --mx: 50%;
+  --my: 50%;
+}
+
+.colore::after,
+.bici-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--a1) 16%, transparent),
+    transparent 72%
+  );
+  transition: opacity 0.35s var(--ease);
+}
+
+.colore:hover::after,
+.bici-card:hover::after {
+  opacity: 1;
+}

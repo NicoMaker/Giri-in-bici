@@ -72,6 +72,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       mesi.length > 0 ? totaleCorse / mesi.length : 0,
     );
 
+    // Larghezza del canvas in base al numero di mesi: cosi' ogni
+    // etichetta ha il suo spazio in verticale, senza sovrapporsi, e il
+    // riquadro scorre in orizzontale invece di comprimerle o saltarle.
+    const scorriEl = document.querySelector(".grafico-tutti-mesi__scorri");
+    if (scorriEl) {
+      const larghezzaMinima = scorriEl.parentElement
+        ? scorriEl.parentElement.clientWidth
+        : 0;
+      const larghezza = Math.max(mesi.length * 30, larghezzaMinima);
+      scorriEl.style.setProperty("--larghezza-mesi", larghezza + "px");
+    }
+
     await window.chartRenderer.createChart("graficoTotale", {
       labels: mesi,
       values: chilometri,
