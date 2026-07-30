@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Nico Maker" />
+    <meta
+      name="description"
+      content="Il diario dei nostri giri in bicicletta in Friuli Venezia Giulia: percorsi, chilometri e statistiche stagione per stagione dal 2020."
+    />
+    <meta
+      property="og:title"
+      content="Giri in Bici | Avventure in bicicletta in Friuli Venezia Giulia"
+    />
+    <meta
+      property="og:description"
+      content="Il diario dei nostri giri in bicicletta in Friuli Venezia Giulia: percorsi, chilometri e statistiche stagione per stagione dal 2020."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://giri-in-bici.netlify.app/img/logo.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <title>
+      Giri in Bici | Avventure in bicicletta in Friuli Venezia Giulia
+    </title>
+
+    <link rel="icon" href="/img/logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="css/giri.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <script src="js/json.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/assets/icone.js" defer></script>
+    <script src="js/Menu/voci.js" defer></script>
+    <script src="js/Menu/ricerca.js" defer></script>
+    <script src="js/Menu.js" defer></script>
+    <script src="js/Hamburger.js" defer></script>
+    <script src="js/Calcolo_km_totali.js" defer></script>
+    <script src="js/assets/ui/anno.js" defer></script>
+    <script src="js/assets/ui/rivelazione.js" defer></script>
+    <script src="js/assets/ui/menu-tastiera.js" defer></script>
+    <script src="js/assets/ui/navigazione.js" defer></script>
+    <script src="js/assets/ui/lightbox.js" defer></script>
+    <script src="js/assets/motion/barra-lettura.js" defer></script>
+    <script src="js/assets/motion/torna-su.js" defer></script>
+    <script src="js/assets/motion/contenuti-animati.js" defer></script>
+  </head>
+
+  <body class="con-hamburger">
+    <header class="site-bar">
+      <a class="brand" href="Giri.html">
+        <img class="Bandiera-FVG" src="/img/logo.jpg" alt="Giri in Bici" />
+        <span class="brand-text"
+          >Giri in Bici<small>Friuli Venezia Giulia</small></span
+        >
+      </a>
+
+      <nav class="Icons" aria-label="Sezioni del sito">
+        <a href="Giri.html" title="Home" aria-label="Home"
+          ><img src="/img/Icons/home.png" alt=""
+        /></a>
+        <a href="Primavera.html" title="Primavera" aria-label="Primavera"
+          ><img src="/img/Icons/primavera.png" alt=""
+        /></a>
+        <a href="Estate.html" title="Estate" aria-label="Estate"
+          ><img src="/img/Icons/estate.png" alt=""
+        /></a>
+        <a
+          href="Autunno_Inverno.html"
+          title="Autunno e Inverno"
+          aria-label="Autunno e Inverno"
+          ><img src="/img/Icons/inverno.png" alt=""
+        /></a>
+        <a href="Statistiche.html" title="Statistiche" aria-label="Statistiche"
+          ><img src="/img/Icons/Statistiche.png" alt=""
+        /></a>
+        <a
+          href="Bici/Bici.html"
+          title="Le nostre bici"
+          aria-label="Le nostre bici"
+          ><img src="/img/Icons/bici.png" alt=""
+        /></a>
+        <a
+          href="About_US/About_us.html"
+          title="Informazioni"
+          aria-label="Informazioni"
+          ><img src="/img/Icons/informazioni.png" alt=""
+        /></a>
+        <a href="index.html" title="Accesso" aria-label="Accesso"
+          ><img src="/img/Icons/login.png" alt=""
+        /></a>
+      </nav>
+      <a
+        class="graficostagioni"
+        href="Statistiche/stagioni.html"
+        title="Confronto tra le stagioni"
+      >
+        <img class="Stagioni" src="/img/assets/stagioni.svg" alt="" />
+        <span class="graficostagioni-testo">Stagioni</span>
+      </a>
+    </header>
+
+    <main class="wrap stack">
+      <section class="hero">
+        <p class="eyebrow">Friuli Venezia Giulia &middot; dal 2020</p>
+        <h1 class="colore_sfondo_italia">
+          <img src="/img/Icons/bici.png" alt="" />
+          Giri in Bici
+          <img src="/img/Icons/bici.png" alt="" />
+        </h1>
+        <p class="hero-sub">
+          Ogni uscita, ogni salita e ogni chilometro percorso fra Friuli,
+          Veneto, Austria
+          <img
+            src="/img/Icons/Austria.png"
+            alt="Austria"
+            style="
+              height: 1.2em;
+              vertical-align: -0.15em;
+              margin: 0 0.15em;
+              display: inline-block;
+            "
+          />
+          e Slovenia
+          <img
+            src="/img/Icons/Slovenia.png"
+            alt="Slovenia"
+            style="
+              height: 1.2em;
+              vertical-align: -0.15em;
+              margin: 0 0.15em;
+              display: inline-block;
+            "
+          />. Scegli una stagione e ripercorri il diario.
+        </p>
+
+        <div class="hero-logo">
+          <img class="immagine" src="/img/logo.jpg" alt="Logo Giri in Bici" />
+        </div>
+        <p>
+          <a
+            class="colore_apertura"
+            href="Giri.html"
+            target="_blank"
+            rel="noopener"
+          >
+            Apri il sito in una nuova scheda
+          </a>
+        </p>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Il garage</p>
+        <h2>Le nostre bici</h2>
+        <button
+          class="bici"
+          type="button"
+          onclick="location.href = 'Bici/Bici.html'"
+        >
+          <img
+            class="animazione-bici"
+            src="/img/AnimazioneBici.gif"
+            alt="Animazione di una bicicletta"
+          />
+        </button>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Il diario</p>
+        <h2>Scegli la stagione</h2>
+        <div class="season-grid">
+          <div class="primavera">
+            <a class="contornostagionesx" href="Primavera.html">
+              <img
+                class="immaginestagionesx"
+                src="/img/Icons/primavera.png"
+                alt=""
+              />
+              <p>Primavera</p>
+            </a>
+          </div>
+
+          <div class="estate">
+            <a class="contornostagionedx" href="Estate.html">
+              <img
+                class="immaginestagionedx"
+                src="/img/Icons/estate.png"
+                alt=""
+              />
+              <p>Estate</p>
+            </a>
+          </div>
+
+          <div class="autunno_inverno">
+            <a class="contornostagionesx" href="Autunno_Inverno.html">
+              <img
+                class="immaginestagionesx"
+                src="/img/Icons/inverno.png"
+                alt=""
+              />
+              <p>Autunno - Inverno</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Chi pedala</p>
+        <h2>Noi due</h2>
+        <div class="container_stagione">
+          <a href="About_US/About_us.html">
+            <img
+              class="immmaginejnrobot"
+              src="/img/JN.jpg"
+              alt="Il team di Giri in Bici"
+            />
+          </a>
+          <a href="Bici/Bici.html">
+            <img
+              class="immmaginejnrobot"
+              src="/img/Robot.jpg"
+              alt="Le nostre biciclette"
+            />
+          </a>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">I numeri</p>
+        <h2>Tutti i chilometri</h2>
+        <a
+          class="km-link"
+          href="Statistiche.html"
+          aria-label="Vai alle statistiche complete"
+        >
+          <div id="km"></div>
+        </a>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Scrivici</p>
+        <h2>Contatti</h2>
+        <div class="Container">
+          <button
+            class="Icona"
+            type="button"
+            title="Scrivi una mail"
+            aria-label="Scrivi una mail"
+            onclick="contactEmail('Nicola.marano02@gmail.com', 'Giri in Bici')"
+          >
+            <img class="Immagineicona" src="/img/Icons/Gmail.png" alt="" />
+          </button>
+
+          <button
+            class="Icona"
+            type="button"
+            title="Chiama"
+            aria-label="Chiama"
+            onclick="contactell()"
+          >
+            <img class="Immagineicona" src="/img/Icons/Telefono.png" alt="" />
+          </button>
+
+          <button
+            class="Icona"
+            type="button"
+            title="Scrivi su WhatsApp"
+            aria-label="Scrivi su WhatsApp"
+            onclick="openWhatsAppChat()"
+          >
+            <img class="Immagineicona" src="/img/Icons/Whatsapp.png" alt="" />
+          </button>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="centra-bottone">
+          <a
+            class="fvg-link"
+            href="https://www.regione.fvg.it/rafvg/cms/RAFVG/"
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              class="fvg-badge"
+              src="/img/Bandiera FVG.jpg"
+              alt="Regione Friuli Venezia Giulia"
+            />
+            <span>La nostra regione</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap">
+        <p>
+          &copy; 2020&ndash;<span data-anno></span> Giri in Bici &middot; Nico
+          Maker &middot; Friuli Venezia Giulia
+        </p>
+        <nav class="foot-links" aria-label="Collegamenti utili">
+          <a href="Giri.html">Home</a>
+          <a href="Statistiche.html">Statistiche</a>
+          <a href="Bici/Bici.html">Le nostre bici</a>
+          <a href="About_US/About_us.html">Informazioni</a>
+          <a href="QR_CODE/Logo.html">QR Code</a>
+          <a
+            href="https://github.com/NicoMaker/Giri-in-bici"
+            target="_blank"
+            rel="noopener"
+            >GitHub</a
+          >
+        </nav>
+      </div>
+    </footer>
+
+    <!-- Menu laterale -->
+    <nav class="menu" aria-label="Menu del sito">
+      <h1>Vai a</h1>
+      <input
+        id="menuSearch"
+        type="search"
+        placeholder="Cerca nel menu&hellip;"
+        aria-label="Cerca nel menu"
+      />
+      <p class="no-results" id="menuNoResults" style="display: none">
+        Nessun elemento trovato
+      </p>
+      <ul id="menuList"></ul>
+    </nav>
+
+    <button class="hamburger" type="button" aria-label="Apri il menu">
+      <i class="MenuIcon"><span data-icona="menu"></span></i>
+      <i class="CloseIcon"><span data-icona="chiudi"></span></i>
+    </button>
+  </body>
+</html>

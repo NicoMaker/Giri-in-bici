@@ -1,0 +1,32 @@
+{
+  "year": "2021",
+  "numberOfRaces": 40,
+  "data": {
+    "Gennaio": 152,
+    "Febbraio": 315,
+    "Marzo": 302,
+    "Aprile": 323,
+    "Maggio": 180,
+    "Giugno": 270,
+    "Luglio": 401,
+    "Agosto": 174,
+    "Settembre": 75,
+    "Ottobre": 216,
+    "Novembre": 66,
+    "Dicembre": 140
+  },
+  "colors": [
+    "darkblue",
+    "blue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
+  ]
+}

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Nico Maker" />
+    <meta
+      name="description"
+      content="Accedi a Giri in Bici per esplorare i percorsi in bicicletta in Friuli Venezia Giulia, divisi per stagione."
+    />
+    <meta
+      property="og:title"
+      content="Giri in Bici | Accedi per esplorare le avventure in Friuli"
+    />
+    <meta
+      property="og:description"
+      content="Accedi a Giri in Bici per esplorare i percorsi in bicicletta in Friuli Venezia Giulia, divisi per stagione."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://giri-in-bici.netlify.app/img/logo.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <title>Giri in Bici | Accedi per esplorare le avventure in Friuli</title>
+
+    <link rel="icon" href="/img/logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="css/Login/StyleLogin.css" />
+    <link rel="canonical" href="https://giri-in-bici.netlify.app/" />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="js/json.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/Login/elementi.js" defer></script>
+    <script src="js/Login/dati.js" defer></script>
+    <script src="js/Login/cookie.js" defer></script>
+    <script src="js/Login/campi.js" defer></script>
+    <script src="js/Login/notifiche.js" defer></script>
+    <script src="js/Login/accesso.js" defer></script>
+    <script src="js/Login/sfondo.js" defer></script>
+    <script src="js/Login/ripple.js" defer></script>
+    <script src="js/Login/particelle.js" defer></script>
+    <script src="js/Login/ritorno-indietro.js" defer></script>
+    <script src="js/Login/scriptLogin.js" defer></script>
+  </head>
+
+  <body>
+    <div class="particles-container" id="particles-js"></div>
+
+    <main class="container" id="container">
+      <div class="login-card">
+        <span class="card-decoration"></span>
+        <span class="card-decoration-2"></span>
+
+        <div class="logo-container">
+          <div class="logo-circle">
+            <img id="logo" src="/img/logo.jpg" alt="Logo Giri in Bici" />
+          </div>
+        </div>
+
+        <h1>Giri in Bici</h1>
+        <p class="subtitle">Accedi per esplorare le avventure</p>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <div class="input-icon">
+              <i class="fas fa-user"></i>
+              <input
+                id="username"
+                type="text"
+                placeholder="Nome utente"
+                autocomplete="new-username"
+                required
+              />
+              <span class="input-focus-effect"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-icon">
+              <i class="fas fa-lock"></i>
+              <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                autocomplete="new-password"
+                required
+              />
+              <i
+                class="fas fa-eye toggle-password"
+                id="togglePassword"
+                role="button"
+                tabindex="0"
+                aria-label="Mostra o nascondi la password"
+              ></i>
+              <span class="input-focus-effect"></span>
+            </div>
+          </div>
+
+          <button class="login-btn" type="submit">
+            <span class="btn-text">Accedi</span>
+            <i class="fas fa-arrow-right"></i>
+            <span class="btn-ripple"></span>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          <p>
+            I migliori percorsi in bicicletta del Friuli Venezia Giulia e
+            dintorni
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <div class="cookie-banner" id="cookie-banner">
+      <div class="cookie-content">
+        <i class="fas fa-cookie-bite cookie-icon"></i>
+        <p>
+          Questo sito usa i cookie per migliorare la tua esperienza.
+          <a
+            href="https://www.hotelcorso.com/it/cookies"
+            target="_blank"
+            rel="noopener"
+            >Scopri di pi&ugrave;</a
+          >
+        </p>
+        <button id="accept-cookies" type="button">Accetta</button>
+      </div>
+    </div>
+
+    <button class="revoke-button" id="revoke-cookies" type="button">
+      <i class="fas fa-undo-alt"></i>
+      Revoca i cookie
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  </body>
+</html>

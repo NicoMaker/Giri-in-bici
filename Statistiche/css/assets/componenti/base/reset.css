@@ -1,0 +1,88 @@
+/* ============================================================
+   Azzeramento degli stili del browser e impostazioni di base
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+/* ---------- 2. Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg-1);
+  background-image:
+    radial-gradient(
+      1100px 620px at 12% -8%,
+      color-mix(in srgb, var(--a1) 22%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 560px at 92% 0%,
+      color-mix(in srgb, var(--a2) 20%, transparent),
+      transparent 58%
+    ),
+    linear-gradient(180deg, var(--bg-3), var(--bg-2));
+  background-attachment: fixed;
+  overflow-x: clip;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--a1);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+a:hover {
+  color: var(--a2);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--a1);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--a1);
+  color: #fff;
+}
+
+/* Scrollbar discreta */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: var(--r-full);
+}

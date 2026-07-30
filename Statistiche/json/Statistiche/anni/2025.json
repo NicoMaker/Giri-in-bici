@@ -1,0 +1,32 @@
+{
+  "year": "2025",
+  "numberOfRaces": 40,
+  "data": {
+    "Gennaio": 400,
+    "Febbraio": 309,
+    "Marzo": 290,
+    "Aprile": 282,
+    "Maggio": 311,
+    "Giugno": 280,
+    "Luglio": 116,
+    "Agosto": 85,
+    "Settembre": 390,
+    "Ottobre": 414,
+    "Novembre": 179,
+    "Dicembre": 110
+  },
+  "colors": [
+    "darkblue",
+    "blue",
+    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
+    "red",
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
+  ]
+}

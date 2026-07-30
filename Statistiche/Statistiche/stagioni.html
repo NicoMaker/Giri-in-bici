@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Nico Maker" />
+    <meta
+      name="description"
+      content="Confronto fra primavera, estate e autunno-inverno: chilometri, corse e medie di ogni stagione."
+    />
+    <meta
+      property="og:title"
+      content="Giri in Bici | Le stagioni a confronto"
+    />
+    <meta
+      property="og:description"
+      content="Confronto fra primavera, estate e autunno-inverno: chilometri, corse e medie di ogni stagione."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://giri-in-bici.netlify.app/img/logo.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <title>Giri in Bici | Le stagioni a confronto</title>
+
+    <link rel="icon" href="/img/assets/stagioni.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="../css/giri.css" />
+    <script src="../js/assets/icone.js" defer></script>
+    <script src="../js/json.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/chart/chart-responsive.js"></script>
+    <script src="../js/chart/chart-configs.js"></script>
+    <script src="../js/chart/chart-renderer.js"></script>
+    <script src="../js/Statistiche/stagioni/dati.js" defer></script>
+    <script src="../js/Statistiche/stagioni/schede.js" defer></script>
+    <script src="../js/Statistiche/stagioni/grafici.js" defer></script>
+    <script src="../js/Statistiche/stagioni.js" defer></script>
+    <script src="../js/assets/ui/anno.js" defer></script>
+    <script src="../js/assets/ui/rivelazione.js" defer></script>
+    <script src="../js/assets/ui/menu-tastiera.js" defer></script>
+    <script src="../js/assets/ui/navigazione.js" defer></script>
+    <script src="../js/assets/ui/lightbox.js" defer></script>
+    <script src="../js/assets/motion/barra-lettura.js" defer></script>
+    <script src="../js/assets/motion/torna-su.js" defer></script>
+    <script src="../js/assets/motion/contenuti-animati.js" defer></script>
+  </head>
+
+  <body>
+    <header class="site-bar">
+      <a class="brand" href="../Giri.html">
+        <img class="Bandiera-FVG" src="/img/logo.jpg" alt="Giri in Bici" />
+        <span class="brand-text"
+          >Giri in Bici<small>Friuli Venezia Giulia</small></span
+        >
+      </a>
+
+      <nav class="Icons" aria-label="Sezioni del sito">
+        <a
+          class="colore_apertura"
+          href="../Statistiche.html"
+          title="Torna alle statistiche"
+          aria-label="Torna alle statistiche"
+          ><img src="/img/Icons/freccia.png" alt=""
+        /></a>
+        <a href="../Giri.html" title="Home" aria-label="Home"
+          ><img src="/img/Icons/home.png" alt=""
+        /></a>
+        <a href="../Primavera.html" title="Primavera" aria-label="Primavera"
+          ><img src="/img/Icons/primavera.png" alt=""
+        /></a>
+        <a href="../Estate.html" title="Estate" aria-label="Estate"
+          ><img src="/img/Icons/estate.png" alt=""
+        /></a>
+        <a
+          href="../Autunno_Inverno.html"
+          title="Autunno e Inverno"
+          aria-label="Autunno e Inverno"
+          ><img src="/img/Icons/inverno.png" alt=""
+        /></a>
+        <a
+          href="../Statistiche.html"
+          title="Statistiche"
+          aria-label="Statistiche"
+          ><img src="/img/Icons/Statistiche.png" alt=""
+        /></a>
+        <a
+          href="../Bici/Bici.html"
+          title="Le nostre bici"
+          aria-label="Le nostre bici"
+          ><img src="/img/Icons/bici.png" alt=""
+        /></a>
+        <a
+          href="../About_US/About_us.html"
+          title="Informazioni"
+          aria-label="Informazioni"
+          ><img src="/img/Icons/informazioni.png" alt=""
+        /></a>
+        <a href="../index.html" title="Accesso" aria-label="Accesso"
+          ><img src="/img/Icons/login.png" alt=""
+        /></a>
+      </nav>
+    </header>
+
+    <main class="wrap stack">
+      <section class="hero">
+        <p class="eyebrow">Confronto</p>
+        <h1 class="Titolo">Le stagioni a confronto</h1>
+        <p class="hero-sub">
+          Quanto pesa ogni stagione sul totale dei chilometri percorsi.
+        </p>
+        <img
+          class="stagioni-hero"
+          src="/img/assets/stagioni.svg"
+          alt="Le tre stagioni"
+        />
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Le tre stagioni</p>
+        <h2>Primavera, Estate e Autunno-Inverno</h2>
+        <div id="dati"></div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Andamento</p>
+        <h2>Chilometri per stagione</h2>
+        <div class="grafico">
+          <canvas class="coloregrafico" id="line-chart"></canvas>
+        </div>
+        <div class="grafico">
+          <canvas class="coloregrafico" id="doughnut-chart"></canvas>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Riepilogo</p>
+        <h2>Totali per stagione</h2>
+        <div id="totale"></div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Classifica</p>
+        <h2>Ogni periodo a confronto</h2>
+        <p class="hero-sub">
+          Non solo stagione contro stagione: ogni periodo, uno per uno, per
+          esempio Estate 2020 contro Autunno &middot; Inverno 2020-2021.
+        </p>
+        <div class="cta-classifica-wrap">
+          <a
+            class="cta-classifica"
+            href="History/ClassificaMesi.html?vista=stagioni"
+          >
+            Vedi la classifica dei mesi e delle stagioni
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap">
+        <p>
+          &copy; 2020&ndash;<span data-anno></span> Giri in Bici &middot; Nico
+          Maker &middot; Friuli Venezia Giulia
+        </p>
+        <nav class="foot-links" aria-label="Collegamenti utili">
+          <a href="../Giri.html">Home</a>
+          <a href="../Statistiche.html">Statistiche</a>
+          <a href="../Bici/Bici.html">Le nostre bici</a>
+          <a href="../About_US/About_us.html">Informazioni</a>
+          <a href="../QR_CODE/Logo.html">QR Code</a>
+          <a
+            href="https://github.com/NicoMaker/Giri-in-bici"
+            target="_blank"
+            rel="noopener"
+            >GitHub</a
+          >
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
