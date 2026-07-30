@@ -30,6 +30,29 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
+  // Come sopra, ma ogni gradino è un link che porta alla pagina di
+  // quell'anno (Statistiche/Anni/2020.html ecc.): usato solo nella
+  // scheda "Anni", dove ogni voce è già un anno intero e selezionarlo
+  // ha un posto preciso dove andare.
+  CM.creaPodioAnni = function (righe) {
+    return righe
+      .slice(0, 3)
+      .map(
+        (r, i) => `
+      <a
+        class="podio__gradino podio__gradino--${i + 1}"
+        href="../Anni/${r.anno}.html"
+        aria-label="Vai alle statistiche del ${r.nome}"
+      >
+        <span class="podio__medaglia" aria-hidden="true">${MEDAGLIE[i]}</span>
+        <span class="podio__mese">${r.nome}</span>
+        <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
+        <span class="podio__dettaglio">${formatNumber(r.percentuale)} % del totale</span>
+      </a>`,
+      )
+      .join("");
+  };
+
   // Solo i tre gradini: vanno dentro #podio, che nell'HTML è già la
   // griglia (classe .podio), così ogni gradino resta figlio diretto e
   // l'entrata scaglionata di contenuti-animati.js li anima uno a uno.
@@ -205,22 +228,29 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   };
 
   // ---------- Anni interi a confronto (non mesi: l'anno intero) ----------
-  // Stessa riga di classifica-riga già usata per periodi e record mesi:
-  // qui il "nome" è l'anno stesso (es. "2024").
+  // Stessa riga di classifica-riga già usata per periodi e record mesi,
+  // ma qui ogni voce è un anno intero (es. "2024") e ha un posto preciso
+  // dove andare: l'intera riga è un link a quella pagina-anno.
   CM.creaClassificaAnni = function (righe) {
     const massimo = righe.length ? righe[0].km : 0;
     return righe
       .map((r, i) => {
         const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
         return `
-      <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
-        <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
-        <span class="classifica-riga__mese">${r.nome}</span>
-        <span class="classifica-riga__barra"
-          ><span style="--percentuale:${quota}%"></span
-        ></span>
-        <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
-        <span class="classifica-riga__percentuale">${formatNumber(r.percentuale)} %</span>
+      <li class="classifica-riga classifica-riga--cliccabile${i < 3 ? " classifica-riga--podio" : ""}">
+        <a
+          class="classifica-riga__link"
+          href="../Anni/${r.anno}.html"
+          aria-label="Vai alle statistiche del ${r.nome}"
+        >
+          <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
+          <span class="classifica-riga__mese">${r.nome}</span>
+          <span class="classifica-riga__barra"
+            ><span style="--percentuale:${quota}%"></span
+          ></span>
+          <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
+          <span class="classifica-riga__percentuale">${formatNumber(r.percentuale)} %</span>
+        </a>
       </li>`;
       })
       .join("");

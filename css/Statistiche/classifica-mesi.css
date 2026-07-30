@@ -248,6 +248,38 @@
   }
 }
 
+/* ---------- Righe e gradini cliccabili (scheda "Anni") ---------- */
+/* .classifica-riga usa display:grid con gli <span> come figli diretti:
+   l'<a> che li avvolge deve restare "trasparente" alla griglia (display:
+   contents), altrimenti il layout a colonne si romperebbe. */
+.classifica-riga__link {
+  display: contents;
+  color: inherit;
+  text-decoration: none;
+}
+
+.classifica-riga--cliccabile {
+  cursor: pointer;
+}
+
+.classifica-riga__link:focus-visible {
+  outline: 2px solid var(--a1);
+  outline-offset: 2px;
+  border-radius: var(--r-md);
+}
+
+/* .podio__gradino è già un contenitore flex: qui basta togliere lo
+   stile di default del link, il resto arriva gratis dalle regole sopra. */
+a.podio__gradino {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.podio__gradino:focus-visible {
+  outline: 2px solid var(--a1);
+  outline-offset: 3px;
+}
+
 /* ---------- Link reso come bottone, dentro un paragrafo, stesso stile di <a> ---------- */
 /* Serve per azioni che restano nella pagina (cambiano scheda) invece di
    navigare altrove: visivamente identico a un link, ma senza ricaricare. */

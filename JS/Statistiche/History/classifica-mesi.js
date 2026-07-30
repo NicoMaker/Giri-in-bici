@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const { righe: righeAnni, totale: totaleAnniKm } = CM.calcolaAnni(allData);
     if (titoloAnniEl) titoloAnniEl.innerHTML = CM.creaTitoloAnni(righeAnni);
-    if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioSemplice(righeAnni);
+    if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioAnni(righeAnni);
     if (listaAnniEl)
       listaAnniEl.innerHTML =
         CM.creaClassificaAnni(righeAnni) +
