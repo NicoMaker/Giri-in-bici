@@ -36,6 +36,7 @@ window.StatGenerali = window.StatGenerali || {};
                 <p class="misuracolore">Percentuale periodo ${avgValues[startIndex + index]} %</p>
                 <p class="misuracolore">Totale corse ${formatItalianNumber(entry.numberOfRaces)}</p>
                 <p class="misuracolore">km medi per corsa ${formatNumber(entry.km / entry.numberOfRaces)}</p>
+                <span class="colore__vai-a">Vai alle statistiche <span class="freccia" aria-hidden="true">→</span></span>
               </a>
             </div>
           `,

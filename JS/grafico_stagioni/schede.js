@@ -19,6 +19,7 @@ const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
             <p class="misuracolore">Totale corse ${formatItalianNumber(data[label].numberOfRaces)}</p>
             <p class="misuracolore">km medi per corsa ${formatNumber(data[label].totalDistance / data[label].numberOfRaces)}</p>
           </p>
+          <span class="colore__vai-a">Vai al periodo <span class="freccia" aria-hidden="true">→</span></span>
         </a>
       </div>
     `,
