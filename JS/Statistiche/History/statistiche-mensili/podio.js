@@ -58,6 +58,11 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
       .join("");
   };
 
+  // La lista sotto al podio non aveva ne' "anni pedalati" ne' "media":
+  // il podio qui sopra li mostra gia' per i primi tre, qui in fondo
+  // mancavano per tutti gli altri nove mesi. Stessa dicitura del
+  // podio, cosi' si vede per tutti e 12, qualunque metrica sia scelta
+  // per ordinare (km totali, anni pedalati o media).
   GTM.creaClassifica = function (righeOrdinate, metrica) {
     const massimo = righeOrdinate.length ? righeOrdinate[0][metrica] || 0 : 0;
     return righeOrdinate
@@ -67,7 +72,9 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
         return `
       <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
-        <span class="classifica-riga__mese">${r.mese}</span>
+        <span class="classifica-riga__mese"
+          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.mesiPercorsi)} anni pedalati &middot; media ${formatItalianNumber(r.kmMedio, true)} km</small></span
+        >
         <span class="classifica-riga__barra"
           ><span style="--percentuale:${quota}%"></span
         ></span>

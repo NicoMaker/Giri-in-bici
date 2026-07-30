@@ -77,6 +77,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
   // Solo le righe <li>: vanno dentro #classifica, che nell'HTML è già
   // la lista (<ol class="classifica-lista">), stesso motivo di sopra.
+  // La "media" (km medi negli anni in cui quel mese è stato pedalato)
+  // era già nel podio dei primi tre, qui sotto in fondo alla lista
+  // completa mancava: stessa dicitura, cosi' si vede per tutti e 12.
   CM.creaClassifica = function (righe) {
     const massimo = righe.length ? righe[0].km : 0;
     return righe
@@ -86,7 +89,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
         <span class="classifica-riga__mese"
-          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.occorrenze)} anni pedalati</small></span
+          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.occorrenze)} anni pedalati &middot; media ${formatItalianNumber(r.kmMedi, true)} km</small></span
         >
         <span class="classifica-riga__barra"
           ><span style="--percentuale:${quota}%"></span
