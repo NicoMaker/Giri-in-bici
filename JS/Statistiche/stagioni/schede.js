@@ -17,6 +17,11 @@
 // MODIFICA 2026-07-24: aggiunto setTimeout per forzare il layout
 // a griglia 3 colonne via JS, come fallback per garantire
 // che le tre card siano sempre in riga.
+//
+// MODIFICA 2026-07-30: il bordo della scheda è ora gestito
+// esclusivamente via CSS (senza stili inline). Per abbinarlo
+// al colore del titolo, definisci nel tuo CSS il bordo per
+// ogni classe di stagione (es. .primavera { border-color: ...; }).
 // ============================================================
 
 window.Stagioni = window.Stagioni || {};
@@ -62,7 +67,7 @@ window.Stagioni = window.Stagioni || {};
         <p class="misuracolore">km medi per corsa ${formatNumber(avgKmPerRace)}</p>
         <p class="misuracolore">
         <br>
-        <span class="colore__vai-a">Vai al periodo <span class="freccia" aria-hidden="true">→</span></span>
+        <span class="contornostagione">Vai al periodo <span class="freccia" aria-hidden="true">→</span></span>
         </p>
       </a>
     </div>`;
