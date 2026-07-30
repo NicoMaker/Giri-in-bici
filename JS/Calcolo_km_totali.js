@@ -1,89 +1,80 @@
 // Calcolo_km_totali.js
 // Dipendenze: JS/utils.js (caricato prima in HTML)
 
-const processPeriodData = (periodData) => {
-  if (Array.isArray(periodData)) {
-    const kmValues = periodData
-      .map((entry) => entry.distance)
-      .filter((km) => typeof km === "number");
-    return { kmValues, corse: periodData.length };
-  } else {
-    console.error("Formato JSON non valido: il dato non è un array.");
-    return { kmValues: [], corse: 0 };
-  }
-};
-
-const processSeasons = (data) => {
-  if (!data.seasons || !Array.isArray(data.seasons)) {
-    console.error("Dati stagionali (seasons) non trovati o non validi.");
-    return;
+// Processa i dati da Storico.json e dai file annuali
+const processHistoricalData = (data) => {
+  if (!data.anni || typeof data.anni !== 'object') {
+    console.error("Dati anni non trovati o non validi.");
+    return null;
   }
 
-  const fetchPromises = data.seasons.flatMap((season) =>
-    Object.values(season.subPeriods || {}).map((url) =>
-      fetchJSON(url)
-        .then((periodData) => {
-          const { kmValues, corse } = processPeriodData(periodData);
-          return { kmValues, corse, periodi: 1 };
-        })
-        .catch((error) => {
-          console.error(`Errore nel fetch di un periodo: ${url} - ${error}`);
+  const yearUrls = Object.values(data.anni);
+  const fetchPromises = yearUrls.map(url =>
+    fetchJSON(url)
+      .then(yearData => {
+        if (!yearData || typeof yearData !== 'object') {
+          console.error(`Dati anno non validi per ${url}`);
           return null;
-        }),
-    ),
+        }
+        const monthEntries = Object.entries(yearData.data || {});
+        const kmValues = monthEntries
+          .map(([month, km]) => km)
+          .filter(km => typeof km === 'number' && km > 0);
+        const totalKm = kmValues.reduce((sum, km) => sum + km, 0);
+        const months = monthEntries.length; // tutti i mesi presenti (anche con 0)
+        const corse = typeof yearData.numberOfRaces === 'number' ? yearData.numberOfRaces : 0;
+        return { totalKm, months, corse, year: yearData.year };
+      })
+      .catch(error => {
+        console.error(`Errore nel fetch di ${url}: ${error}`);
+        return null;
+      })
   );
 
-  Promise.all(fetchPromises)
-    .then((results) => {
-      const validResults = results.filter((r) => r !== null);
-      const allKmValues = validResults.flatMap((r) => r.kmValues);
-      const totaleCorse = validResults.reduce((acc, r) => acc + r.corse, 0);
-      const totalePeriodi = validResults.reduce((acc, r) => acc + r.periodi, 0);
-
-      const totalekm = allKmValues.reduce((total, km) => total + km, 0);
-      const mediakm =
-        totaleCorse > 0 ? formatNumber(totalekm / totaleCorse) : "0";
-      const avgPeriod =
-        totalePeriodi > 0 ? formatNumber(totalekm / totalePeriodi) : "N/A";
-
-      stampaDati(totalekm, mediakm, avgPeriod, totaleCorse, totalePeriodi);
-    })
-    .catch((error) =>
-      console.error(`Errore generale nel Promise.all dei JSON: ${error}`),
-    );
+  return Promise.all(fetchPromises)
+    .then(results => {
+      const validResults = results.filter(r => r !== null);
+      const totalKmAll = validResults.reduce((sum, r) => sum + r.totalKm, 0);
+      const totalMonthsAll = validResults.reduce((sum, r) => sum + r.months, 0);
+      const totalRacesAll = validResults.reduce((sum, r) => sum + r.corse, 0);
+      const totalYears = validResults.length;
+      return { totalKm: totalKmAll, totalMonths: totalMonthsAll, totalRaces: totalRacesAll, totalYears };
+    });
 };
 
-const stampaDati = (
-  totalekm,
-  mediakm,
-  avgPeriod,
-  totaleCorse,
-  totalePeriodi,
-) => {
-  const mediaCorsePerPeriodo =
-    totalePeriodi > 0 ? formatNumber(totaleCorse / totalePeriodi) : "N/A";
-  const mediaCorsePerStagione =
-    totaleCorse > 0 ? formatNumber(totaleCorse / 3) : "N/A";
+// Stampa i dati nel div #km
+const stampaDati = (totalKm, totalMonths, totalRaces, totalYears) => {
+  const avgKmPerRace = totalRaces > 0 ? formatNumber(totalKm / totalRaces) : "0";
+  const avgKmPerMonth = totalMonths > 0 ? formatNumber(totalKm / totalMonths) : "N/A";
+  const avgRacesPerMonth = totalMonths > 0 ? formatNumber(totalRaces / totalMonths) : "N/A";
+  const avgRacesPerYear = totalYears > 0 ? formatNumber(totalRaces / totalYears) : "N/A";
+  const avgKmPerYear = totalYears > 0 ? formatNumber(totalKm / totalYears) : "N/A";
 
-  const formattedTotaleKm = formatItalianNumber(totalekm);
-  const formattedTotaleCorse = formatItalianNumber(totaleCorse);
+  const formattedTotalKm = formatItalianNumber(totalKm);
+  const formattedTotalRaces = formatItalianNumber(totalRaces);
 
   document.getElementById("km").innerHTML = `
     <div class="colore">
-      <p class="misuracolore">Totale km ${formattedTotaleKm} <img src="/img/Icons/traguardo.png" alt="Icona traguardo"></p>
-      <p class="misuracolore">km medi per giro ${mediakm}</p>
-      <p class="misuracolore">Media km per Periodo ${avgPeriod}</p>
-      <p class="misuracolore">Totale corse ${formattedTotaleCorse}</p>
-      <p class="misuracolore">Media corse per periodo ${mediaCorsePerPeriodo}</p>
-      <p class="misuracolore">Media corse per Stagione ${mediaCorsePerStagione}</p>
-      <p class="misuracolore">Totale periodi ${formatItalianNumber(totalePeriodi)}</p>
+      <p class="misuracolore">Totale km ${formattedTotalKm} <img src="/img/Icons/traguardo.png" alt="Icona traguardo"></p>
+      <p class="misuracolore">km medi per giro ${avgKmPerRace}</p>
+      <p class="misuracolore">Media km per mese ${avgKmPerMonth}</p>
+      <p class="misuracolore">km medi per anno ${avgKmPerYear}</p>
+      <p class="misuracolore">Totale corse ${formattedTotalRaces}</p>
+      <p class="misuracolore">Corse medie per mese ${avgRacesPerMonth}</p>
+      <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p>
+      <p class="misuracolore">Totale anni di corsa ${formatItalianNumber(totalYears)}</p>
+      <p class="misuracolore">Totale mesi di corsa ${formatItalianNumber(totalMonths)}</p>
       <span class="colore__vai-a">Vai alle statistiche complete <span class="freccia" aria-hidden="true">→</span></span>
     </div>
   `;
 };
 
-fetchJSON("json/Statistiche/anni/stagioni/stagioni.json")
-  .then(processSeasons)
-  .catch((error) =>
-    console.error(`Errore nel caricamento del file principale: ${error}`),
-  );
+// Avvio: carica Storico.json
+fetchJSON("json/Statistiche/History/Storico.json")
+  .then(data => processHistoricalData(data))
+  .then(result => {
+    if (result) {
+      stampaDati(result.totalKm, result.totalMonths, result.totalRaces, result.totalYears);
+    }
+  })
+  .catch(error => console.error(`Errore nel caricamento del file Storico.json: ${error}`));
