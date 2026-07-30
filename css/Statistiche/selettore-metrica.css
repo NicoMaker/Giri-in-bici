@@ -45,6 +45,17 @@
   box-shadow: var(--sh-2);
 }
 
+/* Il pulsante "Mesi <anno>" (#pulsante-anno-corrente) nasce con
+   l'attributo "hidden" finché non arriva da una pagina-anno con dati
+   propri. Ma ".selettore-metrica__pulsante" qui sopra impone sempre
+   "display: inline-flex", e questa regola vince su quella di default
+   del browser per "[hidden]": il pulsante restava visibile e
+   selezionabile comunque, vuoto e col solo testo generico "Mesi".
+   Questa regola restituisce a "hidden" il suo effetto reale. */
+.selettore-metrica__pulsante[hidden] {
+  display: none;
+}
+
 @media (max-width: 480px) {
   .selettore-metrica {
     justify-content: stretch;

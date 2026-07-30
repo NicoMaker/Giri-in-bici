@@ -147,10 +147,24 @@ p.contornostagione {
 #dati a {
   display: block;
   color: inherit;
+  padding-bottom: calc(clamp(1.2rem, 3vw, 1.9rem) + 2.1rem);
 }
 
 #dati .contornostagione {
   padding: 0;
   margin-bottom: 0.5rem;
   font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+}
+
+/* Il pulsante "Vai al periodo" (.colore__vai-a, definito in
+   assets/css/componenti/interazioni/micro-interazioni.css) di norma
+   usa il gradiente generale del tema (--a1/--a2). Qui prende invece
+   il colore della propria stagione, lo stesso della striscia in
+   cima alla card. */
+#dati .primavera .colore__vai-a {
+  background: linear-gradient(120deg, #0ca678, #63e6be);
+}
+
+#dati .estate .colore__vai-a {
+  background: linear-gradient(120deg, #f76707, #ffd43b);
 }

@@ -65,10 +65,7 @@ window.Stagioni = window.Stagioni || {};
         <p class="misuracolore">📅 Periodi: ${formatItalianNumber(numPeriods)}</p>
         <p class="misuracolore">km medi per periodo ${formatNumber(avgKmPerPeriod)}</p>
         <p class="misuracolore">km medi per corsa ${formatNumber(avgKmPerRace)}</p>
-        <p class="misuracolore">
-        <br>
-        <span class="contornostagione">Vai al periodo <span class="freccia" aria-hidden="true">→</span></span>
-        </p>
+        <span class="colore__vai-a">Vai al periodo <span class="freccia" aria-hidden="true">→</span></span>
       </a>
     </div>`;
   };
