@@ -89,6 +89,34 @@ document.addEventListener("DOMContentLoaded", async () => {
   const listaAnniEl = document.getElementById("classifica-anni");
   const titoloAnniEl = document.getElementById("classifica-anni-titolo");
 
+  // ---------- Scheda in più per l'anno di provenienza (?anno=2020) ----------
+  // "Record per anno" resta sempre generale (tutti gli anni messi a
+  // confronto): non viene più rinominato né filtrato. Quando si arriva da
+  // una singola pagina-anno si aggiunge invece una scheda a parte, con
+  // solo i mesi di quell'anno, che compare accanto alle altre invece di
+  // sostituirne una: così il confronto generale resta sempre raggiungibile.
+  const pulsanteAnnoCorrente = document.getElementById(
+    "pulsante-anno-corrente",
+  );
+  const opzioneAnnoCorrente = selettoreMobile
+    ? selettoreMobile.querySelector("#opzione-anno-corrente")
+    : null;
+  const titoloAnnoCorrenteEl = document.getElementById("anno-corrente-titolo");
+  const podioAnnoCorrenteEl = document.getElementById("podio-anno-corrente");
+  const listaAnnoCorrenteEl = document.getElementById(
+    "classifica-anno-corrente",
+  );
+  const h2PodioAnnoCorrenteEl = document.getElementById(
+    "anno-corrente-h2-podio",
+  );
+  const h2ListaAnnoCorrenteEl = document.getElementById(
+    "anno-corrente-h2-lista",
+  );
+  const vediTuttiAnniBtn = document.getElementById("vedi-tutti-anni-bottone");
+  if (vediTuttiAnniBtn) {
+    vediTuttiAnniBtn.addEventListener("click", () => attivaVista("record"));
+  }
+
   try {
     await ConfigMesi.carica();
 
@@ -107,49 +135,54 @@ document.addEventListener("DOMContentLoaded", async () => {
       CM.calcolaRecordMesi(allData, ConfigMesi.elenco);
 
     // Se si arriva da una singola pagina-anno (Statistiche/Anni/2020.html
-    // ecc. con "?anno=2020"), il record per anno si restringe a quel
-    // solo anno: percentuali ricalcolate su quel sottoinsieme, non sul
-    // totale di sempre, e l'etichetta della scheda lo dice chiaramente.
+    // ecc. con "?anno=2020"), si prepara la scheda dedicata solo a quel
+    // sottoinsieme: percentuali ricalcolate su quell'anno soltanto, non sul
+    // totale di sempre.
     const annoFiltro = new URLSearchParams(window.location.search).get("anno");
     const filtratoPerAnno =
       annoFiltro && righeRecordTutti.some((r) => String(r.anno) === annoFiltro);
 
-    let righeRecord = righeRecordTutti;
-    let totaleRecord = totaleRecordTutti;
-
     if (filtratoPerAnno) {
-      righeRecord = righeRecordTutti
+      const righeAnnoCorrente = righeRecordTutti
         .filter((r) => String(r.anno) === annoFiltro)
         .map((r) => ({ ...r }));
-      totaleRecord = righeRecord.reduce((tot, r) => tot + r.km, 0);
-      righeRecord.forEach((r) => {
-        r.percentuale = totaleRecord > 0 ? (r.km / totaleRecord) * 100 : 0;
+      const totaleAnnoCorrente = righeAnnoCorrente.reduce(
+        (tot, r) => tot + r.km,
+        0,
+      );
+      righeAnnoCorrente.forEach((r) => {
+        r.percentuale =
+          totaleAnnoCorrente > 0 ? (r.km / totaleAnnoCorrente) * 100 : 0;
       });
 
-      const pulsanteRecord = document.querySelector(
-        '#selettore-vista .selettore-metrica__pulsante[data-vista="record"]',
-      );
-      if (pulsanteRecord) pulsanteRecord.textContent = `Mesi ${annoFiltro}`;
-
-      const opzioneRecordMobile = selettoreMobile
-        ? selettoreMobile.querySelector('option[value="record"]')
-        : null;
-      if (opzioneRecordMobile) opzioneRecordMobile.textContent = `Mesi ${annoFiltro}`;
-
-      const intestazioniRecord = document.querySelectorAll(
-        '[data-vista-gruppo="record"] h2',
-      );
-      if (intestazioniRecord[0])
-        intestazioniRecord[0].textContent = `I mesi migliori del ${annoFiltro}`;
-      if (intestazioniRecord[1])
-        intestazioniRecord[1].textContent = `Tutti i mesi del ${annoFiltro}`;
-
-      const notaRecordEl = document.getElementById("record-mesi-nota");
-      if (notaRecordEl) {
-        notaRecordEl.innerHTML = `
-          Solo l'anno ${annoFiltro}, uno o due mesi alla volta.
-          <a href="ClassificaMesi.html?vista=record">Vedi tutti gli anni insieme</a>.`;
+      if (pulsanteAnnoCorrente) {
+        pulsanteAnnoCorrente.hidden = false;
+        pulsanteAnnoCorrente.textContent = `Mesi ${annoFiltro}`;
       }
+      if (opzioneAnnoCorrente) {
+        opzioneAnnoCorrente.hidden = false;
+        opzioneAnnoCorrente.disabled = false;
+        opzioneAnnoCorrente.textContent = `Mesi ${annoFiltro}`;
+      }
+      if (h2PodioAnnoCorrenteEl)
+        h2PodioAnnoCorrenteEl.textContent = `I mesi migliori del ${annoFiltro}`;
+      if (h2ListaAnnoCorrenteEl)
+        h2ListaAnnoCorrenteEl.textContent = `Tutti i mesi del ${annoFiltro}`;
+      if (titoloAnnoCorrenteEl)
+        titoloAnnoCorrenteEl.innerHTML =
+          CM.creaTitoloRecordMesi(righeAnnoCorrente);
+      if (podioAnnoCorrenteEl)
+        podioAnnoCorrenteEl.innerHTML = CM.creaPodioSemplice(righeAnnoCorrente);
+      if (listaAnnoCorrenteEl)
+        listaAnnoCorrenteEl.innerHTML =
+          CM.creaRecordMesi(righeAnnoCorrente) +
+          CM.creaRigaTotale(totaleAnnoCorrente, `mesi del ${annoFiltro}`);
+
+      // Se il link di provenienza chiedeva la scheda "record" (il caso
+      // normale: Statistiche/Anni/*.html manda "?vista=record&anno=2020"),
+      // si parte subito dalla scheda dedicata a quell'anno invece che dal
+      // confronto generale fra tutti gli anni.
+      if (vistaIniziale === "record") attivaVista("anno-corrente");
     }
 
     if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(righe);
@@ -158,17 +191,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       listaEl.innerHTML =
         CM.creaClassifica(righe) + CM.creaRigaTotale(totale, "12 mesi");
     if (titoloRecordMesiEl)
-      titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(righeRecord);
+      titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(righeRecordTutti);
     if (podioRecordMesiEl)
-      podioRecordMesiEl.innerHTML = CM.creaPodioSemplice(righeRecord);
+      podioRecordMesiEl.innerHTML = CM.creaPodioSemplice(righeRecordTutti);
     if (recordMesiEl)
       recordMesiEl.innerHTML =
-        CM.creaRecordMesi(righeRecord) +
+        CM.creaRecordMesi(righeRecordTutti) +
         CM.creaRigaTotale(
-          totaleRecord,
-          filtratoPerAnno
-            ? `mesi del ${annoFiltro}`
-            : `${righeRecord.length} record`,
+          totaleRecordTutti,
+          `${righeRecordTutti.length} record`,
         );
 
     const { righe: righeAnni, totale: totaleAnniKm } = CM.calcolaAnni(allData);

@@ -175,6 +175,15 @@
           >
             Periodi
           </button>
+          <button
+            type="button"
+            class="selettore-metrica__pulsante"
+            data-vista="anno-corrente"
+            id="pulsante-anno-corrente"
+            hidden
+          >
+            Mesi
+          </button>
         </div>
 
         <div class="selettore-vista-mobile-wrap">
@@ -188,6 +197,9 @@
             <option value="anni">Anni</option>
             <option value="stagioni">Stagioni</option>
             <option value="periodi">Periodi</option>
+            <option value="anno-corrente" id="opzione-anno-corrente" hidden disabled>
+              Mesi
+            </option>
           </select>
         </div>
       </div>
@@ -215,7 +227,6 @@
             Non il totale di ogni mese, ma ogni mese di ogni singolo anno: per
             esempio Settembre 2024 contro Ottobre 2025, uno per uno.
           </p>
-          <p class="hero-sub" id="record-mesi-nota"></p>
           <p class="classifica-titolo" id="record-mesi-titolo"></p>
           <div id="podio-record-mesi" class="podio"></div>
         </section>
@@ -224,6 +235,29 @@
           <p class="eyebrow">Classifica completa</p>
           <h2>I record mese per mese</h2>
           <ol id="record-mesi" class="classifica-lista"></ol>
+        </section>
+      </div>
+
+      <div data-vista-gruppo="anno-corrente">
+        <section class="section reveal podio-fisso">
+          <p class="eyebrow">Podio</p>
+          <h2 id="anno-corrente-h2-podio">I mesi migliori</h2>
+          <p class="hero-sub">
+            Non il totale di ogni mese, ma ogni mese di quel singolo anno
+            soltanto: per esempio Settembre contro Ottobre, uno per uno.
+          </p>
+          <p class="hero-sub">
+            Solo questo anno, uno o due mesi alla volta.
+            <button type="button" class="link-bottone" id="vedi-tutti-anni-bottone">Vedi tutti gli anni insieme</button>.
+          </p>
+          <p class="classifica-titolo" id="anno-corrente-titolo"></p>
+          <div id="podio-anno-corrente" class="podio"></div>
+        </section>
+
+        <section class="section reveal">
+          <p class="eyebrow">Classifica completa</p>
+          <h2 id="anno-corrente-h2-lista">Tutti i mesi</h2>
+          <ol id="classifica-anno-corrente" class="classifica-lista"></ol>
         </section>
       </div>
 

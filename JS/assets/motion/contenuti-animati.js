@@ -253,6 +253,8 @@
     "#classifica",
     "#record-mesi",
     "#podio-record-mesi",
+    "#podio-anno-corrente",
+    "#classifica-anno-corrente",
     "#podio-anni",
     "#classifica-anni",
     "#podio-stagioni",
