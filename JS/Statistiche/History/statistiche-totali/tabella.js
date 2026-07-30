@@ -24,7 +24,7 @@ window.GraficoTotale = window.GraficoTotale || {};
            <td>${mese || "N/D"}</td>
            <td>${formatNumber(chilometri[index] || 0)}</td>
            <td>${percentuali[index] || "0,00"} %</td>
-           <td>${anni[index] || "N/D"}</td>
+           <td class="td-anno">${anni[index] || "N/D"}</td>
          </tr>`,
         )
         .join("")}

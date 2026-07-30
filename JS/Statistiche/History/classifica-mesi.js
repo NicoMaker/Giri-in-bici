@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const pulsantiVista = document.querySelectorAll(
     "#selettore-vista .selettore-metrica__pulsante",
   );
+  // Su schermi stretti le pillole lasciano il posto a questo select nativo
+  // (vedi css/Statistiche/selettore-metrica.css): stessa scelta, resa come
+  // menu a tendina invece che come fila di pulsanti.
+  const selettoreMobile = document.getElementById("selettore-vista-mobile");
 
   function attivaVista(vista) {
     pulsantiVista.forEach((p) =>
@@ -48,6 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     gruppiVista.forEach((gruppo) => {
       gruppo.style.display = gruppo.dataset.vistaGruppo === vista ? "" : "none";
     });
+    if (selettoreMobile) selettoreMobile.value = vista;
   }
 
   const vistaIniziale = new URLSearchParams(window.location.search).get(
@@ -60,6 +65,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       attivaVista(pulsante.dataset.vista),
     );
   });
+
+  if (selettoreMobile) {
+    selettoreMobile.addEventListener("change", () =>
+      attivaVista(selettoreMobile.value),
+    );
+  }
 
   const podioEl = document.getElementById("podio");
   const listaEl = document.getElementById("classifica");
@@ -119,6 +130,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         '#selettore-vista .selettore-metrica__pulsante[data-vista="record"]',
       );
       if (pulsanteRecord) pulsanteRecord.textContent = `Mesi ${annoFiltro}`;
+
+      const opzioneRecordMobile = selettoreMobile
+        ? selettoreMobile.querySelector('option[value="record"]')
+        : null;
+      if (opzioneRecordMobile) opzioneRecordMobile.textContent = `Mesi ${annoFiltro}`;
 
       const intestazioniRecord = document.querySelectorAll(
         '[data-vista-gruppo="record"] h2',
