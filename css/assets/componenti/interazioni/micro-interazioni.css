@@ -222,3 +222,33 @@ a:hover .colore__vai-a {
 a:hover .colore__vai-a .freccia {
   transform: translateX(3px);
 }
+
+/* ---------- Cerchio al tocco (feedback su pulsanti e pillole) ----------
+   Generato da assets/js/motion/tocco-pulsanti.js: un cerchio chiaro
+   nasce nel punto esatto in cui si tocca/clicca, si espande e sfuma,
+   poi si rimuove da solo. Usa "currentColor" apposta: sui pulsanti
+   pieni (sfondo colorato, testo bianco) il cerchio è bianco tenue,
+   su quelli chiari (sfondo bianco, testo scuro) è scuro tenue —
+   niente da configurare pulsante per pulsante. */
+.tocco-cerchio {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.22;
+  pointer-events: none;
+  transform: scale(0);
+  animation: fx-tocco 0.55s ease-out;
+}
+
+@keyframes fx-tocco {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tocco-cerchio {
+    display: none;
+  }
+}
