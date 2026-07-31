@@ -194,6 +194,11 @@
   box-shadow: 0 0 0 3px var(--a-soft);
 }
 
+.tappe-filtro select:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .podio__km {
   font-family: var(--font-head);
   font-weight: 700;

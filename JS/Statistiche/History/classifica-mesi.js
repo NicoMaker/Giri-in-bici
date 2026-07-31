@@ -107,6 +107,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const listaPeriodiEl = document.getElementById("classifica-periodi");
   const titoloPeriodiEl = document.getElementById("classifica-periodi-titolo");
   const podioPeriodiEl = document.getElementById("podio-periodi");
+  const selettorePeriodiStagioneEl = document.getElementById(
+    "periodi-filtro-stagione",
+  );
   const recordMesiEl = document.getElementById("record-mesi");
   const titoloRecordMesiEl = document.getElementById("record-mesi-titolo");
   const podioRecordMesiEl = document.getElementById("podio-record-mesi");
@@ -132,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { righe: righeRecordTutti, totale: totaleRecordTutti } =
       CM.calcolaRecordMesi(allData, ConfigMesi.elenco);
 
-    // "Anno" dentro "Record per anno": scegliendo un anno si ricalcola
+    // "Anno" dentro "Km mensili": scegliendo un anno si ricalcola
     // la percentuale su quel solo anno (non sul totale di sempre),
     // stessa idea di prima ma come filtro dentro la scheda invece che
     // come scheda a parte. "?anno=2020" nell'indirizzo (es. da
@@ -232,14 +235,53 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const { righe: righePeriodi, totale: totalePeriodi } =
       await CM.calcolaPeriodi();
-    if (titoloPeriodiEl)
-      titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(righePeriodi);
-    if (podioPeriodiEl)
-      podioPeriodiEl.innerHTML = CM.creaPodioSemplice(righePeriodi);
-    if (listaPeriodiEl)
-      listaPeriodiEl.innerHTML =
-        CM.creaClassificaPeriodi(righePeriodi) +
-        CM.creaRigaTotale(totalePeriodi, `${righePeriodi.length} periodi`);
+
+    function mostraPeriodi(stagioneScelta) {
+      let righeMostrate = righePeriodi;
+      let totaleMostrato = totalePeriodi;
+      let etichettaTotale = `${righePeriodi.length} periodi`;
+
+      if (stagioneScelta) {
+        righeMostrate = righePeriodi
+          .filter((r) => r.stagione === stagioneScelta)
+          .map((r) => ({ ...r }));
+        totaleMostrato = righeMostrate.reduce((tot, r) => tot + r.km, 0);
+        righeMostrate.forEach((r) => {
+          r.percentuale =
+            totaleMostrato > 0 ? (r.km / totaleMostrato) * 100 : 0;
+        });
+        etichettaTotale = `periodi di ${stagioneScelta}`;
+      }
+
+      if (titoloPeriodiEl)
+        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(righeMostrate);
+      if (podioPeriodiEl)
+        podioPeriodiEl.innerHTML = CM.creaPodioSemplice(righeMostrate);
+      if (listaPeriodiEl)
+        listaPeriodiEl.innerHTML =
+          CM.creaClassificaPeriodi(righeMostrate) +
+          CM.creaRigaTotale(totaleMostrato, etichettaTotale);
+    }
+
+    if (selettorePeriodiStagioneEl) {
+      const stagioniPeriodiUniche = [
+        ...new Set(righePeriodi.map((r) => r.stagione)),
+      ];
+      stagioniPeriodiUniche.forEach((s) => {
+        const opzione = document.createElement("option");
+        opzione.value = s;
+        opzione.textContent = s;
+        selettorePeriodiStagioneEl.appendChild(opzione);
+      });
+
+      selettorePeriodiStagioneEl.addEventListener("change", () => {
+        mostraPeriodi(selettorePeriodiStagioneEl.value);
+      });
+
+      mostraPeriodi(selettorePeriodiStagioneEl.value);
+    } else {
+      mostraPeriodi("");
+    }
   } catch (error) {
     console.error(
       `Errore nel caricamento del confronto fra i periodi: ${error}`,
@@ -314,9 +356,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       // quella stagione non è mai stata registrata. Si ricalcola ogni
       // volta che cambia la stagione (o parte vuota, "Tutte").
       function popolaAnni(stagioneFiltro) {
-        const disponibili = stagioneFiltro
-          ? tutteLeTappe.filter((t) => t.stagione === stagioneFiltro)
-          : tutteLeTappe;
+        // Con "Tutte" le stagioni insieme, un filtro per anno non ha
+        // senso: gli anni dell'Estate ("2020") e gli intervalli
+        // dell'Autunno-Inverno ("2020-2021") finirebbero mescolati
+        // nella stessa lista. Il filtro Anno si sceglie solo dopo
+        // aver scelto una singola stagione (Primavera, Estate...).
+        if (!stagioneFiltro) {
+          selettoreAnnoEl.innerHTML =
+            '<option value="">Tutti</option>';
+          selettoreAnnoEl.value = "";
+          selettoreAnnoEl.disabled = true;
+          return;
+        }
+        selettoreAnnoEl.disabled = false;
+
+        const disponibili = tutteLeTappe.filter(
+          (t) => t.stagione === stagioneFiltro,
+        );
         // "Anno" per l'Autunno-Inverno è un intervallo ("2020-2021"):
         // resta per intero così com'è, non separato in due anni,
         // altrimenti una singola stagione finirebbe in due filtri.

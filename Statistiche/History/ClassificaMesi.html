@@ -154,7 +154,7 @@
             class="selettore-metrica__pulsante"
             data-vista="record"
           >
-            Record per anno
+            Km mensili
           </button>
           <button
             type="button"
@@ -193,7 +193,7 @@
             aria-label="Scegli cosa vedere"
           >
             <option value="mesi">Mesi migliori</option>
-            <option value="record">Record per anno</option>
+            <option value="record">Km mensili</option>
             <option value="anni">Anni</option>
             <option value="stagioni">Stagioni</option>
             <option value="periodi">Periodi</option>
@@ -281,6 +281,14 @@
             uno, per esempio Estate 2020 contro Autunno &middot; Inverno
             2020-2021.
           </p>
+          <div class="tappe-filtri" id="periodi-filtri">
+            <label class="tappe-filtro">
+              Stagione
+              <select id="periodi-filtro-stagione">
+                <option value="">Tutte</option>
+              </select>
+            </label>
+          </div>
           <p class="classifica-titolo" id="classifica-periodi-titolo"></p>
           <div id="podio-periodi" class="podio"></div>
         </section>
