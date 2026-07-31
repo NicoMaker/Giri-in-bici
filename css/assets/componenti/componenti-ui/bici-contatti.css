@@ -32,6 +32,34 @@
   box-shadow: var(--sh-3);
 }
 
+/* Etichetta sotto la foto: prima erano solo immagini, senza dire
+   dove portassero — ora un testo con freccia, stesso linguaggio
+   delle altre card cliccabili del sito. */
+.foto-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--ink);
+}
+
+.foto-link__etichetta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition:
+    color 0.2s var(--ease),
+    gap 0.2s var(--ease);
+}
+
+.foto-link:hover .foto-link__etichetta {
+  color: var(--a1);
+  gap: 0.6rem;
+}
+
 .immagini_stagione2 {
   width: 100%;
   max-width: 220px;
@@ -98,13 +126,17 @@
 }
 
 .bici {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
   margin: 0 auto;
-  padding: 0.5rem;
+  padding: 0.8rem 0.8rem 1rem;
   border: 1px solid var(--line);
   border-radius: var(--r-xl);
   background: var(--surface);
   box-shadow: var(--sh-2);
+  cursor: pointer;
   transition:
     transform 0.3s var(--ease),
     box-shadow 0.3s var(--ease);
@@ -113,6 +145,11 @@
 .bici:hover {
   transform: translateY(-3px);
   box-shadow: var(--sh-3);
+}
+
+.bici:hover .foto-link__etichetta {
+  color: var(--a1);
+  gap: 0.6rem;
 }
 
 .bici br {

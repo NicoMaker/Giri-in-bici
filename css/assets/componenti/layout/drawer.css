@@ -16,7 +16,7 @@
   overflow-y: auto;
   background: var(--surface);
   border-left: 1px solid var(--line);
-  box-shadow: -24px 0 60px -30px rgba(14, 27, 42, 0.55);
+  box-shadow: -24px 0 60px -30px rgba(15, 36, 56, 0.55);
   transition: right 0.45s var(--ease);
 }
 

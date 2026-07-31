@@ -44,13 +44,3 @@
 .foot-links a:hover {
   color: var(--a1);
 }
-
-/* Piccola aquila accanto a "Friuli Venezia Giulia": stessa filigrana
-   dell'hero, qui in piccolo e ben visibile invece che sfumata. */
-.footer-aquila {
-  width: 20px;
-  height: 16px;
-  vertical-align: -2px;
-  margin: 0 0.15em;
-  opacity: 0.92;
-}

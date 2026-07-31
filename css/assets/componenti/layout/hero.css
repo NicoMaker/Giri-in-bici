@@ -51,32 +51,6 @@
   }
 }
 
-/* Marchio della regione: l'aquila della bandiera del Friuli Venezia
-   Giulia, come filigrana leggera dietro al titolo. Un solo file SVG
-   (img/Icons/aquila-fvg.svg) usato come maschera: il colore lo decide
-   questa regola (non il file), cosi' resta coerente col tema attivo
-   ovunque compaia. Stessa idea su ogni pagina, non solo la home. */
-.hero::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(560px, 78vw);
-  height: min(440px, 62vw);
-  transform: translate(-50%, -46%);
-  background-color: color-mix(in srgb, var(--a1) 20%, transparent);
-  -webkit-mask-image: url("/img/Icons/aquila-fvg.svg");
-  mask-image: url("/img/Icons/aquila-fvg.svg");
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  z-index: -1;
-  pointer-events: none;
-}
-
 .hero .Titolo,
 .hero h1 {
   margin-bottom: 0.35rem;

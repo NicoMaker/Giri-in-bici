@@ -29,10 +29,10 @@ window.Stagioni = window.Stagioni || {};
           {
             label: "km stagioni (andamento)",
             data: chartData,
-            borderColor: "rgba(54, 162, 235, 1)",
+            borderColor: "#14568f",
             backgroundColor: "transparent",
             borderWidth: 3,
-            pointBackgroundColor: "rgba(54, 162, 235, 1)",
+            pointBackgroundColor: "#14568f",
             pointBorderColor: "rgba(255, 255, 255, 1)",
             pointBorderWidth: 2,
             pointRadius: 6,

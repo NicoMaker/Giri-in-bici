@@ -42,41 +42,34 @@ p {
   font-style: italic;
 }
 
-/* Titolo firma del sito: prima un riempimento in corsivo con tutto
-   il gradiente tricolore, ora il peso lo porta la tipografia stessa
-   (Syne, deciso) e il tricolore resta come dettaglio — una riga
-   sottile sotto al nome — invece di riempire lettere enormi: si
-   legge come un marchio, non come una scritta a pennello. */
+/* Titolo firma del sito: la scritta "Giri in Bici" in cima alla home.
+   Ora la tipografia è Syne, bold e decisa, non più il corsivo — ma
+   resta (anzi torna) il riempimento in gradiente tricolore che
+   "respira" piano: quell'animazione (gradientShift, in
+   animazioni.css/rifiniture.css) piaceva ed era proprio pensata per
+   questo elemento, le serve un vero sfondo in gradiente su cui
+   scorrere, non un colore pieno. */
 .colore_sfondo_italia {
-  position: relative;
-  display: inline-block;
   font-family: var(--font-display-bold);
   font-weight: 800;
   font-size: clamp(2.6rem, 9vw, 5.6rem);
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--ink);
-  margin: 0.1em 0 0.4em;
-  padding-bottom: 0.28em;
-}
-
-.colore_sfondo_italia::after {
-  content: "";
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  bottom: 0;
-  height: 5px;
-  border-radius: var(--r-full);
+  margin: 0.1em 0 0.3em;
   background-image: linear-gradient(
     100deg,
     #00934a 0%,
-    #35c07a 30%,
-    var(--surface) 48%,
-    var(--surface) 52%,
-    #ef4b4b 70%,
+    #35c07a 22%,
+    #f2f6f8 42%,
+    #f2f6f8 58%,
+    #ef4b4b 78%,
     #c8102e 100%
   );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 6px 18px rgba(15, 36, 56, 0.18));
 }
 
 .colore_sfondo_italia img {

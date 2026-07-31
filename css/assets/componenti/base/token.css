@@ -11,27 +11,30 @@
 /* ---------- 1. Token ---------- */
 :root {
   /* Accenti: sovrascritti dai singoli temi stagionali.
-     --a1 = oro strada (l'aquila dorata della bandiera FVG, la luce
-     dell'ora dorata in bici) — --a2 = teal alpino (i laghi e le
-     montagne del Friuli). Sostituiscono il blu/indaco generico. */
+     --a1 = oro (l'aquila della bandiera del Friuli Venezia Giulia)
+     --a2 = blu FVG (il campo della bandiera stessa). I due colori
+     della bandiera, non un blu/indaco generico da app. */
   --a1: #c99a2e;
-  --a2: #1f4d45;
+  --a2: #14568f;
   --a-soft: rgba(201, 154, 46, 0.14);
 
-  /* Inchiostro e superfici — grafite dell'asfalto, non piu' blu navy */
-  --ink: #14181c;
-  --ink-2: #565f6b;
-  --ink-3: #838b93;
-  --surface: #fbfaf7;
-  --surface-2: #f1efe9;
-  --surface-3: #e9e5da;
-  --line: rgba(20, 24, 28, 0.1);
-  --line-strong: rgba(20, 24, 28, 0.2);
+  /* Inchiostro e superfici — blu FVG scurito per il testo e per le
+     barre, non piu' grafite neutro: il colore di fondo della
+     bandiera diventa il colore di fondo del sito. */
+  --ink: #0f2438;
+  --ink-2: #47617a;
+  --ink-3: #7691a6;
+  --surface: #f7fafc;
+  --surface-2: #eef3f7;
+  --surface-3: #e3ebf1;
+  --line: rgba(15, 36, 56, 0.1);
+  --line-strong: rgba(15, 36, 56, 0.2);
 
-  /* Sfondo pagina — pietra/avorio caldo, non piu' azzurro/lavanda */
-  --bg-1: #f6f4ee;
-  --bg-2: #efece3;
-  --bg-3: #f9f8f3;
+  /* Sfondo pagina — bianco freddo con un velo di blu, come il cielo
+     sopra il campo azzurro della bandiera */
+  --bg-1: #eef4f9;
+  --bg-2: #e6edf6;
+  --bg-3: #f3f8fb;
 
   /* Grafici: restano sempre chiari, anche in tema scuro */
   --chart-surface: #ffffff;
@@ -55,17 +58,16 @@
   --r-xl: 26px;
   --r-full: 999px;
 
-  /* Ombre — piu' profonde e piu' scure: il grafite regge un'ombra
-     piu' netta di quanto reggesse il blu chiaro di prima */
-  --sh-1: 0 1px 2px rgba(20, 24, 28, 0.06);
+  /* Ombre — sempre nel blu FVG scuro, non piu' grafite neutro */
+  --sh-1: 0 1px 2px rgba(15, 36, 56, 0.06);
   --sh-2:
-    0 1px 2px rgba(20, 24, 28, 0.07), 0 10px 24px -14px rgba(20, 24, 28, 0.32);
+    0 1px 2px rgba(15, 36, 56, 0.07), 0 10px 24px -14px rgba(15, 36, 56, 0.32);
   --sh-3:
-    0 2px 4px rgba(20, 24, 28, 0.07), 0 22px 48px -20px rgba(20, 24, 28, 0.4);
+    0 2px 4px rgba(15, 36, 56, 0.07), 0 22px 48px -20px rgba(15, 36, 56, 0.4);
   /* Ombra "premium": per gli hover che devono sembrare sollevati
      davvero (card di riepilogo, hero, bottoni principali) */
   --sh-4:
-    0 4px 10px rgba(20, 24, 28, 0.1), 0 34px 64px -22px rgba(20, 24, 28, 0.45);
+    0 4px 10px rgba(15, 36, 56, 0.1), 0 34px 64px -22px rgba(15, 36, 56, 0.45);
   /* Bagliore colorato coerente col tema attivo, per bordi/ombre in
      risalto sugli elementi interattivi principali */
   --glow: 0 14px 40px -12px color-mix(in srgb, var(--a1) 45%, transparent);

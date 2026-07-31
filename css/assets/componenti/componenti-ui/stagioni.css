@@ -71,6 +71,24 @@
   text-align: left;
 }
 
+/* Freccia sempre visibile: senza, la card sembra solo un'etichetta e
+   non si capisce che porta da qualche parte finche' non ci si passa
+   sopra col mouse — e su telefono non si passa mai col mouse sopra
+   niente. Cosi' il segnale c'e' fin da subito, non solo al passaggio.
+   Solo sulle due classi dei link della home: ".contornostagione" da
+   sola è anche il titolo dentro le card di Statistiche/stagioni.html,
+   che non è un link e non deve prendersi la freccia. */
+.contornostagionesx::after,
+.contornostagionedx::after {
+  content: "→";
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--ink-3);
+  transition:
+    transform 0.25s var(--ease),
+    color 0.2s var(--ease);
+}
+
 .contornostagionesx p,
 .contornostagionedx p,
 p.contornostagione {
@@ -84,6 +102,12 @@ p.contornostagione {
 .contornostagionesx:hover,
 .contornostagionedx:hover,
 .contornostagione:hover {
+  color: var(--a1);
+}
+
+.contornostagionesx:hover::after,
+.contornostagionedx:hover::after {
+  transform: translateX(4px);
   color: var(--a1);
 }
 

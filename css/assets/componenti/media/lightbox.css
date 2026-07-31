@@ -19,6 +19,44 @@
   outline-offset: 3px;
 }
 
+/* Lente sempre visibile: il cursore a lente sopra si vede solo col
+   mouse — su telefono non si passa mai sopra niente, quindi senza
+   questo badge non c'e' modo di sapere che la foto si apre. Un solo
+   posto per la galleria dei periodi e per le schede delle bici (i due
+   punti dove le foto sono piu' viste); le altre immagini apribili
+   restano con il solo cursore, per non riempire il sito di lentine. */
+.gallery a.shot,
+.bici-card__media {
+  position: relative;
+}
+
+.gallery a.shot::after,
+.bici-card__media::after {
+  content: "";
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(15, 36, 56, 0.55);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cline x1='15.3' y1='15.3' x2='20.5' y2='20.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+  backdrop-filter: blur(2px);
+  transition:
+    transform 0.25s var(--ease),
+    background-color 0.2s var(--ease);
+  pointer-events: none;
+}
+
+.gallery a.shot:hover::after,
+.bici-card:hover .bici-card__media::after {
+  transform: scale(1.1);
+  background-color: var(--a1);
+}
+
 .lightbox-overlay {
   position: fixed;
   inset: 0;
