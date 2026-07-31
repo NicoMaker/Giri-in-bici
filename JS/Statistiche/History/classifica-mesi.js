@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (titoloPeriodiEl)
         titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(righeMostrate);
       if (podioPeriodiEl)
-        podioPeriodiEl.innerHTML = CM.creaPodioSemplice(righeMostrate);
+        podioPeriodiEl.innerHTML = CM.creaPodioPeriodi(righeMostrate);
       if (listaPeriodiEl)
         listaPeriodiEl.innerHTML =
           CM.creaClassificaPeriodi(righeMostrate) +

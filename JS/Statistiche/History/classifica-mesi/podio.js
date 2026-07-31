@@ -167,7 +167,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // non serve una lista aggiuntiva sotto, come invece per i dodici mesi.
   // Ogni gradino è un link che porta alla pagina di quella stagione
   // (Estate.html, Primavera.html, Autunno_Inverno.html), stesso
-  // comportamento già usato per il podio degli anni (creaPodioAnni).
+  // comportamento già usato per il podio degli anni (creaPodioAnni), con
+  // in più un bottone "Vai alla stagione" sempre visibile in fondo alla
+  // card (stesso stile di .colore__vai-a, già usato in Statistiche/
+  // stagioni.html), così si vede subito che si può aprire, non solo
+  // passandoci sopra col mouse.
   CM.creaPodioStagioni = function (righe) {
     return righe
       .map(
@@ -185,6 +189,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           ${formatItalianNumber(r.periodi)} anni pedalati &middot;
           media ${formatItalianNumber(r.kmMedi, true)} km
         </span>
+        <span class="podio__vai"
+          >Vai alla stagione
+          <span class="freccia" aria-hidden="true">&rarr;</span></span
+        >
       </a>`,
       )
       .join("");
@@ -203,24 +211,59 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   };
 
   // ---------- Confronto fra ogni singolo periodo ----------
+  // Come il podio delle stagioni: ogni gradino è un link che porta alla
+  // pagina di quel periodo esatto (es. ../../Estate/2022.html,
+  // ../../Primavera/2024.html), con lo stesso bottone "Vai al periodo"
+  // sempre visibile in fondo.
+  CM.creaPodioPeriodi = function (righe) {
+    return righe
+      .slice(0, 3)
+      .map(
+        (r, i) => `
+      <a
+        class="podio__gradino podio__gradino--${i + 1}"
+        href="${r.link}"
+        aria-label="Vai alla pagina di ${r.nome}"
+      >
+        <span class="podio__medaglia" aria-hidden="true">${MEDAGLIE[i]}</span>
+        <span class="podio__mese">${r.nome}</span>
+        <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
+        <span class="podio__dettaglio">${formatNumber(r.percentuale)} % del totale</span>
+        <span class="podio__vai"
+          >Vai al periodo
+          <span class="freccia" aria-hidden="true">&rarr;</span></span
+        >
+      </a>`,
+      )
+      .join("");
+  };
+
   // Stessa identica riga della classifica dei mesi, ma qui il "nome"
   // è già "Stagione + anno" (es. "Estate 2020"), così un periodo di
   // una stagione si confronta alla pari con un periodo di un'altra
-  // (es. Estate 2020 contro Autunno · Inverno 2020-2021).
+  // (es. Estate 2020 contro Autunno · Inverno 2020-2021). Ogni riga è
+  // già un link verso la pagina di quel periodo (stesso comportamento
+  // di creaClassificaAnni, qui applicato ai periodi).
   CM.creaClassificaPeriodi = function (righe) {
     const massimo = righe.length ? righe[0].km : 0;
     return righe
       .map((r, i) => {
         const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
         return `
-      <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
-        <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
-        <span class="classifica-riga__mese">${r.nome}</span>
-        <span class="classifica-riga__barra"
-          ><span style="--percentuale:${quota}%"></span
-        ></span>
-        <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
-        <span class="classifica-riga__percentuale">${formatNumber(r.percentuale)} %</span>
+      <li class="classifica-riga classifica-riga--cliccabile${i < 3 ? " classifica-riga--podio" : ""}">
+        <a
+          class="classifica-riga__link"
+          href="${r.link}"
+          aria-label="Vai alla pagina di ${r.nome}"
+        >
+          <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
+          <span class="classifica-riga__mese">${r.nome}</span>
+          <span class="classifica-riga__barra"
+            ><span style="--percentuale:${quota}%"></span
+          ></span>
+          <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
+          <span class="classifica-riga__percentuale">${formatNumber(r.percentuale)} %</span>
+        </a>
       </li>`;
       })
       .join("");

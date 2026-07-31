@@ -113,6 +113,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
               nome: `${nomeStagione} ${etichettaPeriodo}`,
               stagione: nomeStagione,
               periodo: etichettaPeriodo,
+              // Pagina di quel periodo esatto (es. ../../Estate/2022.html,
+              // ../../Autunno_Inverno/2024-2025.html): la cartella ha
+              // sempre lo stesso nome della chiave grezza della stagione.
+              link: `../../${stagione.name}/${etichettaPeriodo}.html`,
               km: sommaDistanze(corse),
             });
           }),
