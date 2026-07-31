@@ -35,7 +35,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   // del sito che porta qui sceglie già la scheda giusta (es. dalla
   // pagina di una stagione arriva "?vista=stagioni"). Senza il
   // parametro, o con un valore che non esiste, si parte da "mesi".
-  const VISTE_VALIDE = ["mesi", "record", "anni", "stagioni", "periodi", "tappe"];
+  const VISTE_VALIDE = [
+    "mesi",
+    "record",
+    "anni",
+    "stagioni",
+    "periodi",
+    "tappe",
+  ];
   const gruppiVista = document.querySelectorAll("[data-vista-gruppo]");
   const pulsantiVista = document.querySelectorAll(
     "#selettore-vista .selettore-metrica__pulsante",
@@ -340,9 +347,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       );
       const selettoreAnnoEl = document.getElementById("tappe-filtro-anno");
 
-      const stagioniUniche = [
-        ...new Set(tutteLeTappe.map((t) => t.stagione)),
-      ];
+      const stagioniUniche = [...new Set(tutteLeTappe.map((t) => t.stagione))];
       stagioniUniche.forEach((s) => {
         const opzione = document.createElement("option");
         opzione.value = s;
@@ -362,8 +367,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // nella stessa lista. Il filtro Anno si sceglie solo dopo
         // aver scelto una singola stagione (Primavera, Estate...).
         if (!stagioneFiltro) {
-          selettoreAnnoEl.innerHTML =
-            '<option value="">Tutti</option>';
+          selettoreAnnoEl.innerHTML = '<option value="">Tutti</option>';
           selettoreAnnoEl.value = "";
           selettoreAnnoEl.disabled = true;
           return;
