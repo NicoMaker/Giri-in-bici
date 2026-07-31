@@ -31,7 +31,7 @@
 .podio {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  align-items: end;
+  align-items: stretch;
   gap: 1rem;
   max-width: 780px;
   margin: 0 auto 2.4rem;
@@ -42,6 +42,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
   padding: 1.6rem 1rem 1.4rem;
   text-align: center;
@@ -145,6 +146,52 @@
 .tappa-link-multipli a:hover {
   color: #fff;
   background: linear-gradient(120deg, var(--a1), var(--a2));
+}
+
+/* Filtri per stagione/anno nella scheda "Tappe": due select semplici,
+   una accanto all'altra, per restringere l'elenco di tutte le uscite
+   invece di vederle sempre tutte mescolate insieme. */
+.tappe-filtri {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem 1.2rem;
+  margin: 0 0 1.6rem;
+}
+
+.tappe-filtro {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.tappe-filtro select {
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.tappe-filtro select:hover {
+  border-color: color-mix(in srgb, var(--a1) 40%, var(--line));
+}
+
+.tappe-filtro select:focus-visible {
+  outline: none;
+  border-color: var(--a1);
+  box-shadow: 0 0 0 3px var(--a-soft);
 }
 
 .podio__km {
@@ -310,7 +357,23 @@
 }
 
 .classifica-riga--cliccabile {
+  position: relative;
   cursor: pointer;
+}
+
+/* Icona di link sempre visibile: senza, si capisce che una riga porta
+   a un percorso solo passandoci sopra col mouse — su telefono non
+   succede mai. Un piccolo segno in un angolo, sempre lì, basta a far
+   capire subito quali righe si possono aprire e quali no. */
+.classifica-riga--cliccabile::after {
+  content: "↗";
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--a1);
+  opacity: 0.8;
 }
 
 .classifica-riga__link:focus-visible {
@@ -329,6 +392,19 @@ a.podio__gradino {
 a.podio__gradino:focus-visible {
   outline: 2px solid var(--a1);
   outline-offset: 3px;
+}
+
+/* Stessa icona di link anche sul podio: solo sulla versione <a> (i
+   podii non cliccabili restano <div>, questa regola non li tocca). */
+a.podio__gradino::before {
+  content: "↗";
+  position: absolute;
+  top: 0.7rem;
+  right: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--a1);
+  opacity: 0.8;
 }
 
 /* ---------- Link reso come bottone, dentro un paragrafo, stesso stile di <a> ---------- */

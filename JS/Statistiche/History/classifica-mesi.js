@@ -113,34 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const podioAnniEl = document.getElementById("podio-anni");
   const listaAnniEl = document.getElementById("classifica-anni");
   const titoloAnniEl = document.getElementById("classifica-anni-titolo");
-
-  // ---------- Scheda in più per l'anno di provenienza (?anno=2020) ----------
-  // "Record per anno" resta sempre generale (tutti gli anni messi a
-  // confronto): non viene più rinominato né filtrato. Quando si arriva da
-  // una singola pagina-anno si aggiunge invece una scheda a parte, con
-  // solo i mesi di quell'anno, che compare accanto alle altre invece di
-  // sostituirne una: così il confronto generale resta sempre raggiungibile.
-  const pulsanteAnnoCorrente = document.getElementById(
-    "pulsante-anno-corrente",
-  );
-  const opzioneAnnoCorrente = selettoreMobile
-    ? selettoreMobile.querySelector("#opzione-anno-corrente")
-    : null;
-  const titoloAnnoCorrenteEl = document.getElementById("anno-corrente-titolo");
-  const podioAnnoCorrenteEl = document.getElementById("podio-anno-corrente");
-  const listaAnnoCorrenteEl = document.getElementById(
-    "classifica-anno-corrente",
-  );
-  const h2PodioAnnoCorrenteEl = document.getElementById(
-    "anno-corrente-h2-podio",
-  );
-  const h2ListaAnnoCorrenteEl = document.getElementById(
-    "anno-corrente-h2-lista",
-  );
-  const vediTuttiAnniBtn = document.getElementById("vedi-tutti-anni-bottone");
-  if (vediTuttiAnniBtn) {
-    vediTuttiAnniBtn.addEventListener("click", () => attivaVista("record"));
-  }
+  const selettoreRecordAnnoEl = document.getElementById("record-filtro-anno");
 
   try {
     await ConfigMesi.carica();
@@ -159,91 +132,69 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { righe: righeRecordTutti, totale: totaleRecordTutti } =
       CM.calcolaRecordMesi(allData, ConfigMesi.elenco);
 
-    // Se si arriva da una singola pagina-anno (Statistiche/Anni/2020.html
-    // ecc. con "?anno=2020"), si prepara la scheda dedicata solo a quel
-    // sottoinsieme: percentuali ricalcolate su quell'anno soltanto, non sul
-    // totale di sempre.
+    // "Anno" dentro "Record per anno": scegliendo un anno si ricalcola
+    // la percentuale su quel solo anno (non sul totale di sempre),
+    // stessa idea di prima ma come filtro dentro la scheda invece che
+    // come scheda a parte. "?anno=2020" nell'indirizzo (es. da
+    // Statistiche/Anni/2020.html) lo seleziona già in automatico.
     const annoFiltro = new URLSearchParams(window.location.search).get("anno");
-    const filtratoPerAnno =
-      annoFiltro && righeRecordTutti.some((r) => String(r.anno) === annoFiltro);
-
-    if (filtratoPerAnno) {
-      const righeAnnoCorrente = righeRecordTutti
-        .filter((r) => String(r.anno) === annoFiltro)
-        .map((r) => ({ ...r }));
-      const totaleAnnoCorrente = righeAnnoCorrente.reduce(
-        (tot, r) => tot + r.km,
-        0,
-      );
-      righeAnnoCorrente.forEach((r) => {
-        r.percentuale =
-          totaleAnnoCorrente > 0 ? (r.km / totaleAnnoCorrente) * 100 : 0;
-      });
-
-      if (pulsanteAnnoCorrente) {
-        pulsanteAnnoCorrente.hidden = false;
-        pulsanteAnnoCorrente.textContent = `Mesi ${annoFiltro}`;
-      }
-      if (opzioneAnnoCorrente) {
-        opzioneAnnoCorrente.hidden = false;
-        opzioneAnnoCorrente.disabled = false;
-        opzioneAnnoCorrente.textContent = `Mesi ${annoFiltro}`;
-      }
-      if (h2PodioAnnoCorrenteEl)
-        h2PodioAnnoCorrenteEl.textContent = `I mesi migliori del ${annoFiltro}`;
-      if (h2ListaAnnoCorrenteEl)
-        h2ListaAnnoCorrenteEl.textContent = `Tutti i mesi del ${annoFiltro}`;
-      if (titoloAnnoCorrenteEl)
-        titoloAnnoCorrenteEl.innerHTML =
-          CM.creaTitoloRecordMesi(righeAnnoCorrente);
-      if (podioAnnoCorrenteEl)
-        podioAnnoCorrenteEl.innerHTML = CM.creaPodioSemplice(righeAnnoCorrente);
-      if (listaAnnoCorrenteEl)
-        listaAnnoCorrenteEl.innerHTML =
-          CM.creaRecordMesi(righeAnnoCorrente) +
-          CM.creaRigaTotale(totaleAnnoCorrente, `mesi del ${annoFiltro}`);
-
-      // Se il link di provenienza chiedeva la scheda "record" (il caso
-      // normale: Statistiche/Anni/*.html manda "?vista=record&anno=2020"),
-      // si parte subito dalla scheda dedicata a quell'anno invece che dal
-      // confronto generale fra tutti gli anni.
-      if (vistaIniziale === "record") {
-        attivaVista("anno-corrente");
-        // Lo scorrimento di prima (subito dopo il caricamento) puntava
-        // ancora al gruppo "record": qui si passa davvero a
-        // "anno-corrente", che esiste solo dopo questo fetch, quindi
-        // serve un secondo scorrimento verso il gruppo giusto.
-        const gruppoAnnoCorrente = document.querySelector(
-          '[data-vista-gruppo="anno-corrente"]',
-        );
-        if (gruppoAnnoCorrente) {
-          const motoRidotto = window.matchMedia(
-            "(prefers-reduced-motion: reduce)",
-          ).matches;
-          gruppoAnnoCorrente.scrollIntoView({
-            behavior: motoRidotto ? "auto" : "smooth",
-            block: "start",
-          });
-        }
-      }
-    }
 
     if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(righe);
     if (podioEl) podioEl.innerHTML = CM.creaPodio(righe, totaleAnni);
     if (listaEl)
       listaEl.innerHTML =
         CM.creaClassifica(righe) + CM.creaRigaTotale(totale, "12 mesi");
-    if (titoloRecordMesiEl)
-      titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(righeRecordTutti);
-    if (podioRecordMesiEl)
-      podioRecordMesiEl.innerHTML = CM.creaPodioSemplice(righeRecordTutti);
-    if (recordMesiEl)
-      recordMesiEl.innerHTML =
-        CM.creaRecordMesi(righeRecordTutti) +
-        CM.creaRigaTotale(
-          totaleRecordTutti,
-          `${righeRecordTutti.length} record`,
-        );
+
+    function mostraRecord(annoSelezionato) {
+      let righeMostrate = righeRecordTutti;
+      let totaleMostrato = totaleRecordTutti;
+      let etichettaTotale = `${righeRecordTutti.length} record`;
+
+      if (annoSelezionato) {
+        righeMostrate = righeRecordTutti
+          .filter((r) => String(r.anno) === annoSelezionato)
+          .map((r) => ({ ...r }));
+        totaleMostrato = righeMostrate.reduce((tot, r) => tot + r.km, 0);
+        righeMostrate.forEach((r) => {
+          r.percentuale =
+            totaleMostrato > 0 ? (r.km / totaleMostrato) * 100 : 0;
+        });
+        etichettaTotale = `mesi del ${annoSelezionato}`;
+      }
+
+      if (titoloRecordMesiEl)
+        titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(righeMostrate);
+      if (podioRecordMesiEl)
+        podioRecordMesiEl.innerHTML = CM.creaPodioSemplice(righeMostrate);
+      if (recordMesiEl)
+        recordMesiEl.innerHTML =
+          CM.creaRecordMesi(righeMostrate) +
+          CM.creaRigaTotale(totaleMostrato, etichettaTotale);
+    }
+
+    if (selettoreRecordAnnoEl) {
+      const anniRecordUnici = [
+        ...new Set(righeRecordTutti.map((r) => String(r.anno))),
+      ].sort((a, b) => b.localeCompare(a));
+      anniRecordUnici.forEach((a) => {
+        const opzione = document.createElement("option");
+        opzione.value = a;
+        opzione.textContent = a;
+        selettoreRecordAnnoEl.appendChild(opzione);
+      });
+
+      if (annoFiltro && anniRecordUnici.includes(annoFiltro)) {
+        selettoreRecordAnnoEl.value = annoFiltro;
+      }
+
+      selettoreRecordAnnoEl.addEventListener("change", () => {
+        mostraRecord(selettoreRecordAnnoEl.value);
+      });
+
+      mostraRecord(selettoreRecordAnnoEl.value);
+    } else {
+      mostraRecord("");
+    }
 
     const { righe: righeAnni, totale: totaleAnniKm } = CM.calcolaAnni(allData);
     if (titoloAnniEl) titoloAnniEl.innerHTML = CM.creaTitoloAnni(righeAnni);
@@ -302,9 +253,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   // "Tappe più lunghe" vive già nelle pagine di stagione (Estate.html
   // ecc.), ma lì per non sommergere la pagina se ne vedono solo le
   // prime 10: qui, nella pagina Classifica, è la scheda pensata per
-  // vederle TUTTE insieme, senza limite. Stessa fonte dati (i file
-  // json/<Stagione>/Periodi/<anno>.json), letta qui da capo perché
-  // questa pagina non ha già in mano i dati delle stagioni.
+  // vederle TUTTE insieme, con in più due filtri (stagione e anno) per
+  // restringere l'elenco invece di scorrerle tutte mescolate. Stessa
+  // fonte dati (i file json/<Stagione>/Periodi/<anno>.json), letta qui
+  // da capo perché questa pagina non ha già in mano i dati.
   if (window.TappePiuLunghe) {
     try {
       const configStagioni = [
@@ -331,6 +283,8 @@ document.addEventListener("DOMContentLoaded", async () => {
               nomeTesto: info.nomeTesto,
               href: info.href,
               linkMultipli: info.linkMultipli,
+              stagione: config.season,
+              periodo: etichettaPeriodo,
               etichetta: `${r.date} · ${config.season} ${etichettaPeriodo}`,
               distance: r.distance,
             });
@@ -338,7 +292,92 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
       }
 
-      TappePiuLunghe.mostra("podio-tappe", "classifica-tappe", tutteLeTappe);
+      // ---------- Filtri: popolati con quello che c'è davvero nei dati ----------
+      const selettoreStagioneEl = document.getElementById(
+        "tappe-filtro-stagione",
+      );
+      const selettoreAnnoEl = document.getElementById("tappe-filtro-anno");
+
+      const stagioniUniche = [
+        ...new Set(tutteLeTappe.map((t) => t.stagione)),
+      ];
+      stagioniUniche.forEach((s) => {
+        const opzione = document.createElement("option");
+        opzione.value = s;
+        opzione.textContent = s;
+        selettoreStagioneEl.appendChild(opzione);
+      });
+
+      // "Anno" dipende da quale stagione è scelta: con "Estate" scelta
+      // ha senso proporre solo gli anni che l'Estate ha davvero, non
+      // anche gli intervalli dell'Autunno-Inverno o gli anni in cui
+      // quella stagione non è mai stata registrata. Si ricalcola ogni
+      // volta che cambia la stagione (o parte vuota, "Tutte").
+      function popolaAnni(stagioneFiltro) {
+        const disponibili = stagioneFiltro
+          ? tutteLeTappe.filter((t) => t.stagione === stagioneFiltro)
+          : tutteLeTappe;
+        // "Anno" per l'Autunno-Inverno è un intervallo ("2020-2021"):
+        // resta per intero così com'è, non separato in due anni,
+        // altrimenti una singola stagione finirebbe in due filtri.
+        const anniDisponibili = [
+          ...new Set(disponibili.map((t) => t.periodo)),
+        ].sort((a, b) => b.localeCompare(a));
+
+        const sceltaAttuale = selettoreAnnoEl.value;
+        selettoreAnnoEl.innerHTML = '<option value="">Tutti</option>';
+        anniDisponibili.forEach((a) => {
+          const opzione = document.createElement("option");
+          opzione.value = a;
+          opzione.textContent = a;
+          selettoreAnnoEl.appendChild(opzione);
+        });
+        // La scelta di prima resta solo se esiste ancora per la
+        // stagione appena scelta; altrimenti si torna a "Tutti"
+        // invece di lasciare un anno che quella stagione non ha.
+        selettoreAnnoEl.value = anniDisponibili.includes(sceltaAttuale)
+          ? sceltaAttuale
+          : "";
+      }
+
+      function aggiornaVistaTappe() {
+        const stagioneScelta = selettoreStagioneEl.value;
+        const annoScelto = selettoreAnnoEl.value;
+        const filtrate = tutteLeTappe.filter(
+          (t) =>
+            (!stagioneScelta || t.stagione === stagioneScelta) &&
+            (!annoScelto || t.periodo === annoScelto),
+        );
+        TappePiuLunghe.mostra("podio-tappe", "classifica-tappe", filtrate);
+      }
+
+      // Chi arriva da un link con "?stagione=" e/o "&anno=" (es. dalla
+      // pagina di una stagione o di un periodo) trova i filtri già
+      // impostati giusti, non parte sempre da "Tutte/Tutti".
+      const parametriUrl = new URLSearchParams(window.location.search);
+      const stagioneDaUrl = parametriUrl.get("stagione");
+      if (stagioneDaUrl && stagioniUniche.includes(stagioneDaUrl)) {
+        selettoreStagioneEl.value = stagioneDaUrl;
+      }
+      popolaAnni(selettoreStagioneEl.value);
+      const annoDaUrl = parametriUrl.get("anno");
+      if (
+        annoDaUrl &&
+        Array.prototype.some.call(
+          selettoreAnnoEl.options,
+          (o) => o.value === annoDaUrl,
+        )
+      ) {
+        selettoreAnnoEl.value = annoDaUrl;
+      }
+
+      selettoreStagioneEl.addEventListener("change", () => {
+        popolaAnni(selettoreStagioneEl.value);
+        aggiornaVistaTappe();
+      });
+      selettoreAnnoEl.addEventListener("change", aggiornaVistaTappe);
+
+      aggiornaVistaTappe();
     } catch (error) {
       console.error(`Errore nel caricamento delle tappe: ${error}`);
       const listaTappeEl = document.getElementById("classifica-tappe");
