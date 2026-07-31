@@ -23,6 +23,16 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     Autunno_Inverno: "Autunno · Inverno",
   };
 
+  // Pagina di riferimento di ogni stagione (stessa destinazione già usata
+  // in json/Statistiche/anni/stagioni/seasons-config.json): da qui la
+  // classifica delle stagioni porta alla pagina della stagione stessa,
+  // come già succede per il podio degli anni (creaPodioAnni).
+  const LINK_STAGIONI = {
+    Estate: "../Estate.html",
+    Primavera: "../Primavera.html",
+    Autunno_Inverno: "../Autunno_Inverno.html",
+  };
+
   function sommaDistanze(corse) {
     if (!Array.isArray(corse)) return 0;
     return corse.reduce((tot, corsa) => tot + (corsa.distance || 0), 0);
@@ -60,6 +70,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
         return {
           stagione: NOMI_STAGIONI[stagione.name] || stagione.name,
+          link: LINK_STAGIONI[stagione.name] || "#",
           km,
           periodi,
           kmMedi: periodi > 0 ? km / periodi : 0,

@@ -165,11 +165,18 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // ---------- Stagioni: stesso podio, dati e frase per le stagioni ----------
   // Le stagioni sono solo tre, quindi il podio è già "tutte quante":
   // non serve una lista aggiuntiva sotto, come invece per i dodici mesi.
+  // Ogni gradino è un link che porta alla pagina di quella stagione
+  // (Estate.html, Primavera.html, Autunno_Inverno.html), stesso
+  // comportamento già usato per il podio degli anni (creaPodioAnni).
   CM.creaPodioStagioni = function (righe) {
     return righe
       .map(
         (r, i) => `
-      <div class="podio__gradino podio__gradino--${i + 1}">
+      <a
+        class="podio__gradino podio__gradino--${i + 1}"
+        href="${r.link}"
+        aria-label="Vai alla pagina di ${r.stagione}"
+      >
         <span class="podio__medaglia" aria-hidden="true">${MEDAGLIE[i]}</span>
         <span class="podio__mese">${r.stagione}</span>
         <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
@@ -178,7 +185,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           ${formatItalianNumber(r.periodi)} anni pedalati &middot;
           media ${formatItalianNumber(r.kmMedi, true)} km
         </span>
-      </div>`,
+      </a>`,
       )
       .join("");
   };
