@@ -30,36 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   }
 
-  // ---------------------------------------------------------
-  // "Tappe più lunghe": le stesse uscite della tabella qui sopra,
-  // ma ordinate per distanza invece che per data. Qui basta
-  // preparare le righe (etichetta = solo la data, siamo dentro un
-  // singolo anno) e passarle alla logica condivisa in
-  // assets/js/tappe-piu-lunghe.js (usata anche dalla pagina
-  // generale della stagione, che le combina di tutti gli anni).
-  function mostraTappePiuLunghe(data) {
-    if (!window.TappePiuLunghe) return;
-    const righe = data.map(function (r) {
-      const info = TappePiuLunghe.analizzaLuogo(r.place);
-      return {
-        nome: info.nome,
-        nomeTesto: info.nomeTesto,
-        href: info.href,
-        linkMultipli: info.linkMultipli,
-        etichetta: r.date,
-        distance: r.distance,
-      };
-    });
-    TappePiuLunghe.mostra("tappe-podio", "tappe-lista", righe);
-  }
-
   function updateTableAndStats(data) {
     const tableBody = document.querySelector("table tbody");
     data.forEach((row, index) => {
       tableBody.appendChild(createTableRow(row, index));
     });
     calculateAndDisplayStats(data);
-    mostraTappePiuLunghe(data);
   }
 
   const jsonUrl = document.getElementById("json").getAttribute("link");
