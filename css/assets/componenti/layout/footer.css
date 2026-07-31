@@ -4,13 +4,13 @@
    ============================================================ */
 
 /* ---------- 17. Footer ----------
-   Stessa cornice scura della barra in alto: apre e chiude ogni
-   pagina con lo stesso grafite, il contenuto chiaro resta in mezzo.
-   Non piu' un velo trasparente sopra lo sfondo della pagina. */
+   Stessa cornice chiara della barra in alto: apre e chiude ogni
+   pagina con lo stesso bianco sporco/panna. Testo scuro (var(--ink)),
+   non piu' bianco. */
 .site-foot {
   margin-top: clamp(3rem, 7vw, 5rem);
   padding: clamp(1.6rem, 4vw, 2.4rem) 0 2rem;
-  background: var(--ink);
+  background: var(--bar-bg);
 }
 
 .site-foot .wrap {
@@ -24,7 +24,7 @@
 .site-foot p {
   margin: 0;
   font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(15, 36, 56, 0.6);
   text-align: left;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .foot-links a {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(15, 36, 56, 0.78);
 }
 
 .foot-links a:hover {

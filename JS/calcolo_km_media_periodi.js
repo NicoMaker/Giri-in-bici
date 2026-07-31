@@ -2,12 +2,29 @@
 // Dipendenze: JS/utils.js (caricato prima in HTML)
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Quando un'uscita ha piu' percorsi separati (tipicamente "andata" e
+  // "ritorno" tracciati come due tour diversi su Komoot), il JSON li
+  // scrive come "Nome <br><a>andata</a><br><a>ritorno</a>": senza
+  // questa funzione finiscono nella cella cosi' come sono, due link di
+  // testo semplice uno sotto l'altro. Qui si riusa la stessa analisi e
+  // lo stesso markup a pillola gia' usati per il podio "Tappe più
+  // lunghe" (JS/assets/tappe-piu-lunghe.js), cosi' la stessa uscita ha
+  // lo stesso aspetto sia nel podio che nella tabella cronologica, in
+  // ogni stagione. Se quello script non e' caricato in pagina, o il
+  // luogo ha zero/un solo link, la cella resta come prima.
+  function formattaLuogo(luogoHtml) {
+    if (!window.TappePiuLunghe) return luogoHtml;
+    const info = window.TappePiuLunghe.analizzaLuogo(luogoHtml);
+    if (!info.linkMultipli) return luogoHtml;
+    return info.nome + window.TappePiuLunghe.creaLinkMultipli(info.linkMultipli);
+  }
+
   function createTableRow(row, index) {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
       <td>${row.date}</td>
       <td>${formatItalianNumber(index + 1)}</td>
-      <td>${row.place}</td>
+      <td>${formattaLuogo(row.place)}</td>
       <td>${formatItalianNumber(row.distance)}</td>
       <td>km</td>
     `;

@@ -107,11 +107,25 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
       "</span>"
     );
   }
+  // Esposta pubblicamente: la riusa anche calcolo_km_media_periodi.js
+  // per dare la stessa veste a pillola ai link "andata/ritorno" nella
+  // tabella cronologica di ogni periodo (prima erano due <a> di testo
+  // semplice, uno sotto l'altro, senza stile).
+  T.creaLinkMultipli = creaLinkMultipli;
 
   T.creaPodio = function (righe) {
     return righe
       .slice(0, 3)
       .map(function (r, i) {
+        // Bottone "Vai alla tappa" in fondo alla card, stesso stile
+        // (.podio__vai, gia' condiviso via CSS) del "Vai alla stagione"
+        // e "Vai al periodo" degli altri due podi. Ha senso solo se la
+        // card e' un unico link cliccabile: col gruppo andata/ritorno
+        // non c'e' un singolo href a cui puntare, e le due pillole
+        // stesse fanno gia' da invito al click.
+        var vaiATappa = r.href
+          ? '<span class="podio__vai">Vai alla tappa <span class="freccia" aria-hidden="true">→</span></span>'
+          : "";
         var dentro =
           '<span class="podio__medaglia" aria-hidden="true">' +
           MEDAGLIE[i] +
@@ -123,7 +137,8 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
           formatItalianNumber(r.distance) +
           ' km</span><span class="podio__dettaglio">' +
           r.etichetta +
-          "</span>";
+          "</span>" +
+          vaiATappa;
         return r.href
           ? '<a class="podio__gradino podio__gradino--' +
               (i + 1) +

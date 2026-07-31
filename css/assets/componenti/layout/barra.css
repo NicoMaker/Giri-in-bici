@@ -4,10 +4,9 @@
    ============================================================ */
 
 /* ---------- 5. Barra superiore ----------
-   Da barra chiara e sfocata a barra scura e ferma: le testate dei
-   siti bici premium restano quasi sempre un grafite/nero persistente
-   in cima, non un velo trasparente. L'oro dell'accento fa da unico
-   punto di colore acceso su questo sfondo scuro. */
+   Bianco sporco/panna, non piu' scuro: testo e icone qui dentro sono
+   percio' scuri (var(--ink)) invece che bianchi, l'oro dell'accento
+   resta l'unico punto di colore acceso, come prima. */
 .site-bar {
   position: sticky;
   top: 0;
@@ -18,15 +17,15 @@
   flex-wrap: wrap;
   min-height: var(--bar-h);
   padding: 0.6rem clamp(0.9rem, 3vw, 1.6rem);
-  background: var(--ink);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bar-bg);
+  border-bottom: 1px solid rgba(15, 36, 56, 0.1);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  color: #fff;
+  color: var(--ink);
   font-family: var(--font-head);
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -34,7 +33,7 @@
 }
 
 .brand:hover {
-  color: #fff;
+  color: var(--ink);
 }
 
 .brand-text {
@@ -46,19 +45,19 @@
   display: block;
   font-size: 0.7rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(15, 36, 56, 0.55);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 /* Logo storico: resta su una pastiglia chiara, cosi' la bandiera
-   si legge bene anche sulla barra scura */
+   si legge bene comunque, sia sulla barra chiara che nel resto del sito */
 .Bandiera-FVG {
   width: 44px;
   height: 44px;
   object-fit: contain;
   border-radius: 13px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(15, 36, 56, 0.12);
   box-shadow: var(--sh-1);
   background: var(--surface);
   transition:
@@ -81,9 +80,9 @@
   gap: 0.25rem;
   padding: 0.3rem;
   margin: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(15, 36, 56, 0.12);
   border-radius: var(--r-full);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(15, 36, 56, 0.05);
   position: static;
   overflow-x: auto;
   max-width: 100%;
@@ -96,7 +95,7 @@
   width: 42px;
   height: 42px;
   border-radius: var(--r-full);
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(15, 36, 56, 0.72);
   background: transparent;
   transition:
     background 0.2s var(--ease),
@@ -118,7 +117,7 @@
 .Icons a:hover,
 .Icons a:focus-visible {
   color: var(--a1);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 36, 56, 0.08);
   transform: translateY(-2px);
 }
 

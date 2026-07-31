@@ -121,32 +121,10 @@
   border-radius: 3px;
 }
 
-/* Quando un'uscita ha piu' percorsi separati (tipicamente "andata" e
-   "ritorno" tracciati come due tour diversi): i link restano insieme
-   nella stessa scheda/riga del nome del posto, mai su righe a parte. */
-.tappa-link-multipli {
-  display: inline-flex;
-  gap: 0.35rem;
-  margin-left: 0.4rem;
-}
-
-.tappa-link-multipli a {
-  padding: 0.1rem 0.55rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--ink-2);
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-full);
-  transition:
-    color 0.2s var(--ease),
-    background 0.2s var(--ease);
-}
-
-.tappa-link-multipli a:hover {
-  color: #fff;
-  background: linear-gradient(120deg, var(--a1), var(--a2));
-}
+/* Il gruppo di link "andata/ritorno" (.tappa-link-multipli) vive ora
+   in assets/css/componenti/tabelle-grafici/tabelle.css: e' condiviso
+   da core.css, quindi disponibile sia qui (podio delle tappe) sia
+   nella tabella cronologica di ogni periodo, non solo qui come prima. */
 
 /* Filtri per stagione/anno nella scheda "Tappe": due select semplici,
    una accanto all'altra, per restringere l'elenco di tutte le uscite

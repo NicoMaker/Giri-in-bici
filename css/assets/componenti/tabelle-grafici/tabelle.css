@@ -88,3 +88,52 @@ th:first-child {
   text-align: left;
   font-weight: 600;
 }
+
+/* Quando un'uscita ha piu' percorsi separati (tipicamente "andata" e
+   "ritorno" tracciati come due tour diversi su Komoot): i link restano
+   insieme come piccole pillole accanto al nome del posto, mai due righe
+   di testo semplice una sotto l'altra. Vive qui (non in
+   Statistiche/classifica-mesi.css) apposta: cosi' e' condiviso da
+   core.css e disponibile in ogni tabella del sito, non solo nel podio
+   delle tappe in Statistiche. */
+.tappa-link-multipli {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-left: 0.4rem;
+  white-space: nowrap;
+}
+
+.tappa-link-multipli a {
+  padding: 0.15rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: var(--r-full);
+  transition:
+    color 0.2s var(--ease),
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+/* Primo link (di solito "andata"): pillola piena e colorata, sempre
+   ben visibile, non solo al passaggio del mouse. */
+.tappa-link-multipli a:first-child {
+  color: #fff;
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  border: 1px solid transparent;
+  box-shadow: var(--sh-1);
+}
+
+/* Gli altri link (di solito "ritorno"): solo contorno, piu' discreti,
+   cosi' i due si distinguono a colpo d'occhio invece di essere due
+   pillole identiche. */
+.tappa-link-multipli a:not(:first-child) {
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+}
+
+.tappa-link-multipli a:hover {
+  color: #fff;
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  border-color: transparent;
+}
