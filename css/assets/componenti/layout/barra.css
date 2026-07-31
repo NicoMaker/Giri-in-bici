@@ -127,19 +127,19 @@
   object-fit: contain;
 }
 
-/* Pagina in cui ci si trova: pastiglia dorata e icona nel colore
-   d'accento. Regole dopo :hover cosi' l'evidenziazione resta anche
-   passandoci sopra il mouse. */
+/* Pagina in cui ci si trova: icona nel colore d'accento con un
+   anello sottile, senza pastiglia gialla dietro (ne' da ferma ne' al
+   passaggio del mouse: toglieva leggibilita' sulla barra chiara). */
 .Icons a[aria-current="page"],
 .Icons a.is-attivo {
   color: var(--a1);
-  background: rgba(201, 154, 46, 0.18);
+  background: transparent;
   box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--a1) 55%, transparent);
 }
 
 .Icons a[aria-current="page"]:hover,
 .Icons a.is-attivo:hover {
-  background: rgba(201, 154, 46, 0.28);
+  background: transparent;
 }
 
 /* Pulsante grafico stagioni nella barra */

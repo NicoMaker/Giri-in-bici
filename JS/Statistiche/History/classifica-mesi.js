@@ -281,6 +281,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         selettorePeriodiStagioneEl.appendChild(opzione);
       });
 
+      // Chi arriva da un link con "?stagione=" (es. dal bottone "Vedi la
+      // classifica" in fondo alla pagina di una stagione o di un
+      // periodo) trova il filtro gia' impostato giusto, non parte
+      // sempre da "Tutte": stesso comportamento gia' usato per i
+      // filtri della scheda "Tappe" qui sotto.
+      const parametriUrlPeriodi = new URLSearchParams(window.location.search);
+      const stagioneDaUrlPeriodi = parametriUrlPeriodi.get("stagione");
+      if (
+        stagioneDaUrlPeriodi &&
+        stagioniPeriodiUniche.includes(stagioneDaUrlPeriodi)
+      ) {
+        selettorePeriodiStagioneEl.value = stagioneDaUrlPeriodi;
+      }
+
       selettorePeriodiStagioneEl.addEventListener("change", () => {
         mostraPeriodi(selettorePeriodiStagioneEl.value);
       });
