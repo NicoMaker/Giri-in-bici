@@ -4,8 +4,8 @@
    ============================================================ */
 
 /* ---------- 5. Barra superiore ----------
-   Bianco sporco/panna, non piu' scuro: testo e icone qui dentro sono
-   percio' scuri (var(--ink)) invece che bianchi, l'oro dell'accento
+   Bianco puro, non piu' scuro: testo e icone qui dentro sono percio'
+   scuri (var(--ink)) invece che bianchi, l'oro dell'accento
    resta l'unico punto di colore acceso, come prima. */
 .site-bar {
   position: sticky;

@@ -16,7 +16,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!window.TappePiuLunghe) return luogoHtml;
     const info = window.TappePiuLunghe.analizzaLuogo(luogoHtml);
     if (!info.linkMultipli) return luogoHtml;
-    return info.nome + window.TappePiuLunghe.creaLinkMultipli(info.linkMultipli);
+    return (
+      info.nome +
+      "<br>" +
+      window.TappePiuLunghe.creaLinkMultipli(info.linkMultipli)
+    );
   }
 
   function createTableRow(row, index) {

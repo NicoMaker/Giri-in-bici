@@ -5,7 +5,7 @@
 
 /* ---------- 17. Footer ----------
    Stessa cornice chiara della barra in alto: apre e chiude ogni
-   pagina con lo stesso bianco sporco/panna. Testo scuro (var(--ink)),
+   pagina con lo stesso bianco puro. Testo scuro (var(--ink)),
    non piu' bianco. */
 .site-foot {
   margin-top: clamp(3rem, 7vw, 5rem);

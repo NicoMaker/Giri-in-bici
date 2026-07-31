@@ -34,12 +34,10 @@
      stesso colore del testo di tutto il sito. Separato in una
      variabile propria cosi' si puo' cambiare solo la barra senza
      toccare anche il testo ovunque altrove.
-     Era un blu piu' chiaro, ma si confondeva con l'accento
-     dell'Autunno-Inverno (--a1 di quella stagione e' #1b6fc4, stesso
-     blu): ora e' un bianco sporco/panna caldo, che non assomiglia
-     all'accento di nessuna stagione. Testo e icone dentro la barra
-     sono percio' scuri (var(--ink)), non piu' bianchi. */
-  --bar-bg: #f2ecd9;
+     Passato da un blu (si confondeva con l'accento dell'Autunno-
+     Inverno) a un bianco sporco/panna, e ora a bianco puro. Testo e
+     icone dentro la barra restano scuri (var(--ink)). */
+  --bar-bg: #ffffff;
 
   /* Sfondo pagina — bianco freddo con un velo di blu, come il cielo
      sopra il campo azzurro della bandiera */
