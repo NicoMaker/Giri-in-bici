@@ -263,6 +263,7 @@
         </section>
       </div>
 
+      <!-- SEZIONE STAGIONI CON PULSANTE AGGIUNTO -->
       <div data-vista-gruppo="stagioni">
         <section class="section reveal podio-fisso">
           <p class="eyebrow">Podio</p>
@@ -270,6 +271,19 @@
           <p class="classifica-titolo" id="classifica-stagioni-titolo"></p>
           <div id="podio-stagioni" class="podio"></div>
         </section>
+
+        <!-- Pulsante con lo stesso stile dei bottoni del selettore -->
+        <div style="text-align: center; margin-top: 2rem; padding-bottom: 0.5rem;">
+          <a
+            href="../../Statistiche/Stagioni.html"
+            class="selettore-metrica__pulsante"
+            style="display: inline-block; text-decoration: none; background: var(--colore-secondario, #2b6c8c); color: #fff; padding: 0.7rem 2rem; border-radius: 2rem; font-weight: 600; font-size: 1rem; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: background 0.2s, transform 0.15s; cursor: pointer;"
+            onmouseover="this.style.background='var(--colore-primario, #1a4b66)'; this.style.transform='scale(1.02)';"
+            onmouseout="this.style.background='var(--colore-secondario, #2b6c8c)'; this.style.transform='scale(1)';"
+          >
+            📊 Vedi tutte le stagioni
+          </a>
+        </div>
       </div>
 
       <div data-vista-gruppo="periodi">
@@ -351,7 +365,7 @@
             rel="noopener"
             >GitHub</a
           >
-        </nav>
+        </a>
       </div>
     </footer>
   </body>
