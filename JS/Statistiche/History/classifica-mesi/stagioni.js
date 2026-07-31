@@ -28,9 +28,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // classifica delle stagioni porta alla pagina della stagione stessa,
   // come già succede per il podio degli anni (creaPodioAnni).
   const LINK_STAGIONI = {
-    Estate: "../Estate.html",
-    Primavera: "../Primavera.html",
-    Autunno_Inverno: "../Autunno_Inverno.html",
+    Estate: "../../Estate.html",
+    Primavera: "../../Primavera.html",
+    Autunno_Inverno: "../../Autunno_Inverno.html",
   };
 
   function sommaDistanze(corse) {
