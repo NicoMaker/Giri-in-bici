@@ -3,15 +3,14 @@
    Parte del tema condiviso: assets/css/core.css
    ============================================================ */
 
-/* ---------- 17. Footer ---------- */
+/* ---------- 17. Footer ----------
+   Stessa cornice scura della barra in alto: apre e chiude ogni
+   pagina con lo stesso grafite, il contenuto chiaro resta in mezzo.
+   Non piu' un velo trasparente sopra lo sfondo della pagina. */
 .site-foot {
   margin-top: clamp(3rem, 7vw, 5rem);
   padding: clamp(1.6rem, 4vw, 2.4rem) 0 2rem;
-  border-top: 1px solid var(--line);
-  background: var(--surface);
-  background: color-mix(in srgb, var(--surface) 62%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--ink);
 }
 
 .site-foot .wrap {
@@ -25,7 +24,7 @@
 .site-foot p {
   margin: 0;
   font-size: 0.88rem;
-  color: var(--ink-3);
+  color: rgba(255, 255, 255, 0.5);
   text-align: left;
 }
 
@@ -39,9 +38,19 @@
 }
 
 .foot-links a {
-  color: var(--ink-2);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .foot-links a:hover {
   color: var(--a1);
+}
+
+/* Piccola aquila accanto a "Friuli Venezia Giulia": stessa filigrana
+   dell'hero, qui in piccolo e ben visibile invece che sfumata. */
+.footer-aquila {
+  width: 20px;
+  height: 16px;
+  vertical-align: -2px;
+  margin: 0 0.15em;
+  opacity: 0.92;
 }

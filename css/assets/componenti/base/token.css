@@ -6,55 +6,66 @@
 /* I temi (giri.css, Primavera.css, Estate.css, ...) importano core.css
    e ridefiniscono solo gli accenti --a1, --a2, --a-soft. */
 
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=Dancing+Script:wght@600&display=swap");
 
 /* ---------- 1. Token ---------- */
 :root {
-  /* Accenti: sovrascritti dai singoli temi stagionali */
-  --a1: #0ea5e9;
-  --a2: #6366f1;
-  --a-soft: rgba(14, 165, 233, 0.12);
+  /* Accenti: sovrascritti dai singoli temi stagionali.
+     --a1 = oro strada (l'aquila dorata della bandiera FVG, la luce
+     dell'ora dorata in bici) — --a2 = teal alpino (i laghi e le
+     montagne del Friuli). Sostituiscono il blu/indaco generico. */
+  --a1: #c99a2e;
+  --a2: #1f4d45;
+  --a-soft: rgba(201, 154, 46, 0.14);
 
-  /* Inchiostro e superfici */
-  --ink: #0e1b2a;
-  --ink-2: #46586d;
-  --ink-3: #7d8ea1;
-  --surface: #ffffff;
-  --surface-2: #f3f7fb;
-  --surface-3: #e9eff6;
-  --line: rgba(14, 27, 42, 0.1);
-  --line-strong: rgba(14, 27, 42, 0.18);
+  /* Inchiostro e superfici — grafite dell'asfalto, non piu' blu navy */
+  --ink: #14181c;
+  --ink-2: #565f6b;
+  --ink-3: #838b93;
+  --surface: #fbfaf7;
+  --surface-2: #f1efe9;
+  --surface-3: #e9e5da;
+  --line: rgba(20, 24, 28, 0.1);
+  --line-strong: rgba(20, 24, 28, 0.2);
 
-  /* Sfondo pagina — l'azzurro/lavanda storico del sito, ammorbidito */
-  --bg-1: #eef6fb;
-  --bg-2: #e7ecfb;
-  --bg-3: #f6fbfd;
+  /* Sfondo pagina — pietra/avorio caldo, non piu' azzurro/lavanda */
+  --bg-1: #f6f4ee;
+  --bg-2: #efece3;
+  --bg-3: #f9f8f3;
 
   /* Grafici: restano sempre chiari, anche in tema scuro */
   --chart-surface: #ffffff;
 
-  /* Tipografia */
+  /* Tipografia — --font-head resta "Outfit": e' gia' usato per
+     pulsanti, etichette e badge in tutto il sito, a quelle misure
+     piccole deve restare un sans neutro e leggibile. "Syne" (nuovo)
+     e' riservato solo ai titoli veri e propri (h1-h4, hero, marchio):
+     li' puo' permettersi carattere, senza compromettere l'interfaccia
+     minuta altrove. */
   --font-display: "Dancing Script", "Segoe Script", cursive;
+  --font-display-bold: "Syne", "Outfit", system-ui, sans-serif;
   --font-head: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Forma */
-  --r-sm: 10px;
-  --r-md: 16px;
-  --r-lg: 22px;
-  --r-xl: 30px;
+  /* Forma — un filo meno "bolle", piu' vicino a un oggetto disegnato
+     che a un'app generica */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 26px;
   --r-full: 999px;
 
-  /* Ombre */
-  --sh-1: 0 1px 2px rgba(14, 27, 42, 0.05);
+  /* Ombre — piu' profonde e piu' scure: il grafite regge un'ombra
+     piu' netta di quanto reggesse il blu chiaro di prima */
+  --sh-1: 0 1px 2px rgba(20, 24, 28, 0.06);
   --sh-2:
-    0 1px 2px rgba(14, 27, 42, 0.06), 0 10px 24px -14px rgba(14, 27, 42, 0.28);
+    0 1px 2px rgba(20, 24, 28, 0.07), 0 10px 24px -14px rgba(20, 24, 28, 0.32);
   --sh-3:
-    0 2px 4px rgba(14, 27, 42, 0.06), 0 22px 48px -20px rgba(14, 27, 42, 0.35);
+    0 2px 4px rgba(20, 24, 28, 0.07), 0 22px 48px -20px rgba(20, 24, 28, 0.4);
   /* Ombra "premium": per gli hover che devono sembrare sollevati
      davvero (card di riepilogo, hero, bottoni principali) */
   --sh-4:
-    0 4px 10px rgba(14, 27, 42, 0.08), 0 34px 64px -22px rgba(14, 27, 42, 0.4);
+    0 4px 10px rgba(20, 24, 28, 0.1), 0 34px 64px -22px rgba(20, 24, 28, 0.45);
   /* Bagliore colorato coerente col tema attivo, per bordi/ombre in
      risalto sugli elementi interattivi principali */
   --glow: 0 14px 40px -12px color-mix(in srgb, var(--a1) 45%, transparent);

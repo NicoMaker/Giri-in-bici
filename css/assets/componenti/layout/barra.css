@@ -3,7 +3,11 @@
    Parte del tema condiviso: assets/css/core.css
    ============================================================ */
 
-/* ---------- 5. Barra superiore ---------- */
+/* ---------- 5. Barra superiore ----------
+   Da barra chiara e sfocata a barra scura e ferma: le testate dei
+   siti bici premium restano quasi sempre un grafite/nero persistente
+   in cima, non un velo trasparente. L'oro dell'accento fa da unico
+   punto di colore acceso su questo sfondo scuro. */
 .site-bar {
   position: sticky;
   top: 0;
@@ -14,18 +18,15 @@
   flex-wrap: wrap;
   min-height: var(--bar-h);
   padding: 0.6rem clamp(0.9rem, 3vw, 1.6rem);
-  background: var(--surface);
-  background: color-mix(in srgb, var(--surface) 78%, transparent);
-  backdrop-filter: saturate(1.5) blur(16px);
-  -webkit-backdrop-filter: saturate(1.5) blur(16px);
-  border-bottom: 1px solid var(--line);
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  color: var(--ink);
+  color: #fff;
   font-family: var(--font-head);
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -33,7 +34,7 @@
 }
 
 .brand:hover {
-  color: var(--ink);
+  color: #fff;
 }
 
 .brand-text {
@@ -45,18 +46,19 @@
   display: block;
   font-size: 0.7rem;
   font-weight: 500;
-  color: var(--ink-3);
+  color: rgba(255, 255, 255, 0.55);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-/* Logo storico: da bordo tratteggiato giallo a pastiglia moderna */
+/* Logo storico: resta su una pastiglia chiara, cosi' la bandiera
+   si legge bene anche sulla barra scura */
 .Bandiera-FVG {
   width: 44px;
   height: 44px;
   object-fit: contain;
   border-radius: 13px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: var(--sh-1);
   background: var(--surface);
   transition:
@@ -79,11 +81,9 @@
   gap: 0.25rem;
   padding: 0.3rem;
   margin: 0;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--r-full);
-  background: var(--surface);
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-  box-shadow: var(--sh-1);
+  background: rgba(255, 255, 255, 0.06);
   position: static;
   overflow-x: auto;
   max-width: 100%;
@@ -96,7 +96,7 @@
   width: 42px;
   height: 42px;
   border-radius: var(--r-full);
-  color: var(--ink-2);
+  color: rgba(255, 255, 255, 0.72);
   background: transparent;
   transition:
     background 0.2s var(--ease),
@@ -118,7 +118,7 @@
 .Icons a:hover,
 .Icons a:focus-visible {
   color: var(--a1);
-  background: var(--a-soft);
+  background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
 
@@ -128,19 +128,19 @@
   object-fit: contain;
 }
 
-/* Pagina in cui ci si trova: pastiglia colorata e icona nel colore
-   d'accento della stagione. Regole dopo :hover cosi' l'evidenziazione
-   resta anche passandoci sopra il mouse. */
+/* Pagina in cui ci si trova: pastiglia dorata e icona nel colore
+   d'accento. Regole dopo :hover cosi' l'evidenziazione resta anche
+   passandoci sopra il mouse. */
 .Icons a[aria-current="page"],
 .Icons a.is-attivo {
   color: var(--a1);
-  background: var(--a-soft);
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--a1) 40%, transparent);
+  background: rgba(201, 154, 46, 0.18);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--a1) 55%, transparent);
 }
 
 .Icons a[aria-current="page"]:hover,
 .Icons a.is-attivo:hover {
-  background: color-mix(in srgb, var(--a1) 18%, transparent);
+  background: rgba(201, 154, 46, 0.28);
 }
 
 /* Pulsante grafico stagioni nella barra */

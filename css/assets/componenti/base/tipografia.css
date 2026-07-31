@@ -8,10 +8,10 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-head);
+  font-family: var(--font-display-bold);
   color: var(--ink);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
   margin: 0 0 0.4em;
   text-align: center;
 }
@@ -42,27 +42,41 @@ p {
   font-style: italic;
 }
 
-/* Titolo firma del sito: gradiente tricolore (identità storica) */
+/* Titolo firma del sito: prima un riempimento in corsivo con tutto
+   il gradiente tricolore, ora il peso lo porta la tipografia stessa
+   (Syne, deciso) e il tricolore resta come dettaglio — una riga
+   sottile sotto al nome — invece di riempire lettere enormi: si
+   legge come un marchio, non come una scritta a pennello. */
 .colore_sfondo_italia {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(3rem, 11vw, 7rem);
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-display-bold);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 9vw, 5.6rem);
   line-height: 1;
-  margin: 0.1em 0 0.25em;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0.1em 0 0.4em;
+  padding-bottom: 0.28em;
+}
+
+.colore_sfondo_italia::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
+  height: 5px;
+  border-radius: var(--r-full);
   background-image: linear-gradient(
     100deg,
     #00934a 0%,
-    #35c07a 26%,
-    #f2f6f8 46%,
-    #f2f6f8 54%,
-    #ef4b4b 74%,
+    #35c07a 30%,
+    var(--surface) 48%,
+    var(--surface) 52%,
+    #ef4b4b 70%,
     #c8102e 100%
   );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 6px 18px rgba(14, 27, 42, 0.18));
 }
 
 .colore_sfondo_italia img {
