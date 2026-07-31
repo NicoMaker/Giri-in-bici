@@ -51,12 +51,12 @@
   background: var(--surface);
   box-shadow: var(--sh-2);
   transition:
-    transform 0.3s var(--ease),
-    box-shadow 0.3s var(--ease);
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
 }
 
 .podio__gradino:hover {
-  transform: translateY(-6px);
+  transform: translateY(-10px) scale(1.035) rotate(-0.6deg);
   box-shadow: var(--sh-3);
 }
 
@@ -321,8 +321,25 @@
    ("San Mauro San Daniele Monte di Ragogna" contro "Settembre"), la
    colonna fissa da 6.5rem li stringerebbe male. Qui il nome prende
    lo spazio libero e la barra resta a larghezza fissa. */
-#tappe-lista .classifica-riga {
+/* NOTA: prima era "#tappe-lista", un id che non esiste da nessuna
+   parte nell'HTML (la lista delle tappe ha id "classifica-tappe") —
+   la regola non scattava mai, e la colonna del nome restava quella
+   di default da 6.5rem fissi, con la barra (1fr) che si allargava a
+   dismisura. Corretto l'id: ora il nome prende lo spazio libero e la
+   barra resta stretta e fissa, come da commento sopra. */
+#classifica-tappe .classifica-riga {
   grid-template-columns: 2.2rem 1fr 90px auto auto;
+}
+
+/* Su mobile la barra da 90px fissi resta comunque grande rispetto
+   allo schermo stretto, e nomi lunghi ("San Mauro San Daniele Monte
+   di Ragogna") vengono compressi. Qui si restringe ulteriormente la
+   barra e si toglie la colonna posizione più larga, lasciando il
+   nome il più leggibile possibile senza andare a capo in modo brutto. */
+@media (max-width: 560px) {
+  #classifica-tappe .classifica-riga {
+    grid-template-columns: 1.6rem 1fr 46px auto;
+  }
 }
 
 /* Riga del totale, in fondo a ogni elenco: sfondo pieno del tema e

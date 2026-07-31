@@ -9,6 +9,7 @@
   .hero > *,
   .hero > h1,
   .hero > .immagini_stagione,
+  .parallasse,
   .hero::before,
   #stampa .container > *,
   #dati > *,

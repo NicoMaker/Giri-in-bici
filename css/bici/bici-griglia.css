@@ -55,12 +55,13 @@
   box-shadow: var(--sh-2);
   overflow: hidden;
   transition:
-    transform 0.3s var(--ease),
-    box-shadow 0.3s var(--ease);
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
 }
 
 .bici-card:hover {
-  transform: translateY(-4px);
+  transform: perspective(900px) translateY(-9px) scale(1.02)
+    rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   box-shadow: var(--sh-3);
 }
 

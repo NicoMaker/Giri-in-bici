@@ -118,7 +118,7 @@
 .Icons a:focus-visible {
   color: var(--a1);
   background: rgba(15, 36, 56, 0.08);
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.08);
 }
 
 .Icons img {
@@ -168,7 +168,7 @@
    viene toccato, resta quello del pulsante. */
 .graficostagioni:hover {
   color: #fff;
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.04);
   box-shadow: var(--sh-3);
 }
 

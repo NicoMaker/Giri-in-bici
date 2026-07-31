@@ -15,8 +15,8 @@
   box-shadow: var(--sh-2);
   overflow: hidden;
   transition:
-    transform 0.3s var(--ease),
-    box-shadow 0.3s var(--ease);
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
 }
 
 .colore::before {
@@ -28,7 +28,8 @@
 }
 
 .colore:hover {
-  transform: translateY(-3px);
+  transform: perspective(900px) translateY(-7px) scale(1.02)
+    rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   box-shadow: var(--sh-3);
 }
 

@@ -75,7 +75,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   // già dove dovevi essere, senza bisogno di ricliccare nulla. Solo
   // quando il link porta davvero un "?vista=" esplicito: una visita
   // diretta alla pagina (senza parametro) resta in cima, come sempre.
-  if (VISTE_VALIDE.includes(vistaIniziale)) {
+  // Su mobile il select a tendina prende il posto delle pillole sotto i
+  // 640px (stessa soglia di css/Statistiche/selettore-metrica.css): lì lo
+  // scorrimento automatico porta subito oltre l'intestazione della
+  // pagina, dritti al select, e sembra che la pagina si apra "già
+  // scorsa" invece che dall'inizio. Su schermi più larghi le pillole
+  // sono già visibili in cima, quindi lo scorrimento fino al gruppo
+  // resta utile per far notare che il link ha funzionato.
+  const suMobile = window.matchMedia("(max-width: 640px)").matches;
+
+  if (VISTE_VALIDE.includes(vistaIniziale) && !suMobile) {
     const gruppoAttivo = document.querySelector(
       `[data-vista-gruppo="${vistaIniziale}"]`,
     );

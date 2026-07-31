@@ -118,6 +118,6 @@ th:first-child {
 }
 
 .tappa-link-multipli a:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.06);
   box-shadow: var(--sh-2);
 }
