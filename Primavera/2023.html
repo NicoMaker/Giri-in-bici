@@ -29,9 +29,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="../css/Primavera/Primavera.css" />
+    <link rel="stylesheet" href="../css/Statistiche/classifica-mesi.css" />
     <script src="../js/assets/icone.js" defer></script>
     <script src="../js/json.js"></script>
     <script src="../js/utils.js"></script>
+    <script src="../js/assets/tappe-piu-lunghe.js" defer></script>
     <script src="../js/calcolo_km_media_periodi.js" defer></script>
     <script src="../js/assets/ui/anno.js" defer></script>
     <script src="../js/assets/ui/rivelazione.js" defer></script>
@@ -165,6 +167,16 @@
         <p class="eyebrow">Riepilogo</p>
         <h2>Totali del periodo</h2>
         <div id="km"></div>
+      </section>
+
+      <section class="section reveal">
+        <p class="eyebrow">Classifica del periodo</p>
+        <h2>Tappe più lunghe</h2>
+        <p class="hero-sub">
+          Tutte le uscite di questo periodo, dalla più lunga alla più corta.
+        </p>
+        <div id="tappe-podio" class="podio"></div>
+        <ol id="tappe-lista" class="classifica-lista"></ol>
       </section>
 
       <section class="section reveal">

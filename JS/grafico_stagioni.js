@@ -56,6 +56,32 @@ document.addEventListener("DOMContentLoaded", async function () {
     );
     renderSeasonSummary(season, totale, totalePeriodi, totalRaces);
     adjustContainerLayout(cssclass);
+
+    // "Tappe più lunghe" di TUTTI gli anni di questa stagione messi
+    // insieme: ogni uscita viene etichettata con "data + periodo"
+    // (es. "29 Giugno 2025"), altrimenti la sola data sarebbe
+    // ambigua fra un anno e l'altro. Usa gli stessi dati già
+    // scaricati sopra (subPeriodData[periodo].tappe), nessuna
+    // richiesta in piu'.
+    if (window.TappePiuLunghe) {
+      const tutteLeTappe = labels.reduce((acc, periodo) => {
+        const tappeDelPeriodo = (subPeriodData[periodo].tappe || []).map(
+          (r) => {
+            const info = TappePiuLunghe.analizzaLuogo(r.place);
+            return {
+              nome: info.nome,
+              nomeTesto: info.nomeTesto,
+              href: info.href,
+              linkMultipli: info.linkMultipli,
+              etichetta: `${r.date} ${periodo}`,
+              distance: r.distance,
+            };
+          },
+        );
+        return acc.concat(tappeDelPeriodo);
+      }, []);
+      TappePiuLunghe.mostra("tappe-podio", "tappe-lista", tutteLeTappe, 10);
+    }
   } catch (error) {
     console.error(`Error loading the JSON data: ${error}`);
   }

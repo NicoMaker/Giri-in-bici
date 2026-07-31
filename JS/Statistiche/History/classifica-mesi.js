@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // del sito che porta qui sceglie già la scheda giusta (es. dalla
   // pagina di una stagione arriva "?vista=stagioni"). Senza il
   // parametro, o con un valore che non esiste, si parte da "mesi".
-  const VISTE_VALIDE = ["mesi", "record", "anni", "stagioni", "periodi"];
+  const VISTE_VALIDE = ["mesi", "record", "anni", "stagioni", "periodi", "tappe"];
   const gruppiVista = document.querySelectorAll("[data-vista-gruppo]");
   const pulsantiVista = document.querySelectorAll(
     "#selettore-vista .selettore-metrica__pulsante",
@@ -59,6 +59,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     "vista",
   );
   attivaVista(VISTE_VALIDE.includes(vistaIniziale) ? vistaIniziale : "mesi");
+
+  // Chi arriva da un link con "?vista=" (es. da una pagina-stagione)
+  // vede subito la fila dei pulsanti in cima, con quello giusto già
+  // selezionato — ma se non si scorre non lo si nota, e sembra che
+  // il link non abbia funzionato. Uno scorrimento morbido fino al
+  // contenuto vero (il gruppo appena attivato) rende ovvio che sei
+  // già dove dovevi essere, senza bisogno di ricliccare nulla. Solo
+  // quando il link porta davvero un "?vista=" esplicito: una visita
+  // diretta alla pagina (senza parametro) resta in cima, come sempre.
+  if (VISTE_VALIDE.includes(vistaIniziale)) {
+    const gruppoAttivo = document.querySelector(
+      `[data-vista-gruppo="${vistaIniziale}"]`,
+    );
+    if (gruppoAttivo) {
+      const motoRidotto = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      requestAnimationFrame(() => {
+        gruppoAttivo.scrollIntoView({
+          behavior: motoRidotto ? "auto" : "smooth",
+          block: "start",
+        });
+      });
+    }
+  }
 
   pulsantiVista.forEach((pulsante) => {
     pulsante.addEventListener("click", () =>
@@ -182,7 +207,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       // normale: Statistiche/Anni/*.html manda "?vista=record&anno=2020"),
       // si parte subito dalla scheda dedicata a quell'anno invece che dal
       // confronto generale fra tutti gli anni.
-      if (vistaIniziale === "record") attivaVista("anno-corrente");
+      if (vistaIniziale === "record") {
+        attivaVista("anno-corrente");
+        // Lo scorrimento di prima (subito dopo il caricamento) puntava
+        // ancora al gruppo "record": qui si passa davvero a
+        // "anno-corrente", che esiste solo dopo questo fetch, quindi
+        // serve un secondo scorrimento verso il gruppo giusto.
+        const gruppoAnnoCorrente = document.querySelector(
+          '[data-vista-gruppo="anno-corrente"]',
+        );
+        if (gruppoAnnoCorrente) {
+          const motoRidotto = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+          ).matches;
+          gruppoAnnoCorrente.scrollIntoView({
+            behavior: motoRidotto ? "auto" : "smooth",
+            block: "start",
+          });
+        }
+      }
     }
 
     if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(righe);
@@ -253,5 +296,55 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (listaPeriodiEl)
       listaPeriodiEl.innerHTML =
         '<li class="errore-grafico">Non è stato possibile caricare il confronto fra i periodi.</li>';
+  }
+
+  // ---------- Tappe: ogni singola uscita, di ogni stagione e anno ----------
+  // "Tappe più lunghe" vive già nelle pagine di stagione (Estate.html
+  // ecc.), ma lì per non sommergere la pagina se ne vedono solo le
+  // prime 10: qui, nella pagina Classifica, è la scheda pensata per
+  // vederle TUTTE insieme, senza limite. Stessa fonte dati (i file
+  // json/<Stagione>/Periodi/<anno>.json), letta qui da capo perché
+  // questa pagina non ha già in mano i dati delle stagioni.
+  if (window.TappePiuLunghe) {
+    try {
+      const configStagioni = [
+        "json/Estate/estate.json",
+        "json/Primavera/primavera.json",
+        "json/Autunno_Inverno/autunno-inverno.json",
+      ];
+      const configuazioni = await Promise.all(
+        configStagioni.map((url) => fetchJSON(url)),
+      );
+
+      const tutteLeTappe = [];
+      for (const config of configuazioni) {
+        const periodi = Object.entries(config.subPeriods || {});
+        const datiPeriodi = await Promise.all(
+          periodi.map(([, file]) => fetchJSON(file)),
+        );
+        periodi.forEach(([etichettaPeriodo], indice) => {
+          const uscite = datiPeriodi[indice] || [];
+          uscite.forEach((r) => {
+            const info = TappePiuLunghe.analizzaLuogo(r.place);
+            tutteLeTappe.push({
+              nome: info.nome,
+              nomeTesto: info.nomeTesto,
+              href: info.href,
+              linkMultipli: info.linkMultipli,
+              etichetta: `${r.date} · ${config.season} ${etichettaPeriodo}`,
+              distance: r.distance,
+            });
+          });
+        });
+      }
+
+      TappePiuLunghe.mostra("podio-tappe", "classifica-tappe", tutteLeTappe);
+    } catch (error) {
+      console.error(`Errore nel caricamento delle tappe: ${error}`);
+      const listaTappeEl = document.getElementById("classifica-tappe");
+      if (listaTappeEl)
+        listaTappeEl.innerHTML =
+          '<li class="errore-grafico">Non è stato possibile caricare le tappe.</li>';
+    }
   }
 });

@@ -105,6 +105,48 @@
   letter-spacing: -0.01em;
 }
 
+/* Bandierina di Slovenia/Austria dentro al nome di un percorso
+   (le uscite che sconfinano): stessa misura gia' usata nella tabella
+   cronologica originale (tabelle.css), qui dentro al podio e alla
+   classifica delle "tappe più lunghe". */
+.podio__mese img,
+.classifica-riga__mese img {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  vertical-align: -3px;
+  margin: 0 0.15rem;
+  border-radius: 3px;
+}
+
+/* Quando un'uscita ha piu' percorsi separati (tipicamente "andata" e
+   "ritorno" tracciati come due tour diversi): i link restano insieme
+   nella stessa scheda/riga del nome del posto, mai su righe a parte. */
+.tappa-link-multipli {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-left: 0.4rem;
+}
+
+.tappa-link-multipli a {
+  padding: 0.1rem 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  transition:
+    color 0.2s var(--ease),
+    background 0.2s var(--ease);
+}
+
+.tappa-link-multipli a:hover {
+  color: #fff;
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+}
+
 .podio__km {
   font-family: var(--font-head);
   font-weight: 700;
@@ -205,6 +247,15 @@
   font-size: 0.85rem;
   color: var(--ink-3);
   white-space: nowrap;
+}
+
+/* "Tappe più lunghe" (pagine stagione-anno, es. Estate/2025.html): i
+   nomi dei percorsi sono spesso molto più lunghi di un nome di mese
+   ("San Mauro San Daniele Monte di Ragogna" contro "Settembre"), la
+   colonna fissa da 6.5rem li stringerebbe male. Qui il nome prende
+   lo spazio libero e la barra resta a larghezza fissa. */
+#tappe-lista .classifica-riga {
+  grid-template-columns: 2.2rem 1fr 90px auto auto;
 }
 
 /* Riga del totale, in fondo a ogni elenco: sfondo pieno del tema e

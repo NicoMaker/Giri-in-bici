@@ -45,6 +45,7 @@
       src="../../js/Statistiche/History/classifica-mesi/podio.js"
       defer
     ></script>
+    <script src="../../js/assets/tappe-piu-lunghe.js" defer></script>
     <script
       src="../../js/Statistiche/History/classifica-mesi.js"
       defer
@@ -179,6 +180,13 @@
           <button
             type="button"
             class="selettore-metrica__pulsante"
+            data-vista="tappe"
+          >
+            Tappe
+          </button>
+          <button
+            type="button"
+            class="selettore-metrica__pulsante"
             data-vista="anno-corrente"
             id="pulsante-anno-corrente"
             hidden
@@ -198,6 +206,7 @@
             <option value="anni">Anni</option>
             <option value="stagioni">Stagioni</option>
             <option value="periodi">Periodi</option>
+            <option value="tappe">Tappe</option>
             <option
               value="anno-corrente"
               id="opzione-anno-corrente"
@@ -318,6 +327,24 @@
           <p class="eyebrow">Classifica completa</p>
           <h2>Tutti i periodi a confronto</h2>
           <ol id="classifica-periodi" class="classifica-lista"></ol>
+        </section>
+      </div>
+
+      <div data-vista-gruppo="tappe">
+        <section class="section reveal podio-fisso">
+          <p class="eyebrow">Podio</p>
+          <h2>Le tre tappe più lunghe di sempre</h2>
+          <p class="hero-sub">
+            Ogni singola uscita, di ogni stagione e di ogni anno, messe a
+            confronto una per una: non un periodo intero, la tappa singola.
+          </p>
+          <div id="podio-tappe" class="podio"></div>
+        </section>
+
+        <section class="section reveal">
+          <p class="eyebrow">Classifica completa</p>
+          <h2>Tutte le tappe, dalla più lunga alla più corta</h2>
+          <ol id="classifica-tappe" class="classifica-lista"></ol>
         </section>
       </div>
     </main>
