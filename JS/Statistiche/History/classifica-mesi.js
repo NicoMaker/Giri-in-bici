@@ -312,11 +312,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const stato = controlliRecord.stato();
       // Cerca per mese o per anno insieme (es. "Settembre" oppure
       // "2024" trovano "Settembre 2024"): "nome" è già "Mese anno".
-      const cercate = CC.cerca(
-        righeAnnoScelto,
-        stato.testo,
-        (r) => r.nome,
-      );
+      const cercate = CC.cerca(righeAnnoScelto, stato.testo, (r) => r.nome);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
       const perPodio = ordinate.slice(0, 3);
@@ -611,11 +607,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           stato.testo,
           (t) => `${t.nomeTesto || t.nome} ${t.stagione} ${t.periodo}`,
         );
-        const filtrate = CC.filtra(
-          cercate,
-          stato,
-          (t) => t.distance,
-        );
+        const filtrate = CC.filtra(cercate, stato, (t) => t.distance);
 
         TappePiuLunghe.mostra(
           "podio-tappe",
