@@ -73,7 +73,7 @@ window.Bici = window.Bici || {};
                   <span class="material-icons">settings</span>
                   <span class="bici-card__spec-text">
                     <span class="bici-card__spec-label">Cambio</span>
-                    <span class="bici-card__spec-value">${bici.avanti} avanti &times; ${bici.dietro} dietro &mdash; ${rapportoTotale} rapporti totali</span>
+                    <span class="bici-card__spec-value">${bici.avanti} avanti &times; ${bici.dietro} dietro &mdash; ${rapportoTotale} ${pluralizza(rapportoTotale, "rapporto totale", "rapporti totali")}</span>
                   </span>
                 </li>
               </ul>

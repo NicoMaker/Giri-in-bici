@@ -67,7 +67,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
         <span class="podio__dettaglio">
           ${formatNumber(r.percentuale)} % del totale &middot;
-          pedalato in ${formatItalianNumber(r.occorrenze)} su ${formatItalianNumber(totaleAnni)} anni &middot;
+          pedalato in ${formatItalianNumber(r.occorrenze)} su ${formatItalianNumber(totaleAnni)} ${pluralizza(totaleAnni, "anno", "anni")} &middot;
           media ${formatItalianNumber(r.kmMedi, true)} km
         </span>
       </div>`,
@@ -95,7 +95,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
         <span class="classifica-riga__mese"
-          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.occorrenze)} anni pedalati &middot; media ${formatItalianNumber(r.kmMedi, true)} km</small></span
+          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.occorrenze)} ${pluralizza(r.occorrenze, "anno pedalato", "anni pedalati")} &middot; media ${formatItalianNumber(r.kmMedi, true)} km</small></span
         >
         <span class="classifica-riga__barra"
           ><span style="--percentuale:${quota}%"></span
@@ -135,7 +135,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       Il mese in cui hai pedalato ${superlativo} in assoluto &egrave;
       <strong>${primo.mese}</strong>, con
       <strong>${formatItalianNumber(primo.km)} km</strong> percorsi
-      in ${formatItalianNumber(primo.occorrenze)} anni diversi.`;
+      in ${formatItalianNumber(primo.occorrenze)} ${pluralizza(primo.occorrenze, "anno diverso", "anni diversi")}.`;
   };
 
   // ---------- Record mese per mese (ogni anno separato) ----------
@@ -200,7 +200,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
         <span class="podio__dettaglio">
           ${formatNumber(r.percentuale)} % del totale &middot;
-          ${formatItalianNumber(r.periodi)} anni pedalati &middot;
+          ${formatItalianNumber(r.periodi)} ${pluralizza(r.periodi, "anno pedalato", "anni pedalati")} &middot;
           media ${formatItalianNumber(r.kmMedi, true)} km
         </span>
         <span class="podio__vai"

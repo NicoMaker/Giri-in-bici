@@ -25,7 +25,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
 
   function formattaValore(metrica, riga) {
     if (metrica === "mesiPercorsi") {
-      return `${formatItalianNumber(riga.mesiPercorsi)} anni`;
+      return `${formatItalianNumber(riga.mesiPercorsi)} ${pluralizza(riga.mesiPercorsi, "anno", "anni")}`;
     }
     if (metrica === "kmMedio") {
       return `${formatItalianNumber(riga.kmMedio, true)} km`;
@@ -50,7 +50,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
         <span class="podio__km anima-numero">${formattaValore(metrica, r)}</span>
         <span class="podio__dettaglio">
           ${formatItalianNumber(r.km)} km totali &middot;
-          ${formatItalianNumber(r.mesiPercorsi)} anni pedalati &middot;
+          ${formatItalianNumber(r.mesiPercorsi)} ${pluralizza(r.mesiPercorsi, "anno pedalato", "anni pedalati")} &middot;
           media ${formatItalianNumber(r.kmMedio, true)} km
         </span>
       </div>`,
@@ -73,7 +73,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
       <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
         <span class="classifica-riga__mese"
-          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.mesiPercorsi)} anni pedalati &middot; media ${formatItalianNumber(r.kmMedio, true)} km</small></span
+          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.mesiPercorsi)} ${pluralizza(r.mesiPercorsi, "anno pedalato", "anni pedalati")} &middot; media ${formatItalianNumber(r.kmMedio, true)} km</small></span
         >
         <span class="classifica-riga__barra"
           ><span style="--percentuale:${quota}%"></span

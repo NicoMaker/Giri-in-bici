@@ -64,7 +64,21 @@ function formatPercentage(value) {
   return formatItalianNumber(value, false);
 }
 
+/**
+ * Sceglie la forma singolare o plurale in base al numero, cosi'
+ * "1 mese" non diventa mai "1 mesi". Il numero va gia' formattato a
+ * parte (con formatItalianNumber) e messo davanti al risultato.
+ * @param {number} count
+ * @param {string} singolare
+ * @param {string} plurale
+ * @returns {string}
+ */
+function pluralizza(count, singolare, plurale) {
+  return Math.abs(Number(count)) === 1 ? singolare : plurale;
+}
+
 // Espone le funzioni globalmente
 window.formatItalianNumber = formatItalianNumber;
 window.formatNumber = formatNumber;
 window.formatPercentage = formatPercentage;
+window.pluralizza = pluralizza;

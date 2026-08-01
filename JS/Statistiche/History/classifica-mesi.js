@@ -196,7 +196,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (listaEl) {
       listaEl.innerHTML =
         CM.creaClassifica(ordinate) +
-        CM.creaRigaTotale(totaleFiltrato, `${filtrate.length} mesi`);
+        CM.creaRigaTotale(
+          totaleFiltrato,
+          `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")}`,
+        );
     }
   }
 
@@ -213,7 +216,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (listaAnniEl) {
       listaAnniEl.innerHTML =
         CM.creaClassificaAnni(ordinate) +
-        CM.creaRigaTotale(totaleFiltrato, `${filtrate.length} anni`);
+        CM.creaRigaTotale(
+          totaleFiltrato,
+          `${filtrate.length} ${pluralizza(filtrate.length, "anno", "anni")}`,
+        );
     }
   }
 
@@ -299,7 +305,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
       const etichettaTotale = annoSelezionato
-        ? `${filtrate.length} mesi del ${annoSelezionato}`
+        ? `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} del ${annoSelezionato}`
         : `${filtrate.length} record`;
 
       if (titoloRecordMesiEl)
@@ -395,8 +401,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
       const etichettaTotale = stagioneScelta
-        ? `${filtrate.length} periodi di ${stagioneScelta}`
-        : `${filtrate.length} periodi`;
+        ? `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")} di ${stagioneScelta}`
+        : `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")}`;
 
       if (titoloPeriodiEl)
         titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(
@@ -592,7 +598,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           const totaleKmGiri = filtrate.reduce((tot, t) => tot + t.distance, 0);
           listaGiriEl.insertAdjacentHTML(
             "beforeend",
-            CM.creaRigaTotale(totaleKmGiri, `${filtrate.length} giri`),
+            CM.creaRigaTotale(
+            totaleKmGiri,
+            `${filtrate.length} ${pluralizza(filtrate.length, "giro", "giri")}`,
+          ),
           );
         }
       };
