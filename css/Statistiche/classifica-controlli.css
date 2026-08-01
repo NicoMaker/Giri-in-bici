@@ -74,6 +74,61 @@
   box-shadow: var(--sh-1);
 }
 
+/* ---------- Cerca: un campo di testo libero ---------- */
+/* Stesso posto dei due controlli sopra/sotto (dentro
+   ".classifica-controlli"), sempre per primo: si sceglie prima COSA
+   cercare scrivendo, poi eventualmente si affina con "Ordine" e
+   "da...a" km. Un solo campo, niente pulsante "Cerca" a parte: ogni
+   lettera digitata ridisegna subito (vedi assets/classifica-controlli.js). */
+.classifica-ricerca {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 26rem;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.classifica-ricerca__etichetta {
+  white-space: nowrap;
+}
+
+.classifica-ricerca input[type="search"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  transition:
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+/* La "x" nativa per svuotare il campo (Chrome/Safari): la si lascia,
+   utile quanto il pulsante "Azzera filtro" già presente ma più
+   immediata quando si vuole svuotare solo la ricerca. */
+.classifica-ricerca input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.classifica-ricerca input[type="search"]:hover {
+  border-color: color-mix(in srgb, var(--a1) 40%, var(--line));
+}
+
+.classifica-ricerca input[type="search"]:focus-visible {
+  outline: none;
+  border-color: var(--a1);
+  box-shadow: 0 0 0 3px var(--a-soft);
+}
+
 /* ---------- Filtro per km: due campi + due scorciatoie + un azzera ---------- */
 .classifica-range {
   display: flex;
@@ -188,6 +243,9 @@
 @media (max-width: 480px) {
   .classifica-controlli {
     padding: 0.8rem 0.7rem;
+  }
+  .classifica-ricerca {
+    max-width: none;
   }
   .classifica-ordine__pulsante {
     flex: 1 1 auto;

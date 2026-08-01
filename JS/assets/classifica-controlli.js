@@ -1,11 +1,13 @@
 // ============================================================
 // classifica-controlli.js — Controlli condivisi delle schede della
-// pagina Classifica: "Ordine" (dal più al meno pedalato o inverso) e
-// "Filtro per km" (da...a, con scorciatoie Min/Max).
+// pagina Classifica: "Ordine" (dal più al meno pedalato o inverso),
+// "Filtro per km" (da...a, con scorciatoie Min/Max) e "Cerca" (un
+// campo di testo libero, per nome del mese, dell'anno, della
+// stagione, del periodo o del giro/posto a seconda della scheda).
 //
 // Un solo pezzo di logica, riusato una volta per scheda (Mesi
 // migliori, Km mensili, Anni, Stagioni, Periodi, Giri: tutte e sei
-// con entrambi i controlli). Chi chiama non deve sapere nulla di
+// con gli stessi tre controlli). Chi chiama non deve sapere nulla di
 // HTML: passa il contenitore già presente in pagina
 // (".classifica-controlli") e riceve indietro solo lo stato e un
 // modo per aggiornare i suggerimenti di Min/Max.
@@ -14,6 +16,13 @@
 // dai km davvero presenti nei dati. Non c'è nessuna correzione
 // automatica di quello che si scrive — solo i due pulsanti "Min"/
 // "Max" per chi non conosce il valore vero e vuole partire da lì.
+//
+// Il campo "Cerca" è altrettanto libero: confronta il testo scritto
+// (senza distinguere maiuscole/minuscole né accenti, così "citta" e
+// "città" trovano lo stesso risultato) contro il testo che CHI CHIAMA
+// decide riga per riga con ClassificaControlli.estraiTesto — ogni
+// scheda passa i propri campi (mese, anno, stagione, periodo, nome
+// del giro...), il controllo stesso non sa cosa sta cercando dentro.
 //
 // Uso tipico (dentro Statistiche/History/classifica-mesi.js):
 //
@@ -24,7 +33,8 @@
 //   controlli.aggiornaLimiti(righe.map((r) => r.km));
 //   function ridisegna() {
 //     const stato = controlli.stato();
-//     const filtrate = ClassificaControlli.filtra(righe, stato, (r) => r.km);
+//     const cercate = ClassificaControlli.cerca(righe, stato.testo, (r) => r.mese);
+//     const filtrate = ClassificaControlli.filtra(cercate, stato, (r) => r.km);
 //     // "Ordine" inverte tutto insieme, podio compreso: non solo la
 //     // lista completa sotto, altrimenti un "oro" fisso al valore più
 //     // alto contraddirebbe la scelta "dal meno al più" appena fatta.
@@ -34,13 +44,25 @@
 //   }
 //   ridisegna();
 //
-// "stato" è sempre { ordine: "desc"|"asc", min: number|null, max: number|null }.
+// "stato" è sempre { ordine: "desc"|"asc", min: number|null, max: number|null, testo: string }.
 // ============================================================
 
 window.ClassificaControlli = window.ClassificaControlli || {};
 
 (function (C) {
   "use strict";
+
+  // Toglie accenti e maiuscole prima di confrontare: chi scrive
+  // "citta" deve trovare anche "città", "PRIMAVERA" deve trovare
+  // "Primavera". Usata sia per leggere il campo "Cerca" sia per
+  // preparare il testo di ogni riga (vedi C.cerca più sotto).
+  function normalizzaTesto(testo) {
+    return String(testo == null ? "" : testo)
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+  }
 
   // Collega i pulsanti/campi già presenti dentro "contenitore" (il
   // markup vive in Statistiche/History/ClassificaMesi.html, sempre
@@ -57,7 +79,7 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       return {
         aggiornaLimiti: function () {},
         stato: function () {
-          return { ordine: "desc", min: null, max: null };
+          return { ordine: "desc", min: null, max: null, testo: "" };
         },
       };
     }
@@ -68,6 +90,7 @@ window.ClassificaControlli = window.ClassificaControlli || {};
     var bottoneMin = contenitore.querySelector('[data-azione="min"]');
     var bottoneMax = contenitore.querySelector('[data-azione="max"]');
     var bottoneReset = contenitore.querySelector('[data-azione="reset"]');
+    var inputRicerca = contenitore.querySelector("[data-ricerca]");
 
     var ordineAttuale = "desc";
     var limiti = { min: 0, max: 0 };
@@ -83,6 +106,9 @@ window.ClassificaControlli = window.ClassificaControlli || {};
         ordine: ordineAttuale,
         min: numeroOVuoto(inputMin),
         max: numeroOVuoto(inputMax),
+        // Già normalizzato qui (minuscolo, senza accenti): chi
+        // riceve lo stato non deve rifarlo ogni volta da capo.
+        testo: normalizzaTesto(inputRicerca ? inputRicerca.value : ""),
       };
     }
 
@@ -131,9 +157,18 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       bottoneReset.addEventListener("click", function () {
         if (inputMin) inputMin.value = "";
         if (inputMax) inputMax.value = "";
+        // "Azzera filtro" svuota anche la ricerca: è un filtro come
+        // gli altri due, non ha senso lasciarlo attivo da solo dopo
+        // aver premuto un pulsante che promette di azzerare tutto.
+        if (inputRicerca) inputRicerca.value = "";
         notifica();
       });
     }
+
+    // Testo libero: ogni lettera digitata ridisegna subito, stesso
+    // comportamento già scelto sopra per i campi "Da"/"A" (nessuna
+    // attesa, nessun pulsante "Cerca" a parte).
+    if (inputRicerca) inputRicerca.addEventListener("input", notifica);
 
     return {
       // Richiamata ogni volta che cambia l'insieme di dati
@@ -158,6 +193,20 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       },
       stato: leggiStato,
     };
+  };
+
+  // Solo la ricerca per testo: tiene solo le righe il cui testo
+  // (deciso da "testoDi", riga per riga) contiene quanto scritto nel
+  // campo "Cerca". "testo" vuoto (campo vuoto) tiene tutte le righe.
+  // Confronto senza maiuscole/minuscole né accenti (vedi
+  // normalizzaTesto): "primavera" trova "Primavera", "citta" trova
+  // "Città". Come C.filtra, non cambia l'ordine delle righe.
+  C.cerca = function (righe, testo, testoDi) {
+    var cercato = normalizzaTesto(testo);
+    if (!cercato) return righe;
+    return righe.filter(function (r) {
+      return normalizzaTesto(testoDi(r)).indexOf(cercato) !== -1;
+    });
   };
 
   // Solo il filtro per km (min/max): non cambia l'ordine delle righe.

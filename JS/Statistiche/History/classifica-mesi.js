@@ -183,7 +183,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function disegnaMesi() {
     const stato = controlliMesi.stato();
-    const filtrate = CC.filtra(righeMesi, stato, (r) => r.km);
+    // Cerca solo per nome del mese (es. "Settembre"): è l'unico testo
+    // che questa scheda ha da offrire, un mese aggregato su tutti gli anni.
+    const cercate = CC.cerca(righeMesi, stato.testo, (r) => r.mese);
+    const filtrate = CC.filtra(cercate, stato, (r) => r.km);
     // Podio e lista completa seguono LO STESSO ordine scelto: "Ordine"
     // inverte tutto, non solo la lista sotto — se scegli "dal meno al
     // più", il podio mostra i tre con MENO km, non i tre migliori fissi.
@@ -205,7 +208,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function disegnaAnni() {
     const stato = controlliAnni.stato();
-    const filtrate = CC.filtra(righeAnniComplete, stato, (r) => r.km);
+    // Cerca per anno (es. "2024"): "nome" è già l'anno come stringa.
+    const cercate = CC.cerca(righeAnniComplete, stato.testo, (r) => r.nome);
+    const filtrate = CC.filtra(cercate, stato, (r) => r.km);
     const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
     const perPodio = ordinate.slice(0, 3);
     const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
@@ -230,7 +235,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   // schede: "Ordine" inverte tutto, podio compreso).
   function disegnaStagioni() {
     const stato = controlliStagioni.stato();
-    const filtrate = CC.filtra(righeStagioniComplete, stato, (r) => r.km);
+    // Cerca per nome della stagione (es. "Estate", "Autunno").
+    const cercate = CC.cerca(
+      righeStagioniComplete,
+      stato.testo,
+      (r) => r.stagione,
+    );
+    const filtrate = CC.filtra(cercate, stato, (r) => r.km);
     const perPodio = CC.ordina(filtrate, stato.ordine, (r) => r.km);
 
     if (titoloStagioniEl)
@@ -299,7 +310,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       controlliRecord.aggiornaLimiti(righeAnnoScelto.map((r) => r.km));
       const stato = controlliRecord.stato();
-      const filtrate = CC.filtra(righeAnnoScelto, stato, (r) => r.km);
+      // Cerca per mese o per anno insieme (es. "Settembre" oppure
+      // "2024" trovano "Settembre 2024"): "nome" è già "Mese anno".
+      const cercate = CC.cerca(
+        righeAnnoScelto,
+        stato.testo,
+        (r) => r.nome,
+      );
+      const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
       const perPodio = ordinate.slice(0, 3);
 
@@ -395,7 +413,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       controlliPeriodi.aggiornaLimiti(righePerStagione.map((r) => r.km));
       const stato = controlliPeriodi.stato();
-      const filtrate = CC.filtra(righePerStagione, stato, (r) => r.km);
+      // Cerca per nome del periodo (es. "Estate 2020"), per stagione
+      // da sola (es. "Autunno") o per solo l'anno/intervallo (es.
+      // "2020-2021"): "nome" è già "Stagione periodo" per intero,
+      // "periodo" lascia trovare anche il solo anno/intervallo.
+      const cercate = CC.cerca(
+        righePerStagione,
+        stato.testo,
+        (r) => `${r.nome} ${r.periodo}`,
+      );
+      const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
       const perPodio = ordinate.slice(0, 3);
 
@@ -575,8 +602,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         controlliGiri.aggiornaLimiti(perFiltriEsistenti.map((t) => t.distance));
         const stato = controlliGiri.stato();
-        const filtrate = CC.filtra(
+        // Cerca per nome del giro/posto (es. "Sappada"), per stagione
+        // (es. "Primavera") o per periodo/anno (es. "2022"): tutti e
+        // tre i campi insieme, così un solo campo di testo copre
+        // quello che qui sono due filtri a tendina separati.
+        const cercate = CC.cerca(
           perFiltriEsistenti,
+          stato.testo,
+          (t) => `${t.nomeTesto || t.nome} ${t.stagione} ${t.periodo}`,
+        );
+        const filtrate = CC.filtra(
+          cercate,
           stato,
           (t) => t.distance,
         );
