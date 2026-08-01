@@ -74,26 +74,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (selettoreMobile) selettoreMobile.value = vista;
   }
 
-  // Scorre fino all'inizio del contenuto appena mostrato. Il gruppo
-  // cambia (podio, liste...) ma lo scorrimento della pagina resta
-  // dov'era: toccando una pillola mentre si è più in basso (es. in
-  // fondo alla classifica completa di un'altra scheda) si vedrebbe un
-  // pezzo a caso della scheda nuova, o addirittura spazio vuoto se è
-  // più corta. Uno scorrimento morbido fino in cima al gruppo appena
-  // attivato riporta sempre a vederlo dall'inizio (podio compreso).
-  function scorriAllInizioScheda(vista) {
-    const gruppoAttivo = document.querySelector(
-      `[data-vista-gruppo="${vista}"]`,
-    );
-    if (!gruppoAttivo) return;
+  // Scorre fino all'inizio della PAGINA (non solo del contenuto della
+  // scheda): toccando una pillola mentre si è più in basso — magari in
+  // fondo alla classifica completa di un'altra scheda — deve sempre
+  // riportare all'inizio della pagina, come un arrivo da capo.
+  function scorriAllInizioPagina() {
     const motoRidotto = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
     requestAnimationFrame(() => {
-      gruppoAttivo.scrollIntoView({
-        behavior: motoRidotto ? "auto" : "smooth",
-        block: "start",
-      });
+      window.scrollTo({ top: 0, behavior: motoRidotto ? "auto" : "smooth" });
     });
   }
 
@@ -106,26 +96,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   // vede già la scheda giusta selezionata in cima, ma la pagina resta
   // ferma in cima: si arriva sempre dall'inizio (intestazione e
   // pillole comprese), non già scorsi in mezzo al contenuto. Solo il
-  // cambio scheda FATTO A MANO (pillola o select, qui sotto) scorre
-  // fino al gruppo: qui all'arrivo no.
+  // cambio scheda FATTO A MANO (pillola o select, qui sotto) scorre:
+  // qui all'arrivo no.
 
   // Cambio scheda manuale (pillola o select mobile): qui invece lo
   // scorrimento resta utile — si sta già leggendo qualcos'altro,
   // magari molto più in basso (es. in fondo alla classifica completa
-  // di un'altra scheda) e toccare una pillola deve riportare su a
-  // vedere la scheda scelta dall'inizio (podio compreso), non lasciare
-  // a metà pagina un pezzo a caso della scheda nuova.
+  // di un'altra scheda) e toccare una pillola deve riportare
+  // all'inizio della pagina, non lasciare a metà pagina un pezzo a
+  // caso della scheda nuova.
   pulsantiVista.forEach((pulsante) => {
     pulsante.addEventListener("click", () => {
       attivaVista(pulsante.dataset.vista);
-      scorriAllInizioScheda(pulsante.dataset.vista);
+      scorriAllInizioPagina();
     });
   });
 
   if (selettoreMobile) {
     selettoreMobile.addEventListener("change", () => {
       attivaVista(selettoreMobile.value);
-      scorriAllInizioScheda(selettoreMobile.value);
+      scorriAllInizioPagina();
     });
   }
 
