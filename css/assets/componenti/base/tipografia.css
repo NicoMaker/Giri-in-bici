@@ -10,7 +10,12 @@ h3,
 h4 {
   font-family: var(--font-display-bold);
   color: var(--ink);
-  line-height: 1.08;
+  /* Prima era 1.08: troppo stretto per un font bold come questo, la
+     "g" (e altre lettere con codetta come "p", "y") di una riga
+     quasi toccava la riga sotto quando il titolo andava a capo su
+     due righe, diventando difficile da leggere. 1.2 lascia respiro
+     senza appesantire i titoli su una riga sola. */
+  line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 0 0 0.4em;
   text-align: center;

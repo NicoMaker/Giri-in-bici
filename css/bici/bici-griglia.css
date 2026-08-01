@@ -51,12 +51,19 @@
   flex-direction: column;
   border: 1px solid var(--line);
   border-radius: var(--r-xl);
-  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
   box-shadow: var(--sh-2);
   overflow: hidden;
   transition:
     transform 0.35s var(--ease),
     box-shadow 0.35s var(--ease);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .bici-card {
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    backdrop-filter: blur(14px) saturate(150%);
+  }
 }
 
 .bici-card:hover {
@@ -78,6 +85,24 @@
   min-height: 0;
   overflow: hidden;
   background: var(--surface-2);
+}
+
+/* Vignettatura in basso, come nelle foto dei brand di bici: la foto
+   resta piena e leggibile, ma il bordo inferiore si scurisce un filo
+   cosi' badge/anno/icona di zoom risaltano sempre, foto chiara o
+   scura che sia. Sopra l'immagine (z-index), sotto i badge. */
+.bici-card__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(15, 36, 56, 0.32) 0%,
+    rgba(15, 36, 56, 0.06) 32%,
+    transparent 58%
+  );
 }
 
 .bici-card__media img {

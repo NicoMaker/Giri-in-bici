@@ -34,11 +34,28 @@
     box-shadow 0.35s var(--ease);
 }
 
+/* Vignettatura fotografica in basso, stesso trattamento delle foto
+   bici: profondità in più, badge/icona sempre leggibili sopra. */
+.shot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(15, 36, 56, 0.3) 0%,
+    rgba(15, 36, 56, 0.05) 30%,
+    transparent 55%
+  );
+}
+
 .shot::after {
   content: "⤢";
   position: absolute;
   right: 0.75rem;
   bottom: 0.75rem;
+  z-index: 2;
   width: 34px;
   height: 34px;
   display: grid;

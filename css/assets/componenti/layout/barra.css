@@ -4,9 +4,12 @@
    ============================================================ */
 
 /* ---------- 5. Barra superiore ----------
-   Bianco puro, non piu' scuro: testo e icone qui dentro sono percio'
-   scuri (var(--ink)) invece che bianchi, l'oro dell'accento
-   resta l'unico punto di colore acceso, come prima. */
+   Vetro smerigliato: sfondo semi-trasparente + sfocatura di quello che
+   scorre sotto, cosi' la barra resta leggibile ma non e' piu' un
+   blocco bianco piatto — si vede il contenuto scorrere dietro,
+   smussato. Il colore di fondo resta lo stesso bianco (--bar-bg),
+   solo reso translucido; niente cambia per chi non supporta
+   backdrop-filter (resta un bianco quasi pieno, via @supports sotto). */
 .site-bar {
   position: sticky;
   top: 0;
@@ -17,8 +20,28 @@
   flex-wrap: wrap;
   min-height: var(--bar-h);
   padding: 0.6rem clamp(0.9rem, 3vw, 1.6rem);
-  background: var(--bar-bg);
+  background: color-mix(in srgb, var(--bar-bg) 82%, transparent);
   border-bottom: 1px solid rgba(15, 36, 56, 0.1);
+  transition:
+    background 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .site-bar {
+    background: color-mix(in srgb, var(--bar-bg) 68%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+  }
+}
+
+/* Quando si scorre la pagina, la barra si stacca un filo di piu' dal
+   contenuto: ombra leggera + un velo piu' opaco, cosi' resta sempre
+   leggibile anche su sfondi chiari. Attivata da assets/motion.js
+   (stessa soglia di scroll gia' usata per "torna su"). */
+.site-bar.is-scrolled {
+  background: color-mix(in srgb, var(--bar-bg) 92%, transparent);
+  box-shadow: var(--sh-2);
 }
 
 .brand {

@@ -92,3 +92,27 @@
   text-align: center;
   margin: 0.2rem 0 0.8rem;
 }
+
+/* ---------- Accento "linea di velocità" ----------
+   Piccola barra sotto il titolo principale, ispirata al numero di
+   gara/pettorale dei brand ciclistici: gradiente accent con un
+   riflesso che scorre come un lampo, stessa animazione fx-bar-sheen
+   gia' usata sulla barra di lettura in cima alla pagina — coerenza
+   invece di inventare un nuovo effetto. Solo sotto il vero titolo
+   della pagina (.Titolo/h1), non sui sottotitoli .Titolo2. */
+.hero > .Titolo + .hero-sub::before,
+.hero > h1 + .hero-sub::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin: 0 auto 1rem;
+  border-radius: var(--r-full);
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent),
+    linear-gradient(90deg, var(--a1), var(--a2));
+  background-size:
+    180% 100%,
+    100% 100%;
+  animation: fx-bar-sheen 2.4s linear infinite;
+}
