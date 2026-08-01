@@ -81,7 +81,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // era già nel podio dei primi tre, qui sotto in fondo alla lista
   // completa mancava: stessa dicitura, cosi' si vede per tutti e 12.
   CM.creaClassifica = function (righe) {
-    const massimo = righe.length ? righe[0].km : 0;
+    // "massimo" serve solo a scalare la barra di ogni riga: va preso
+    // col vero valore più alto presente (Math.max), non il primo
+    // elemento dell'array. Il pulsante "Ordine" (vedi
+    // assets/classifica-controlli.js) può passare qui le righe già
+    // ordinate dal meno al più pedalato, dove il primo elemento è il
+    // più BASSO: usare righe[0] darebbe barre tutte piene o rotte.
+    const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {
         const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
@@ -115,17 +121,21 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       </li>`;
   };
 
-  // Frase di apertura sopra il podio
-  CM.creaTitolo = function (righe) {
+  // Frase di apertura sopra il podio. "ordine" (default "desc") sceglie
+  // la frase giusta: col podio invertito da "Ordine" qui sotto, "il
+  // mese in cui hai pedalato di più" sarebbe falso se il podio mostra
+  // in realtà i tre con MENO km.
+  CM.creaTitolo = function (righe, ordine) {
     if (!righe.length || righe[0].km <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
-    const migliore = righe[0];
+    const primo = righe[0];
+    const superlativo = ordine === "asc" ? "di meno" : "di pi&ugrave;";
     return `
-      Il mese in cui hai pedalato di pi&ugrave; in assoluto &egrave;
-      <strong>${migliore.mese}</strong>, con
-      <strong>${formatItalianNumber(migliore.km)} km</strong> percorsi
-      in ${formatItalianNumber(migliore.occorrenze)} anni diversi.`;
+      Il mese in cui hai pedalato ${superlativo} in assoluto &egrave;
+      <strong>${primo.mese}</strong>, con
+      <strong>${formatItalianNumber(primo.km)} km</strong> percorsi
+      in ${formatItalianNumber(primo.occorrenze)} anni diversi.`;
   };
 
   // ---------- Record mese per mese (ogni anno separato) ----------
@@ -133,7 +143,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // "Mese + anno" (es. "Settembre 2024"), così un mese di un anno si
   // confronta alla pari con lo stesso mese di un altro anno.
   CM.creaRecordMesi = function (righe) {
-    const massimo = righe.length ? righe[0].km : 0;
+    // Stesso motivo di creaClassifica qui sopra: massimo vero, non
+    // il primo elemento, per restare corretto anche con l'ordine
+    // invertito dal controllo "Ordine".
+    const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {
         const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
@@ -151,15 +164,16 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
-  CM.creaTitoloRecordMesi = function (righe) {
+  CM.creaTitoloRecordMesi = function (righe, ordine) {
     if (!righe.length || righe[0].km <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
-    const migliore = righe[0];
+    const primo = righe[0];
+    const superlativo = ordine === "asc" ? "meno" : "pi&ugrave;";
     return `
-      Il singolo mese con pi&ugrave; chilometri in assoluto &egrave;
-      <strong>${migliore.nome}</strong>, con
-      <strong>${formatItalianNumber(migliore.km)} km</strong> percorsi.`;
+      Il singolo mese con ${superlativo} chilometri in assoluto &egrave;
+      <strong>${primo.nome}</strong>, con
+      <strong>${formatItalianNumber(primo.km)} km</strong> percorsi.`;
   };
 
   // ---------- Stagioni: stesso podio, dati e frase per le stagioni ----------
@@ -198,15 +212,16 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
-  CM.creaTitoloStagioni = function (righe) {
+  CM.creaTitoloStagioni = function (righe, ordine) {
     if (!righe.length || righe[0].km <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
-    const migliore = righe[0];
+    const primo = righe[0];
+    const superlativo = ordine === "asc" ? "di meno" : "di pi&ugrave;";
     return `
-      La stagione in cui pedali di pi&ugrave; &egrave;
-      <strong>${migliore.stagione}</strong>, con
-      <strong>${formatItalianNumber(migliore.km)} km</strong> percorsi
+      La stagione in cui pedali ${superlativo} &egrave;
+      <strong>${primo.stagione}</strong>, con
+      <strong>${formatItalianNumber(primo.km)} km</strong> percorsi
       in totale.`;
   };
 
@@ -245,7 +260,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // già un link verso la pagina di quel periodo (stesso comportamento
   // di creaClassificaAnni, qui applicato ai periodi).
   CM.creaClassificaPeriodi = function (righe) {
-    const massimo = righe.length ? righe[0].km : 0;
+    // Stesso motivo di creaClassifica: massimo vero, non il primo
+    // elemento (che con l'ordine invertito sarebbe il più basso).
+    const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {
         const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
@@ -269,15 +286,16 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
-  CM.creaTitoloPeriodi = function (righe) {
+  CM.creaTitoloPeriodi = function (righe, ordine) {
     if (!righe.length || righe[0].km <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
-    const migliore = righe[0];
+    const primo = righe[0];
+    const superlativo = ordine === "asc" ? "meno" : "pi&ugrave;";
     return `
-      Il singolo periodo con pi&ugrave; chilometri in assoluto &egrave;
-      <strong>${migliore.nome}</strong>, con
-      <strong>${formatItalianNumber(migliore.km)} km</strong> percorsi.`;
+      Il singolo periodo con ${superlativo} chilometri in assoluto &egrave;
+      <strong>${primo.nome}</strong>, con
+      <strong>${formatItalianNumber(primo.km)} km</strong> percorsi.`;
   };
 
   // ---------- Anni interi a confronto (non mesi: l'anno intero) ----------
@@ -285,7 +303,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // ma qui ogni voce è un anno intero (es. "2024") e ha un posto preciso
   // dove andare: l'intera riga è un link a quella pagina-anno.
   CM.creaClassificaAnni = function (righe) {
-    const massimo = righe.length ? righe[0].km : 0;
+    // Stesso motivo di creaClassifica: massimo vero, non il primo
+    // elemento (che con l'ordine invertito sarebbe il più basso).
+    const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {
         const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
@@ -309,14 +329,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
-  CM.creaTitoloAnni = function (righe) {
+  CM.creaTitoloAnni = function (righe, ordine) {
     if (!righe.length || righe[0].km <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
-    const migliore = righe[0];
+    const primo = righe[0];
+    const superlativo = ordine === "asc" ? "di meno" : "di pi&ugrave;";
     return `
-      L'anno in cui hai pedalato di pi&ugrave; in assoluto &egrave;
-      <strong>${migliore.nome}</strong>, con
-      <strong>${formatItalianNumber(migliore.km)} km</strong> percorsi.`;
+      L'anno in cui hai pedalato ${superlativo} in assoluto &egrave;
+      <strong>${primo.nome}</strong>, con
+      <strong>${formatItalianNumber(primo.km)} km</strong> percorsi.`;
   };
 })(window.ClassificaMesi);

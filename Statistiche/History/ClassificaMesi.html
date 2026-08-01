@@ -46,6 +46,7 @@
       defer
     ></script>
     <script src="../../js/assets/tappe-piu-lunghe.js" defer></script>
+    <script src="../../js/assets/classifica-controlli.js" defer></script>
     <script
       src="../../js/Statistiche/History/classifica-mesi.js"
       defer
@@ -182,7 +183,7 @@
             class="selettore-metrica__pulsante"
             data-vista="tappe"
           >
-            Tappe
+            Giri
           </button>
         </div>
 
@@ -197,7 +198,7 @@
             <option value="anni">Anni</option>
             <option value="stagioni">Stagioni</option>
             <option value="periodi">Periodi</option>
-            <option value="tappe">Tappe</option>
+            <option value="tappe">Giri</option>
           </select>
         </div>
       </div>
@@ -206,6 +207,63 @@
         <section class="section reveal podio-fisso">
           <p class="eyebrow">Podio</p>
           <h2>I tre mesi migliori</h2>
+          <div class="classifica-controlli" id="controlli-mesi">
+            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica dei mesi">
+              <button
+                type="button"
+                class="classifica-ordine__pulsante attivo"
+                data-ordine="desc"
+                aria-pressed="true"
+              >
+                Dal più al meno pedalato
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-ordine="asc"
+                aria-pressed="false"
+              >
+                Dal meno al più pedalato
+              </button>
+            </div>
+            <div class="classifica-range">
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">Da</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="min"
+                  placeholder="0"
+                  aria-label="Chilometri minimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="min">
+                  Min
+                </button>
+              </label>
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">A</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="max"
+                  placeholder="es. 300"
+                  aria-label="Chilometri massimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="max">
+                  Max
+                </button>
+              </label>
+              <button type="button" class="classifica-range__reset" data-azione="reset">
+                Azzera filtro
+              </button>
+            </div>
+          </div>
           <p class="classifica-titolo" id="classifica-titolo"></p>
           <div id="podio" class="podio"></div>
         </section>
@@ -233,6 +291,63 @@
               </select>
             </label>
           </div>
+          <div class="classifica-controlli" id="controlli-record">
+            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica dei record">
+              <button
+                type="button"
+                class="classifica-ordine__pulsante attivo"
+                data-ordine="desc"
+                aria-pressed="true"
+              >
+                Dal più al meno pedalato
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-ordine="asc"
+                aria-pressed="false"
+              >
+                Dal meno al più pedalato
+              </button>
+            </div>
+            <div class="classifica-range">
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">Da</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="min"
+                  placeholder="0"
+                  aria-label="Chilometri minimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="min">
+                  Min
+                </button>
+              </label>
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">A</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="max"
+                  placeholder="es. 300"
+                  aria-label="Chilometri massimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="max">
+                  Max
+                </button>
+              </label>
+              <button type="button" class="classifica-range__reset" data-azione="reset">
+                Azzera filtro
+              </button>
+            </div>
+          </div>
           <p class="classifica-titolo" id="record-mesi-titolo"></p>
           <div id="podio-record-mesi" class="podio"></div>
         </section>
@@ -252,6 +367,63 @@
             Non un mese di un anno, ma l'anno intero, uno contro l'altro: per
             esempio 2020 contro 2021 contro 2022, e così via.
           </p>
+          <div class="classifica-controlli" id="controlli-anni">
+            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica degli anni">
+              <button
+                type="button"
+                class="classifica-ordine__pulsante attivo"
+                data-ordine="desc"
+                aria-pressed="true"
+              >
+                Dal più al meno pedalato
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-ordine="asc"
+                aria-pressed="false"
+              >
+                Dal meno al più pedalato
+              </button>
+            </div>
+            <div class="classifica-range">
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">Da</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="min"
+                  placeholder="0"
+                  aria-label="Chilometri minimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="min">
+                  Min
+                </button>
+              </label>
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">A</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="max"
+                  placeholder="es. 3000"
+                  aria-label="Chilometri massimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="max">
+                  Max
+                </button>
+              </label>
+              <button type="button" class="classifica-range__reset" data-azione="reset">
+                Azzera filtro
+              </button>
+            </div>
+          </div>
           <p class="classifica-titolo" id="classifica-anni-titolo"></p>
           <div id="podio-anni" class="podio"></div>
         </section>
@@ -268,6 +440,67 @@
         <section class="section reveal podio-fisso">
           <p class="eyebrow">Podio</p>
           <h2>Le tre stagioni a confronto</h2>
+          <!-- Anche qui, come nelle altre schede: "Ordine" cambia solo
+               quale stagione occupa il gradino d'oro/argento/bronzo (dato
+               che il podio mostra sempre tutte e tre), "Da/A" restringe
+               quali stagioni compaiono. -->
+          <div class="classifica-controlli" id="controlli-stagioni">
+            <div class="classifica-ordine" role="group" aria-label="Ordina le stagioni">
+              <button
+                type="button"
+                class="classifica-ordine__pulsante attivo"
+                data-ordine="desc"
+                aria-pressed="true"
+              >
+                Dal più al meno pedalato
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-ordine="asc"
+                aria-pressed="false"
+              >
+                Dal meno al più pedalato
+              </button>
+            </div>
+            <div class="classifica-range">
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">Da</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="min"
+                  placeholder="0"
+                  aria-label="Chilometri minimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="min">
+                  Min
+                </button>
+              </label>
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">A</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="max"
+                  placeholder="es. 3000"
+                  aria-label="Chilometri massimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="max">
+                  Max
+                </button>
+              </label>
+              <button type="button" class="classifica-range__reset" data-azione="reset">
+                Azzera filtro
+              </button>
+            </div>
+          </div>
           <p class="classifica-titolo" id="classifica-stagioni-titolo"></p>
           <div id="podio-stagioni" class="podio"></div>
         </section>
@@ -301,6 +534,63 @@
               </select>
             </label>
           </div>
+          <div class="classifica-controlli" id="controlli-periodi">
+            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica dei periodi">
+              <button
+                type="button"
+                class="classifica-ordine__pulsante attivo"
+                data-ordine="desc"
+                aria-pressed="true"
+              >
+                Dal più al meno pedalato
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-ordine="asc"
+                aria-pressed="false"
+              >
+                Dal meno al più pedalato
+              </button>
+            </div>
+            <div class="classifica-range">
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">Da</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="min"
+                  placeholder="0"
+                  aria-label="Chilometri minimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="min">
+                  Min
+                </button>
+              </label>
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">A</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="max"
+                  placeholder="es. 500"
+                  aria-label="Chilometri massimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="max">
+                  Max
+                </button>
+              </label>
+              <button type="button" class="classifica-range__reset" data-azione="reset">
+                Azzera filtro
+              </button>
+            </div>
+          </div>
           <p class="classifica-titolo" id="classifica-periodi-titolo"></p>
           <div id="podio-periodi" class="podio"></div>
         </section>
@@ -315,10 +605,10 @@
       <div data-vista-gruppo="tappe">
         <section class="section reveal podio-fisso">
           <p class="eyebrow">Podio</p>
-          <h2>Le tre tappe più lunghe di sempre</h2>
+          <h2>I tre giri più lunghi di sempre</h2>
           <p class="hero-sub">
             Ogni singola uscita, di ogni stagione e di ogni anno, messe a
-            confronto una per una: non un periodo intero, la tappa singola.
+            confronto una per una: non un periodo intero, il giro singolo.
           </p>
           <div class="tappe-filtri" id="tappe-filtri">
             <label class="tappe-filtro">
@@ -334,12 +624,69 @@
               </select>
             </label>
           </div>
+          <div class="classifica-controlli" id="controlli-giri">
+            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica dei giri">
+              <button
+                type="button"
+                class="classifica-ordine__pulsante attivo"
+                data-ordine="desc"
+                aria-pressed="true"
+              >
+                Dal più al meno lungo
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-ordine="asc"
+                aria-pressed="false"
+              >
+                Dal meno al più lungo
+              </button>
+            </div>
+            <div class="classifica-range">
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">Da</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="min"
+                  placeholder="0"
+                  aria-label="Chilometri minimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="min">
+                  Min
+                </button>
+              </label>
+              <label class="classifica-range__campo">
+                <span class="classifica-range__etichetta">A</span>
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  data-range="max"
+                  placeholder="es. 100"
+                  aria-label="Chilometri massimi"
+                />
+                <span class="classifica-range__unita">km</span>
+                <button type="button" class="classifica-range__rapido" data-azione="max">
+                  Max
+                </button>
+              </label>
+              <button type="button" class="classifica-range__reset" data-azione="reset">
+                Azzera filtro
+              </button>
+            </div>
+          </div>
           <div id="podio-tappe" class="podio"></div>
         </section>
 
         <section class="section reveal">
           <p class="eyebrow">Classifica completa</p>
-          <h2>Tutte le tappe, dalla più lunga alla più corta</h2>
+          <h2>Tutti i giri, dal più lungo al più corto</h2>
           <ol id="classifica-tappe" class="classifica-lista"></ol>
         </section>
       </div>

@@ -12,6 +12,16 @@
 // nasconde i gruppi [data-vista-gruppo] della pagina: non serve
 // nessun dato, funziona anche prima che i fetch qui sotto finiscano.
 //
+// Ogni scheda ha anche i controlli di assets/classifica-controlli.js:
+// un pulsante "Ordine" (dal più al meno pedalato o inverso) e un
+// filtro "da...a" in chilometri con le scorciatoie "Min"/"Max".
+// "Ordine" inverte TUTTO insieme — podio con le medaglie compreso, non
+// solo la classifica completa sotto: scegliendo "dal meno al più
+// pedalato" il podio mostra i tre con MENO km (o i giri più corti),
+// non i tre migliori fissi. Il filtro per km invece si applica sempre
+// a podio e lista insieme, così il podio mostra i primi tre DENTRO
+// l'intervallo scelto.
+//
 // Dati letti da json/Statistiche/History/Storico.json (mesi, stessa
 // fonte già usata da Statistiche Totali, Statistiche Mensili e
 // Storico Mensile) e da json/Statistiche/anni/stagioni/stagioni.json
@@ -21,10 +31,12 @@
 // Dipendenze: JS/json.js, JS/utils.js, History/comune/config-mesi.js,
 //             History/classifica-mesi/calcoli.js,
 //             History/classifica-mesi/stagioni.js,
-//             History/classifica-mesi/podio.js
+//             History/classifica-mesi/podio.js,
+//             assets/tappe-piu-lunghe.js, assets/classifica-controlli.js
 // ============================================================
 
 const CM = window.ClassificaMesi;
+const CC = window.ClassificaControlli;
 
 document.addEventListener("DOMContentLoaded", async () => {
   // ---------- Selettore in cima: cosa mostrare ----------
@@ -62,55 +74,59 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (selettoreMobile) selettoreMobile.value = vista;
   }
 
+  // Scorre fino all'inizio del contenuto appena mostrato. Il gruppo
+  // cambia (podio, liste...) ma lo scorrimento della pagina resta
+  // dov'era: toccando una pillola mentre si è più in basso (es. in
+  // fondo alla classifica completa di un'altra scheda) si vedrebbe un
+  // pezzo a caso della scheda nuova, o addirittura spazio vuoto se è
+  // più corta. Uno scorrimento morbido fino in cima al gruppo appena
+  // attivato riporta sempre a vederlo dall'inizio (podio compreso).
+  function scorriAllInizioScheda(vista) {
+    const gruppoAttivo = document.querySelector(
+      `[data-vista-gruppo="${vista}"]`,
+    );
+    if (!gruppoAttivo) return;
+    const motoRidotto = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    requestAnimationFrame(() => {
+      gruppoAttivo.scrollIntoView({
+        behavior: motoRidotto ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+  }
+
   const vistaIniziale = new URLSearchParams(window.location.search).get(
     "vista",
   );
   attivaVista(VISTE_VALIDE.includes(vistaIniziale) ? vistaIniziale : "mesi");
 
   // Chi arriva da un link con "?vista=" (es. da una pagina-stagione)
-  // vede subito la fila dei pulsanti in cima, con quello giusto già
-  // selezionato — ma se non si scorre non lo si nota, e sembra che
-  // il link non abbia funzionato. Uno scorrimento morbido fino al
-  // contenuto vero (il gruppo appena attivato) rende ovvio che sei
-  // già dove dovevi essere, senza bisogno di ricliccare nulla. Solo
-  // quando il link porta davvero un "?vista=" esplicito: una visita
-  // diretta alla pagina (senza parametro) resta in cima, come sempre.
-  // Su mobile il select a tendina prende il posto delle pillole sotto i
-  // 640px (stessa soglia di css/Statistiche/selettore-metrica.css): lì lo
-  // scorrimento automatico porta subito oltre l'intestazione della
-  // pagina, dritti al select, e sembra che la pagina si apra "già
-  // scorsa" invece che dall'inizio. Su schermi più larghi le pillole
-  // sono già visibili in cima, quindi lo scorrimento fino al gruppo
-  // resta utile per far notare che il link ha funzionato.
-  const suMobile = window.matchMedia("(max-width: 640px)").matches;
+  // vede già la scheda giusta selezionata in cima, ma la pagina resta
+  // ferma in cima: si arriva sempre dall'inizio (intestazione e
+  // pillole comprese), non già scorsi in mezzo al contenuto. Solo il
+  // cambio scheda FATTO A MANO (pillola o select, qui sotto) scorre
+  // fino al gruppo: qui all'arrivo no.
 
-  if (VISTE_VALIDE.includes(vistaIniziale) && !suMobile) {
-    const gruppoAttivo = document.querySelector(
-      `[data-vista-gruppo="${vistaIniziale}"]`,
-    );
-    if (gruppoAttivo) {
-      const motoRidotto = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      requestAnimationFrame(() => {
-        gruppoAttivo.scrollIntoView({
-          behavior: motoRidotto ? "auto" : "smooth",
-          block: "start",
-        });
-      });
-    }
-  }
-
+  // Cambio scheda manuale (pillola o select mobile): qui invece lo
+  // scorrimento resta utile — si sta già leggendo qualcos'altro,
+  // magari molto più in basso (es. in fondo alla classifica completa
+  // di un'altra scheda) e toccare una pillola deve riportare su a
+  // vedere la scheda scelta dall'inizio (podio compreso), non lasciare
+  // a metà pagina un pezzo a caso della scheda nuova.
   pulsantiVista.forEach((pulsante) => {
-    pulsante.addEventListener("click", () =>
-      attivaVista(pulsante.dataset.vista),
-    );
+    pulsante.addEventListener("click", () => {
+      attivaVista(pulsante.dataset.vista);
+      scorriAllInizioScheda(pulsante.dataset.vista);
+    });
   });
 
   if (selettoreMobile) {
-    selettoreMobile.addEventListener("change", () =>
-      attivaVista(selettoreMobile.value),
-    );
+    selettoreMobile.addEventListener("change", () => {
+      attivaVista(selettoreMobile.value);
+      scorriAllInizioScheda(selettoreMobile.value);
+    });
   }
 
   const podioEl = document.getElementById("podio");
@@ -134,6 +150,98 @@ document.addEventListener("DOMContentLoaded", async () => {
   const titoloAnniEl = document.getElementById("classifica-anni-titolo");
   const selettoreRecordAnnoEl = document.getElementById("record-filtro-anno");
 
+  // ---------- Controlli condivisi: Ordine + filtro per km ----------
+  // Un'istanza per scheda. CC.crea() restituisce uno stato neutro se
+  // il contenitore non esiste in pagina, quindi non serve controllare
+  // qui se ognuno di questi elementi c'è davvero.
+  const controlliMesi = CC.crea(document.getElementById("controlli-mesi"), {
+    onCambia: () => disegnaMesi(),
+  });
+  const controlliRecord = CC.crea(document.getElementById("controlli-record"), {
+    onCambia: () => mostraRecord(selettoreRecordAnnoEl ? selettoreRecordAnnoEl.value : ""),
+  });
+  const controlliAnni = CC.crea(document.getElementById("controlli-anni"), {
+    onCambia: () => disegnaAnni(),
+  });
+  const controlliStagioni = CC.crea(document.getElementById("controlli-stagioni"), {
+    onCambia: () => disegnaStagioni(),
+  });
+  const controlliPeriodi = CC.crea(document.getElementById("controlli-periodi"), {
+    onCambia: () =>
+      mostraPeriodi(selettorePeriodiStagioneEl ? selettorePeriodiStagioneEl.value : ""),
+  });
+  const controlliGiri = CC.crea(document.getElementById("controlli-giri"), {
+    onCambia: () => aggiornaVistaTappe(),
+  });
+
+  // Righe dei mesi e degli anni, calcolate una volta e riusate da
+  // disegnaMesi()/disegnaAnni() ogni volta che cambiano Ordine o
+  // filtro per km. Dichiarate qui fuori dal try cosi' le funzioni piu'
+  // sotto (chiamate anche dai controlli) le trovano gia' pronte.
+  let righeMesi = [];
+  let righeAnniComplete = [];
+  let righeStagioniComplete = [];
+
+  function disegnaMesi() {
+    const stato = controlliMesi.stato();
+    const filtrate = CC.filtra(righeMesi, stato, (r) => r.km);
+    // Podio e lista completa seguono LO STESSO ordine scelto: "Ordine"
+    // inverte tutto, non solo la lista sotto — se scegli "dal meno al
+    // più", il podio mostra i tre con MENO km, non i tre migliori fissi.
+    const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
+    const perPodio = ordinate.slice(0, 3);
+    const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+
+    if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(perPodio, stato.ordine);
+    if (podioEl) podioEl.innerHTML = CM.creaPodio(perPodio, totaleAnniGlobale);
+    if (listaEl) {
+      listaEl.innerHTML =
+        CM.creaClassifica(ordinate) +
+        CM.creaRigaTotale(totaleFiltrato, `${filtrate.length} mesi`);
+    }
+  }
+
+  function disegnaAnni() {
+    const stato = controlliAnni.stato();
+    const filtrate = CC.filtra(righeAnniComplete, stato, (r) => r.km);
+    const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
+    const perPodio = ordinate.slice(0, 3);
+    const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+
+    if (titoloAnniEl)
+      titoloAnniEl.innerHTML = CM.creaTitoloAnni(perPodio, stato.ordine);
+    if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioAnni(perPodio);
+    if (listaAnniEl) {
+      listaAnniEl.innerHTML =
+        CM.creaClassificaAnni(ordinate) +
+        CM.creaRigaTotale(totaleFiltrato, `${filtrate.length} anni`);
+    }
+  }
+
+  // "Stagioni" mostra sempre tutte e tre le stagioni (non c'è una
+  // lista a parte sotto): qui "Ordine" decide direttamente quale
+  // stagione occupa il gradino d'oro/argento/bronzo, e la frase sopra
+  // il podio segue lo stesso ordine (stesso comportamento delle altre
+  // schede: "Ordine" inverte tutto, podio compreso).
+  function disegnaStagioni() {
+    const stato = controlliStagioni.stato();
+    const filtrate = CC.filtra(righeStagioniComplete, stato, (r) => r.km);
+    const perPodio = CC.ordina(filtrate, stato.ordine, (r) => r.km);
+
+    if (titoloStagioniEl)
+      titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(perPodio, stato.ordine);
+    if (podioStagioniEl)
+      podioStagioniEl.innerHTML = CM.creaPodioStagioni(perPodio);
+  }
+
+  let totaleAnniGlobale = 0;
+  // Assegnate per davvero dentro i due blocchi try più sotto: qui solo
+  // un fallback innocuo, per lo stesso motivo di "aggiornaVistaTappe"
+  // più in basso — le callback dei controlli (poche righe sopra) le
+  // referenziano già prima che i blocchi try vengano eseguiti.
+  let mostraRecord = () => {};
+  let mostraPeriodi = () => {};
+
   try {
     await ConfigMesi.carica();
 
@@ -144,12 +252,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const percorsi = Object.values(storico.anni);
-    const totaleAnni = percorsi.length;
+    totaleAnniGlobale = percorsi.length;
     const allData = await Json.leggiTutti(percorsi);
 
-    const { righe, totale } = CM.calcolaClassifica(allData, ConfigMesi.elenco);
-    const { righe: righeRecordTutti, totale: totaleRecordTutti } =
-      CM.calcolaRecordMesi(allData, ConfigMesi.elenco);
+    const { righe } = CM.calcolaClassifica(allData, ConfigMesi.elenco);
+    righeMesi = righe;
+    const { righe: righeRecordTutti } = CM.calcolaRecordMesi(
+      allData,
+      ConfigMesi.elenco,
+    );
 
     // "Anno" dentro "Km mensili": scegliendo un anno si ricalcola
     // la percentuale su quel solo anno (non sul totale di sempre),
@@ -158,38 +269,49 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Statistiche/Anni/2020.html) lo seleziona già in automatico.
     const annoFiltro = new URLSearchParams(window.location.search).get("anno");
 
-    if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(righe);
-    if (podioEl) podioEl.innerHTML = CM.creaPodio(righe, totaleAnni);
-    if (listaEl)
-      listaEl.innerHTML =
-        CM.creaClassifica(righe) + CM.creaRigaTotale(totale, "12 mesi");
+    controlliMesi.aggiornaLimiti(righeMesi.map((r) => r.km));
+    disegnaMesi();
 
-    function mostraRecord(annoSelezionato) {
-      let righeMostrate = righeRecordTutti;
-      let totaleMostrato = totaleRecordTutti;
-      let etichettaTotale = `${righeRecordTutti.length} record`;
+    mostraRecord = function (annoSelezionato) {
+      let righeAnnoScelto = righeRecordTutti;
 
       if (annoSelezionato) {
-        righeMostrate = righeRecordTutti
+        righeAnnoScelto = righeRecordTutti
           .filter((r) => String(r.anno) === annoSelezionato)
           .map((r) => ({ ...r }));
-        totaleMostrato = righeMostrate.reduce((tot, r) => tot + r.km, 0);
-        righeMostrate.forEach((r) => {
+        const totaleAnnoScelto = righeAnnoScelto.reduce(
+          (tot, r) => tot + r.km,
+          0,
+        );
+        righeAnnoScelto.forEach((r) => {
           r.percentuale =
-            totaleMostrato > 0 ? (r.km / totaleMostrato) * 100 : 0;
+            totaleAnnoScelto > 0 ? (r.km / totaleAnnoScelto) * 100 : 0;
         });
-        etichettaTotale = `mesi del ${annoSelezionato}`;
       }
 
+      controlliRecord.aggiornaLimiti(righeAnnoScelto.map((r) => r.km));
+      const stato = controlliRecord.stato();
+      const filtrate = CC.filtra(righeAnnoScelto, stato, (r) => r.km);
+      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
+      const perPodio = ordinate.slice(0, 3);
+
+      const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+      const etichettaTotale = annoSelezionato
+        ? `${filtrate.length} mesi del ${annoSelezionato}`
+        : `${filtrate.length} record`;
+
       if (titoloRecordMesiEl)
-        titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(righeMostrate);
+        titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(
+          perPodio,
+          stato.ordine,
+        );
       if (podioRecordMesiEl)
-        podioRecordMesiEl.innerHTML = CM.creaPodioSemplice(righeMostrate);
+        podioRecordMesiEl.innerHTML = CM.creaPodioSemplice(perPodio);
       if (recordMesiEl)
         recordMesiEl.innerHTML =
-          CM.creaRecordMesi(righeMostrate) +
-          CM.creaRigaTotale(totaleMostrato, etichettaTotale);
-    }
+          CM.creaRecordMesi(ordinate) +
+          CM.creaRigaTotale(totaleFiltrato, etichettaTotale);
+    };
 
     if (selettoreRecordAnnoEl) {
       const anniRecordUnici = [
@@ -215,13 +337,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       mostraRecord("");
     }
 
-    const { righe: righeAnni, totale: totaleAnniKm } = CM.calcolaAnni(allData);
-    if (titoloAnniEl) titoloAnniEl.innerHTML = CM.creaTitoloAnni(righeAnni);
-    if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioAnni(righeAnni);
-    if (listaAnniEl)
-      listaAnniEl.innerHTML =
-        CM.creaClassificaAnni(righeAnni) +
-        CM.creaRigaTotale(totaleAnniKm, `${righeAnni.length} anni`);
+    const { righe: righeAnni } = CM.calcolaAnni(allData);
+    righeAnniComplete = righeAnni;
+    controlliAnni.aggiornaLimiti(righeAnniComplete.map((r) => r.km));
+    disegnaAnni();
   } catch (error) {
     console.error(`Errore nel caricamento della classifica: ${error}`);
     if (listaEl)
@@ -236,11 +355,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const righeStagioni = await CM.calcolaStagioni();
-    if (titoloStagioniEl)
-      titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(righeStagioni);
-    if (podioStagioniEl)
-      podioStagioniEl.innerHTML = CM.creaPodioStagioni(righeStagioni);
+    righeStagioniComplete = await CM.calcolaStagioni();
+    controlliStagioni.aggiornaLimiti(righeStagioniComplete.map((r) => r.km));
+    disegnaStagioni();
   } catch (error) {
     console.error(`Errore nel caricamento della classifica stagioni: ${error}`);
     if (podioStagioniEl)
@@ -249,39 +366,49 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const { righe: righePeriodi, totale: totalePeriodi } =
-      await CM.calcolaPeriodi();
+    const { righe: righePeriodiComplete } = await CM.calcolaPeriodi();
 
-    function mostraPeriodi(stagioneScelta) {
-      let righeMostrate = righePeriodi;
-      let totaleMostrato = totalePeriodi;
-      let etichettaTotale = `${righePeriodi.length} periodi`;
+    mostraPeriodi = function (stagioneScelta) {
+      let righePerStagione = righePeriodiComplete;
 
       if (stagioneScelta) {
-        righeMostrate = righePeriodi
+        righePerStagione = righePeriodiComplete
           .filter((r) => r.stagione === stagioneScelta)
           .map((r) => ({ ...r }));
-        totaleMostrato = righeMostrate.reduce((tot, r) => tot + r.km, 0);
-        righeMostrate.forEach((r) => {
+        const totalePerStagione = righePerStagione.reduce(
+          (tot, r) => tot + r.km,
+          0,
+        );
+        righePerStagione.forEach((r) => {
           r.percentuale =
-            totaleMostrato > 0 ? (r.km / totaleMostrato) * 100 : 0;
+            totalePerStagione > 0 ? (r.km / totalePerStagione) * 100 : 0;
         });
-        etichettaTotale = `periodi di ${stagioneScelta}`;
       }
 
+      controlliPeriodi.aggiornaLimiti(righePerStagione.map((r) => r.km));
+      const stato = controlliPeriodi.stato();
+      const filtrate = CC.filtra(righePerStagione, stato, (r) => r.km);
+      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
+      const perPodio = ordinate.slice(0, 3);
+
+      const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+      const etichettaTotale = stagioneScelta
+        ? `${filtrate.length} periodi di ${stagioneScelta}`
+        : `${filtrate.length} periodi`;
+
       if (titoloPeriodiEl)
-        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(righeMostrate);
+        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(perPodio, stato.ordine);
       if (podioPeriodiEl)
-        podioPeriodiEl.innerHTML = CM.creaPodioPeriodi(righeMostrate);
+        podioPeriodiEl.innerHTML = CM.creaPodioPeriodi(perPodio);
       if (listaPeriodiEl)
         listaPeriodiEl.innerHTML =
-          CM.creaClassificaPeriodi(righeMostrate) +
-          CM.creaRigaTotale(totaleMostrato, etichettaTotale);
-    }
+          CM.creaClassificaPeriodi(ordinate) +
+          CM.creaRigaTotale(totaleFiltrato, etichettaTotale);
+    };
 
     if (selettorePeriodiStagioneEl) {
       const stagioniPeriodiUniche = [
-        ...new Set(righePeriodi.map((r) => r.stagione)),
+        ...new Set(righePeriodiComplete.map((r) => r.stagione)),
       ];
       stagioniPeriodiUniche.forEach((s) => {
         const opzione = document.createElement("option");
@@ -294,7 +421,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // classifica" in fondo alla pagina di una stagione o di un
       // periodo) trova il filtro gia' impostato giusto, non parte
       // sempre da "Tutte": stesso comportamento gia' usato per i
-      // filtri della scheda "Tappe" qui sotto.
+      // filtri della scheda "Giri" qui sotto.
       const parametriUrlPeriodi = new URLSearchParams(window.location.search);
       const stagioneDaUrlPeriodi = parametriUrlPeriodi.get("stagione");
       if (
@@ -321,14 +448,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         '<li class="errore-grafico">Non è stato possibile caricare il confronto fra i periodi.</li>';
   }
 
-  // ---------- Tappe: ogni singola uscita, di ogni stagione e anno ----------
-  // "Tappe più lunghe" vive già nelle pagine di stagione (Estate.html
-  // ecc.), ma lì per non sommergere la pagina se ne vedono solo le
-  // prime 10: qui, nella pagina Classifica, è la scheda pensata per
-  // vederle TUTTE insieme, con in più due filtri (stagione e anno) per
-  // restringere l'elenco invece di scorrerle tutte mescolate. Stessa
-  // fonte dati (i file json/<Stagione>/Periodi/<anno>.json), letta qui
-  // da capo perché questa pagina non ha già in mano i dati.
+  // ---------- Giri: ogni singola uscita, di ogni stagione e anno ----------
+  // "Giri più lunghi" (ex "Tappe più lunghe") vive già nelle pagine di
+  // stagione (Estate.html ecc., dove il testo resta invariato), ma lì
+  // per non sommergere la pagina se ne vedono solo le prime 10: qui,
+  // nella pagina Classifica, è la scheda pensata per vederle TUTTE
+  // insieme, con in più due filtri (stagione e anno), il pulsante
+  // Ordine e il filtro per km. Stessa fonte dati (i file
+  // json/<Stagione>/Periodi/<anno>.json), letta qui da capo perché
+  // questa pagina non ha già in mano i dati.
+  let aggiornaVistaTappe = () => {};
+
   if (window.TappePiuLunghe) {
     try {
       const configStagioni = [
@@ -423,16 +553,45 @@ document.addEventListener("DOMContentLoaded", async () => {
           : "";
       }
 
-      function aggiornaVistaTappe() {
+      aggiornaVistaTappe = function () {
         const stagioneScelta = selettoreStagioneEl.value;
         const annoScelto = selettoreAnnoEl.value;
-        const filtrate = tutteLeTappe.filter(
+        const perFiltriEsistenti = tutteLeTappe.filter(
           (t) =>
             (!stagioneScelta || t.stagione === stagioneScelta) &&
             (!annoScelto || t.periodo === annoScelto),
         );
-        TappePiuLunghe.mostra("podio-tappe", "classifica-tappe", filtrate);
-      }
+
+        controlliGiri.aggiornaLimiti(
+          perFiltriEsistenti.map((t) => t.distance),
+        );
+        const stato = controlliGiri.stato();
+        const filtrate = CC.filtra(perFiltriEsistenti, stato, (t) => t.distance);
+
+        TappePiuLunghe.mostra(
+          "podio-tappe",
+          "classifica-tappe",
+          filtrate,
+          undefined,
+          stato.ordine,
+        );
+
+        // Stesso totale in fondo alla lista già presente per Mesi, Anni,
+        // Periodi e Record: qui mancava (TappePiuLunghe.mostra riempie
+        // solo podio e lista, senza somma finale). Riusa CM.creaRigaTotale,
+        // già generico e non legato ai mesi.
+        const listaGiriEl = document.getElementById("classifica-tappe");
+        if (listaGiriEl) {
+          const totaleKmGiri = filtrate.reduce(
+            (tot, t) => tot + t.distance,
+            0,
+          );
+          listaGiriEl.insertAdjacentHTML(
+            "beforeend",
+            CM.creaRigaTotale(totaleKmGiri, `${filtrate.length} giri`),
+          );
+        }
+      };
 
       // Chi arriva da un link con "?stagione=" e/o "&anno=" (es. dalla
       // pagina di una stagione o di un periodo) trova i filtri già
@@ -462,11 +621,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       aggiornaVistaTappe();
     } catch (error) {
-      console.error(`Errore nel caricamento delle tappe: ${error}`);
+      console.error(`Errore nel caricamento dei giri: ${error}`);
       const listaTappeEl = document.getElementById("classifica-tappe");
       if (listaTappeEl)
         listaTappeEl.innerHTML =
-          '<li class="errore-grafico">Non è stato possibile caricare le tappe.</li>';
+          '<li class="errore-grafico">Non è stato possibile caricare i giri.</li>';
     }
   }
 });

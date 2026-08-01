@@ -13,6 +13,7 @@
 @import url("griglia.css"); /* Griglia delle schede anno */
 @import url("riepilogo-stagioni.css"); /* Riepilogo "Totali per stagione" */
 @import url("classifica-mesi.css"); /* Podio e classifica dei mesi più pedalati */
+@import url("classifica-controlli.css"); /* Ordine (dal più al meno pedalato o inverso) e filtro per km */
 @import url("selettore-metrica.css"); /* Selettore a pillole per scegliere il dato da guardare */
 
 /* Accenti propri della sezione Statistiche (viola).

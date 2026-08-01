@@ -1,0 +1,202 @@
+/* ============================================================
+   Controlli condivisi della pagina Classifica
+   (Statistiche/History/ClassificaMesi.html):
+
+   - ".classifica-ordine"  due pulsanti a pillola per scegliere se la
+     classifica va vista dal più al meno pedalato o al contrario.
+     Inverte tutto insieme, podio con le medaglie compreso: scegliendo
+     "dal meno al più" il podio mostra i tre con MENO km, non i tre
+     migliori fissi.
+
+   - ".classifica-range"    filtro "da...a" in chilometri, scritto
+     libero (qualsiasi numero, anche fuori da quelli davvero presenti
+     nei dati: se non c'è corrispondenza si vede solo "nessun
+     risultato"), con due pulsanti rapidi "Min"/"Max" per chi non
+     conosce il valore più basso o più alto e vuole partire da lì.
+
+   Un solo blocco di stile, riusato per tutte le sei schede (Mesi
+   migliori, Km mensili, Anni, Stagioni, Periodi, Giri): stessi due
+   controlli ovunque.
+
+   Comportamento in JS/assets/classifica-controlli.js.
+   ============================================================ */
+
+.classifica-controlli {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 1.6rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+/* ---------- Ordine: due pillole, una sola attiva alla volta ---------- */
+.classifica-ordine {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.classifica-ordine__pulsante {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 1rem;
+  border-radius: var(--r-full);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.2s var(--ease),
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.classifica-ordine__pulsante:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--a1) 35%, var(--line));
+}
+
+.classifica-ordine__pulsante.attivo {
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: var(--sh-1);
+}
+
+/* ---------- Filtro per km: due campi + due scorciatoie + un azzera ---------- */
+.classifica-range {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 1rem;
+}
+
+.classifica-range__campo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.classifica-range__etichetta {
+  white-space: nowrap;
+}
+
+.classifica-range__unita {
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.classifica-range__campo input[type="number"] {
+  width: 5.2rem;
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  transition:
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+/* Le freccette su/giù del numero servono a poco su un intervallo di
+   chilometri (si scrive il numero, non si clicca cento volte): tolte
+   per lasciare più spazio al numero stesso, come già fatto altrove
+   nel sito per i campi numerici. */
+.classifica-range__campo input[type="number"]::-webkit-outer-spin-button,
+.classifica-range__campo input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.classifica-range__campo input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.classifica-range__campo input[type="number"]:hover {
+  border-color: color-mix(in srgb, var(--a1) 40%, var(--line));
+}
+
+.classifica-range__campo input[type="number"]:focus-visible {
+  outline: none;
+  border-color: var(--a1);
+  box-shadow: 0 0 0 3px var(--a-soft);
+}
+
+/* "Min"/"Max": pillole piccole accanto al campo, riempiono il numero
+   vero al posto dell'utente. Stesso stile a pillola del resto del
+   sito ma più piccolo, per restare chiaramente un'azione secondaria
+   rispetto a scrivere il numero a mano. */
+.classifica-range__rapido {
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--a1);
+  background: var(--a-soft);
+  border: 1px solid transparent;
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition:
+    background 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.classifica-range__rapido:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--a1) 22%, var(--a-soft));
+}
+
+.classifica-range__reset {
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: color 0.2s var(--ease);
+}
+
+.classifica-range__reset:hover {
+  color: var(--a1);
+}
+
+@media (max-width: 480px) {
+  .classifica-controlli {
+    padding: 0.8rem 0.7rem;
+  }
+  .classifica-ordine__pulsante {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  .classifica-range {
+    justify-content: flex-start;
+  }
+  .classifica-range__campo input[type="number"] {
+    width: 4.4rem;
+  }
+}

@@ -157,7 +157,13 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   };
 
   T.creaLista = function (righe, totaleKm, limite) {
-    var massimo = righe.length ? righe[0].distance : 0;
+    // "massimo" scala la barra di ogni riga: va preso col vero valore
+    // più alto (Math.max), non il primo elemento. Con il pulsante
+    // "Ordine" la lista può arrivare qui ordinata dal più corto al
+    // più lungo, dove il primo elemento è il più BASSO.
+    var massimo = righe.reduce(function (m, r) {
+      return r.distance > m ? r.distance : m;
+    }, 0);
     var righeMostrate = limite ? righe.slice(0, limite) : righe;
     return righeMostrate
       .map(function (r, i) {
@@ -206,13 +212,24 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   // opzionale: le pagine di singola stagione/periodo mostrano solo le
   // prime N (poche righe, non l'elenco intero), la scheda dedicata
   // nella pagina Classifica invece le mostra tutte (nessun limite).
-  T.mostra = function (idPodio, idLista, righe, limite) {
+  //
+  // "ordine" è opzionale ("desc" di default: le pagine di stagione/anno
+  // come Estate.html non lo passano mai e continuano a vedere le
+  // uscite più lunghe per prime, come sempre). Nella scheda "Giri"
+  // della pagina Classifica, dove il pulsante "Ordine" esiste davvero,
+  // sceglie invece podio E lista insieme — "dal meno al più lungo"
+  // inverte tutto, podio compreso, stesso comportamento delle altre
+  // schede (vedi assets/classifica-controlli.js).
+  T.mostra = function (idPodio, idLista, righe, limite, ordine) {
     var contenitorePodio = document.getElementById(idPodio);
     var contenitoreLista = document.getElementById(idLista);
     if (!contenitorePodio || !contenitoreLista) return;
 
+    var ordineEffettivo = ordine === "asc" ? "asc" : "desc";
     var righeOrdinate = righe.slice().sort(function (a, b) {
-      return b.distance - a.distance;
+      return ordineEffettivo === "asc"
+        ? a.distance - b.distance
+        : b.distance - a.distance;
     });
     var totaleKm = righe.reduce(function (tot, r) {
       return tot + r.distance;
