@@ -599,9 +599,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           listaGiriEl.insertAdjacentHTML(
             "beforeend",
             CM.creaRigaTotale(
-            totaleKmGiri,
-            `${filtrate.length} ${pluralizza(filtrate.length, "giro", "giri")}`,
-          ),
+              totaleKmGiri,
+              `${filtrate.length} ${pluralizza(filtrate.length, "giro", "giri")}`,
+            ),
           );
         }
       };
