@@ -148,18 +148,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     onCambia: () => disegnaMesi(),
   });
   const controlliRecord = CC.crea(document.getElementById("controlli-record"), {
-    onCambia: () => mostraRecord(selettoreRecordAnnoEl ? selettoreRecordAnnoEl.value : ""),
+    onCambia: () =>
+      mostraRecord(selettoreRecordAnnoEl ? selettoreRecordAnnoEl.value : ""),
   });
   const controlliAnni = CC.crea(document.getElementById("controlli-anni"), {
     onCambia: () => disegnaAnni(),
   });
-  const controlliStagioni = CC.crea(document.getElementById("controlli-stagioni"), {
-    onCambia: () => disegnaStagioni(),
-  });
-  const controlliPeriodi = CC.crea(document.getElementById("controlli-periodi"), {
-    onCambia: () =>
-      mostraPeriodi(selettorePeriodiStagioneEl ? selettorePeriodiStagioneEl.value : ""),
-  });
+  const controlliStagioni = CC.crea(
+    document.getElementById("controlli-stagioni"),
+    {
+      onCambia: () => disegnaStagioni(),
+    },
+  );
+  const controlliPeriodi = CC.crea(
+    document.getElementById("controlli-periodi"),
+    {
+      onCambia: () =>
+        mostraPeriodi(
+          selettorePeriodiStagioneEl ? selettorePeriodiStagioneEl.value : "",
+        ),
+    },
+  );
   const controlliGiri = CC.crea(document.getElementById("controlli-giri"), {
     onCambia: () => aggiornaVistaTappe(),
   });
@@ -219,7 +228,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const perPodio = CC.ordina(filtrate, stato.ordine, (r) => r.km);
 
     if (titoloStagioniEl)
-      titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(perPodio, stato.ordine);
+      titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(
+        perPodio,
+        stato.ordine,
+      );
     if (podioStagioniEl)
       podioStagioniEl.innerHTML = CM.creaPodioStagioni(perPodio);
   }
@@ -387,7 +399,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         : `${filtrate.length} periodi`;
 
       if (titoloPeriodiEl)
-        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(perPodio, stato.ordine);
+        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(
+          perPodio,
+          stato.ordine,
+        );
       if (podioPeriodiEl)
         podioPeriodiEl.innerHTML = CM.creaPodioPeriodi(perPodio);
       if (listaPeriodiEl)
@@ -552,11 +567,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             (!annoScelto || t.periodo === annoScelto),
         );
 
-        controlliGiri.aggiornaLimiti(
-          perFiltriEsistenti.map((t) => t.distance),
-        );
+        controlliGiri.aggiornaLimiti(perFiltriEsistenti.map((t) => t.distance));
         const stato = controlliGiri.stato();
-        const filtrate = CC.filtra(perFiltriEsistenti, stato, (t) => t.distance);
+        const filtrate = CC.filtra(
+          perFiltriEsistenti,
+          stato,
+          (t) => t.distance,
+        );
 
         TappePiuLunghe.mostra(
           "podio-tappe",
@@ -572,10 +589,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // già generico e non legato ai mesi.
         const listaGiriEl = document.getElementById("classifica-tappe");
         if (listaGiriEl) {
-          const totaleKmGiri = filtrate.reduce(
-            (tot, t) => tot + t.distance,
-            0,
-          );
+          const totaleKmGiri = filtrate.reduce((tot, t) => tot + t.distance, 0);
           listaGiriEl.insertAdjacentHTML(
             "beforeend",
             CM.creaRigaTotale(totaleKmGiri, `${filtrate.length} giri`),
