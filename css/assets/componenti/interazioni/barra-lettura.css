@@ -14,38 +14,3 @@
   background: linear-gradient(90deg, var(--a1), var(--a2));
   pointer-events: none;
 }
-
-/* Piccola ruota che "pedala" in cima, all'estremità della barra di
-   lettura: la posizione (left) la aggiorna barra-lettura.js insieme
-   alla barra stessa, qui c'è solo l'aspetto e la rotazione continua,
-   come una ruota che gira mentre si scorre la pagina. */
-.scroll-progress-wheel {
-  position: fixed;
-  top: -4.5px;
-  left: 0;
-  z-index: 101;
-  width: 12px;
-  height: 12px;
-  transform: translateX(-50%);
-  border-radius: var(--r-full);
-  background: var(--surface);
-  border: 2px solid transparent;
-  background-image:
-    linear-gradient(var(--surface), var(--surface)),
-    conic-gradient(
-      var(--a2) 0deg 10deg,
-      transparent 10deg 90deg,
-      var(--a2) 90deg 100deg,
-      transparent 100deg 180deg,
-      var(--a2) 180deg 190deg,
-      transparent 190deg 270deg,
-      var(--a2) 270deg 280deg,
-      transparent 280deg 360deg
-    );
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: var(--sh-1);
-  pointer-events: none;
-  animation: fx-spin-slow 1.1s linear infinite;
-  will-change: left;
-}

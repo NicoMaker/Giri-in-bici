@@ -53,24 +53,6 @@
   transition:
     transform 0.35s var(--ease),
     box-shadow 0.35s var(--ease);
-  animation: fx-podio-su 0.65s var(--ease) both;
-}
-
-/* I tre gradini salgono uno dopo l'altro, da sinistra a destra come
-   si legge il podio (argento, oro, bronzo nell'ordine visivo dato
-   dagli "order" qui sotto), non nell'ordine con cui stanno nel DOM. */
-@keyframes fx-podio-su {
-  from {
-    opacity: 0;
-    transform: translateY(36px) scale(0.92);
-  }
-  65% {
-    transform: translateY(-6px) scale(1.015);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .podio__gradino:hover {
@@ -81,7 +63,6 @@
 /* Il primo posto sta al centro ed è un filo più alto, come un vero podio */
 .podio__gradino--1 {
   order: 2;
-  animation-delay: 0.22s;
   padding-top: 2.1rem;
   padding-bottom: 1.8rem;
   background: linear-gradient(
@@ -94,7 +75,6 @@
 
 .podio__gradino--2 {
   order: 1;
-  animation-delay: 0.05s;
   background: linear-gradient(
     160deg,
     color-mix(in srgb, #c9d3dc 40%, var(--surface)),
@@ -105,7 +85,6 @@
 
 .podio__gradino--3 {
   order: 3;
-  animation-delay: 0.39s;
   background: linear-gradient(
     160deg,
     color-mix(in srgb, #d8a06a 32%, var(--surface)),
@@ -323,16 +302,6 @@
   border-radius: var(--r-full);
   background: linear-gradient(90deg, var(--a1), var(--a2));
   transition: width 0.9s var(--ease);
-  animation: fx-barra-riempi 0.9s var(--ease) both;
-}
-
-/* Ogni riga e' un elemento nuovo (ricreato quando cambia la metrica
-   o l'ordine): senza questo fotogramma la barra comparirebbe già
-   alla sua lunghezza finale invece di riempirsi. */
-@keyframes fx-barra-riempi {
-  from {
-    width: 0%;
-  }
 }
 
 .classifica-riga__km {

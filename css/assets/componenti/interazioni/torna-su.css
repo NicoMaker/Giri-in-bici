@@ -41,38 +41,3 @@
   color: var(--a1);
   transform: translateY(-3px);
 }
-
-/* Raggi di una ruota di bici che girano piano dietro alla freccia:
-   idle e discreti (opacita' bassa), piu' veloci al passaggio del
-   mouse. La freccia resta il segnale chiaro "torna su"; i raggi
-   sono solo un accento a tema, non sostituiscono l'icona. */
-.to-top::before {
-  content: "";
-  position: absolute;
-  inset: 7px;
-  border-radius: var(--r-full);
-  background: repeating-conic-gradient(
-    var(--line-strong) 0deg 4deg,
-    transparent 4deg 45deg
-  );
-  opacity: 0.4;
-  animation: fx-spin-slow 10s linear infinite;
-  pointer-events: none;
-}
-
-.to-top:hover::before,
-.to-top:focus-visible::before {
-  animation-duration: 1.3s;
-  opacity: 0.6;
-}
-
-.to-top span,
-.to-top .ico {
-  position: relative;
-  z-index: 1;
-}
-
-/* Scatto di pedalata al click, prima di scorrere in cima */
-.to-top--spin .ico {
-  animation: fx-spin-slow 0.5s var(--ease);
-}

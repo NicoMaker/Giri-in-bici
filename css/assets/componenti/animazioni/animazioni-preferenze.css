@@ -36,9 +36,7 @@
     animation: none;
   }
 
-  .scroll-progress,
-  .scroll-progress-wheel,
-  .to-top::before {
+  .scroll-progress {
     display: none;
   }
 
