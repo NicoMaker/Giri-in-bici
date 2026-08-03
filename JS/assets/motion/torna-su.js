@@ -17,10 +17,22 @@
     bottone.type = "button";
     bottone.className = "to-top";
     bottone.setAttribute("aria-label", "Torna all'inizio della pagina");
-    bottone.innerHTML = '<span aria-hidden="true">&uarr;</span>';
+    // Riusa l'icona "bici" gia' disegnata in icone.js (stessa griglia,
+    // stesso tratto di tutte le altre icone del sito). Se per qualche
+    // motivo icone.js non fosse ancora pronto, resta la freccia semplice.
+    bottone.innerHTML =
+      window.Icone && Icone.svg
+        ? Icone.svg("bici", 22)
+        : '<span aria-hidden="true">&uarr;</span>';
     document.body.appendChild(bottone);
 
     bottone.addEventListener("click", function () {
+      if (!motoRidotto) {
+        bottone.classList.add("to-top--spin");
+        window.setTimeout(function () {
+          bottone.classList.remove("to-top--spin");
+        }, 500);
+      }
       window.scrollTo({
         top: 0,
         behavior: motoRidotto ? "auto" : "smooth",

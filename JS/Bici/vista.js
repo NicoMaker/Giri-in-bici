@@ -13,13 +13,28 @@ window.Bici = window.Bici || {};
 
   // Mostra solo l'intestazione Home (schermata di benvenuto)
   B.mostraHome = function () {
-    B.contenitore.innerHTML = `
-          <img class="immagini_stagione" src="${B.dati.intestazioni.home}" alt="" />
-          <p class="bici-home-frase">
-            La Madonnina in Bici ci ricorda perch&eacute; pedaliamo: benessere,
-            salute e libert&agrave; a ogni giro di pedale.
-          </p>`;
-    B.impostaFiltroAttivo("home");
+    const scrivi = function () {
+      B.contenitore.innerHTML = `
+            <img class="immagini_stagione" src="${B.dati.intestazioni.home}" alt="" />
+            <p class="bici-home-frase">
+              La Madonnina in Bici ci ricorda perch&eacute; pedaliamo: benessere,
+              salute e libert&agrave; a ogni giro di pedale.
+            </p>`;
+      B.impostaFiltroAttivo("home");
+      B.contenitore.classList.remove("bici-cambio");
+    };
+
+    const motoRidotto = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (motoRidotto || !B.contenitore.innerHTML.trim()) {
+      scrivi();
+      return;
+    }
+
+    B.contenitore.classList.add("bici-cambio");
+    window.setTimeout(scrivi, 180);
   };
 
   // Mostra le bici filtrate per tipo ("mtb", "corsa" o "tutte")
@@ -31,12 +46,30 @@ window.Bici = window.Bici || {};
 
     const intestazioni = B.renderIntestazioni(tipo);
 
-    B.contenitore.innerHTML = `
-          ${intestazioni}
-          <div class="bici-grid">
-            ${biciFiltrate.map(B.renderCard).join("")}
-          </div>`;
+    const scrivi = function () {
+      B.contenitore.innerHTML = `
+            ${intestazioni}
+            <div class="bici-grid">
+              ${biciFiltrate.map(B.renderCard).join("")}
+            </div>`;
+      B.impostaFiltroAttivo(tipo);
+      B.contenitore.classList.remove("bici-cambio");
+    };
 
-    B.impostaFiltroAttivo(tipo);
+    // Prima di sostituire il catalogo, una breve dissolvenza: il
+    // cambio di categoria non è più un taglio secco. Al primo
+    // caricamento (riquadro vuoto) o con "riduci animazioni" attivo,
+    // si scrive subito, senza attesa.
+    const motoRidotto = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (motoRidotto || !B.contenitore.innerHTML.trim()) {
+      scrivi();
+      return;
+    }
+
+    B.contenitore.classList.add("bici-cambio");
+    window.setTimeout(scrivi, 180);
   };
 })(window.Bici);

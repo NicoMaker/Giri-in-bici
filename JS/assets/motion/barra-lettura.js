@@ -14,12 +14,19 @@
     barra.setAttribute("aria-hidden", "true");
     document.body.appendChild(barra);
 
+    var ruota = document.createElement("div");
+    ruota.className = "scroll-progress-wheel";
+    ruota.setAttribute("aria-hidden", "true");
+    document.body.appendChild(ruota);
+
     var inCorso = false;
 
     function aggiorna() {
       var altezza = document.documentElement.scrollHeight - window.innerHeight;
       var quota = altezza > 0 ? window.scrollY / altezza : 0;
-      barra.style.transform = "scaleX(" + Math.min(quota, 1) + ")";
+      var percentuale = Math.min(quota, 1);
+      barra.style.transform = "scaleX(" + percentuale + ")";
+      ruota.style.left = percentuale * 100 + "%";
       inCorso = false;
     }
 

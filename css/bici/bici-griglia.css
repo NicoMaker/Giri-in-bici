@@ -11,6 +11,17 @@
   display: block;
   width: min(100% - 2.5rem, var(--wrap));
   margin: 2rem auto 0;
+  transition:
+    opacity 0.18s var(--ease),
+    transform 0.18s var(--ease);
+}
+
+/* Stato momentaneo mentre si cambia categoria (mtb/corsa/tutte/home):
+   dissolvenza breve prima che vista.js sostituisca il contenuto, cosi'
+   il cambio filtro non è più un taglio secco. */
+#StampaBici.bici-cambio {
+  opacity: 0;
+  transform: translateY(6px) scale(0.99);
 }
 
 #StampaBici .container_stagione + .container_stagione {
