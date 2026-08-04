@@ -190,11 +190,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Podio e lista completa seguono LO STESSO ordine scelto: "Ordine"
     // inverte tutto, non solo la lista sotto — se scegli "dal meno al
     // più", il podio mostra i tre con MENO km, non i tre migliori fissi.
-    const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
-    const perPodio = ordinate.slice(0, 3);
-    const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-
-    if (titoloEl) titoloEl.innerHTML = CM.creaTitolo(perPodio, stato.ordine);
+    const ordinate = CC.ordina(
+      filtrate,
+      stato.ordine,
+      (r) => r.km,
+      (r) => ConfigMesi.ordine[r.mese] || 0,
+    );
     if (podioEl) podioEl.innerHTML = CM.creaPodio(perPodio, totaleAnniGlobale);
     if (listaEl) {
       listaEl.innerHTML =
@@ -211,11 +212,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Cerca per anno (es. "2024"): "nome" è già l'anno come stringa.
     const cercate = CC.cerca(righeAnniComplete, stato.testo, (r) => r.nome);
     const filtrate = CC.filtra(cercate, stato, (r) => r.km);
-    const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
-    const perPodio = ordinate.slice(0, 3);
-    const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-
-    if (titoloAnniEl)
+    const ordinate = CC.ordina(
+      filtrate,
+      stato.ordine,
+      (r) => r.km,
+      (r) => Number(r.anno) || 0,
+    );
       titoloAnniEl.innerHTML = CM.creaTitoloAnni(perPodio, stato.ordine);
     if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioAnni(perPodio);
     if (listaAnniEl) {
@@ -314,7 +316,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       // "2024" trovano "Settembre 2024"): "nome" è già "Mese anno".
       const cercate = CC.cerca(righeAnnoScelto, stato.testo, (r) => r.nome);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
-      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
+      const ordinate = CC.ordina(
+        filtrate,
+        stato.ordine,
+        (r) => r.km,
+        (r) => (Number(r.anno) || 0) * 100 + (ConfigMesi.ordine[r.mese] || 0),
+      );
       const perPodio = ordinate.slice(0, 3);
 
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
@@ -419,7 +426,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         (r) => `${r.nome} ${r.periodo}`,
       );
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
-      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km);
+      const ordinate = CC.ordina(
+        filtrate,
+        stato.ordine,
+        (r) => r.km,
+        (r) => parseInt(r.periodo, 10) || 0,
+      );
       const perPodio = ordinate.slice(0, 3);
 
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);

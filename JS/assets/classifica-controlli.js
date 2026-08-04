@@ -222,11 +222,23 @@ window.ClassificaControlli = window.ClassificaControlli || {};
   // Solo l'ordinamento: restituisce sempre una copia nuova, non
   // tocca mai l'array originale (che altre parti della pagina
   // potrebbero ancora star usando in ordine diverso).
-  C.ordina = function (righe, ordine, valoreDi) {
+  // "valoreSpareggio" e' opzionale: a parita' di valoreDi (es. stessi
+  // km) decide chi va prima, nello STESSO verso della classifica
+  // attuale — stessa logica gia' usata per i Giri/Tappe
+  // (assets/tappe-piu-lunghe.js): dal piu' al meno pedalato vince il
+  // valore di spareggio piu' vecchio/basso, dal meno al piu' si
+  // specchia e vince quello piu' recente/alto. Senza spareggio (non
+  // passato), le righe pari restano nell'ordine di prima, come sempre.
+  C.ordina = function (righe, ordine, valoreDi, valoreSpareggio) {
     return righe.slice().sort(function (a, b) {
+      var perValore =
+        ordine === "asc"
+          ? valoreDi(a) - valoreDi(b)
+          : valoreDi(b) - valoreDi(a);
+      if (perValore !== 0 || !valoreSpareggio) return perValore;
       return ordine === "asc"
-        ? valoreDi(a) - valoreDi(b)
-        : valoreDi(b) - valoreDi(a);
+        ? valoreSpareggio(b) - valoreSpareggio(a)
+        : valoreSpareggio(a) - valoreSpareggio(b);
     });
   };
 })(window.ClassificaControlli);
