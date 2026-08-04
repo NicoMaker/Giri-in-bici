@@ -167,29 +167,6 @@ body {
   animation: anelloRespira 2.4s ease-in-out infinite;
 }
 
-/* ---------- Tracciato GPS dietro il titolo ---------- */
-/* Una linea tratteggiata che serpeggia, come un percorso su una
-   mappa — il tratto visivo piu' riconoscibile dei siti/app da
-   ciclismo (Strava, Komoot, RideWithGPS). Solo decorazione: sfondo
-   a bassissima opacita' dietro al titolo, non interferisce con la
-   lettura ne' con nient'altro nella pagina. */
-.hero::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -4px;
-  width: min(560px, 84vw);
-  height: 40px;
-  transform: translateX(-50%);
-  opacity: 0.4;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 560 40'%3E%3Cpath d='M4 30 C 70 8, 120 36, 190 18 S 300 2, 370 24 S 480 36, 556 12' fill='none' stroke='%23c99a2e' stroke-width='3' stroke-linecap='round' stroke-dasharray='1 13'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  z-index: -1;
-  pointer-events: none;
-}
-
 /* ---------- Icone delle righe statistiche: pastiglia colorata ---------- */
 /* Da icona nuda a piccolo badge circolare tinto — lo stesso
    trattamento delle righe di attivita' nelle app da ciclismo/sport,
