@@ -181,24 +181,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   let righeAnniComplete = [];
   let righeStagioniComplete = [];
 
-  // ===== CORREZIONE: aggiunte dichiarazioni di perPodio e totaleFiltrato =====
+  // ===== CORREZIONE per ReferenceError: aggiunte dichiarazioni di perPodio e totaleFiltrato =====
   function disegnaMesi() {
     const stato = controlliMesi.stato();
-    // Cerca solo per nome del mese (es. "Settembre"): è l'unico testo
-    // che questa scheda ha da offrire, un mese aggregato su tutti gli anni.
     const cercate = CC.cerca(righeMesi, stato.testo, (r) => r.mese);
     const filtrate = CC.filtra(cercate, stato, (r) => r.km);
-    // Podio e lista completa seguono LO STESSO ordine scelto: "Ordine"
-    // inverte tutto, non solo la lista sotto — se scegli "dal meno al
-    // più", il podio mostra i tre con MENO km, non i tre migliori fissi.
     const ordinate = CC.ordina(
       filtrate,
       stato.ordine,
       (r) => r.km,
       (r) => ConfigMesi.ordine[r.mese] || 0,
     );
-
-    // CORREZIONE: definite le variabili mancanti
     const perPodio = ordinate.slice(0, 3);
     const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
 
@@ -215,7 +208,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function disegnaAnni() {
     const stato = controlliAnni.stato();
-    // Cerca per anno (es. "2024"): "nome" è già l'anno come stringa.
     const cercate = CC.cerca(righeAnniComplete, stato.testo, (r) => r.nome);
     const filtrate = CC.filtra(cercate, stato, (r) => r.km);
     const ordinate = CC.ordina(
@@ -224,8 +216,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       (r) => r.km,
       (r) => Number(r.anno) || 0,
     );
-
-    // CORREZIONE: definite le variabili mancanti
     const perPodio = ordinate.slice(0, 3);
     const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
 
@@ -242,14 +232,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   // ===== FINE CORREZIONI =====
 
-  // "Stagioni" mostra sempre tutte e tre le stagioni (non c'è una
-  // lista a parte sotto): qui "Ordine" decide direttamente quale
-  // stagione occupa il gradino d'oro/argento/bronzo, e la frase sopra
-  // il podio segue lo stesso ordine (stesso comportamento delle altre
-  // schede: "Ordine" inverte tutto, podio compreso).
   function disegnaStagioni() {
     const stato = controlliStagioni.stato();
-    // Cerca per nome della stagione (es. "Estate", "Autunno").
     const cercate = CC.cerca(
       righeStagioniComplete,
       stato.testo,
@@ -257,21 +241,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     const filtrate = CC.filtra(cercate, stato, (r) => r.km);
     const perPodio = CC.ordina(filtrate, stato.ordine, (r) => r.km);
-
     if (titoloStagioniEl)
-      titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(
-        perPodio,
-        stato.ordine,
-      );
+      titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(perPodio, stato.ordine);
     if (podioStagioniEl)
       podioStagioniEl.innerHTML = CM.creaPodioStagioni(perPodio);
   }
 
   let totaleAnniGlobale = 0;
-  // Assegnate per davvero dentro i due blocchi try più sotto: qui solo
-  // un fallback innocuo, per lo stesso motivo di "aggiornaVistaTappe"
-  // più in basso — le callback dei controlli (poche righe sopra) le
-  // referenziano già prima che i blocchi try vengano eseguiti.
   let mostraRecord = () => {};
   let mostraPeriodi = () => {};
 
@@ -295,11 +271,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       ConfigMesi.elenco,
     );
 
-    // "Anno" dentro "Km mensili": scegliendo un anno si ricalcola
-    // la percentuale su quel solo anno (non sul totale di sempre),
-    // stessa idea di prima ma come filtro dentro la scheda invece che
-    // come scheda a parte. "?anno=2020" nell'indirizzo (es. da
-    // Statistiche/Anni/2020.html) lo seleziona già in automatico.
     const annoFiltro = new URLSearchParams(window.location.search).get("anno");
 
     controlliMesi.aggiornaLimiti(righeMesi.map((r) => r.km));
@@ -309,9 +280,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       let righeAnnoScelto = righeRecordTutti;
 
       if (annoSelezionato) {
+        // ===== MODIFICA: quando è selezionato un anno, il nome visualizzato è solo il mese =====
         righeAnnoScelto = righeRecordTutti
           .filter((r) => String(r.anno) === annoSelezionato)
-          .map((r) => ({ ...r }));
+          .map((r) => ({ ...r, nome: r.mese })); // sovrascrivo nome con il solo mese
+        // ===== FINE MODIFICA =====
         const totaleAnnoScelto = righeAnnoScelto.reduce(
           (tot, r) => tot + r.km,
           0,
@@ -324,8 +297,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       controlliRecord.aggiornaLimiti(righeAnnoScelto.map((r) => r.km));
       const stato = controlliRecord.stato();
-      // Cerca per mese o per anno insieme (es. "Settembre" oppure
-      // "2024" trovano "Settembre 2024"): "nome" è già "Mese anno".
       const cercate = CC.cerca(righeAnnoScelto, stato.testo, (r) => r.nome);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const ordinate = CC.ordina(
@@ -335,7 +306,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         (r) => (Number(r.anno) || 0) * 100 + (ConfigMesi.ordine[r.mese] || 0),
       );
       const perPodio = ordinate.slice(0, 3);
-
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
       const etichettaTotale = annoSelezionato
         ? `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} del ${annoSelezionato}`
@@ -428,10 +398,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       controlliPeriodi.aggiornaLimiti(righePerStagione.map((r) => r.km));
       const stato = controlliPeriodi.stato();
-      // Cerca per nome del periodo (es. "Estate 2020"), per stagione
-      // da sola (es. "Autunno") o per solo l'anno/intervallo (es.
-      // "2020-2021"): "nome" è già "Stagione periodo" per intero,
-      // "periodo" lascia trovare anche il solo anno/intervallo.
       const cercate = CC.cerca(
         righePerStagione,
         stato.testo,
@@ -445,17 +411,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         (r) => parseInt(r.periodo, 10) || 0,
       );
       const perPodio = ordinate.slice(0, 3);
-
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
       const etichettaTotale = stagioneScelta
         ? `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")} di ${stagioneScelta}`
         : `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")}`;
 
       if (titoloPeriodiEl)
-        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(
-          perPodio,
-          stato.ordine,
-        );
+        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(perPodio, stato.ordine);
       if (podioPeriodiEl)
         podioPeriodiEl.innerHTML = CM.creaPodioPeriodi(perPodio);
       if (listaPeriodiEl)
@@ -475,11 +437,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         selettorePeriodiStagioneEl.appendChild(opzione);
       });
 
-      // Chi arriva da un link con "?stagione=" (es. dal bottone "Vedi la
-      // classifica" in fondo alla pagina di una stagione o di un
-      // periodo) trova il filtro gia' impostato giusto, non parte
-      // sempre da "Tutte": stesso comportamento gia' usato per i
-      // filtri della scheda "Giri" qui sotto.
       const parametriUrlPeriodi = new URLSearchParams(window.location.search);
       const stagioneDaUrlPeriodi = parametriUrlPeriodi.get("stagione");
       if (
@@ -506,15 +463,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         '<li class="errore-grafico">Non è stato possibile caricare il confronto fra i periodi.</li>';
   }
 
-  // ---------- Giri: ogni singola uscita, di ogni stagione e anno ----------
-  // "Giri più lunghi" (ex "Tappe più lunghe") vive già nelle pagine di
-  // stagione (Estate.html ecc., dove il testo resta invariato), ma lì
-  // per non sommergere la pagina se ne vedono solo le prime 10: qui,
-  // nella pagina Classifica, è la scheda pensata per vederle TUTTE
-  // insieme, con in più due filtri (stagione e anno), il pulsante
-  // Ordine e il filtro per km. Stessa fonte dati (i file
-  // json/<Stagione>/Periodi/<anno>.json), letta qui da capo perché
-  // questa pagina non ha già in mano i dati.
+  // ---------- Giri ----------
   let aggiornaVistaTappe = () => {};
 
   if (window.TappePiuLunghe) {
@@ -528,14 +477,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         configStagioni.map((url) => fetchJSON(url)),
       );
 
-      // A parita' di km deve vincere chi l'ha pedalata per primo: per
-      // saperlo serve una data vera (anno compreso), non solo "16
-      // Marzo". Il periodo di Estate/Primavera e' gia' un anno secco
-      // ("2024"), ma quello di Autunno_Inverno e' un intervallo
-      // ("2024-2025") perche' lo stesso file contiene sia le uscite
-      // di ottobre-dicembre (primo anno) sia quelle di gennaio-marzo
-      // (secondo anno): senza distinguerle una "16 Gennaio" finirebbe
-      // nell'anno sbagliato.
       function annoReale(etichettaPeriodo, meseNum) {
         const intervallo = etichettaPeriodo.match(/^(\d{4})-(\d{4})$/);
         if (!intervallo) return parseInt(etichettaPeriodo, 10);
@@ -567,14 +508,12 @@ document.addEventListener("DOMContentLoaded", async () => {
               periodo: etichettaPeriodo,
               etichetta: `${r.date} · ${config.season} ${etichettaPeriodo}`,
               distance: r.distance,
-              // aaaammgg: cresce con la data, comodo da confrontare
               dataOrdine: anno * 10000 + meseNum * 100 + giorno,
             });
           });
         });
       }
 
-      // ---------- Filtri: popolati con quello che c'è davvero nei dati ----------
       const selettoreStagioneEl = document.getElementById(
         "tappe-filtro-stagione",
       );
@@ -588,17 +527,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         selettoreStagioneEl.appendChild(opzione);
       });
 
-      // "Anno" dipende da quale stagione è scelta: con "Estate" scelta
-      // ha senso proporre solo gli anni che l'Estate ha davvero, non
-      // anche gli intervalli dell'Autunno-Inverno o gli anni in cui
-      // quella stagione non è mai stata registrata. Si ricalcola ogni
-      // volta che cambia la stagione (o parte vuota, "Tutte").
       function popolaAnni(stagioneFiltro) {
-        // Con "Tutte" le stagioni insieme, un filtro per anno non ha
-        // senso: gli anni dell'Estate ("2020") e gli intervalli
-        // dell'Autunno-Inverno ("2020-2021") finirebbero mescolati
-        // nella stessa lista. Il filtro Anno si sceglie solo dopo
-        // aver scelto una singola stagione (Primavera, Estate...).
         if (!stagioneFiltro) {
           selettoreAnnoEl.innerHTML = '<option value="">Tutti</option>';
           selettoreAnnoEl.value = "";
@@ -606,17 +535,12 @@ document.addEventListener("DOMContentLoaded", async () => {
           return;
         }
         selettoreAnnoEl.disabled = false;
-
         const disponibili = tutteLeTappe.filter(
           (t) => t.stagione === stagioneFiltro,
         );
-        // "Anno" per l'Autunno-Inverno è un intervallo ("2020-2021"):
-        // resta per intero così com'è, non separato in due anni,
-        // altrimenti una singola stagione finirebbe in due filtri.
         const anniDisponibili = [
           ...new Set(disponibili.map((t) => t.periodo)),
         ].sort((a, b) => b.localeCompare(a));
-
         const sceltaAttuale = selettoreAnnoEl.value;
         selettoreAnnoEl.innerHTML = '<option value="">Tutti</option>';
         anniDisponibili.forEach((a) => {
@@ -625,9 +549,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           opzione.textContent = a;
           selettoreAnnoEl.appendChild(opzione);
         });
-        // La scelta di prima resta solo se esiste ancora per la
-        // stagione appena scelta; altrimenti si torna a "Tutti"
-        // invece di lasciare un anno che quella stagione non ha.
         selettoreAnnoEl.value = anniDisponibili.includes(sceltaAttuale)
           ? sceltaAttuale
           : "";
@@ -641,13 +562,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             (!stagioneScelta || t.stagione === stagioneScelta) &&
             (!annoScelto || t.periodo === annoScelto),
         );
-
         controlliGiri.aggiornaLimiti(perFiltriEsistenti.map((t) => t.distance));
         const stato = controlliGiri.stato();
-        // Cerca per nome del giro/posto (es. "Sappada"), per stagione
-        // (es. "Primavera") o per periodo/anno (es. "2022"): tutti e
-        // tre i campi insieme, così un solo campo di testo copre
-        // quello che qui sono due filtri a tendina separati.
         const cercate = CC.cerca(
           perFiltriEsistenti,
           stato.testo,
@@ -663,10 +579,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           stato.ordine,
         );
 
-        // Stesso totale in fondo alla lista già presente per Mesi, Anni,
-        // Periodi e Record: qui mancava (TappePiuLunghe.mostra riempie
-        // solo podio e lista, senza somma finale). Riusa CM.creaRigaTotale,
-        // già generico e non legato ai mesi.
         const listaGiriEl = document.getElementById("classifica-tappe");
         if (listaGiriEl) {
           const totaleKmGiri = filtrate.reduce((tot, t) => tot + t.distance, 0);
@@ -680,9 +592,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       };
 
-      // Chi arriva da un link con "?stagione=" e/o "&anno=" (es. dalla
-      // pagina di una stagione o di un periodo) trova i filtri già
-      // impostati giusti, non parte sempre da "Tutte/Tutti".
       const parametriUrl = new URLSearchParams(window.location.search);
       const stagioneDaUrl = parametriUrl.get("stagione");
       if (stagioneDaUrl && stagioniUniche.includes(stagioneDaUrl)) {
