@@ -181,6 +181,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let righeAnniComplete = [];
   let righeStagioniComplete = [];
 
+  // ===== CORREZIONE: aggiunte dichiarazioni di perPodio e totaleFiltrato =====
   function disegnaMesi() {
     const stato = controlliMesi.stato();
     // Cerca solo per nome del mese (es. "Settembre"): è l'unico testo
@@ -196,6 +197,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       (r) => r.km,
       (r) => ConfigMesi.ordine[r.mese] || 0,
     );
+
+    // CORREZIONE: definite le variabili mancanti
+    const perPodio = ordinate.slice(0, 3);
+    const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+
     if (podioEl) podioEl.innerHTML = CM.creaPodio(perPodio, totaleAnniGlobale);
     if (listaEl) {
       listaEl.innerHTML =
@@ -218,6 +224,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       (r) => r.km,
       (r) => Number(r.anno) || 0,
     );
+
+    // CORREZIONE: definite le variabili mancanti
+    const perPodio = ordinate.slice(0, 3);
+    const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+
     titoloAnniEl.innerHTML = CM.creaTitoloAnni(perPodio, stato.ordine);
     if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioAnni(perPodio);
     if (listaAnniEl) {
@@ -229,6 +240,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
     }
   }
+  // ===== FINE CORREZIONI =====
 
   // "Stagioni" mostra sempre tutte e tre le stagioni (non c'è una
   // lista a parte sotto): qui "Ordine" decide direttamente quale
