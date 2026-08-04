@@ -244,7 +244,15 @@
 
 .classifica-riga {
   display: grid;
-  grid-template-columns: 2.2rem 6.5rem 1fr auto auto;
+  /* km e percentuale erano "auto": larghe quanto il loro stesso
+     testo, riga per riga. "67 km"/"3,05 %" e "3 %"/"66 km" (un
+     numero tondo, senza virgola) non pesano uguale: la colonna nome
+     (1fr, subito prima) si allargava o stringeva di conseguenza, e
+     la barra a larghezza fissa che segue il nome partiva un po' più
+     a destra o più a sinistra da una riga all'altra. Con km e
+     percentuale a larghezza fissa quel testo non sposta più nulla:
+     la barra parte sempre nello stesso punto, riga dopo riga. */
+  grid-template-columns: 2.2rem 6.5rem 1fr 4.4rem 3.6rem;
   align-items: center;
   gap: 0.7rem;
   padding: 0.7rem 1rem;
@@ -308,12 +316,15 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  text-align: right;
 }
 
 .classifica-riga__percentuale {
   font-size: 0.85rem;
   color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  text-align: right;
 }
 
 /* "Tappe più lunghe" (pagine stagione-anno, es. Estate/2025.html): i
@@ -328,7 +339,7 @@
    dismisura. Corretto l'id: ora il nome prende lo spazio libero e la
    barra resta stretta e fissa, come da commento sopra. */
 #classifica-tappe .classifica-riga {
-  grid-template-columns: 2.2rem 1fr 90px auto auto;
+  grid-template-columns: 2.2rem 1fr 90px 4.4rem 3.6rem;
 }
 
 /* Su mobile la barra da 90px fissi resta comunque grande rispetto
@@ -338,7 +349,7 @@
    nome il più leggibile possibile senza andare a capo in modo brutto. */
 @media (max-width: 560px) {
   #classifica-tappe .classifica-riga {
-    grid-template-columns: 1.6rem 1fr 46px auto;
+    grid-template-columns: 1.6rem 1fr 46px 4.2rem;
   }
 }
 
@@ -376,7 +387,7 @@
     order: 0;
   }
   .classifica-riga {
-    grid-template-columns: 1.6rem 4.2rem 1fr auto;
+    grid-template-columns: 1.6rem 4.2rem 1fr 4rem;
   }
   .classifica-riga__percentuale {
     display: none;

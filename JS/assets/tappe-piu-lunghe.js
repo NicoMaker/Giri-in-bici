@@ -10,9 +10,15 @@
 //     ambiguo fra un anno e l'altro).
 //
 // Chi chiama questo file prepara le righe già uniformi:
-//   { nome, href (o null), etichetta, distance }
+//   { nome, href (o null), etichetta, distance, dataOrdine }
 // "href" viene letto da "place" (testo semplice o link al percorso)
 // con analizzaLuogo(): se manca, la riga resta non cliccabile.
+// "dataOrdine" è opzionale (numero tipo aaaammgg, es. 20240316): a
+// parità di distance decide la parità nello stesso verso della
+// classifica — dal più al meno pedalato vince la data più vecchia,
+// dal meno al più pedalato vince (cioè conta come "più corta") la
+// data più recente. Se manca, le righe pari restano nell'ordine in
+// cui sono arrivate, come sempre.
 //
 // Dipendenze: JS/utils.js (formatItalianNumber, formatNumber)
 // ============================================================
@@ -227,9 +233,24 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
 
     var ordineEffettivo = ordine === "asc" ? "asc" : "desc";
     var righeOrdinate = righe.slice().sort(function (a, b) {
+      var perDistanza =
+        ordineEffettivo === "asc"
+          ? a.distance - b.distance
+          : b.distance - a.distance;
+      if (perDistanza !== 0) return perDistanza;
+      // Stessi km: la parita' la decide la data, nello STESSO verso
+      // della classifica attuale — non e' una regola fissa a se'.
+      // Dal piu' al meno pedalato vince chi l'ha fatta prima (la
+      // data piu' vecchia "pesa" come se la strada fosse un filo piu'
+      // lunga). Dal meno al piu' pedalato si specchia: chi l'ha fatta
+      // DOPO conta come se fosse un filo piu' corta, quindi passa
+      // avanti li'. Esempio: 70km il 5 luglio e 70km il 6 luglio —
+      // nell'ordine "dal meno al piu'" il 6 luglio risulta la piu'
+      // corta delle due e va prima; nell'ordine "dal piu' al meno" e'
+      // il 5 luglio a vincere la parita' e andare prima.
       return ordineEffettivo === "asc"
-        ? a.distance - b.distance
-        : b.distance - a.distance;
+        ? (b.dataOrdine || 0) - (a.dataOrdine || 0)
+        : (a.dataOrdine || 0) - (b.dataOrdine || 0);
     });
     var totaleKm = righe.reduce(function (tot, r) {
       return tot + r.distance;

@@ -504,6 +504,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         configStagioni.map((url) => fetchJSON(url)),
       );
 
+      // A parita' di km deve vincere chi l'ha pedalata per primo: per
+      // saperlo serve una data vera (anno compreso), non solo "16
+      // Marzo". Il periodo di Estate/Primavera e' gia' un anno secco
+      // ("2024"), ma quello di Autunno_Inverno e' un intervallo
+      // ("2024-2025") perche' lo stesso file contiene sia le uscite
+      // di ottobre-dicembre (primo anno) sia quelle di gennaio-marzo
+      // (secondo anno): senza distinguerle una "16 Gennaio" finirebbe
+      // nell'anno sbagliato.
+      function annoReale(etichettaPeriodo, meseNum) {
+        const intervallo = etichettaPeriodo.match(/^(\d{4})-(\d{4})$/);
+        if (!intervallo) return parseInt(etichettaPeriodo, 10);
+        return meseNum >= 10 ? parseInt(intervallo[1], 10) : parseInt(intervallo[2], 10);
+      }
+
       const tutteLeTappe = [];
       for (const config of configuazioni) {
         const periodi = Object.entries(config.subPeriods || {});
@@ -514,6 +528,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           const uscite = datiPeriodi[indice] || [];
           uscite.forEach((r) => {
             const info = TappePiuLunghe.analizzaLuogo(r.place);
+            const [giornoTesto, meseTesto] = (r.date || "").split(" ");
+            const giorno = parseInt(giornoTesto, 10) || 0;
+            const meseNum = ConfigMesi.ordine[meseTesto] || 0;
+            const anno = annoReale(etichettaPeriodo, meseNum) || 0;
             tutteLeTappe.push({
               nome: info.nome,
               nomeTesto: info.nomeTesto,
@@ -523,6 +541,8 @@ document.addEventListener("DOMContentLoaded", async () => {
               periodo: etichettaPeriodo,
               etichetta: `${r.date} · ${config.season} ${etichettaPeriodo}`,
               distance: r.distance,
+              // aaaammgg: cresce con la data, comodo da confrontare
+              dataOrdine: anno * 10000 + meseNum * 100 + giorno,
             });
           });
         });
