@@ -2,7 +2,7 @@
    Movimento in più, in giro per tutto il sito
    Parte del tema condiviso: assets/css/core.css
 
-   Tre aggiunte, tutte fatte solo con transform / opacity /
+   Un pugno di aggiunte, tutte fatte solo con transform / opacity /
    background-position / box-shadow — mai proprietà che spostano il
    layout (width, height, margin, posizione degli elementi): non
    possono quindi rompere l'impaginazione di nessuna pagina.
@@ -43,12 +43,18 @@ body {
    sollevamento e al bagliore che c'erano già (animazioni-extra.css),
    non li sostituisce. */
 .colore,
-.bici-card {
+.bici-card,
+.primavera,
+.estate,
+.autunno_inverno {
   position: relative;
 }
 
 .colore::after,
-.bici-card::after {
+.bici-card::after,
+.primavera::after,
+.estate::after,
+.autunno_inverno::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -64,7 +70,10 @@ body {
 }
 
 .colore:hover::after,
-.bici-card:hover::after {
+.bici-card:hover::after,
+.primavera:hover::after,
+.estate:hover::after,
+.autunno_inverno:hover::after {
   transform: translateX(130%);
 }
 
@@ -84,4 +93,76 @@ body {
   background-image: linear-gradient(120deg, var(--a1), var(--a2), var(--a1));
   background-size: 220% 220%;
   animation: ctaViva 6s linear infinite;
+}
+
+/* ---------- Medaglie del podio: un filo di vita ---------- */
+/* Un dondolio lento e leggero, come una medaglia vera appesa al
+   collo — non gira, non rimbalza forte, solo un'oscillazione minima
+   che si nota ma non stanca l'occhio. */
+@keyframes medagliaOscilla {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+.podio__medaglia {
+  display: inline-block;
+  animation: medagliaOscilla 2.6s ease-in-out infinite;
+  transform-origin: 50% 0%;
+}
+
+/* ---------- Barre di avanzamento: riflesso che scorre ---------- */
+/* Sopra al riempimento colorato (gia' animato in larghezza) scorre
+   in continuazione una piccola striscia di luce, cosi' anche le
+   barre ferme sembrano "vive" invece che un semplice riempimento
+   statico. */
+.classifica-riga__barra > span {
+  position: relative;
+  overflow: hidden;
+}
+
+.classifica-riga__barra > span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    color-mix(in srgb, #fff 55%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 60% 100%;
+  animation: rifless-barra 2.4s linear infinite;
+}
+
+@keyframes rifless-barra {
+  from {
+    background-position: -60% 0;
+  }
+  to {
+    background-position: 160% 0;
+  }
+}
+
+/* ---------- Icona della pagina attuale: anello che respira ---------- */
+/* L'anello sottile che segna "sei qui" nella barra di navigazione
+   pulsa piano, cosi' si nota anche con un'occhiata veloce, non solo
+   guardando bene la barra. */
+@keyframes anelloRespira {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--a1) 55%, transparent);
+  }
+  50% {
+    box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--a1) 90%, transparent);
+  }
+}
+
+.Icons a[aria-current="page"],
+.Icons a.is-attivo {
+  animation: anelloRespira 2.4s ease-in-out infinite;
 }
