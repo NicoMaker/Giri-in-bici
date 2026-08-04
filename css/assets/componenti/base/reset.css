@@ -26,13 +26,18 @@ body {
   background-image:
     radial-gradient(
       1100px 620px at 12% -8%,
-      color-mix(in srgb, var(--a1) 22%, transparent),
+      color-mix(in srgb, var(--a1) 24%, transparent),
       transparent 60%
     ),
     radial-gradient(
       900px 560px at 92% 0%,
-      color-mix(in srgb, var(--a2) 20%, transparent),
+      color-mix(in srgb, var(--a2) 22%, transparent),
       transparent 58%
+    ),
+    radial-gradient(
+      760px 620px at 50% 115%,
+      color-mix(in srgb, var(--a2) 12%, transparent),
+      transparent 62%
     ),
     linear-gradient(180deg, var(--bg-3), var(--bg-2));
   background-attachment: fixed;
@@ -60,10 +65,16 @@ button {
   cursor: pointer;
 }
 
+/* Anello di focus piu' morbido: prima un contorno pieno, ora un
+   doppio bagliore nei due colori del tema (stesso effetto "glow"
+   gia' usato altrove) — piu' elegante, resta comunque ben visibile
+   per chi naviga da tastiera. */
 :focus-visible {
-  outline: 3px solid var(--a1);
-  outline-offset: 3px;
+  outline: none;
   border-radius: 6px;
+  box-shadow:
+    0 0 0 3px var(--surface),
+    0 0 0 5px color-mix(in srgb, var(--a1) 70%, var(--a2));
 }
 
 ::selection {

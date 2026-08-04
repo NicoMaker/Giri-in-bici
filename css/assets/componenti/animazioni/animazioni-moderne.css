@@ -1,0 +1,87 @@
+/* ============================================================
+   Movimento in più, in giro per tutto il sito
+   Parte del tema condiviso: assets/css/core.css
+
+   Tre aggiunte, tutte fatte solo con transform / opacity /
+   background-position / box-shadow — mai proprietà che spostano il
+   layout (width, height, margin, posizione degli elementi): non
+   possono quindi rompere l'impaginazione di nessuna pagina.
+   Rispettano già "prefers-reduced-motion" da sole, perché quella
+   preferenza spegne TUTTE le animazioni del sito da un'unica regola
+   in interazioni/preferenze.css — qui non serve ripeterla.
+   ============================================================ */
+
+/* ---------- Sfondo che respira ---------- */
+/* Le tre macchie di colore dello sfondo (reset.css) ora derivano
+   piano, come nuvole che si spostano — quasi impercettibile, ma la
+   pagina non è più ferma nemmeno da immobili. */
+@keyframes derivaSfondo {
+  0%,
+  100% {
+    background-position:
+      12% -8%,
+      92% 0%,
+      50% 115%,
+      0 0;
+  }
+  50% {
+    background-position:
+      18% -3%,
+      86% 5%,
+      54% 108%,
+      0 0;
+  }
+}
+
+body {
+  animation: derivaSfondo 28s var(--ease) infinite;
+}
+
+/* ---------- Riflesso che attraversa le card al passaggio ---------- */
+/* Una striscia di luce diagonale che scorre da un lato all'altro
+   della card quando ci si passa sopra col mouse — si aggiunge al
+   sollevamento e al bagliore che c'erano già (animazioni-extra.css),
+   non li sostituisce. */
+.colore,
+.bici-card {
+  position: relative;
+}
+
+.colore::after,
+.bici-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    color-mix(in srgb, #fff 65%, transparent) 50%,
+    transparent 58%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.85s var(--ease);
+  pointer-events: none;
+}
+
+.colore:hover::after,
+.bici-card:hover::after {
+  transform: translateX(130%);
+}
+
+/* ---------- Pulsante "Stagioni": vivo anche da fermo ---------- */
+/* Il pulsante principale della barra ha uno sfondo in gradiente che
+   scorre piano, cosi' il pulsante piu' invitante del sito si nota
+   anche senza doverci passare sopra. Anima solo la posizione dello
+   sfondo (non l'ombra): l'ombra resta tutta all'hover gia' esistente
+   in barra.css, cosi' i due non si accavallano mai. */
+@keyframes ctaViva {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.graficostagioni {
+  background-image: linear-gradient(120deg, var(--a1), var(--a2), var(--a1));
+  background-size: 220% 220%;
+  animation: ctaViva 6s linear infinite;
+}

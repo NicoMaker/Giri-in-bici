@@ -515,9 +515,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       function annoReale(etichettaPeriodo, meseNum) {
         const intervallo = etichettaPeriodo.match(/^(\d{4})-(\d{4})$/);
         if (!intervallo) return parseInt(etichettaPeriodo, 10);
-        return meseNum >= 10
-          ? parseInt(intervallo[1], 10)
-          : parseInt(intervallo[2], 10);
+        return meseNum >= 10 ? parseInt(intervallo[1], 10) : parseInt(intervallo[2], 10);
       }
 
       const tutteLeTappe = [];

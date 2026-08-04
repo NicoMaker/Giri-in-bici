@@ -77,7 +77,7 @@
   margin: 0 0 0.6rem;
   object-fit: contain;
   padding: 9px;
-  border-radius: 14px;
+  border-radius: var(--r-md);
   background: var(--a-soft);
 }
 

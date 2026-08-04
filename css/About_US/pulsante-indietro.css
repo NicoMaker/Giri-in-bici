@@ -21,7 +21,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--r-md);
   box-shadow: var(--sh-2);
   transition:
     transform 0.25s var(--ease),

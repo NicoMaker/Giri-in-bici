@@ -19,7 +19,7 @@
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--r-md);
   box-shadow: var(--sh-2);
   opacity: 0;
   visibility: hidden;

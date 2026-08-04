@@ -43,4 +43,5 @@
 @import url("componenti/media/adattamenti-immagini.css"); /* Immagini e pulsante stagioni su schermi stretti */
 @import url("componenti/media/lightbox.css"); /* Apertura delle foto a grandezza piena */
 @import url("componenti/animazioni/animazioni-extra.css"); /* Movimento in più: respiri, sfavillii, hover ricchi */
+@import url("componenti/animazioni/animazioni-moderne.css"); /* Sfondo che deriva, riflesso sulle card, pulsante Stagioni vivo */
 @import url("componenti/animazioni/transizioni-pagina.css"); /* Dissolvenza animata fra una pagina e l'altra del sito */
