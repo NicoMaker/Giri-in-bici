@@ -242,7 +242,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const filtrate = CC.filtra(cercate, stato, (r) => r.km);
     const perPodio = CC.ordina(filtrate, stato.ordine, (r) => r.km);
     if (titoloStagioniEl)
-      titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(perPodio, stato.ordine);
+      titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(
+        perPodio,
+        stato.ordine,
+      );
     if (podioStagioniEl)
       podioStagioniEl.innerHTML = CM.creaPodioStagioni(perPodio);
   }
@@ -417,7 +420,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         : `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")}`;
 
       if (titoloPeriodiEl)
-        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(perPodio, stato.ordine);
+        titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(
+          perPodio,
+          stato.ordine,
+        );
       if (podioPeriodiEl)
         podioPeriodiEl.innerHTML = CM.creaPodioPeriodi(perPodio);
       if (listaPeriodiEl)
