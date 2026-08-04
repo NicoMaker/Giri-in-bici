@@ -82,8 +82,7 @@
   /* Ombra "premium": per gli hover che devono sembrare sollevati
      davvero (card di riepilogo, hero, bottoni principali) */
   --sh-4:
-    0 5px 12px rgba(15, 36, 56, 0.11),
-    0 40px 74px -24px rgba(15, 36, 56, 0.48);
+    0 5px 12px rgba(15, 36, 56, 0.11), 0 40px 74px -24px rgba(15, 36, 56, 0.48);
   /* Bagliore colorato coerente col tema attivo, per bordi/ombre in
      risalto sugli elementi interattivi principali */
   --glow: 0 16px 46px -12px color-mix(in srgb, var(--a1) 50%, transparent);

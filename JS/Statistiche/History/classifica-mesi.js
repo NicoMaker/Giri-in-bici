@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       (r) => r.km,
       (r) => Number(r.anno) || 0,
     );
-      titoloAnniEl.innerHTML = CM.creaTitoloAnni(perPodio, stato.ordine);
+    titoloAnniEl.innerHTML = CM.creaTitoloAnni(perPodio, stato.ordine);
     if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioAnni(perPodio);
     if (listaAnniEl) {
       listaAnniEl.innerHTML =
@@ -527,7 +527,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       function annoReale(etichettaPeriodo, meseNum) {
         const intervallo = etichettaPeriodo.match(/^(\d{4})-(\d{4})$/);
         if (!intervallo) return parseInt(etichettaPeriodo, 10);
-        return meseNum >= 10 ? parseInt(intervallo[1], 10) : parseInt(intervallo[2], 10);
+        return meseNum >= 10
+          ? parseInt(intervallo[1], 10)
+          : parseInt(intervallo[2], 10);
       }
 
       const tutteLeTappe = [];
