@@ -1,354 +1,40 @@
 // ============================================================
 // contenuti-animati.js — Vita ai contenuti creati da JavaScript
 //
-// Due effetti che restano insieme perche' guardano gli stessi
-// contenitori con lo stesso osservatore: separarli vorrebbe dire
-// duplicare l'elenco dei contenitori e il MutationObserver.
-//   1. conteggio animato dei numeri (.misuracolore)
-//   2. entrata scaglionata delle card appena inserite
+// Solo l'avvio. I pezzi stanno in motion/contenuti-animati/:
+//   numeri.js         conteggio animato dei numeri
+//   scaglionamento.js entrata scaglionata delle card appena inserite
+//   cursore-card.js   riflesso e inclinazione 3D che seguono il cursore
 //
 // Stili corrispondenti: assets/css/componenti/animazioni/animazioni.css
-// Nessuna dipendenza. Rispetta prefers-reduced-motion.
+// Dipendenze: motion/contenuti-animati/numeri.js,
+//             motion/contenuti-animati/scaglionamento.js,
+//             motion/contenuti-animati/cursore-card.js
+// Nessuna dipendenza esterna. Incluso in tutte le pagine con defer.
 // ============================================================
 
-(function () {
+(function (CA) {
   "use strict";
 
-  var motoRidotto = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-
-  // ---------------------------------------------------------
-  // 1. Conteggio animato dei numeri
-  // ---------------------------------------------------------
-  // Formattazione italiana con separatore delle migliaia SEMPRE attivo da
-  // 1.000 in su. Non si usa toLocaleString("it-IT") perche' la regola CLDR
-  // italiana non raggruppa i numeri a 4 cifre (1234 restava "1234" mentre
-  // 12345 diventava "12.345"): l'animazione sovrascriveva cosi' la
-  // formattazione corretta prodotta da JS/utils.js.
-  function formattaNumero(valore, decimali, minInteri) {
-    var negativo = valore < 0;
-    var fisso = Math.abs(valore).toFixed(decimali);
-    var pezzi = fisso.split(".");
-    var intero = pezzi[0];
-
-    // Zero iniziale: se la sorgente aveva piu' cifre (es. "08"), si mantiene
-    // la larghezza paddizzando con zeri prima di raggruppare le migliaia.
-    if (minInteri && intero.length < minInteri) {
-      intero = intero.padStart(minInteri, "0");
-    }
-
-    if (intero.length > 3) {
-      var gruppi = [];
-      var i = intero.length;
-      while (i > 0) {
-        gruppi.unshift(intero.substring(Math.max(0, i - 3), i));
-        i -= 3;
-      }
-      intero = gruppi.join(".");
-    }
-
-    return (negativo ? "-" : "") + intero + (pezzi[1] ? "," + pezzi[1] : "");
-  }
-
-  function conta(elemento, obiettivo, decimali, minInteri) {
-    var durata = 1100;
-    var avvio = null;
-
-    function passo(ora) {
-      if (avvio === null) avvio = ora;
-      var t = Math.min((ora - avvio) / durata, 1);
-      var eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-      elemento.textContent = formattaNumero(
-        obiettivo * eased,
-        decimali,
-        minInteri,
-      );
-      if (t < 1) window.requestAnimationFrame(passo);
-      else
-        elemento.textContent = formattaNumero(obiettivo, decimali, minInteri);
-    }
-
-    window.requestAnimationFrame(passo);
-  }
-
-  // Anima TUTTI i numeri in italiano dentro l'elemento (non solo il primo).
-  //
-  // Nelle righe .misuracolore / .anima-numero un solo numero va allineato a
-  // destra in grassetto (classe .num): quello è il VALORE della riga. Come
-  // valore si sceglie l'ultimo numero che sta FUORI dalle parentesi, così
-  // "Medie corse per mese (12 mesi) 27,92" mette a destra 27,92 e lascia
-  // "(12 mesi)" al suo posto nell'etichetta. Tutti gli altri numeri (dentro
-  // le parentesi, nelle tabelle, nelle schede) vanno in .num-anim, neutro:
-  // contano senza spostare nulla.
-  function animaNumero(elemento) {
-    if (elemento.dataset.contato) return;
-    elemento.dataset.contato = "1";
-
-    var vuoleValore =
-      elemento.classList &&
-      (elemento.classList.contains("misuracolore") ||
-        elemento.classList.contains("anima-numero"));
-
-    // Raccoglie i nodi di testo in ordine e il testo unito, con gli offset.
-    var walker = document.createTreeWalker(
-      elemento,
-      NodeFilter.SHOW_TEXT,
-      null,
-    );
-    var nodi = [];
-    var inizi = [];
-    var unito = "";
-    while (walker.nextNode()) {
-      inizi.push(unito.length);
-      nodi.push(walker.currentNode);
-      unito += walker.currentNode.nodeValue;
-    }
-
-    var numero = /(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/g;
-
-    // Posizione (assoluta) del valore da mettere a destra: l'ultimo numero
-    // fuori dalle parentesi; se sono tutti dentro, l'ultimo in assoluto.
-    var posValore = -1;
-    if (vuoleValore) {
-      var mm;
-      var ultimoQualsiasi = -1;
-      numero.lastIndex = 0;
-      while ((mm = numero.exec(unito)) !== null) {
-        ultimoQualsiasi = mm.index;
-        var testa = unito.slice(0, mm.index);
-        var aperte = (testa.match(/\(/g) || []).length;
-        var chiuse = (testa.match(/\)/g) || []).length;
-        if (aperte <= chiuse) posValore = mm.index; // fuori dalle parentesi
-      }
-      if (posValore === -1) posValore = ultimoQualsiasi;
-    }
-
-    var daContare = [];
-
-    for (var i = 0; i < nodi.length; i++) {
-      var nodo = nodi[i];
-      var testo = nodo.nodeValue;
-      numero.lastIndex = 0;
-      if (!numero.test(testo)) continue;
-      numero.lastIndex = 0;
-
-      var frammento = document.createDocumentFragment();
-      var ultimo = 0;
-      var m;
-
-      while ((m = numero.exec(testo)) !== null) {
-        var grezzo = m[0];
-        var idx = m.index;
-        var assoluto = inizi[i] + idx;
-        var valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
-
-        if (idx > ultimo) {
-          frammento.appendChild(
-            document.createTextNode(testo.slice(ultimo, idx)),
-          );
-        }
-
-        if (!isFinite(valore) || valore <= 0) {
-          frammento.appendChild(document.createTextNode(grezzo));
-        } else {
-          var decimali = m[2] ? m[2].length - 1 : 0;
-          // Cifre intere presenti nella sorgente (senza i punti delle
-          // migliaia): cosi' "08" -> 2, per rimettere lo zero iniziale.
-          var cifreIntere = m[1].replace(/\./g, "").length;
-          var span = document.createElement("span");
-          span.className =
-            vuoleValore && assoluto === posValore ? "num" : "num-anim";
-          span.textContent = formattaNumero(0, decimali, cifreIntere);
-          frammento.appendChild(span);
-          daContare.push({
-            span: span,
-            valore: valore,
-            decimali: decimali,
-            minInteri: cifreIntere,
-          });
-        }
-
-        ultimo = idx + grezzo.length;
-      }
-
-      if (ultimo < testo.length) {
-        frammento.appendChild(document.createTextNode(testo.slice(ultimo)));
-      }
-
-      nodo.parentNode.replaceChild(frammento, nodo);
-    }
-
-    for (var j = 0; j < daContare.length; j++) {
-      conta(
-        daContare[j].span,
-        daContare[j].valore,
-        daContare[j].decimali,
-        daContare[j].minInteri,
-      );
-    }
-  }
-
-  // Conta solo quando la card entra davvero nello schermo
-  var osservatoreNumeri = null;
-
-  function preparaNumeri(radice) {
-    if (motoRidotto) return;
-
-    // .misuracolore sono le righe delle card; .anima-numero e' l'aggancio
-    // per i numeri fuori da quelle righe. In piu' ora si animano anche i
-    // numeri delle tabelle (celle td: storico mensile, mesi, totali...) e
-    // i valori delle schede bici: cosi' "tutti i numeri, da ogni parte"
-    // entrano contando. Le intestazioni (th) e le etichette restano ferme.
-    // L'anno della bici (.bici-card__spec-value--anno) e la colonna
-    // "Anno" della tabella mese per mese (td.td-anno, Statistiche
-    // Totali) restano esclusi: sono un anno, non una quantita', e non
-    // vanno scritti con il punto delle migliaia (es. 2020, mai 2.020).
-    var selettore =
-      ".misuracolore:not([data-contato]):not([data-osservato])," +
-      ".anima-numero:not([data-contato]):not([data-osservato])," +
-      "td:not(.td-anno):not([data-contato]):not([data-osservato])," +
-      ".bici-card__spec-value:not(.bici-card__spec-value--anno):not([data-contato]):not([data-osservato])";
-    var elementi = (radice || document).querySelectorAll(selettore);
-    if (!elementi.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-      elementi.forEach(animaNumero);
-      return;
-    }
-
-    if (!osservatoreNumeri) {
-      osservatoreNumeri = new IntersectionObserver(
-        function (voci) {
-          voci.forEach(function (voce) {
-            if (!voce.isIntersecting) return;
-            animaNumero(voce.target);
-            osservatoreNumeri.unobserve(voce.target);
-          });
-        },
-        { threshold: 0.25 },
-      );
-    }
-
-    elementi.forEach(function (el) {
-      el.dataset.osservato = "1";
-      osservatoreNumeri.observe(el);
-    });
-  }
-
-  // ---------------------------------------------------------
-  // 2. Entrata scaglionata dei contenuti creati da JavaScript
-  // ---------------------------------------------------------
-  var CONTENITORI = [
-    "#stampa",
-    "#totale",
-    "#km",
-    "#dati",
-    "#StampaBici",
-    "#Grafici",
-    "#grafici",
-    "#mesi",
-    ".team-grid",
-    "#podio",
-    "#classifica",
-    "#record-mesi",
-    "#podio-record-mesi",
-    "#podio-anno-corrente",
-    "#classifica-anno-corrente",
-    "#podio-anni",
-    "#classifica-anni",
-    "#podio-stagioni",
-    "#classifica-periodi",
-    "#podio-periodi",
-    "#podio-mensili",
-    "#classifica-mensili",
-  ];
-
-  function scaglionaFigli(contenitore) {
-    var griglia = contenitore.querySelector(".container") || contenitore;
-    var figli = griglia.children;
-    for (var i = 0; i < figli.length; i++) {
-      if (figli[i].dataset.entrato) continue;
-      figli[i].dataset.entrato = "1";
-      figli[i].style.setProperty("--ritardo", i * 70 + "ms");
-      figli[i].classList.add("entra");
-    }
-  }
-
-  function osservaContenuti() {
-    if (!("MutationObserver" in window)) return;
-
-    var osservatore = new MutationObserver(function (mutazioni) {
-      mutazioni.forEach(function (m) {
-        if (!m.addedNodes.length) return;
-        var bersaglio = m.target;
-        if (!motoRidotto) scaglionaFigli(bersaglio);
-        preparaNumeri(bersaglio);
-      });
-    });
-
-    CONTENITORI.forEach(function (selettore) {
-      document.querySelectorAll(selettore).forEach(function (el) {
-        osservatore.observe(el, { childList: true, subtree: true });
-      });
-    });
-  }
-
-  // ---------------------------------------------------------
-  // 3. Riflesso che segue il cursore sulle card principali, e
-  //    leggera inclinazione 3D "magnetica" che segue il cursore
-  // ---------------------------------------------------------
-  // Un solo ascoltatore delegato sul documento: funziona anche per le
-  // card create dopo, senza doverle osservare una per una. Sposta
-  // quattro variabili CSS: --mx/--my (il riflesso, gia' c'erano) e
-  // --tilt-x/--tilt-y (l'inclinazione, gradi gia' pronti per rotateX/
-  // rotateY): il resto lo fa micro-interazioni.css / card-statistiche.css.
-  var TILT_MASSIMO = 6; // gradi: sottile, non un effetto da luna park
-
-  function seguiCursoreSuCard() {
-    if (motoRidotto) return;
-    document.addEventListener(
-      "pointermove",
-      function (e) {
-        var card = e.target.closest && e.target.closest(".colore, .bici-card");
-        if (!card) return;
-        var rect = card.getBoundingClientRect();
-        var xRapporto = (e.clientX - rect.left) / rect.width;
-        var yRapporto = (e.clientY - rect.top) / rect.height;
-        card.style.setProperty("--mx", xRapporto * 100 + "%");
-        card.style.setProperty("--my", yRapporto * 100 + "%");
-        card.style.setProperty(
-          "--tilt-x",
-          ((0.5 - yRapporto) * TILT_MASSIMO).toFixed(2) + "deg",
-        );
-        card.style.setProperty(
-          "--tilt-y",
-          ((xRapporto - 0.5) * TILT_MASSIMO).toFixed(2) + "deg",
-        );
-      },
-      { passive: true },
-    );
-  }
-
-  // ---------------------------------------------------------
-  // 4. Avvio
-  // ---------------------------------------------------------
   function avvia() {
     document.documentElement.classList.add("motion-ready");
-    osservaContenuti();
-    preparaNumeri(document);
-    seguiCursoreSuCard();
+    CA.osservaContenuti();
+    CA.preparaNumeri(document);
+    CA.seguiCursoreSuCard();
 
     // Rete di sicurezza: se qualcosa arriva tardi (tabelle, card...), lo
     // anima comunque. Si ripassa anche tutto il documento, così i numeri
     // delle tabelle finite in contenitori non osservati non restano fermi.
     setTimeout(function () {
-      CONTENITORI.forEach(function (selettore) {
+      var motoRidotto = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      CA.CONTENITORI.forEach(function (selettore) {
         document.querySelectorAll(selettore).forEach(function (el) {
-          if (!motoRidotto) scaglionaFigli(el);
+          if (!motoRidotto) CA.scaglionaFigli(el);
         });
       });
-      preparaNumeri(document);
+      CA.preparaNumeri(document);
     }, 1500);
   }
 
@@ -357,4 +43,4 @@
   } else {
     avvia();
   }
-})();
+})(window.ContenutiAnimati);
