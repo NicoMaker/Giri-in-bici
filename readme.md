@@ -1,4 +1,4 @@
-# 📋 Aggiornamenti e Manutenzione
+# 📋 Aggiornamenti e Manutenzione    
 
 Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per mantenere il sito sempre aggiornato.
 
