@@ -45,6 +45,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       const stato = controlliMesi.stato();
       const cercate = CC.cerca(righeMesi, stato.testo, (r) => r.mese);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
+      const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+      // Ricalcola le percentuali sul totale filtrato
+      filtrate.forEach(r => {
+        r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
+      });
       const ordinate = CC.ordina(
         filtrate,
         stato.ordine,
@@ -52,7 +57,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         (r) => ConfigMesi.ordine[r.mese] || 0,
       );
       const perPodio = ordinate.slice(0, 3);
-      const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
 
       if (podioEl) podioEl.innerHTML = CM.creaPodio(perPodio, totaleAnniGlobale);
       if (listaEl) {
@@ -69,6 +73,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       const stato = controlliAnni.stato();
       const cercate = CC.cerca(righeAnniComplete, stato.testo, (r) => r.nome);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
+      const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+      // Ricalcola le percentuali sul totale filtrato
+      filtrate.forEach(r => {
+        r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
+      });
       const ordinate = CC.ordina(
         filtrate,
         stato.ordine,
@@ -76,7 +85,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         (r) => Number(r.anno) || 0,
       );
       const perPodio = ordinate.slice(0, 3);
-      const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
 
       if (titoloAnniEl)
         titoloAnniEl.innerHTML = CM.creaTitoloAnni(perPodio, stato.ordine);
@@ -143,20 +151,27 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           righeAnnoScelto = righeRecordTutti
             .filter((r) => String(r.anno) === annoSelezionato)
             .map((r) => ({ ...r, nome: r.mese }));
-          const totaleAnnoScelto = righeAnnoScelto.reduce(
-            (tot, r) => tot + r.km,
-            0,
-          );
-          righeAnnoScelto.forEach((r) => {
-            r.percentuale =
-              totaleAnnoScelto > 0 ? (r.km / totaleAnnoScelto) * 100 : 0;
+          // Ricalcola percentuali sull'anno selezionato
+          const totaleAnno = righeAnnoScelto.reduce((tot, r) => tot + r.km, 0);
+          righeAnnoScelto.forEach(r => {
+            r.percentuale = totaleAnno > 0 ? (r.km / totaleAnno) * 100 : 0;
           });
+        } else {
+          // Nessun anno selezionato: percentuali su TUTTI i record (globali)
+          // ma le abbiamo già da calcolaRecordMesi. Tuttavia, se filtriamo,
+          // dobbiamo ricalcolare.
+          // Lo faremo dopo il filtro.
         }
 
         controlliRecord.aggiornaLimiti(righeAnnoScelto.map((r) => r.km));
         const stato = controlliRecord.stato();
         const cercate = CC.cerca(righeAnnoScelto, stato.testo, (r) => r.nome);
         const filtrate = CC.filtra(cercate, stato, (r) => r.km);
+        const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+        // Ricalcola percentuali sul totale filtrato
+        filtrate.forEach(r => {
+          r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
+        });
         const ordinate = CC.ordina(
           filtrate,
           stato.ordine,
@@ -164,7 +179,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           (r) => (Number(r.anno) || 0) * 100 + (ConfigMesi.ordine[r.mese] || 0),
         );
         const perPodio = ordinate.slice(0, 3);
-        const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
         const etichettaTotale = annoSelezionato
           ? `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} del ${annoSelezionato}`
           : `${filtrate.length} record`;

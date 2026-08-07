@@ -35,6 +35,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         (r) => r.stagione,
       );
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
+      const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+      // Ricalcola percentuali sul totale filtrato
+      filtrate.forEach(r => {
+        r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
+      });
       const perPodio = CC.ordina(filtrate, stato.ordine, (r) => r.km);
       if (titoloStagioniEl)
         titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(

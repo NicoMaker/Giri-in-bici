@@ -50,14 +50,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           righePerStagione = righePeriodiComplete
             .filter((r) => r.stagione === stagioneScelta)
             .map((r) => ({ ...r }));
-          const totalePerStagione = righePerStagione.reduce(
-            (tot, r) => tot + r.km,
-            0,
-          );
-          righePerStagione.forEach((r) => {
-            r.percentuale =
-              totalePerStagione > 0 ? (r.km / totalePerStagione) * 100 : 0;
-          });
+          // Le percentuali verranno ricalcolate dopo il filtro
         }
 
         controlliPeriodi.aggiornaLimiti(righePerStagione.map((r) => r.km));
@@ -68,6 +61,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           (r) => `${r.nome} ${r.periodo}`,
         );
         const filtrate = CC.filtra(cercate, stato, (r) => r.km);
+        const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
+        // Ricalcola percentuali sul totale filtrato
+        filtrate.forEach(r => {
+          r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
+        });
         const ordinate = CC.ordina(
           filtrate,
           stato.ordine,
@@ -75,7 +73,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           (r) => parseInt(r.periodo, 10) || 0,
         );
         const perPodio = ordinate.slice(0, 3);
-        const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
         const etichettaTotale = stagioneScelta
           ? `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")} di ${stagioneScelta}`
           : `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")}`;
