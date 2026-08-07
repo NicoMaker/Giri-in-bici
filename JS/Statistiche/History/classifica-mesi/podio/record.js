@@ -1,9 +1,5 @@
 // ============================================================
-// record.js — Markup del podio e della classifica della scheda
-// "Record" (mese per mese, ogni anno separato).
-// Dipendenze: JS/utils.js (formatItalianNumber, formatNumber),
-//             podio/comune.js (CM.MEDAGLIE)
-// Richiamato da Statistiche/History/classifica-mesi.js
+// record.js — Podio e classifica della scheda "Record"
 // ============================================================
 
 window.ClassificaMesi = window.ClassificaMesi || {};
@@ -11,9 +7,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
-  // Podio "semplice": solo nome, km e percentuale — usato per elenchi di
-  // singole voci (un mese di un anno) dove non ha senso una media o un
-  // conteggio di occorrenze.
   CM.creaPodioSemplice = function (righe) {
     return righe
       .slice(0, 3)
@@ -29,13 +22,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
-  // Stessa riga della classifica completa, ma qui il "nome" è già
-  // "Mese + anno" (es. "Settembre 2024"), così un mese di un anno si
-  // confronta alla pari con lo stesso mese di un altro anno.
   CM.creaRecordMesi = function (righe) {
-    // Stesso motivo di creaClassifica in podio/mesi.js: massimo vero,
-    // non il primo elemento, per restare corretto anche con l'ordine
-    // invertito dal controllo "Ordine".
     const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {
@@ -43,12 +30,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         return `
       <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
-        <span class="classifica-riga__mese">${r.nome}</span>
+        <span class="classifica-riga__mese"
+          >${r.nome}
+          <small class="classifica-riga__sotto">${formatNumber(r.percentuale)} % del totale</small>
+        </span>
         <span class="classifica-riga__barra"
           ><span style="--percentuale:${quota}%"></span
         ></span>
         <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
-        <span class="classifica-riga__percentuale">${formatNumber(r.percentuale)} %</span>
+        <span class="classifica-riga__percentuale"></span>
       </li>`;
       })
       .join("");

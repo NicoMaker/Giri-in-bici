@@ -1,19 +1,5 @@
 // ============================================================
-// vista-mesi.js — Schede "Mesi", "Record" e "Anni" della pagina
-// Classifica dei mesi.
-//
-// Le tre schede stanno insieme perché condividono lo stesso fetch di
-// json/Statistiche/History/Storico.json e gli stessi dati (allData):
-// separarle vorrebbe dire scaricare due volte lo stesso file.
-//
-// Ogni scheda ha i controlli di assets/classifica-controlli.js: un
-// pulsante "Ordine" e un filtro "da...a" in chilometri.
-//
-// Dipendenze: JS/json.js, JS/utils.js, History/comune/config-mesi.js,
-//             History/classifica-mesi/calcoli.js,
-//             History/classifica-mesi/podio/*.js,
-//             assets/classifica-controlli.js
-// Richiamato da Statistiche/History/classifica-mesi.js
+// vista-mesi.js — Schede "Mesi", "Record" e "Anni"
 // ============================================================
 
 window.ClassificaMesi = window.ClassificaMesi || {};
@@ -46,7 +32,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       const cercate = CC.cerca(righeMesi, stato.testo, (r) => r.mese);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-      // Ricalcola le percentuali sul totale filtrato
       filtrate.forEach(r => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
@@ -74,7 +59,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       const cercate = CC.cerca(righeAnniComplete, stato.testo, (r) => r.nome);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-      // Ricalcola le percentuali sul totale filtrato
       filtrate.forEach(r => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
@@ -146,21 +130,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         let righeAnnoScelto = righeRecordTutti;
 
         if (annoSelezionato) {
-          // Quando è selezionato un anno, il nome visualizzato è solo il
-          // mese: sovrascrivo nome con il solo mese.
           righeAnnoScelto = righeRecordTutti
             .filter((r) => String(r.anno) === annoSelezionato)
             .map((r) => ({ ...r, nome: r.mese }));
-          // Ricalcola percentuali sull'anno selezionato
           const totaleAnno = righeAnnoScelto.reduce((tot, r) => tot + r.km, 0);
           righeAnnoScelto.forEach(r => {
             r.percentuale = totaleAnno > 0 ? (r.km / totaleAnno) * 100 : 0;
           });
-        } else {
-          // Nessun anno selezionato: percentuali su TUTTI i record (globali)
-          // ma le abbiamo già da calcolaRecordMesi. Tuttavia, se filtriamo,
-          // dobbiamo ricalcolare.
-          // Lo faremo dopo il filtro.
         }
 
         controlliRecord.aggiornaLimiti(righeAnnoScelto.map((r) => r.km));
@@ -168,7 +144,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const cercate = CC.cerca(righeAnnoScelto, stato.testo, (r) => r.nome);
         const filtrate = CC.filtra(cercate, stato, (r) => r.km);
         const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-        // Ricalcola percentuali sul totale filtrato
         filtrate.forEach(r => {
           r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
         });

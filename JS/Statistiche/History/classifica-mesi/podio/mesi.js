@@ -1,9 +1,5 @@
 // ============================================================
-// mesi.js — Markup del podio e della classifica completa della
-// scheda "Mesi".
-// Dipendenze: JS/utils.js (formatItalianNumber, formatNumber),
-//             podio/comune.js (CM.MEDAGLIE)
-// Richiamato da Statistiche/History/classifica-mesi.js
+// mesi.js — Podio e classifica della scheda "Mesi"
 // ============================================================
 
 window.ClassificaMesi = window.ClassificaMesi || {};
@@ -11,9 +7,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
-  // Solo i tre gradini: vanno dentro #podio, che nell'HTML è già la
-  // griglia (classe .podio), così ogni gradino resta figlio diretto e
-  // l'entrata scaglionata di contenuti-animati.js li anima uno a uno.
   CM.creaPodio = function (righe, totaleAnni) {
     return righe
       .slice(0, 3)
@@ -33,15 +26,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
-  // Solo le righe <li>: vanno dentro #classifica, che nell'HTML è già
-  // la lista (<ol class="classifica-lista">), stesso motivo di sopra.
   CM.creaClassifica = function (righe) {
-    // "massimo" serve solo a scalare la barra di ogni riga: va preso
-    // col vero valore più alto presente (Math.max), non il primo
-    // elemento dell'array. Il pulsante "Ordine" (vedi
-    // assets/classifica-controlli.js) può passare qui le righe già
-    // ordinate dal meno al più pedalato, dove il primo elemento è il
-    // più BASSO: usare righe[0] darebbe barre tutte piene o rotte.
     const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {
@@ -50,22 +35,23 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
         <span class="classifica-riga__mese"
-          >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.occorrenze)} ${pluralizza(r.occorrenze, "anno pedalato", "anni pedalati")} &middot; media ${formatItalianNumber(r.kmMedi, true)} km</small></span
-        >
+          >${r.mese}
+          <small class="classifica-riga__sotto">
+            ${formatNumber(r.percentuale)} % del totale &middot;
+            ${formatItalianNumber(r.occorrenze)} ${pluralizza(r.occorrenze, "anno pedalato", "anni pedalati")} &middot;
+            media ${formatItalianNumber(r.kmMedi, true)} km
+          </small>
+        </span>
         <span class="classifica-riga__barra"
           ><span style="--percentuale:${quota}%"></span
         ></span>
         <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
-        <span class="classifica-riga__percentuale">${formatNumber(r.percentuale)} %</span>
+        <span class="classifica-riga__percentuale"></span>
       </li>`;
       })
       .join("");
   };
 
-  // Frase di apertura sopra il podio. "ordine" (default "desc") sceglie
-  // la frase giusta: col podio invertito da "Ordine" qui sotto, "il
-  // mese in cui hai pedalato di più" sarebbe falso se il podio mostra
-  // in realtà i tre con MENO km.
   CM.creaTitolo = function (righe, ordine) {
     if (!righe.length || righe[0].km <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";

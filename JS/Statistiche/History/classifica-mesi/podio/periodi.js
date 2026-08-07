@@ -1,9 +1,5 @@
 // ============================================================
-// periodi.js — Markup del podio e della classifica della scheda
-// "Periodi" (confronto fra ogni singolo periodo).
-// Dipendenze: JS/utils.js (formatItalianNumber, formatNumber),
-//             podio/comune.js (CM.MEDAGLIE)
-// Richiamato da Statistiche/History/classifica-mesi.js
+// periodi.js — Podio e classifica della scheda "Periodi"
 // ============================================================
 
 window.ClassificaMesi = window.ClassificaMesi || {};
@@ -11,10 +7,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
-  // Come il podio delle stagioni: ogni gradino è un link che porta alla
-  // pagina di quel periodo esatto (es. ../../Estate/2022.html,
-  // ../../Primavera/2024.html), con lo stesso bottone "Vai al periodo"
-  // sempre visibile in fondo.
   CM.creaPodioPeriodi = function (righe) {
     return righe
       .slice(0, 3)
@@ -38,15 +30,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
-  // Stessa identica riga della classifica dei mesi, ma qui il "nome"
-  // è già "Stagione + anno" (es. "Estate 2020"), così un periodo di
-  // una stagione si confronta alla pari con un periodo di un'altra
-  // (es. Estate 2020 contro Autunno · Inverno 2020-2021). Ogni riga è
-  // già un link verso la pagina di quel periodo (stesso comportamento
-  // di creaClassificaAnni, qui applicato ai periodi).
   CM.creaClassificaPeriodi = function (righe) {
-    // Stesso motivo di creaClassifica: massimo vero, non il primo
-    // elemento (che con l'ordine invertito sarebbe il più basso).
     const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {
@@ -59,12 +43,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           aria-label="Vai alla pagina di ${r.nome}"
         >
           <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
-          <span class="classifica-riga__mese">${r.nome}</span>
+          <span class="classifica-riga__mese"
+            >${r.nome}
+            <small class="classifica-riga__sotto">${formatNumber(r.percentuale)} % del totale</small>
+          </span>
           <span class="classifica-riga__barra"
             ><span style="--percentuale:${quota}%"></span
           ></span>
           <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
-          <span class="classifica-riga__percentuale">${formatNumber(r.percentuale)} %</span>
+          <span class="classifica-riga__percentuale"></span>
         </a>
       </li>`;
       })

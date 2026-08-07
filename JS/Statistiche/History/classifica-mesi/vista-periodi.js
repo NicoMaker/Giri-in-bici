@@ -1,14 +1,5 @@
 // ============================================================
-// vista-periodi.js — Scheda "Periodi" (confronto fra ogni singolo
-// periodo) della pagina Classifica dei mesi.
-//
-// Dati calcolati da History/classifica-mesi/calcoli.js
-// (CM.calcolaPeriodi).
-//
-// Dipendenze: JS/json.js, History/classifica-mesi/calcoli.js,
-//             History/classifica-mesi/podio/*.js,
-//             assets/classifica-controlli.js
-// Richiamato da Statistiche/History/classifica-mesi.js
+// vista-periodi.js — Scheda "Periodi"
 // ============================================================
 
 window.ClassificaMesi = window.ClassificaMesi || {};
@@ -50,7 +41,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           righePerStagione = righePeriodiComplete
             .filter((r) => r.stagione === stagioneScelta)
             .map((r) => ({ ...r }));
-          // Le percentuali verranno ricalcolate dopo il filtro
         }
 
         controlliPeriodi.aggiornaLimiti(righePerStagione.map((r) => r.km));
@@ -62,7 +52,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         );
         const filtrate = CC.filtra(cercate, stato, (r) => r.km);
         const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-        // Ricalcola percentuali sul totale filtrato
         filtrate.forEach(r => {
           r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
         });

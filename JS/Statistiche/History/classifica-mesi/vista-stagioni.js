@@ -1,15 +1,5 @@
 // ============================================================
-// vista-stagioni.js — Scheda "Stagioni" della pagina Classifica
-// dei mesi.
-//
-// Dati letti da json/Statistiche/anni/stagioni/stagioni.json (stessa
-// fonte di Statistiche/stagioni.html), tramite
-// History/classifica-mesi/calcoli.js (CM.calcolaStagioni).
-//
-// Dipendenze: JS/json.js, History/classifica-mesi/calcoli.js,
-//             History/classifica-mesi/podio/*.js,
-//             assets/classifica-controlli.js
-// Richiamato da Statistiche/History/classifica-mesi.js
+// vista-stagioni.js — Scheda "Stagioni"
 // ============================================================
 
 window.ClassificaMesi = window.ClassificaMesi || {};
@@ -36,7 +26,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       );
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-      // Ricalcola percentuali sul totale filtrato
       filtrate.forEach(r => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });

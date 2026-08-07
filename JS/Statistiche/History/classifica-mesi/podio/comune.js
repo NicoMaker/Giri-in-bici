@@ -1,9 +1,5 @@
 // ============================================================
-// comune.js — Markup condiviso da tutte le schede della pagina
-// Classifica dei mesi: le medaglie del podio e la riga di totale
-// in fondo a ogni classifica.
-// Dipendenze: JS/utils.js (formatItalianNumber)
-// Richiamato da Statistiche/History/classifica-mesi.js
+// comune.js — Medaglie e riga totale
 // ============================================================
 
 window.ClassificaMesi = window.ClassificaMesi || {};
@@ -13,9 +9,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
   CM.MEDAGLIE = ["🥇", "🥈", "🥉"];
 
-  // Riga di chiusura con il totale: uguale nell'aspetto alle righe
-  // normali, ma senza numero di posizione né barra, cosi' si legge
-  // subito come somma finale e non come un'altra voce in classifica.
   CM.creaRigaTotale = function (totaleKm, etichetta) {
     return `
       <li class="classifica-riga classifica-riga--totale">

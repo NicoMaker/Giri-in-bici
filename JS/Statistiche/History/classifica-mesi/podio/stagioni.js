@@ -1,8 +1,5 @@
 // ============================================================
-// stagioni.js — Markup del podio della scheda "Stagioni".
-// Dipendenze: JS/utils.js (formatItalianNumber, formatNumber),
-//             podio/comune.js (CM.MEDAGLIE)
-// Richiamato da Statistiche/History/classifica-mesi.js
+// stagioni.js — Podio della scheda "Stagioni"
 // ============================================================
 
 window.ClassificaMesi = window.ClassificaMesi || {};
@@ -10,15 +7,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
-  // Le stagioni sono solo tre, quindi il podio è già "tutte quante":
-  // non serve una lista aggiuntiva sotto, come invece per i dodici mesi.
-  // Ogni gradino è un link che porta alla pagina di quella stagione
-  // (Estate.html, Primavera.html, Autunno_Inverno.html), stesso
-  // comportamento già usato per il podio degli anni (creaPodioAnni), con
-  // in più un bottone "Vai alla stagione" sempre visibile in fondo alla
-  // card (stesso stile di .colore__vai-a, già usato in Statistiche/
-  // stagioni.html), così si vede subito che si può aprire, non solo
-  // passandoci sopra col mouse.
   CM.creaPodioStagioni = function (righe) {
     return righe
       .map(
