@@ -15,7 +15,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
       <th>km <img src="/img/Icons/traguardo.png"></th>
       <th>Percentuale sul totale</th>
       <th>Mesi di Corsa</th>
-      <th>km <img src="/img/Icons/traguardo.png"> medi</th>
+      <th>km <img src="/img/Icons/traguardo.png"> medi mensili</th>
      </tr>
     ${kmPerMese
       .map(

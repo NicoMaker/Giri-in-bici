@@ -24,3 +24,40 @@
   --a2: #c07ae8;
   --a-soft: rgba(109, 71, 224, 0.13);
 }
+
+@media (max-width: 768px) {
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-wrap table {
+    table-layout: auto; /* consente alle colonne di adattarsi al contenuto */
+    min-width: 100%; /* o la larghezza che preferisci, ma auto è meglio */
+  }
+
+  #mesi th,
+  #mesi td,
+  .table-wrap th,
+  .table-wrap td {
+    white-space: normal !important;
+    word-break: break-word;
+    font-size: 0.8rem;
+    padding: 6px 4px;
+  }
+
+  /* Assicura che le intestazioni abbiano spazio sufficiente */
+  #mesi th,
+  .table-wrap th {
+    min-width: 60px; /* adatta in base al contenuto */
+    /* Puoi anche usare width: auto; */
+  }
+
+  /* Se vuoi che l'ultima colonna (es. Km medi) abbia più spazio */
+  #mesi th:last-child,
+  #mesi td:last-child,
+  .table-wrap th:last-child,
+  .table-wrap td:last-child {
+    min-width: 80px;
+  }
+}
