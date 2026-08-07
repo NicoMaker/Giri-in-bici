@@ -46,6 +46,16 @@
     padding: 6px 4px;
   }
 
+  /* La colonna col nome del mese non deve mai spezzare la parola
+     (es. "Settembre" -> "Settembr" + "e"): resta su una riga sola
+     e, se serve, e' lo scroll orizzontale del .table-wrap a gestirla. */
+  #mesi td:first-child,
+  .table-wrap td:first-child {
+    white-space: nowrap !important;
+    word-break: normal;
+    min-width: 90px;
+  }
+
   /* Assicura che le intestazioni abbiano spazio sufficiente */
   #mesi th,
   .table-wrap th {
