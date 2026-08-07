@@ -173,9 +173,9 @@ body {
    dove ogni dato ha la sua iconcina dentro un cerchietto colorato
    invece di stare "nuda" sulla riga. */
 .misuracolore img {
-  width: 16px;
-  height: 16px;
-  padding: 5px;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
   border-radius: 50%;
   background: var(--a-soft);
 }
