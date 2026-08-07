@@ -19,7 +19,14 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
-  const VISTE_VALIDE = ["mesi", "record", "anni", "stagioni", "periodi", "tappe"];
+  const VISTE_VALIDE = [
+    "mesi",
+    "record",
+    "anni",
+    "stagioni",
+    "periodi",
+    "tappe",
+  ];
 
   // Scorre fino all'inizio della PAGINA (non solo del contenuto della
   // scheda): toccando una pillola mentre si è più in basso — magari in

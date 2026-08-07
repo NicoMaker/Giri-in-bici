@@ -26,7 +26,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       );
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-      filtrate.forEach(r => {
+      filtrate.forEach((r) => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
       const perPodio = CC.ordina(filtrate, stato.ordine, (r) => r.km);
@@ -51,7 +51,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       controlliStagioni.aggiornaLimiti(righeStagioniComplete.map((r) => r.km));
       disegnaStagioni();
     } catch (error) {
-      console.error(`Errore nel caricamento della classifica stagioni: ${error}`);
+      console.error(
+        `Errore nel caricamento della classifica stagioni: ${error}`,
+      );
       if (podioStagioniEl)
         podioStagioniEl.innerHTML =
           '<p class="errore-grafico">Non è stato possibile caricare la classifica delle stagioni.</p>';

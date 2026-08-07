@@ -18,9 +18,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     const podioAnniEl = document.getElementById("podio-anni");
     const listaAnniEl = document.getElementById("classifica-anni");
     const titoloAnniEl = document.getElementById("classifica-anni-titolo");
-    const selettoreRecordAnnoEl = document.getElementById(
-      "record-filtro-anno",
-    );
+    const selettoreRecordAnnoEl = document.getElementById("record-filtro-anno");
 
     let righeMesi = [];
     let righeAnniComplete = [];
@@ -32,7 +30,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       const cercate = CC.cerca(righeMesi, stato.testo, (r) => r.mese);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-      filtrate.forEach(r => {
+      filtrate.forEach((r) => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
       const ordinate = CC.ordina(
@@ -43,7 +41,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       );
       const perPodio = ordinate.slice(0, 3);
 
-      if (podioEl) podioEl.innerHTML = CM.creaPodio(perPodio, totaleAnniGlobale);
+      if (podioEl)
+        podioEl.innerHTML = CM.creaPodio(perPodio, totaleAnniGlobale);
       if (listaEl) {
         listaEl.innerHTML =
           CM.creaClassifica(ordinate) +
@@ -59,7 +58,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       const cercate = CC.cerca(righeAnniComplete, stato.testo, (r) => r.nome);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-      filtrate.forEach(r => {
+      filtrate.forEach((r) => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
       const ordinate = CC.ordina(
@@ -134,7 +133,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             .filter((r) => String(r.anno) === annoSelezionato)
             .map((r) => ({ ...r, nome: r.mese }));
           const totaleAnno = righeAnnoScelto.reduce((tot, r) => tot + r.km, 0);
-          righeAnnoScelto.forEach(r => {
+          righeAnnoScelto.forEach((r) => {
             r.percentuale = totaleAnno > 0 ? (r.km / totaleAnno) * 100 : 0;
           });
         }
@@ -144,8 +143,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const cercate = CC.cerca(righeAnnoScelto, stato.testo, (r) => r.nome);
         const filtrate = CC.filtra(cercate, stato, (r) => r.km);
         const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-        filtrate.forEach(r => {
-          r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
+        filtrate.forEach((r) => {
+          r.percentuale =
+            totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
         });
         const ordinate = CC.ordina(
           filtrate,

@@ -52,8 +52,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         );
         const filtrate = CC.filtra(cercate, stato, (r) => r.km);
         const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
-        filtrate.forEach(r => {
-          r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
+        filtrate.forEach((r) => {
+          r.percentuale =
+            totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
         });
         const ordinate = CC.ordina(
           filtrate,
@@ -90,9 +91,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           selettorePeriodiStagioneEl.appendChild(opzione);
         });
 
-        const parametriUrlPeriodi = new URLSearchParams(
-          window.location.search,
-        );
+        const parametriUrlPeriodi = new URLSearchParams(window.location.search);
         const stagioneDaUrlPeriodi = parametriUrlPeriodi.get("stagione");
         if (
           stagioneDaUrlPeriodi &&
