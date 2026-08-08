@@ -13,7 +13,7 @@ window.GraficoTotale = window.GraficoTotale || {};
     return `
       <tr class="grassetto">
         <th>Mese</th>
-        <th>km <img src="/img/Icons/traguardo.png"></th>
+        <th>Distanza (km) <img src="/img/Icons/traguardo.png"></th>
         <th>Percentuale sul totale</th>
         <th>Anno</th>
        </tr>

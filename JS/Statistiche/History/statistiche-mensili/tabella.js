@@ -12,10 +12,10 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
   GTM.createTableHTML = (kmPerMese, chilometri, percentuali, mesiPercorsi) => `
     <tr class="grassetto">
       <th>Mese</th>
-      <th>km <img src="/img/Icons/traguardo.png"></th>
+      <th>Distanza (km) <img src="/img/Icons/traguardo.png"></th>
       <th>Percentuale sul totale</th>
       <th>Mesi di Corsa</th>
-      <th>km <img src="/img/Icons/traguardo.png"> medi mensili</th>
+      <th>Media mensile (km) <img src="/img/Icons/traguardo.png"></th>
      </tr>
     ${kmPerMese
       .map(
