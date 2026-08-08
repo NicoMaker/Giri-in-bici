@@ -15,19 +15,8 @@ window.GraficoTotale = window.GraficoTotale || {};
         <th>Mese</th>
         <th>Distanza (km) <img src="/img/Icons/traguardo.png"></th>
         <th>Percentuale sul totale</th>
-        <th>Anno</th>
        </tr>
-      ${mesi
-        .map(
-          (mese, index) => `
-         <tr>
-           <td>${mese || "N/D"}</td>
-           <td>${formatNumber(chilometri[index] || 0)}</td>
-           <td>${percentuali[index] || "0,00"} %</td>
-           <td class="td-anno">${anni[index] || "N/D"}</td>
-         </tr>`,
-        )
-        .join("")}
+      ${mesi.map((mese, index) => `<tr><td class="td-anno">${mese ? `${mese} ${anni[index] || ""}`.trim() : "N/D"}</td><td>${formatNumber(chilometri[index] || 0)}</td><td>${percentuali[index] || "0,00"} %</td></tr>`).join("")}
     `;
   };
 })(window.GraficoTotale);
