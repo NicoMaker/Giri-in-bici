@@ -1,0 +1,87 @@
+/* ============================================================
+   Interruttore tema chiaro/scuro
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+.tema-toggle {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(15, 36, 56, 0.12);
+  border-radius: var(--r-full);
+  color: var(--ink-2);
+  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  box-shadow: var(--sh-1);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    color 0.2s var(--ease),
+    background 0.2s var(--ease);
+}
+
+.tema-toggle:hover,
+.tema-toggle:focus-visible {
+  color: var(--a1);
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: var(--sh-2);
+}
+
+.tema-toggle:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+.tema-toggle-icona {
+  width: 20px;
+  height: 20px;
+  transition:
+    opacity 0.2s var(--ease),
+    transform 0.35s var(--ease);
+}
+
+/* A riposo (tema chiaro) si vede il sole, la luna e' nascosta */
+.tema-toggle-luna {
+  display: none;
+}
+
+/* Tema scuro attivo: si vede la luna, il sole si nasconde */
+[data-theme="dark"] .tema-toggle-sole {
+  display: none;
+}
+
+[data-theme="dark"] .tema-toggle-luna {
+  display: block;
+}
+
+/* Piccola rotazione all'entrata dell'icona attiva, cosi' il cambio
+   tema si sente anche nel gesto, non solo nel colore che cambia */
+@keyframes temaIconaEntra {
+  from {
+    opacity: 0;
+    transform: rotate(-35deg) scale(0.6);
+  }
+}
+
+.tema-toggle-icona {
+  animation: temaIconaEntra 0.35s var(--ease) both;
+}
+
+/* Variante per pagine senza barra di navigazione (es. login):
+   il pulsante resta fisso in un angolo dello schermo */
+.tema-toggle--fissa {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 80;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tema-toggle,
+  .tema-toggle-icona {
+    animation: none;
+    transition: none;
+  }
+}
