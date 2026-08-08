@@ -45,12 +45,24 @@ tr:first-child th {
   font-size: 0.8rem;
 }
 
+/* Icona dentro un'intestazione di tabella (es. il traguardo): stessa
+   piastrella chiara e arrotondata gia' usata per le icone del menu
+   (.ico-tile in componenti-ui/icone.css), non piu' l'icona bianca
+   "nuda" appoggiata sul verde della testata. Cosi' l'icona resta
+   leggibile e coerente in ogni tabella del sito, non solo qui. */
 thead th img,
 tr th img {
   display: inline-block;
   width: 18px;
   height: 18px;
-  vertical-align: -3px;
+  padding: 8px;
+  box-sizing: content-box;
+  vertical-align: middle;
+  object-fit: contain;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-1);
 }
 
 /* Bandierine e altre icone inline dentro il testo delle celle
