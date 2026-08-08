@@ -54,7 +54,7 @@ window.StoricoMensile = window.StoricoMensile || {};
     const row2 = document.createElement("tr");
     yearLabels.forEach((_, i) => {
       const thKm = document.createElement("th");
-      thKm.textContent = "km";
+      thKm.textContent = "Distanza (km)";
       thKm.className = "th-sub";
       row2.appendChild(thKm);
       if (i > 0) {
