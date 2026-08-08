@@ -73,10 +73,7 @@
     };
 
     if (document.readyState === "loading") {
-      document.addEventListener(
-        "DOMContentLoaded",
-        pianificaUscitaAMezzanotte,
-      );
+      document.addEventListener("DOMContentLoaded", pianificaUscitaAMezzanotte);
     } else {
       pianificaUscitaAMezzanotte();
     }

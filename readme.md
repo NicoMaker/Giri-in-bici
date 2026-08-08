@@ -67,7 +67,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
    - Aggiungi un’immagine per il nuovo anno nella cartella: [`img/Statistiche/Anni/`](img/Statistiche/Anni/) con il nome del nuovo anno.
 
 4. **Aggiornare il File di Storia Generale**
-   - Tutte le pagine di Statistiche (Statistiche, Statistiche Totali, Statistiche Mensili, Storico Mensile) leggono ora un unico file: [`json/Statistiche/History/Storico.json`](json/Statistiche/History/Storico.json). 
+   - Tutte le pagine di Statistiche (Statistiche, Statistiche Totali, Statistiche Mensili, Storico Mensile) leggono ora un unico file: [`json/Statistiche/History/Storico.json`](json/Statistiche/History/Storico.json).
    - Aggiungi il nuovo anno in `anni` con il percorso (`json/Statistiche/anni/<anno>.json`).
    - Aggiungi il colore del nuovo anno in fondo a `coloriAnni` (usato dalle pagine Statistiche e Storico Mensile).
    - `coloriMesi` è la tavolozza usata solo per il grafico mensile a barre e di norma non va toccata quando si aggiunge un anno.
