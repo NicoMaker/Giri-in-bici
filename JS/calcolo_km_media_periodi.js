@@ -23,20 +23,22 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-  function createTableRow(row, index) {
+  function createTableRow(row, index, totalkm) {
     const newRow = document.createElement("tr");
+    const percentuale =
+      totalkm > 0 ? formatPercentage((row.distance / totalkm) * 100) : "0";
     newRow.innerHTML = `
       <td>${row.date}</td>
       <td>${formatItalianNumber(index + 1)}</td>
       <td>${formattaLuogo(row.place)}</td>
       <td>${formatItalianNumber(row.distance)}</td>
       <td>km</td>
+      <td>${percentuale} %</td>
     `;
     return newRow;
   }
 
-  function calculateAndDisplayStats(data) {
-    const totalkm = data.reduce((total, row) => total + row.distance, 0);
+  function calculateAndDisplayStats(data, totalkm) {
     const totalRaces = data.length;
     const mediaValue = formatNumber(totalkm / totalRaces);
     const formattedTotalKm = formatItalianNumber(totalkm);
@@ -53,10 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateTableAndStats(data) {
     const tableBody = document.querySelector("table tbody");
+    const totalkm = data.reduce((total, row) => total + row.distance, 0);
     data.forEach((row, index) => {
-      tableBody.appendChild(createTableRow(row, index));
+      tableBody.appendChild(createTableRow(row, index, totalkm));
     });
-    calculateAndDisplayStats(data);
+    calculateAndDisplayStats(data, totalkm);
   }
 
   const jsonUrl = document.getElementById("json").getAttribute("link");
