@@ -12,8 +12,9 @@ function initLoginSystem() {
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
 
-    // ❌ Cancella eventuali sessioni residue
+    // ❌ Cancella eventuali sessioni residue (anche di giorni precedenti)
     sessionStorage.removeItem("currentUser");
+    sessionStorage.removeItem("giornoAccesso");
   }
 
   initPasswordToggle();
@@ -87,6 +88,11 @@ async function handleLoginSubmit(event) {
 
     if (user && password === expectedPassword) {
       showNotification("✅ Accesso riuscito! Reindirizzamento...", "success");
+      // 💾 Segna la sessione come valida per l'utente e per il giorno
+      // di oggi: la guardia d'accesso sulle altre pagine legge questi
+      // due valori per lasciar passare o rimandare al login.
+      sessionStorage.setItem("currentUser", username);
+      sessionStorage.setItem("giornoAccesso", chiaveGiornoOggi());
       // Rimuovi spinner e ripristina
       spinner.style.display = "none";
       if (arrow) arrow.style.display = "inline-block";
@@ -115,6 +121,21 @@ async function handleLoginSubmit(event) {
   }
 }
 
+// Chiave del giorno di oggi in formato AAAA-MM-GG (es. "2026-08-08"),
+// usata per capire se la sessione salvata appartiene ancora a oggi.
+function chiaveGiornoOggi() {
+  const oggi = new Date(),
+    anno = oggi.getFullYear(),
+    mese = String(oggi.getMonth() + 1).padStart(2, "0"),
+    giorno = String(oggi.getDate()).padStart(2, "0");
+  return `${anno}-${mese}-${giorno}`;
+}
+
+// La password valida cambia ogni giorno. Viene calcolata al momento
+// dell'invio del form, quindi a cavallo della mezzanotte (23:59 -> 00:00)
+// usa sempre l'orario reale del dispositivo: prima di mezzanotte serve
+// ancora la password del giorno che sta finendo, da mezzanotte in poi
+// serve quella nuova, senza bisogno di ricaricare la pagina.
 function generatePassword() {
   const date = new Date(),
     day = String(date.getDate()).padStart(2, "0"),
