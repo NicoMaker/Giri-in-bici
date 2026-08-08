@@ -31,8 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <td>${row.date}</td>
       <td>${formatItalianNumber(index + 1)}</td>
       <td>${formattaLuogo(row.place)}</td>
-      <td>${formatItalianNumber(row.distance)}</td>
-      <td>km</td>
+      <td>${formatItalianNumber(row.distance)} km</td>
       <td>${percentuale} %</td>
     `;
     return newRow;
