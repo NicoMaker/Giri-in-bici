@@ -42,7 +42,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const chartData = { season, image, path, cssclass, colors, subPeriodData };
 
-    await window.chartRenderer.createChart("stagioniLine", chartData);
+    await window.chartRenderer.createChart("stagioniLine", chartData, {
+      scales: { x: { title: { text: "Periodi" } } },
+    });
     await window.chartRenderer.createChart("stagioni", chartData);
 
     renderDataList(

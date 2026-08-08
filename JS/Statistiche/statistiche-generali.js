@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await window.chartRenderer.createChart(
       "generaleStatisticheLine",
       chartData,
+      { scales: { x: { title: { text: "Anni" } } } },
     );
     await window.chartRenderer.createChart("generaleStatistiche", chartData);
 

@@ -51,7 +51,7 @@ window.Stagioni = window.Stagioni || {};
             title: { display: true, text: "Chilometri" },
             ticks: { callback: (value) => formatItalianNumber(value) },
           },
-          x: { title: { display: true } },
+          x: { title: { display: true, text: "Stagioni" } },
         },
         plugins: {
           legend: {

@@ -65,10 +65,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       percentuali,
     };
 
-    await window.chartRenderer.createChart("graficoTotaleMensile", chartData);
+    const axisOptions = { scales: { x: { title: { text: "Mesi" } } } };
+    await window.chartRenderer.createChart(
+      "graficoTotaleMensile",
+      chartData,
+      axisOptions,
+    );
     await window.chartRenderer.createChart(
       "graficoTotaleMensileLine",
       chartData,
+      axisOptions,
     );
 
     document.getElementById("mesi").innerHTML = GTM.createTableHTML(

@@ -84,12 +84,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       scorriEl.style.setProperty("--larghezza-mesi", larghezza + "px");
     }
 
-    await window.chartRenderer.createChart("graficoTotale", {
-      labels: mesi,
-      values: chilometri,
-      anni,
-      percentuali,
-    });
+    await window.chartRenderer.createChart(
+      "graficoTotale",
+      {
+        labels: mesi,
+        values: chilometri,
+        anni,
+        percentuali,
+      },
+      { scales: { x: { title: { text: "Mesi" } } } },
+    );
 
     const tableElement = document.getElementById("mesi");
     const summaryElement = document.getElementById("totale");

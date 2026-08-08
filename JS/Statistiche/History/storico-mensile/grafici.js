@@ -18,6 +18,9 @@ window.StoricoMensile = window.StoricoMensile || {};
           beginAtZero: true,
           ticks: { callback: (value) => formatNumber(value) },
         },
+        x: {
+          title: { display: true, text: "Mesi" },
+        },
       },
       plugins: {
         tooltip: {

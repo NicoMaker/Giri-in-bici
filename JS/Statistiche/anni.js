@@ -35,8 +35,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const chartData = { year, data, colors };
 
-    await window.chartRenderer.createChart("anniLine", chartData);
-    await window.chartRenderer.createChart("anni", chartData);
+    const axisOptions = { scales: { x: { title: { text: "Mesi" } } } };
+    await window.chartRenderer.createChart("anniLine", chartData, axisOptions);
+    await window.chartRenderer.createChart("anni", chartData, axisOptions);
 
     renderDataTable(mesi, chilometri, percentuali);
     renderSummary(totale, kmMediPerCorsa, kmMediPerMese, corse);
