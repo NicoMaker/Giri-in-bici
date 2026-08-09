@@ -44,3 +44,28 @@
 .foot-links a:hover {
   color: var(--a1);
 }
+
+/* ---------- Bandiera "Io sono Friuli Venezia Giulia" nel footer ----------
+   Stesso trattamento dell'header: striscia tricolore sopra la scritta,
+   presente in ogni piè di pagina del sito. */
+.footer-tricolore {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.footer-tricolore .tricolore-italia {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.footer-fvg-tagline {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(15, 36, 56, 0.6);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
