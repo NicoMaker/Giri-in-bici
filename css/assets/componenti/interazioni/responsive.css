@@ -6,7 +6,20 @@
 /* ---------- 19. Responsive ---------- */
 @media (max-width: 900px) {
   .brand-text {
+    display: block;
+  }
+
+  .riga-giri {
     display: none;
+  }
+
+  .tricolore-italia {
+    width: 78px;
+    margin-top: 0;
+  }
+
+  .brand-text small {
+    font-size: 0.6rem;
   }
 
   .con-hamburger .site-bar {
