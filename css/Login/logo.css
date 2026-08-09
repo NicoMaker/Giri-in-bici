@@ -59,10 +59,11 @@
 .login-fvg-tagline {
   position: relative;
   z-index: 1;
+  font-family: var(--font-head);
   font-size: 0.72rem;
-  font-weight: 600;
-  color: rgba(15, 36, 56, 0.55);
-  letter-spacing: 0.07em;
+  font-weight: 700;
+  color: rgba(15, 36, 56, 0.6);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin: 0 0 0.5rem;
 }

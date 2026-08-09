@@ -72,10 +72,11 @@
 
 .brand-text small {
   display: block;
+  font-family: var(--font-head);
   font-size: 0.7rem;
-  font-weight: 500;
-  color: rgba(15, 36, 56, 0.55);
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  color: rgba(15, 36, 56, 0.6);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: normal;
   max-width: 200px;
@@ -89,9 +90,10 @@
    dettaglio fisso, come una vera bandierina. */
 .tricolore-italia {
   display: block;
-  width: 140px;
-  height: 5px;
-  margin-top: 4px;
+  width: 180px;
+  height: 7px;
+  margin-top: 5px;
+  margin-bottom: 14px;
   border-radius: var(--r-full);
   overflow: hidden;
   background-image: linear-gradient(
@@ -114,16 +116,16 @@
 .tricolore-italia--login {
   width: min(100%, 210px);
   height: 5px;
-  margin: 0.35rem auto 1.1rem;
+  margin: 0.35rem auto 1.3rem;
 }
 
 /* Logo storico: resta su una pastiglia chiara, cosi' la bandiera
    si legge bene comunque, sia sulla barra chiara che nel resto del sito */
 .Bandiera-FVG {
-  width: 44px;
-  height: 44px;
+  width: 54px;
+  height: 54px;
   object-fit: contain;
-  border-radius: 13px;
+  border-radius: 15px;
   border: 1px solid rgba(15, 36, 56, 0.12);
   box-shadow: var(--sh-1);
   background: var(--surface);
