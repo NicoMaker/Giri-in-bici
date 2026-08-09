@@ -64,6 +64,12 @@
   white-space: nowrap;
 }
 
+/* Riga "Giri in Bici" vera e propria: separata dal sottotitolo cosi'
+   la striscia tricolore puo' stare esattamente sotto di essa */
+.riga-giri {
+  display: block;
+}
+
 .brand-text small {
   display: block;
   font-size: 0.7rem;
@@ -71,6 +77,38 @@
   color: rgba(15, 36, 56, 0.55);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+/* ---------- Striscia tricolore sotto "Giri in Bici" ----------
+   Bandiera italiana (verde-bianco-rosso) come piccola riga ferma
+   sotto la scritta del marchio, presente in ogni intestazione del
+   sito e nella pagina di accesso. Niente animazione qui: e' un
+   dettaglio fisso, come una vera bandierina. */
+.tricolore-italia {
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin-top: 4px;
+  border-radius: var(--r-full);
+  overflow: hidden;
+  background-image: linear-gradient(
+    90deg,
+    var(--it-verde) 0%,
+    var(--it-verde) 33.33%,
+    var(--it-bianco) 33.33%,
+    var(--it-bianco) 66.66%,
+    var(--it-rosso) 66.66%,
+    var(--it-rosso) 100%
+  );
+  box-shadow: inset 0 0 0 1px rgba(15, 36, 56, 0.1);
+}
+
+/* Variante piu' larga e centrata per la pagina di accesso, dove il
+   titolo "Giri in Bici" e' grande e centrato nella card */
+.tricolore-italia--login {
+  width: min(100%, 210px);
+  height: 5px;
+  margin: 0.35rem auto 1.1rem;
 }
 
 /* Logo storico: resta su una pastiglia chiara, cosi' la bandiera

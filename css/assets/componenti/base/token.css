@@ -87,6 +87,13 @@
      risalto sugli elementi interattivi principali */
   --glow: 0 16px 46px -12px color-mix(in srgb, var(--a1) 50%, transparent);
 
+  /* Bandiera italiana — verde, bianco, rosso ufficiali (tricolore),
+     usati per la striscia sotto la scritta "Giri in Bici" nella
+     barra e nella pagina di accesso */
+  --it-verde: #009246;
+  --it-bianco: #f4f5f0;
+  --it-rosso: #ce2b37;
+
   /* Misure */
   --wrap: 1180px;
   --bar-h: 68px;
