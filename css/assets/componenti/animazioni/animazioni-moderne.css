@@ -42,7 +42,6 @@ body {
    della card quando ci si passa sopra col mouse — si aggiunge al
    sollevamento e al bagliore che c'erano già (animazioni-extra.css),
    non li sostituisce. */
-.colore,
 .bici-card,
 .primavera,
 .estate,
@@ -50,7 +49,6 @@ body {
   position: relative;
 }
 
-.colore::after,
 .bici-card::after,
 .primavera::after,
 .estate::after,
@@ -69,7 +67,6 @@ body {
   pointer-events: none;
 }
 
-.colore:hover::after,
 .bici-card:hover::after,
 .primavera:hover::after,
 .estate:hover::after,

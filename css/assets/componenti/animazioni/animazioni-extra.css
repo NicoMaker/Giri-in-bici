@@ -284,11 +284,9 @@ footer {
       Si replica l'ombra originale (--sh-3) e si aggiunge il --glow.
    ============================================================ */
 
-.colore,
 .contorno,
 .bici,
 .shot,
-.km-link,
 .Primaveracontorno,
 .Estatecontorno,
 .Autunno-Invernocontorno,
@@ -301,11 +299,9 @@ footer {
   will-change: transform;
 }
 
-.colore:hover,
 .contorno:hover,
 .bici:hover,
 .shot:hover,
-.km-link:hover,
 .Primaveracontorno:hover,
 .Estatecontorno:hover,
 .Autunno-Invernocontorno:hover,
@@ -365,14 +361,12 @@ footer {
       piccoli il riflesso non serviva: tolto per pulizia.
    ============================================================ */
 
-.contorno,
-.km-link {
+.contorno {
   position: relative;
   overflow: hidden;
 }
 
-.contorno::after,
-.km-link::after {
+.contorno::after {
   content: "";
   position: absolute;
   top: 0;
@@ -390,8 +384,7 @@ footer {
   opacity: 0;
 }
 
-.contorno:hover::after,
-.km-link:hover::after {
+.contorno:hover::after {
   opacity: 1;
   animation: fx-sheen 0.9s var(--ease);
 }

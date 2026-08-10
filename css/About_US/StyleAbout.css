@@ -15,9 +15,7 @@
 @import url("contenitore.css"); /* Contenitore: sovrascrive la griglia .container del tema */
 @import url("team.css"); /* Sezione del team */
 @import url("mappa-sito.css"); /* Blocco mappa del sito */
-@import url("footer.css"); /* Piè di pagina della pagina Informazioni */
 @import url("rivelazione.css"); /* Comparsa dei blocchi allo scroll */
-@import url("righe-footer.css"); /* Righe del piè di pagina */
 @import url("dove-andare.css"); /* Voci "Dove andare": collegamento a tutta card */
 @import url("occhiello.css"); /* Sezioni con occhiello */
 @import url("mappa-immagine.css"); /* Immagine della mappa, intera e senza ritagli */

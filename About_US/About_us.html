@@ -36,7 +36,6 @@
     <script src="../js/json.js"></script>
     <script src="../js/utils.js"></script>
     <script src="../js/Hamburger.js" defer></script>
-    <script src="../js/About_US/script/footer.js" defer></script>
     <script src="../js/About_US/script/rivelazione.js" defer></script>
     <script src="../js/About_US/script/scorrimento.js" defer></script>
     <script src="../js/About_US/script.js" defer></script>
@@ -82,7 +81,9 @@
       <a class="brand" href="../Giri.html">
         <img class="Bandiera-FVG" src="/img/logo.jpg" alt="Giri in Bici" />
         <span class="brand-text"
-          >Giri in Bici<small>Friuli Venezia Giulia</small></span
+          ><span class="riga-giri">Giri in Bici</span
+          ><span class="tricolore-italia" aria-hidden="true"></span
+          ><small>Io sono Friuli Venezia Giulia</small></span
         >
       </a>
 
@@ -319,8 +320,30 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="footer-content" id="footer-content"></div>
+    <footer class="site-foot">
+      <div class="wrap">
+        <p>
+          &copy; 2020&ndash;<span data-anno></span> Giri in Bici &middot; Nico
+          Maker
+        </p>
+        <div class="footer-tricolore">
+          <span class="tricolore-italia" aria-hidden="true"></span>
+          <p class="footer-fvg-tagline">Io sono Friuli Venezia Giulia</p>
+        </div>
+        <nav class="foot-links" aria-label="Collegamenti utili">
+          <a href="../Giri.html">Home</a>
+          <a href="../Statistiche.html">Statistiche</a>
+          <a href="../Bici/Bici.html">Le nostre bici</a>
+          <a href="About_us.html">Informazioni</a>
+          <a href="../QR_CODE/Logo.html">QR Code</a>
+          <a
+            href="https://github.com/NicoMaker/Giri-in-bici"
+            target="_blank"
+            rel="noopener"
+            >GitHub</a
+          >
+        </nav>
+      </div>
     </footer>
   </body>
 </html>

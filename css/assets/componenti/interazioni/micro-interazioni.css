@@ -120,14 +120,12 @@ tbody tr td {
    --mx/--my sono impostate al passaggio del mouse da
    assets/motion/contenuti-animati.js. Card statiche (senza mouse
    sopra) restano com'erano: l'opacita' parte da 0. */
-.colore,
 .bici-card {
   position: relative;
   --mx: 50%;
   --my: 50%;
 }
 
-.colore::after,
 .bici-card::after {
   content: "";
   position: absolute;
@@ -144,7 +142,6 @@ tbody tr td {
   transition: opacity 0.35s var(--ease);
 }
 
-.colore:hover::after,
 .bici-card:hover::after {
   opacity: 1;
 }

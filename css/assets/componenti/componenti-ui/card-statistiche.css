@@ -36,17 +36,6 @@
   box-shadow: 0 0 16px -2px color-mix(in srgb, var(--a1) 55%, transparent);
 }
 
-.colore:hover {
-  transform: perspective(900px) translateY(-7px) scale(1.02)
-    rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
-  box-shadow: var(--sh-3);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
-}
-
-a > .colore:hover {
-  border-color: color-mix(in srgb, var(--a1) 45%, var(--line));
-}
-
 /* Righe dato dentro la card */
 /* Riga "etichetta ..... valore".
    Il testo è scritto di seguito nel markup, ma motion.js incapsula il
