@@ -101,7 +101,9 @@
    invece di inventare un nuovo effetto. Solo sotto il vero titolo
    della pagina (.Titolo/h1), non sui sottotitoli .Titolo2. */
 .hero > .Titolo + .hero-sub::before,
-.hero > h1 + .hero-sub::before {
+.hero > .Titolo ~ .hero-sub::before,
+.hero > h1 + .hero-sub::before,
+.hero > h1 ~ .hero-sub::before {
   content: "";
   display: block;
   width: 56px;

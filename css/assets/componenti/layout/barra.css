@@ -19,7 +19,14 @@
   gap: 1rem;
   flex-wrap: wrap;
   min-height: var(--bar-h);
-  padding: 0.6rem clamp(0.9rem, 3vw, 1.6rem);
+  /* Stesso bordo sinistro/destro del contenitore .wrap usato dal
+     footer (e da tutto il resto del sito): sotto i 1180px + 2.5rem
+     di margine resta un padding minimo di 1.25rem per lato, sopra
+     quella soglia si centra alla stessa larghezza massima. Cosi'
+     il logo dell'header e il testo del footer restano sempre
+     allineati verticalmente, invece di avere ciascuno un padding
+     fisso indipendente. */
+  padding: 0.6rem max(1.25rem, calc((100% - var(--wrap)) / 2));
   background: color-mix(in srgb, var(--bar-bg) 82%, transparent);
   border-bottom: 1px solid rgba(15, 36, 56, 0.1);
   transition:
@@ -117,6 +124,15 @@
   width: min(100%, 210px);
   height: 5px;
   margin: 0.35rem auto 1.3rem;
+}
+
+/* Variante centrata per l'hero della home, sotto al titolo "Giri in
+   Bici": stessa bandiera di header e footer, ma centrata invece che
+   allineata a sinistra, coerente con il resto della sezione .hero. */
+.tricolore-italia--hero {
+  width: min(100%, 200px);
+  height: 6px;
+  margin: 0.1rem auto 1rem;
 }
 
 /* Logo storico: resta su una pastiglia chiara, cosi' la bandiera
