@@ -4,6 +4,8 @@
    ============================================================ */
 
 /* ---------- 3. Tipografia ---------- */
+
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=Dancing+Script:wght@600&display=swap");
 h1,
 h2,
 h3,
@@ -80,6 +82,7 @@ p {
   color: transparent;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 6px 18px rgba(15, 36, 56, 0.18));
+  font-family: "Dancing Script", "Segoe Script", cursive;
 }
 
 .colore_sfondo_italia img {
