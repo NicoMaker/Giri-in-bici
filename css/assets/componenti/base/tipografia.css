@@ -83,7 +83,7 @@ p {
   color: transparent;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 6px 18px rgba(15, 36, 56, 0.18));
-  font-family: "Dancing Script", "Segoe Script", cursive;
+  font-family: var(--font-display);
 }
 
 .colore_sfondo_italia img {
