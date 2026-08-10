@@ -22,7 +22,6 @@
 @import url("componenti/componenti-ui/card-statistiche.css"); /* Riquadri .colore con i numeri riepilogativi */
 @import url("componenti/componenti-ui/griglia-periodi.css"); /* Griglia degli anni e dei periodi */
 @import url("componenti/componenti-ui/paginazione.css"); /* Navigazione fra le pagine */
-@import url("componenti/componenti-ui/tema-toggle.css"); /* Interruttore tema chiaro/scuro */
 @import url("componenti/tabelle-grafici/tabelle.css"); /* Tabelle generiche */
 @import url("componenti/tabelle-grafici/tabella-storico.css"); /* Tabella dello storico mensile */
 @import url("componenti/tabelle-grafici/grafici.css"); /* Riquadri dei grafici Chart.js */

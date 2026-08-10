@@ -101,40 +101,11 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Tema chiaro forzato di default: niente adattamento automatico al
-   tema scuro di sistema. color-scheme: light impedisce anche a
-   browser e WebView mobile di invertire da soli controlli, scrollbar
-   e campi form. Il tema scuro vero e proprio si attiva solo quando
-   qualcuno lo sceglie esplicitamente (pulsante in alto, gestito da
-   assets/js/tema-scuro.js), non in automatico dal sistema operativo:
-   cosi' l'aspetto del sito resta prevedibile finche' non lo si
-   cambia di proposito. */
+/* Tema chiaro unico e fisso: niente interruttore, niente tema scuro
+   e niente adattamento automatico al tema scuro di sistema.
+   color-scheme: light impedisce anche a browser e WebView mobile di
+   invertire da soli controlli, scrollbar e campi form, cosi'
+   l'aspetto del sito resta identico su ogni pagina e dispositivo. */
 :root {
   color-scheme: light;
-}
-
-/* ---------- Tema scuro ---------- */
-/* Stessa struttura del tema chiaro, solo superfici e inchiostro
-   invertiti: gli accenti (--a1/--a2) restano quelli della stagione
-   attiva, cosi' ogni pagina resta riconoscibile anche di notte.
-   --chart-surface resta bianco di proposito (vedi sopra): i grafici
-   restano leggibili uguali in entrambi i temi. */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-
-  --ink: #eef4fb;
-  --ink-2: #b9c8d9;
-  --ink-3: #8ea0b5;
-
-  --surface: #142235;
-  --surface-2: #1a2c42;
-  --surface-3: #21384f;
-  --line: rgba(238, 244, 251, 0.12);
-  --line-strong: rgba(238, 244, 251, 0.22);
-
-  --bar-bg: #101c2c;
-
-  --bg-1: #0a1420;
-  --bg-2: #0c1826;
-  --bg-3: #0e1c2c;
 }
