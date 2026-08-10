@@ -20,7 +20,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   const NOMI_STAGIONI = {
     Estate: "Estate",
     Primavera: "Primavera",
-    Autunno_Inverno: "Autunno · Inverno",
+    Autunno_Inverno: "Autunno - Inverno",
   };
 
   // Pagina di riferimento di ogni stagione (stessa destinazione già usata
