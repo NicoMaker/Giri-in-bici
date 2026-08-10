@@ -31,12 +31,13 @@
   animation-delay: 0.48s;
 }
 
-/* I titoli in gradiente respirano lentamente */
+/* Il titolo in gradiente scorre di continuo: verde, bianco, rosso,
+   verde, bianco, rosso... (ciclo unico, non avanti-indietro). */
 .hero > h1 {
   background-size: 220% auto;
   animation:
     riseIn 0.75s var(--ease) both,
-    gradientShift 9s ease-in-out 1s infinite alternate;
+    gradientShift 6s linear infinite;
 }
 
 /* La copertina della stagione non galleggia piu': salendo di continuo
