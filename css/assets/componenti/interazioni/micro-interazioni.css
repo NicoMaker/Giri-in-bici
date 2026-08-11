@@ -45,6 +45,31 @@
   color: var(--a1);
 }
 
+/* Sollevamento dell'intera card riepilogo al passaggio del mouse,
+   stesso "concetto" gia' usato per l'icona e per il pulsante
+   "vai a": leggero rialzo, ombra piu' profonda, striscia sfumata
+   in cima piu' luminosa. Attiva sia sulla card da sola sia quando
+   e' avvolta in un link (a .colore, es. il blocco km della home). */
+.colore:hover,
+a:hover .colore {
+  transform: translateY(-6px) scale(1.012);
+  box-shadow: var(--sh-3);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+
+.colore:hover::before,
+a:hover .colore::before {
+  height: 6px;
+  box-shadow: 0 0 22px -2px color-mix(in srgb, var(--a1) 70%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .colore:hover,
+  a:hover .colore {
+    transform: none;
+  }
+}
+
 /* Freccia della paginazione */
 #pagination button {
   will-change: transform;

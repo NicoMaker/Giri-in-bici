@@ -9,9 +9,15 @@
 // L'ordine dei mesi arriva da History/comune/config-mesi.js
 //
 // Dati letti da json/Statistiche/History/Storico.json (anni +
-// coloriAnni): un tempo questa pagina aveva un file a parte,
+// coloriStorico): un tempo questa pagina aveva un file a parte,
 // StoricoMensile.json, che ripeteva la stessa mappa anno->percorso
 // e la stessa lista di colori già presenti in Generale.json.
+//
+// coloriStorico e' una tavolozza di soli blu (dal piu' chiaro al
+// piu' scuro): prima ogni anno prendeva un colore diverso da
+// coloriAnni (giallo, verde, arancione...), ora restano tutti sullo
+// stesso blu e si distinguono solo per intensita', assegnata a
+// rotazione se gli anni superano i colori disponibili.
 //
 // Dipendenze: Chart.js, JS/utils.js
 // ============================================================
@@ -24,9 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
     Json.leggi("json/Statistiche/History/Storico.json")
       .then((storico) => {
         const anni = Object.keys(storico.anni);
+        const paletteBlu = storico.coloriStorico || ["blue"];
         const datasetsPromises = anni.map((anno, indice) =>
           Json.leggi(storico.anni[anno]).then((datiAnno) =>
-            SM.createDataset(datiAnno, anno, storico.coloriAnni[indice]),
+            SM.createDataset(
+              datiAnno,
+              anno,
+              paletteBlu[indice % paletteBlu.length],
+            ),
           ),
         );
         return Promise.all(datasetsPromises).then((datasets) => ({

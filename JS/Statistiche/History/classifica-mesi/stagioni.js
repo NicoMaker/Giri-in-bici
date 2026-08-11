@@ -8,6 +8,12 @@
 // ogni periodo (anno); ogni file è un elenco di corse con
 // {distance: ...}.
 //
+// Il nome da mostrare (displayName) e il link alla pagina della
+// stagione (link) vivono ormai dentro stagioni.json, una voce per
+// stagione: prima erano due oggetti fissi qui nel JS
+// (NOMI_STAGIONI e LINK_STAGIONI), spostati nel JSON perché sono
+// dati, non logica.
+//
 // Dipendenze: JS/json.js
 // Richiamato da Statistiche/History/classifica-mesi.js
 // ============================================================
@@ -16,22 +22,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
 (function (CM) {
   "use strict";
-
-  const NOMI_STAGIONI = {
-    Estate: "Estate",
-    Primavera: "Primavera",
-    Autunno_Inverno: "Autunno - Inverno",
-  };
-
-  // Pagina di riferimento di ogni stagione (stessa destinazione già usata
-  // in json/Statistiche/anni/stagioni/seasons-config.json): da qui la
-  // classifica delle stagioni porta alla pagina della stagione stessa,
-  // come già succede per il podio degli anni (creaPodioAnni).
-  const LINK_STAGIONI = {
-    Estate: "../../Estate.html",
-    Primavera: "../../Primavera.html",
-    Autunno_Inverno: "../../Autunno_Inverno.html",
-  };
 
   function sommaDistanze(corse) {
     if (!Array.isArray(corse)) return 0;
@@ -69,8 +59,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         );
 
         return {
-          stagione: NOMI_STAGIONI[stagione.name] || stagione.name,
-          link: LINK_STAGIONI[stagione.name] || "#",
+          stagione: stagione.displayName || stagione.name,
+          link: stagione.link || "#",
           km,
           periodi,
           kmMedi: periodi > 0 ? km / periodi : 0,
@@ -100,7 +90,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
     await Promise.all(
       stagioniJson.seasons.map(async (stagione) => {
-        const nomeStagione = NOMI_STAGIONI[stagione.name] || stagione.name;
+        const nomeStagione = stagione.displayName || stagione.name;
         const voci = Object.entries(stagione.subPeriods || {});
 
         await Promise.all(

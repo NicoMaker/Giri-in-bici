@@ -34,6 +34,9 @@
   height: 5px;
   background: linear-gradient(90deg, var(--a1), var(--a2));
   box-shadow: 0 0 16px -2px color-mix(in srgb, var(--a1) 55%, transparent);
+  transition:
+    height 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
 }
 
 /* Righe dato dentro la card */
