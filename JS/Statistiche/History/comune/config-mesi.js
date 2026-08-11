@@ -6,8 +6,9 @@
 // file la richiamano.
 //
 // Dopo carica() sono disponibili:
-//   ConfigMesi.ordine  { Gennaio: 1, ... Dicembre: 12 }
-//   ConfigMesi.elenco  ["Gennaio", ... "Dicembre"]
+//   ConfigMesi.ordine      { Gennaio: 1, ... Dicembre: 12 }
+//   ConfigMesi.elenco      ["Gennaio", ... "Dicembre"]
+//   ConfigMesi.coloriMesi  { Gennaio: "darkblue", ... }
 // ============================================================
 
 window.ConfigMesi = window.ConfigMesi || {};
@@ -33,6 +34,7 @@ window.ConfigMesi = window.ConfigMesi || {};
 
   C.ordine = {};
   C.elenco = [];
+  C.coloriMesi = {};
 
   C.carica = async function () {
     try {
@@ -40,12 +42,14 @@ window.ConfigMesi = window.ConfigMesi || {};
         "json/Statistiche/History/config-mesi.json",
       );
       C.ordine = config.orderMesi;
+      C.coloriMesi = config.coloriMesi || {};
     } catch (error) {
       console.error(
         "Errore nel caricamento di config-mesi.json, uso fallback:",
         error,
       );
       C.ordine = RISERVA;
+      C.coloriMesi = {};
     }
     C.elenco = Object.keys(C.ordine);
     return C;

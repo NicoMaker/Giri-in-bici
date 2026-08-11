@@ -18,21 +18,6 @@
     "blue",
     "pink"
   ],
-  "_notaColoriMesi": "Un colore per mese, in ordine Gennaio..Dicembre, riusato dal grafico a barre 'Statistiche Mensili' (http://.../Statistiche/History/Statistiche_Mensili.html). Ordine fisso per posizione, non per stagione.",
-  "coloriMesi": [
-    "darkblue",
-    "blue",
-    "lightgreen",
-    "green",
-    "pink",
-    "yellow",
-    "orange",
-    "red",
-    "darkgreen",
-    "brown",
-    "cyan",
-    "blue"
-  ],
   "_notaColoriStorico": "Tonalita' di blu (dalla piu' chiara alla piu' scura) per le linee/barre per-anno del grafico Storico Mensile: prima ogni anno aveva un colore diverso preso da coloriAnni, ora restano tutte sullo stesso blu per coerenza visiva, distinte solo per intensita'.",
   "coloriStorico": [
     "#cfe2ff",

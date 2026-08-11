@@ -9,9 +9,11 @@
 // L'ordine dei mesi arriva da History/comune/config-mesi.js
 //
 // Dati letti da json/Statistiche/History/Storico.json: gli anni
-// vengono da "anni", la tavolozza dei 12+ colori per i mesi da
-// "coloriMesi" (prima erano "statistics" e "colors" dentro il
-// vecchio GraficoTotale.json).
+// vengono da "anni". La tavolozza dei 12 colori per i mesi arriva
+// invece da ConfigMesi (json/Statistiche/History/config-mesi.json,
+// chiave "coloriMesi"): e' la stessa mappa nome-mese -> colore usata
+// dalla pagina del singolo anno (JS/Statistiche/anni.js), cosi' i
+// colori dei mesi sono identici su tutte le pagine del sito.
 //
 // Dipendenze: JS/utils.js, JS/chart/chart-configs.js,
 //             JS/chart/chart-renderer.js
@@ -28,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    // Carica la configurazione dei mesi prima di tutto
+    // Carica la configurazione dei mesi (ordine + colori) prima di tutto
     await ConfigMesi.carica();
 
     const storico = await fetchJSON("json/Statistiche/History/Storico.json");
@@ -36,7 +38,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let chilometriTotali = new Array(12).fill(0);
     let mesiPercorsi = new Array(12).fill(0);
-    const coloriGlobali = storico.coloriMesi;
+    const coloriGlobali = ConfigMesi.elenco.map(
+      (mese) => ConfigMesi.coloriMesi[mese] || "blue",
+    );
 
     allData.forEach((json) => {
       ConfigMesi.elenco.forEach((mese, index) => {
