@@ -12,5 +12,20 @@
     "Ottobre": 10,
     "Novembre": 11,
     "Dicembre": 12
+  },
+  "_notaColoriMesi": "Fonte unica del colore-per-mese, sempre legato al nome del mese (non alla sua posizione): Marzo/Aprile/Maggio = Primavera (lightgreen), Giugno/Luglio/Agosto = Estate (red), Settembre..Febbraio = Autunno-Inverno (lightblue). Stessa palette di json/Statistiche/anni/stagioni/seasons-config.json (chart.colors). Usata dalla pagina del singolo anno (JS/Statistiche/anni.js) al posto del vecchio campo 'colors' dentro ogni json/Statistiche/anni/AAAA.json, che era un elenco a posizione fissa e quindi si sfasava ogni volta che un anno non aveva tutti i 12 mesi.",
+  "coloriMesi": {
+    "Gennaio": "lightblue",
+    "Febbraio": "lightblue",
+    "Marzo": "lightgreen",
+    "Aprile": "lightgreen",
+    "Maggio": "lightgreen",
+    "Giugno": "red",
+    "Luglio": "red",
+    "Agosto": "red",
+    "Settembre": "lightblue",
+    "Ottobre": "lightblue",
+    "Novembre": "lightblue",
+    "Dicembre": "lightblue"
   }
 }

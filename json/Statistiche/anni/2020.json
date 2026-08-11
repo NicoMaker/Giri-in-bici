@@ -10,5 +10,5 @@
     "Novembre": 192,
     "Dicembre": 243
   },
-  "colors": ["pink", "yellow", "orange", "red", "darkgreen", "cyan", "blue"]
+  "_notaColori": "Il colore di ogni mese non vive piu' qui: viene calcolato da JS/Statistiche/anni.js leggendo json/Statistiche/History/config-mesi.json (coloriMesi), mappato per nome del mese cosi' e' sempre coerente con la stagione, anche se in questo file mancano dei mesi."
 }

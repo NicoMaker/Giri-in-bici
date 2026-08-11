@@ -18,20 +18,20 @@
     "blue",
     "pink"
   ],
-  "_notaColoriMesi": "Un colore per mese, riusato dal grafico 'Statistiche Mensili' (barre di Gennaio..Dicembre). Stessa palette stagionale gia' usata in json/Statistiche/anni/stagioni/seasons-config.json (chart.colors: Primavera=lightgreen, Estate=red, Autunno-Inverno=lightblue), cosi' i mesi si leggono a colpo d'occhio come stagione di appartenenza.",
+  "_notaColoriMesi": "Un colore per mese, in ordine Gennaio..Dicembre, riusato dal grafico a barre 'Statistiche Mensili' (http://.../Statistiche/History/Statistiche_Mensili.html). Ordine fisso per posizione, non per stagione.",
   "coloriMesi": [
-    "lightblue",
-    "lightblue",
+    "darkblue",
+    "blue",
     "lightgreen",
-    "lightgreen",
-    "lightgreen",
+    "green",
+    "pink",
+    "yellow",
+    "orange",
     "red",
-    "red",
-    "red",
-    "lightblue",
-    "lightblue",
-    "lightblue",
-    "lightblue"
+    "darkgreen",
+    "brown",
+    "cyan",
+    "blue"
   ],
   "_notaColoriStorico": "Tonalita' di blu (dalla piu' chiara alla piu' scura) per le linee/barre per-anno del grafico Storico Mensile: prima ogni anno aveva un colore diverso preso da coloriAnni, ora restano tutte sullo stesso blu per coerenza visiva, distinte solo per intensita'.",
   "coloriStorico": [
