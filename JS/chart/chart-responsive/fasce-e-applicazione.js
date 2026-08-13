@@ -236,7 +236,16 @@ window.ChartResponsive = window.ChartResponsive || {};
       } else if (isX) {
         ticks.maxRotation = t.maxRotation;
         ticks.minRotation = t.minRotation;
-        ticks.maxTicksLimit = t.maxTicksX;
+
+        // Mostra SEMPRE tutte le etichette dell'asse X (stagioni, anni,
+        // mesi): niente più "una sì una no" su schermi stretti. Su xs/sm
+        // ruoto di più per farcele stare, ma non ne nascondo nessuna.
+        ticks.autoSkip = false;
+        ticks.maxTicksLimit = undefined;
+        if (t.name === "xs" || t.name === "sm") {
+          ticks.maxRotation = 90;
+          ticks.minRotation = 90;
+        }
 
         // conservo l'eventuale callback originale e accorcio il risultato
         if (ticks.__origCallback === undefined)
