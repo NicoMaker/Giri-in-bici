@@ -6,7 +6,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ## 📂 Aggiornare i Dati JSON
 
-### Stagione
+### Stagione 
 
 1. **Aggiorna il file JSON per la stagione Estate 2026**
    - **Percorso:** [`json/Estate/Periodi/2026.json`](json/Estate/Periodi/2026.json)
