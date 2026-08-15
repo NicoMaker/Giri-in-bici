@@ -147,12 +147,27 @@
 
       <section class="section reveal">
         <p class="eyebrow">Che giro ho fatto...</p>
-        <h2>Scegli una data</h2>
+        <h2>Scegli una o più date</h2>
+        <p class="hero-sub">
+          Puoi cercare anche più date insieme: aggiungine quante ne vuoi e
+          vedrai tutti i giri trovati, uno sotto l'altro.
+        </p>
 
         <form id="formCercaData" class="form-cerca-data">
-          <div class="campo">
+          <div class="campo campo-date">
             <label for="dataGiro">Data</label>
-            <input id="dataGiro" name="dataGiro" type="date" required />
+            <div class="elenco-date-input" id="contenitoreDate">
+              <div class="riga-data-input">
+                <input id="dataGiro" name="dataGiro" type="date" required />
+              </div>
+            </div>
+            <button
+              type="button"
+              id="aggiungiData"
+              class="link-aggiungi-data"
+            >
+              + Aggiungi un'altra data
+            </button>
           </div>
           <button type="submit">Cerca</button>
         </form>
