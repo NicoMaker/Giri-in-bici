@@ -173,6 +173,88 @@ window.DatiGiri = window.DatiGiri || {};
     return uscite;
   };
 
+  function perData(a, b) {
+    return a.chiaveData - b.chiaveData;
+  }
+
+  function perAlfabeto(a, b) {
+    return a.postoTesto.localeCompare(b.postoTesto, "it", {
+      sensitivity: "base",
+    });
+  }
+
+  // Ordina un elenco di uscite secondo uno dei 5 criteri dei bottoni
+  // "Ordina per" (condiviso fra ricerca per data e ricerca per
+  // posto). A parita' di km o di posto, decide sempre la data.
+  D.ordina = function (uscite, criterio) {
+    var copia = uscite.slice();
+
+    switch (criterio) {
+      case "data-vecchio":
+        copia.sort(function (a, b) {
+          return perData(a, b) || perAlfabeto(a, b);
+        });
+        break;
+      case "data-recente":
+        copia.sort(function (a, b) {
+          return perData(b, a) || perAlfabeto(a, b);
+        });
+        break;
+      case "distanza-lungo":
+        copia.sort(function (a, b) {
+          return b.distanza - a.distanza || perData(a, b);
+        });
+        break;
+      case "distanza-corto":
+        copia.sort(function (a, b) {
+          return a.distanza - b.distanza || perData(a, b);
+        });
+        break;
+      case "alfabetico":
+      default:
+        copia.sort(function (a, b) {
+          return perAlfabeto(a, b) || perData(a, b);
+        });
+        break;
+    }
+
+    return copia;
+  };
+
+  // Aggancia i click sul gruppo di bottoni "Ordina per" (un solo
+  // "attivo" alla volta) e richiama "alCambio" col nuovo criterio a
+  // ogni click. Restituisce un oggetto con "leggi()" per sapere in
+  // ogni momento il criterio attualmente scelto.
+  D.inizializzaBottoniOrdine = function (idGruppo, alCambio) {
+    var gruppo = document.getElementById(idGruppo);
+    if (!gruppo) return { leggi: function () { return "alfabetico"; } };
+
+    var bottoni = gruppo.querySelectorAll(".criterio-ordine__pulsante");
+    var criterioAttuale = "alfabetico";
+
+    bottoni.forEach(function (bottone) {
+      if (bottone.classList.contains("attivo")) {
+        criterioAttuale = bottone.getAttribute("data-criterio") || "alfabetico";
+      }
+      bottone.addEventListener("click", function () {
+        bottoni.forEach(function (b) {
+          b.classList.remove("attivo");
+          b.setAttribute("aria-pressed", "false");
+        });
+        bottone.classList.add("attivo");
+        bottone.setAttribute("aria-pressed", "true");
+        criterioAttuale = bottone.getAttribute("data-criterio") || "alfabetico";
+        alCambio(criterioAttuale);
+      });
+    });
+
+    return {
+      leggi: function () {
+        return criterioAttuale;
+      },
+    };
+  };
+
   // Elenco dei risultati in stile "classifica" (lo stesso linguaggio
   // visivo di Statistiche > Storico > Classifica dei mesi): riga
   // cliccabile con un segno "↗" quando il posto ha un link al

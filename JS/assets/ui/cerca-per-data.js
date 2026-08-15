@@ -15,6 +15,9 @@
 (function () {
   "use strict";
 
+  var ultimiRisultati = null;
+  var bottoniOrdine = null;
+
   function nuovaRigaData() {
     var riga = document.createElement("div");
     riga.className = "riga-data-input";
@@ -73,6 +76,7 @@
     if (!contenitore || !messaggio) return;
 
     contenitore.innerHTML = "";
+    ultimiRisultati = null;
 
     if (!valori.length) {
       messaggio.textContent = "Scegli almeno una data.";
@@ -159,7 +163,17 @@
       messaggio.hidden = true;
     }
 
-    contenitore.innerHTML = window.DatiGiri.elencoRisultati(risultati);
+    ultimiRisultati = risultati;
+    mostraOrdinati();
+  }
+
+  function mostraOrdinati() {
+    var contenitore = document.getElementById("risultatiCercaData");
+    if (!contenitore || !ultimiRisultati) return;
+    var criterio = bottoniOrdine ? bottoniOrdine.leggi() : "data-recente";
+    contenitore.innerHTML = window.DatiGiri.elencoRisultati(
+      window.DatiGiri.ordina(ultimiRisultati, criterio),
+    );
   }
 
   function inizializza() {
@@ -178,6 +192,11 @@
         contenitoreDate.appendChild(nuovaRigaData());
       });
     }
+
+    bottoniOrdine = window.DatiGiri.inizializzaBottoniOrdine(
+      "criterioOrdinamentoData",
+      mostraOrdinati,
+    );
 
     form.addEventListener("submit", function (evento) {
       evento.preventDefault();

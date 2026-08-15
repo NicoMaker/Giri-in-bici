@@ -172,6 +172,57 @@
           <button type="submit">Cerca</button>
         </form>
 
+        <div class="campo campo-ordine">
+          <span class="etichetta-ordine">Ordina per</span>
+          <div
+            class="criterio-ordine"
+            id="criterioOrdinamentoData"
+            role="group"
+            aria-label="Ordina i risultati"
+          >
+            <button
+              type="button"
+              class="criterio-ordine__pulsante"
+              data-criterio="data-vecchio"
+              aria-pressed="false"
+            >
+              Data più vecchia
+            </button>
+            <button
+              type="button"
+              class="criterio-ordine__pulsante attivo"
+              data-criterio="data-recente"
+              aria-pressed="true"
+            >
+              Data più recente
+            </button>
+            <button
+              type="button"
+              class="criterio-ordine__pulsante"
+              data-criterio="distanza-lungo"
+              aria-pressed="false"
+            >
+              Distanza più lunga
+            </button>
+            <button
+              type="button"
+              class="criterio-ordine__pulsante"
+              data-criterio="distanza-corto"
+              aria-pressed="false"
+            >
+              Distanza più corta
+            </button>
+            <button
+              type="button"
+              class="criterio-ordine__pulsante"
+              data-criterio="alfabetico"
+              aria-pressed="false"
+            >
+              Alfabetico
+            </button>
+          </div>
+        </div>
+
         <p
           id="messaggioCercaData"
           class="messaggio-cerca-data"

@@ -3,17 +3,10 @@
 //
 // L'utente scrive (anche solo una parte del) nome di un posto e
 // vede tutte le uscite che lo contengono, in tutte le stagioni e
-// tutti gli anni del diario. L'ordinamento si sceglie con dei
-// bottoni (stesso concetto della pagina Storico > Classifica dei
-// mesi: un gruppo di pulsanti, uno solo attivo alla volta — non un
-// menu a tendina), non appena si clicca un bottone i risultati gia'
-// in pagina si riordinano subito, senza dover premere di nuovo
-// "Cerca". I criteri sono:
-//   - Alfabetico per posto (predefinito, se non si sceglie nulla)
-//   - Per data (dal piu' recente o dal piu' vecchio)
-//   - Per distanza (dal piu' lungo o dal piu' corto)
-// A parita' di chilometri, tra due uscite viene mostrata prima
-// quella con la data piu' vecchia.
+// tutti gli anni del diario. L'ordinamento si sceglie con i
+// bottoni "Ordina per" (stessa logica condivisa di dati-giri.js,
+// usata anche dalla ricerca per data): un click riordina subito i
+// risultati gia' in pagina, senza dover premere di nuovo "Cerca".
 //
 // Dipende da dati-giri.js (che a sua volta dipende da Json e
 // formatNumber): vanno inclusi prima di questo file.
@@ -23,52 +16,7 @@
   "use strict";
 
   var ultimiRisultati = null;
-  var criterioAttuale = "alfabetico";
-
-  function perData(a, b) {
-    return a.chiaveData - b.chiaveData;
-  }
-
-  function perAlfabeto(a, b) {
-    return a.postoTesto.localeCompare(b.postoTesto, "it", {
-      sensitivity: "base",
-    });
-  }
-
-  function ordina(uscite, criterio) {
-    var copia = uscite.slice();
-
-    switch (criterio) {
-      case "data-vecchio":
-        copia.sort(function (a, b) {
-          return perData(a, b) || perAlfabeto(a, b);
-        });
-        break;
-      case "data-recente":
-        copia.sort(function (a, b) {
-          return perData(b, a) || perAlfabeto(a, b);
-        });
-        break;
-      case "distanza-lungo":
-        copia.sort(function (a, b) {
-          return b.distanza - a.distanza || perData(a, b);
-        });
-        break;
-      case "distanza-corto":
-        copia.sort(function (a, b) {
-          return a.distanza - b.distanza || perData(a, b);
-        });
-        break;
-      case "alfabetico":
-      default:
-        copia.sort(function (a, b) {
-          return perAlfabeto(a, b) || perData(a, b);
-        });
-        break;
-    }
-
-    return copia;
-  }
+  var bottoniOrdine = null;
 
   // Confronto senza badare ad accenti/maiuscole, cosi' "citta" trova
   // anche "Città".
@@ -82,8 +30,10 @@
   function mostraOrdinati() {
     var contenitore = document.getElementById("risultatiCercaPosto");
     if (!contenitore || !ultimiRisultati) return;
-    var ordinati = ordina(ultimiRisultati, criterioAttuale);
-    contenitore.innerHTML = window.DatiGiri.elencoRisultati(ordinati);
+    var criterio = bottoniOrdine ? bottoniOrdine.leggi() : "alfabetico";
+    contenitore.innerHTML = window.DatiGiri.elencoRisultati(
+      window.DatiGiri.ordina(ultimiRisultati, criterio),
+    );
   }
 
   async function cercaPosto(valoreInput) {
@@ -123,31 +73,15 @@
     mostraOrdinati();
   }
 
-  function inizializzaBottoniOrdine() {
-    var gruppo = document.getElementById("criterioOrdinamento");
-    if (!gruppo) return;
-    var bottoni = gruppo.querySelectorAll(".criterio-ordine__pulsante");
-
-    bottoni.forEach(function (bottone) {
-      bottone.addEventListener("click", function () {
-        bottoni.forEach(function (b) {
-          b.classList.remove("attivo");
-          b.setAttribute("aria-pressed", "false");
-        });
-        bottone.classList.add("attivo");
-        bottone.setAttribute("aria-pressed", "true");
-        criterioAttuale = bottone.getAttribute("data-criterio") || "alfabetico";
-        mostraOrdinati();
-      });
-    });
-  }
-
   function inizializza() {
     var form = document.getElementById("formCercaPosto");
     var input = document.getElementById("postoGiro");
     if (!form || !input) return;
 
-    inizializzaBottoniOrdine();
+    bottoniOrdine = window.DatiGiri.inizializzaBottoniOrdine(
+      "criterioOrdinamento",
+      mostraOrdinati,
+    );
 
     form.addEventListener("submit", function (evento) {
       evento.preventDefault();
