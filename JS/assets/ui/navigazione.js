@@ -46,6 +46,7 @@
     "freccia.png": "indietro",
     "qr_code.png": "qr",
     "github.png": "codice",
+    "calendario.png": "calendario",
   };
 
   function icoDisegnate() {

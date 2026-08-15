@@ -13,6 +13,12 @@
       "link": "Statistiche.html"
     },
     {
+      "name": "Cerca per data",
+      "icona": "calendario",
+      "icon": "/img/Icons/Statistiche.png",
+      "link": "CercaData.html"
+    },
+    {
       "name": "Bici",
       "icona": "bici",
       "icon": "/img/Icons/bici.png",

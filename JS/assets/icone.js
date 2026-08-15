@@ -109,6 +109,13 @@
       '<path d="M5.6 20.8v-9.4L12 6.6l6.4 4.8v9.4z"/>' +
       '<path d="M10.1 20.8v-3.9a1.9 1.9 0 0 1 3.8 0v3.9"/>',
 
+    calendario:
+      '<rect x="3.6" y="5.2" width="16.8" height="15.2" rx="2.4"/>' +
+      '<path d="M3.6 9.8h16.8"/>' +
+      '<path d="M8 3.4v3.6"/><path d="M16 3.4v3.6"/>' +
+      '<path d="M8 13.4h.01"/><path d="M12 13.4h.01"/><path d="M16 13.4h.01"/>' +
+      '<path d="M8 17h.01"/><path d="M12 17h.01"/>',
+
     menu: '<path d="M4 7.2h16"/><path d="M4 12h16"/><path d="M4 16.8h16"/>',
 
     chiudi: '<path d="m6.4 6.4 11.2 11.2"/><path d="M17.6 6.4 6.4 17.6"/>',
