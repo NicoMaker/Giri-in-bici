@@ -85,6 +85,23 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     return righe;
   };
 
+  // Chiave cronologica di un periodo: anno di inizio del periodo * 10
+  // + l'ordine della stagione nell'anno (0=Primavera, 1=Estate,
+  // 2=Autunno/Inverno). Serve perché confrontare solo l'anno (con
+  // parseInt) non basta: "Primavera 2026" ed "Estate 2026" avrebbero
+  // altrimenti la STESSA chiave (2026) e "Più recente"/"Meno recente"
+  // non saprebbe quale mettere prima. Con questa chiave invece:
+  //   Estate 2025 (20251) < Autunno_Inverno 2025-2026 (20252)
+  //   < Primavera 2026 (20260) < Estate 2026 (20261) < ...
+  // cioè l'Autunno/Inverno a cavallo fra due anni viene dopo l'Estate
+  // dell'anno in cui inizia e prima della Primavera dell'anno in cui
+  // finisce, esattamente come nel calendario vero.
+  function ordineCronologicoPeriodo(nomeGrezzoStagione, etichettaPeriodo) {
+    const indiceStagione = ORDINE_CALENDARIO_STAGIONI[nomeGrezzoStagione] ?? 0;
+    const annoInizio = parseInt(etichettaPeriodo, 10) || 0;
+    return annoInizio * 10 + indiceStagione;
+  }
+
   // Una riga per OGNI periodo, non per stagione: "Estate 2020",
   // "Autunno · Inverno 2020-2021", ecc. Così si può confrontare un
   // singolo periodo completo con un altro, anche di stagioni diverse.
@@ -116,6 +133,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
               // sempre lo stesso nome della chiave grezza della stagione.
               link: `../../${stagione.name}/${etichettaPeriodo}.html`,
               km: sommaDistanze(corse),
+              ordineCronologico: ordineCronologicoPeriodo(
+                stagione.name,
+                etichettaPeriodo,
+              ),
             });
           }),
         );

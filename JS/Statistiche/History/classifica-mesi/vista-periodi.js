@@ -56,7 +56,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           r.percentuale =
             totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
         });
-        const dataPeriodoDi = (r) => parseInt(r.periodo, 10) || 0;
+        const dataPeriodoDi = (r) => r.ordineCronologico || 0;
         const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
           spareggio: dataPeriodoDi,
           nome: (r) => r.nome,
