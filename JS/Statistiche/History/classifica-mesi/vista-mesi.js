@@ -35,17 +35,22 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
       // Ordina: per media usiamo il valore kmMedi, per gli altri usiamo km
-      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => {
-        // se l'ordine è media-desc o media-asc, usiamo kmMedi
-        if (stato.ordine === "media-desc" || stato.ordine === "media-asc") {
-          return r.kmMedi;
-        }
-        return r.km;
-      }, {
-        spareggio: (r) => ConfigMesi.ordine[r.mese] || 0,
-        nome: (r) => r.mese,
-        data: (r) => ConfigMesi.ordine[r.mese] || 0,
-      });
+      const ordinate = CC.ordina(
+        filtrate,
+        stato.ordine,
+        (r) => {
+          // se l'ordine è media-desc o media-asc, usiamo kmMedi
+          if (stato.ordine === "media-desc" || stato.ordine === "media-asc") {
+            return r.kmMedi;
+          }
+          return r.km;
+        },
+        {
+          spareggio: (r) => ConfigMesi.ordine[r.mese] || 0,
+          nome: (r) => r.mese,
+          data: (r) => ConfigMesi.ordine[r.mese] || 0,
+        },
+      );
       const perPodio = ordinate.slice(0, 3);
 
       if (podioEl)
