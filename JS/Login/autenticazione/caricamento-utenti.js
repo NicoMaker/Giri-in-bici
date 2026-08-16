@@ -1,6 +1,6 @@
 // ============================================================
 // dati.js — Carica i dati degli utenti dal JSON
-// Richiamato da Login/scriptLogin.js
+// Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
 // Variabile globale temporanea (non salvata)

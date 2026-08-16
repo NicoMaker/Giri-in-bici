@@ -1,6 +1,6 @@
 // ============================================================
 // ricerca.js — Filtra le voci mentre si scrive
-// Richiamato da JS/Menu.js
+// Richiamato da js/layout/menu-avvio.js
 // ============================================================
 
 /**

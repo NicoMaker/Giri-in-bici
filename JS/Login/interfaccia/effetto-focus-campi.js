@@ -1,6 +1,6 @@
 // ============================================================
 // campi.js — Effetti sui campi e occhio per vedere la password
-// Richiamato da Login/scriptLogin.js
+// Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
 function initInputFocusEffects() {

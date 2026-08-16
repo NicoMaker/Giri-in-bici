@@ -1,6 +1,6 @@
 // ============================================================
 // cookie.js — Banner dei cookie: accetta, revoca, ricorda la scelta
-// Richiamato da Login/scriptLogin.js
+// Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
 // Cookie banner

@@ -1,6 +1,6 @@
 // ============================================================
 // elementi.js — Piccole utilita' condivise dagli altri componenti
-// Richiamato da Login/scriptLogin.js
+// Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
 // Utilità

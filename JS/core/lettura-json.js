@@ -9,9 +9,13 @@
 // sito. Per farla funzionare da qualsiasi pagina, a qualunque
 // profondita', sia online che aprendo i file in locale, questo file
 // calcola da solo dove si trova la radice del sito partendo dalla
-// propria posizione (vive sempre in "js/json.js"). Cosi' i percorsi
+// propria posizione (vive sempre in "js/core/lettura-json.js"). Cosi' i percorsi
 // che gli si passano si scrivono sempre allo stesso modo, a partire
 // dalla radice: "json/Bici/bici.json", non "../../Js/bici.json".
+//
+// Ora vive in "js/core/lettura-json.js" (prima era "js/json.js"):
+// il calcolo della radice del sito qui sotto tiene conto del nuovo
+// percorso.
 //
 // Due modi di leggere, a seconda di cosa deve succedere se il file
 // non arriva:
@@ -40,7 +44,7 @@ window.Json = window.Json || {};
   // in cima e non dentro le funzioni async piu' sotto.
   const percorsoScript = document.currentScript && document.currentScript.src;
   const RADICE_SITO = percorsoScript
-    ? percorsoScript.replace(/js\/json\.js(?:[?#].*)?$/, "")
+    ? percorsoScript.replace(/js\/core\/lettura-json\.js(?:[?#].*)?$/, "")
     : "";
 
   function risolvi(percorso) {

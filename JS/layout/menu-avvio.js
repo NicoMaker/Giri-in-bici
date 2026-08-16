@@ -1,7 +1,7 @@
 // ============================================================
 // Menu.js — Avvio del menu laterale (hamburger)
 //
-// Carica JS/Menu.json, ordina le voci e collega la ricerca.
+// Carica json/Menu.json, ordina le voci e collega la ricerca.
 // I pezzi stanno in JS/Menu/:
 //   voci.js     icona e HTML di ogni voce
 //   ricerca.js  filtro mentre si scrive

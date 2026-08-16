@@ -1,6 +1,6 @@
 // ============================================================
 // accesso.js — Controllo di nome utente e password
-// Richiamato da Login/scriptLogin.js
+// Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
 function initLoginSystem() {

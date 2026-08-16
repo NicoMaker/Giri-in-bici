@@ -1,6 +1,6 @@
 // ============================================================
 // menu-tastiera.js — Il tasto Esc chiude il menu laterale
-// Lavora insieme a JS/Hamburger.js: simula il click sul pulsante,
+// Lavora insieme a js/layout/menu-interruttore.js: simula il click sul pulsante,
 // così la chiusura resta una sola, in un posto solo.
 // ============================================================
 

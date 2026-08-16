@@ -1,6 +1,6 @@
 // ============================================================
 // sfondo.js — Gradienti del marchio che si alternano da soli
-// Richiamato da Login/scriptLogin.js
+// Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
 function initBackgroundAnimation() {

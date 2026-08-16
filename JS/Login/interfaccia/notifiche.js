@@ -1,6 +1,6 @@
 // ============================================================
 // notifiche.js — Messaggio che compare in cima alla pagina
-// Richiamato da Login/scriptLogin.js
+// Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
 function showNotification(message, type) {

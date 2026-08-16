@@ -1,6 +1,6 @@
 // ============================================================
 // particelle.js — Sfondo animato con particles.js
-// Richiamato da Login/scriptLogin.js
+// Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
 function initParticlesJS() {

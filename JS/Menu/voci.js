@@ -1,6 +1,6 @@
 // ============================================================
 // voci.js — Icona e HTML di ogni voce del menu
-// Richiamato da JS/Menu.js
+// Richiamato da js/layout/menu-avvio.js
 // ============================================================
 
 /**
