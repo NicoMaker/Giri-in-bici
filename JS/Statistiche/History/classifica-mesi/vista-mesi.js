@@ -28,12 +28,20 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     function disegnaMesi() {
       const stato = controlliMesi.stato();
       const cercate = CC.cerca(righeMesi, stato.testo, (r) => r.mese);
+      // Il filtro per km si applica sempre sui km totali (non sulla media)
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
       const totaleFiltrato = filtrate.reduce((tot, r) => tot + r.km, 0);
       filtrate.forEach((r) => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
-      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
+      // Ordina: per media usiamo il valore kmMedi, per gli altri usiamo km
+      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => {
+        // se l'ordine è media-desc o media-asc, usiamo kmMedi
+        if (stato.ordine === "media-desc" || stato.ordine === "media-asc") {
+          return r.kmMedi;
+        }
+        return r.km;
+      }, {
         spareggio: (r) => ConfigMesi.ordine[r.mese] || 0,
         nome: (r) => r.mese,
         data: (r) => ConfigMesi.ordine[r.mese] || 0,
@@ -49,6 +57,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             totaleFiltrato,
             `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")}`,
           );
+      }
+      // Aggiorna il titolo (ora in podio/mesi.js gestisce i nuovi ordini)
+      const titoloEl = document.getElementById("classifica-titolo");
+      if (titoloEl) {
+        titoloEl.innerHTML = CM.creaTitolo(perPodio, stato.ordine);
       }
     }
 

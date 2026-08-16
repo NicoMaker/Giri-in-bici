@@ -229,6 +229,7 @@ window.ClassificaControlli = window.ClassificaControlli || {};
   //   "desc" / "asc"              per km/distanza (comportamento originale)
   //   "alfabetico" / "alfabetico-desc"   per nome, A→Z o Z→A
   //   "data-recente" / "data-vecchio"    per data/cronologia
+  //   "media-desc" / "media-asc"         per media mensile (più alta/bassa)
   //
   // Il quarto parametro "extra" resta compatibile con l'uso di prima
   // (una funzione = solo lo spareggio) ma accetta anche un oggetto
@@ -256,6 +257,21 @@ window.ClassificaControlli = window.ClassificaControlli || {};
     var nomeDi = opzioni.nome;
     var dataDi = opzioni.data || valoreDi;
 
+    // --- Nuovo: ordinamento per media ---
+    if (ordine === "media-desc" || ordine === "media-asc") {
+      // Usiamo valoreDi come estrattore della media (che nel caso dei mesi è r.kmMedi)
+      return righe.slice().sort(function (a, b) {
+        var valA = valoreDi(a);
+        var valB = valoreDi(b);
+        if (ordine === "media-desc") {
+          return valB - valA;
+        } else {
+          return valA - valB;
+        }
+      });
+    }
+
+    // --- Ordinamento alfabetico ---
     if (ordine === "alfabetico" || ordine === "alfabetico-desc") {
       var estraiNome =
         nomeDi ||
@@ -272,6 +288,7 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       });
     }
 
+    // --- Ordinamento per data ---
     if (ordine === "data-recente" || ordine === "data-vecchio") {
       return righe.slice().sort(function (a, b) {
         return ordine === "data-recente"
@@ -280,6 +297,7 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       });
     }
 
+    // --- Ordinamento per km (desc/asc) con spareggio ---
     return righe.slice().sort(function (a, b) {
       var perValore =
         ordine === "asc"

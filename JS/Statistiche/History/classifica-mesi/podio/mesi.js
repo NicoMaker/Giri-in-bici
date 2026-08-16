@@ -57,10 +57,22 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
     const primo = righe[0];
-    // La frase "hai pedalato di più/meno" ha senso solo quando
-    // l'ordine è per km (desc/asc): con alfabetico o per data il
-    // primo della lista non è affatto il record, quindi qui si
-    // resta neutri e si mostra solo il primo della lista scelta.
+    // Gestione dei nuovi ordinamenti per media
+    if (ordine === "media-desc") {
+      return `
+        Il mese con la media chilometrica più alta è
+        <strong>${primo.mese}</strong>, con
+        <strong>${formatItalianNumber(primo.kmMedi, true)} km</strong> di media
+        su ${formatItalianNumber(primo.occorrenze)} ${pluralizza(primo.occorrenze, "anno", "anni")} pedalati.`;
+    }
+    if (ordine === "media-asc") {
+      return `
+        Il mese con la media chilometrica più bassa è
+        <strong>${primo.mese}</strong>, con
+        <strong>${formatItalianNumber(primo.kmMedi, true)} km</strong> di media
+        su ${formatItalianNumber(primo.occorrenze)} ${pluralizza(primo.occorrenze, "anno", "anni")} pedalati.`;
+    }
+    // Per gli altri ordinamenti (km, alfabetico, data) si comporta come prima
     if (ordine !== "desc" && ordine !== "asc") {
       return `
         Primo nell&rsquo;ordine scelto &egrave;
