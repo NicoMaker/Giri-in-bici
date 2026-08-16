@@ -183,7 +183,17 @@ window.DatiGiri = window.DatiGiri || {};
     });
   }
 
-  // Ordina un elenco di uscite secondo uno dei 5 criteri dei bottoni
+  // Confronto senza badare ad accenti/maiuscole, cosi' "citta" trova
+  // anche "Città". Condivisa fra il filtro testo della ricerca per
+  // data e la ricerca per posto.
+  D.normalizza = function (testo) {
+    return testo
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLocaleLowerCase("it");
+  };
+
+  // Ordina un elenco di uscite secondo uno dei 6 criteri dei bottoni
   // "Ordina per" (condiviso fra ricerca per data e ricerca per
   // posto). A parita' di km o di posto, decide sempre la data.
   D.ordina = function (uscite, criterio) {
@@ -210,6 +220,11 @@ window.DatiGiri = window.DatiGiri || {};
           return a.distanza - b.distanza || perData(a, b);
         });
         break;
+      case "alfabetico-desc":
+        copia.sort(function (a, b) {
+          return perAlfabeto(b, a) || perData(a, b);
+        });
+        break;
       case "alfabetico":
       default:
         copia.sort(function (a, b) {
@@ -227,12 +242,7 @@ window.DatiGiri = window.DatiGiri || {};
   // ogni momento il criterio attualmente scelto.
   D.inizializzaBottoniOrdine = function (idGruppo, alCambio) {
     var gruppo = document.getElementById(idGruppo);
-    if (!gruppo)
-      return {
-        leggi: function () {
-          return "alfabetico";
-        },
-      };
+    if (!gruppo) return { leggi: function () { return "alfabetico"; } };
 
     var bottoni = gruppo.querySelectorAll(".criterio-ordine__pulsante");
     var criterioAttuale = "alfabetico";
@@ -278,12 +288,7 @@ window.DatiGiri = window.DatiGiri || {};
       .map(function (u, indice) {
         var info = T
           ? T.analizzaLuogo(u.postoHtml)
-          : {
-              nome: u.postoHtml,
-              nomeTesto: u.postoTesto,
-              href: null,
-              linkMultipli: null,
-            };
+          : { nome: u.postoHtml, nomeTesto: u.postoTesto, href: null, linkMultipli: null };
         var linkMultipli =
           T && info.linkMultipli ? T.creaLinkMultipli(info.linkMultipli) : "";
 
@@ -325,7 +330,7 @@ window.DatiGiri = window.DatiGiri || {};
 
     var riepilogo =
       uscite.length > 1
-        ? '<p class="hero-sub">' +
+        ? "<p class=\"hero-sub\">" +
           uscite.length +
           " giri trovati, per un totale di " +
           window.formatNumber(totaleKm) +

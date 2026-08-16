@@ -1,12 +1,12 @@
 # 📋 Aggiornamenti e Manutenzione
 
-Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per mantenere il sito sempre aggiornato.
+Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per mantenere il sito sempre aggiornato. 
 
 ---
 
 ## 📂 Aggiornare i Dati JSON
 
-### Stagione
+### Stagione 
 
 1. **Aggiorna il file JSON per la stagione Estate 2026**
    - **Percorso:** [`json/Estate/Periodi/2026.json`](json/Estate/Periodi/2026.json)

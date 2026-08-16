@@ -17,6 +17,7 @@
 
   var ultimiRisultati = null;
   var bottoniOrdine = null;
+  var filtroPostoTesto = "";
 
   function nuovaRigaData() {
     var riga = document.createElement("div");
@@ -77,6 +78,9 @@
 
     contenitore.innerHTML = "";
     ultimiRisultati = null;
+    var campoFiltro = document.getElementById("filtroPostoData");
+    if (campoFiltro) campoFiltro.value = "";
+    filtroPostoTesto = "";
 
     if (!valori.length) {
       messaggio.textContent = "Scegli almeno una data.";
@@ -169,10 +173,36 @@
 
   function mostraOrdinati() {
     var contenitore = document.getElementById("risultatiCercaData");
+    var messaggio = document.getElementById("messaggioCercaData");
     if (!contenitore || !ultimiRisultati) return;
+
+    var risultatiFiltrati = filtroPostoTesto
+      ? ultimiRisultati.filter(function (u) {
+          return (
+            window.DatiGiri.normalizza(u.postoTesto).indexOf(
+              filtroPostoTesto,
+            ) !== -1
+          );
+        })
+      : ultimiRisultati;
+
+    if (filtroPostoTesto && risultatiFiltrati.length === 0) {
+      contenitore.innerHTML = "";
+      if (messaggio) {
+        messaggio.textContent =
+          'Nessun risultato corrisponde al filtro "' +
+          document.getElementById("filtroPostoData").value +
+          '".';
+        messaggio.hidden = false;
+      }
+      return;
+    }
+
+    if (messaggio && filtroPostoTesto) messaggio.hidden = true;
+
     var criterio = bottoniOrdine ? bottoniOrdine.leggi() : "data-recente";
     contenitore.innerHTML = window.DatiGiri.elencoRisultati(
-      window.DatiGiri.ordina(ultimiRisultati, criterio),
+      window.DatiGiri.ordina(risultatiFiltrati, criterio),
     );
   }
 
@@ -197,6 +227,14 @@
       "criterioOrdinamentoData",
       mostraOrdinati,
     );
+
+    var campoFiltro = document.getElementById("filtroPostoData");
+    if (campoFiltro) {
+      campoFiltro.addEventListener("input", function () {
+        filtroPostoTesto = window.DatiGiri.normalizza(campoFiltro.value.trim());
+        mostraOrdinati();
+      });
+    }
 
     form.addEventListener("submit", function (evento) {
       evento.preventDefault();

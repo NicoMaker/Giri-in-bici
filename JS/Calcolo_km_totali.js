@@ -49,8 +49,29 @@ const processHistoricalData = (data) => {
   });
 };
 
+// Conta i periodi totali (Primavera + Estate + Autunno-Inverno), la
+// stessa fonte gia' usata da Statistiche > Confronto tra le stagioni,
+// cosi' il numero resta sempre coerente fra le due pagine.
+const contaPeriodiTotali = () =>
+  fetchJSON("json/Statistiche/anni/stagioni/stagioni.json")
+    .then((dati) => {
+      if (!dati || !Array.isArray(dati.seasons)) return 0;
+      return dati.seasons.reduce(
+        (somma, stagione) =>
+          somma + Object.keys(stagione.subPeriods || {}).length,
+        0,
+      );
+    })
+    .catch(() => 0);
+
 // Stampa i dati nel div #km
-const stampaDati = (totalKm, totalMonths, totalRaces, totalYears) => {
+const stampaDati = (
+  totalKm,
+  totalMonths,
+  totalRaces,
+  totalYears,
+  totalPeriods,
+) => {
   const avgKmPerRace =
     totalRaces > 0 ? formatNumber(totalKm / totalRaces) : "0";
   const avgKmPerMonth =
@@ -61,6 +82,8 @@ const stampaDati = (totalKm, totalMonths, totalRaces, totalYears) => {
     totalYears > 0 ? formatNumber(totalRaces / totalYears) : "N/A";
   const avgKmPerYear =
     totalYears > 0 ? formatNumber(totalKm / totalYears) : "N/A";
+  const avgKmPerPeriod =
+    totalPeriods > 0 ? formatNumber(totalKm / totalPeriods) : "N/A";
 
   const formattedTotalKm = formatItalianNumber(totalKm);
   const formattedTotalRaces = formatItalianNumber(totalRaces);
@@ -76,21 +99,28 @@ const stampaDati = (totalKm, totalMonths, totalRaces, totalYears) => {
       <p class="misuracolore">Corse medie per anno ${avgRacesPerYear}</p>
       <p class="misuracolore">Totale anni di corsa ${formatItalianNumber(totalYears)}</p>
       <p class="misuracolore">Totale mesi di corsa ${formatItalianNumber(totalMonths)}</p>
+      <p class="misuracolore">📅 Periodi ${formatItalianNumber(totalPeriods)}</p>
+      <p class="misuracolore">Media km per periodo ${avgKmPerPeriod}</p>
       <span class="colore__vai-a">Vai alle statistiche complete <span class="freccia" aria-hidden="true">→</span></span>
     </div>
   `;
 };
 
-// Avvio: carica Storico.json
-fetchJSON("json/Statistiche/History/Storico.json")
-  .then((data) => processHistoricalData(data))
-  .then((result) => {
+// Avvio: carica Storico.json e, in parallelo, il conteggio dei periodi
+Promise.all([
+  fetchJSON("json/Statistiche/History/Storico.json").then((data) =>
+    processHistoricalData(data),
+  ),
+  contaPeriodiTotali(),
+])
+  .then(([result, totalPeriods]) => {
     if (result) {
       stampaDati(
         result.totalKm,
         result.totalMonths,
         result.totalRaces,
         result.totalYears,
+        totalPeriods,
       );
     }
   })
