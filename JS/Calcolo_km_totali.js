@@ -101,6 +101,7 @@ const stampaDati = (
       <p class="misuracolore">Totale mesi di corsa ${formatItalianNumber(totalMonths)}</p>
       <p class="misuracolore">📅 Periodi ${formatItalianNumber(totalPeriods)}</p>
       <p class="misuracolore">Media km per periodo ${avgKmPerPeriod}</p>
+      <p class="misuracolore">Media corse per stagione ${formatNumber(totalKm / 3)}</p>
       <span class="colore__vai-a">Vai alle statistiche complete <span class="freccia" aria-hidden="true">→</span></span>
     </div>
   `;
