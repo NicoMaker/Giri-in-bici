@@ -250,13 +250,18 @@ window.ClassificaControlli = window.ClassificaControlli || {};
   //     anno, o un qualunque indice crescente nel tempo). Se manca,
   //     si ricade su valoreDi.
   C.ordina = function (righe, ordine, valoreDi, extra) {
-    var opzioni = typeof extra === "function" ? { spareggio: extra } : extra || {};
+    var opzioni =
+      typeof extra === "function" ? { spareggio: extra } : extra || {};
     var valoreSpareggio = opzioni.spareggio;
     var nomeDi = opzioni.nome;
     var dataDi = opzioni.data || valoreDi;
 
     if (ordine === "alfabetico" || ordine === "alfabetico-desc") {
-      var estraiNome = nomeDi || function () { return ""; };
+      var estraiNome =
+        nomeDi ||
+        function () {
+          return "";
+        };
       return righe.slice().sort(function (a, b) {
         var risultato = String(estraiNome(a)).localeCompare(
           String(estraiNome(b)),

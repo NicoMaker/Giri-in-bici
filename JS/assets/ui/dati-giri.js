@@ -242,7 +242,12 @@ window.DatiGiri = window.DatiGiri || {};
   // ogni momento il criterio attualmente scelto.
   D.inizializzaBottoniOrdine = function (idGruppo, alCambio) {
     var gruppo = document.getElementById(idGruppo);
-    if (!gruppo) return { leggi: function () { return "alfabetico"; } };
+    if (!gruppo)
+      return {
+        leggi: function () {
+          return "alfabetico";
+        },
+      };
 
     var bottoni = gruppo.querySelectorAll(".criterio-ordine__pulsante");
     var criterioAttuale = "alfabetico";
@@ -288,7 +293,12 @@ window.DatiGiri = window.DatiGiri || {};
       .map(function (u, indice) {
         var info = T
           ? T.analizzaLuogo(u.postoHtml)
-          : { nome: u.postoHtml, nomeTesto: u.postoTesto, href: null, linkMultipli: null };
+          : {
+              nome: u.postoHtml,
+              nomeTesto: u.postoTesto,
+              href: null,
+              linkMultipli: null,
+            };
         var linkMultipli =
           T && info.linkMultipli ? T.creaLinkMultipli(info.linkMultipli) : "";
 
@@ -330,7 +340,7 @@ window.DatiGiri = window.DatiGiri || {};
 
     var riepilogo =
       uscite.length > 1
-        ? "<p class=\"hero-sub\">" +
+        ? '<p class="hero-sub">' +
           uscite.length +
           " giri trovati, per un totale di " +
           window.formatNumber(totaleKm) +

@@ -33,7 +33,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // "Meno recente": le tre stagioni non hanno una data propria (sono
   // il totale di tutti gli anni), quindi "cronologico" qui significa
   // l'ordine in cui si susseguono nell'anno, non un anno preciso.
-  const ORDINE_CALENDARIO_STAGIONI = { Primavera: 0, Estate: 1, Autunno_Inverno: 2 };
+  const ORDINE_CALENDARIO_STAGIONI = {
+    Primavera: 0,
+    Estate: 1,
+    Autunno_Inverno: 2,
+  };
 
   // Una riga per stagione: { stagione, km, periodi, kmMedi, percentuale }
   // periodi = in quanti anni diversi è stata pedalata quella stagione.
