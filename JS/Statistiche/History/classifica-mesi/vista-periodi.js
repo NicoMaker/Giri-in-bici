@@ -56,12 +56,12 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           r.percentuale =
             totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
         });
-        const ordinate = CC.ordina(
-          filtrate,
-          stato.ordine,
-          (r) => r.km,
-          (r) => parseInt(r.periodo, 10) || 0,
-        );
+        const dataPeriodoDi = (r) => parseInt(r.periodo, 10) || 0;
+        const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
+          spareggio: dataPeriodoDi,
+          nome: (r) => r.nome,
+          data: dataPeriodoDi,
+        });
         const perPodio = ordinate.slice(0, 3);
         const etichettaTotale = stagioneScelta
           ? `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")} di ${stagioneScelta}`

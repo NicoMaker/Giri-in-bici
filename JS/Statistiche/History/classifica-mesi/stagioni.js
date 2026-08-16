@@ -28,6 +28,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     return corse.reduce((tot, corsa) => tot + (corsa.distance || 0), 0);
   }
 
+  // Ordine di calendario delle stagioni (Primavera → Estate →
+  // Autunno/Inverno), usato solo per l'ordinamento "Più recente"/
+  // "Meno recente": le tre stagioni non hanno una data propria (sono
+  // il totale di tutti gli anni), quindi "cronologico" qui significa
+  // l'ordine in cui si susseguono nell'anno, non un anno preciso.
+  const ORDINE_CALENDARIO_STAGIONI = { Primavera: 0, Estate: 1, Autunno_Inverno: 2 };
+
   // Una riga per stagione: { stagione, km, periodi, kmMedi, percentuale }
   // periodi = in quanti anni diversi è stata pedalata quella stagione.
   CM.calcolaStagioni = async function () {
@@ -64,6 +71,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           km,
           periodi,
           kmMedi: periodi > 0 ? km / periodi : 0,
+          ordineCalendario: ORDINE_CALENDARIO_STAGIONI[stagione.name] ?? 0,
         };
       }),
     );

@@ -38,6 +38,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
     const primo = righe[0];
+    if (ordine !== "desc" && ordine !== "asc") {
+      return `
+        Prima nell&rsquo;ordine scelto &egrave;
+        <strong>${primo.stagione}</strong>, con
+        <strong>${formatItalianNumber(primo.km)} km</strong> percorsi
+        in totale.`;
+    }
     const superlativo = ordine === "asc" ? "di meno" : "di pi&ugrave;";
     return `
       La stagione in cui pedali ${superlativo} &egrave;

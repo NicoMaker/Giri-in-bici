@@ -225,33 +225,60 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   // della pagina Classifica, dove il pulsante "Ordine" esiste davvero,
   // sceglie invece podio E lista insieme — "dal meno al più lungo"
   // inverte tutto, podio compreso, stesso comportamento delle altre
-  // schede (vedi assets/classifica-controlli.js).
+  // schede (vedi assets/classifica-controlli.js). Oltre a "desc"/"asc"
+  // (per distanza) accetta anche "alfabetico"/"alfabetico-desc" (per
+  // nome del posto) e "data-recente"/"data-vecchio" (per data della
+  // tappa, campo "dataOrdine").
   T.mostra = function (idPodio, idLista, righe, limite, ordine) {
     var contenitorePodio = document.getElementById(idPodio);
     var contenitoreLista = document.getElementById(idLista);
     if (!contenitorePodio || !contenitoreLista) return;
 
-    var ordineEffettivo = ordine === "asc" ? "asc" : "desc";
-    var righeOrdinate = righe.slice().sort(function (a, b) {
-      var perDistanza =
-        ordineEffettivo === "asc"
-          ? a.distance - b.distance
-          : b.distance - a.distance;
-      if (perDistanza !== 0) return perDistanza;
-      // Stessi km: la parita' la decide la data, nello STESSO verso
-      // della classifica attuale — non e' una regola fissa a se'.
-      // Dal piu' al meno pedalato vince chi l'ha fatta prima (la
-      // data piu' vecchia "pesa" come se la strada fosse un filo piu'
-      // lunga). Dal meno al piu' pedalato si specchia: chi l'ha fatta
-      // DOPO conta come se fosse un filo piu' corta, quindi passa
-      // avanti li'. Esempio: 70km il 5 luglio e 70km il 6 luglio —
-      // nell'ordine "dal meno al piu'" il 6 luglio risulta la piu'
-      // corta delle due e va prima; nell'ordine "dal piu' al meno" e'
-      // il 5 luglio a vincere la parita' e andare prima.
-      return ordineEffettivo === "asc"
-        ? (b.dataOrdine || 0) - (a.dataOrdine || 0)
-        : (a.dataOrdine || 0) - (b.dataOrdine || 0);
-    });
+    var righeOrdinate;
+
+    if (ordine === "alfabetico" || ordine === "alfabetico-desc") {
+      // Alfabetico per nome del posto (testo semplice, senza gli
+      // eventuali link/bandierine di "nome"): stesso confronto
+      // "italiano" usato da ClassificaControlli.ordina.
+      righeOrdinate = righe.slice().sort(function (a, b) {
+        var risultato = String(a.nomeTesto || a.nome || "").localeCompare(
+          String(b.nomeTesto || b.nome || ""),
+          "it",
+          { sensitivity: "base", numeric: true },
+        );
+        return ordine === "alfabetico-desc" ? -risultato : risultato;
+      });
+    } else if (ordine === "data-recente" || ordine === "data-vecchio") {
+      // Per data della tappa (dataOrdine, tipo aaaammgg): dal piu'
+      // recente al meno recente o viceversa.
+      righeOrdinate = righe.slice().sort(function (a, b) {
+        return ordine === "data-recente"
+          ? (b.dataOrdine || 0) - (a.dataOrdine || 0)
+          : (a.dataOrdine || 0) - (b.dataOrdine || 0);
+      });
+    } else {
+      var ordineEffettivo = ordine === "asc" ? "asc" : "desc";
+      righeOrdinate = righe.slice().sort(function (a, b) {
+        var perDistanza =
+          ordineEffettivo === "asc"
+            ? a.distance - b.distance
+            : b.distance - a.distance;
+        if (perDistanza !== 0) return perDistanza;
+        // Stessi km: la parita' la decide la data, nello STESSO verso
+        // della classifica attuale — non e' una regola fissa a se'.
+        // Dal piu' al meno pedalato vince chi l'ha fatta prima (la
+        // data piu' vecchia "pesa" come se la strada fosse un filo piu'
+        // lunga). Dal meno al piu' pedalato si specchia: chi l'ha fatta
+        // DOPO conta come se fosse un filo piu' corta, quindi passa
+        // avanti li'. Esempio: 70km il 5 luglio e 70km il 6 luglio —
+        // nell'ordine "dal meno al piu'" il 6 luglio risulta la piu'
+        // corta delle due e va prima; nell'ordine "dal piu' al meno" e'
+        // il 5 luglio a vincere la parita' e andare prima.
+        return ordineEffettivo === "asc"
+          ? (b.dataOrdine || 0) - (a.dataOrdine || 0)
+          : (a.dataOrdine || 0) - (b.dataOrdine || 0);
+      });
+    }
     var totaleKm = righe.reduce(function (tot, r) {
       return tot + r.distance;
     }, 0);

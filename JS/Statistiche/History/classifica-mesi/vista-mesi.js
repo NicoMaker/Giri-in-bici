@@ -33,12 +33,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       filtrate.forEach((r) => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
-      const ordinate = CC.ordina(
-        filtrate,
-        stato.ordine,
-        (r) => r.km,
-        (r) => ConfigMesi.ordine[r.mese] || 0,
-      );
+      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
+        spareggio: (r) => ConfigMesi.ordine[r.mese] || 0,
+        nome: (r) => r.mese,
+        data: (r) => ConfigMesi.ordine[r.mese] || 0,
+      });
       const perPodio = ordinate.slice(0, 3);
 
       if (podioEl)
@@ -61,12 +60,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       filtrate.forEach((r) => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
-      const ordinate = CC.ordina(
-        filtrate,
-        stato.ordine,
-        (r) => r.km,
-        (r) => Number(r.anno) || 0,
-      );
+      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
+        spareggio: (r) => Number(r.anno) || 0,
+        nome: (r) => r.nome,
+        data: (r) => Number(r.anno) || 0,
+      });
       const perPodio = ordinate.slice(0, 3);
 
       if (titoloAnniEl)
@@ -147,12 +145,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           r.percentuale =
             totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
         });
-        const ordinate = CC.ordina(
-          filtrate,
-          stato.ordine,
-          (r) => r.km,
-          (r) => (Number(r.anno) || 0) * 100 + (ConfigMesi.ordine[r.mese] || 0),
-        );
+        const dataRecordDi = (r) =>
+          (Number(r.anno) || 0) * 100 + (ConfigMesi.ordine[r.mese] || 0);
+        const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
+          spareggio: dataRecordDi,
+          nome: (r) => r.nome,
+          data: dataRecordDi,
+        });
         const perPodio = ordinate.slice(0, 3);
         const etichettaTotale = annoSelezionato
           ? `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} del ${annoSelezionato}`

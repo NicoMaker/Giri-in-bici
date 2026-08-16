@@ -1,9 +1,11 @@
 // ============================================================
 // classifica-controlli.js — Controlli condivisi delle schede della
-// pagina Classifica: "Ordine" (dal più al meno pedalato o inverso),
-// "Filtro per km" (da...a, con scorciatoie Min/Max) e "Cerca" (un
-// campo di testo libero, per nome del mese, dell'anno, della
-// stagione, del periodo o del giro/posto a seconda della scheda).
+// pagina Classifica: "Ordine" (dal più al meno pedalato o inverso,
+// alfabetico A-Z/Z-A, oppure dal più recente al meno recente o
+// inverso), "Filtro per km" (da...a, con scorciatoie Min/Max) e
+// "Cerca" (un campo di testo libero, per nome del mese, dell'anno,
+// della stagione, del periodo o del giro/posto a seconda della
+// scheda).
 //
 // Un solo pezzo di logica, riusato una volta per scheda (Mesi
 // migliori, Km mensili, Anni, Stagioni, Periodi, Giri: tutte e sei
@@ -222,14 +224,57 @@ window.ClassificaControlli = window.ClassificaControlli || {};
   // Solo l'ordinamento: restituisce sempre una copia nuova, non
   // tocca mai l'array originale (che altre parti della pagina
   // potrebbero ancora star usando in ordine diverso).
-  // "valoreSpareggio" e' opzionale: a parita' di valoreDi (es. stessi
-  // km) decide chi va prima, nello STESSO verso della classifica
-  // attuale — stessa logica gia' usata per i Giri/Tappe
-  // (assets/tappe-piu-lunghe.js): dal piu' al meno pedalato vince il
-  // valore di spareggio piu' vecchio/basso, dal meno al piu' si
-  // specchia e vince quello piu' recente/alto. Senza spareggio (non
-  // passato), le righe pari restano nell'ordine di prima, come sempre.
-  C.ordina = function (righe, ordine, valoreDi, valoreSpareggio) {
+  //
+  // "ordine" può valere:
+  //   "desc" / "asc"              per km/distanza (comportamento originale)
+  //   "alfabetico" / "alfabetico-desc"   per nome, A→Z o Z→A
+  //   "data-recente" / "data-vecchio"    per data/cronologia
+  //
+  // Il quarto parametro "extra" resta compatibile con l'uso di prima
+  // (una funzione = solo lo spareggio) ma accetta anche un oggetto
+  // con fino a tre estrattori:
+  //   { spareggio, nome, data }
+  //   - "spareggio" (opzionale): a parita' di valoreDi (es. stessi km)
+  //     decide chi va prima nell'ordine "desc"/"asc", nello STESSO
+  //     verso della classifica attuale — stessa logica di sempre per
+  //     i Giri/Tappe (assets/tappe-piu-lunghe.js): dal piu' al meno
+  //     pedalato vince il valore di spareggio piu' vecchio/basso, dal
+  //     meno al piu' si specchia e vince quello piu' recente/alto.
+  //     Senza spareggio, le righe pari restano nell'ordine di prima.
+  //   - "nome" (richiesto per "alfabetico"/"alfabetico-desc"): estrae
+  //     il testo da confrontare riga per riga. Confronto con le
+  //     regole della lingua italiana (accenti, maiuscole/minuscole),
+  //     via localeCompare.
+  //   - "data" (richiesto per "data-recente"/"data-vecchio"): estrae
+  //     un numero comparabile riga per riga (timestamp, aaaammgg,
+  //     anno, o un qualunque indice crescente nel tempo). Se manca,
+  //     si ricade su valoreDi.
+  C.ordina = function (righe, ordine, valoreDi, extra) {
+    var opzioni = typeof extra === "function" ? { spareggio: extra } : extra || {};
+    var valoreSpareggio = opzioni.spareggio;
+    var nomeDi = opzioni.nome;
+    var dataDi = opzioni.data || valoreDi;
+
+    if (ordine === "alfabetico" || ordine === "alfabetico-desc") {
+      var estraiNome = nomeDi || function () { return ""; };
+      return righe.slice().sort(function (a, b) {
+        var risultato = String(estraiNome(a)).localeCompare(
+          String(estraiNome(b)),
+          "it",
+          { sensitivity: "base", numeric: true },
+        );
+        return ordine === "alfabetico-desc" ? -risultato : risultato;
+      });
+    }
+
+    if (ordine === "data-recente" || ordine === "data-vecchio") {
+      return righe.slice().sort(function (a, b) {
+        return ordine === "data-recente"
+          ? dataDi(b) - dataDi(a)
+          : dataDi(a) - dataDi(b);
+      });
+    }
+
     return righe.slice().sort(function (a, b) {
       var perValore =
         ordine === "asc"

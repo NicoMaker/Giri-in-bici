@@ -59,6 +59,12 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
     const primo = righe[0];
+    if (ordine !== "desc" && ordine !== "asc") {
+      return `
+        Primo nell&rsquo;ordine scelto &egrave;
+        <strong>${primo.nome}</strong>, con
+        <strong>${formatItalianNumber(primo.km)} km</strong> percorsi.`;
+    }
     const superlativo = ordine === "asc" ? "di meno" : "di pi&ugrave;";
     return `
       L'anno in cui hai pedalato ${superlativo} in assoluto &egrave;
