@@ -225,12 +225,18 @@
   position: static;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.55rem;
   flex: 0 0 auto;
-  padding: 0.35rem 0.95rem 0.35rem 0.4rem;
+  /* Stessa altezza dell'hamburger (46px, vedi componenti-ui/icone.css)
+     cosi' i due pulsanti risultano centrati sulla stessa linea invece
+     di dipendere dal padding per arrivare alla stessa altezza. */
+  min-height: 46px;
+  padding: 0.3rem 0.95rem 0.3rem 0.4rem;
   font-family: var(--font-head);
   font-size: 0.9rem;
   font-weight: 700;
+  line-height: 1;
   color: #fff;
   border: 1px solid transparent;
   border-radius: var(--r-full);
@@ -251,8 +257,9 @@
 }
 
 .Stagioni {
-  width: 38px;
-  height: 38px;
+  display: block;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
   flex: 0 0 auto;
 }
