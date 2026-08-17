@@ -96,9 +96,10 @@
 }
 
 .hamburger {
-  position: fixed;
-  top: 12px;
+  position: absolute;
+  top: 50%;
   right: 14px;
+  transform: translateY(-50%);
   z-index: 90;
   display: grid;
   place-items: center;
@@ -120,7 +121,7 @@
 }
 
 .hamburger:hover {
-  transform: translateY(-2px);
+  transform: translateY(calc(-50% - 2px));
   box-shadow: var(--sh-3);
   color: var(--a1);
 }

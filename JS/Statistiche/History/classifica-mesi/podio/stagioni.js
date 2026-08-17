@@ -52,4 +52,36 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       <strong>${formatItalianNumber(primo.km)} km</strong> percorsi
       in totale.`;
   };
+
+  CM.creaClassificaStagioni = function (righe) {
+    const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
+    return righe
+      .map((r, i) => {
+        const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
+        return `
+      <li class="classifica-riga classifica-riga--cliccabile${i < 3 ? " classifica-riga--podio" : ""}">
+        <a
+          class="classifica-riga__link"
+          href="${r.link}"
+          aria-label="Vai alla pagina di ${r.stagione}"
+        >
+          <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
+          <span class="classifica-riga__mese"
+            >${r.stagione}
+            <small class="classifica-riga__sotto"
+              >${formatNumber(r.percentuale)} % del totale &middot;
+              ${formatItalianNumber(r.periodi)} ${pluralizza(r.periodi, "anno pedalato", "anni pedalati")} &middot;
+              media ${formatItalianNumber(r.kmMedi, true)} km</small
+            >
+          </span>
+          <span class="classifica-riga__barra"
+            ><span style="--percentuale:${quota}%"></span
+          ></span>
+          <span class="classifica-riga__km anima-numero">${formatItalianNumber(r.km)} km</span>
+          <span class="classifica-riga__percentuale"></span>
+        </a>
+      </li>`;
+      })
+      .join("");
+  };
 })(window.ClassificaMesi);

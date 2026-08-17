@@ -11,6 +11,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     const CC = window.ClassificaControlli;
 
     const podioStagioniEl = document.getElementById("podio-stagioni");
+    const listaStagioniEl = document.getElementById("classifica-stagioni");
     const titoloStagioniEl = document.getElementById(
       "classifica-stagioni-titolo",
     );
@@ -33,6 +34,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         nome: (r) => r.stagione,
         data: (r) => r.ordineCalendario || 0,
       });
+      const etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "stagione", "stagioni")}`;
       if (titoloStagioniEl)
         titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(
           perPodio,
@@ -40,6 +42,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         );
       if (podioStagioniEl)
         podioStagioniEl.innerHTML = CM.creaPodioStagioni(perPodio);
+      if (listaStagioniEl)
+        listaStagioniEl.innerHTML =
+          CM.creaClassificaStagioni(perPodio) +
+          CM.creaRigaTotale(totaleFiltrato, etichettaTotale);
     }
 
     const controlliStagioni = CC.crea(
