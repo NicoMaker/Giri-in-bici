@@ -31,6 +31,12 @@ function renderDataListPaginated(
       startIndex + itemsPerPage,
     );
 
+    // Il periodo precedente e' quello prima di startIndex nell'elenco
+    // completo (non nella pagina corrente), cosi' il confronto resta
+    // corretto anche mostrando un periodo per volta.
+    const prevLabel = startIndex > 0 ? labels[startIndex - 1] : null;
+    const prevData = prevLabel ? data[prevLabel] : null;
+
     updateStampa(
       createStampa(
         currentLabels,
@@ -40,6 +46,7 @@ function renderDataListPaginated(
         season,
         cssclass,
         currentAvgValues,
+        prevData,
       ),
     );
 

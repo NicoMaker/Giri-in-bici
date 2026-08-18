@@ -3,31 +3,52 @@
 // Richiamato da JS/grafico_stagioni.js
 // ============================================================
 
-const createStampa = (labels, data, path, image, season, cssclass, avgValues) =>
+const createStampa = (
+    labels,
+    data,
+    path,
+    image,
+    season,
+    cssclass,
+    avgValues,
+    prevData,
+  ) =>
     labels
-      .map(
-        (label, index) => `
+      .map((label, index) => {
+        const km = data[label].totalDistance;
+        const corse = data[label].numberOfRaces;
+        const percKm = prevData
+          ? Variazioni.calcVariazione(km, prevData.totalDistance)
+          : null;
+        const percCorse = prevData
+          ? Variazioni.calcVariazione(corse, prevData.numberOfRaces)
+          : null;
+
+        return `
       <div class="${cssclass}contorno">
         <a href="${path}/${label}.html">
           <img class="immaginestagione" src="/img/Icons/${image}">
           <p class="titoli">
             ${season} ${label}
-            <p class="misuracolore">Totale km ${formatItalianNumber(data[label].totalDistance)}
+            <p class="misuracolore">Totale km ${formatItalianNumber(km)}
               <img src="/img/Icons/traguardo.png">
+              ${Variazioni.badgeVariazione(percKm, "vs periodo prec.")}
             </p>
             <p class="misuracolore">Percentuale periodo ${avgValues[index]} %</p>
-            <p class="misuracolore">Totale corse ${formatItalianNumber(data[label].numberOfRaces)}</p>
-            <p class="misuracolore">km medi per corsa ${formatNumber(data[label].totalDistance / data[label].numberOfRaces)}</p>
+            <p class="misuracolore">Totale corse ${formatItalianNumber(corse)}
+              ${Variazioni.badgeVariazione(percCorse, "vs periodo prec.")}
+            </p>
+            <p class="misuracolore">km medi per corsa ${formatNumber(km / corse)}</p>
           </p>
           <span class="colore__vai-a">Vai al periodo <span class="freccia" aria-hidden="true">→</span></span>
         </a>
       </div>
-    `,
-      )
+    `;
+      })
       .join(""),
   updateStampa = (stampa) =>
     (document.getElementById("stampa").innerHTML =
-      `<div class="container">${stampa}</div>`);
+      `${Variazioni.legenda("(% calcolata rispetto al periodo precedente)")}<div class="container">${stampa}</div>`);
 
 function adjustContainerLayout(cssclass) {
   const container = document.querySelector(".container");

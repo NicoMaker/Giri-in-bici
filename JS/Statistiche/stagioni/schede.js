@@ -33,7 +33,7 @@ window.Stagioni = window.Stagioni || {};
   // renderSeasonDiv — genera l'HTML di una singola scheda stagione
   // (usato per la sezione "Le tre stagioni" in alto)
   // ------------------------------------------------------------
-  S.renderSeasonDiv = function (season, data, numPeriods) {
+  S.renderSeasonDiv = function (season, data, numPeriods, prevSeason) {
     const totalKm = data[season.dataKey] || 0;
     const currentSeasonRaces = data[season.raceKey] || 0;
     const totalYearRaces = data.corseTotale || 0;
@@ -44,6 +44,17 @@ window.Stagioni = window.Stagioni || {};
     const avgKmPerRace =
       currentSeasonRaces > 0 ? totalKm / currentSeasonRaces : 0;
 
+    const etichetta = prevSeason ? `vs ${prevSeason.name}` : null;
+    const percKm = prevSeason
+      ? Variazioni.calcVariazione(totalKm, data[prevSeason.dataKey] || 0)
+      : null;
+    const percCorse = prevSeason
+      ? Variazioni.calcVariazione(
+          currentSeasonRaces,
+          data[prevSeason.raceKey] || 0,
+        )
+      : null;
+
     return `
     <div class="${season.containerClass}">
       <a href="${season.link}">
@@ -53,6 +64,7 @@ window.Stagioni = window.Stagioni || {};
         <p class="misuracolore">
           km totali ${formatItalianNumber(totalKm)}
           <img src="/img/Icons/traguardo.png" onerror="this.style.display='none'">
+          ${prevSeason ? Variazioni.badgeVariazione(percKm, etichetta) : ""}
         </p>
         
         <p class="misuracolore">Percentuale km sul totale ${formatNumber(seasonKmPercentage)} %</p>
@@ -60,6 +72,7 @@ window.Stagioni = window.Stagioni || {};
         <p class="misuracolore">
           Totale corse ${formatItalianNumber(currentSeasonRaces)} 
           (${formatItalianNumber(racePercentage, true)}%)
+          ${prevSeason ? Variazioni.badgeVariazione(percCorse, etichetta) : ""}
         </p>
         
         <p class="misuracolore">📅 Periodi: ${formatItalianNumber(numPeriods)}</p>
@@ -72,17 +85,32 @@ window.Stagioni = window.Stagioni || {};
 
   // ------------------------------------------------------------
   // renderStampa — genera l'HTML delle tre schede (usato in alto)
+  // Ogni scheda si confronta con quella subito prima nell'ordine
+  // Primavera → Estate → Autunno-Inverno (la prima non ha un
+  // "precedente" e non mostra il distintivo).
   // ------------------------------------------------------------
   S.renderStampa = function (data, numPeriodsPerSeason) {
-    return S.SEASONS_CONFIG.map(function (season) {
+    return S.SEASONS_CONFIG.map(function (season, index) {
       var numPeriods =
         season.name === "Primavera"
           ? numPeriodsPerSeason.primavera
           : season.name === "Estate"
             ? numPeriodsPerSeason.estate
             : numPeriodsPerSeason.autunno_inverno;
-      return S.renderSeasonDiv(season, data, numPeriods);
+      var prevSeason = index > 0 ? S.SEASONS_CONFIG[index - 1] : null;
+      return S.renderSeasonDiv(season, data, numPeriods, prevSeason);
     }).join("");
+  };
+
+  // ------------------------------------------------------------
+  // renderLegenda — legenda dei distintivi di variazione, va messa
+  // FUORI da #dati (che e' gia' la griglia delle tre schede: un
+  // quarto elemento al suo interno romperebbe le tre colonne).
+  // ------------------------------------------------------------
+  S.renderLegenda = function () {
+    return Variazioni.legenda(
+      "(% calcolata rispetto alla stagione precedente)",
+    );
   };
 
   // ------------------------------------------------------------
