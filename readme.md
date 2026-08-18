@@ -64,7 +64,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
    - Crea un nuovo file JSON per l’anno nella cartella: [`json/Statistiche/anni/`](json/Statistiche/anni/) con il nome del nuovo anno.
 
 3. **Aggiornare le Immagini**
-   - Aggiungi un’immagine per il nuovo anno nella cartella: [`img/Statistiche/Anni/`](img/Statistiche/Anni/) con il nome del nuovo anno.
+   - Aggiungi un’immagine per il nuovo anno nella cartella: [`Img/Statistiche/Anni/`](img/Statistiche/Anni/) con il nome del nuovo anno.
 
 4. **Aggiornare il File di Storia Generale**
    - Tutte le pagine di Statistiche (Statistiche, Statistiche Totali, Statistiche Mensili, Storico Mensile) leggono ora un unico file: [`json/Statistiche/History/Storico.json`](json/Statistiche/History/Storico.json).
