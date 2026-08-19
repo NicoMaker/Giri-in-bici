@@ -24,23 +24,41 @@ window.StatGenerali = window.StatGenerali || {};
     const stampaElement = document.getElementById("stampa");
     if (stampaElement) {
       stampaElement.innerHTML = `
+        ${Variazioni.legenda("(% calcolata rispetto all'anno precedente)")}
         <div class="${isOdd ? "container odd-items" : "container"}">
           ${currentStatistics
-            .map(
-              (entry, index) => `
+            .map((entry, index) => {
+              const globalIndex = startIndex + index;
+              const prevEntry =
+                globalIndex > 0 ? statistics[globalIndex - 1] : null;
+              const percKm = prevEntry
+                ? Variazioni.calcVariazione(entry.km, prevEntry.km)
+                : null;
+              const percCorse = prevEntry
+                ? Variazioni.calcVariazione(
+                    entry.numberOfRaces,
+                    prevEntry.numberOfRaces,
+                  )
+                : null;
+
+              return `
             <div class="Statistiche">
               <a href="Statistiche/Anni/${entry.year}.html">
                 <img class="immaginestagione" src="/img/Icons/Statistiche.png">
                 <p class="titoli">Statistiche ${entry.year}</p>
-                <p class="misuracolore">km totali ${formatItalianNumber(entry.km)} <img src="/img/Icons/traguardo.png"></p>
-                <p class="misuracolore">Percentuale periodo ${avgValues[startIndex + index]} %</p>
-                <p class="misuracolore">Totale corse ${formatItalianNumber(entry.numberOfRaces)}</p>
+                <p class="misuracolore">km totali ${formatItalianNumber(entry.km)} <img src="/img/Icons/traguardo.png">
+                  ${Variazioni.badgeVariazione(percKm, "vs anno prec.")}
+                </p>
+                <p class="misuracolore">Percentuale periodo ${avgValues[globalIndex]} %</p>
+                <p class="misuracolore">Totale corse ${formatItalianNumber(entry.numberOfRaces)}
+                  ${Variazioni.badgeVariazione(percCorse, "vs anno prec.")}
+                </p>
                 <p class="misuracolore">km medi per corsa ${formatNumber(entry.km / entry.numberOfRaces)}</p>
                 <span class="colore__vai-a">Vai alle statistiche <span class="freccia" aria-hidden="true">→</span></span>
               </a>
             </div>
-          `,
-            )
+          `;
+            })
             .join("")}
         </div>`;
     }

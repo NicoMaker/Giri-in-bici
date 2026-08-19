@@ -1,6 +1,6 @@
 // ============================================================
 // dati.js — Somma chilometri e corse di ogni sottoperiodo
-// Richiamato da JS/grafico_stagioni.js
+// Richiamato da JS/periodi_stagione.js
 // ============================================================
 
 async function fetchSubPeriods(subPeriods) {

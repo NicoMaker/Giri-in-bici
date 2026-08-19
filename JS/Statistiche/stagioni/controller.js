@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (window.myChart) window.myChart.destroy();
 
+  document.getElementById("legenda-stagioni").innerHTML = S.renderLegenda();
   document.getElementById("dati").innerHTML = S.renderStampa(
     calculatedData,
     numPeriodi,

@@ -1,8 +1,8 @@
 // ============================================================
-// grafico_stagioni.js — Avvio della pagina di una stagione
+// avvio.js — Avvio della pagina di una stagione
 //
 // Qui c'e' solo l'avvio: legge il JSON della stagione, disegna i
-// grafici e passa la palla ai componenti in JS/grafico_stagioni/:
+// grafici e passa la palla ai componenti in JS/periodi_stagione/:
 //   dati.js        somma km e corse dei sottoperiodi
 //   schede.js      HTML delle schede periodo
 //   paginazione.js due periodi per volta, con avanti e indietro

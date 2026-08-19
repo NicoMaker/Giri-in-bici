@@ -1,6 +1,6 @@
 // ============================================================
 // riepilogo.js — Riquadro con i totali della stagione
-// Richiamato da JS/grafico_stagioni.js
+// Richiamato da JS/periodi_stagione.js
 // ============================================================
 
 function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
