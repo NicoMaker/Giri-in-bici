@@ -44,16 +44,6 @@
       toggleMenu();
     });
 
-    // Un clic su una voce dentro il pannello (link o pulsante categoria,
-    // es. la pagina Bici) lo richiude subito, cosi' non resta aperto
-    // sopra la pagina/il contenuto appena scelto.
-    menu.addEventListener("click", function (e) {
-      if (!menu.classList.contains("showMenu")) return;
-      const voce = e.target.closest("a, button");
-      if (!voce) return;
-      toggleMenu();
-    });
-
     // Esc chiude il pannello
     document.addEventListener("keydown", function (e) {
       if (e.key !== "Escape") return;
