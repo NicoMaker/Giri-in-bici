@@ -11,7 +11,7 @@
   height: 100%;
   z-index: 80;
   margin: 0;
-  padding: 0;  /* RIMOSSO TUTTO IL PADDING */
+  padding: 0; /* RIMOSSO TUTTO IL PADDING */
   list-style: none;
   overflow-y: auto;
   background: var(--surface);
@@ -31,13 +31,13 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--surface);  /* SFONDO SOLIDO per coprire il contenuto sotto */
+  background: var(--surface); /* SFONDO SOLIDO per coprire il contenuto sotto */
   padding: 1rem 1.25rem 0.5rem 1.25rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-shrink: 0;
-  border-bottom: 1px solid var(--line);  /* Linea di separazione */
+  border-bottom: 1px solid var(--line); /* Linea di separazione */
 }
 
 /* Pulsante di chiusura (X) dentro il pannello - INGRANDITO */
