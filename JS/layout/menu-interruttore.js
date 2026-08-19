@@ -7,7 +7,8 @@
   "use strict";
 
   const menu = document.querySelector(".menu"),
-    hamburger = document.querySelector(".hamburger");
+    hamburger = document.querySelector(".hamburger"),
+    chiudiPannello = menu ? menu.querySelector(".menu-close") : null;
 
   function toggleMenu() {
     if (!menu || !hamburger) return;
@@ -36,6 +37,23 @@
 
     hamburger.setAttribute("aria-expanded", "false");
     hamburger.addEventListener("click", toggleMenu);
+
+    // X dentro il pannello: quando il menu e' aperto il drawer
+    // (z-index piu' alto) copre l'hamburger in alto, quindi serve
+    // una X sempre raggiungibile dentro il pannello stesso.
+    if (chiudiPannello) {
+      chiudiPannello.addEventListener("click", function () {
+        if (menu.classList.contains("showMenu")) toggleMenu();
+      });
+    }
+
+    // Un clic su una voce del menu (link o pulsante filtro) lo richiude
+    menu.addEventListener("click", function (e) {
+      if (!menu.classList.contains("showMenu")) return;
+      const voce = e.target.closest("a, button");
+      if (!voce || voce === chiudiPannello) return;
+      toggleMenu();
+    });
 
     // Un clic fuori dal pannello lo richiude
     document.addEventListener("click", function (e) {
