@@ -19,9 +19,3 @@
   --a2: #6f5bf0;
   --a-soft: rgba(14, 139, 212, 0.12);
 }
-
-.menu-close {
-  background-color: transparent !important;
-  border: 0 !important;
-  outline: 2px solid transparent !important;
-}
