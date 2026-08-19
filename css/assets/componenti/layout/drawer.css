@@ -24,13 +24,7 @@
   right: 0;
 }
 
-/* Pulsante di chiusura (X) dentro il pannello.
-   Serve perche' l'hamburger in alto ha uno z-index piu' basso
-   dello stacking context del pannello e resta coperto quando
-   il menu e' aperto: qui dentro c'e' sempre una X raggiungibile. */
-/* Specificita' ".menu .menu-close" apposta piu' alta della regola
-   generica ".menu button" qui sotto, cosi' la X non ne eredita
-   larghezza 100% / layout a riga. */
+/* Pulsante di chiusura (X) dentro il pannello. */
 .menu .menu-close {
   position: absolute;
   top: 0.9rem;
@@ -38,25 +32,23 @@
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 70px;
   padding: 0;
   color: var(--ink);
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: var(--r-md);
   cursor: pointer;
-  /* transition rimossa */
 }
 
 .menu .menu-close span {
   display: grid;
   place-items: center;
-  font-size: 0;
+  font-size: 3rem;
   line-height: 0;
+  font-weight: 300;
 }
-
-/* hover del pulsante X rimosso */
 
 .menu h1 {
   font-family: var(--font-head);
@@ -126,7 +118,6 @@
   transition:
     background 0.2s var(--ease),
     border-color 0.2s var(--ease);
-    /* transform rimosso dalla transition */
 }
 
 .menu li a:hover,
@@ -134,23 +125,10 @@
   background: var(--a-soft);
   border-color: color-mix(in srgb, var(--a1) 28%, transparent);
   color: var(--a1);
-  /* transform: translateX(3px) rimosso */
 }
 
 /* ============================================================
    Colori d'accento — TEMA UNICO CONDIVISO
-
-   Questo è l'unico file tema.css del progetto: prima ce n'era
-   uno per ogni sezione (Login, About_US, Statistiche), ora sono
-   stati unificati qui. Le pagine lo richiamano con:
-     giri.css                 -> @import "tema.css"
-     About_US/StyleAbout.css  -> @import "../tema.css"
-     Login/StyleLogin.css     -> @import "../tema.css"
-     Statistiche/...          -> @import "../tema.css"
-
-   Le stagioni (Primavera, Estate, Autunno·Inverno) e la sezione
-   Statistiche ridefiniscono solo --a1/--a2/--a-soft nel proprio
-   foglio, quindi l'aspetto di ogni pagina resta identico a prima.
    ============================================================ */
 
 :root {
