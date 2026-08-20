@@ -10,10 +10,10 @@
 @import url("../assets/core.css");
 
 @import url("../tema.css"); /* Colori d'accento condivisi (file unico) */
-@import url("layout/particelle-sfondo.css"); /* Particelle ambientali sullo sfondo */
+@import url("layout/struttura/particelle-sfondo.css"); /* Particelle ambientali sullo sfondo */
 @import url("intestazione/pulsante-indietro.css"); /* Pulsante indietro */
 @import url("intestazione/base.css"); /* Intestazione della pagina */
-@import url("layout/contenitore.css"); /* Contenitore: sovrascrive la griglia .container del tema */
+@import url("layout/struttura/contenitore.css"); /* Contenitore: sovrascrive la griglia .container del tema */
 @import url("squadra/squadra.css"); /* Sezione del team */
 @import url("mappa/blocco-mappa.css"); /* Blocco mappa del sito */
 @import url("squadra/comparsa-scroll.css"); /* Comparsa dei blocchi allo scroll */

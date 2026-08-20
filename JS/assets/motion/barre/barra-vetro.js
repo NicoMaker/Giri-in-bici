@@ -4,7 +4,7 @@
 // cosi' il vetro smerigliato si scurisce un po' e prende un'ombra
 // leggera invece di restare sempre uguale in cima alla pagina.
 // Stessa soglia/pattern di motion/torna-su.js, nessuna dipendenza.
-// Stili corrispondenti: css/assets/componenti/layout/barra.css
+// Stili corrispondenti: css/assets/componenti/layout/struttura/barra.css
 // ============================================================
 
 (function () {

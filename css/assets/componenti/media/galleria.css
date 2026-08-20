@@ -118,7 +118,7 @@
   background: var(--surface-2);
 }
 
-/* Contenitore della parallasse (JS/assets/motion/parallasse.js): sposta
+/* Contenitore della parallasse (JS/assets/motion/interazioni/parallasse.js): sposta
    solo questo, mai .immagini_stagione stesso, cosi' non litiga con la
    sua animazione di galleggiamento (animazioni-extra.css). */
 .parallasse {

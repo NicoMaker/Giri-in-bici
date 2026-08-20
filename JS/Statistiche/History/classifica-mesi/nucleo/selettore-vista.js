@@ -47,7 +47,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       "#selettore-vista .selettore-metrica__pulsante",
     );
     // Su schermi stretti le pillole lasciano il posto a questo select
-    // nativo (vedi css/Statistiche/selettore-metrica.css): stessa
+    // nativo (vedi css/Statistiche/classifiche/selettore-metrica.css): stessa
     // scelta, resa come menu a tendina invece che come fila di pulsanti.
     const selettoreMobile = document.getElementById("selettore-vista-mobile");
 
