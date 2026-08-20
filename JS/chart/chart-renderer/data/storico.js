@@ -1,5 +1,5 @@
 // ============================================================
-// processori-storico.js — Trasforma i dati grezzi dello storico
+// storico.js — Trasforma i dati grezzi dello storico
 // (totale e mensile) nel formato dataset che Chart.js si aspetta.
 //
 // Aggiunge i metodi al prototipo di UniversalChartRenderer definita

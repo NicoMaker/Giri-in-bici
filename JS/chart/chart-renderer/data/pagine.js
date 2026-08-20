@@ -1,5 +1,5 @@
 // ============================================================
-// processori-pagine.js — Trasforma i dati grezzi di una stagione,
+// pagine.js — Trasforma i dati grezzi di una stagione,
 // delle statistiche generali o di un anno nel formato dataset che
 // Chart.js si aspetta.
 //

@@ -2,9 +2,9 @@
 // nucleo.js — Renderer universale per grafici: costruttore e
 // metodi generali (creazione, configurazione, distruzione).
 //
-// I processori di dati specifici per ogni tipo di pagina stanno in
-// chart-renderer/processori-pagine.js e
-// chart-renderer/processori-storico.js, aggiunti al prototipo di
+// I gestori di dati specifici per ogni tipo di pagina stanno in
+// chart-renderer/data/pagine.js e
+// chart-renderer/data/storico.js, aggiunti al prototipo di
 // UniversalChartRenderer.
 //
 // Dipendenze: chart-configs.js (window.ChartConfigs), Chart.js
