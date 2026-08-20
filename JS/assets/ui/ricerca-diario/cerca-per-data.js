@@ -7,6 +7,10 @@
 // insieme e i giri trovati compaiono tutti nello stesso elenco,
 // ordinati dal piu' vecchio al piu' recente.
 //
+// Sotto le date puo' anche indicare uno o piu' posti (facoltativo):
+// se ne inserisce piu' di uno, vengono mostrati i giri che
+// corrispondono a uno qualsiasi di essi (ricerca "o questo o quello").
+//
 // La logica di dove cercare ogni data (quale file, quale stagione)
 // vive in dati-giri.js, che va incluso prima di questo file insieme
 // a Json (JS/json.js) e formatNumber (JS/utils.js).
@@ -17,7 +21,7 @@
 
   var ultimiRisultati = null;
   var bottoniOrdine = null;
-  var filtroPostoTesto = "";
+  var postiRicerca = [];
 
   function nuovaRigaData() {
     var riga = document.createElement("div");
@@ -43,6 +47,29 @@
     return riga;
   }
 
+  function nuovaRigaPosto() {
+    var riga = document.createElement("div");
+    riga.className = "riga-data-input";
+
+    var input = document.createElement("input");
+    input.type = "text";
+    input.setAttribute("aria-label", "Posto aggiuntivo");
+    input.placeholder = "Es. Gemona, Lignano\u2026";
+
+    var rimuovi = document.createElement("button");
+    rimuovi.type = "button";
+    rimuovi.className = "rimuovi-data";
+    rimuovi.setAttribute("aria-label", "Rimuovi questo posto");
+    rimuovi.textContent = "×";
+    rimuovi.addEventListener("click", function () {
+      riga.remove();
+    });
+
+    riga.appendChild(input);
+    riga.appendChild(rimuovi);
+    return riga;
+  }
+
   function raccogliDate() {
     var input = document.querySelectorAll(
       '#contenitoreDate input[type="date"]',
@@ -50,6 +77,18 @@
     var valori = [];
     input.forEach(function (el) {
       if (el.value) valori.push(el.value);
+    });
+    return valori;
+  }
+
+  function raccogliPosti() {
+    var input = document.querySelectorAll(
+      '#contenitorePostiData input[type="text"]',
+    );
+    var valori = [];
+    input.forEach(function (el) {
+      var v = el.value.trim();
+      if (v) valori.push(v);
     });
     return valori;
   }
@@ -71,18 +110,31 @@
     };
   }
 
-  async function cercaGiri(valori) {
+  function filtraPerPosti(risultati, posti) {
+    if (!posti.length) return risultati;
+
+    var queryNormalizzate = posti.map(function (v) {
+      return window.DatiGiri.normalizza(v);
+    });
+
+    return risultati.filter(function (u) {
+      var postoNormalizzato = window.DatiGiri.normalizza(u.postoTesto);
+      return queryNormalizzate.some(function (q) {
+        return postoNormalizzato.indexOf(q) !== -1;
+      });
+    });
+  }
+
+  async function cercaGiri(valoriDate, valoriPosti) {
     var contenitore = document.getElementById("risultatiCercaData");
     var messaggio = document.getElementById("messaggioCercaData");
     if (!contenitore || !messaggio) return;
 
     contenitore.innerHTML = "";
     ultimiRisultati = null;
-    var campoFiltro = document.getElementById("filtroPostoData");
-    if (campoFiltro) campoFiltro.value = "";
-    filtroPostoTesto = "";
+    postiRicerca = valoriPosti.slice();
 
-    if (!valori.length) {
+    if (!valoriDate.length) {
       messaggio.textContent = "Scegli almeno una data.";
       messaggio.hidden = false;
       return;
@@ -94,7 +146,7 @@
     var etichetteViste = {};
     var nonValide = 0;
 
-    valori.forEach(function (v) {
+    valoriDate.forEach(function (v) {
       var b = analizzaData(v);
       if (!b) {
         nonValide += 1;
@@ -148,18 +200,34 @@
       return a.chiaveData - b.chiaveData;
     });
 
+    if (postiRicerca.length) {
+      risultati = filtraPerPosti(risultati, postiRicerca);
+    }
+
     if (risultati.length === 0) {
-      messaggio.textContent =
-        bersagli.length > 1
-          ? "Nessun giro trovato per le date scelte. Forse quei giorni siete rimasti a casa!"
-          : "Nessun giro trovato per il " +
-            bersagli[0].etichettaCompleta +
-            ". Forse quel giorno siete rimasti a casa!";
+      if (postiRicerca.length) {
+        messaggio.textContent =
+          postiRicerca.length > 1
+            ? "Nessun giro trovato per le date scelte con i posti: " +
+              postiRicerca.join(", ") +
+              "."
+            : 'Nessun giro trovato per le date scelte con il posto "' +
+              postiRicerca[0] +
+              '".';
+      } else if (bersagli.length > 1) {
+        messaggio.textContent =
+          "Nessun giro trovato per le date scelte. Forse quei giorni siete rimasti a casa!";
+      } else {
+        messaggio.textContent =
+          "Nessun giro trovato per il " +
+          bersagli[0].etichettaCompleta +
+          ". Forse quel giorno siete rimasti a casa!";
+      }
       messaggio.hidden = false;
       return;
     }
 
-    if (bersagliSenzaGiri.length) {
+    if (bersagliSenzaGiri.length && !postiRicerca.length) {
       messaggio.textContent =
         "Nessun giro trovato per: " + bersagliSenzaGiri.join(", ") + ".";
       messaggio.hidden = false;
@@ -176,33 +244,9 @@
     var messaggio = document.getElementById("messaggioCercaData");
     if (!contenitore || !ultimiRisultati) return;
 
-    var risultatiFiltrati = filtroPostoTesto
-      ? ultimiRisultati.filter(function (u) {
-          return (
-            window.DatiGiri.normalizza(u.postoTesto).indexOf(
-              filtroPostoTesto,
-            ) !== -1
-          );
-        })
-      : ultimiRisultati;
-
-    if (filtroPostoTesto && risultatiFiltrati.length === 0) {
-      contenitore.innerHTML = "";
-      if (messaggio) {
-        messaggio.textContent =
-          'Nessun risultato corrisponde al filtro "' +
-          document.getElementById("filtroPostoData").value +
-          '".';
-        messaggio.hidden = false;
-      }
-      return;
-    }
-
-    if (messaggio && filtroPostoTesto) messaggio.hidden = true;
-
     var criterio = bottoniOrdine ? bottoniOrdine.leggi() : "data-recente";
     contenitore.innerHTML = window.DatiGiri.elencoRisultati(
-      window.DatiGiri.ordina(risultatiFiltrati, criterio),
+      window.DatiGiri.ordina(ultimiRisultati, criterio),
     );
   }
 
@@ -210,16 +254,24 @@
     var form = document.getElementById("formCercaData");
     var input = document.getElementById("dataGiro");
     var contenitoreDate = document.getElementById("contenitoreDate");
-    var bottoneAggiungi = document.getElementById("aggiungiData");
+    var bottoneAggiungiData = document.getElementById("aggiungiData");
+    var contenitorePosti = document.getElementById("contenitorePostiData");
+    var bottoneAggiungiPosto = document.getElementById("aggiungiPostoData");
     if (!form || !input) return;
 
     // Non si puo' cercare prima dell'inizio del diario, ne' dopo oggi.
     input.min = "2020-05-30";
     input.max = new Date().toISOString().slice(0, 10);
 
-    if (bottoneAggiungi && contenitoreDate) {
-      bottoneAggiungi.addEventListener("click", function () {
+    if (bottoneAggiungiData && contenitoreDate) {
+      bottoneAggiungiData.addEventListener("click", function () {
         contenitoreDate.appendChild(nuovaRigaData());
+      });
+    }
+
+    if (bottoneAggiungiPosto && contenitorePosti) {
+      bottoneAggiungiPosto.addEventListener("click", function () {
+        contenitorePosti.appendChild(nuovaRigaPosto());
       });
     }
 
@@ -228,17 +280,9 @@
       mostraOrdinati,
     );
 
-    var campoFiltro = document.getElementById("filtroPostoData");
-    if (campoFiltro) {
-      campoFiltro.addEventListener("input", function () {
-        filtroPostoTesto = window.DatiGiri.normalizza(campoFiltro.value.trim());
-        mostraOrdinati();
-      });
-    }
-
     form.addEventListener("submit", function (evento) {
       evento.preventDefault();
-      cercaGiri(raccogliDate());
+      cercaGiri(raccogliDate(), raccogliPosti());
     });
   }
 

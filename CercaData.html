@@ -155,7 +155,9 @@
         <h2>Scegli una o più date</h2>
         <p class="hero-sub">
           Puoi cercare anche più date insieme: aggiungine quante ne vuoi e
-          vedrai tutti i giri trovati, uno sotto l'altro.
+          vedrai tutti i giri trovati, uno sotto l'altro. Sotto la data puoi
+          anche restringere per uno o più posti — basta scriverne una parte del
+          nome.
         </p>
 
         <form id="formCercaData" class="form-cerca-data">
@@ -170,6 +172,24 @@
               + Aggiungi un'altra data
             </button>
           </div>
+
+          <div class="campo campo-date">
+            <label for="postoGiroData">Posto <span class="campo-opzionale">(facoltativo)</span></label>
+            <div class="elenco-date-input" id="contenitorePostiData">
+              <div class="riga-data-input">
+                <input
+                  id="postoGiroData"
+                  name="postoGiroData"
+                  type="text"
+                  placeholder="Es. Ariis, Gemona, Lignano&hellip;"
+                />
+              </div>
+            </div>
+            <button type="button" id="aggiungiPostoData" class="link-aggiungi-data">
+              + Aggiungi un altro posto
+            </button>
+          </div>
+
           <button type="submit">Cerca</button>
         </form>
 
@@ -232,14 +252,10 @@
           </div>
         </div>
 
-        <div class="campo campo-filtro">
-          <label for="filtroPostoData">Filtra per nome del posto</label>
-          <input
-            id="filtroPostoData"
-            type="search"
-            placeholder="Es. Ariis&hellip; (filtra i risultati qui sotto)"
-          />
-        </div>
+        <p class="messaggio-cerca-data messaggio-cerca-data--hint">
+          Se aggiungi più posti, tra i giri delle date scelte vengono mostrati
+          quelli che corrispondono a uno qualsiasi di essi.
+        </p>
 
         <p id="messaggioCercaData" class="messaggio-cerca-data" hidden></p>
         <div id="risultatiCercaData"></div>
