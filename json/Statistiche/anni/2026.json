@@ -9,7 +9,8 @@
     "Maggio": 485,
     "Giugno": 629,
     "Luglio": 801,
-    "Agosto": 266
+    "Agosto": 266,
+    "Settembre": 0
   },
   "_notaColori": "Il colore di ogni mese non vive piu' qui: viene calcolato da JS/Statistiche/anni.js leggendo json/Statistiche/History/config-mesi.json (coloriMesi), mappato per nome del mese - stessa palette del grafico 'Statistiche Mensili' - cosi' resta coerente anche se in questo file mancano dei mesi."
 }
