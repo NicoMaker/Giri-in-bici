@@ -77,6 +77,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // Una riga per OGNI ANNO INTERO (2020, 2021, ecc.), non per mese:
   // qui si confronta un anno intero con un altro, non un mese con un
   // altro mese. Ogni riga somma tutti i mesi presenti in quell'anno.
+  // corse = numberOfRaces dell'anno (json/Statistiche/anni/<anno>.json).
+  // kmMedi = km medi per singola corsa in quell'anno (km / corse).
   CM.calcolaAnni = function (allData) {
     const righe = allData
       .filter((json) => json && json.data)
@@ -85,7 +87,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           (tot, valore) => tot + (valore || 0),
           0,
         );
-        return { nome: `${json.year}`, anno: json.year, km };
+        const corse =
+          typeof json.numberOfRaces === "number" ? json.numberOfRaces : 0;
+        const kmMedi = corse > 0 ? km / corse : 0;
+        return { nome: `${json.year}`, anno: json.year, km, corse, kmMedi };
       });
 
     const totale = righe.reduce((tot, r) => tot + r.km, 0);

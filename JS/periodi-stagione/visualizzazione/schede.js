@@ -23,6 +23,14 @@ const createStampa = (
         const percCorse = prevData
           ? Variazioni.calcVariazione(corse, prevData.numberOfRaces)
           : null;
+        const kmMediCorsa = km / corse;
+        const percKmMediCorsa =
+          prevData && prevData.numberOfRaces
+            ? Variazioni.calcVariazione(
+                kmMediCorsa,
+                prevData.totalDistance / prevData.numberOfRaces,
+              )
+            : null;
 
         return `
       <div class="${cssclass}contorno">
@@ -38,7 +46,9 @@ const createStampa = (
             <p class="misuracolore">Totale corse ${formatItalianNumber(corse)}
               ${Variazioni.badgeVariazione(percCorse, "vs periodo prec.")}
             </p>
-            <p class="misuracolore">km medi per corsa ${formatNumber(km / corse)}</p>
+            <p class="misuracolore">km medi per corsa ${formatNumber(kmMediCorsa)}
+              ${Variazioni.badgeVariazione(percKmMediCorsa, "vs periodo prec.")}
+            </p>
           </p>
           <span class="colore__vai-a">Vai al periodo <span class="freccia" aria-hidden="true">→</span></span>
         </a>

@@ -21,6 +21,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <span class="podio__mese">${r.nome}</span>
         <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
         <span class="podio__dettaglio">${formatNumber(r.percentuale)} % del totale</span>
+        <span class="podio__dettaglio">${formatItalianNumber(r.corse)} ${pluralizza(r.corse, "corsa", "corse")} &middot; ${formatNumber(r.kmMedi)} km medi/corsa</span>
       </a>`,
       )
       .join("");
@@ -42,6 +43,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           <span class="classifica-riga__mese"
             >${r.nome}
             <small class="classifica-riga__sotto">${formatNumber(r.percentuale)} % del totale</small>
+            <small class="classifica-riga__sotto">${formatItalianNumber(r.corse)} ${pluralizza(r.corse, "corsa", "corse")} &middot; ${formatNumber(r.kmMedi)} km medi/corsa</small>
           </span>
           <span class="classifica-riga__barra"
             ><span style="--percentuale:${quota}%"></span

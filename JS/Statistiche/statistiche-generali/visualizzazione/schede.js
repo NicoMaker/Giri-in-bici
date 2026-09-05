@@ -40,6 +40,14 @@ window.StatGenerali = window.StatGenerali || {};
                     prevEntry.numberOfRaces,
                   )
                 : null;
+              const kmMediCorsa = entry.km / entry.numberOfRaces;
+              const percKmMediCorsa =
+                prevEntry && prevEntry.numberOfRaces
+                  ? Variazioni.calcVariazione(
+                      kmMediCorsa,
+                      prevEntry.km / prevEntry.numberOfRaces,
+                    )
+                  : null;
 
               return `
             <div class="Statistiche">
@@ -53,7 +61,9 @@ window.StatGenerali = window.StatGenerali || {};
                 <p class="misuracolore">Totale corse ${formatItalianNumber(entry.numberOfRaces)}
                   ${Variazioni.badgeVariazione(percCorse, "vs anno prec.")}
                 </p>
-                <p class="misuracolore">km medi per corsa ${formatNumber(entry.km / entry.numberOfRaces)}</p>
+                <p class="misuracolore">km medi per corsa ${formatNumber(kmMediCorsa)}
+                  ${Variazioni.badgeVariazione(percKmMediCorsa, "vs anno prec.")}
+                </p>
                 <span class="colore__vai-a">Vai alle statistiche <span class="freccia" aria-hidden="true">→</span></span>
               </a>
             </div>

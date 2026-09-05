@@ -33,7 +33,13 @@ window.Stagioni = window.Stagioni || {};
   // renderSeasonDiv — genera l'HTML di una singola scheda stagione
   // (usato per la sezione "Le tre stagioni" in alto)
   // ------------------------------------------------------------
-  S.renderSeasonDiv = function (season, data, numPeriods, prevSeason) {
+  S.renderSeasonDiv = function (
+    season,
+    data,
+    numPeriods,
+    prevSeason,
+    prevNumPeriods,
+  ) {
     const totalKm = data[season.dataKey] || 0;
     const currentSeasonRaces = data[season.raceKey] || 0;
     const totalYearRaces = data.corseTotale || 0;
@@ -54,6 +60,23 @@ window.Stagioni = window.Stagioni || {};
           data[prevSeason.raceKey] || 0,
         )
       : null;
+    const prevAvgKmPerPeriod =
+      prevSeason && prevNumPeriods > 0
+        ? (data[prevSeason.dataKey] || 0) / prevNumPeriods
+        : 0;
+    const percKmPerPeriod =
+      prevSeason && prevNumPeriods > 0
+        ? Variazioni.calcVariazione(avgKmPerPeriod, prevAvgKmPerPeriod)
+        : null;
+    const prevSeasonRaces = prevSeason ? data[prevSeason.raceKey] || 0 : 0;
+    const prevAvgKmPerRace =
+      prevSeason && prevSeasonRaces > 0
+        ? (data[prevSeason.dataKey] || 0) / prevSeasonRaces
+        : 0;
+    const percKmPerRace =
+      prevSeason && prevSeasonRaces > 0
+        ? Variazioni.calcVariazione(avgKmPerRace, prevAvgKmPerRace)
+        : null;
 
     return `
     <div class="${season.containerClass}">
@@ -76,8 +99,12 @@ window.Stagioni = window.Stagioni || {};
         </p>
         
         <p class="misuracolore">📅 Periodi: ${formatItalianNumber(numPeriods)}</p>
-        <p class="misuracolore">km medi per periodo ${formatNumber(avgKmPerPeriod)}</p>
-        <p class="misuracolore">km medi per corsa ${formatNumber(avgKmPerRace)}</p>
+        <p class="misuracolore">km medi per periodo ${formatNumber(avgKmPerPeriod)}
+          ${prevSeason ? Variazioni.badgeVariazione(percKmPerPeriod, etichetta) : ""}
+        </p>
+        <p class="misuracolore">km medi per corsa ${formatNumber(avgKmPerRace)}
+          ${prevSeason ? Variazioni.badgeVariazione(percKmPerRace, etichetta) : ""}
+        </p>
         <span class="colore__vai-a">Vai al periodo <span class="freccia" aria-hidden="true">→</span></span>
       </a>
     </div>`;
@@ -89,16 +116,28 @@ window.Stagioni = window.Stagioni || {};
   // Primavera → Estate → Autunno-Inverno (la prima non ha un
   // "precedente" e non mostra il distintivo).
   // ------------------------------------------------------------
+  function numPeriodiStagione(season, numPeriodsPerSeason) {
+    return season.name === "Primavera"
+      ? numPeriodsPerSeason.primavera
+      : season.name === "Estate"
+        ? numPeriodsPerSeason.estate
+        : numPeriodsPerSeason.autunno_inverno;
+  }
+
   S.renderStampa = function (data, numPeriodsPerSeason) {
     return S.SEASONS_CONFIG.map(function (season, index) {
-      var numPeriods =
-        season.name === "Primavera"
-          ? numPeriodsPerSeason.primavera
-          : season.name === "Estate"
-            ? numPeriodsPerSeason.estate
-            : numPeriodsPerSeason.autunno_inverno;
+      var numPeriods = numPeriodiStagione(season, numPeriodsPerSeason);
       var prevSeason = index > 0 ? S.SEASONS_CONFIG[index - 1] : null;
-      return S.renderSeasonDiv(season, data, numPeriods, prevSeason);
+      var prevNumPeriods = prevSeason
+        ? numPeriodiStagione(prevSeason, numPeriodsPerSeason)
+        : 0;
+      return S.renderSeasonDiv(
+        season,
+        data,
+        numPeriods,
+        prevSeason,
+        prevNumPeriods,
+      );
     }).join("");
   };
 
