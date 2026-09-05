@@ -99,31 +99,6 @@
   --wrap: 1180px;
   --bar-h: 68px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  /* Curva "a molla": stessa famiglia di --ease ma con un piccolo
-     rimbalzo oltre il target prima di assestarsi. Pensata per i
-     pulsanti principali (hover/press), non per tutto: un rimbalzo
-     ovunque stancherebbe l'occhio piu' che aiutarlo.
-     Definita con linear(), non cubic-bezier(): serve per poter
-     "superare" il 100% e tornare indietro, cosa che cubic-bezier()
-     da solo non puo' fare. Supporto: Chrome/Edge/Firefox/Safari
-     recenti; dove linear() non e' supportato il browser ignora la
-     dichiarazione e resta il valore precedente (nessun errore). */
-  --ease-spring: linear(
-    0,
-    0.006,
-    0.023,
-    0.253 15.4%,
-    0.481 23.6%,
-    0.784 34.2%,
-    0.899 40.3%,
-    0.98 48%,
-    1.017 56.5%,
-    1.021 61.7%,
-    1.008 68.7%,
-    0.996 78.5%,
-    0.999 91.6%,
-    1
-  );
 }
 
 /* Tema chiaro unico e fisso: niente interruttore, niente tema scuro
