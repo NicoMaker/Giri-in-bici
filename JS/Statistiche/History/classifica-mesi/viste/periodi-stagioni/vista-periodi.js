@@ -92,13 +92,16 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // Come per "Km mensili": ?stagione= accetta ora anche più
         // stagioni separate da virgola, restando compatibile con una
         // sola stagione scritta come prima.
+        // Senza "?stagione=" nell'indirizzo si parte con TUTTE le
+        // stagioni già selezionate automaticamente.
         const parametriUrlPeriodi = new URLSearchParams(window.location.search);
-        const stagioniDaUrlPeriodi = (
-          parametriUrlPeriodi.get("stagione") || ""
-        )
-          .split(",")
-          .map((s) => s.trim())
-          .filter((s) => stagioniPeriodiUniche.includes(s));
+        const stagioneUrlGrezzaPeriodi = parametriUrlPeriodi.get("stagione");
+        const stagioniDaUrlPeriodi = stagioneUrlGrezzaPeriodi
+          ? stagioneUrlGrezzaPeriodi
+              .split(",")
+              .map((s) => s.trim())
+              .filter((s) => stagioniPeriodiUniche.includes(s))
+          : stagioniPeriodiUniche;
 
         filtroPeriodiStagione = window.FiltroMultiplo.crea(
           contenitorePeriodiStagioneEl,

@@ -212,10 +212,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // ora accetta anche più anni separati da virgola (es.
         // "?anno=2021,2023"), restando comunque compatibile con un
         // singolo anno scritto come prima.
-        const anniDaUrl = (annoFiltro || "")
-          .split(",")
-          .map((a) => a.trim())
-          .filter((a) => anniRecordUnici.includes(a));
+        // Senza "?anno=" nell'indirizzo si parte con TUTTI gli anni già
+        // selezionati automaticamente (uno per uno, non "in blocco"),
+        // così la scheda Record mostra subito i record anno per anno.
+        const anniDaUrl = annoFiltro
+          ? annoFiltro
+              .split(",")
+              .map((a) => a.trim())
+              .filter((a) => anniRecordUnici.includes(a))
+          : anniRecordUnici;
 
         filtroRecordAnno = window.FiltroMultiplo.crea(contenitoreRecordAnnoEl, {
           etichetta: "Anno",

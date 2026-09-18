@@ -109,6 +109,16 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const anniDisponibili = [
           ...new Set(disponibili.map((t) => t.periodo)),
         ].sort((a, b) => b.localeCompare(a));
+        opzioniPopola = opzioniPopola || {};
+        // Nessun anno scelto esplicitamente (né dall'URL né da tenere)
+        // equivale a partire con TUTTI gli anni disponibili già
+        // selezionati automaticamente, uno per uno.
+        if (opzioniPopola.preselezionati == null && !opzioniPopola.mantieni) {
+          opzioniPopola = {
+            ...opzioniPopola,
+            preselezionati: anniDisponibili,
+          };
+        }
         filtroAnno.imposta(
           anniDisponibili.map((a) => ({ value: a, label: a })),
           opzioniPopola,
@@ -163,15 +173,23 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       // Come nelle altre schede, ?stagione= e ?anno= nell'URL accettano
       // ora anche più valori separati da virgola, restando compatibili
       // con un valore solo scritto come prima.
+      // Senza uno dei due parametri nell'indirizzo si parte con TUTTE
+      // le opzioni di quel filtro già selezionate automaticamente.
       const parametriUrl = new URLSearchParams(window.location.search);
-      const stagioniDaUrl = (parametriUrl.get("stagione") || "")
-        .split(",")
-        .map((s) => s.trim())
-        .filter((s) => stagioniUniche.includes(s));
-      const anniDaUrlGrezzi = (parametriUrl.get("anno") || "")
-        .split(",")
-        .map((a) => a.trim())
-        .filter(Boolean);
+      const stagioneUrlGrezza = parametriUrl.get("stagione");
+      const stagioniDaUrl = stagioneUrlGrezza
+        ? stagioneUrlGrezza
+            .split(",")
+            .map((s) => s.trim())
+            .filter((s) => stagioniUniche.includes(s))
+        : stagioniUniche;
+      const annoUrlGrezzo = parametriUrl.get("anno");
+      const anniDaUrlGrezzi = annoUrlGrezzo
+        ? annoUrlGrezzo
+            .split(",")
+            .map((a) => a.trim())
+            .filter(Boolean)
+        : null;
 
       if (contenitoreStagioneEl && window.FiltroMultiplo) {
         filtroStagione = window.FiltroMultiplo.crea(contenitoreStagioneEl, {
