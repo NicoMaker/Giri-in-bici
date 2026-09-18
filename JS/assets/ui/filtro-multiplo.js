@@ -65,7 +65,9 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
     var etichetta = opzioni.etichetta || "";
     var testoVuoto = opzioni.tutte || "Tutte";
     var onCambia =
-      typeof opzioni.onCambia === "function" ? opzioni.onCambia : function () {};
+      typeof opzioni.onCambia === "function"
+        ? opzioni.onCambia
+        : function () {};
 
     var idPannello = "filtro-multiplo-pannello-" + ++contatoreId;
     var voci = []; // [{ value, label, checked }]
@@ -111,7 +113,10 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       } else {
         valoreEl.textContent = attivi.length + " selezionate";
       }
-      contenitore.classList.toggle("filtro-multiplo--attivo", attivi.length > 0);
+      contenitore.classList.toggle(
+        "filtro-multiplo--attivo",
+        attivi.length > 0,
+      );
       bottone.disabled = voci.length === 0;
     }
 

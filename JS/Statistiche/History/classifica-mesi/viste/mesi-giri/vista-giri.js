@@ -126,7 +126,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       }
 
       aggiornaVistaTappe = function () {
-        const stagioniScelte = filtroStagione ? filtroStagione.selezionati() : [];
+        const stagioniScelte = filtroStagione
+          ? filtroStagione.selezionati()
+          : [];
         const anniScelti = filtroAnno ? filtroAnno.selezionati() : [];
         // Nessuna scelta su un filtro equivale a "tutte/tutti" per
         // quell'asse: con entrambi i filtri scelti si vede solo

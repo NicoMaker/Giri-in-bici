@@ -18,7 +18,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     const podioAnniEl = document.getElementById("podio-anni");
     const listaAnniEl = document.getElementById("classifica-anni");
     const titoloAnniEl = document.getElementById("classifica-anni-titolo");
-    const contenitoreRecordAnnoEl = document.getElementById("record-filtro-anno");
+    const contenitoreRecordAnnoEl =
+      document.getElementById("record-filtro-anno");
     // Ora si possono scegliere più anni insieme (prima un <select> con
     // una sola scelta): vedi assets/ui/filtro-multiplo.js.
     let filtroRecordAnno = null;
