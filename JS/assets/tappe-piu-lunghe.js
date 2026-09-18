@@ -119,7 +119,7 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   // semplice, uno sotto l'altro, senza stile).
   T.creaLinkMultipli = creaLinkMultipli;
 
-  T.creaPodio = function (righe) {
+  T.creaPodio = function (righe, totaleKm) {
     return righe
       .slice(0, 3)
       .map(function (r, i) {
@@ -132,6 +132,11 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
         var vaiATappa = r.href
           ? '<span class="podio__vai">Vai alla tappa <span class="freccia" aria-hidden="true">→</span></span>'
           : "";
+        // Stessa percentuale sul totale mostrata nella riga corrispondente
+        // della classifica completa qui sotto (classifica-riga__percentuale),
+        // cosi' il podio in cima e la lista restano coerenti a colpo d'occhio.
+        var percentualeTotale =
+          totaleKm > 0 ? formatNumber((r.distance / totaleKm) * 100) : "0";
         var dentro =
           '<span class="podio__medaglia" aria-hidden="true">' +
           MEDAGLIE[i] +
@@ -141,7 +146,9 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
           creaLinkMultipli(r.linkMultipli) +
           '<span class="podio__km anima-numero">' +
           formatItalianNumber(r.distance) +
-          ' km</span><span class="podio__dettaglio">' +
+          ' km</span><span class="podio__percentuale">' +
+          percentualeTotale +
+          ' % del totale</span><span class="podio__dettaglio">' +
           r.etichetta +
           "</span>" +
           vaiATappa;
@@ -283,7 +290,7 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
       return tot + r.distance;
     }, 0);
 
-    contenitorePodio.innerHTML = T.creaPodio(righeOrdinate);
+    contenitorePodio.innerHTML = T.creaPodio(righeOrdinate, totaleKm);
     contenitoreLista.innerHTML = T.creaLista(righeOrdinate, totaleKm, limite);
   };
 })(window.TappePiuLunghe);

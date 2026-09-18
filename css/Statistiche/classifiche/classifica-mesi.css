@@ -188,6 +188,17 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* Percentuale sul totale, stessa informazione della colonna
+   .classifica-riga__percentuale nella lista qui sotto: qui in cima,
+   subito sotto ai km, cosi' il podio e la classifica completa
+   restano allineati a colpo d'occhio. */
+.podio__percentuale {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
 .podio__dettaglio {
   font-size: 0.82rem;
   line-height: 1.5;
