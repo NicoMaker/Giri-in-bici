@@ -69,6 +69,7 @@
     ></script>
     <script src="../../js/assets/tappe-piu-lunghe.js" defer></script>
     <script src="../../js/assets/classifica-controlli.js" defer></script>
+    <script src="../../js/assets/ui/filtro-multiplo.js" defer></script>
     <script
       src="../../js/Statistiche/History/classifica-mesi/nucleo/selettore-vista.js"
       defer
@@ -400,12 +401,7 @@
             esempio Settembre 2024 contro Ottobre 2025, uno per uno.
           </p>
           <div class="tappe-filtri" id="record-filtri">
-            <label class="tappe-filtro">
-              Anno
-              <select id="record-filtro-anno">
-                <option value="">Tutti gli anni insieme</option>
-              </select>
-            </label>
+            <div class="filtro-multiplo" id="record-filtro-anno"></div>
           </div>
           <div class="classifica-controlli" id="controlli-record">
           <label class="classifica-ricerca">
@@ -765,12 +761,7 @@
             2020-2021.
           </p>
           <div class="tappe-filtri" id="periodi-filtri">
-            <label class="tappe-filtro">
-              Stagione
-              <select id="periodi-filtro-stagione">
-                <option value="">Tutte</option>
-              </select>
-            </label>
+            <div class="filtro-multiplo" id="periodi-filtro-stagione"></div>
           </div>
           <div class="classifica-controlli" id="controlli-periodi">
           <label class="classifica-ricerca">
@@ -893,18 +884,8 @@
             confronto una per una: non un periodo intero, il giro singolo.
           </p>
           <div class="tappe-filtri" id="tappe-filtri">
-            <label class="tappe-filtro">
-              Stagione
-              <select id="tappe-filtro-stagione">
-                <option value="">Tutte</option>
-              </select>
-            </label>
-            <label class="tappe-filtro">
-              Anno
-              <select id="tappe-filtro-anno">
-                <option value="">Tutti</option>
-              </select>
-            </label>
+            <div class="filtro-multiplo" id="tappe-filtro-stagione"></div>
+            <div class="filtro-multiplo" id="tappe-filtro-anno"></div>
           </div>
           <div class="classifica-controlli" id="controlli-giri">
           <label class="classifica-ricerca">

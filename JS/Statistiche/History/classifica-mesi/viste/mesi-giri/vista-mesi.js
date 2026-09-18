@@ -18,7 +18,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     const podioAnniEl = document.getElementById("podio-anni");
     const listaAnniEl = document.getElementById("classifica-anni");
     const titoloAnniEl = document.getElementById("classifica-anni-titolo");
-    const selettoreRecordAnnoEl = document.getElementById("record-filtro-anno");
+    const contenitoreRecordAnnoEl = document.getElementById("record-filtro-anno");
+    // Ora si possono scegliere più anni insieme (prima un <select> con
+    // una sola scelta): vedi assets/ui/filtro-multiplo.js.
+    let filtroRecordAnno = null;
 
     let righeMesi = [];
     let righeAnniComplete = [];
@@ -105,9 +108,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       document.getElementById("controlli-record"),
       {
         onCambia: () =>
-          mostraRecord(
-            selettoreRecordAnnoEl ? selettoreRecordAnnoEl.value : "",
-          ),
+          mostraRecord(filtroRecordAnno ? filtroRecordAnno.selezionati() : []),
       },
     );
     const controlliAnni = CC.crea(document.getElementById("controlli-anni"), {
@@ -141,13 +142,22 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       controlliMesi.aggiornaLimiti(righeMesi.map((r) => r.km));
       disegnaMesi();
 
-      mostraRecord = function (annoSelezionato) {
+      mostraRecord = function (anniSelezionati) {
+        anniSelezionati = anniSelezionati || [];
         let righeAnnoScelto = righeRecordTutti;
 
-        if (annoSelezionato) {
+        if (anniSelezionati.length) {
+          // Con un solo anno scelto il nome resta il solo mese (come
+          // prima: l'anno è già ovvio). Con più anni insieme, invece,
+          // due "Gennaio" di anni diversi si confonderebbero: l'anno
+          // va aggiunto al nome per distinguerli nel podio e in lista.
+          const piuDiUnAnno = anniSelezionati.length > 1;
           righeAnnoScelto = righeRecordTutti
-            .filter((r) => String(r.anno) === annoSelezionato)
-            .map((r) => ({ ...r, nome: r.mese }));
+            .filter((r) => anniSelezionati.includes(String(r.anno)))
+            .map((r) => ({
+              ...r,
+              nome: piuDiUnAnno ? `${r.mese} ${r.anno}` : r.mese,
+            }));
           const totaleAnno = righeAnnoScelto.reduce((tot, r) => tot + r.km, 0);
           righeAnnoScelto.forEach((r) => {
             r.percentuale = totaleAnno > 0 ? (r.km / totaleAnno) * 100 : 0;
@@ -171,9 +181,14 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           data: dataRecordDi,
         });
         const perPodio = ordinate.slice(0, 3);
-        const etichettaTotale = annoSelezionato
-          ? `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} del ${annoSelezionato}`
-          : `${filtrate.length} record`;
+        let etichettaTotale;
+        if (!anniSelezionati.length) {
+          etichettaTotale = `${filtrate.length} record`;
+        } else if (anniSelezionati.length === 1) {
+          etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} del ${anniSelezionati[0]}`;
+        } else {
+          etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} (${anniSelezionati.join(", ")})`;
+        }
 
         if (titoloRecordMesiEl)
           titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(
@@ -188,28 +203,33 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             CM.creaRigaTotale(totaleFiltrato, etichettaTotale);
       };
 
-      if (selettoreRecordAnnoEl) {
+      if (contenitoreRecordAnnoEl && window.FiltroMultiplo) {
         const anniRecordUnici = [
           ...new Set(righeRecordTutti.map((r) => String(r.anno))),
         ].sort((a, b) => b.localeCompare(a));
-        anniRecordUnici.forEach((a) => {
-          const opzione = document.createElement("option");
-          opzione.value = a;
-          opzione.textContent = a;
-          selettoreRecordAnnoEl.appendChild(opzione);
+
+        // Il vecchio parametro ?anno= nell'URL restava un valore solo;
+        // ora accetta anche più anni separati da virgola (es.
+        // "?anno=2021,2023"), restando comunque compatibile con un
+        // singolo anno scritto come prima.
+        const anniDaUrl = (annoFiltro || "")
+          .split(",")
+          .map((a) => a.trim())
+          .filter((a) => anniRecordUnici.includes(a));
+
+        filtroRecordAnno = window.FiltroMultiplo.crea(contenitoreRecordAnnoEl, {
+          etichetta: "Anno",
+          tutte: "Tutti gli anni insieme",
+          onCambia: (anni) => mostraRecord(anni),
         });
+        filtroRecordAnno.imposta(
+          anniRecordUnici.map((a) => ({ value: a, label: a })),
+          { preselezionati: anniDaUrl },
+        );
 
-        if (annoFiltro && anniRecordUnici.includes(annoFiltro)) {
-          selettoreRecordAnnoEl.value = annoFiltro;
-        }
-
-        selettoreRecordAnnoEl.addEventListener("change", () => {
-          mostraRecord(selettoreRecordAnnoEl.value);
-        });
-
-        mostraRecord(selettoreRecordAnnoEl.value);
+        mostraRecord(filtroRecordAnno.selezionati());
       } else {
-        mostraRecord("");
+        mostraRecord([]);
       }
 
       const { righe: righeAnni } = CM.calcolaAnni(allData);

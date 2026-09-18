@@ -177,6 +177,162 @@
   opacity: 0.55;
 }
 
+/* ---------- Filtro a scelta multipla (sostituisce i <select> di
+   "Km mensili", "Periodi" e "Giri": ora si può scegliere più di una
+   voce insieme, es. Autunno·Inverno + Primavera, o solo Primavera
+   2021 e poi, cambiando idea, solo Estate 2025). Vedi
+   assets/ui/filtro-multiplo.js per la logica. ---------- */
+.filtro-multiplo {
+  position: relative;
+}
+
+.filtro-multiplo__pulsante {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.filtro-multiplo__pulsante:hover {
+  border-color: color-mix(in srgb, var(--a1) 40%, var(--line));
+}
+
+.filtro-multiplo__pulsante:focus-visible,
+.filtro-multiplo--aperto .filtro-multiplo__pulsante {
+  outline: none;
+  border-color: var(--a1);
+  box-shadow: 0 0 0 3px var(--a-soft);
+}
+
+.filtro-multiplo__pulsante:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.filtro-multiplo__etichetta {
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.filtro-multiplo__valore {
+  font-weight: 600;
+}
+
+/* Pulsante "attivo" (almeno una voce selezionata): stesso accento
+   colorato del testo dei km altrove nel podio, per farlo notare
+   subito a colpo d'occhio nella barra dei filtri. */
+.filtro-multiplo--attivo .filtro-multiplo__valore {
+  color: var(--a2);
+}
+
+.filtro-multiplo__freccia {
+  font-size: 0.7rem;
+  color: var(--ink-3);
+  transition: transform 0.2s var(--ease);
+}
+
+.filtro-multiplo--aperto .filtro-multiplo__freccia {
+  transform: rotate(180deg);
+}
+
+.filtro-multiplo__pannello {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 220px;
+  max-width: min(280px, calc(100vw - 2.4rem));
+  padding: 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-3);
+}
+
+.filtro-multiplo__azioni {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.filtro-multiplo__azione {
+  font-family: var(--font-head);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--a2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.1rem 0.2rem;
+}
+
+.filtro-multiplo__azione:hover {
+  text-decoration: underline;
+}
+
+.filtro-multiplo__azione:disabled {
+  color: var(--ink-3);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.filtro-multiplo__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.filtro-multiplo__voce {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: var(--r-sm);
+  font-size: 0.88rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s var(--ease);
+}
+
+.filtro-multiplo__voce:hover {
+  background: var(--surface-2);
+}
+
+.filtro-multiplo__voce input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--a2);
+  cursor: pointer;
+  flex: none;
+}
+
+.filtro-multiplo__vuoto {
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ink-3);
+}
+
 .podio__km {
   font-family: var(--font-head);
   font-weight: 700;

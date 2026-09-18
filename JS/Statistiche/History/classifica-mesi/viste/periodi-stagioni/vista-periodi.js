@@ -15,16 +15,19 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       "classifica-periodi-titolo",
     );
     const podioPeriodiEl = document.getElementById("podio-periodi");
-    const selettorePeriodiStagioneEl = document.getElementById(
+    const contenitorePeriodiStagioneEl = document.getElementById(
       "periodi-filtro-stagione",
     );
+    // Ora si possono scegliere più stagioni insieme (prima un <select>
+    // con una sola scelta): vedi assets/ui/filtro-multiplo.js.
+    let filtroPeriodiStagione = null;
 
     const controlliPeriodi = CC.crea(
       document.getElementById("controlli-periodi"),
       {
         onCambia: () =>
           mostraPeriodi(
-            selettorePeriodiStagioneEl ? selettorePeriodiStagioneEl.value : "",
+            filtroPeriodiStagione ? filtroPeriodiStagione.selezionati() : [],
           ),
       },
     );
@@ -34,12 +37,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     try {
       const { righe: righePeriodiComplete } = await CM.calcolaPeriodi();
 
-      mostraPeriodi = function (stagioneScelta) {
+      mostraPeriodi = function (stagioniScelte) {
+        stagioniScelte = stagioniScelte || [];
         let righePerStagione = righePeriodiComplete;
 
-        if (stagioneScelta) {
+        if (stagioniScelte.length) {
           righePerStagione = righePeriodiComplete
-            .filter((r) => r.stagione === stagioneScelta)
+            .filter((r) => stagioniScelte.includes(r.stagione))
             .map((r) => ({ ...r }));
         }
 
@@ -63,8 +67,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           data: dataPeriodoDi,
         });
         const perPodio = ordinate.slice(0, 3);
-        const etichettaTotale = stagioneScelta
-          ? `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")} di ${stagioneScelta}`
+        const etichettaTotale = stagioniScelte.length
+          ? `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")} di ${stagioniScelte.join(", ")}`
           : `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")}`;
 
         if (titoloPeriodiEl)
@@ -80,33 +84,38 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             CM.creaRigaTotale(totaleFiltrato, etichettaTotale);
       };
 
-      if (selettorePeriodiStagioneEl) {
+      if (contenitorePeriodiStagioneEl && window.FiltroMultiplo) {
         const stagioniPeriodiUniche = [
           ...new Set(righePeriodiComplete.map((r) => r.stagione)),
         ];
-        stagioniPeriodiUniche.forEach((s) => {
-          const opzione = document.createElement("option");
-          opzione.value = s;
-          opzione.textContent = s;
-          selettorePeriodiStagioneEl.appendChild(opzione);
-        });
 
+        // Come per "Km mensili": ?stagione= accetta ora anche più
+        // stagioni separate da virgola, restando compatibile con una
+        // sola stagione scritta come prima.
         const parametriUrlPeriodi = new URLSearchParams(window.location.search);
-        const stagioneDaUrlPeriodi = parametriUrlPeriodi.get("stagione");
-        if (
-          stagioneDaUrlPeriodi &&
-          stagioniPeriodiUniche.includes(stagioneDaUrlPeriodi)
-        ) {
-          selettorePeriodiStagioneEl.value = stagioneDaUrlPeriodi;
-        }
+        const stagioniDaUrlPeriodi = (
+          parametriUrlPeriodi.get("stagione") || ""
+        )
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => stagioniPeriodiUniche.includes(s));
 
-        selettorePeriodiStagioneEl.addEventListener("change", () => {
-          mostraPeriodi(selettorePeriodiStagioneEl.value);
-        });
+        filtroPeriodiStagione = window.FiltroMultiplo.crea(
+          contenitorePeriodiStagioneEl,
+          {
+            etichetta: "Stagione",
+            tutte: "Tutte",
+            onCambia: (stagioni) => mostraPeriodi(stagioni),
+          },
+        );
+        filtroPeriodiStagione.imposta(
+          stagioniPeriodiUniche.map((s) => ({ value: s, label: s })),
+          { preselezionati: stagioniDaUrlPeriodi },
+        );
 
-        mostraPeriodi(selettorePeriodiStagioneEl.value);
+        mostraPeriodi(filtroPeriodiStagione.selezionati());
       } else {
-        mostraPeriodi("");
+        mostraPeriodi([]);
       }
     } catch (error) {
       console.error(
