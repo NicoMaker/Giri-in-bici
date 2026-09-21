@@ -46,3 +46,4 @@
 @import url("componenti/animazioni/base/animazioni-moderne.css"); /* Sfondo che deriva, riflesso sulle card, pulsante Stagioni vivo */
 @import url("componenti/animazioni/dettagli/transizioni-pagina.css"); /* Dissolvenza animata fra una pagina e l'altra del sito */
 @import url("componenti/animazioni/base/animazioni-scroll-moderne.css"); /* .reveal agganciato allo scroll, pulsanti principali con rimbalzo */
+@import url("componenti/moderno/ciclismo.css"); /* Livello grafico "ciclismo moderno": ridefinisce l'aspetto, ultimo import */

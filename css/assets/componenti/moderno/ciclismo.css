@@ -1,0 +1,736 @@
+/* ============================================================
+   Giri in Bici — Livello "Ciclismo moderno"
+
+   Ultimo componente importato da core.css: ridefinisce l'aspetto
+   (non i contenuti) prendendo spunto dai siti ciclistici attuali —
+   fondo asfalto, titoli condensati maiuscoli, numeri grandi da
+   ciclocomputer, card piatte con bordo netto, curve di livello
+   come trama. Nessun dato, immagine, testo o script viene toccato.
+   Per tornare al vecchio aspetto basta togliere l'@import in core.css.
+   ============================================================ */
+
+:root {
+  --asfalto: #0b1626;
+  --asfalto-2: #12233a;
+  --sulla-scura: rgba(255, 255, 255, 0.72);
+  --curve-livello: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520' fill='none' stroke='%23000' stroke-width='1.1'%3E%3Cpath d='M-20 380C60 320 110 400 200 350S330 250 420 290 520 240 560 200'/%3E%3Cpath d='M-20 340C60 280 115 360 200 310S325 215 420 250 520 205 560 165'/%3E%3Cpath d='M-20 300C60 240 120 320 200 270S320 180 420 210 520 170 560 130'/%3E%3Cpath d='M-20 420C70 365 105 440 205 395S335 290 425 335 520 285 560 245'/%3E%3Cpath d='M-20 460C75 410 100 480 210 440S340 335 430 380 520 330 560 290'/%3E%3Cpath d='M-20 220C70 170 130 240 210 190S315 110 415 140 520 100 560 60'/%3E%3C/svg%3E");
+}
+
+/* ---------- Sfondo pagina: piatto + curve di livello ---------- */
+body {
+  background: var(--bg-1);
+  background-image: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--curve-livello);
+  background-size: 520px 520px;
+  opacity: 0.045;
+}
+
+/* ---------- Tipografia ---------- */
+h1, h2, h3, h4,
+.Titolo, .Titolo2, .Primavera, .Estate, .Autunno-Inverno, .titolo-storico {
+  font-family: var(--font-display-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.98;
+}
+h1 { font-size: clamp(2.6rem, 8vw, 5.4rem); font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 4.2vw, 3rem); font-weight: 800; }
+h3 { font-size: clamp(1.3rem, 2.4vw, 1.7rem); font-weight: 700; }
+p { line-height: 1.65; }
+
+/* ---------- Barra di navigazione ---------- */
+.site-bar {
+  background: color-mix(in srgb, #fff 88%, transparent);
+  border-bottom: 1px solid var(--line);
+  min-height: var(--bar-h);
+}
+.site-bar.is-scrolled { box-shadow: 0 8px 24px -16px rgba(11, 22, 38, 0.28); }
+.brand { color: var(--ink); }
+.riga-giri {
+  font-family: var(--font-display-bold);
+  font-size: 1.55rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.brand-text small { color: var(--ink-3); letter-spacing: 0.12em; font-size: 0.62rem; }
+.Bandiera-FVG { border-radius: 12px; border-color: var(--line); box-shadow: none; }
+.tricolore-italia { height: 4px; border: 0; box-shadow: none; border-radius: 2px; margin-bottom: 8px; }
+.tricolore-italia--login, .tricolore-italia--hero { height: 4px; }
+.Icons {
+  background: var(--surface-2);
+  border: 0;
+  padding: 0.25rem;
+}
+.Icons a, .Icons .colore_apertura { color: var(--ink-2); }
+.Icons a:hover, .Icons a:focus-visible { background: #fff; color: var(--a1); transform: none; box-shadow: var(--sh-1); }
+.Icons a[aria-current="page"], .Icons a.is-attivo {
+  background: var(--asfalto);
+  color: #fff;
+  box-shadow: none;
+}
+.Icons a[aria-current="page"]:hover, .Icons a.is-attivo:hover { background: var(--asfalto-2); }
+.Icons a[aria-current="page"] img, .Icons a.is-attivo img { filter: none; }
+.graficostagioni {
+  background: var(--asfalto);
+  color: #fff;
+  border: 0;
+  box-shadow: none;
+  font-family: var(--font-display-bold);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.graficostagioni:hover { background: var(--a1); color: #fff; transform: none; box-shadow: none; }
+
+/* ---------- Hero: pannello asfalto con foto a lato ---------- */
+.hero {
+  margin-top: clamp(0.9rem, 2vw, 1.4rem);
+  padding: clamp(1.6rem, 5vw, 3.6rem);
+  border-radius: var(--r-xl);
+  background:
+    radial-gradient(60% 90% at 100% 0%, color-mix(in srgb, var(--a1) 34%, transparent), transparent 70%),
+    linear-gradient(160deg, var(--asfalto-2), var(--asfalto));
+  color: #fff;
+  text-align: left;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  top: 0; left: 0;
+  width: auto; height: auto;
+  transform: none;
+  filter: none;
+  animation: none;
+  background-image: var(--curve-livello);
+  background-size: 520px 520px;
+  opacity: 0.1;
+  mix-blend-mode: screen;
+  z-index: -1;
+}
+.hero .eyebrow, .hero .footer-fvg-tagline {
+  color: color-mix(in srgb, var(--a2) 70%, #fff);
+  text-align: left;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.22em;
+}
+.hero h1, .hero .Titolo {
+  text-align: left;
+  font-size: clamp(3.4rem, 10vw, 6.2rem);
+  line-height: 0.92;
+  margin: 0.15em 0 0.25em;
+}
+.hero h1 img { display: inline-block; vertical-align: -0.06em; width: 0.62em !important; height: auto; filter: brightness(0) invert(1); opacity: 0.9; }
+.hero .colore_sfondo_italia {
+  font-family: var(--font-display-bold);
+  font-size: clamp(3.8rem, 12vw, 7rem);
+  filter: none;
+  text-align: left;
+}
+.hero-sub, .hero p { color: var(--sulla-scura); text-align: left; margin-left: 0; margin-right: 0; }
+.hero-sub { max-width: 52ch; font-size: clamp(1rem, 1.5vw, 1.15rem); }
+.hero > h1 + .hero-sub::before, .hero > h1 ~ .hero-sub::before, .hero > .Titolo ~ .hero-sub::before { margin: 0 0 1.1rem; width: 64px; height: 5px; }
+.hero .tricolore-italia { margin-left: 0; margin-right: 0; width: 120px; }
+.hero br { display: none; }
+.hero .parallasse, .hero .hero-logo { margin-top: 1.6rem; }
+.hero .immagini_stagione, .hero .hero-logo .immagine {
+  width: 100%;
+  max-width: 460px;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--r-lg);
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7);
+}
+.hero .immagini_stagione { aspect-ratio: 4 / 3; object-fit: cover; }
+@media (min-width: 900px) {
+  .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); column-gap: clamp(1.5rem, 4vw, 3.5rem); align-content: center; }
+  .hero > * { grid-column: 1; }
+  .hero > .parallasse, .hero > .hero-logo { grid-column: 2; grid-row: 1 / span 8; align-self: center; margin-top: 0; justify-self: end; }
+}
+
+/* ---------- Sezioni: intestazioni a sinistra con filetto ---------- */
+main .section > .eyebrow, main .eyebrow {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.35rem;
+}
+main .section > .eyebrow::before { content: ""; width: 28px; height: 3px; border-radius: 2px; background: var(--a1); }
+.hero .eyebrow::before { content: none; }
+main .section > h2 { text-align: left; margin-bottom: 0.6rem; }
+main .section > p.hero-sub, main .section > .hero-sub { color: var(--ink-2); text-align: left; margin: 0 0 1.2rem; max-width: 62ch; }
+.cta-classifica-wrap { text-align: left; }
+
+/* ---------- Bottoni ---------- */
+.cta-classifica, .centra-bottone a, .colore__vai-a {
+  font-family: var(--font-display-bold);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--asfalto);
+  border-radius: var(--r-full);
+  box-shadow: none;
+  padding: 0.8rem 1.6rem;
+}
+.cta-classifica::after { content: "→"; transition: transform 0.25s var(--ease); }
+.cta-classifica:hover { background: var(--a1); color: #fff; transform: none; box-shadow: none; }
+.cta-classifica:hover::after { transform: translateX(4px); }
+.colore__vai-a { padding: 0.5rem 0.9rem; font-size: 0.95rem; line-height: 1.1; }
+a .colore { padding-bottom: calc(clamp(1.2rem, 3vw, 1.9rem) + 3.4rem); }
+.Primaveracontorno, .Estatecontorno, .Autunno-Invernocontorno, .Statistiche { padding-bottom: calc(clamp(1.1rem, 2.4vw, 1.6rem) + 3.6rem); }
+a:hover .colore__vai-a { transform: none; background: var(--a1); box-shadow: none; }
+
+/* ---------- Card di riepilogo: stile ciclocomputer ---------- */
+.colore {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-2);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.colore::before { height: 4px; background: var(--a1); box-shadow: none; }
+.misuracolore { font-family: var(--font-head); font-weight: 500; color: var(--ink-2); font-size: clamp(0.92rem, 1.5vw, 1rem); border-bottom-color: var(--line); }
+.misuracolore .num {
+  font-family: var(--font-display-bold);
+  font-size: 1.55em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  line-height: 1;
+}
+.misuracolore:first-child {
+  font-family: var(--font-display-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  color: var(--ink);
+}
+.misuracolore:first-child .num { font-size: clamp(2.6rem, 6vw, 3.6rem); color: var(--a1); }
+a:hover .colore, .colore:hover { transform: translateY(-3px); box-shadow: var(--sh-3); }
+
+/* ---------- Griglie: periodi, stagioni, catalogo ---------- */
+.Primaveracontorno, .Estatecontorno, .Autunno-Invernocontorno, .Statistiche,
+.primavera, .estate, .autunno_inverno, .contorno, .bici {
+  background: #fff;
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+  border: 1px solid var(--line);
+}
+.Primaveracontorno::before, .Estatecontorno::before, .Autunno-Invernocontorno::before, .Statistiche::before { width: 5px; background: var(--a1); }
+.Primaveracontorno:hover, .Estatecontorno:hover, .Autunno-Invernocontorno:hover, .Statistiche:hover,
+.primavera:hover, .estate:hover, .autunno_inverno:hover, .contorno:hover, .bici:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-3);
+  border-color: var(--a1);
+}
+.titoli {
+  font-family: var(--font-display-bold);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.contornostagionesx, .contornostagionedx, .contornostagione {
+  font-family: var(--font-display-bold);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.immaginestagione, .immaginestagionesx, .immaginestagionedx, .immaginestagionestat, .immaginestagionestatsx { background: var(--a-soft); border-radius: var(--r-md); }
+.primavera::before, .estate::before, .autunno_inverno::before { height: 4px; }
+.primavera::before { background: #0ca678; }
+.estate::before { background: #f76707; }
+.autunno_inverno::before { background: #1971c2; }
+
+/* ---------- Grafici, tabelle, galleria ---------- */
+.grafico, canvas.grafico, .coloregrafico, #Grafici > canvas:not(.grafico) {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+}
+.table-wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+  background: #fff;
+  overflow: auto;
+}
+table { font-variant-numeric: tabular-nums; }
+tr:first-child th, thead th, table th {
+  background: var(--asfalto);
+  color: #fff;
+  font-family: var(--font-display-bold);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+td a, .tappa-link-multipli a { color: color-mix(in srgb, var(--a1) 78%, #000); font-weight: 500; }
+tbody tr:nth-child(even) { background: var(--surface-2); }
+tbody tr:hover { background: var(--a-soft); }
+.shot { border-radius: var(--r-lg); box-shadow: var(--sh-1); }
+.shot:hover { box-shadow: var(--sh-3); }
+#pagination button, #pagination .material-icons { border-radius: var(--r-full); }
+#page-indicator { font-family: var(--font-display-bold); font-size: 1.3rem; letter-spacing: 0.06em; }
+
+/* ---------- Menu laterale ---------- */
+.menu { background: #fff; box-shadow: -30px 0 70px -30px rgba(11, 22, 38, 0.6); }
+.menu h1 { font-family: var(--font-display-bold); font-size: 1.1rem; letter-spacing: 0.2em; }
+.menu li a, .menu button { font-family: var(--font-head); border-radius: var(--r-md); }
+
+/* ---------- Piè di pagina: asfalto ---------- */
+.site-foot { background: var(--asfalto); margin-top: clamp(2.4rem, 5vw, 4rem); padding: clamp(1.4rem, 3vw, 2rem) 0 1.4rem; border-top: 4px solid var(--a1); }
+.site-foot p, .footer-dates, .footer-fvg-tagline { color: var(--sulla-scura); }
+.footer-dates { color: rgba(255, 255, 255, 0.5); }
+.foot-links a { color: #fff; font-family: var(--font-display-bold); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.foot-links a:hover { color: var(--a2); }
+.footer-tricolore .tricolore-italia { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18); }
+
+/* ---------- Barra di lettura e torna-su ---------- */
+.torna-su, #torna-su { background: var(--asfalto); color: #fff; box-shadow: none; }
+
+/* ---------- Card riepilogo larghe: due colonne su schermi ampi ---------- */
+.colore { width: 100%; max-width: 100%; margin-inline: 0; }
+@media (min-width: 900px) {
+  .colore:has(.misuracolore:nth-of-type(7)) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 5vw, 4rem);
+    align-content: start;
+  }
+  .colore:has(.misuracolore:nth-of-type(7)) > :first-child,
+  .colore:has(.misuracolore:nth-of-type(7)) > hr,
+  .colore:has(.misuracolore:nth-of-type(7)) > .colore__vai-a { grid-column: 1 / -1; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+  .site-bar { gap: 0.55rem 0.8rem; padding-block: 0.55rem; }
+  .brand { margin-right: auto; }
+  .riga-giri { display: block; font-size: 1.4rem; }
+  .brand-text { gap: 0.3rem; }
+  .brand-text .tricolore-italia { width: 84px; height: 4px; }
+  .graficostagioni { order: 2; }
+  .Icons { order: 3; flex: 1 1 100%; justify-content: space-between; }
+}
+@media (max-width: 640px) {
+  .brand-text small { display: none; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 1.4rem 1.2rem 1.6rem; border-radius: var(--r-lg); }
+  .hero .immagini_stagione, .hero .hero-logo .immagine { max-width: 100%; }
+  .riga-giri { font-size: 1.35rem; }
+}
+
+/* ---------- Movimento ridotto ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cta-classifica::after { transition: none; }
+}
+
+/* ---------- Accesso: fondo asfalto, scheda bianca ---------- */
+body:has(.login-card) { background: var(--asfalto); }
+body:has(.login-card)::before { filter: invert(1); opacity: 0.07; }
+body .login-card {
+  background: #fff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 0;
+  border-radius: var(--r-xl);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.65);
+}
+body .login-card .card-decoration, .login-card .card-decoration-2 { opacity: 0.25; }
+body .login-card h1 { font-size: clamp(2.6rem, 8vw, 3.4rem); color: var(--ink); background: none; -webkit-text-fill-color: currentColor; }
+body .login-card .input-icon input { border-radius: var(--r-md); background: var(--surface-2); }
+body .login-btn {
+  border-radius: var(--r-md);
+  background: var(--asfalto);
+  color: #fff;
+  font-family: var(--font-display-bold);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: none;
+}
+body .login-btn:hover { background: var(--a1); box-shadow: none; }
+
+/* ---------- Titoli con gradiente: mai piu' larghi del proprio riquadro ---------- */
+body .hero h1, body .hero .main-title, body .main-title {
+  font-family: var(--font-display-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-align: left;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+body .hero .main-title { font-size: clamp(3.2rem, 8vw, 5.6rem); line-height: 0.95; margin: 0.15em 0 0.3em; }
+
+/* ============================================================
+   LIVELLO 2 — Look da sito ciclistico (Rapha / Canyon / Pinarello)
+   Foto a tutto campo negli hero, strisce da corsa, numeri di
+   sezione, tessere stagione con foto, bottoni "a parallelogramma"
+   e scritta gigante nel piè di pagina.
+   ============================================================ */
+
+/* ---------- Hero: strisce da corsa ---------- */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg,
+      transparent 0 88%,
+      var(--a1) 88% 89.6%,
+      transparent 89.6% 91%,
+      rgba(255, 255, 255, 0.9) 91% 91.6%,
+      transparent 91.6% 92.8%,
+      var(--a2) 92.8% 93.2%,
+      transparent 93.2%);
+  opacity: 0.9;
+}
+
+/* ---------- Hero con foto a tutto campo (pagine stagione) ---------- */
+.hero:has(> .parallasse) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(440px, 66vh, 660px);
+  padding-bottom: clamp(2rem, 5vw, 3.8rem);
+}
+.hero:has(> .parallasse) > *:not(.parallasse) { max-width: min(680px, 100%); grid-column: auto; }
+.hero > .parallasse {
+  position: absolute;
+  inset: -6% 0;
+  z-index: -2;
+  margin: 0;
+  grid-column: auto;
+  grid-row: auto;
+  justify-self: stretch;
+}
+.hero > .parallasse .immagini_stagione {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--asfalto);
+  filter: saturate(1.1) contrast(1.04);
+}
+.hero:has(> .parallasse)::before { opacity: 0; }
+.hero:has(> .parallasse)::after {
+  background:
+    linear-gradient(115deg,
+      transparent 0 88%,
+      var(--a1) 88% 89.6%,
+      transparent 89.6% 91%,
+      rgba(255, 255, 255, 0.9) 91% 91.6%,
+      transparent 91.6% 92.8%,
+      var(--a2) 92.8% 93.2%,
+      transparent 93.2%),
+    linear-gradient(90deg, rgba(11, 22, 38, 0.92) 0%, rgba(11, 22, 38, 0.62) 48%, rgba(11, 22, 38, 0.08) 100%),
+    linear-gradient(0deg, rgba(11, 22, 38, 0.65), transparent 45%);
+  opacity: 1;
+}
+.hero:has(> .parallasse) h1,
+.hero:has(> .parallasse) .Titolo { font-size: clamp(3.4rem, 10vw, 7.4rem); }
+
+/* ---------- Numeri di sezione: 01 — Periodi ---------- */
+main { counter-reset: sez; }
+main .section > .eyebrow { counter-increment: sez; }
+main .section > .eyebrow::before {
+  content: counter(sez, decimal-leading-zero);
+  width: auto;
+  height: auto;
+  background: none;
+  font-family: var(--font-display-bold);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--a1);
+  padding-right: 0.7rem;
+  border-right: 2px solid var(--a1);
+}
+main .section > h2 { font-size: clamp(2.3rem, 5.2vw, 3.8rem); }
+
+/* ---------- Bottoni a parallelogramma ---------- */
+.cta-classifica {
+  border-radius: 0;
+  padding: 0.95rem 2.4rem;
+  font-size: 1.2rem;
+  clip-path: polygon(16px 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
+}
+.cta-classifica:focus-visible { clip-path: none; }
+
+/* ---------- Tessere stagione con foto (home) ---------- */
+.season-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(0.8rem, 2vw, 1.3rem); }
+.season-grid > .primavera,
+.season-grid > .estate,
+.season-grid > .autunno_inverno {
+  display: flex;
+  min-height: clamp(190px, 26vw, 280px);
+  border: 0;
+  border-radius: var(--r-lg);
+  background-color: var(--asfalto);
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--sh-2);
+  color: #fff;
+}
+.season-grid > .primavera { background-image: linear-gradient(0deg, rgba(11, 22, 38, 0.88), rgba(11, 22, 38, 0.1) 65%), url("/img/Primavera.jpg"); }
+.season-grid > .estate { background-image: linear-gradient(0deg, rgba(11, 22, 38, 0.88), rgba(11, 22, 38, 0.1) 65%), url("/img/Estate.jpg"); }
+.season-grid > .autunno_inverno { background-image: linear-gradient(0deg, rgba(11, 22, 38, 0.88), rgba(11, 22, 38, 0.1) 65%), url("/img/Autunno_Inverno.jpg"); }
+.season-grid > div > a {
+  width: 100%;
+  align-self: flex-end;
+  color: #fff;
+  padding: 1.3rem 1.4rem;
+  font-size: clamp(2rem, 3.6vw, 2.6rem);
+  line-height: 1;
+}
+.season-grid > div > a:hover { color: #fff; }
+.season-grid > div > a::after { color: #fff; font-size: 1.8rem; }
+.season-grid > div > a:hover::after { color: #fff; }
+.season-grid > div > a p { color: #fff; }
+.season-grid .immaginestagionesx, .season-grid .immaginestagionedx { background: #fff; width: 52px; height: 52px; }
+.season-grid > div:hover { border: 0; }
+
+/* ---------- Foto: zoom lento al passaggio ---------- */
+.shot img { transition: transform 0.7s var(--ease); }
+.shot:hover img { transform: scale(1.06); }
+
+/* ---------- Piè di pagina: scritta gigante ---------- */
+.site-foot { position: relative; overflow: hidden; padding-bottom: clamp(3.5rem, 9vw, 7rem); }
+.site-foot > .wrap { position: relative; z-index: 1; }
+.site-foot::after {
+  content: "GIRI IN BICI";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.22em;
+  text-align: center;
+  font-family: var(--font-display-bold);
+  font-weight: 800;
+  font-size: clamp(4.5rem, 21vw, 17rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---------- Mobile del livello 2 ---------- */
+@media (max-width: 640px) {
+  .hero:has(> .parallasse) { min-height: 420px; }
+  .hero:has(> .parallasse)::after {
+    background:
+      linear-gradient(115deg, transparent 0 88%, var(--a1) 88% 91%, transparent 91% 93%, rgba(255,255,255,.9) 93% 94%, transparent 94%),
+      linear-gradient(0deg, rgba(11, 22, 38, 0.9) 0%, rgba(11, 22, 38, 0.45) 60%, rgba(11, 22, 38, 0.2) 100%);
+  }
+  main .section > .eyebrow::before { font-size: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shot img, .shot:hover img { transition: none; transform: none; }
+}
+
+/* Home: una sola bici accanto al titolo, cosi' il titolo non va a capo */
+.hero h1 > img:last-of-type:not(:first-of-type) { display: none; }
+
+/* Titoli sulle foto: bianchi e leggibili su qualunque immagine */
+body .hero:has(> .parallasse) h1,
+body .hero:has(> .parallasse) .Titolo {
+  background: none;
+  -webkit-text-fill-color: #fff;
+  color: #fff;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+}
+.hero:has(> .parallasse) .eyebrow { color: color-mix(in srgb, var(--a1) 45%, #fff); }
+@media (max-width: 640px) {
+  .hero:has(> .parallasse)::after {
+    background:
+      linear-gradient(115deg, transparent 0 88%, var(--a1) 88% 91%, transparent 91% 93%, rgba(255,255,255,.9) 93% 94%, transparent 94%),
+      linear-gradient(0deg, rgba(11, 22, 38, 0.92) 0%, rgba(11, 22, 38, 0.62) 70%, rgba(11, 22, 38, 0.42) 100%);
+  }
+}
+
+/* ============================================================
+   LIVELLO 3 — Sito ciclistico completo
+   Header scuro, hero a tutto schermo, cruscotto km scuro,
+   fascia scorrevole nel piè di pagina.
+   ============================================================ */
+
+/* ---------- Header scuro asfalto ---------- */
+.site-bar {
+  background: color-mix(in srgb, var(--asfalto) 92%, transparent);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.site-bar.is-scrolled { background: var(--asfalto); box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.7); }
+.brand, .brand:hover { color: #fff; }
+.brand-text small { color: rgba(255, 255, 255, 0.55); }
+.Bandiera-FVG { border-color: rgba(255, 255, 255, 0.22); }
+.Icons { background: rgba(255, 255, 255, 0.08); }
+.Icons a, .Icons .colore_apertura { color: rgba(255, 255, 255, 0.78); }
+.Icons img { filter: brightness(0) invert(1); opacity: 0.85; }
+.Icons a:hover, .Icons a:focus-visible { background: rgba(255, 255, 255, 0.16); color: #fff; box-shadow: none; }
+.Icons a[aria-current="page"], .Icons a.is-attivo { background: var(--a1); color: #fff; }
+.Icons a[aria-current="page"] img, .Icons a.is-attivo img { opacity: 1; }
+.Icons a[aria-current="page"]:hover, .Icons a.is-attivo:hover { background: color-mix(in srgb, var(--a1) 85%, #fff); }
+.graficostagioni { background: var(--a1); color: #fff; }
+.graficostagioni:hover { background: #fff; color: var(--asfalto); }
+.hamburger { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: rgba(255, 255, 255, 0.22); box-shadow: none; }
+.hamburger:hover { color: #fff; background: var(--a1); box-shadow: none; }
+
+/* ---------- Hero a tutto schermo ---------- */
+.hero {
+  width: 100vw;
+  max-width: none;
+  margin-top: 0;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
+  padding-inline: max(1.25rem, calc((100vw - var(--wrap)) / 2));
+  padding-block: clamp(2.4rem, 7vw, 5rem);
+  min-height: clamp(420px, 60vh, 620px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero:has(> .parallasse) { min-height: clamp(480px, 72vh, 720px); justify-content: flex-end; }
+@media (min-width: 900px) {
+  .hero:not(:has(> .parallasse)):has(> .hero-logo) { display: grid; }
+}
+main.stack > .hero + * { margin-top: clamp(2.4rem, 5vw, 4rem); }
+@media (max-width: 640px) {
+  .hero { padding-inline: 1.25rem; padding-block: 2rem 2.4rem; min-height: 0; }
+  .hero:has(> .parallasse) { min-height: 460px; }
+}
+
+/* ---------- Cruscotto chilometri: scheda scura ---------- */
+.colore {
+  background: linear-gradient(160deg, var(--asfalto-2), var(--asfalto));
+  border: 0;
+  color: #fff;
+  box-shadow: var(--sh-3);
+}
+.colore::before { height: 5px; background: linear-gradient(90deg, var(--a1), var(--a2)); }
+.colore .misuracolore { color: rgba(255, 255, 255, 0.72); border-bottom-color: rgba(255, 255, 255, 0.1); }
+.colore .misuracolore .num { color: #fff; }
+.colore .misuracolore:first-child { color: #fff; }
+.colore .misuracolore:first-child .num { color: color-mix(in srgb, var(--a1) 55%, #fff); }
+.colore hr { background: rgba(255, 255, 255, 0.12); }
+.colore .colore__vai-a { background: var(--a1); }
+a:hover .colore__vai-a { background: #fff; color: var(--asfalto); }
+
+/* ---------- Piè di pagina: fascia scorrevole ---------- */
+.site-foot { padding-top: clamp(4rem, 7vw, 5rem); }
+.site-foot::before {
+  content: "FRIULI VENEZIA GIULIA  ✦  DAL 2020  ✦  PRIMAVERA  ✦  ESTATE  ✦  AUTUNNO  ✦  INVERNO  ✦  CHILOMETRI  ✦  SALITE  ✦  AMICIZIA  ✦  FRIULI VENEZIA GIULIA  ✦  DAL 2020  ✦  PRIMAVERA  ✦  ESTATE  ✦  AUTUNNO  ✦  INVERNO  ✦  CHILOMETRI  ✦  SALITE  ✦  AMICIZIA  ✦  ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  padding: 0.85rem 0;
+  font-family: var(--font-display-bold);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  white-space: pre;
+  color: color-mix(in srgb, var(--a1) 70%, #fff);
+  animation: fascia-scorrevole 60s linear infinite;
+  pointer-events: none;
+}
+.site-foot > .wrap { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.4rem; }
+@keyframes fascia-scorrevole { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .site-foot::before { animation: none; } }
+
+/* ============================================================
+   LEGGIBILITA' DEI DATI — sempre, anche al passaggio del mouse
+   Le regole di hover del tema vecchio (micro-interazioni.css)
+   schiarivano lo sfondo della card scura lasciando il testo
+   bianco: i dati sparivano. Qui lo sfondo resta scuro e il testo
+   resta chiaro in ogni stato (hover, focus, tocco).
+   ============================================================ */
+.colore:hover,
+.colore:focus-within,
+a:hover .colore,
+a:focus-visible .colore {
+  background: linear-gradient(160deg, var(--asfalto-2), var(--asfalto));
+  color: #fff;
+  transform: translateY(-3px);
+}
+.colore .misuracolore:hover,
+.colore .misuracolore:focus-within {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  padding-left: 0.6rem;
+  border-radius: 6px;
+}
+.colore .misuracolore:hover .num,
+.colore .misuracolore:focus-within .num { color: #fff; }
+.colore .misuracolore:first-child:hover .num { color: color-mix(in srgb, var(--a1) 55%, #fff); }
+
+/* Tabelle e righe: al passaggio il testo resta scuro su fondo chiaro */
+tbody tr:hover, tbody tr:hover td { color: var(--ink); }
+tbody tr:hover { background: color-mix(in srgb, var(--a1) 12%, #fff); }
+tbody tr:hover td a, .tappa-link-multipli a:hover { color: color-mix(in srgb, var(--a1) 70%, #000); }
+.classifica-riga:hover, .risultato-riga:hover, .podio__gradino:hover { color: var(--ink); }
+
+/* Testi delle card a fondo chiaro: mai schiariti dall'hover */
+.Primaveracontorno:hover, .Estatecontorno:hover, .Autunno-Invernocontorno:hover, .Statistiche:hover { color: var(--ink); }
+.Statistiche:hover .misuracolore, .Estatecontorno:hover .misuracolore,
+.Primaveracontorno:hover .misuracolore, .Autunno-Invernocontorno:hover .misuracolore { color: var(--ink-2); }
+.Statistiche:hover .misuracolore .num, .Estatecontorno:hover .misuracolore .num,
+.Primaveracontorno:hover .misuracolore .num, .Autunno-Invernocontorno:hover .misuracolore .num { color: var(--ink); }
+
+/* ============================================================
+   FOTO DEL PERIODO — grande e centrata
+   ============================================================ */
+main .section:has(> .gallery) > .eyebrow { justify-content: center; }
+main .section:has(> .gallery) > h2 { text-align: center; }
+.gallery {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 560px));
+  justify-content: center;
+  justify-items: center;
+  margin-inline: auto;
+}
+.gallery .shot { width: 100%; }
+@media (max-width: 640px) {
+  .gallery { grid-template-columns: 1fr; }
+}
+
+/* Bottone "Vai a…" dentro le card chiare: al passaggio diventa colorato, mai bianco su bianco */
+.Statistiche a:hover .colore__vai-a, .Estatecontorno a:hover .colore__vai-a,
+.Primaveracontorno a:hover .colore__vai-a, .Autunno-Invernocontorno a:hover .colore__vai-a {
+  background: var(--a1);
+  color: #fff;
+}
