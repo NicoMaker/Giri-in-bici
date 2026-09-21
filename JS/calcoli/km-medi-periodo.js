@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <p class="misuracolore">Totale km percorsi ${formattedTotalKm}
           <img src="/img/Icons/traguardo.png" alt="Icona traguardo">
         </p>
+        <p class="misuracolore">Totale corse ${formatItalianNumber(totalRaces)}</p> 
         <p class="misuracolore">Media km percorsi ${mediaValue}</p>
       </div>
     `;
