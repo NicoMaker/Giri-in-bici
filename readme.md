@@ -94,12 +94,6 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ---
 
-## 🗺 Mappa del Sito
-
-![Mappa del Sito](Img/About_US/Mappa.jpg)
-
----
-
 ## 👥 Avatar dei Partecipanti
 
 - [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
