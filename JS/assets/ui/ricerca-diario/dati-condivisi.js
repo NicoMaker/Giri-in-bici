@@ -9,10 +9,22 @@
 //
 // L'elenco degli anni coperti dal sito si legge da
 // json/Statistiche/History/Storico.json, la stessa fonte gia'
-// usata dalle pagine di Statistiche: quando si aggiunge un anno al
-// sito non serve toccare questo file.
+// usata dalle pagine di Statistiche, e viene SEMPRE unito agli
+// anni calcolati dal diario (2020 -> anno corrente + 1): cosi'
+// quando si aggiunge un anno al sito non serve toccare questo
+// file, e se Storico.json resta indietro rispetto ai dati il
+// diario continua comunque a leggere i file nuovi.
 //
-// Dipende da: Json (JS/json.js), formatNumber (JS/utils.js).
+// Ogni uscita porta con se' anche "stagioneCompleta", cioe'
+// l'etichetta di stagione con l'anno (o gli anni) giusti:
+//   "Primavera 2025", "Estate 2025",
+//   "Autunno-Inverno 2024-2025".
+// E' quella che compare sotto il nome del posto nei risultati,
+// perche' "Autunno - Inverno" da solo non dice a quale inverno
+// si riferisce (il file ne copre due).
+//
+// Dipende da: Json (js/core/lettura-json.js), formatNumber
+// (js/core/formattazione-numeri.js).
 // Va incluso PRIMA di cerca-per-data.js e cerca-per-posto.js.
 // ============================================================
 
@@ -40,6 +52,12 @@ window.DatiGiri = window.DatiGiri || {};
   // Gennaio-Aprile appartengono al secondo anno della coppia, gli
   // altri (Ottobre-Dicembre) al primo.
   var MESI_SECONDO_ANNO = ["Gennaio", "Febbraio", "Marzo", "Aprile"];
+
+  // Primo anno coperto dal diario. Serve per calcolare gli anni
+  // "reali" del diario in aggiunta a quelli dichiarati in
+  // Storico.json (rete di sicurezza: se Storico.json resta
+  // indietro, i file nuovi vengono letti lo stesso).
+  var PRIMO_ANNO = 2020;
 
   D.primavera = function (anno) {
     return {
@@ -94,19 +112,47 @@ window.DatiGiri = window.DatiGiri || {};
     }
   };
 
+  // Anni "reali" che il diario puo' contenere, indipendentemente da
+  // quello che dice Storico.json: dal primo anno del sito fino
+  // all'anno corrente piu' uno (perche' l'Autunno-Inverno di
+  // quest'anno vive nel file "anno-(anno+1).json").
+  function anniDalDiario() {
+    var annoCorrente = new Date().getFullYear();
+    var anni = [];
+    for (var a = PRIMO_ANNO; a <= annoCorrente + 1; a++) {
+      anni.push(a);
+    }
+    return anni;
+  }
+
   // Tutti i file di periodo del sito: serve alla ricerca per posto,
-  // che non e' legata a una data e deve guardare ovunque.
+  // che non e' legata a una data e deve guardare ovunque. Unisce
+  // gli anni dichiarati in Storico.json con quelli calcolati dal
+  // diario: se Storico.json e' indietro (o non si carica), i file
+  // nuovi vengono letti lo stesso.
   D.tuttiICandidati = async function () {
     var storico = await window.Json.leggiOppureNull(
       "json/Statistiche/History/Storico.json",
     );
-    var anni =
-      storico && storico.anni
-        ? Object.keys(storico.anni).map(Number)
-        : [2020, 2021, 2022, 2023, 2024, 2025, 2026]; // rete di sicurezza
-    anni.sort(function (a, b) {
-      return a - b;
+
+    var insiemeAnni = {};
+
+    if (storico && storico.anni) {
+      Object.keys(storico.anni).forEach(function (chiave) {
+        var anno = Number(chiave);
+        if (!Number.isNaN(anno) && anno > 0) insiemeAnni[anno] = true;
+      });
+    }
+
+    anniDalDiario().forEach(function (anno) {
+      insiemeAnni[anno] = true;
     });
+
+    var anni = Object.keys(insiemeAnni)
+      .map(Number)
+      .sort(function (a, b) {
+        return a - b;
+      });
 
     var candidati = [];
     anni.forEach(function (anno) {
@@ -120,6 +166,23 @@ window.DatiGiri = window.DatiGiri || {};
   function annoDaUrl(url) {
     var trovato = url.match(/(\d{4})\.json$/);
     return trovato ? parseInt(trovato[1], 10) : 0;
+  }
+
+  // Etichetta di stagione con l'anno (o gli anni) giusti.
+  //   Primavera 2025
+  //   Estate 2025
+  //   Autunno-Inverno 2024-2025
+  // Per l'Autunno-Inverno servono tutti e due gli anni del file,
+  // altrimenti "Autunno-Inverno" da solo non dice a quale inverno
+  // si riferisce (il file ne copre due: Ott-Dic del primo, Gen-Apr
+  // del secondo).
+  function etichettaStagione(candidato) {
+    if (candidato.stagione === "Autunno - Inverno") {
+      return (
+        "Autunno-Inverno " + candidato.annoInizio + "-" + candidato.annoFine
+      );
+    }
+    return candidato.stagione + " " + annoDaUrl(candidato.url);
   }
 
   // Estrae solo il testo da un campo "place", che puo' contenere un
@@ -158,7 +221,8 @@ window.DatiGiri = window.DatiGiri || {};
             : annoDaUrl(candidato.url);
 
         uscite.push({
-          stagione: candidato.stagione,
+          stagione: candidato.stagione, // nome "grezzo", per compatibilita'
+          stagioneCompleta: etichettaStagione(candidato), // NUOVO
           data: giro.date,
           anno: anno,
           etichetta: giro.date + " " + anno,
@@ -302,6 +366,11 @@ window.DatiGiri = window.DatiGiri || {};
         var linkMultipli =
           T && info.linkMultipli ? T.creaLinkMultipli(info.linkMultipli) : "";
 
+        // Sotto il nome del posto: data + anno, poi la stagione
+        // completa dell'anno giusto ("Primavera 2025",
+        // "Autunno-Inverno 2024-2025").
+        var stagioneMostrata = u.stagioneCompleta || u.stagione;
+
         var dentro =
           '<span class="risultato-riga__posizione">' +
           (indice + 1) +
@@ -311,7 +380,7 @@ window.DatiGiri = window.DatiGiri || {};
           '<small class="risultato-riga__sotto">' +
           u.etichetta +
           " · " +
-          u.stagione +
+          stagioneMostrata +
           "</small>" +
           linkMultipli +
           "</span>" +
