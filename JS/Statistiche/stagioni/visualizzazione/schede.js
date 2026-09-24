@@ -47,6 +47,8 @@ window.Stagioni = window.Stagioni || {};
       totalYearRaces > 0 ? (currentSeasonRaces / totalYearRaces) * 100 : 0;
     const seasonKmPercentage = parseFloat(data[season.avgKey]) || 0;
     const avgKmPerPeriod = numPeriods > 0 ? totalKm / numPeriods : 0;
+    const avgRacesPerPeriod =
+      numPeriods > 0 ? currentSeasonRaces / numPeriods : 0;
     const avgKmPerRace =
       currentSeasonRaces > 0 ? totalKm / currentSeasonRaces : 0;
 
@@ -69,6 +71,12 @@ window.Stagioni = window.Stagioni || {};
         ? Variazioni.calcVariazione(avgKmPerPeriod, prevAvgKmPerPeriod)
         : null;
     const prevSeasonRaces = prevSeason ? data[prevSeason.raceKey] || 0 : 0;
+    const prevAvgRacesPerPeriod =
+      prevSeason && prevNumPeriods > 0 ? prevSeasonRaces / prevNumPeriods : 0;
+    const percRacesPerPeriod =
+      prevSeason && prevNumPeriods > 0
+        ? Variazioni.calcVariazione(avgRacesPerPeriod, prevAvgRacesPerPeriod)
+        : null;
     const prevAvgKmPerRace =
       prevSeason && prevSeasonRaces > 0
         ? (data[prevSeason.dataKey] || 0) / prevSeasonRaces
@@ -101,6 +109,9 @@ window.Stagioni = window.Stagioni || {};
         <p class="misuracolore">📅 Periodi: ${formatItalianNumber(numPeriods)}</p>
         <p class="misuracolore">km medi per periodo ${formatNumber(avgKmPerPeriod)}
           ${prevSeason ? Variazioni.badgeVariazione(percKmPerPeriod, etichetta) : ""}
+        </p>
+        <p class="misuracolore">corse medie per periodo ${formatNumber(avgRacesPerPeriod)}
+          ${prevSeason ? Variazioni.badgeVariazione(percRacesPerPeriod, etichetta) : ""}
         </p>
         <p class="misuracolore">km medi per corsa ${formatNumber(avgKmPerRace)}
           ${prevSeason ? Variazioni.badgeVariazione(percKmPerRace, etichetta) : ""}
