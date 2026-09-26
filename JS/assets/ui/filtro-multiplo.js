@@ -135,7 +135,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
         '<button type="button" class="filtro-multiplo__azione" data-azione="nessuna"' +
         (haSelezione ? "" : " disabled") +
         ">" +
-        testoVuoto +
+        "Deseleziona tutto" +
         "</button>" +
         "</div>" +
         '<ul class="filtro-multiplo__lista">' +
