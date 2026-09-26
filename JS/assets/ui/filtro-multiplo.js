@@ -172,7 +172,8 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       var bottoneTutte = pannello.querySelector('[data-azione="tutte"]');
       var bottoneNessuna = pannello.querySelector('[data-azione="nessuna"]');
       if (bottoneTutte) {
-        bottoneTutte.addEventListener("click", function () {
+        bottoneTutte.addEventListener("click", function (evento) {
+          evento.stopPropagation();
           voci.forEach(function (v) {
             v.checked = true;
           });
@@ -182,7 +183,8 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
         });
       }
       if (bottoneNessuna) {
-        bottoneNessuna.addEventListener("click", function () {
+        bottoneNessuna.addEventListener("click", function (evento) {
+          evento.stopPropagation();
           voci.forEach(function (v) {
             v.checked = false;
           });
