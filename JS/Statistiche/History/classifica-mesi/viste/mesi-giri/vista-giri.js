@@ -17,8 +17,26 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
+  // Il titolo della sezione "Classifica completa" descrive la direzione
+  // dell'ordinamento scelto: non può restare fisso su "dal più lungo al
+  // più corto" quando l'utente sceglie un altro ordine (es. "Dal meno al
+  // più lungo"), altrimenti il testo mentirebbe rispetto a quello che si
+  // vede davvero in lista.
+  const TITOLI_ORDINE_GIRI = {
+    desc: "Tutti i giri, dal più lungo al più corto",
+    asc: "Tutti i giri, dal più corto al più lungo",
+    alfabetico: "Tutti i giri, in ordine alfabetico (A-Z)",
+    "alfabetico-desc": "Tutti i giri, in ordine alfabetico (Z-A)",
+    "data-recente": "Tutti i giri, dal più recente al meno recente",
+    "data-vecchio": "Tutti i giri, dal meno recente al più recente",
+  };
+
   CM.avviaVistaGiri = async function () {
     const CC = window.ClassificaControlli;
+
+    const titoloSezioneEl = document.getElementById(
+      "classifica-tappe-titolo-sezione",
+    );
 
     const controlliGiri = CC.crea(document.getElementById("controlli-giri"), {
       onCambia: () => aggiornaVistaTappe(),
@@ -144,6 +162,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         );
         controlliGiri.aggiornaLimiti(perFiltriEsistenti.map((t) => t.distance));
         const stato = controlliGiri.stato();
+        if (titoloSezioneEl) {
+          titoloSezioneEl.textContent =
+            TITOLI_ORDINE_GIRI[stato.ordine] || TITOLI_ORDINE_GIRI.desc;
+        }
         const cercate = CC.cerca(
           perFiltriEsistenti,
           stato.testo,
