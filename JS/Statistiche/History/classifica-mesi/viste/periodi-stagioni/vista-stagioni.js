@@ -7,6 +7,16 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
+  // Stesso principio delle altre schede: il testo sotto il titolo
+  // descrive la direzione dell'ordinamento scelto in quel momento
+  // (le Stagioni non hanno gli ordini per data, solo km e alfabetico).
+  const TESTO_ORDINE_STAGIONI = {
+    desc: "dal totale più alto al più basso",
+    asc: "dal totale più basso al più alto",
+    alfabetico: "in ordine alfabetico (A-Z)",
+    "alfabetico-desc": "in ordine alfabetico (Z-A)",
+  };
+
   CM.avviaVistaStagioni = async function () {
     const CC = window.ClassificaControlli;
 
@@ -14,6 +24,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     const listaStagioniEl = document.getElementById("classifica-stagioni");
     const titoloStagioniEl = document.getElementById(
       "classifica-stagioni-titolo",
+    );
+    const heroStagioniEl = document.getElementById(
+      "classifica-stagioni-hero-sub",
     );
 
     let righeStagioniComplete = [];
@@ -40,6 +53,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           perPodio,
           stato.ordine,
         );
+      if (heroStagioniEl) {
+        heroStagioniEl.textContent = `Ogni stagione, una per una, ${TESTO_ORDINE_STAGIONI[stato.ordine] || TESTO_ORDINE_STAGIONI.desc}.`;
+      }
       if (podioStagioniEl)
         podioStagioniEl.innerHTML = CM.creaPodioStagioni(perPodio);
       if (listaStagioniEl)

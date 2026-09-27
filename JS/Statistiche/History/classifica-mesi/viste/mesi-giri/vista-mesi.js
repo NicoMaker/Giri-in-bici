@@ -7,17 +7,44 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
+  // Stesso principio già usato per i Giri: il testo sotto al titolo di
+  // ogni "Classifica completa" descrive la direzione dell'ordinamento
+  // scelto in quel momento, non un ordine fisso deciso una volta per
+  // tutte nell'HTML.
+  const TESTO_ORDINE_MESI = {
+    desc: "dal più al meno pedalato",
+    asc: "dal meno al più pedalato",
+    alfabetico: "in ordine alfabetico (A-Z)",
+    "alfabetico-desc": "in ordine alfabetico (Z-A)",
+    "data-recente": "dal più recente al meno recente",
+    "data-vecchio": "dal meno recente al più recente",
+    "media-desc": "per media più alta",
+    "media-asc": "per media più bassa",
+  };
+  const TESTO_ORDINE_RECORD = TESTO_ORDINE_MESI;
+  const TESTO_ORDINE_ANNI = {
+    desc: "dal totale più alto al più basso",
+    asc: "dal totale più basso al più alto",
+    alfabetico: "in ordine alfabetico (A-Z)",
+    "alfabetico-desc": "in ordine alfabetico (Z-A)",
+    "data-recente": "dal più recente al meno recente",
+    "data-vecchio": "dal meno recente al più recente",
+  };
+
   CM.avviaVistaMesi = async function () {
     const CC = window.ClassificaControlli;
 
     const podioEl = document.getElementById("podio");
     const listaEl = document.getElementById("classifica");
+    const heroMesiEl = document.getElementById("classifica-mesi-hero-sub");
     const recordMesiEl = document.getElementById("record-mesi");
     const titoloRecordMesiEl = document.getElementById("record-mesi-titolo");
+    const heroRecordEl = document.getElementById("record-mesi-hero-sub");
     const podioRecordMesiEl = document.getElementById("podio-record-mesi");
     const podioAnniEl = document.getElementById("podio-anni");
     const listaAnniEl = document.getElementById("classifica-anni");
     const titoloAnniEl = document.getElementById("classifica-anni-titolo");
+    const heroAnniEl = document.getElementById("classifica-anni-hero-sub");
     const contenitoreRecordAnnoEl =
       document.getElementById("record-filtro-anno");
     // Ora si possono scegliere più anni insieme (prima un <select> con
@@ -72,6 +99,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       if (titoloEl) {
         titoloEl.innerHTML = CM.creaTitolo(perPodio, stato.ordine);
       }
+      if (heroMesiEl) {
+        heroMesiEl.textContent = `La classifica intera dei dodici mesi, uno sotto l'altro, ${TESTO_ORDINE_MESI[stato.ordine] || TESTO_ORDINE_MESI.desc}.`;
+      }
     }
 
     function disegnaAnni() {
@@ -91,6 +121,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
       if (titoloAnniEl)
         titoloAnniEl.innerHTML = CM.creaTitoloAnni(perPodio, stato.ordine);
+      if (heroAnniEl) {
+        heroAnniEl.textContent = `Tutti gli anni pedalati finora, uno sotto l'altro, ${TESTO_ORDINE_ANNI[stato.ordine] || TESTO_ORDINE_ANNI.desc}.`;
+      }
       if (podioAnniEl) podioAnniEl.innerHTML = CM.creaPodioAnni(perPodio);
       if (listaAnniEl) {
         listaAnniEl.innerHTML =
@@ -196,6 +229,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             perPodio,
             stato.ordine,
           );
+        if (heroRecordEl) {
+          heroRecordEl.textContent = `Ogni mese di ogni anno preso singolarmente, ${TESTO_ORDINE_RECORD[stato.ordine] || TESTO_ORDINE_RECORD.desc}: non la somma dei vari mesi, ma ogni edizione a sé.`;
+        }
         if (podioRecordMesiEl)
           podioRecordMesiEl.innerHTML = CM.creaPodioSemplice(perPodio);
         if (recordMesiEl)

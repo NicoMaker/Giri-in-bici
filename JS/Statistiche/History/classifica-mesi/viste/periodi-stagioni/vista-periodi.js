@@ -7,12 +7,27 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 (function (CM) {
   "use strict";
 
+  // Stesso principio già usato per Giri, Mesi, Record e Anni: il testo
+  // sotto il titolo descrive la direzione dell'ordinamento scelto in
+  // quel momento.
+  const TESTO_ORDINE_PERIODI = {
+    desc: "dal più al meno pedalato",
+    asc: "dal meno al più pedalato",
+    alfabetico: "in ordine alfabetico (A-Z)",
+    "alfabetico-desc": "in ordine alfabetico (Z-A)",
+    "data-recente": "dal più recente al meno recente",
+    "data-vecchio": "dal meno recente al più recente",
+  };
+
   CM.avviaVistaPeriodi = async function () {
     const CC = window.ClassificaControlli;
 
     const listaPeriodiEl = document.getElementById("classifica-periodi");
     const titoloPeriodiEl = document.getElementById(
       "classifica-periodi-titolo",
+    );
+    const heroPeriodiEl = document.getElementById(
+      "classifica-periodi-hero-sub",
     );
     const podioPeriodiEl = document.getElementById("podio-periodi");
     const contenitorePeriodiStagioneEl = document.getElementById(
@@ -76,6 +91,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             perPodio,
             stato.ordine,
           );
+        if (heroPeriodiEl) {
+          heroPeriodiEl.textContent = `Ogni periodo di ogni stagione, uno per uno, ${TESTO_ORDINE_PERIODI[stato.ordine] || TESTO_ORDINE_PERIODI.desc}.`;
+        }
         if (podioPeriodiEl)
           podioPeriodiEl.innerHTML = CM.creaPodioPeriodi(perPodio);
         if (listaPeriodiEl)
