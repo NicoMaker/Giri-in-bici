@@ -31,6 +31,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "data-vecchio": "dal meno recente al più recente",
     "media-desc": "per media km/corsa più alta",
     "media-asc": "per media km/corsa più bassa",
+    "corse-desc": "dall'anno con più corse a quello con meno",
+    "corse-asc": "dall'anno con meno corse a quello con più",
   };
 
   CM.avviaVistaMesi = async function () {
@@ -118,11 +120,18 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       // si ordina invece per media = km / corse (r.kmMedi).
       const perMedia =
         stato.ordine === "media-desc" || stato.ordine === "media-asc";
-      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => (perMedia ? r.kmMedi : r.km), {
+      const perCorse =
+        stato.ordine === "corse-desc" || stato.ordine === "corse-asc";
+      const ordinate = CC.ordina(
+        filtrate,
+        stato.ordine,
+        (r) => (perMedia ? r.kmMedi : perCorse ? r.corse : r.km),
+        {
         spareggio: (r) => Number(r.anno) || 0,
         nome: (r) => r.nome,
         data: (r) => Number(r.anno) || 0,
-      });
+      },
+      );
       const perPodio = ordinate.slice(0, 3);
 
       if (titoloAnniEl)

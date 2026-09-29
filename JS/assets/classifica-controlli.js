@@ -230,6 +230,7 @@ window.ClassificaControlli = window.ClassificaControlli || {};
   //   "alfabetico" / "alfabetico-desc"   per nome, A→Z o Z→A
   //   "data-recente" / "data-vecchio"    per data/cronologia
   //   "media-desc" / "media-asc"         per media mensile (più alta/bassa)
+  //   "corse-desc" / "corse-asc"         per numero di corse (più/meno)
   //
   // Il quarto parametro "extra" resta compatibile con l'uso di prima
   // (una funzione = solo lo spareggio) ma accetta anche un oggetto
@@ -258,12 +259,22 @@ window.ClassificaControlli = window.ClassificaControlli || {};
     var dataDi = opzioni.data || valoreDi;
 
     // --- Nuovo: ordinamento per media ---
-    if (ordine === "media-desc" || ordine === "media-asc") {
-      // Usiamo valoreDi come estrattore della media (che nel caso dei mesi è r.kmMedi)
+    if (
+      ordine === "media-desc" ||
+      ordine === "media-asc" ||
+      ordine === "corse-desc" ||
+      ordine === "corse-asc"
+    ) {
+      // valoreDi restituisce già il valore giusto (media km/corsa o
+      // numero di corse, deciso da chi chiama). A parità di valore
+      // decide lo spareggio, se presente.
       return righe.slice().sort(function (a, b) {
         var valA = valoreDi(a);
         var valB = valoreDi(b);
-        if (ordine === "media-desc") {
+        if (valA === valB && valoreSpareggio) {
+          return valoreSpareggio(a) - valoreSpareggio(b);
+        }
+        if (ordine === "media-desc" || ordine === "corse-desc") {
           return valB - valA;
         } else {
           return valA - valB;
