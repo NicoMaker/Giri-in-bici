@@ -127,10 +127,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         stato.ordine,
         (r) => (perMedia ? r.kmMedi : perCorse ? r.corse : r.km),
         {
-        spareggio: (r) => Number(r.anno) || 0,
-        nome: (r) => r.nome,
-        data: (r) => Number(r.anno) || 0,
-      },
+          spareggio: (r) => Number(r.anno) || 0,
+          nome: (r) => r.nome,
+          data: (r) => Number(r.anno) || 0,
+        },
       );
       const perPodio = ordinate.slice(0, 3);
 

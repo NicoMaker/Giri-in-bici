@@ -56,7 +56,10 @@ window.StatGenerali = window.StatGenerali || {};
                 : 0;
               const percKmMediMese =
                 prevEntry && mesiPrev > 0
-                  ? Variazioni.calcVariazione(kmMediMese, prevEntry.km / mesiPrev)
+                  ? Variazioni.calcVariazione(
+                      kmMediMese,
+                      prevEntry.km / mesiPrev,
+                    )
                   : null;
 
               return `
