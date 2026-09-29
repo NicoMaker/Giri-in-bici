@@ -52,9 +52,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         stato.ordine,
         (r) => (perMedia ? r.kmMedi : r.km),
         {
-        spareggio: (r) => r.ordineCalendario || 0,
-        nome: (r) => r.stagione,
-        data: (r) => r.ordineCalendario || 0,
+          spareggio: (r) => r.ordineCalendario || 0,
+          nome: (r) => r.stagione,
+          data: (r) => r.ordineCalendario || 0,
         },
       );
       const etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "stagione", "stagioni")}`;
