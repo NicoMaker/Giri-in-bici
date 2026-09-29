@@ -38,6 +38,14 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
     const primo = righe[0];
+    if (ordine === "media-desc" || ordine === "media-asc") {
+      const superlativoMedia = ordine === "media-asc" ? "bassa" : "alta";
+      return `
+        La stagione con la media chilometrica pi&ugrave; ${superlativoMedia} &egrave;
+        <strong>${primo.stagione}</strong>, con
+        <strong>${formatItalianNumber(primo.kmMedi, true)} km</strong> di media
+        su ${formatItalianNumber(primo.periodi)} ${pluralizza(primo.periodi, "anno pedalato", "anni pedalati")}.`;
+    }
     if (ordine !== "desc" && ordine !== "asc") {
       return `
         Prima nell&rsquo;ordine scelto &egrave;

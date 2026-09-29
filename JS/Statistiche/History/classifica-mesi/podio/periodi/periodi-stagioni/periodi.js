@@ -20,7 +20,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <span class="podio__medaglia" aria-hidden="true">${CM.MEDAGLIE[i]}</span>
         <span class="podio__mese">${r.nome}</span>
         <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
-        <span class="podio__dettaglio">${formatNumber(r.percentuale)} % del totale</span>
+        <span class="podio__dettaglio">${formatNumber(r.percentuale)} % del totale &middot; ${formatItalianNumber(r.corse)} ${pluralizza(r.corse, "corsa", "corse")} &middot; media ${formatNumber(r.kmMedi)} km</span>
         <span class="podio__vai"
           >Vai al periodo
           <span class="freccia" aria-hidden="true">&rarr;</span></span
@@ -45,7 +45,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
           <span class="classifica-riga__mese"
             >${r.nome}
-            <small class="classifica-riga__sotto">${formatNumber(r.percentuale)} % del totale</small>
+            <small class="classifica-riga__sotto">${formatNumber(r.percentuale)} % del totale &middot; ${formatItalianNumber(r.corse)} ${pluralizza(r.corse, "corsa", "corse")} &middot; media ${formatNumber(r.kmMedi)} km</small>
           </span>
           <span class="classifica-riga__barra"
             ><span style="--percentuale:${quota}%"></span
@@ -63,6 +63,14 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
     const primo = righe[0];
+    if (ordine === "media-desc" || ordine === "media-asc") {
+      const superlativoMedia = ordine === "media-asc" ? "bassa" : "alta";
+      return `
+        Il periodo con la media pi&ugrave; ${superlativoMedia} per corsa &egrave;
+        <strong>${primo.nome}</strong>, con
+        <strong>${formatNumber(primo.kmMedi)} km</strong> di media
+        su ${formatItalianNumber(primo.corse)} ${pluralizza(primo.corse, "corsa", "corse")}.`;
+    }
     if (ordine !== "desc" && ordine !== "asc") {
       return `
         Il primo periodo nell&rsquo;ordine scelto &egrave;

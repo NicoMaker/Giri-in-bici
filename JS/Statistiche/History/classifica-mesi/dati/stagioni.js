@@ -137,6 +137,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
               // sempre lo stesso nome della chiave grezza della stagione.
               link: `../../${stagione.name}/${etichettaPeriodo}.html`,
               km: sommaDistanze(corse),
+              // Numero di corse del periodo e media km per singola corsa
+              // (km / corse), come già fatto per gli Anni.
+              corse: Array.isArray(corse) ? corse.length : 0,
+              kmMedi:
+                Array.isArray(corse) && corse.length > 0
+                  ? sommaDistanze(corse) / corse.length
+                  : 0,
               ordineCronologico: ordineCronologicoPeriodo(
                 stagione.name,
                 etichettaPeriodo,

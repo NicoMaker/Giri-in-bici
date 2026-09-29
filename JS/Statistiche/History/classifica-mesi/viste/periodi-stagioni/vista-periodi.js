@@ -17,6 +17,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "alfabetico-desc": "in ordine alfabetico (Z-A)",
     "data-recente": "dal più recente al meno recente",
     "data-vecchio": "dal meno recente al più recente",
+    "media-desc": "per media km/corsa più alta",
+    "media-asc": "per media km/corsa più bassa",
   };
 
   CM.avviaVistaPeriodi = async function () {
@@ -76,11 +78,18 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
         });
         const dataPeriodoDi = (r) => r.ordineCronologico || 0;
-        const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
-          spareggio: dataPeriodoDi,
-          nome: (r) => r.nome,
-          data: dataPeriodoDi,
-        });
+        const perMedia =
+          stato.ordine === "media-desc" || stato.ordine === "media-asc";
+        const ordinate = CC.ordina(
+          filtrate,
+          stato.ordine,
+          (r) => (perMedia ? r.kmMedi : r.km),
+          {
+            spareggio: dataPeriodoDi,
+            nome: (r) => r.nome,
+            data: dataPeriodoDi,
+          },
+        );
         const perPodio = ordinate.slice(0, 3);
         const etichettaTotale = stagioniScelte.length
           ? `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")} di ${stagioniScelte.join(", ")}`

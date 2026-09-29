@@ -15,6 +15,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     asc: "dal totale più basso al più alto",
     alfabetico: "in ordine alfabetico (A-Z)",
     "alfabetico-desc": "in ordine alfabetico (Z-A)",
+    "media-desc": "per media km per anno più alta",
+    "media-asc": "per media km per anno più bassa",
   };
 
   CM.avviaVistaStagioni = async function () {
@@ -43,10 +45,18 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       filtrate.forEach((r) => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
-      const perPodio = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
+      const perMedia =
+        stato.ordine === "media-desc" || stato.ordine === "media-asc";
+      const perPodio = CC.ordina(
+        filtrate,
+        stato.ordine,
+        (r) => (perMedia ? r.kmMedi : r.km),
+        {
+        spareggio: (r) => r.ordineCalendario || 0,
         nome: (r) => r.stagione,
         data: (r) => r.ordineCalendario || 0,
-      });
+        },
+      );
       const etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "stagione", "stagioni")}`;
       if (titoloStagioniEl)
         titoloStagioniEl.innerHTML = CM.creaTitoloStagioni(
