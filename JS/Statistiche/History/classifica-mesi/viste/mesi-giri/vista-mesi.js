@@ -29,6 +29,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "alfabetico-desc": "in ordine alfabetico (Z-A)",
     "data-recente": "dal più recente al meno recente",
     "data-vecchio": "dal meno recente al più recente",
+    "media-desc": "per media km/corsa più alta",
+    "media-asc": "per media km/corsa più bassa",
   };
 
   CM.avviaVistaMesi = async function () {
@@ -112,7 +114,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       filtrate.forEach((r) => {
         r.percentuale = totaleFiltrato > 0 ? (r.km / totaleFiltrato) * 100 : 0;
       });
-      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => r.km, {
+      // Filtro km sempre sui km totali; con "Media più alta/bassa"
+      // si ordina invece per media = km / corse (r.kmMedi).
+      const perMedia =
+        stato.ordine === "media-desc" || stato.ordine === "media-asc";
+      const ordinate = CC.ordina(filtrate, stato.ordine, (r) => (perMedia ? r.kmMedi : r.km), {
         spareggio: (r) => Number(r.anno) || 0,
         nome: (r) => r.nome,
         data: (r) => Number(r.anno) || 0,

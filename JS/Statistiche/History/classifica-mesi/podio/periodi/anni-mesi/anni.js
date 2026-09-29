@@ -61,6 +61,14 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
     const primo = righe[0];
+    if (ordine === "media-desc" || ordine === "media-asc") {
+      const superlativoMedia = ordine === "media-asc" ? "bassa" : "alta";
+      return `
+        L'anno con la media chilometrica pi&ugrave; ${superlativoMedia} &egrave;
+        <strong>${primo.nome}</strong>, con
+        <strong>${formatNumber(primo.kmMedi)} km</strong> di media
+        su ${formatItalianNumber(primo.corse)} ${pluralizza(primo.corse, "corsa", "corse")}.`;
+    }
     if (ordine !== "desc" && ordine !== "asc") {
       return `
         Primo nell&rsquo;ordine scelto &egrave;

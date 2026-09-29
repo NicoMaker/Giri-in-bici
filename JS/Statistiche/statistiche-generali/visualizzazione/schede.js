@@ -49,6 +49,16 @@ window.StatGenerali = window.StatGenerali || {};
                     )
                   : null;
 
+              const mesiAnno = Object.keys(entry.monthlyData || {}).length;
+              const kmMediMese = mesiAnno > 0 ? entry.km / mesiAnno : 0;
+              const mesiPrev = prevEntry
+                ? Object.keys(prevEntry.monthlyData || {}).length
+                : 0;
+              const percKmMediMese =
+                prevEntry && mesiPrev > 0
+                  ? Variazioni.calcVariazione(kmMediMese, prevEntry.km / mesiPrev)
+                  : null;
+
               return `
             <div class="Statistiche">
               <a href="Statistiche/Anni/${entry.year}.html">
@@ -63,6 +73,9 @@ window.StatGenerali = window.StatGenerali || {};
                 </p>
                 <p class="misuracolore">km medi per corsa ${formatNumber(kmMediCorsa)}
                   ${Variazioni.badgeVariazione(percKmMediCorsa, "vs anno prec.")}
+                </p>
+                <p class="misuracolore">km medi per mese ${formatNumber(kmMediMese)}
+                  ${Variazioni.badgeVariazione(percKmMediMese, "vs anno prec.")}
                 </p>
                 <span class="colore__vai-a">Vai alle statistiche <span class="freccia" aria-hidden="true">→</span></span>
               </a>
