@@ -272,20 +272,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           data: dataRecordDi,
         });
         const perPodio = ordinate.slice(0, 3);
-        const nMesi = `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")}`;
-        const testoMesi = mesiSelezionati.length
-          ? ` — ${mesiSelezionati.join(", ")}`
-          : "";
-        let etichettaTotale;
-        if (!anniSelezionati.length && !mesiSelezionati.length) {
-          etichettaTotale = `${filtrate.length} record`;
-        } else if (!anniSelezionati.length) {
-          etichettaTotale = `${nMesi}${testoMesi}`;
-        } else if (anniSelezionati.length === 1) {
-          etichettaTotale = `${nMesi} del ${anniSelezionati[0]}${testoMesi}`;
-        } else {
-          etichettaTotale = `${nMesi} (${anniSelezionati.join(", ")})${testoMesi}`;
-        }
+        // Etichetta semplice: sempre e solo "N record".
+        const etichettaTotale = `${filtrate.length} record`;
 
         if (titoloRecordMesiEl)
           titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(
