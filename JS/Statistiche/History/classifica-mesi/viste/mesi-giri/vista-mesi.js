@@ -272,8 +272,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           data: dataRecordDi,
         });
         const perPodio = ordinate.slice(0, 3);
-        // Etichetta semplice: sempre e solo "N record".
-        const etichettaTotale = `${filtrate.length} record`;
+        // Etichetta semplice: sempre e solo "N mesi".
+        const etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")}`;
 
         if (titoloRecordMesiEl)
           titoloRecordMesiEl.innerHTML = CM.creaTitoloRecordMesi(

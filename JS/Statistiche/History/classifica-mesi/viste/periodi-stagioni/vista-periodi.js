@@ -91,9 +91,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           },
         );
         const perPodio = ordinate.slice(0, 3);
-        const etichettaTotale = stagioniScelte.length
-          ? `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")} di ${stagioniScelte.join(", ")}`
-          : `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")}`;
+        const etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "periodo", "periodi")}`;
 
         if (titoloPeriodiEl)
           titoloPeriodiEl.innerHTML = CM.creaTitoloPeriodi(
