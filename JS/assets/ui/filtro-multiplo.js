@@ -92,6 +92,16 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
     var valoreEl = contenitore.querySelector(".filtro-multiplo__valore");
     var pannello = contenitore.querySelector(".filtro-multiplo__pannello");
 
+    // Chiama onCambia tenendo ferma la pagina: se podio/classifica
+    // cambiano altezza, il filtro resta nello stesso punto dello
+    // schermo (nessun salto). Vale per OGNI menu a tendina del sito.
+    function notificaCambio() {
+      var prima = contenitore.getBoundingClientRect().top;
+      onCambia(selezionati());
+      var differenza = contenitore.getBoundingClientRect().top - prima;
+      if (differenza) window.scrollBy(0, differenza);
+    }
+
     function selezionati() {
       return voci
         .filter(function (v) {
@@ -129,6 +139,16 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       var haSelezione = voci.some(function (v) {
         return v.checked;
       });
+      // Il pannello si ridisegna a ogni click: ricordo lo scorrimento
+      // interno della lista e la casella col focus, per non tornare
+      // in cima a ogni selezione.
+      var listaPrima = pannello.querySelector(".filtro-multiplo__lista");
+      var scrollPrima = listaPrima ? listaPrima.scrollTop : 0;
+      var focusPrima = document.activeElement;
+      var indiceFocus =
+        focusPrima && pannello.contains(focusPrima)
+          ? focusPrima.dataset.indice
+          : null;
       pannello.innerHTML =
         '<div class="filtro-multiplo__azioni">' +
         '<button type="button" class="filtro-multiplo__azione" data-azione="tutte">Seleziona tutte</button>' +
@@ -157,6 +177,15 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
           .join("") +
         "</ul>";
 
+      var listaDopo = pannello.querySelector(".filtro-multiplo__lista");
+      if (listaDopo) listaDopo.scrollTop = scrollPrima;
+      if (indiceFocus != null) {
+        var daFocalizzare = pannello.querySelector(
+          'input[data-indice="' + indiceFocus + '"]',
+        );
+        if (daFocalizzare) daFocalizzare.focus({ preventScroll: true });
+      }
+
       Array.prototype.forEach.call(
         pannello.querySelectorAll('input[type="checkbox"]'),
         function (input) {
@@ -164,7 +193,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
             voci[Number(input.dataset.indice)].checked = input.checked;
             aggiornaTesto();
             disegnaPannello();
-            onCambia(selezionati());
+            notificaCambio();
           });
         },
       );
@@ -179,7 +208,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
           });
           aggiornaTesto();
           disegnaPannello();
-          onCambia(selezionati());
+          notificaCambio();
         });
       }
       if (bottoneNessuna) {
@@ -190,7 +219,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
           });
           aggiornaTesto();
           disegnaPannello();
-          onCambia(selezionati());
+          notificaCambio();
         });
       }
     }

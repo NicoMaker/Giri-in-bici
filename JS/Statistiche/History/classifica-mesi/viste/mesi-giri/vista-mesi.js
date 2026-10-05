@@ -35,6 +35,18 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "corse-asc": "dall'anno con meno corse a quello con più",
   };
 
+  // Mantiene ferma la pagina dove si trova l'utente: quando i filtri
+  // ridisegnano podio e classifica (cambiando l'altezza del contenuto)
+  // il punto che si sta guardando resta nella stessa posizione sullo
+  // schermo, senza salti verso l'alto o verso il basso.
+  function conPosizione(ancora, ridisegna) {
+    const el = ancora || document.body;
+    const prima = el.getBoundingClientRect().top;
+    ridisegna();
+    const differenza = el.getBoundingClientRect().top - prima;
+    if (differenza) window.scrollBy(0, differenza);
+  }
+
   CM.avviaVistaMesi = async function () {
     const CC = window.ClassificaControlli;
 
@@ -160,16 +172,21 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     }
 
     const controlliMesi = CC.crea(document.getElementById("controlli-mesi"), {
-      onCambia: () => disegnaMesi(),
+      onCambia: () =>
+        conPosizione(document.getElementById("controlli-mesi"), disegnaMesi),
     });
     const controlliRecord = CC.crea(
       document.getElementById("controlli-record"),
       {
-        onCambia: () => mostraRecord(anniScelti(), mesiScelti()),
+        onCambia: () =>
+          conPosizione(document.getElementById("controlli-record"), () =>
+            mostraRecord(anniScelti(), mesiScelti()),
+          ),
       },
     );
     const controlliAnni = CC.crea(document.getElementById("controlli-anni"), {
-      onCambia: () => disegnaAnni(),
+      onCambia: () =>
+        conPosizione(document.getElementById("controlli-anni"), disegnaAnni),
     });
 
     try {
@@ -308,7 +325,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         filtroRecordAnno = window.FiltroMultiplo.crea(contenitoreRecordAnnoEl, {
           etichetta: "Anno",
           tutte: "Tutti gli anni insieme",
-          onCambia: (anni) => mostraRecord(anni, mesiScelti()),
+          onCambia: (anni) =>
+            conPosizione(contenitoreRecordAnnoEl, () =>
+              mostraRecord(anni, mesiScelti()),
+            ),
         });
         filtroRecordAnno.imposta(
           anniRecordUnici.map((a) => ({ value: a, label: a })),
@@ -330,7 +350,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             {
               etichetta: "Mese",
               tutte: "Tutti i mesi",
-              onCambia: (mesi) => mostraRecord(anniScelti(), mesi),
+              onCambia: (mesi) =>
+                conPosizione(contenitoreRecordMeseEl, () =>
+                  mostraRecord(anniScelti(), mesi),
+                ),
             },
           );
           filtroRecordMese.imposta(

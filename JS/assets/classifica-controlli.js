@@ -116,7 +116,11 @@ window.ClassificaControlli = window.ClassificaControlli || {};
 
     function notifica() {
       if (typeof opzioni.onCambia === "function") {
+        // Tiene ferma la pagina mentre si ridisegna (nessun salto).
+        var prima = contenitore.getBoundingClientRect().top;
         opzioni.onCambia(leggiStato());
+        var differenza = contenitore.getBoundingClientRect().top - prima;
+        if (differenza) window.scrollBy(0, differenza);
       }
     }
 
