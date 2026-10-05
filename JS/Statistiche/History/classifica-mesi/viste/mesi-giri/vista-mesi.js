@@ -54,6 +54,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     // Ora si possono scegliere più anni insieme (prima un <select> con
     // una sola scelta): vedi assets/ui/filtro-multiplo.js.
     let filtroRecordAnno = null;
+    // Filtro a scelta multipla anche per i MESI (Gennaio, Febbraio...):
+    // nessun mese scelto = tutti i mesi. Vedi assets/ui/filtro-multiplo.js.
+    const contenitoreRecordMeseEl =
+      document.getElementById("record-filtro-mese");
+    let filtroRecordMese = null;
+    const anniScelti = () =>
+      filtroRecordAnno ? filtroRecordAnno.selezionati() : [];
+    const mesiScelti = () =>
+      filtroRecordMese ? filtroRecordMese.selezionati() : [];
 
     let righeMesi = [];
     let righeAnniComplete = [];
@@ -156,8 +165,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     const controlliRecord = CC.crea(
       document.getElementById("controlli-record"),
       {
-        onCambia: () =>
-          mostraRecord(filtroRecordAnno ? filtroRecordAnno.selezionati() : []),
+        onCambia: () => mostraRecord(anniScelti(), mesiScelti()),
       },
     );
     const controlliAnni = CC.crea(document.getElementById("controlli-anni"), {
@@ -191,9 +199,19 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       controlliMesi.aggiornaLimiti(righeMesi.map((r) => r.km));
       disegnaMesi();
 
-      mostraRecord = function (anniSelezionati) {
+      mostraRecord = function (anniSelezionati, mesiSelezionati) {
         anniSelezionati = anniSelezionati || [];
+        mesiSelezionati = mesiSelezionati || [];
         let righeAnnoScelto = righeRecordTutti;
+
+        // Filtro per MESE: tiene solo i mesi scelti (di qualunque anno
+        // fra quelli selezionati). Poi podio e classifica mostrano solo
+        // i km maggiori di quei mesi.
+        if (mesiSelezionati.length) {
+          righeAnnoScelto = righeAnnoScelto.filter((r) =>
+            mesiSelezionati.includes(r.mese),
+          );
+        }
 
         if (anniSelezionati.length) {
           // Con un solo anno scelto il nome resta il solo mese (come
@@ -201,16 +219,23 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           // due "Gennaio" di anni diversi si confonderebbero: l'anno
           // va aggiunto al nome per distinguerli nel podio e in lista.
           const piuDiUnAnno = anniSelezionati.length > 1;
-          righeAnnoScelto = righeRecordTutti
+          righeAnnoScelto = righeAnnoScelto
             .filter((r) => anniSelezionati.includes(String(r.anno)))
             .map((r) => ({
               ...r,
               nome: piuDiUnAnno ? `${r.mese} ${r.anno}` : r.mese,
             }));
-          const totaleAnno = righeAnnoScelto.reduce((tot, r) => tot + r.km, 0);
-          righeAnnoScelto.forEach((r) => {
-            r.percentuale = totaleAnno > 0 ? (r.km / totaleAnno) * 100 : 0;
-          });
+        }
+
+        if (anniSelezionati.length || mesiSelezionati.length) {
+          const totaleScelto = righeAnnoScelto.reduce(
+            (tot, r) => tot + r.km,
+            0,
+          );
+          righeAnnoScelto = righeAnnoScelto.map((r) => ({
+            ...r,
+            percentuale: totaleScelto > 0 ? (r.km / totaleScelto) * 100 : 0,
+          }));
         }
 
         controlliRecord.aggiornaLimiti(righeAnnoScelto.map((r) => r.km));
@@ -230,13 +255,19 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           data: dataRecordDi,
         });
         const perPodio = ordinate.slice(0, 3);
+        const nMesi = `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")}`;
+        const testoMesi = mesiSelezionati.length
+          ? ` — ${mesiSelezionati.join(", ")}`
+          : "";
         let etichettaTotale;
-        if (!anniSelezionati.length) {
+        if (!anniSelezionati.length && !mesiSelezionati.length) {
           etichettaTotale = `${filtrate.length} record`;
+        } else if (!anniSelezionati.length) {
+          etichettaTotale = `${nMesi}${testoMesi}`;
         } else if (anniSelezionati.length === 1) {
-          etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} del ${anniSelezionati[0]}`;
+          etichettaTotale = `${nMesi} del ${anniSelezionati[0]}${testoMesi}`;
         } else {
-          etichettaTotale = `${filtrate.length} ${pluralizza(filtrate.length, "mese", "mesi")} (${anniSelezionati.join(", ")})`;
+          etichettaTotale = `${nMesi} (${anniSelezionati.join(", ")})${testoMesi}`;
         }
 
         if (titoloRecordMesiEl)
@@ -277,16 +308,40 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         filtroRecordAnno = window.FiltroMultiplo.crea(contenitoreRecordAnnoEl, {
           etichetta: "Anno",
           tutte: "Tutti gli anni insieme",
-          onCambia: (anni) => mostraRecord(anni),
+          onCambia: (anni) => mostraRecord(anni, mesiScelti()),
         });
         filtroRecordAnno.imposta(
           anniRecordUnici.map((a) => ({ value: a, label: a })),
           { preselezionati: anniDaUrl },
         );
 
-        mostraRecord(filtroRecordAnno.selezionati());
+        // Filtro MESI: Gennaio, Febbraio... (nomi, non numeri).
+        // Si può anche preselezionare da URL: "?mese=Gennaio,Febbraio".
+        if (contenitoreRecordMeseEl) {
+          const mesiDaUrl = (
+            new URLSearchParams(window.location.search).get("mese") || ""
+          )
+            .split(",")
+            .map((m) => m.trim())
+            .filter((m) => ConfigMesi.elenco.includes(m));
+
+          filtroRecordMese = window.FiltroMultiplo.crea(
+            contenitoreRecordMeseEl,
+            {
+              etichetta: "Mese",
+              tutte: "Tutti i mesi",
+              onCambia: (mesi) => mostraRecord(anniScelti(), mesi),
+            },
+          );
+          filtroRecordMese.imposta(
+            ConfigMesi.elenco.map((m) => ({ value: m, label: m })),
+            { preselezionati: mesiDaUrl },
+          );
+        }
+
+        mostraRecord(anniScelti(), mesiScelti());
       } else {
-        mostraRecord([]);
+        mostraRecord([], []);
       }
 
       const { righe: righeAnni } = CM.calcolaAnni(allData);
