@@ -68,13 +68,26 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           (tot, corse) => tot + sommaDistanze(corse),
           0,
         );
+        // Numero totale di corse della stagione (somma di tutti gli
+        // anni), come già fatto per Anni e Periodi.
+        const corse = datiPeriodi.reduce(
+          (tot, giri) => tot + (Array.isArray(giri) ? giri.length : 0),
+          0,
+        );
 
         return {
           stagione: stagione.displayName || stagione.name,
           link: stagione.link || "#",
           km,
           periodi,
-          kmMedi: periodi > 0 ? km / periodi : 0,
+          corse,
+          // kmMedi = km medi per singola corsa (km / corse): è il
+          // valore usato da "Media più alta/bassa", uguale agli Anni.
+          kmMedi: corse > 0 ? km / corse : 0,
+          // kmMediAnno = km medi per anno pedalato (km / anni).
+          kmMediAnno: periodi > 0 ? km / periodi : 0,
+          // corsePerAnno = corse medie per anno pedalato.
+          corsePerAnno: periodi > 0 ? corse / periodi : 0,
           ordineCalendario: ORDINE_CALENDARIO_STAGIONI[stagione.name] ?? 0,
         };
       }),

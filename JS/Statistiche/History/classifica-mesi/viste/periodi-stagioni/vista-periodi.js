@@ -19,6 +19,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "data-vecchio": "dal meno recente al più recente",
     "media-desc": "per media km/corsa più alta",
     "media-asc": "per media km/corsa più bassa",
+    "corse-desc": "dal periodo con più corse a quello con meno",
+    "corse-asc": "dal periodo con meno corse a quello con più",
   };
 
   CM.avviaVistaPeriodi = async function () {
@@ -80,10 +82,12 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const dataPeriodoDi = (r) => r.ordineCronologico || 0;
         const perMedia =
           stato.ordine === "media-desc" || stato.ordine === "media-asc";
+        const perCorse =
+          stato.ordine === "corse-desc" || stato.ordine === "corse-asc";
         const ordinate = CC.ordina(
           filtrate,
           stato.ordine,
-          (r) => (perMedia ? r.kmMedi : r.km),
+          (r) => (perMedia ? r.kmMedi : perCorse ? r.corse : r.km),
           {
             spareggio: dataPeriodoDi,
             nome: (r) => r.nome,

@@ -71,6 +71,14 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <strong>${formatNumber(primo.kmMedi)} km</strong> di media
         su ${formatItalianNumber(primo.corse)} ${pluralizza(primo.corse, "corsa", "corse")}.`;
     }
+    if (ordine === "corse-desc" || ordine === "corse-asc") {
+      const quantita = ordine === "corse-asc" ? "meno" : "pi&ugrave;";
+      return `
+        Il periodo con ${quantita} corse &egrave;
+        <strong>${primo.nome}</strong>, con
+        <strong>${formatItalianNumber(primo.corse)} ${pluralizza(primo.corse, "corsa", "corse")}</strong>
+        e ${formatItalianNumber(primo.km)} km percorsi.`;
+    }
     if (ordine !== "desc" && ordine !== "asc") {
       return `
         Il primo periodo nell&rsquo;ordine scelto &egrave;

@@ -21,8 +21,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
         <span class="podio__dettaglio">
           ${formatNumber(r.percentuale)} % del totale &middot;
-          ${formatItalianNumber(r.periodi)} ${pluralizza(r.periodi, "anno pedalato", "anni pedalati")} &middot;
-          media ${formatItalianNumber(r.kmMedi, true)} km
+          ${formatItalianNumber(r.periodi)} ${pluralizza(r.periodi, "anno pedalato", "anni pedalati")}
+        </span>
+        <span class="podio__dettaglio">
+          ${formatItalianNumber(r.corse)} ${pluralizza(r.corse, "corsa", "corse")} in stagione &middot;
+          ${formatNumber(r.kmMedi)} km medi/corsa
+        </span>
+        <span class="podio__dettaglio">
+          ${formatItalianNumber(r.kmMediAnno, true)} km medi/stagione &middot;
+          ${formatItalianNumber(r.corsePerAnno, true)} corse/stagione
         </span>
         <span class="podio__vai"
           >Vai alla stagione
@@ -41,10 +48,18 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     if (ordine === "media-desc" || ordine === "media-asc") {
       const superlativoMedia = ordine === "media-asc" ? "bassa" : "alta";
       return `
-        La stagione con la media chilometrica pi&ugrave; ${superlativoMedia} &egrave;
+        La stagione con la media chilometrica pi&ugrave; ${superlativoMedia} per corsa &egrave;
         <strong>${primo.stagione}</strong>, con
-        <strong>${formatItalianNumber(primo.kmMedi, true)} km</strong> di media
-        su ${formatItalianNumber(primo.periodi)} ${pluralizza(primo.periodi, "anno pedalato", "anni pedalati")}.`;
+        <strong>${formatNumber(primo.kmMedi)} km</strong> di media
+        su ${formatItalianNumber(primo.corse)} ${pluralizza(primo.corse, "corsa", "corse")}.`;
+    }
+    if (ordine === "corse-desc" || ordine === "corse-asc") {
+      const quantita = ordine === "corse-asc" ? "meno" : "pi&ugrave;";
+      return `
+        La stagione con ${quantita} corse &egrave;
+        <strong>${primo.stagione}</strong>, con
+        <strong>${formatItalianNumber(primo.corse)} ${pluralizza(primo.corse, "corsa", "corse")}</strong>
+        e ${formatItalianNumber(primo.km)} km percorsi.`;
     }
     if (ordine !== "desc" && ordine !== "asc") {
       return `
@@ -78,8 +93,12 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             >${r.stagione}
             <small class="classifica-riga__sotto"
               >${formatNumber(r.percentuale)} % del totale &middot;
-              ${formatItalianNumber(r.periodi)} ${pluralizza(r.periodi, "anno pedalato", "anni pedalati")} &middot;
-              media ${formatItalianNumber(r.kmMedi, true)} km</small
+              ${formatItalianNumber(r.periodi)} ${pluralizza(r.periodi, "anno pedalato", "anni pedalati")}</small
+            >
+            <small class="classifica-riga__sotto"
+              >${formatItalianNumber(r.corse)} ${pluralizza(r.corse, "corsa", "corse")} in stagione &middot;
+              ${formatNumber(r.kmMedi)} km medi/corsa &middot;
+              ${formatItalianNumber(r.kmMediAnno, true)} km medi/stagione</small
             >
           </span>
           <span class="classifica-riga__barra"
