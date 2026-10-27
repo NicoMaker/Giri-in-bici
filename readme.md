@@ -37,15 +37,15 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
    Crea un file JSON per la nuova stagione all’interno delle cartella di riferimento con il nome dell’anno:
    - **Primavera** 🌸: [`json/Primavera/Periodi/`](json/Primavera/Periodi/)
-   - **Estate** 🌞: [`json/Estate/Periodi/`](json/Estate/Periodi/)
+   - **Estate** 🌞: [`json/Estate/Periodi/`](json/EstateEstate/Periodi/)
    - **Autunno Inverno** 🍁❄️: [`json/Autunno_Inverno/Periodi/`](json/Autunno_Inverno/Periodi/)
 
 3. **Aggiornamento del File Principale della Stagione 🌸🌞🍁❄️**
 
    Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato la nuova sottostagione, specificando il percorso del file con il nome e il colore del nuovo periodo come fatto per gli altri. Il percorso da inserire nel campo `subPeriods` deve puntare al file JSON reale sotto `json/`, non alla vecchia cartella `Periodi/Json`:
-   - **Primavera** 🌸: [`json/Primavera/primavera.json`](json/Primavera/primavera.json)
-   - **Estate** 🌞: [`json/Estate/estate.json`](json/Estate/estate.json)
-   - **Autunno Inverno** 🍁❄️: [`json/Autunno_Inverno/autunno-inverno.json`](json/Autunno_Inverno/autunno-inverno.json)
+   - **Primavera** 🌸: [`json/Primavera/generale.json`](json/Primavera/generale.json)
+   - **Estate** 🌞: [`json/Estate/generale.json`](json/Estate/generale.json)
+   - **Autunno Inverno** 🍁❄️: [`json/Autunno_Inverno/generale.json`](json/Autunno_Inverno/generale.json)
 
 4. **Sistemazione file Stagioni.json**
    - **Stagione Generale** 🌸🌞🍁❄️: [`json/Statistiche/anni/stagioni/stagioni.json`](json/Statistiche/anni/stagioni/stagioni.json)  

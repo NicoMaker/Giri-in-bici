@@ -2,9 +2,9 @@
 // vista-giri.js — Scheda "Giri" (i percorsi più lunghi) della
 // pagina Classifica dei mesi.
 //
-// Dati letti direttamente da json/Estate/estate.json,
-// json/Primavera/primavera.json e
-// json/Autunno_Inverno/autunno-inverno.json (e dai rispettivi
+// Dati letti direttamente da json/Estate/generale.json,
+// json/Primavera/generale.json e
+// json/Autunno_Inverno/generale.json (e dai rispettivi
 // sottoperiodi), indipendenti dal resto della pagina.
 //
 // Dipendenze: JS/json.js, JS/utils.js, History/comune/config-mesi.js,
@@ -48,9 +48,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
     try {
       const configStagioni = [
-        "json/Estate/estate.json",
-        "json/Primavera/primavera.json",
-        "json/Autunno_Inverno/autunno-inverno.json",
+        "json/Estate/generale.json",
+        "json/Primavera/generale.json",
+        "json/Autunno_Inverno/generale.json",
       ];
       const configuazioni = await Promise.all(
         configStagioni.map((url) => fetchJSON(url)),
