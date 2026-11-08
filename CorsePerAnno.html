@@ -156,11 +156,11 @@
         <p class="hero-sub">
           Scegli uno o più anni e vedi tutte le corse fatte da Gennaio a
           Dicembre, oppure premi <strong>Tutti gli anni</strong> per averle
-          tutte insieme. Le stagioni non coincidono con il calendario, quindi
-          le uscite vengono raccolte da più pagine: ad esempio il 2023 unisce
+          tutte insieme. Le stagioni non coincidono con il calendario, quindi le
+          uscite vengono raccolte da più pagine: ad esempio il 2023 unisce
           Gennaio-Aprile dell'Autunno - Inverno 2022-2023, la Primavera 2023,
-          l'Estate 2023 e Ottobre-Dicembre dell'Autunno - Inverno 2023-2024.
-          Poi puoi cercare più posti, scegliere più intervalli di date o di
+          l'Estate 2023 e Ottobre-Dicembre dell'Autunno - Inverno 2023-2024. Poi
+          puoi cercare più posti, scegliere più intervalli di date o di
           chilometri e unire quante stagioni vuoi, anche per intero.
         </p>
       </section>
@@ -184,9 +184,9 @@
         <p class="eyebrow">Ricerca</p>
         <h2>Trova una corsa</h2>
         <p class="hero-sub">
-          Tutti i campi sono facoltativi. Dentro a ciascun gruppo basta che la corsa
-          corrisponda a una delle righe (“o questo o quello”); i gruppi fra loro
-          si sommano (posto <em>e</em> data <em>e</em> chilometri).
+          Tutti i campi sono facoltativi. Dentro a ciascun gruppo basta che la
+          corsa corrisponda a una delle righe (“o questo o quello”); i gruppi
+          fra loro si sommano (posto <em>e</em> data <em>e</em> chilometri).
         </p>
 
         <form
@@ -195,21 +195,52 @@
           autocomplete="off"
         >
           <fieldset class="gruppo-filtro">
-            <legend>Posto <span class="campo-opzionale">(basta uno dei posti scritti)</span></legend>
+            <legend>
+              Posto
+              <span class="campo-opzionale">(basta uno dei posti scritti)</span>
+            </legend>
             <div class="elenco-date-input" id="contenitorePostiAnno"></div>
-            <button type="button" class="link-aggiungi-data" id="aggiungiPostoAnno">+ Aggiungi un altro posto</button>
+            <button
+              type="button"
+              class="link-aggiungi-data"
+              id="aggiungiPostoAnno"
+            >
+              + Aggiungi un altro posto
+            </button>
           </fieldset>
 
           <fieldset class="gruppo-filtro">
-            <legend>Date <span class="campo-opzionale">(dal / al, anche solo uno dei due)</span></legend>
+            <legend>
+              Date
+              <span class="campo-opzionale"
+                >(dal / al, anche solo uno dei due)</span
+              >
+            </legend>
             <div class="elenco-date-input" id="contenitoreDateAnno"></div>
-            <button type="button" class="link-aggiungi-data" id="aggiungiDataAnno">+ Aggiungi un altro intervallo di date</button>
+            <button
+              type="button"
+              class="link-aggiungi-data"
+              id="aggiungiDataAnno"
+            >
+              + Aggiungi un altro intervallo di date
+            </button>
           </fieldset>
 
           <fieldset class="gruppo-filtro">
-            <legend>Chilometri <span class="campo-opzionale">(minimi / massimi, anche solo uno)</span></legend>
+            <legend>
+              Chilometri
+              <span class="campo-opzionale"
+                >(minimi / massimi, anche solo uno)</span
+              >
+            </legend>
             <div class="elenco-date-input" id="contenitoreKmAnno"></div>
-            <button type="button" class="link-aggiungi-data" id="aggiungiKmAnno">+ Aggiungi un altro intervallo di km</button>
+            <button
+              type="button"
+              class="link-aggiungi-data"
+              id="aggiungiKmAnno"
+            >
+              + Aggiungi un altro intervallo di km
+            </button>
           </fieldset>
 
           <button type="button" id="azzeraFiltri" class="pulsante-secondario">
@@ -232,10 +263,17 @@
           ></div>
         </div>
 
-        <div class="campo campo-ordine campo-stagione-intera" id="campoStagioneIntera" hidden>
+        <div
+          class="campo campo-ordine campo-stagione-intera"
+          id="campoStagioneIntera"
+          hidden
+        >
           <label class="casella-stagione-intera">
             <input type="checkbox" id="stagioneIntera" />
-            <span>Mostra le stagioni scelte per intero (anche la parte nell'anno vicino)</span>
+            <span
+              >Mostra le stagioni scelte per intero (anche la parte nell'anno
+              vicino)</span
+            >
           </label>
         </div>
 
@@ -247,10 +285,20 @@
             role="group"
             aria-label="Come mostrare le corse"
           >
-            <button type="button" class="criterio-ordine__pulsante attivo" data-vista="stagioni" aria-pressed="true">
+            <button
+              type="button"
+              class="criterio-ordine__pulsante attivo"
+              data-vista="stagioni"
+              aria-pressed="true"
+            >
               Per stagione
             </button>
-            <button type="button" class="criterio-ordine__pulsante" data-vista="elenco" aria-pressed="false">
+            <button
+              type="button"
+              class="criterio-ordine__pulsante"
+              data-vista="elenco"
+              aria-pressed="false"
+            >
               Elenco unico
             </button>
           </div>

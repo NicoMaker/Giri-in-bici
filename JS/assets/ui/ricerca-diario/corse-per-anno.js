@@ -150,7 +150,9 @@
     bottoni.forEach(function (b) {
       var v = b.getAttribute("data-anno");
       var attivo =
-        v === TUTTI ? stato.tuttiAnni : annoScelto(Number(v)) && !stato.tuttiAnni;
+        v === TUTTI
+          ? stato.tuttiAnni
+          : annoScelto(Number(v)) && !stato.tuttiAnni;
       b.classList.toggle("attivo", attivo);
       b.setAttribute("aria-pressed", attivo ? "true" : "false");
     });
@@ -426,7 +428,8 @@
 
     var etichettaCorse;
     if (stato.tuttiAnni) etichettaCorse = "Corse in totale";
-    else if (annoSingolo() !== null) etichettaCorse = "Corse nel " + annoSingolo();
+    else if (annoSingolo() !== null)
+      etichettaCorse = "Corse nel " + annoSingolo();
     else etichettaCorse = "Corse negli anni scelti";
     if (!stato.tuttiAnni && stato.intera) etichettaCorse = "Corse mostrate";
     if (filtraturaAttiva() || stato.stagioni.length) {
@@ -583,8 +586,13 @@
     var periodo = document.createElement("p");
     periodo.className = "gruppo-stagione__periodo";
     periodo.textContent =
-      "Dal " + primo.etichetta + " al " + ultimo.etichetta + " · " +
-      g.uscite.length + (g.uscite.length === 1 ? " corsa" : " corse");
+      "Dal " +
+      primo.etichetta +
+      " al " +
+      ultimo.etichetta +
+      " · " +
+      g.uscite.length +
+      (g.uscite.length === 1 ? " corsa" : " corse");
     testa.appendChild(periodo);
 
     var nota = notaGruppo(g);
@@ -620,7 +628,9 @@
       var unica = document.createElement("section");
       unica.className = "gruppo-stagione gruppo-stagione--unico";
       var corpoUnico = document.createElement("div");
-      corpoUnico.innerHTML = D.elencoRisultati(D.ordina(visibili, stato.ordine));
+      corpoUnico.innerHTML = D.elencoRisultati(
+        D.ordina(visibili, stato.ordine),
+      );
       unica.appendChild(corpoUnico);
       contenitore.appendChild(unica);
       return;
@@ -1081,7 +1091,9 @@
     });
     if (!stato.tuttiAnni && !stato.anni.length) {
       stato.anni = [
-        anni.indexOf(annoCorrente) !== -1 ? annoCorrente : anni[anni.length - 1],
+        anni.indexOf(annoCorrente) !== -1
+          ? annoCorrente
+          : anni[anni.length - 1],
       ];
     }
     stato.anni.sort(function (a, b) {

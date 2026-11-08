@@ -22,7 +22,9 @@
     var json = document.getElementById("json");
     var sorgente =
       (json && json.getAttribute("link")) || window.location.pathname;
-    var trovato = String(sorgente).match(/(\d{4})(?:\.json|\.html)?(?:[?#].*)?$/);
+    var trovato = String(sorgente).match(
+      /(\d{4})(?:\.json|\.html)?(?:[?#].*)?$/,
+    );
     return trovato ? trovato[1] : null;
   }
 
