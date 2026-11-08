@@ -19,6 +19,12 @@
       "link": "CercaData.html"
     },
     {
+      "name": "Corse per anno",
+      "icona": "corseanno",
+      "icon": "/img/Icons/corse-anno.png",
+      "link": "CorsePerAnno.html"
+    },
+    {
       "name": "Bici",
       "icona": "bici",
       "icon": "/img/Icons/bici.png",

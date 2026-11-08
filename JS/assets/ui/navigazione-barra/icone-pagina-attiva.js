@@ -47,6 +47,7 @@
     "qr_code.png": "qr",
     "github.png": "codice",
     "calendario.png": "calendario",
+    "corse-anno.png": "corseanno",
   };
 
   function icoDisegnate() {

@@ -1,0 +1,341 @@
+/* ============================================================
+   Corse per anno — riepilogo e gruppi di stagione
+   Si appoggia a cerca-data.css (bottoni "criterio-ordine" e righe
+   dei risultati) e ai token del tema condiviso.
+   ============================================================ */
+
+.selettore-anno {
+  margin-top: 1.2rem;
+}
+
+/* ---------- Riepilogo dell'anno ---------- */
+.riepilogo-anno {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.riepilogo-anno__box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+}
+
+.riepilogo-anno__valore {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.riepilogo-anno__etichetta {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+
+.riepilogo-anno__sotto {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Filtri e ordine ---------- */
+.filtro-stagioni-anno {
+  margin-top: 1.4rem;
+}
+
+/* ---------- Un blocco per ogni stagione dell'anno ---------- */
+#risultatiCorseAnno {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.gruppo-stagione {
+  --colore-stagione: var(--a1);
+  padding: 1.1rem 1.2rem 1.3rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--colore-stagione);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+}
+
+.gruppo-stagione[data-stagione="primavera"] {
+  --colore-stagione: #4caf50;
+}
+
+.gruppo-stagione[data-stagione="estate"] {
+  --colore-stagione: #f5a623;
+}
+
+.gruppo-stagione[data-stagione="autunno-inverno"] {
+  --colore-stagione: #4a90d9;
+}
+
+.gruppo-stagione__titolo {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+
+.gruppo-stagione__periodo {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-3);
+}
+
+.gruppo-stagione__nota {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-2);
+}
+
+.gruppo-stagione__nota .link-aggiungi-data {
+  display: inline;
+  margin: 0;
+}
+
+.gruppo-stagione .elenco-risultati {
+  margin-top: 0.6rem;
+}
+
+.gruppo-stagione .hero-sub {
+  margin: 0.9rem 0 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 560px) {
+  .gruppo-stagione {
+    padding: 0.9rem 0.8rem 1rem;
+  }
+}
+
+/* Il tema imposta display sulle sezioni: [hidden] deve vincere comunque. */
+#bloccoRisultatiAnno[hidden],
+.filtro-stagioni-anno[hidden],
+#messaggioCorseAnno[hidden] {
+  display: none !important;
+}
+
+/* ---------- Ricerca e filtri ---------- */
+.form-corse-anno {
+  margin-top: 1.2rem;
+}
+
+.form-corse-anno .campo-testo {
+  flex: 2 1 14rem;
+}
+
+.form-corse-anno .campo-km {
+  flex: 0 1 8rem;
+}
+
+.form-corse-anno input[type="number"] {
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-corse-anno input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-corse-anno .pulsante-secondario {
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  box-shadow: none;
+}
+
+.form-corse-anno .pulsante-secondario:hover {
+  box-shadow: var(--sh-1);
+}
+
+/* "Tutti gli anni" si distingue dai singoli anni */
+.criterio-ordine__pulsante--tutti {
+  border-style: dashed;
+}
+
+.casella-stagione-intera {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.casella-stagione-intera input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--a1);
+}
+
+.gruppo-stagione--unico {
+  border-left-color: var(--a1);
+}
+
+#pannelloFiltriAnno[hidden],
+#campoStagioneIntera[hidden],
+#nessunRisultatoAnno[hidden] {
+  display: none !important;
+}
+
+/* ---------- Righe colorate per stagione (anche nell'elenco unico) ----------
+   verde = Primavera, arancione = Estate, blu = Autunno - Inverno */
+.risultato-riga[data-stagione] {
+  --colore-riga: var(--a1);
+  border-left: 5px solid var(--colore-riga);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--colore-riga) 10%, var(--surface)),
+    var(--surface) 55%
+  );
+}
+
+.risultato-riga[data-stagione="primavera"] {
+  --colore-riga: #4caf50;
+}
+
+.risultato-riga[data-stagione="estate"] {
+  --colore-riga: #f5a623;
+}
+
+.risultato-riga[data-stagione="autunno-inverno"] {
+  --colore-riga: #4a90d9;
+}
+
+.risultato-riga[data-stagione] .risultato-riga__posizione,
+.risultato-riga[data-stagione] .risultato-riga__km {
+  color: color-mix(in srgb, var(--colore-riga) 75%, var(--ink));
+}
+
+/* Legenda dei colori sopra l'elenco */
+.legenda-stagioni {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+
+.legenda-stagioni li::before {
+  content: "";
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  background: var(--c);
+  vertical-align: -0.05rem;
+}
+
+/* ---------- Gruppi di filtri con piu' righe ---------- */
+.form-corse-anno {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.gruppo-filtro {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.gruppo-filtro legend {
+  padding: 0;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+.form-corse-anno .elenco-date-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-corse-anno .riga-data-input .separatore-riga {
+  color: var(--ink-3);
+  font-size: 0.85rem;
+  flex: 0 0 auto;
+}
+
+.form-corse-anno .riga-data-input input[type="date"],
+.form-corse-anno .riga-data-input input[type="number"] {
+  flex: 1 1 8rem;
+  min-width: 0;
+}
+
+.form-corse-anno .azzera-wrap,
+.form-corse-anno .pulsante-secondario {
+  align-self: flex-start;
+}
+
+/* Dentro il form i pulsanti "×" e "+ Aggiungi" restano discreti
+   (senza lo stile a gradiente dei pulsanti principali). */
+.form-corse-anno .rimuovi-data {
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: none;
+  font-weight: 400;
+}
+
+.form-corse-anno .rimuovi-data:hover {
+  transform: none;
+  background: var(--surface-2);
+  box-shadow: none;
+}
+
+.form-corse-anno .link-aggiungi-data {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0;
+  color: var(--a1);
+  background: none;
+  border: 0;
+  box-shadow: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.form-corse-anno .link-aggiungi-data:hover {
+  transform: none;
+  box-shadow: none;
+  text-decoration: underline;
+}

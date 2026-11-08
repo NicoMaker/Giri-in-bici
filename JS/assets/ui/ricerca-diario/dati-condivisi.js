@@ -390,11 +390,21 @@ window.DatiGiri = window.DatiGiri || {};
 
         var classi =
           "risultato-riga" + (info.href ? " risultato-riga--cliccabile" : "");
+        // Tipo di stagione per colorare la riga (verde/arancione/blu).
+        var tipo =
+          u.stagione === "Primavera"
+            ? "primavera"
+            : u.stagione === "Estate"
+              ? "estate"
+              : "autunno-inverno";
+        var attrTipo = ' data-stagione="' + tipo + '"';
 
         return info.href
           ? '<li class="' +
               classi +
-              '"><a class="risultato-riga__link" href="' +
+              '"' +
+              attrTipo +
+              '><a class="risultato-riga__link" href="' +
               info.href +
               '" target="_blank" rel="noopener" aria-label="Apri il percorso di ' +
               info.nomeTesto +
@@ -403,7 +413,7 @@ window.DatiGiri = window.DatiGiri || {};
               '">' +
               dentro +
               "</a></li>"
-          : '<li class="' + classi + '">' + dentro + "</li>";
+          : '<li class="' + classi + '"' + attrTipo + ">" + dentro + "</li>";
       })
       .join("");
 
