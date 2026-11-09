@@ -639,3 +639,413 @@ a.podio__gradino::before {
 .link-bottone:hover {
   color: var(--a2);
 }
+
+/* ============================================================
+   Scheda "Giri": colori per stagione e vista "Giri per anno"
+   (vedi js/Statistiche/History/classifica-mesi/viste/mesi-giri/vista-giri.js)
+
+   Palette delle stagioni del sito:
+     verde = Primavera, arancione = Estate, blu = Autunno · Inverno.
+   Chi mette data-stagione="primavera|estate|autunno-inverno" su una
+   riga, un gradino del podio, un chip o una voce di legenda prende il
+   colore giusto da --colore-stagione.
+   ============================================================ */
+[data-stagione="primavera"] {
+  --colore-stagione: #4caf50;
+}
+
+[data-stagione="estate"] {
+  --colore-stagione: #f5a623;
+}
+
+[data-stagione="autunno-inverno"] {
+  --colore-stagione: #4a90d9;
+}
+
+/* Il contenitore con l'attributo hidden deve sparire davvero anche
+   quando la sua classe imposta un display (grid/flex). */
+#podio-tappe[hidden],
+#classifica-tappe[hidden],
+#giri-per-anno[hidden] {
+  display: none !important;
+}
+
+/* Legenda dei colori, sopra i filtri della scheda Giri */
+.legenda-stagioni {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.1rem;
+  margin: 0 0 1.2rem;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+
+.legenda-stagioni li::before {
+  content: "";
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  background: var(--colore-stagione);
+  vertical-align: -0.05rem;
+}
+
+/* Pulsanti "Classifica" / "Giri per anno" (riusano lo stile dei
+   pulsanti d'ordine, qui solo centrati e distanziati) */
+.tappe-modo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+}
+
+/* ---------- Righe della classifica colorate per stagione ---------- */
+.classifica-riga[data-stagione] {
+  border-left: 5px solid var(--colore-stagione);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--colore-stagione) 12%, var(--surface)),
+    var(--surface) 55%
+  );
+}
+
+.classifica-riga[data-stagione] .classifica-riga__posizione,
+.classifica-riga[data-stagione] .classifica-riga__km {
+  color: color-mix(in srgb, var(--colore-stagione) 75%, var(--ink));
+}
+
+.classifica-riga[data-stagione] .classifica-riga__barra > span {
+  background: var(--colore-stagione);
+}
+
+/* Podio: la medaglia resta oro/argento/bronzo, la stagione si legge
+   dalla fascia in fondo al gradino e dal colore dei km. */
+.podio__gradino[data-stagione]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7px;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  background: var(--colore-stagione);
+}
+
+.podio__gradino[data-stagione] .podio__km {
+  color: color-mix(in srgb, var(--colore-stagione) 75%, var(--ink));
+}
+
+/* ---------- Vista "Giri per anno" ---------- */
+.giri-per-anno {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.giri-anno__indice {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.giri-anno__indice a {
+  padding: 0.3rem 0.85rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink-2);
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  transition:
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.giri-anno__indice a:hover,
+.giri-anno__indice a:focus-visible {
+  color: var(--a1);
+  border-color: color-mix(in srgb, var(--a1) 45%, var(--line));
+}
+
+.giri-anno {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  scroll-margin-top: 10rem;
+}
+
+.giri-anno__testa {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+}
+
+.giri-anno__titolo {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.giri-anno__dati {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.giri-anno__dati > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.1rem;
+}
+
+.giri-anno__dati dt {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+}
+
+.giri-anno__dati dd {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.giri-anno__stagioni {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.giri-anno__chip {
+  padding: 0.2rem 0.7rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--colore-stagione) 70%, var(--ink));
+  background: color-mix(in srgb, var(--colore-stagione) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--colore-stagione) 45%, var(--line));
+  border-radius: var(--r-full);
+}
+
+/* Stessa griglia a colonne dell'elenco dei giri (nome largo, barra
+   stretta), anche dentro ogni blocco anno. */
+.giri-anno__lista .classifica-riga {
+  grid-template-columns: 2.2rem 1fr 90px 4.4rem 3.6rem;
+}
+
+@media (max-width: 560px) {
+  .giri-anno__lista .classifica-riga {
+    grid-template-columns: 1.6rem 1fr 46px 4.2rem;
+  }
+}
+
+/* Podio dentro ogni anno della vista "Giri per anno" */
+.giri-anno__podio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.giri-anno__podio .podio {
+  margin: 0 auto 0.6rem;
+}
+
+.giri-anno__podio-titolo {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- Giri per anno: scelta anni, ricerca avanzata, gruppi ---------- */
+.giri-pannello {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 0 0 1.2rem;
+}
+
+.giri-pannello[hidden] {
+  display: none;
+}
+
+.giri-pannello__titolo,
+.giri-vista__etichetta {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.giri-anno__selettore,
+.giri-vista {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.giri-avanzati {
+  padding: 0.7rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.giri-avanzati summary {
+  cursor: pointer;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+
+.giri-avanzati[open] summary {
+  margin-bottom: 0.6rem;
+}
+
+.giri-avanzati__nota {
+  margin: 0 0 0.8rem;
+  font-size: 0.85rem;
+  color: var(--ink-3);
+}
+
+.giri-gruppo {
+  min-width: 0;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  border: 0;
+}
+
+.giri-gruppo legend {
+  padding: 0;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+.giri-gruppo legend span {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--ink-3);
+}
+
+.giri-righe {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.giri-riga {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.giri-riga input {
+  flex: 1 1 7rem;
+  min-width: 0;
+  padding: 0.45rem 0.7rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--surface-2, var(--surface));
+  border: 1px solid var(--line);
+  border-radius: var(--r-md, 0.7rem);
+}
+
+.giri-riga__sep {
+  flex: 0 0 auto;
+  color: var(--ink-3);
+}
+
+.giri-riga__togli {
+  flex: 0 0 auto;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.giri-aggiungi {
+  margin-top: 0.5rem;
+  padding: 0;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--a1);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.giri-aggiungi:hover {
+  text-decoration: underline;
+}
+
+/* Raggruppamento per stagione dentro l'anno */
+.giri-anno__gruppo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.giri-anno__gruppo-titolo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.2rem 0.8rem;
+  margin: 0.4rem 0 0;
+  padding-left: 0.7rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--colore-stagione) 70%, var(--ink));
+  border-left: 5px solid var(--colore-stagione);
+}
+
+.giri-anno__gruppo-titolo span {
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--ink-3);
+}

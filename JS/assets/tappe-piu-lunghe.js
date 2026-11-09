@@ -152,17 +152,24 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
           r.etichetta +
           "</span>" +
           vaiATappa;
+        var attrStagione = r.stagioneClasse
+          ? ' data-stagione="' + r.stagioneClasse + '"'
+          : "";
         return r.href
           ? '<a class="podio__gradino podio__gradino--' +
               (i + 1) +
-              '" href="' +
+              '"' +
+              attrStagione +
+              ' href="' +
               r.href +
               '" target="_blank" rel="noopener">' +
               dentro +
               "</a>"
           : '<div class="podio__gradino podio__gradino--' +
               (i + 1) +
-              '">' +
+              '"' +
+              attrStagione +
+              ">" +
               dentro +
               "</div>";
       })
@@ -203,10 +210,15 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
           "classifica-riga" +
           (i < 3 ? " classifica-riga--podio" : "") +
           (r.href ? " classifica-riga--cliccabile" : "");
+        var attrRiga = r.stagioneClasse
+          ? ' data-stagione="' + r.stagioneClasse + '"'
+          : "";
         return r.href
           ? '<li class="' +
               classi +
-              '"><a class="classifica-riga__link" href="' +
+              '"' +
+              attrRiga +
+              '><a class="classifica-riga__link" href="' +
               r.href +
               '" target="_blank" rel="noopener" aria-label="Vedi il percorso di ' +
               r.nomeTesto +
@@ -215,32 +227,17 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
               '">' +
               dentro +
               "</a></li>"
-          : '<li class="' + classi + '">' + dentro + "</li>";
+          : '<li class="' + classi + '"' + attrRiga + ">" + dentro + "</li>";
       })
       .join("");
   };
 
-  // Riempie i due contenitori se esistono in pagina; se non ci sono
-  // (pagine che non hanno questa sezione) non fa nulla. "limite" è
-  // opzionale: le pagine di singola stagione/periodo mostrano solo le
-  // prime N (poche righe, non l'elenco intero), la scheda dedicata
-  // nella pagina Classifica invece le mostra tutte (nessun limite).
-  //
-  // "ordine" è opzionale ("desc" di default: le pagine di stagione/anno
-  // come Estate.html non lo passano mai e continuano a vedere le
-  // uscite più lunghe per prime, come sempre). Nella scheda "Giri"
-  // della pagina Classifica, dove il pulsante "Ordine" esiste davvero,
-  // sceglie invece podio E lista insieme — "dal meno al più lungo"
-  // inverte tutto, podio compreso, stesso comportamento delle altre
-  // schede (vedi assets/classifica-controlli.js). Oltre a "desc"/"asc"
-  // (per distanza) accetta anche "alfabetico"/"alfabetico-desc" (per
-  // nome del posto) e "data-recente"/"data-vecchio" (per data della
-  // tappa, campo "dataOrdine").
-  T.mostra = function (idPodio, idLista, righe, limite, ordine) {
-    var contenitorePodio = document.getElementById(idPodio);
-    var contenitoreLista = document.getElementById(idLista);
-    if (!contenitorePodio || !contenitoreLista) return;
-
+  // Ordina le righe come la classifica dei giri ("desc"/"asc" per km,
+  // "alfabetico"/"alfabetico-desc" per posto, "data-recente"/
+  // "data-vecchio" per data). Restituisce sempre una copia nuova.
+  // Estratta da "mostra" per poterla riusare anche dalla vista "Giri
+  // per anno" della pagina Classifica, che ordina ogni anno a parte.
+  T.ordina = function (righe, ordine) {
     var righeOrdinate;
 
     if (ordine === "alfabetico" || ordine === "alfabetico-desc") {
@@ -286,6 +283,31 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
           : (a.dataOrdine || 0) - (b.dataOrdine || 0);
       });
     }
+    return righeOrdinate;
+  };
+
+  // Riempie i due contenitori se esistono in pagina; se non ci sono
+  // (pagine che non hanno questa sezione) non fa nulla. "limite" è
+  // opzionale: le pagine di singola stagione/periodo mostrano solo le
+  // prime N (poche righe, non l'elenco intero), la scheda dedicata
+  // nella pagina Classifica invece le mostra tutte (nessun limite).
+  //
+  // "ordine" è opzionale ("desc" di default: le pagine di stagione/anno
+  // come Estate.html non lo passano mai e continuano a vedere le
+  // uscite più lunghe per prime, come sempre). Nella scheda "Giri"
+  // della pagina Classifica, dove il pulsante "Ordine" esiste davvero,
+  // sceglie invece podio E lista insieme — "dal meno al più lungo"
+  // inverte tutto, podio compreso, stesso comportamento delle altre
+  // schede (vedi assets/classifica-controlli.js). Oltre a "desc"/"asc"
+  // (per distanza) accetta anche "alfabetico"/"alfabetico-desc" (per
+  // nome del posto) e "data-recente"/"data-vecchio" (per data della
+  // tappa, campo "dataOrdine").
+  T.mostra = function (idPodio, idLista, righe, limite, ordine) {
+    var contenitorePodio = document.getElementById(idPodio);
+    var contenitoreLista = document.getElementById(idLista);
+    if (!contenitorePodio || !contenitoreLista) return;
+
+    var righeOrdinate = T.ordina(righe, ordine);
     var totaleKm = righe.reduce(function (tot, r) {
       return tot + r.distance;
     }, 0);
