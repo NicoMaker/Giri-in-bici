@@ -48,6 +48,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           mostraPeriodi(
             filtroPeriodiStagione ? filtroPeriodiStagione.selezionati() : [],
           ),
+        // "Azzera pulsanti": le stagioni tornano tutte selezionate.
+        ripristinaFiltri: () => {
+          if (filtroPeriodiStagione) filtroPeriodiStagione.selezionaTutte();
+        },
       },
     );
 

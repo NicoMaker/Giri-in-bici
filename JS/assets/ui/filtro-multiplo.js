@@ -59,6 +59,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
           return [];
         },
         azzera: function () {},
+        selezionaTutte: function () {},
       };
     }
 
@@ -285,6 +286,15 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
         if (aperto) disegnaPannello();
       },
       selezionati: selezionati,
+      // Seleziona tutte le voci, una per una (lo stato iniziale delle
+      // schede Km mensili, Periodi e Giri). Non richiama onCambia.
+      selezionaTutte: function () {
+        voci.forEach(function (v) {
+          v.checked = true;
+        });
+        aggiornaTesto();
+        if (aperto) disegnaPannello();
+      },
       // Svuota la selezione (equivale a "tutte / nessun filtro").
       azzera: function () {
         voci.forEach(function (v) {

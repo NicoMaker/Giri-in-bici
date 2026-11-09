@@ -2,10 +2,11 @@
 // link-corse.js — Dalla pagina di un anno alle sue corse
 //
 // In ogni pagina Statistiche/Anni/<anno>.html aggiunge, in fondo,
-// il riquadro "Le corse del <anno>" con il pulsante che apre
-// CorsePerAnno.html gia' impostata su quell'anno:
+// il riquadro "Le corse del <anno>" con il pulsante che apre la
+// Classifica (History), scheda Giri, vista "Giri per anno", gia'
+// impostata su quell'anno:
 //
-//   CorsePerAnno.html?anno=<anno>
+//   Statistiche/History/ClassificaMesi.html?vista=tappe&modo=anni&anni=<anno>
 //
 // L'anno si ricava da solo dal file JSON della pagina (il div
 // #json con link="json/Statistiche/anni/<anno>.json"), quindi
@@ -49,14 +50,14 @@
     testo.textContent =
       "Tutte le uscite del " +
       anno +
-      ", da Gennaio a Dicembre, con ricerca per posto, intervallo di date e stagione.";
+      ", da Gennaio a Dicembre, con podio, ricerca per posto, intervalli di date e di km e colori per stagione.";
 
     var wrap = document.createElement("div");
     wrap.className = "cta-classifica-wrap";
 
     var link = document.createElement("a");
     link.className = "cta-classifica";
-    link.href = "../../CorsePerAnno.html?anno=" + anno;
+    link.href = "../History/ClassificaMesi.html?vista=tappe&modo=anni&anni=" + anno;
     link.textContent = "Vedi le corse del " + anno;
     wrap.appendChild(link);
 

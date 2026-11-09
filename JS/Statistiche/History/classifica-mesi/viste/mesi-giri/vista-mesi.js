@@ -182,6 +182,12 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           conPosizione(document.getElementById("controlli-record"), () =>
             mostraRecord(anniScelti(), mesiScelti()),
           ),
+        // "Azzera pulsanti": gli anni tornano tutti selezionati (come
+        // all'apertura della scheda) e i mesi a "tutti i mesi".
+        ripristinaFiltri: () => {
+          if (filtroRecordAnno) filtroRecordAnno.selezionaTutte();
+          if (filtroRecordMese) filtroRecordMese.azzera();
+        },
       },
     );
     const controlliAnni = CC.crea(document.getElementById("controlli-anni"), {
