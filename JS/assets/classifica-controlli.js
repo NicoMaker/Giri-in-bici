@@ -14,22 +14,6 @@
 // (".classifica-controlli") e riceve indietro solo lo stato e un
 // modo per aggiornare i suggerimenti di Min/Max.
 //
-// RESET a tre vie (ogni scheda ha tre pulsanti, sempre gli stessi):
-//   [data-azione="reset-filtri"]   azzera SOLO i filtri dei pulsanti:
-//                                  ordine (torna al primo), "Da"/"A"
-//                                  in km e le tendine a scelta multipla
-//                                  della scheda (via opzioni.ripristinaFiltri);
-//                                  il testo di "Cerca" resta com'e'.
-//   [data-azione="reset-ricerca"]  azzera SOLO il campo "Cerca";
-//                                  pulsanti e km restano com'erano.
-//   [data-azione="reset-tutto"]    azzera entrambi insieme.
-// (il vecchio [data-azione="reset"] vale come "reset-tutto").
-// "opzioni.ripristinaFiltri" e' una funzione facoltativa che rimette i
-// filtri a scelta multipla della scheda (Anno, Stagione...) al loro
-// stato iniziale, senza ridisegnare: ridisegna poi C.crea, una volta sola.
-// Analoga "opzioni.ripristinaRicerca": svuota i campi di ricerca extra
-// della scheda (per i Giri: i posti della ricerca avanzata).
-//
 // I campi "Da"/"A" si scrivono liberi: qualsiasi numero, anche fuori
 // dai km davvero presenti nei dati. Non c'è nessuna correzione
 // automatica di quello che si scrive — solo i due pulsanti "Min"/
@@ -99,9 +83,6 @@ window.ClassificaControlli = window.ClassificaControlli || {};
         stato: function () {
           return { ordine: "desc", min: null, max: null, testo: "" };
         },
-        azzeraPulsanti: function () {},
-        azzeraRicerca: function () {},
-        azzeraTutto: function () {},
       };
     }
 
@@ -110,7 +91,7 @@ window.ClassificaControlli = window.ClassificaControlli || {};
     var inputMax = contenitore.querySelector('[data-range="max"]');
     var bottoneMin = contenitore.querySelector('[data-azione="min"]');
     var bottoneMax = contenitore.querySelector('[data-azione="max"]');
-    var bottoniReset = contenitore.querySelectorAll('[data-azione^="reset"]');
+    var bottoneReset = contenitore.querySelector('[data-azione="reset"]');
     var inputRicerca = contenitore.querySelector("[data-ricerca]");
 
     var ordineAttuale = "desc";
@@ -178,43 +159,17 @@ window.ClassificaControlli = window.ClassificaControlli || {};
         notifica();
       });
     }
-    // --- Reset a tre vie (vedi l'intestazione del file) ---
-    function azzeraPulsanti() {
-      ordineAttuale = "desc";
-      Array.prototype.forEach.call(bottoniOrdine, function (b) {
-        var attivo = b.dataset.ordine === "desc";
-        b.classList.toggle("attivo", attivo);
-        b.setAttribute("aria-pressed", attivo ? "true" : "false");
-      });
-      if (inputMin) inputMin.value = "";
-      if (inputMax) inputMax.value = "";
-      if (typeof opzioni.ripristinaFiltri === "function") {
-        opzioni.ripristinaFiltri();
-      }
-    }
-
-    function azzeraRicerca() {
-      if (inputRicerca) inputRicerca.value = "";
-      if (typeof opzioni.ripristinaRicerca === "function") {
-        opzioni.ripristinaRicerca();
-      }
-    }
-
-    Array.prototype.forEach.call(bottoniReset, function (bottone) {
-      bottone.addEventListener("click", function () {
-        var azione = bottone.dataset.azione;
-        if (azione === "reset-filtri" || azione === "reset-pulsanti") {
-          azzeraPulsanti();
-        } else if (azione === "reset-ricerca") {
-          azzeraRicerca();
-        } else {
-          // "reset-tutto" e il vecchio "reset"
-          azzeraPulsanti();
-          azzeraRicerca();
-        }
+    if (bottoneReset) {
+      bottoneReset.addEventListener("click", function () {
+        if (inputMin) inputMin.value = "";
+        if (inputMax) inputMax.value = "";
+        // "Azzera filtro" svuota anche la ricerca: è un filtro come
+        // gli altri due, non ha senso lasciarlo attivo da solo dopo
+        // aver premuto un pulsante che promette di azzerare tutto.
+        if (inputRicerca) inputRicerca.value = "";
         notifica();
       });
-    });
+    }
 
     // Testo libero: ogni lettera digitata ridisegna subito, stesso
     // comportamento già scelto sopra per i campi "Da"/"A" (nessuna
@@ -243,21 +198,6 @@ window.ClassificaControlli = window.ClassificaControlli || {};
         if (inputMax) inputMax.placeholder = String(Math.ceil(limiti.max));
       },
       stato: leggiStato,
-      // Gli stessi tre reset dei pulsanti, richiamabili da codice
-      // (ridisegnano da soli, come un click sul pulsante).
-      azzeraPulsanti: function () {
-        azzeraPulsanti();
-        notifica();
-      },
-      azzeraRicerca: function () {
-        azzeraRicerca();
-        notifica();
-      },
-      azzeraTutto: function () {
-        azzeraPulsanti();
-        azzeraRicerca();
-        notifica();
-      },
     };
   };
 

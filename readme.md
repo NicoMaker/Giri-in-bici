@@ -88,7 +88,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ## 🌐 Logo e Apertura del Sito
 
-![Logo](img/logo.jpg)
+![Logo](Img/logo.jpg)
 
 - Link al sito: [Vai al sito](https://giri-in-bici.netlify.app/)
 
@@ -98,11 +98,11 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 - [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
 
-  ![Avatar NM](img/About_US/AvatarNM.jpg)
+  ![Avatar NM](Img/About_US/AvatarNM.jpg)
 
 - [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)
 
-  ![Avatar JR](img/About_US/AvatarJR.png)
+  ![Avatar JR](Img/About_US/AvatarJR.png)
 
 ---
 
@@ -121,16 +121,3 @@ Il sito è stato sviluppato utilizzando le seguenti tecnologie:
     <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="36" height="36" alt="JavaScript" />
   </a>
 </p>
-
----
-
-## 🆕 Novità: Classifica → scheda "Giri"
-
-- **Giri per anno** – nella scheda *Giri* di `Statistiche/History/ClassificaMesi.html` il pulsante **Giri per anno** (o `?vista=tappe&modo=anni`) mostra un blocco per ogni anno solare con tutti i giri: data, posto, link al percorso, stagione/periodo, km e quota sul totale dell'anno, più riepilogo (giri, km, media, giro più lungo, km per stagione). Ogni anno ha anche il **podio** dei suoi 3 giri più lunghi. Si possono scegliere uno o più anni (`&anni=2023,2024`), usare la **ricerca avanzata** (più posti, intervalli di date e di km) e raggruppare i giri di ogni anno **per stagione**. I totali coincidono con `json/Statistiche/anni/<anno>.json`.
-- **Pagina "Corse per anno" eliminata**: `CorsePerAnno.html` non esiste più, è tutto qui (Classifica → Giri → Giri per anno). I pulsanti "Le corse del <anno>" delle pagine anno e "Vedi tutte le corse" di Statistiche portano a questa vista.
-- **Colori per stagione** – 🌸 verde = Primavera, ☀️ arancione = Estate, 🍁❄️ blu = Autunno · Inverno (righe, podio, chip e legenda).
-- **Reset a tre vie** (in tutte le schede della Classifica): **Solo pulsanti** (ordine, km, Anno/Stagione/Mese), **Solo ricerca** (campo Cerca), **Entrambi**.
-
-## 📁 Percorsi
-
-Le cartelle `js/` e `img/` sono in **minuscolo**, come richiamate da tutto l'HTML (su Netlify, che distingue maiuscole/minuscole, `JS/` e `Img/` davano 404). Se cloni su Windows/macOS e Git non vede il cambio, usa: `git mv -f JS js_tmp && git mv js_tmp js` (idem per `Img` → `img`).

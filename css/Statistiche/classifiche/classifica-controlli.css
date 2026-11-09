@@ -399,28 +399,3 @@
     width: 4.6rem;
   }
 }
-
-/* ---------- Reset a tre vie: solo pulsanti / solo ricerca / entrambi ----------
-   Tre pillole nella stessa riga dei filtri km; "Entrambi" è quella
-   che azzera tutto, quindi ha un filo più di peso. */
-.classifica-reset {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem 0.45rem;
-}
-
-.classifica-reset__etichetta {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.classifica-range__reset--tutto {
-  color: var(--a1);
-  border-color: color-mix(in srgb, var(--a1) 45%, var(--line));
-}
