@@ -749,34 +749,6 @@ a.podio__gradino::before {
   gap: 1.6rem;
 }
 
-.giri-anno__indice {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.45rem;
-}
-
-.giri-anno__indice a {
-  padding: 0.3rem 0.85rem;
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--ink-2);
-  text-decoration: none;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-full);
-  transition:
-    color 0.2s var(--ease),
-    border-color 0.2s var(--ease);
-}
-
-.giri-anno__indice a:hover,
-.giri-anno__indice a:focus-visible {
-  color: var(--a1);
-  border-color: color-mix(in srgb, var(--a1) 45%, var(--line));
-}
-
 .giri-anno {
   display: flex;
   flex-direction: column;
@@ -897,7 +869,6 @@ a.podio__gradino::before {
   display: none;
 }
 
-.giri-pannello__titolo,
 .giri-vista__etichetta {
   margin: 0;
   text-align: center;
@@ -909,117 +880,12 @@ a.podio__gradino::before {
   color: var(--ink-3);
 }
 
-.giri-anno__selettore,
 .giri-vista {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-}
-
-.giri-avanzati {
-  padding: 0.7rem 1rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-}
-
-.giri-avanzati summary {
-  cursor: pointer;
-  font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 0.92rem;
-  color: var(--ink-2);
-}
-
-.giri-avanzati[open] summary {
-  margin-bottom: 0.6rem;
-}
-
-.giri-avanzati__nota {
-  margin: 0 0 0.8rem;
-  font-size: 0.85rem;
-  color: var(--ink-3);
-}
-
-.giri-gruppo {
-  min-width: 0;
-  margin: 0 0 0.9rem;
-  padding: 0;
-  border: 0;
-}
-
-.giri-gruppo legend {
-  padding: 0;
-  margin-bottom: 0.4rem;
-  font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--ink-2);
-}
-
-.giri-gruppo legend span {
-  font-weight: 400;
-  font-size: 0.8rem;
-  color: var(--ink-3);
-}
-
-.giri-righe {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.giri-riga {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.giri-riga input {
-  flex: 1 1 7rem;
-  min-width: 0;
-  padding: 0.45rem 0.7rem;
-  font: inherit;
-  font-size: 0.9rem;
-  color: var(--ink);
-  background: var(--surface-2, var(--surface));
-  border: 1px solid var(--line);
-  border-radius: var(--r-md, 0.7rem);
-}
-
-.giri-riga__sep {
-  flex: 0 0 auto;
-  color: var(--ink-3);
-}
-
-.giri-riga__togli {
-  flex: 0 0 auto;
-  width: 2.2rem;
-  height: 2.2rem;
-  padding: 0;
-  color: var(--ink-2);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.giri-aggiungi {
-  margin-top: 0.5rem;
-  padding: 0;
-  font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 0.88rem;
-  color: var(--a1);
-  background: none;
-  border: 0;
-  cursor: pointer;
-}
-
-.giri-aggiungi:hover {
-  text-decoration: underline;
 }
 
 /* Raggruppamento per stagione dentro l'anno */
@@ -1048,4 +914,146 @@ a.podio__gradino::before {
   font-weight: 500;
   font-size: 0.8rem;
   color: var(--ink-3);
+}
+
+/* ---------- Giri per anno: veste moderna (stessa della Classifica) ---------- */
+.giri-per-anno {
+  gap: 2.2rem;
+}
+
+.giri-anno {
+  gap: 1rem;
+  padding: 1.1rem;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2, var(--surface)));
+  border: 1px solid var(--line);
+  border-radius: calc(var(--r-lg) + 4px);
+  box-shadow: var(--sh-1);
+}
+
+.giri-anno__testa {
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+
+.giri-anno__titolo {
+  font-size: 2.1rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.giri-anno__dati {
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+}
+
+.giri-anno__dati > div {
+  padding: 0.65rem 0.8rem;
+  background: color-mix(in srgb, var(--a1) 6%, var(--surface));
+  border: 1px solid var(--line);
+  border-radius: var(--r-md, 0.7rem);
+}
+
+.giri-anno__lista--totale {
+  margin-top: 0.2rem;
+}
+
+.giri-anno__lista--finale {
+  margin-top: 0;
+}
+
+/* ---------- Giri per anno: tocco finale moderno ---------- */
+.giri-anno {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.giri-anno::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+}
+
+.giri-anno:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sh-2, var(--sh-1));
+}
+
+.giri-anno__dati > div {
+  position: relative;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.giri-anno__dati > div:hover {
+  border-color: color-mix(in srgb, var(--a1) 45%, var(--line));
+  background: color-mix(in srgb, var(--a1) 11%, var(--surface));
+}
+
+.giri-anno__dati dd {
+  font-size: 1.25rem;
+}
+
+/* Barra di ripartizione dei km per stagione */
+.giri-anno__ripartizione {
+  display: flex;
+  gap: 3px;
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--r-full);
+  background: var(--line);
+}
+
+.giri-anno__ripartizione > span {
+  min-width: 6px;
+  background: var(--colore-stagione);
+  border-radius: var(--r-full);
+}
+
+.giri-anno__chip {
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--colore-stagione) 20%, transparent);
+}
+
+.giri-anno__podio-titolo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.giri-anno__podio-titolo::before,
+.giri-anno__podio-titolo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+@media (max-width: 560px) {
+  .giri-anno {
+    padding: 0.9rem 0.8rem;
+    border-radius: var(--r-lg);
+  }
+  .giri-anno__titolo {
+    font-size: 1.8rem;
+  }
+  .giri-anno__dati {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .giri-anno,
+  .giri-anno__dati > div {
+    transition: none;
+  }
+  .giri-anno:hover {
+    transform: none;
+  }
 }
