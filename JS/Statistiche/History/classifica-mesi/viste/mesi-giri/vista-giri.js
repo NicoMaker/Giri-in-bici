@@ -95,7 +95,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   };
 
   function piuLungo(righe) {
-    return righe.reduce((m, r) => (!m || r.distance > m.distance ? r : m), null);
+    return righe.reduce(
+      (m, r) => (!m || r.distance > m.distance ? r : m),
+      null,
+    );
   }
 
   const num = (n) => formatItalianNumber(Math.round(n * 10) / 10);
@@ -359,7 +362,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const cercate = CC.cerca(
           perFiltriEsistenti,
           stato.testo,
-          (t) => `${t.nomeTesto || t.nome} ${t.stagione} ${t.periodo} ${t.anno}`,
+          (t) =>
+            `${t.nomeTesto || t.nome} ${t.stagione} ${t.periodo} ${t.anno}`,
         );
         const filtrate = CC.filtra(cercate, stato, (t) => t.distance);
         const inAnni = modo === "anni";
@@ -404,13 +408,22 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         }
         // Nella vista per anno l'intestazione "Classifica completa" non
         // serve (i filtri sono già sopra): si nasconde.
-        ["classifica-tappe-eyebrow", "classifica-tappe-titolo-sezione", "classifica-tappe-sub"].forEach((id) => {
+        [
+          "classifica-tappe-eyebrow",
+          "classifica-tappe-titolo-sezione",
+          "classifica-tappe-sub",
+        ].forEach((id) => {
           const el = document.getElementById(id);
           if (el) el.style.display = inAnni ? "none" : "";
         });
 
         if (inAnni) {
-          if (annoEl) annoEl.innerHTML = creaGiriPerAnno(filtrate, stato.ordine, extra.raggruppa);
+          if (annoEl)
+            annoEl.innerHTML = creaGiriPerAnno(
+              filtrate,
+              stato.ordine,
+              extra.raggruppa,
+            );
           return;
         }
 
@@ -448,7 +461,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             .filter((s) => stagioniUniche.includes(s))
         : stagioniUniche;
       // ?anno=2025,2026 (o il vecchio ?anni=...): anni solari.
-      const annoUrlGrezzo = parametriUrl.get("anno") || parametriUrl.get("anni");
+      const annoUrlGrezzo =
+        parametriUrl.get("anno") || parametriUrl.get("anni");
       const anniDaUrlGrezzi =
         annoUrlGrezzo && annoUrlGrezzo !== "tutti"
           ? annoUrlGrezzo

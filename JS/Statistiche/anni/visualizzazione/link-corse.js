@@ -57,7 +57,8 @@
 
     var link = document.createElement("a");
     link.className = "cta-classifica";
-    link.href = "../History/ClassificaMesi.html?vista=tappe&modo=anni&anni=" + anno;
+    link.href =
+      "../History/ClassificaMesi.html?vista=tappe&modo=anni&anni=" + anno;
     link.textContent = "Vedi le corse del " + anno;
     wrap.appendChild(link);
 

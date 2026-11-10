@@ -27,7 +27,10 @@
     <link rel="icon" href="/img/Statistiche/Logo_statistiche.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="../../css/Statistiche/base/Style_statistiche.css" />
+    <link
+      rel="stylesheet"
+      href="../../css/Statistiche/base/Style_statistiche.css"
+    />
     <script src="../../js/assets/icone.js" defer></script>
     <script src="../../js/core/lettura-json.js"></script>
     <script src="../../js/core/formattazione-numeri.js"></script>
@@ -94,21 +97,57 @@
       src="../../js/Statistiche/History/classifica-mesi/nucleo/controller.js"
       defer
     ></script>
-    <script src="../../js/assets/ui/piede-pagina/anno-corrente.js" defer></script>
-    <script src="../../js/assets/ui/piede-pagina/data-odierna.js" defer></script>
-    <script src="../../js/assets/ui/effetti-scroll/comparsa-al-scroll.js" defer></script>
-    <script src="../../js/assets/ui/navigazione-barra/chiusura-con-esc.js" defer></script>
-    <script src="../../js/assets/ui/navigazione-barra/icone-pagina-attiva.js" defer></script>
-    <script src="../../js/assets/ui/effetti-scroll/lightbox-foto.js" defer></script>
+    <script
+      src="../../js/assets/ui/piede-pagina/anno-corrente.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/ui/piede-pagina/data-odierna.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/ui/effetti-scroll/comparsa-al-scroll.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/ui/navigazione-barra/chiusura-con-esc.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/ui/navigazione-barra/icone-pagina-attiva.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/ui/effetti-scroll/lightbox-foto.js"
+      defer
+    ></script>
     <script src="../../js/assets/motion/barre/barra-lettura.js" defer></script>
     <script src="../../js/assets/motion/barre/torna-su.js" defer></script>
     <script src="../../js/assets/motion/barre/barra-vetro.js" defer></script>
-    <script src="../../js/assets/motion/contenuti-animati/effetti/numeri.js" defer></script>
-    <script src="../../js/assets/motion/contenuti-animati/effetti/scaglionamento.js" defer></script>
-    <script src="../../js/assets/motion/contenuti-animati/cursore-card.js" defer></script>
-    <script src="../../js/assets/motion/contenuti-animati/controller.js" defer></script>
-    <script src="../../js/assets/motion/interazioni/tocco-pulsanti.js" defer></script>
-    <script src="../../js/assets/motion/interazioni/magnete-pulsanti.js" defer></script>
+    <script
+      src="../../js/assets/motion/contenuti-animati/effetti/numeri.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/motion/contenuti-animati/effetti/scaglionamento.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/motion/contenuti-animati/cursore-card.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/motion/contenuti-animati/controller.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/motion/interazioni/tocco-pulsanti.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/motion/interazioni/magnete-pulsanti.js"
+      defer
+    ></script>
   </head>
 
   <body>
@@ -116,7 +155,9 @@
       <a class="brand" href="../../Giri.html">
         <img class="Bandiera-FVG" src="/img/logo.jpg" alt="Giri in Bici" />
         <span class="brand-text"
-          ><span class="riga-giri">Giri in Bici</span><span class="tricolore-italia" aria-hidden="true"></span><small>Io sono Friuli Venezia Giulia</small></span
+          ><span class="riga-giri">Giri in Bici</span
+          ><span class="tricolore-italia" aria-hidden="true"></span
+          ><small>Io sono Friuli Venezia Giulia</small></span
         >
       </a>
 
@@ -155,7 +196,7 @@
           aria-label="Cerca per data"
           ><img src="/img/Icons/calendario.png" alt=""
         /></a>
-<a
+        <a
           href="../../Bici/Bici.html"
           title="Le nostre bici"
           aria-label="Le nostre bici"
@@ -264,19 +305,23 @@
           <p class="eyebrow">Podio</p>
           <h2>I tre mesi migliori</h2>
           <div class="classifica-controlli" id="controlli-mesi">
-          <label class="classifica-ricerca">
-            <span class="classifica-ricerca__etichetta">Cerca</span>
-            <span class="classifica-ricerca__campo">
-              <input
-                type="search"
-                id="ricerca-mesi"
-                data-ricerca
-                placeholder="Cerca per nome del mese…"
-                aria-label="Cerca per nome del mese"
-              />
-            </span>
-          </label>
-            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica dei mesi">
+            <label class="classifica-ricerca">
+              <span class="classifica-ricerca__etichetta">Cerca</span>
+              <span class="classifica-ricerca__campo">
+                <input
+                  type="search"
+                  id="ricerca-mesi"
+                  data-ricerca
+                  placeholder="Cerca per nome del mese…"
+                  aria-label="Cerca per nome del mese"
+                />
+              </span>
+            </label>
+            <div
+              class="classifica-ordine"
+              role="group"
+              aria-label="Ordina la classifica dei mesi"
+            >
               <button
                 type="button"
                 class="classifica-ordine__pulsante attivo"
@@ -356,7 +401,11 @@
                   aria-label="Chilometri minimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="min">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="min"
+                >
                   Min
                 </button>
               </label>
@@ -372,7 +421,11 @@
                   aria-label="Chilometri massimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="max">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="max"
+                >
                   Max
                 </button>
               </label>
@@ -417,8 +470,8 @@
           <p class="eyebrow">Classifica completa</p>
           <h2>Tutti e dodici i mesi</h2>
           <p class="hero-sub" id="classifica-mesi-hero-sub">
-            La classifica intera dei dodici mesi, uno sotto l'altro, dal più
-            al meno pedalato.
+            La classifica intera dei dodici mesi, uno sotto l'altro, dal più al
+            meno pedalato.
           </p>
           <ol id="classifica" class="classifica-lista"></ol>
         </section>
@@ -437,19 +490,23 @@
             <div class="filtro-multiplo" id="record-filtro-mese"></div>
           </div>
           <div class="classifica-controlli" id="controlli-record">
-          <label class="classifica-ricerca">
-            <span class="classifica-ricerca__etichetta">Cerca</span>
-            <span class="classifica-ricerca__campo">
-              <input
-                type="search"
-                id="ricerca-record"
-                data-ricerca
-                placeholder="Cerca per mese o anno…"
-                aria-label="Cerca per mese o anno"
-              />
-            </span>
-          </label>
-            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica dei record">
+            <label class="classifica-ricerca">
+              <span class="classifica-ricerca__etichetta">Cerca</span>
+              <span class="classifica-ricerca__campo">
+                <input
+                  type="search"
+                  id="ricerca-record"
+                  data-ricerca
+                  placeholder="Cerca per mese o anno…"
+                  aria-label="Cerca per mese o anno"
+                />
+              </span>
+            </label>
+            <div
+              class="classifica-ordine"
+              role="group"
+              aria-label="Ordina la classifica dei record"
+            >
               <button
                 type="button"
                 class="classifica-ordine__pulsante attivo"
@@ -512,7 +569,11 @@
                   aria-label="Chilometri minimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="min">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="min"
+                >
                   Min
                 </button>
               </label>
@@ -528,7 +589,11 @@
                   aria-label="Chilometri massimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="max">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="max"
+                >
                   Max
                 </button>
               </label>
@@ -589,19 +654,23 @@
             esempio 2020 contro 2021 contro 2022, e così via.
           </p>
           <div class="classifica-controlli" id="controlli-anni">
-          <label class="classifica-ricerca">
-            <span class="classifica-ricerca__etichetta">Cerca</span>
-            <span class="classifica-ricerca__campo">
-              <input
-                type="search"
-                id="ricerca-anni"
-                data-ricerca
-                placeholder="Cerca per anno…"
-                aria-label="Cerca per anno"
-              />
-            </span>
-          </label>
-            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica degli anni">
+            <label class="classifica-ricerca">
+              <span class="classifica-ricerca__etichetta">Cerca</span>
+              <span class="classifica-ricerca__campo">
+                <input
+                  type="search"
+                  id="ricerca-anni"
+                  data-ricerca
+                  placeholder="Cerca per anno…"
+                  aria-label="Cerca per anno"
+                />
+              </span>
+            </label>
+            <div
+              class="classifica-ordine"
+              role="group"
+              aria-label="Ordina la classifica degli anni"
+            >
               <button
                 type="button"
                 class="classifica-ordine__pulsante attivo"
@@ -696,7 +765,11 @@
                   aria-label="Chilometri minimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="min">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="min"
+                >
                   Min
                 </button>
               </label>
@@ -712,7 +785,11 @@
                   aria-label="Chilometri massimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="max">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="max"
+                >
                   Max
                 </button>
               </label>
@@ -757,8 +834,8 @@
           <p class="eyebrow">Classifica completa</p>
           <h2>Tutti gli anni a confronto</h2>
           <p class="hero-sub" id="classifica-anni-hero-sub">
-            Tutti gli anni pedalati finora, uno sotto l'altro, dal totale
-            più alto al più basso.
+            Tutti gli anni pedalati finora, uno sotto l'altro, dal totale più
+            alto al più basso.
           </p>
           <ol id="classifica-anni" class="classifica-lista"></ol>
         </section>
@@ -774,19 +851,23 @@
                che il podio mostra sempre tutte e tre), "Da/A" restringe
                quali stagioni compaiono. -->
           <div class="classifica-controlli" id="controlli-stagioni">
-          <label class="classifica-ricerca">
-            <span class="classifica-ricerca__etichetta">Cerca</span>
-            <span class="classifica-ricerca__campo">
-              <input
-                type="search"
-                id="ricerca-stagioni"
-                data-ricerca
-                placeholder="Cerca per nome della stagione…"
-                aria-label="Cerca per nome della stagione"
-              />
-            </span>
-          </label>
-            <div class="classifica-ordine" role="group" aria-label="Ordina le stagioni">
+            <label class="classifica-ricerca">
+              <span class="classifica-ricerca__etichetta">Cerca</span>
+              <span class="classifica-ricerca__campo">
+                <input
+                  type="search"
+                  id="ricerca-stagioni"
+                  data-ricerca
+                  placeholder="Cerca per nome della stagione…"
+                  aria-label="Cerca per nome della stagione"
+                />
+              </span>
+            </label>
+            <div
+              class="classifica-ordine"
+              role="group"
+              aria-label="Ordina le stagioni"
+            >
               <button
                 type="button"
                 class="classifica-ordine__pulsante attivo"
@@ -881,7 +962,11 @@
                   aria-label="Chilometri minimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="min">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="min"
+                >
                   Min
                 </button>
               </label>
@@ -897,7 +982,11 @@
                   aria-label="Chilometri massimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="max">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="max"
+                >
                   Max
                 </button>
               </label>
@@ -972,19 +1061,23 @@
             <div class="filtro-multiplo" id="periodi-filtro-stagione"></div>
           </div>
           <div class="classifica-controlli" id="controlli-periodi">
-          <label class="classifica-ricerca">
-            <span class="classifica-ricerca__etichetta">Cerca</span>
-            <span class="classifica-ricerca__campo">
-              <input
-                type="search"
-                id="ricerca-periodi"
-                data-ricerca
-                placeholder="Cerca per periodo o stagione…"
-                aria-label="Cerca per periodo o stagione"
-              />
-            </span>
-          </label>
-            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica dei periodi">
+            <label class="classifica-ricerca">
+              <span class="classifica-ricerca__etichetta">Cerca</span>
+              <span class="classifica-ricerca__campo">
+                <input
+                  type="search"
+                  id="ricerca-periodi"
+                  data-ricerca
+                  placeholder="Cerca per periodo o stagione…"
+                  aria-label="Cerca per periodo o stagione"
+                />
+              </span>
+            </label>
+            <div
+              class="classifica-ordine"
+              role="group"
+              aria-label="Ordina la classifica dei periodi"
+            >
               <button
                 type="button"
                 class="classifica-ordine__pulsante attivo"
@@ -1079,7 +1172,11 @@
                   aria-label="Chilometri minimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="min">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="min"
+                >
                   Min
                 </button>
               </label>
@@ -1095,7 +1192,11 @@
                   aria-label="Chilometri massimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="max">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="max"
+                >
                   Max
                 </button>
               </label>
@@ -1179,10 +1280,28 @@
             </button>
           </div>
           <div class="giri-pannello" id="giri-anno-pannello" hidden>
-            <div class="giri-vista" role="group" aria-label="Come raggruppare i giri di ogni anno">
+            <div
+              class="giri-vista"
+              role="group"
+              aria-label="Come raggruppare i giri di ogni anno"
+            >
               <span class="giri-vista__etichetta">Dentro ogni anno</span>
-              <button type="button" class="classifica-ordine__pulsante attivo" data-raggruppa="elenco" aria-pressed="true">Elenco unico</button>
-              <button type="button" class="classifica-ordine__pulsante" data-raggruppa="stagione" aria-pressed="false">Per stagione</button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante attivo"
+                data-raggruppa="elenco"
+                aria-pressed="true"
+              >
+                Elenco unico
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-raggruppa="stagione"
+                aria-pressed="false"
+              >
+                Per stagione
+              </button>
             </div>
           </div>
           <ul class="legenda-stagioni" aria-label="Colori delle stagioni">
@@ -1195,19 +1314,23 @@
             <div class="filtro-multiplo" id="tappe-filtro-anno"></div>
           </div>
           <div class="classifica-controlli" id="controlli-giri">
-          <label class="classifica-ricerca">
-            <span class="classifica-ricerca__etichetta">Cerca</span>
-            <span class="classifica-ricerca__campo">
-              <input
-                type="search"
-                id="ricerca-giri"
-                data-ricerca
-                placeholder="Cerca per nome del giro, posto o stagione…"
-                aria-label="Cerca per nome del giro, posto o stagione"
-              />
-            </span>
-          </label>
-            <div class="classifica-ordine" role="group" aria-label="Ordina la classifica dei giri">
+            <label class="classifica-ricerca">
+              <span class="classifica-ricerca__etichetta">Cerca</span>
+              <span class="classifica-ricerca__campo">
+                <input
+                  type="search"
+                  id="ricerca-giri"
+                  data-ricerca
+                  placeholder="Cerca per nome del giro, posto o stagione…"
+                  aria-label="Cerca per nome del giro, posto o stagione"
+                />
+              </span>
+            </label>
+            <div
+              class="classifica-ordine"
+              role="group"
+              aria-label="Ordina la classifica dei giri"
+            >
               <button
                 type="button"
                 class="classifica-ordine__pulsante attivo"
@@ -1270,7 +1393,11 @@
                   aria-label="Chilometri minimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="min">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="min"
+                >
                   Min
                 </button>
               </label>
@@ -1286,7 +1413,11 @@
                   aria-label="Chilometri massimi"
                 />
                 <span class="classifica-range__unita">km</span>
-                <button type="button" class="classifica-range__rapido" data-azione="max">
+                <button
+                  type="button"
+                  class="classifica-range__rapido"
+                  data-azione="max"
+                >
                   Max
                 </button>
               </label>
@@ -1327,13 +1458,14 @@
         </section>
 
         <section class="section">
-          <p class="eyebrow" id="classifica-tappe-eyebrow">Classifica completa</p>
+          <p class="eyebrow" id="classifica-tappe-eyebrow">
+            Classifica completa
+          </p>
           <h2 id="classifica-tappe-titolo-sezione">
             Tutti i giri, dal più lungo al più corto
           </h2>
           <p class="hero-sub" id="classifica-tappe-sub">
-            Ogni singola uscita, di ogni stagione e di ogni anno, una per
-            una.
+            Ogni singola uscita, di ogni stagione e di ogni anno, una per una.
           </p>
           <ol id="classifica-tappe" class="classifica-lista"></ol>
           <div id="giri-per-anno" class="giri-per-anno" hidden></div>
@@ -1346,11 +1478,10 @@
         <p>
           &copy; 2020&ndash;<span data-anno></span> Giri in Bici &middot; Nico
           Maker
-        
+
           <br />
           <span class="footer-dates"
-            >Dal 30 Maggio 2020 al
-            <span data-fine-periodo></span
+            >Dal 30 Maggio 2020 al <span data-fine-periodo></span
           ></span>
         </p>
         <div class="footer-tricolore">

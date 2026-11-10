@@ -924,7 +924,11 @@ a.podio__gradino::before {
 .giri-anno {
   gap: 1rem;
   padding: 1.1rem;
-  background: linear-gradient(180deg, var(--surface), var(--surface-2, var(--surface)));
+  background: linear-gradient(
+    180deg,
+    var(--surface),
+    var(--surface-2, var(--surface))
+  );
   border: 1px solid var(--line);
   border-radius: calc(var(--r-lg) + 4px);
   box-shadow: var(--sh-1);
@@ -989,7 +993,9 @@ a.podio__gradino::before {
 
 .giri-anno__dati > div {
   position: relative;
-  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  transition:
+    border-color 0.2s var(--ease),
+    background 0.2s var(--ease);
 }
 
 .giri-anno__dati > div:hover {
@@ -1018,7 +1024,8 @@ a.podio__gradino::before {
 }
 
 .giri-anno__chip {
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--colore-stagione) 20%, transparent);
+  box-shadow: 0 1px 0
+    color-mix(in srgb, var(--colore-stagione) 20%, transparent);
 }
 
 .giri-anno__podio-titolo {
