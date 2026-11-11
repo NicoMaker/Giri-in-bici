@@ -52,6 +52,29 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "data-vecchio": "Tutti i giri, dal meno recente al più recente",
   };
 
+  // Titolo del podio: dice davvero chi c'è sul podio nell'ordine scelto.
+  const TITOLI_PODIO_GIRI = {
+    desc: "I tre giri più lunghi di sempre",
+    asc: "I tre giri più corti di sempre",
+    alfabetico: "I primi tre giri in ordine alfabetico",
+    "alfabetico-desc": "I primi tre giri in ordine alfabetico inverso",
+    "data-recente": "I tre giri più recenti",
+    "data-vecchio": "I tre giri meno recenti",
+  };
+
+  // Titolo del podio di un anno, secondo l'ordine scelto.
+  function titoloPodioAnno(ordine, n, anno) {
+    if (ordine === "asc")
+      return `${n === 1 ? "Il giro più corto" : `I ${n} giri più corti`} del ${anno}`;
+    if (ordine === "alfabetico" || ordine === "alfabetico-desc")
+      return `${n === 1 ? "Il primo giro" : `I primi ${n} giri`} in ordine alfabetico del ${anno}`;
+    if (ordine === "data-recente")
+      return `${n === 1 ? "Il giro più recente" : `I ${n} giri più recenti`} del ${anno}`;
+    if (ordine === "data-vecchio")
+      return `${n === 1 ? "Il giro meno recente" : `I ${n} giri meno recenti`} del ${anno}`;
+    return `${n === 1 ? "Il giro più lungo" : `I ${n} giri più lunghi`} del ${anno}`;
+  }
+
   // ---------- Vista "Giri per anno" ----------
   // Unico stato proprio della vista: come raggruppare i giri dentro
   // ogni anno. Anni, stagioni, ricerca, ordine e km usano gli stessi
@@ -112,16 +135,20 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     if (!righe.length) {
       return '<p class="errore-grafico">Nessun giro corrisponde ai filtri scelti.</p>';
     }
+    // I blocchi sono sempre gli anni solari (2026, 2025 ...): i periodi
+    // di Autunno · Inverno (2025/2026) esistono solo nella Classifica.
     const perAnno = new Map();
     righe.forEach((r) => {
-      if (!perAnno.has(r.anno)) perAnno.set(r.anno, []);
-      perAnno.get(r.anno).push({ ...r, etichetta: r.etichettaBreve });
+      const k = String(r.anno);
+      if (!perAnno.has(k)) perAnno.set(k, []);
+      perAnno.get(k).push({ ...r, etichetta: r.etichettaBreve });
     });
-    const anni = [...perAnno.keys()].sort((a, b) => a - b);
+    const anni = [...perAnno.keys()].sort((a, b) => a.localeCompare(b));
     if (ordine !== "data-vecchio") anni.reverse();
 
-    const blocchi = anni.map((anno) => {
-      const giri = perAnno.get(anno);
+    const blocchi = anni.map((chiave) => {
+      const giri = perAnno.get(chiave);
+      const anno = chiave;
       const km = giri.reduce((t, r) => t + r.distance, 0);
       const media = giri.length ? km / giri.length : 0;
       const lungo = piuLungo(giri);
@@ -150,7 +177,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       // trovi nell'elenco. Solo quando l'elenco è "dal più lungo" e non
       // diviso per stagione i tre stanno davvero in cima: lì si traccia
       // anche la riga di separazione dal 4º in poi.
-      TappePiuLunghe.ordina(giri, "desc")
+      TappePiuLunghe.ordina(giri, ordine)
         .slice(0, 3)
         .forEach((r, i) => {
           r.posPodio = i;
@@ -177,7 +204,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         `${anno} · ${nGiri} · media ${num(media)} km a giro`,
       )}</ol>`;
       return `
-        <section class="giri-anno" id="giri-anno-${anno}">
+        <section class="giri-anno" id="giri-anno-${chiave}">
           <header class="giri-anno__testa">
             <h3 class="giri-anno__titolo">${anno}</h3>
             <dl class="giri-anno__dati">
@@ -190,8 +217,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             <ul class="giri-anno__stagioni">${perStagione}</ul>
           </header>
           <div class="giri-anno__podio">
-            <p class="giri-anno__podio-titolo">I ${Math.min(3, giri.length)} ${pluralizza(Math.min(3, giri.length), "giro più lungo", "giri più lunghi")} del ${anno}</p>
-            <div class="podio">${TappePiuLunghe.creaPodio(TappePiuLunghe.ordina(giri, "desc"), km)}</div>
+            <p class="giri-anno__podio-titolo">${titoloPodioAnno(ordine, Math.min(3, giri.length), anno)}</p>
+            <div class="podio">${TappePiuLunghe.creaPodio(TappePiuLunghe.ordina(giri, ordine), km)}</div>
           </div>
           ${corpo}
           ${piede}
@@ -227,6 +254,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     });
 
     let aggiornaVistaTappe = () => {};
+    // Cambiando modo (Classifica / Giri per anno) cambia l'elenco del
+    // filtro Anno: assegnata più sotto, quando i dati sono caricati.
+    let alCambioModo = () => {};
 
     // Modo di visualizzazione: "classifica" (podio + elenco) o "anni".
     // Non è un filtro: il reset dei pulsanti non lo cambia.
@@ -239,6 +269,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       p.addEventListener("click", () => {
         if (modo === p.dataset.modo) return;
         modo = p.dataset.modo;
+        alCambioModo();
         aggiornaVistaTappe();
       });
     });
@@ -345,8 +376,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const disponibili = tutte
           ? tutteLeTappe
           : tutteLeTappe.filter((t) => stagioniScelte.includes(t.stagione));
-        const conAnni = tutte || stagioniScelte.some((s) => !eAutunnoInverno(s));
-        const conPeriodi = tutte || stagioniScelte.some(eAutunnoInverno);
+        const conAnni =
+          modo !== "classifica" ||
+          tutte ||
+          stagioniScelte.some((s) => !eAutunnoInverno(s));
+        // I periodi (2025/2026) si scelgono solo nella Classifica: in
+        // "Giri per anno" il filtro ha soltanto gli anni.
+        const conPeriodi =
+          modo === "classifica" &&
+          (tutte || stagioniScelte.some(eAutunnoInverno));
         const ordinaDesc = (arr) => arr.sort((x, y) => y.localeCompare(x));
         const anni = conAnni
           ? ordinaDesc([...new Set(disponibili.map((t) => String(t.anno)))])
@@ -398,7 +436,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             (!stagioniScelte.length || stagioniScelte.includes(t.stagione)) &&
             (!anniScelti.length ||
               anniScelti.includes(String(t.anno)) ||
-              anniScelti.includes(t.periodo)),
+              (modo === "classifica" && anniScelti.includes(t.periodo))),
         );
         controlliGiri.aggiornaLimiti(perFiltriEsistenti.map((t) => t.distance));
         const stato = controlliGiri.stato();
@@ -427,7 +465,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           eyebrow: inAnni ? "Anno per anno" : "Podio",
           titolo: inAnni
             ? "Tutti i giri, anno per anno"
-            : "I tre giri più lunghi di sempre",
+            : TITOLI_PODIO_GIRI[stato.ordine] || TITOLI_PODIO_GIRI.desc,
           sotto: inAnni
             ? "Ogni anno ha il suo blocco: giri fatti, km totali, media, podio e tutti i giri con il colore della stagione."
             : "Ogni singola uscita, di ogni stagione e di ogni anno, messe a confronto una per una: non un periodo intero, il giro singolo.",
@@ -470,16 +508,18 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           return;
         }
 
+        // I primi tre dell'elenco, NELL'ORDINE SCELTO e dopo i filtri
+        // (stagioni, anni, ricerca, km), hanno il contorno oro/argento/
+        // bronzo e sono gli stessi del podio qui sopra: "dal più lungo" i
+        // tre più lunghi, "dal meno al più lungo" i tre più corti, e così
+        // per alfabetico e data.
         TappePiuLunghe.mostra(
           "podio-tappe",
           "classifica-tappe",
           filtrate,
           undefined,
           stato.ordine,
-          // Nell'elenco completo i primi 3 (gli stessi del podio qui
-          // sopra, nell'ordine scelto) hanno la medaglia e una riga
-          // li separa dal 4º in poi.
-          { segnaPodio: true, perPosizione: true, separatore: true },
+          { segnaPodio: true, perPosizione: true },
         );
 
         if (listaEl) {
@@ -520,7 +560,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         !!anniDaUrlGrezzi && anniDaUrlGrezzi.some((a) => a.includes("-"));
       const stagioneDaUrlEffettiva =
         stagioneUrlGrezza ||
-        (haPeriodiNellUrl
+        (haPeriodiNellUrl && modo === "classifica"
           ? stagioniUniche.find((s) => CM.chiaveStagione(s) === CHIAVE_AI)
           : null);
       const stagioniDaUrl = CM.stagioniDaParametro(
@@ -557,6 +597,11 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       popolaAnni(filtroStagione ? filtroStagione.selezionati() : [], {
         preselezionati: anniDaUrlGrezzi,
       });
+
+      alCambioModo = () =>
+        popolaAnni(filtroStagione ? filtroStagione.selezionati() : [], {
+          mantieni: true,
+        });
 
       montaPannello(() => aggiornaVistaTappe());
 
