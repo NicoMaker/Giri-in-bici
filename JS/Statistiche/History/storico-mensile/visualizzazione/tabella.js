@@ -95,7 +95,10 @@ window.StoricoMensile = window.StoricoMensile || {};
           // Febbraio 2026 contro Febbraio 2024 se il 2025 e' a 0).
           // Se nessun anno prima ha km, si parte da 0 (+100%).
           let rifIndex = yearIndex - 1;
-          while (rifIndex > 0 && (datasets[rifIndex].data[monthIndex] ?? 0) === 0) {
+          while (
+            rifIndex > 0 &&
+            (datasets[rifIndex].data[monthIndex] ?? 0) === 0
+          ) {
             rifIndex--;
           }
           let prevValue = datasets[rifIndex].data[monthIndex] ?? 0;

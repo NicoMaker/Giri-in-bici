@@ -797,8 +797,17 @@ a.podio__gradino::before {
   border: 3px solid var(--medaglia);
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--colore-stagione, var(--surface)) 24%, var(--surface)),
-    color-mix(in srgb, var(--colore-stagione, var(--surface)) 6%, var(--surface)) 70%
+    color-mix(
+      in srgb,
+      var(--colore-stagione, var(--surface)) 24%,
+      var(--surface)
+    ),
+    color-mix(
+        in srgb,
+        var(--colore-stagione, var(--surface)) 6%,
+        var(--surface)
+      )
+      70%
   );
   box-shadow:
     inset 6px 0 0 var(--colore-stagione, transparent),

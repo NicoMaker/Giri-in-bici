@@ -154,7 +154,9 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       '<input type="search" class="filtro-multiplo__cerca" autocomplete="off" spellcheck="false" placeholder="Cerca' +
       (etichetta ? " " + escapeHtml(etichetta.toLowerCase()) : "") +
       '…" aria-label="Cerca' +
-      (etichetta ? " " + escapeHtml(etichetta.toLowerCase()) : " nell\'elenco") +
+      (etichetta
+        ? " " + escapeHtml(etichetta.toLowerCase())
+        : " nell\'elenco") +
       '" />' +
       "</div>" +
       '<div class="filtro-multiplo__azioni">' +
