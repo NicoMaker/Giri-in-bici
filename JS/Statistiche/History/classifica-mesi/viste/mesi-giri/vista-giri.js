@@ -322,42 +322,49 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       const stagioniUniche = [...new Set(tutteLeTappe.map((t) => t.stagione))];
 
       // Il filtro Anno cambia secondo le stagioni scelte:
-      //  - con Primavera e/o Estate (o con tutte le stagioni) si scelgono
-      //    gli ANNI solari: 2026, 2025 ... 2020;
-      //  - con la sola stagione Autunno · Inverno, che scavalca due anni,
-      //    si scelgono i PERIODI: 2025/2026, 2024/2025 ... 2020/2021.
-      // Le due liste hanno valori diversi ("2025" contro "2025-2026"), così
-      // un valore dell'una non si confonde mai con quello dell'altra.
+      //  - Primavera / Estate: gli ANNI solari (2026, 2025 ... 2020);
+      //  - Autunno · Inverno, che scavalca due anni: i PERIODI
+      //    (2025/2026, 2024/2025 ... 2020/2021);
+      //  - più stagioni insieme (o tutte): prima gli anni, poi i periodi.
+      // I valori sono diversi ("2025" contro "2025-2026"), quindi non si
+      // confondono. Un giro rientra se è selezionato il SUO anno solare
+      // oppure il SUO periodo: con tutto selezionato si vede sempre tutto.
       const CHIAVE_AI = "autunno-inverno";
-      const soloAutunnoInverno = (stagioniScelte) =>
-        !!stagioniScelte &&
-        stagioniScelte.length > 0 &&
-        stagioniScelte.every((s) => CM.chiaveStagione(s) === CHIAVE_AI);
+      const eAutunnoInverno = (nome) => CM.chiaveStagione(nome) === CHIAVE_AI;
 
       // "2025-2026" -> "2025/2026" (solo per come si legge nel filtro).
-      const etichettaPeriodoFiltro = (valore) => valore.replace("-", "/");
+      const etichettaFiltroAnno = (valore) => valore.replace("-", "/");
 
-      // "popolaAnni.mantieni" tiene gli anni (o i periodi) già scelti se
-      // restano validi; se nessuno resta valido (es. si passa da "tutte
-      // le stagioni" alla sola Autunno · Inverno) riparte con tutto
-      // selezionato. "popolaAnni.preselezionati" sceglie da capo (usato al
-      // primo caricamento, per i valori letti dall'indirizzo).
+      // "popolaAnni.mantieni" tiene i valori già scelti se restano validi;
+      // se nessuno resta valido riparte con tutto selezionato.
+      // "popolaAnni.preselezionati" sceglie da capo (primo caricamento,
+      // per i valori letti dall'indirizzo).
       function popolaAnni(stagioniScelte, opzioniPopola) {
         if (!filtroAnno) return;
-        const inPeriodi = soloAutunnoInverno(stagioniScelte);
-        const disponibili =
-          stagioniScelte && stagioniScelte.length
-            ? tutteLeTappe.filter((t) => stagioniScelte.includes(t.stagione))
-            : tutteLeTappe;
-        const valoriDisponibili = [
-          ...new Set(
-            disponibili.map((t) => (inPeriodi ? t.periodo : String(t.anno))),
-          ),
-        ].sort((x, y) => y.localeCompare(x));
+        const tutte = !stagioniScelte || !stagioniScelte.length;
+        const disponibili = tutte
+          ? tutteLeTappe
+          : tutteLeTappe.filter((t) => stagioniScelte.includes(t.stagione));
+        const conAnni = tutte || stagioniScelte.some((s) => !eAutunnoInverno(s));
+        const conPeriodi = tutte || stagioniScelte.some(eAutunnoInverno);
+        const ordinaDesc = (arr) => arr.sort((x, y) => y.localeCompare(x));
+        const anni = conAnni
+          ? ordinaDesc([...new Set(disponibili.map((t) => String(t.anno)))])
+          : [];
+        const periodi = conPeriodi
+          ? ordinaDesc([
+              ...new Set(
+                disponibili
+                  .filter((t) => eAutunnoInverno(t.stagione))
+                  .map((t) => t.periodo),
+              ),
+            ])
+          : [];
+        const valoriDisponibili = [...anni, ...periodi];
         opzioniPopola = opzioniPopola || {};
         const voci = valoriDisponibili.map((v) => ({
           value: v,
-          label: inPeriodi ? etichettaPeriodoFiltro(v) : v,
+          label: etichettaFiltroAnno(v),
         }));
         if (opzioniPopola.mantieni) {
           filtroAnno.imposta(voci, { mantieni: true });
@@ -379,9 +386,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           ? filtroStagione.selezionati()
           : [];
         const anniScelti = filtroAnno ? filtroAnno.selezionati() : [];
-        // Solo Autunno · Inverno: il filtro Anno elenca i periodi
-        // (2025/2026); in tutti gli altri casi gli anni solari.
-        const inPeriodiAttivo = soloAutunnoInverno(stagioniScelte);
         // Nessuna scelta su un filtro equivale a "tutte/tutti" per
         // quell'asse: con entrambi i filtri scelti si vede solo
         // l'incrocio esatto (es. solo Primavera 2021 e solo Estate
@@ -393,7 +397,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           (t) =>
             (!stagioniScelte.length || stagioniScelte.includes(t.stagione)) &&
             (!anniScelti.length ||
-              anniScelti.includes(inPeriodiAttivo ? t.periodo : String(t.anno))),
+              anniScelti.includes(String(t.anno)) ||
+              anniScelti.includes(t.periodo)),
         );
         controlliGiri.aggiornaLimiti(perFiltriEsistenti.map((t) => t.distance));
         const stato = controlliGiri.stato();
