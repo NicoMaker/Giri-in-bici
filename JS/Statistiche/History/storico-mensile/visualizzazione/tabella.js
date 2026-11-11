@@ -20,9 +20,10 @@ window.StoricoMensile = window.StoricoMensile || {};
         <span class="badge badge-su">▲ aumento</span>
         <span class="badge badge-giu">▼ calo</span>
         <span class="badge badge-pari">● invariato</span>
-        <span class="badge badge-neutro">— nessun dato precedente</span>
         <span class="legenda-nota">
-          (% calcolata rispetto all'anno precedente per lo stesso mese)
+          (% calcolata rispetto all'anno precedente per lo stesso mese; se
+          l'anno prima quel mese era a 0 km, si confronta con l'ultimo anno
+          che aveva km, indicato come "vs anno"; se non ce n'è nessuno: +100%)
         </span>
       </div>
     `,
@@ -89,11 +90,28 @@ window.StoricoMensile = window.StoricoMensile || {};
         row.appendChild(tdVal);
 
         if (yearIndex > 0) {
-          const prevValue = datasets[yearIndex - 1].data[monthIndex] ?? 0;
+          // Anno prima a 0 km (mese non pedalato): si confronta con
+          // l'ultimo anno precedente in cui quel mese aveva km (es.
+          // Febbraio 2026 contro Febbraio 2024 se il 2025 e' a 0).
+          // Se nessun anno prima ha km, si parte da 0 (+100%).
+          let rifIndex = yearIndex - 1;
+          while (rifIndex > 0 && (datasets[rifIndex].data[monthIndex] ?? 0) === 0) {
+            rifIndex--;
+          }
+          let prevValue = datasets[rifIndex].data[monthIndex] ?? 0;
+          if (prevValue === 0) rifIndex = yearIndex - 1;
           const perc = SM.calcVariazione(value, prevValue);
           const tdVar = document.createElement("td");
           tdVar.className = "valore td-var";
           tdVar.innerHTML = SM.badgeVariazione(perc);
+          if (rifIndex !== yearIndex - 1) {
+            const annoRif = yearLabels[rifIndex];
+            tdVar.title = `Confronto con ${annoRif} (${formatNumber(prevValue)} km): l'anno prima era a 0`;
+            tdVar.insertAdjacentHTML(
+              "beforeend",
+              ` <small class="var-rif">vs ${annoRif}</small>`,
+            );
+          }
           row.appendChild(tdVar);
         }
       });

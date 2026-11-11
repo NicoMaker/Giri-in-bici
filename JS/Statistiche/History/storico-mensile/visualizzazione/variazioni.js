@@ -9,9 +9,15 @@ window.StoricoMensile = window.StoricoMensile || {};
 (function (SM) {
   "use strict";
 
+  // Un mese senza uscite l'anno prima vale 0 km (non "dato mancante"):
+  // da 0 a qualcosa e' un aumento del 100% (la base zero non permette un
+  // calcolo vero, si usa la convenzione +100%), da 0 a 0 e' invariato,
+  // da qualcosa a 0 e' il solito -100%.
   SM.calcVariazione = function (valoreAttuale, valorePrecedente) {
-    if (valorePrecedente === 0) return null;
-    return ((valoreAttuale - valorePrecedente) / valorePrecedente) * 100;
+    const attuale = valoreAttuale || 0;
+    const precedente = valorePrecedente || 0;
+    if (precedente === 0) return attuale === 0 ? 0 : 100;
+    return ((attuale - precedente) / precedente) * 100;
   };
 
   SM.badgeVariazione = function (perc) {

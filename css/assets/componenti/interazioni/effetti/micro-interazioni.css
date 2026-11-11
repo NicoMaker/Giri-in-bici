@@ -178,6 +178,14 @@ tbody tr td {
   margin-top: 1.2rem;
 }
 
+/* Più pulsanti affiancati (vanno a capo e restano centrati). */
+.cta-classifica-wrap--gruppo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem 1rem;
+}
+
 .cta-classifica {
   display: inline-flex;
   align-items: center;

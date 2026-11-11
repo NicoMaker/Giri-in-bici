@@ -105,9 +105,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
   // Un blocco per ogni anno solare, con tutti i giri di quell'anno.
   // L'anno più recente per primo, tranne con "Meno recente" (data-vecchio).
-  // Dentro un anno le etichette non ripetono l'anno ("Primavera", non
-  // "Primavera 2026"); solo Autunno · Inverno, che a cavallo di due
-  // anni, mantiene il periodo ("2025/2026").
+  // Dentro un anno le etichette non ripetono né l'anno né il periodo
+  // ("Primavera", non "Primavera 2026" e nemmeno "Autunno - Inverno
+  // 2025-2026"): quello si legge solo nell'elenco completo.
   function creaGiriPerAnno(righe, ordine, raggruppa) {
     if (!righe.length) {
       return '<p class="errore-grafico">Nessun giro corrisponde ai filtri scelti.</p>';
@@ -145,8 +145,19 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           return `<span data-stagione="${chiave}" style="flex-grow:${kmS}" title="${ETICHETTE_STAGIONE[chiave]}: ${formatItalianNumber(kmS)} km (${num(pct)} %)"></span>`;
         })
         .join("");
+      // I tre giri più lunghi dell'anno (gli stessi del podio sopra):
+      // ogni riga che ne fa parte porta la sua medaglia, ovunque si
+      // trovi nell'elenco. Solo quando l'elenco è "dal più lungo" e non
+      // diviso per stagione i tre stanno davvero in cima: lì si traccia
+      // anche la riga di separazione dal 4º in poi.
+      TappePiuLunghe.ordina(giri, "desc")
+        .slice(0, 3)
+        .forEach((r, i) => {
+          r.posPodio = i;
+        });
+      const separaPodio = ordine === "desc" && raggruppa !== "stagione";
       const lista = (arr) =>
-        `<ol class="classifica-lista giri-anno__lista">${TappePiuLunghe.creaLista(TappePiuLunghe.ordina(arr, ordine), km)}</ol>`;
+        `<ol class="classifica-lista giri-anno__lista">${TappePiuLunghe.creaLista(TappePiuLunghe.ordina(arr, ordine), km, undefined, { segnaPodio: true, separatore: separaPodio })}</ol>`;
       const corpo =
         raggruppa === "stagione"
           ? Object.keys(ETICHETTE_STAGIONE)
@@ -266,8 +277,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             const giorno = parseInt(giornoTesto, 10) || 0;
             const meseNum = ConfigMesi.ordine[meseTesto] || 0;
             const anno = annoReale(etichettaPeriodo, meseNum) || 0;
-            const periodoLeggibile = String(etichettaPeriodo).replace("-", "/");
-            const doppioAnno = /^\d{4}-\d{4}$/.test(etichettaPeriodo);
+            // Periodo scritto come nei file e nelle pagine del sito:
+            // "2026" (Primavera/Estate) oppure "2025-2026" (Autunno ·
+            // Inverno, a cavallo di due anni).
+            const periodoLeggibile = String(etichettaPeriodo);
             tutteLeTappe.push({
               nome: info.nome,
               nomeTesto: info.nomeTesto,
@@ -277,12 +290,14 @@ window.ClassificaMesi = window.ClassificaMesi || {};
               stagioneClasse: classeStagione(config.season),
               anno,
               periodo: etichettaPeriodo,
+              // Elenco completo (classifica): data, stagione e periodo di
+              // OGNI stagione, scritto per esteso: "Primavera 2026",
+              // "Autunno - Inverno 2025-2026".
               etichetta: `${r.date} · ${config.season} ${periodoLeggibile}`,
-              // Dentro un anno: senza l'anno, salvo i periodi a cavallo
-              // di due anni (Autunno · Inverno 2025/2026).
-              etichettaBreve: doppioAnno
-                ? `${r.date} · ${config.season} ${periodoLeggibile}`
-                : `${r.date} · ${config.season}`,
+              // "Giri per anno": il blocco è già l'anno, quindi solo data
+              // e stagione, senza anno né periodo (nemmeno per Autunno ·
+              // Inverno).
+              etichettaBreve: `${r.date} · ${config.season}`,
               distance: r.distance,
               dataOrdine: anno * 10000 + meseNum * 100 + giorno,
             });
@@ -433,6 +448,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           filtrate,
           undefined,
           stato.ordine,
+          // Nell'elenco completo i primi 3 (gli stessi del podio qui
+          // sopra, nell'ordine scelto) hanno la medaglia e una riga
+          // li separa dal 4º in poi.
+          { segnaPodio: true, perPosizione: true, separatore: true },
         );
 
         if (listaEl) {

@@ -176,7 +176,20 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
       .join("");
   };
 
-  T.creaLista = function (righe, totaleKm, limite) {
+  // "opzioni" (facoltativo) serve alla scheda Giri della pagina
+  // Classifica per far capire a colpo d'occhio quali sono i primi 3:
+  //   segnaPodio:   i primi 3 hanno il contorno oro/argento/bronzo (numero semplice);
+  //   perPosizione: "primi 3" = le prime tre righe nell'ordine mostrato
+  //                 (come il podio sopra la lista). Senza, vale solo
+  //                 chi ha "posPodio" (0, 1, 2) già scritto nella riga:
+  //                 es. i tre giri più lunghi di un anno, ovunque
+  //                 stiano nell'elenco;
+  //   separatore:   dopo la terza riga, una riga di separazione
+  //                 "primi 3 / dal 4º in poi" (solo se ce ne sono altre).
+  // Senza "opzioni" la lista è identica a prima (pagine di stagione e
+  // di periodo comprese).
+  T.creaLista = function (righe, totaleKm, limite, opzioni) {
+    opzioni = opzioni || {};
     // "massimo" scala la barra di ogni riga: va preso col vero valore
     // più alto (Math.max), non il primo elemento. Con il pulsante
     // "Ordine" la lista può arrivare qui ordinata dal più corto al
@@ -190,10 +203,22 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
         var quota = massimo > 0 ? (r.distance / massimo) * 100 : 0;
         var percentualeTotale =
           totaleKm > 0 ? formatNumber((r.distance / totaleKm) * 100) : "0";
-        var dentro =
+        // Posto sul podio (0, 1, 2) o null: decide medaglia e stile.
+        var posPodio = null;
+        if (opzioni.segnaPodio) {
+          if (r.posPodio != null) posPodio = r.posPodio;
+          else if (opzioni.perPosizione && i < 3) posPodio = i;
+        }
+        // Nell'elenco il numero resta semplice (niente medaglia): i primi 3
+        // si riconoscono dal contorno oro/argento/bronzo della riga. Le
+        // medaglie restano solo nel podio sopra l'elenco.
+        var posizioneHtml =
           '<span class="classifica-riga__posizione">' +
-          (i + 1) +
-          '&ordm;</span><span class="classifica-riga__mese">' +
+          (posPodio != null ? posPodio + 1 : i + 1) +
+          "&ordm;</span>";
+        var dentro =
+          posizioneHtml +
+          '<span class="classifica-riga__mese">' +
           r.nome +
           '<small class="classifica-riga__sotto">' +
           r.etichetta +
@@ -206,28 +231,36 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
           ' km</span><span class="classifica-riga__percentuale">' +
           percentualeTotale +
           " %</span>";
+        // Con "segnaPodio" il bordo/riquadro da podio spetta solo a chi
+        // è davvero sul podio; altrimenti vale come sempre per le
+        // prime tre righe.
+        var sulPodio = opzioni.segnaPodio ? posPodio != null : i < 3;
         var classi =
           "classifica-riga" +
-          (i < 3 ? " classifica-riga--podio" : "") +
+          (sulPodio ? " classifica-riga--podio" : "") +
+          (opzioni.segnaPodio && posPodio != null
+            ? " classifica-riga--podio-" + (posPodio + 1)
+            : "") +
           (r.href ? " classifica-riga--cliccabile" : "");
         var attrRiga = r.stagioneClasse
           ? ' data-stagione="' + r.stagioneClasse + '"'
           : "";
-        return r.href
+        var riga = r.href
           ? '<li class="' +
-              classi +
-              '"' +
-              attrRiga +
-              '><a class="classifica-riga__link" href="' +
-              r.href +
-              '" target="_blank" rel="noopener" aria-label="Vedi il percorso di ' +
-              r.nomeTesto +
-              ", " +
-              r.etichetta +
-              '">' +
-              dentro +
-              "</a></li>"
+            classi +
+            '"' +
+            attrRiga +
+            '><a class="classifica-riga__link" href="' +
+            r.href +
+            '" target="_blank" rel="noopener" aria-label="Vedi il percorso di ' +
+            r.nomeTesto +
+            ", " +
+            r.etichetta +
+            '">' +
+            dentro +
+            "</a></li>"
           : '<li class="' + classi + '"' + attrRiga + ">" + dentro + "</li>";
+        return riga;
       })
       .join("");
   };
@@ -302,7 +335,9 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   // (per distanza) accetta anche "alfabetico"/"alfabetico-desc" (per
   // nome del posto) e "data-recente"/"data-vecchio" (per data della
   // tappa, campo "dataOrdine").
-  T.mostra = function (idPodio, idLista, righe, limite, ordine) {
+  // "opzioniLista" (facoltativo) passa a creaLista le scelte per
+  // segnare i primi 3 (medaglie e riga di separazione).
+  T.mostra = function (idPodio, idLista, righe, limite, ordine, opzioniLista) {
     var contenitorePodio = document.getElementById(idPodio);
     var contenitoreLista = document.getElementById(idLista);
     if (!contenitorePodio || !contenitoreLista) return;
@@ -313,6 +348,11 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
     }, 0);
 
     contenitorePodio.innerHTML = T.creaPodio(righeOrdinate, totaleKm);
-    contenitoreLista.innerHTML = T.creaLista(righeOrdinate, totaleKm, limite);
+    contenitoreLista.innerHTML = T.creaLista(
+      righeOrdinate,
+      totaleKm,
+      limite,
+      opzioniLista,
+    );
   };
 })(window.TappePiuLunghe);

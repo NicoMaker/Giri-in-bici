@@ -6,3 +6,10 @@
 #mesi {
   min-width: 520px;
 }
+
+/* Anno di confronto quando l'anno prima era a 0 km (storico mensile) */
+.td-var .var-rif {
+  display: block;
+  font-size: 0.68em;
+  opacity: 0.75;
+}

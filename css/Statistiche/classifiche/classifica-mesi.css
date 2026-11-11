@@ -261,6 +261,53 @@
   box-shadow: var(--sh-3);
 }
 
+/* Campo di ricerca in cima al pannello: restringe la lista e
+   seleziona da solo i risultati (vedi assets/ui/filtro-multiplo.js). */
+.filtro-multiplo__ricerca {
+  margin-bottom: 0.5rem;
+}
+
+.filtro-multiplo__cerca {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.42rem 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  transition:
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.filtro-multiplo__cerca::placeholder {
+  color: var(--ink-3);
+}
+
+.filtro-multiplo__cerca:focus {
+  outline: none;
+  background: var(--surface);
+  border-color: var(--a1);
+  box-shadow: 0 0 0 3px var(--a-soft);
+}
+
+.filtro-multiplo__suggerimento {
+  margin: 0 0 0.4rem;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--ink-3);
+}
+
+/* Sotto i 16px iOS ingrandisce la pagina quando si tocca il campo. */
+@media (max-width: 700px) {
+  .filtro-multiplo__cerca {
+    font-size: 16px;
+  }
+}
+
 .filtro-multiplo__azioni {
   display: flex;
   justify-content: space-between;
@@ -723,6 +770,74 @@ a.podio__gradino::before {
 
 .classifica-riga[data-stagione] .classifica-riga__barra > span {
   background: var(--colore-stagione);
+}
+
+/* ---------- Primi 3 nell'elenco dei Giri (completo e per anno) ----------
+   Un anello oro/argento/bronzo attorno
+   alla riga (sopra il colore della stagione, che resta a sinistra) e,
+   nell'elenco "dal più lungo", una riga tratteggiata che li separa dal
+   4º in poi. Vedi assets/tappe-piu-lunghe.js (opzioni di creaLista). */
+.classifica-riga--podio-1 {
+  --medaglia: #d4a017;
+}
+
+.classifica-riga--podio-2 {
+  --medaglia: #9aa5b1;
+}
+
+.classifica-riga--podio-3 {
+  --medaglia: #b87333;
+}
+
+/* Primi 3: solo il CONTORNO è oro/argento/bronzo (spesso, con un po'
+   di alone); l'interno della riga resta del colore della stagione
+   (striscia a sinistra e sfondo un po' più pieno che nelle altre
+   righe). Vale per la classifica e per "Giri per anno". */
+.classifica-riga[class*="classifica-riga--podio-"] {
+  border: 3px solid var(--medaglia);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--colore-stagione, var(--surface)) 24%, var(--surface)),
+    color-mix(in srgb, var(--colore-stagione, var(--surface)) 6%, var(--surface)) 70%
+  );
+  box-shadow:
+    inset 6px 0 0 var(--colore-stagione, transparent),
+    0 0 0 2px color-mix(in srgb, var(--medaglia) 30%, transparent),
+    0 3px 10px color-mix(in srgb, var(--medaglia) 30%, transparent);
+}
+
+.classifica-riga__posizione--medaglia {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.classifica-separatore {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.3rem 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.classifica-separatore::before,
+.classifica-separatore::after {
+  content: "";
+  flex: 1;
+  border-top: 2px dashed color-mix(in srgb, var(--a1) 45%, var(--line));
+}
+
+@media (max-width: 560px) {
+  .classifica-separatore {
+    font-size: 0.66rem;
+    letter-spacing: 0.02em;
+  }
 }
 
 /* Podio: la medaglia resta oro/argento/bronzo, la stagione si legge
