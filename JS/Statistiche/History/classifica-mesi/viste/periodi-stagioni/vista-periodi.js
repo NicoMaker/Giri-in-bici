@@ -129,12 +129,12 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // stagioni già selezionate automaticamente.
         const parametriUrlPeriodi = new URLSearchParams(window.location.search);
         const stagioneUrlGrezzaPeriodi = parametriUrlPeriodi.get("stagione");
-        const stagioniDaUrlPeriodi = stagioneUrlGrezzaPeriodi
-          ? stagioneUrlGrezzaPeriodi
-              .split(",")
-              .map((s) => s.trim())
-              .filter((s) => stagioniPeriodiUniche.includes(s))
-          : stagioniPeriodiUniche;
+        // "Autunno - Inverno", "Autunno · Inverno" e "Autunno-Inverno"
+        // sono la stessa stagione: vedi CM.stagioniDaParametro.
+        const stagioniDaUrlPeriodi = CM.stagioniDaParametro(
+          stagioneUrlGrezzaPeriodi,
+          stagioniPeriodiUniche,
+        );
 
         filtroPeriodiStagione = window.FiltroMultiplo.crea(
           contenitorePeriodiStagioneEl,
