@@ -17,8 +17,11 @@
 //     intervalli di km ("o questo o quello" dentro un gruppo, i gruppi
 //     fra loro si sommano);
 //   - il podio dei tre giri più lunghi di ogni anno.
-// In "Giri per anno" NON c'è nessuna parte di stagione (né colori, né
-// legenda, né filtro Stagione, né raggruppamento): solo anni e giri.
+// In "Giri per anno" restano i colori delle stagioni (riga e podio),
+// la legenda, il filtro Stagione e la stagione scritta sotto ogni giro
+// ("19 Settembre · Estate 2026"); NON c'è invece nessun ordinamento o
+// raggruppamento per stagione: dentro ogni anno i giri seguono solo
+// l'ordine scelto (km, nome o data).
 // I primi 3 hanno il contorno oro/argento/bronzo, sia nel podio sia
 // nella tabella sotto.
 // Nella Classifica restano i colori e il filtro delle stagioni.
@@ -98,9 +101,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
   // Un blocco per ogni anno solare, con tutti i giri di quell'anno.
   // L'anno più recente per primo, tranne con "Meno recente" (data-vecchio).
-  // Dentro un anno le etichette non ripetono né l'anno né il periodo
-  // ("Primavera", non "Primavera 2026" e nemmeno "Autunno - Inverno
-  // 2025-2026"): quello si legge solo nell'elenco completo.
+  // Ogni giro tiene il colore e l'etichetta della sua stagione, come
+  // nella Classifica, ma i giri NON sono raggruppati per stagione.
   function creaGiriPerAnno(righe, ordine) {
     if (!righe.length) {
       return '<p class="errore-grafico">Nessun giro corrisponde ai filtri scelti.</p>';
@@ -111,12 +113,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     righe.forEach((r) => {
       const k = String(r.anno);
       if (!perAnno.has(k)) perAnno.set(k, []);
-      // Nessuna stagione: solo la data, e niente colore di stagione.
-      perAnno.get(k).push({
-        ...r,
-        etichetta: r.dataTesto,
-        stagioneClasse: undefined,
-      });
+      perAnno.get(k).push({ ...r });
     });
     const anni = [...perAnno.keys()].sort((a, b) => a.localeCompare(b));
     if (ordine !== "data-vecchio") anni.reverse();
@@ -264,8 +261,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
               // OGNI stagione, scritto per esteso: "Primavera 2026",
               // "Autunno - Inverno 2025-2026".
               etichetta: `${r.date} · ${config.season} ${periodoLeggibile}`,
-              // "Giri per anno": il blocco è già l'anno, quindi solo la
-              // data (niente stagione, anno o periodo).
+              // Solo la data (usata come testo breve).
               dataTesto: r.date,
               distance: r.distance,
               dataOrdine: anno * 10000 + meseNum * 100 + giorno,
@@ -310,8 +306,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       // per i valori letti dall'indirizzo).
       function popolaAnni(stagioniScelte, opzioniPopola) {
         if (!filtroAnno) return;
-        // In "Giri per anno" la stagione non c'è: contano tutti gli anni.
-        if (modo === "anni") stagioniScelte = [];
         const tutte = !stagioniScelte || !stagioniScelte.length;
         const disponibili = tutte
           ? tutteLeTappe
@@ -361,8 +355,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
       aggiornaVistaTappe = function () {
         const inAnni = modo === "anni";
-        const stagioniScelte =
-          filtroStagione && !inAnni ? filtroStagione.selezionati() : [];
+        const stagioniScelte = filtroStagione
+          ? filtroStagione.selezionati()
+          : [];
         const anniScelti = filtroAnno ? filtroAnno.selezionati() : [];
         // Nessuna scelta su un filtro equivale a "tutte/tutti" per
         // quell'asse: con entrambi i filtri scelti si vede solo
@@ -384,16 +379,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           perFiltriEsistenti,
           stato.testo,
           (t) =>
-            inAnni
-              ? `${t.nomeTesto || t.nome} ${t.anno}`
-              : `${t.nomeTesto || t.nome} ${t.stagione} ${t.periodo} ${t.anno}`,
+            `${t.nomeTesto || t.nome} ${t.stagione} ${t.periodo} ${t.anno}`,
         );
         const filtrate = CC.filtra(cercate, stato, (t) => t.distance);
-        // "Giri per anno": via filtro Stagione e legenda dei colori.
-        if (contenitoreStagioneEl)
-          contenitoreStagioneEl.style.display = inAnni ? "none" : "";
+        // Filtro Stagione e legenda dei colori restano in entrambi i modi.
+        if (contenitoreStagioneEl) contenitoreStagioneEl.style.display = "";
         const legendaEl = document.querySelector(".legenda-stagioni");
-        if (legendaEl) legendaEl.style.display = inAnni ? "none" : "";
+        if (legendaEl) legendaEl.style.display = "";
         pulsantiModo.forEach((p) => {
           const attivo = p.dataset.modo === modo;
           p.classList.toggle("attivo", attivo);
