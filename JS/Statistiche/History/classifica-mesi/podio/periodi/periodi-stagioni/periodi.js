@@ -36,7 +36,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .map((r, i) => {
         const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
         return `
-      <li class="classifica-riga classifica-riga--cliccabile${i < 3 ? " classifica-riga--podio" : ""}">
+      <li class="classifica-riga classifica-riga--cliccabile${i < 3 ? ` classifica-riga--podio classifica-riga--podio-${i + 1}` : ""}">
         <a
           class="classifica-riga__link"
           href="${r.link}"

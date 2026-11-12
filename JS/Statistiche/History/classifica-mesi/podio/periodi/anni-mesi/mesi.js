@@ -32,7 +32,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .map((r, i) => {
         const quota = massimo > 0 ? (r.km / massimo) * 100 : 0;
         return `
-      <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
+      <li class="classifica-riga${i < 3 ? ` classifica-riga--podio classifica-riga--podio-${i + 1}` : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
         <span class="classifica-riga__mese"
           >${r.mese}

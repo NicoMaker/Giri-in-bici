@@ -70,7 +70,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
         const valore = r[metrica] || 0;
         const quota = massimo > 0 ? (valore / massimo) * 100 : 0;
         return `
-      <li class="classifica-riga${i < 3 ? " classifica-riga--podio" : ""}">
+      <li class="classifica-riga${i < 3 ? ` classifica-riga--podio classifica-riga--podio-${i + 1}` : ""}">
         <span class="classifica-riga__posizione">${i + 1}&ordm;</span>
         <span class="classifica-riga__mese"
           >${r.mese}<small class="classifica-riga__sotto">${formatItalianNumber(r.mesiPercorsi)} ${pluralizza(r.mesiPercorsi, "anno pedalato", "anni pedalati")} &middot; media ${formatItalianNumber(r.kmMedio, true)} km</small></span

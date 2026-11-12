@@ -1188,3 +1188,28 @@ a.podio__gradino::before {
     transform: none;
   }
 }
+
+/* ---------- Podio e righe: contorno oro / argento / bronzo ----------
+   Stessa logica della scheda Giri: i primi 3 di ogni classifica
+   (mesi, record, anni, stagioni, periodi, giri) hanno il CONTORNO
+   spesso oro, argento o bronzo. */
+.podio__gradino--1 {
+  --medaglia: #d4a017;
+}
+
+.podio__gradino--2 {
+  --medaglia: #9aa5b1;
+}
+
+.podio__gradino--3 {
+  --medaglia: #b87333;
+}
+
+.podio__gradino--1,
+.podio__gradino--2,
+.podio__gradino--3 {
+  border: 3px solid var(--medaglia);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--medaglia) 30%, transparent),
+    0 3px 10px color-mix(in srgb, var(--medaglia) 30%, transparent);
+}

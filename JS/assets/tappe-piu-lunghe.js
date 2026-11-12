@@ -184,6 +184,7 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   //                 chi ha "posPodio" (0, 1, 2) già scritto nella riga:
   //                 es. i tre giri più lunghi di un anno, ovunque
   //                 stiano nell'elenco;
+  //   medaglie:     i primi 3 mostrano 🥇🥈🥉 al posto del numero;
   //   separatore:   dopo la terza riga, una riga di separazione
   //                 "primi 3 / dal 4º in poi" (solo se ce ne sono altre).
   // Senza "opzioni" la lista è identica a prima (pagine di stagione e
@@ -212,10 +213,18 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
         // Nell'elenco il numero resta semplice (niente medaglia): i primi 3
         // si riconoscono dal contorno oro/argento/bronzo della riga. Le
         // medaglie restano solo nel podio sopra l'elenco.
+        // Con "medaglie" (vista "Giri per anno") i primi 3 mostrano
+        // anche la medaglia, come nel podio sopra la tabella.
         var posizioneHtml =
-          '<span class="classifica-riga__posizione">' +
-          (posPodio != null ? posPodio + 1 : i + 1) +
-          "&ordm;</span>";
+          posPodio != null && opzioni.medaglie
+            ? '<span class="classifica-riga__posizione classifica-riga__posizione--medaglia" aria-label="' +
+              (posPodio + 1) +
+              'º posto">' +
+              MEDAGLIE[posPodio] +
+              "</span>"
+            : '<span class="classifica-riga__posizione">' +
+              (posPodio != null ? posPodio + 1 : i + 1) +
+              "&ordm;</span>";
         var dentro =
           posizioneHtml +
           '<span class="classifica-riga__mese">' +
