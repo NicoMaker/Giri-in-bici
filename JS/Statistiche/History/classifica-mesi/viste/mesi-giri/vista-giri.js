@@ -436,10 +436,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
         if (inAnni) {
           if (annoEl)
-            annoEl.innerHTML = creaGiriPerAnno(
-              filtrate,
-              stato.ordine,
-            );
+            annoEl.innerHTML = creaGiriPerAnno(filtrate, stato.ordine);
           return;
         }
 
