@@ -66,19 +66,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "data-vecchio": "I tre giri meno recenti",
   };
 
-  // Titolo del podio di un anno, secondo l'ordine scelto.
-  function titoloPodioAnno(ordine, n, anno) {
-    if (ordine === "asc")
-      return `${n === 1 ? "Il giro più corto" : `I ${n} giri più corti`} del ${anno}`;
-    if (ordine === "alfabetico" || ordine === "alfabetico-desc")
-      return `${n === 1 ? "Il primo giro" : `I primi ${n} giri`} in ordine alfabetico del ${anno}`;
-    if (ordine === "data-recente")
-      return `${n === 1 ? "Il giro più recente" : `I ${n} giri più recenti`} del ${anno}`;
-    if (ordine === "data-vecchio")
-      return `${n === 1 ? "Il giro meno recente" : `I ${n} giri meno recenti`} del ${anno}`;
-    return `${n === 1 ? "Il giro più lungo" : `I ${n} giri più lunghi`} del ${anno}`;
-  }
-
   // ---------- Vista "Giri per anno" ----------
   // Anni, ricerca, ordine e km usano gli stessi filtri della Classifica.
 
@@ -153,7 +140,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             </dl>
           </header>
           <div class="giri-anno__podio">
-            <p class="giri-anno__podio-titolo">${titoloPodioAnno(ordine, Math.min(3, giri.length), anno)}</p>
             <div class="podio">${TappePiuLunghe.creaPodio(TappePiuLunghe.ordina(giri, ordine), km)}</div>
           </div>
           ${corpo}
