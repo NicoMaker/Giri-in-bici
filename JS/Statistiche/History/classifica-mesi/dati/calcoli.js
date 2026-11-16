@@ -101,9 +101,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // trascorsi finora (es. 11 a novembre) per l'anno in corso.
         const oggi = new Date();
         const mesiTotali =
-          Number(json.year) === oggi.getFullYear()
-            ? oggi.getMonth() + 1
-            : 12;
+          Number(json.year) === oggi.getFullYear() ? oggi.getMonth() + 1 : 12;
         return {
           nome: `${json.year}`,
           anno: json.year,
