@@ -79,6 +79,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // altro mese. Ogni riga somma tutti i mesi presenti in quell'anno.
   // corse = numberOfRaces dell'anno (json/Statistiche/anni/<anno>.json).
   // kmMedi = km medi per singola corsa in quell'anno (km / corse).
+  // kmMediMese = km medi per mese, sui soli mesi pedalati quell'anno.
   CM.calcolaAnni = function (allData) {
     const righe = allData
       .filter((json) => json && json.data)
@@ -90,7 +91,29 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const corse =
           typeof json.numberOfRaces === "number" ? json.numberOfRaces : 0;
         const kmMedi = corse > 0 ? km / corse : 0;
-        return { nome: `${json.year}`, anno: json.year, km, corse, kmMedi };
+        // Mesi in cui si è pedalato davvero in quell'anno (km > 0):
+        // i mesi senza uscite non entrano nella media mensile.
+        const mesiPedalati = Object.values(json.data).filter(
+          (valore) => (valore || 0) > 0,
+        ).length;
+        const kmMediMese = mesiPedalati > 0 ? km / mesiPedalati : 0;
+        // Mesi disponibili: 12 per gli anni conclusi, solo quelli
+        // trascorsi finora (es. 11 a novembre) per l'anno in corso.
+        const oggi = new Date();
+        const mesiTotali =
+          Number(json.year) === oggi.getFullYear()
+            ? oggi.getMonth() + 1
+            : 12;
+        return {
+          nome: `${json.year}`,
+          anno: json.year,
+          km,
+          corse,
+          kmMedi,
+          mesiPedalati,
+          mesiTotali,
+          kmMediMese,
+        };
       });
 
     const totale = righe.reduce((tot, r) => tot + r.km, 0);

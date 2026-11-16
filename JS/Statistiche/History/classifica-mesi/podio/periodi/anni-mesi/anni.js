@@ -22,6 +22,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <span class="podio__km anima-numero">${formatItalianNumber(r.km)} km</span>
         <span class="podio__dettaglio">${formatNumber(r.percentuale)} % del totale</span>
         <span class="podio__dettaglio">${formatItalianNumber(r.corse)} ${pluralizza(r.corse, "corsa", "corse")} &middot; ${formatNumber(r.kmMedi)} km medi/corsa</span>
+        <span class="podio__dettaglio">${formatNumber(r.kmMediMese)} km medi/mese &middot; ${r.mesiPedalati} su ${Math.max(r.mesiTotali, r.mesiPedalati)} mesi pedalati</span>
       </a>`,
       )
       .join("");
@@ -44,6 +45,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             >${r.nome}
             <small class="classifica-riga__sotto">${formatNumber(r.percentuale)} % del totale</small>
             <small class="classifica-riga__sotto">${formatItalianNumber(r.corse)} ${pluralizza(r.corse, "corsa", "corse")} &middot; ${formatNumber(r.kmMedi)} km medi/corsa</small>
+            <small class="classifica-riga__sotto">${formatNumber(r.kmMediMese)} km medi/mese &middot; ${r.mesiPedalati} su ${Math.max(r.mesiTotali, r.mesiPedalati)} mesi pedalati</small>
           </span>
           <span class="classifica-riga__barra"
             ><span style="--percentuale:${quota}%"></span
@@ -68,6 +70,22 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <strong>${primo.nome}</strong>, con
         <strong>${formatNumber(primo.kmMedi)} km</strong> di media
         su ${formatItalianNumber(primo.corse)} ${pluralizza(primo.corse, "corsa", "corse")}.`;
+    }
+    if (ordine === "mesi-desc" || ordine === "mesi-asc") {
+      const quantita = ordine === "mesi-asc" ? "meno" : "pi&ugrave;";
+      return `
+        L'anno con ${quantita} mesi pedalati &egrave;
+        <strong>${primo.nome}</strong>, con
+        <strong>${primo.mesiPedalati} su ${Math.max(primo.mesiTotali, primo.mesiPedalati)} mesi</strong>
+        e ${formatItalianNumber(primo.km)} km percorsi.`;
+    }
+    if (ordine === "mediamese-desc" || ordine === "mediamese-asc") {
+      const superlativo = ordine === "mediamese-asc" ? "bassa" : "alta";
+      return `
+        L'anno con la media mensile pi&ugrave; ${superlativo} &egrave;
+        <strong>${primo.nome}</strong>, con
+        <strong>${formatNumber(primo.kmMediMese)} km</strong> al mese
+        in ${primo.mesiPedalati} ${pluralizza(primo.mesiPedalati, "mese pedalato", "mesi pedalati")}.`;
     }
     if (ordine === "corse-desc" || ordine === "corse-asc") {
       const quantita = ordine === "corse-asc" ? "meno" : "pi&ugrave;";

@@ -60,6 +60,17 @@ window.ClassificaMesi = window.ClassificaMesi || {};
           gruppo.dataset.vistaGruppo === vista ? "" : "none";
       });
       if (selettoreMobile) selettoreMobile.value = vista;
+
+      // Nella barra in alto: dove si trova l'utente ("Classifica › Giri").
+      const posizione = document.getElementById("posizione-vista");
+      const attivo = Array.from(pulsantiVista).find(
+        (p) => p.dataset.vista === vista,
+      );
+      if (posizione && attivo) {
+        const nome = attivo.textContent.trim();
+        posizione.textContent = nome;
+        document.title = `${nome} · Classifica | Giri in Bici`;
+      }
     }
 
     const vistaIniziale = new URLSearchParams(window.location.search).get(

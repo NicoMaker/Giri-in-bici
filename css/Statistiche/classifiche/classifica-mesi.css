@@ -1213,3 +1213,57 @@ a.podio__gradino::before {
     0 0 0 2px color-mix(in srgb, var(--medaglia) 30%, transparent),
     0 3px 10px color-mix(in srgb, var(--medaglia) 30%, transparent);
 }
+
+/* ---------- Fix mobile: righe di "Giri per anno" tagliate a destra ----------
+   .giri-anno è flex in colonna e .classifica-lista ha "margin: 0 auto":
+   i margini auto in asse trasversale disattivano lo stretch, quindi la
+   lista prendeva la larghezza del suo contenuto, sbordava dal blocco
+   (overflow: hidden) e i km risultavano tagliati ("203 kr").
+   Qui la lista riempie sempre il blocco, la colonna del nome può
+   restringersi (minmax(0, 1fr)) e i nomi lunghi vanno a capo. */
+.giri-anno > *,
+.giri-anno__gruppo > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.giri-anno__lista,
+#classifica-tappe,
+.classifica-lista {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.classifica-riga {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.classifica-riga > * {
+  min-width: 0;
+}
+
+.classifica-riga__mese {
+  overflow-wrap: anywhere;
+}
+
+.giri-anno__lista .classifica-riga,
+#classifica-tappe .classifica-riga {
+  grid-template-columns: 2.2rem minmax(0, 1fr) 90px 4.4rem 3.6rem;
+}
+
+@media (max-width: 560px) {
+  .giri-anno__lista .classifica-riga,
+  #classifica-tappe .classifica-riga {
+    grid-template-columns: 1.8rem minmax(0, 1fr) 40px auto;
+    gap: 0.5rem;
+    padding: 0.65rem 0.7rem;
+  }
+  .classifica-riga__km {
+    min-width: 4.2rem;
+  }
+  .classifica-riga__mese {
+    font-size: 0.95rem;
+  }
+}

@@ -221,6 +221,15 @@
         <img class="Stagioni" src="/img/assets/stagioni.svg" alt="" />
         <span class="graficostagioni-testo">Stagioni</span>
       </a>
+
+      <p class="site-bar__posizione" aria-live="polite">
+        <span class="site-bar__posizione-etichetta">Sei in</span>
+        <span class="site-bar__posizione-classifica">Classifica</span>
+        <span class="site-bar__posizione-sep" aria-hidden="true">›</span>
+        <strong class="site-bar__posizione-vista" id="posizione-vista"
+          >Mesi migliori</strong
+        >
+      </p>
     </header>
 
     <main class="wrap stack">
@@ -750,6 +759,22 @@
                 aria-pressed="false"
               >
                 Meno corse
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-ordine="mediamese-desc"
+                aria-pressed="false"
+              >
+                Media km/mese più alta
+              </button>
+              <button
+                type="button"
+                class="classifica-ordine__pulsante"
+                data-ordine="mediamese-asc"
+                aria-pressed="false"
+              >
+                Media km/mese più bassa
               </button>
             </div>
             <div class="classifica-range">

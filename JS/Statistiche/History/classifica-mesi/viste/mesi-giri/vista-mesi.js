@@ -33,6 +33,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "media-asc": "per media km/corsa più bassa",
     "corse-desc": "dall'anno con più corse a quello con meno",
     "corse-asc": "dall'anno con meno corse a quello con più",
+    "mesi-desc": "dall'anno con più mesi pedalati a quello con meno",
+    "mesi-asc": "dall'anno con meno mesi pedalati a quello con più",
+    "mediamese-desc": "per media km/mese più alta",
+    "mediamese-asc": "per media km/mese più bassa",
   };
 
   // Mantiene ferma la pagina dove si trova l'utente: quando i filtri
@@ -143,12 +147,34 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         stato.ordine === "media-desc" || stato.ordine === "media-asc";
       const perCorse =
         stato.ordine === "corse-desc" || stato.ordine === "corse-asc";
+      const perMesi =
+        stato.ordine === "mesi-desc" || stato.ordine === "mesi-asc";
+      const perMediaMese =
+        stato.ordine === "mediamese-desc" || stato.ordine === "mediamese-asc";
+      // Mesi pedalati e media/mese riusano lo stesso ordinamento
+      // "per valore" delle corse (più alto→più basso o viceversa).
+      const ordineValore =
+        perMesi || perMediaMese
+          ? stato.ordine.endsWith("-asc")
+            ? "corse-asc"
+            : "corse-desc"
+          : stato.ordine;
       const ordinate = CC.ordina(
         filtrate,
-        stato.ordine,
-        (r) => (perMedia ? r.kmMedi : perCorse ? r.corse : r.km),
+        ordineValore,
+        (r) =>
+          perMedia
+            ? r.kmMedi
+            : perCorse
+              ? r.corse
+              : perMesi
+                ? r.mesiPedalati
+                : perMediaMese
+                  ? r.kmMediMese
+                  : r.km,
         {
-          spareggio: (r) => Number(r.anno) || 0,
+          // A parità (es. tanti anni con 12 mesi su 12) vince chi ha più km.
+          spareggio: (r) => (perMesi ? -r.km : Number(r.anno) || 0),
           nome: (r) => r.nome,
           data: (r) => Number(r.anno) || 0,
         },
