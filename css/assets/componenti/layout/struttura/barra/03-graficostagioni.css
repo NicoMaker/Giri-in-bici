@@ -1,0 +1,57 @@
+
+/* Pulsante grafico stagioni nella barra */
+.graficostagioni {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  flex: 0 0 auto;
+  /* Stessa altezza dell'hamburger (46px, vedi componenti-ui/icone.css)
+     cosi' i due pulsanti risultano centrati sulla stessa linea invece
+     di dipendere dal padding per arrivare alla stessa altezza. */
+  min-height: 46px;
+  padding: 0.3rem 0.95rem 0.3rem 0.4rem;
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: var(--r-full);
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  box-shadow: var(--sh-2);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    color 0.2s var(--ease);
+}
+
+/* Passandoci sopra si alza appena: il colore della scritta non
+   viene toccato, resta quello del pulsante. */
+.graficostagioni:hover {
+  color: #fff;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: var(--sh-3);
+}
+
+.Stagioni {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.graficostagioni-testo {
+  white-space: nowrap;
+}
+
+/* Logo grande delle stagioni nell'intestazione della pagina dedicata */
+.stagioni-hero {
+  display: block;
+  width: min(100%, 190px);
+  height: auto;
+  margin: 1.4rem auto 0;
+  filter: drop-shadow(0 12px 26px rgba(15, 36, 56, 0.18));
+}

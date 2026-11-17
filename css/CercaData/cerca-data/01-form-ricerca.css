@@ -1,0 +1,140 @@
+/* ============================================================
+   Cerca per data — form e risultati
+   Usa i token del tema condiviso (assets/core.css + tema.css),
+   niente colori o misure scritti a mano.
+   ============================================================ */
+
+.form-cerca-data {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-2);
+}
+
+.form-cerca-data .campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-cerca-data label {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+.form-cerca-data input[type="date"],
+.form-cerca-data input[type="text"],
+.form-cerca-data select {
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+}
+
+.form-cerca-data button {
+  padding: 0.75rem 1.6rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: #fff;
+  border: 0;
+  border-radius: var(--r-full);
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  box-shadow: var(--sh-2);
+  cursor: pointer;
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.form-cerca-data button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: var(--sh-3);
+}
+
+.messaggio-cerca-data {
+  margin-top: 1rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.form-cerca-data .campo-date {
+  flex: 1 1 100%;
+}
+
+.elenco-date-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.riga-data-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.riga-data-input input[type="date"],
+.riga-data-input input[type="text"] {
+  flex: 1 1 auto;
+}
+
+.campo-opzionale {
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+}
+
+.rimuovi-data {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  flex: 0 0 auto;
+  border-radius: var(--r-full);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s var(--ease),
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.rimuovi-data:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--a1) 35%, var(--line));
+}
+
+.link-aggiungi-data {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--a1);
+  cursor: pointer;
+}
+
+.link-aggiungi-data:hover {
+  text-decoration: underline;
+}

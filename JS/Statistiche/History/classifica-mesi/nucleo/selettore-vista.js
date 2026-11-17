@@ -53,15 +53,17 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       });
       if (selettoreMobile) selettoreMobile.value = vista;
 
-      // Nella barra in alto: dove si trova l'utente ("Classifica › Giri").
-      const posizione = document.getElementById("posizione-vista");
+      // Il titolo della scheda del browser segue la vista scelta. (La scritta
+      // "Sei in Classifica › ..." nella barra in alto non c'è più; se un
+      // giorno si rimette, basta l'attributo posizione su <gib-barra>.)
       const attivo = Array.from(pulsantiVista).find(
         (p) => p.dataset.vista === vista,
       );
-      if (posizione && attivo) {
+      if (attivo) {
         const nome = attivo.textContent.trim();
-        posizione.textContent = nome;
         document.title = `${nome} · Classifica | Giri in Bici`;
+        const posizione = document.getElementById("posizione-vista");
+        if (posizione) posizione.textContent = nome;
       }
     }
 

@@ -1,0 +1,138 @@
+/* ============================================================
+   Podio e classifica dei mesi più pedalati
+   Parte della pagina Statistiche: Statistiche/Style_statistiche.css
+
+   L'entrata a comparsa (podio e righe) arriva gratis da
+   assets/css/componenti/animazioni/animazioni.css: #podio e #classifica sono
+   nell'elenco dei contenitori osservati in
+   assets/motion/contenuti-animati.js, quindi i loro figli diretti
+   (i gradini, le righe <li>) prendono già la classe .entra scaglionata.
+   Qui sotto solo l'aspetto, non il movimento.
+
+   Il pulsante ".cta-classifica" per raggiungere questa pagina da
+   altre pagine del sito vive in assets/css/componenti/interazioni/micro-interazioni.css,
+   cosi' e' disponibile ovunque, non solo qui.
+   ============================================================ */
+
+.classifica-titolo {
+  max-width: 62ch;
+  margin: 0 auto 1.8rem;
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--ink-2);
+}
+
+.classifica-titolo strong {
+  color: var(--ink);
+  font-family: var(--font-head);
+}
+
+/* ---------- Podio ---------- */
+.podio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  gap: 1rem;
+  max-width: 780px;
+  margin: 0 auto 2.4rem;
+}
+
+.podio__gradino {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 1.6rem 1rem 1.4rem;
+  text-align: center;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--sh-2);
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+
+.podio__gradino:hover {
+  transform: translateY(-10px) scale(1.035) rotate(-0.6deg);
+  box-shadow: var(--sh-3);
+}
+
+/* Il primo posto sta al centro ed è un filo più alto, come un vero podio */
+.podio__gradino--1 {
+  order: 2;
+  padding-top: 2.1rem;
+  padding-bottom: 1.8rem;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, #ffd76a 32%, var(--surface)),
+    var(--surface)
+  );
+  border-color: color-mix(in srgb, #e8b23a 55%, var(--line));
+}
+
+.podio__gradino--2 {
+  order: 1;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, #c9d3dc 40%, var(--surface)),
+    var(--surface)
+  );
+  border-color: color-mix(in srgb, #aab4bd 55%, var(--line));
+}
+
+.podio__gradino--3 {
+  order: 3;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, #d8a06a 32%, var(--surface)),
+    var(--surface)
+  );
+  border-color: color-mix(in srgb, #c07f43 55%, var(--line));
+}
+
+.podio__medaglia {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  line-height: 1;
+}
+
+.podio__mese {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* Bandierina di Slovenia/Austria dentro al nome di un percorso
+   (le uscite che sconfinano): stessa misura gia' usata nella tabella
+   cronologica originale (tabelle.css), qui dentro al podio e alla
+   classifica delle "tappe più lunghe". */
+.podio__mese img,
+.classifica-riga__mese img {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  vertical-align: -3px;
+  margin: 0 0.15rem;
+  border-radius: 3px;
+}
+
+/* Il gruppo di link "andata/ritorno" (.tappa-link-multipli) vive ora
+   in assets/css/componenti/tabelle-grafici/tabelle.css: e' condiviso
+   da core.css, quindi disponibile sia qui (podio delle tappe) sia
+   nella tabella cronologica di ogni periodo, non solo qui come prima. */
+
+/* Filtri per stagione/anno nella scheda "Tappe": due select semplici,
+   una accanto all'altra, per restringere l'elenco di tutte le uscite
+   invece di vederle sempre tutte mescolate insieme. */
+.tappe-filtri {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem 1.2rem;
+  margin: 0 0 1.6rem;
+}

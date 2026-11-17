@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="it">
   <head>
+    <script type="module" src="/js/componenti/index.js"></script>
     <script src="/js/Login/sicurezza-sessione/controllo-origine.js"></script>
     <script src="/js/Login/autenticazione/controllo-accesso-giornaliero.js"></script>
     <meta charset="utf-8" />
@@ -90,84 +91,10 @@
   </head>
 
   <body>
-    <header class="site-bar">
-      <a class="brand" href="../Giri.html">
-        <img class="Bandiera-FVG" src="/img/logo.jpg" alt="Giri in Bici" />
-        <span class="brand-text"
-          ><span class="riga-giri">Giri in Bici</span
-          ><span class="tricolore-italia" aria-hidden="true"></span
-          ><small>Io sono Friuli Venezia Giulia</small></span
-        >
-      </a>
-
-      <nav class="Icons" aria-label="Sezioni del sito">
-        <a
-          class="colore_apertura"
-          href="../Autunno_Inverno.html"
-          title="Torna a Autunno - Inverno"
-          aria-label="Torna a Autunno - Inverno"
-          ><img src="/img/Icons/freccia.png" alt=""
-        /></a>
-        <a href="../Giri.html" title="Home" aria-label="Home"
-          ><img src="/img/Icons/home.png" alt=""
-        /></a>
-        <a href="../Primavera.html" title="Primavera" aria-label="Primavera"
-          ><img src="/img/Icons/primavera.png" alt=""
-        /></a>
-        <a href="../Estate.html" title="Estate" aria-label="Estate"
-          ><img src="/img/Icons/estate.png" alt=""
-        /></a>
-        <a
-          href="../Autunno_Inverno.html"
-          title="Autunno e Inverno"
-          aria-label="Autunno e Inverno"
-          ><img src="/img/Icons/inverno.png" alt=""
-        /></a>
-        <a
-          href="../Statistiche.html"
-          title="Statistiche"
-          aria-label="Statistiche"
-          ><img src="/img/Icons/Statistiche.png" alt=""
-        /></a>
-        <a
-          href="../Statistiche/History/ClassificaMesi.html"
-          data-classifica
-          title="Classifica"
-          aria-label="Classifica"
-          ><img src="/img/Icons/classifica.svg" alt=""
-        /></a>
-        <a
-          href="../CercaData.html"
-          title="Cerca per data"
-          aria-label="Cerca per data"
-          ><img src="/img/Icons/calendario.png" alt=""
-        /></a>
-        <a
-          href="../Bici/Bici.html"
-          title="Le nostre bici"
-          aria-label="Le nostre bici"
-          ><img src="/img/Icons/bici.png" alt=""
-        /></a>
-        <a
-          href="../About_US/About_us.html"
-          title="Informazioni"
-          aria-label="Informazioni"
-          ><img src="/img/Icons/informazioni.png" alt=""
-        /></a>
-        <a href="../index.html" title="Accesso" aria-label="Accesso"
-          ><img src="/img/Icons/login.png" alt=""
-        /></a>
-      </nav>
-
-      <a
-        class="graficostagioni"
-        href="../Statistiche/stagioni.html"
-        title="Confronto tra le stagioni"
-      >
-        <img class="Stagioni" src="/img/assets/stagioni.svg" alt="" />
-        <span class="graficostagioni-testo">Stagioni</span>
-      </a>
-    </header>
+    <gib-barra
+      indietro="/Autunno_Inverno.html"
+      indietro-titolo="Torna a Autunno - Inverno"
+      stagioni></gib-barra>
 
     <div
       id="json"
@@ -273,46 +200,15 @@
           Il podio dei mesi e delle stagioni con più chilometri, e il confronto
           fra ogni singolo periodo.
         </p>
-        <div class="cta-classifica-wrap">
-          <a
-            class="cta-classifica"
-            href="../Statistiche/History/ClassificaMesi.html?vista=periodi&stagione=Autunno%20%C2%B7%20Inverno"
+        <gib-cta-classifica>
+          <a href="../Statistiche/History/ClassificaMesi.html?vista=periodi&stagione=Autunno%20%C2%B7%20Inverno"
           >
             Vedi la classifica dei mesi e delle stagioni
           </a>
-        </div>
+        </gib-cta-classifica>
       </section>
     </main>
 
-    <footer class="site-foot">
-      <div class="wrap">
-        <p>
-          &copy; 2020&ndash;<span data-anno></span> Giri in Bici &middot; Nico
-          Maker
-
-          <br />
-          <span class="footer-dates"
-            >Dal 30 Maggio 2020 al <span data-fine-periodo></span
-          ></span>
-        </p>
-        <div class="footer-tricolore">
-          <span class="tricolore-italia" aria-hidden="true"></span>
-          <p class="footer-fvg-tagline">Io sono Friuli Venezia Giulia</p>
-        </div>
-        <nav class="foot-links" aria-label="Collegamenti utili">
-          <a href="../Giri.html">Home</a>
-          <a href="../Statistiche.html">Statistiche</a>
-          <a href="../Bici/Bici.html">Le nostre bici</a>
-          <a href="../About_US/About_us.html">Informazioni</a>
-          <a href="../QR_CODE/Logo.html">QR Code</a>
-          <a
-            href="https://github.com/NicoMaker/Giri-in-bici"
-            target="_blank"
-            rel="noopener"
-            >GitHub</a
-          >
-        </nav>
-      </div>
-    </footer>
+    <gib-piede></gib-piede>
   </body>
 </html>

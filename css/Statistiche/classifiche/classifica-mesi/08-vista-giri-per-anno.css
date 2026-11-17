@@ -1,0 +1,115 @@
+
+/* ---------- Vista "Giri per anno" ---------- */
+.giri-per-anno {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.giri-anno {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  scroll-margin-top: 10rem;
+}
+
+.giri-anno__testa {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+}
+
+.giri-anno__titolo {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.giri-anno__dati {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.giri-anno__dati > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.1rem;
+}
+
+.giri-anno__dati dt {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+}
+
+.giri-anno__dati dd {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.giri-anno__stagioni {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.giri-anno__chip {
+  padding: 0.2rem 0.7rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--colore-stagione) 70%, var(--ink));
+  background: color-mix(in srgb, var(--colore-stagione) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--colore-stagione) 45%, var(--line));
+  border-radius: var(--r-full);
+}
+
+/* Stessa griglia a colonne dell'elenco dei giri (nome largo, barra
+   stretta), anche dentro ogni blocco anno. */
+.giri-anno__lista .classifica-riga {
+  grid-template-columns: 2.2rem 1fr 90px 4.4rem 3.6rem;
+}
+
+@media (max-width: 560px) {
+  .giri-anno__lista .classifica-riga {
+    grid-template-columns: 1.6rem 1fr 46px 4.2rem;
+  }
+}
+
+/* Podio dentro ogni anno della vista "Giri per anno" */
+.giri-anno__podio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.giri-anno__podio .podio {
+  margin: 0 auto 0.6rem;
+}
+
+.giri-anno__podio-titolo {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}

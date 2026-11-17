@@ -1,0 +1,113 @@
+
+/* ---------- Righe della classifica colorate per stagione ---------- */
+.classifica-riga[data-stagione] {
+  border-left: 5px solid var(--colore-stagione);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--colore-stagione) 12%, var(--surface)),
+    var(--surface) 55%
+  );
+}
+
+.classifica-riga[data-stagione] .classifica-riga__posizione,
+.classifica-riga[data-stagione] .classifica-riga__km {
+  color: color-mix(in srgb, var(--colore-stagione) 75%, var(--ink));
+}
+
+.classifica-riga[data-stagione] .classifica-riga__barra > span {
+  background: var(--colore-stagione);
+}
+
+/* ---------- Primi 3 nell'elenco dei Giri (completo e per anno) ----------
+   Un anello oro/argento/bronzo attorno
+   alla riga (sopra il colore della stagione, che resta a sinistra) e,
+   nell'elenco "dal più lungo", una riga tratteggiata che li separa dal
+   4º in poi. Vedi assets/tappe-piu-lunghe.js (opzioni di creaLista). */
+.classifica-riga--podio-1 {
+  --medaglia: #d4a017;
+}
+
+.classifica-riga--podio-2 {
+  --medaglia: #9aa5b1;
+}
+
+.classifica-riga--podio-3 {
+  --medaglia: #b87333;
+}
+
+/* Primi 3: solo il CONTORNO è oro/argento/bronzo (spesso, con un po'
+   di alone); l'interno della riga resta del colore della stagione
+   (striscia a sinistra e sfondo un po' più pieno che nelle altre
+   righe). Vale per la classifica e per "Giri per anno". */
+.classifica-riga[class*="classifica-riga--podio-"] {
+  border: 3px solid var(--medaglia);
+  background: linear-gradient(
+    90deg,
+    color-mix(
+      in srgb,
+      var(--colore-stagione, var(--surface)) 24%,
+      var(--surface)
+    ),
+    color-mix(
+        in srgb,
+        var(--colore-stagione, var(--surface)) 6%,
+        var(--surface)
+      )
+      70%
+  );
+  box-shadow:
+    inset 6px 0 0 var(--colore-stagione, transparent),
+    0 0 0 2px color-mix(in srgb, var(--medaglia) 30%, transparent),
+    0 3px 10px color-mix(in srgb, var(--medaglia) 30%, transparent);
+}
+
+.classifica-riga__posizione--medaglia {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.classifica-separatore {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.3rem 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.classifica-separatore::before,
+.classifica-separatore::after {
+  content: "";
+  flex: 1;
+  border-top: 2px dashed color-mix(in srgb, var(--a1) 45%, var(--line));
+}
+
+@media (max-width: 560px) {
+  .classifica-separatore {
+    font-size: 0.66rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* Podio: la medaglia resta oro/argento/bronzo, la stagione si legge
+   dalla fascia in fondo al gradino e dal colore dei km. */
+.podio__gradino[data-stagione]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7px;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  background: var(--colore-stagione);
+}
+
+.podio__gradino[data-stagione] .podio__km {
+  color: color-mix(in srgb, var(--colore-stagione) 75%, var(--ink));
+}

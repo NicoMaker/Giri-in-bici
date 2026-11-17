@@ -1,0 +1,112 @@
+
+/* ---------- Giri per anno: scelta anni, ricerca avanzata, gruppi ---------- */
+.giri-pannello {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 0 0 1.2rem;
+}
+
+.giri-pannello[hidden] {
+  display: none;
+}
+
+.giri-vista__etichetta {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.giri-vista {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+/* Raggruppamento per stagione dentro l'anno */
+.giri-anno__gruppo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.giri-anno__gruppo-titolo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.2rem 0.8rem;
+  margin: 0.4rem 0 0;
+  padding-left: 0.7rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--colore-stagione) 70%, var(--ink));
+  border-left: 5px solid var(--colore-stagione);
+}
+
+.giri-anno__gruppo-titolo span {
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--ink-3);
+}
+
+/* ---------- Giri per anno: veste moderna (stessa della Classifica) ---------- */
+.giri-per-anno {
+  gap: 2.2rem;
+}
+
+.giri-anno {
+  gap: 1rem;
+  padding: 1.1rem;
+  background: linear-gradient(
+    180deg,
+    var(--surface),
+    var(--surface-2, var(--surface))
+  );
+  border: 1px solid var(--line);
+  border-radius: calc(var(--r-lg) + 4px);
+  box-shadow: var(--sh-1);
+}
+
+.giri-anno__testa {
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+
+.giri-anno__titolo {
+  font-size: 2.1rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.giri-anno__dati {
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+}
+
+.giri-anno__dati > div {
+  padding: 0.65rem 0.8rem;
+  background: color-mix(in srgb, var(--a1) 6%, var(--surface));
+  border: 1px solid var(--line);
+  border-radius: var(--r-md, 0.7rem);
+}
+
+.giri-anno__lista--totale {
+  margin-top: 0.2rem;
+}
+
+.giri-anno__lista--finale {
+  margin-top: 0;
+}

@@ -1,0 +1,129 @@
+/* ============================================================
+   Scorciatoie e schede delle stagioni
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+/* ---------- 15. Home: scorciatoie stagioni ---------- */
+.season-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.5rem);
+}
+
+.primavera,
+.estate,
+.autunno_inverno {
+  position: relative;
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-2);
+  overflow: hidden;
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.primavera:hover,
+.estate:hover,
+.autunno_inverno:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-3);
+}
+
+.primavera::before,
+.estate::before,
+.autunno_inverno::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+}
+
+.primavera::before {
+  background: linear-gradient(90deg, #0ca678, #63e6be);
+}
+
+.estate::before {
+  background: linear-gradient(90deg, #f76707, #ffd43b);
+}
+
+.autunno_inverno::before {
+  background: linear-gradient(90deg, #1971c2, #99e9f2);
+}
+
+.contornostagionesx,
+.contornostagionedx,
+.contornostagione {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  float: none;
+  position: static;
+  margin: 0;
+  padding: 1.2rem 1.4rem;
+  border-radius: 0;
+  font-family: var(--font-head);
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-align: left;
+}
+
+/* Freccia sempre visibile: senza, la card sembra solo un'etichetta e
+   non si capisce che porta da qualche parte finche' non ci si passa
+   sopra col mouse — e su telefono non si passa mai col mouse sopra
+   niente. Cosi' il segnale c'e' fin da subito, non solo al passaggio.
+   Solo sulle due classi dei link della home: ".contornostagione" da
+   sola è anche il titolo dentro le card di Statistiche/stagioni.html,
+   che non è un link e non deve prendersi la freccia. */
+.contornostagionesx::after,
+.contornostagionedx::after {
+  content: "→";
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--ink-3);
+  transition:
+    transform 0.25s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.contornostagionesx p,
+.contornostagionedx p,
+p.contornostagione {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.contornostagionesx:hover,
+.contornostagionedx:hover,
+.contornostagione:hover {
+  color: var(--a1);
+}
+
+.contornostagionesx:hover::after,
+.contornostagionedx:hover::after {
+  transform: translateX(4px);
+  color: var(--a1);
+}
+
+/* Il nome della stagione prende il colore della stagione stessa,
+   gli stessi di cui e' fatta la striscia in cima alla card. */
+.primavera .contornostagione,
+.primavera p.contornostagione {
+  color: #0ca678;
+}
+
+.estate .contornostagione,
+.estate p.contornostagione {
+  color: #e8590c;
+}
+
+.autunno_inverno .contornostagione,
+.autunno_inverno p.contornostagione {
+  color: #1971c2;
+}

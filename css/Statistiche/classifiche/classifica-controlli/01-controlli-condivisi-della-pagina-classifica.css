@@ -1,0 +1,81 @@
+/* ============================================================
+   Controlli condivisi della pagina Classifica
+   (Statistiche/History/ClassificaMesi.html):
+
+   - ".classifica-ricerca"  un campo di testo libero, per cercare per
+     nome (mese, anno, stagione, periodo, giro/posto...) a seconda
+     della scheda: decide COSA vedere prima ancora di ordinare o
+     filtrare per km.
+
+   - ".classifica-ordine"   due pulsanti a pillola per scegliere se la
+     classifica va vista dal più al meno pedalato o al contrario.
+     Inverte tutto insieme, podio con le medaglie compreso: scegliendo
+     "dal meno al più" il podio mostra i tre con MENO km, non i tre
+     migliori fissi.
+
+   - ".classifica-range"    filtro "da...a" in chilometri, scritto
+     libero (qualsiasi numero, anche fuori da quelli davvero presenti
+     nei dati: se non c'è corrispondenza si vede solo "nessun
+     risultato"), con due pulsanti rapidi "Min"/"Max" per chi non
+     conosce il valore più basso o più alto e vuole partire da lì.
+
+   Un solo blocco di stile, riusato per tutte le sei schede (Mesi
+   migliori, Km mensili, Anni, Stagioni, Periodi, Giri): stessi tre
+   controlli ovunque, dentro una card "vetro" (blur + bordo sfumato)
+   coerente con la barra del selettore in cima (selettore-metrica.css).
+
+   Comportamento in JS/assets/classifica-controlli.js.
+   ============================================================ */
+
+.classifica-controlli {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 0 0 1.8rem;
+  padding: 1.3rem 1.4rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  backdrop-filter: saturate(1.3) blur(16px);
+  -webkit-backdrop-filter: saturate(1.3) blur(16px);
+  box-shadow: var(--sh-2);
+  overflow: hidden;
+}
+
+/* Filo sfumato in cima alla card, stessi due colori del tema (oro/blu
+   FVG) già usati per i pulsanti attivi qui sotto: firma visiva
+   coerente, non un bordo neutro qualsiasi. */
+.classifica-controlli::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  opacity: 0.85;
+}
+
+/* Separatori leggeri fra i tre gruppi (Cerca / Ordine / Range), senza
+   aggiungere nessun elemento nuovo in HTML: ogni gruppo dopo il primo
+   prende un filo sottile sopra di sé. */
+.classifica-controlli > * + * {
+  position: relative;
+  padding-top: 1rem;
+}
+
+.classifica-controlli > * + *::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(92%, 22rem);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--line-strong),
+    transparent
+  );
+}

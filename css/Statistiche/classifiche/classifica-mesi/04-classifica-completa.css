@@ -1,0 +1,139 @@
+
+.podio__dettaglio {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+/* Bottone "Vai a..." sempre visibile in fondo alle card del podio
+   (stagioni e periodi): stesso stile a pillola già usato in
+   .colore__vai-a (Statistiche/stagioni.html), qui però come figlio
+   normale della colonna flex di .podio__gradino invece che in
+   posizione assoluta, così basta il flusso normale per stare in
+   fondo alla card senza bisogno di padding extra calcolati a mano. */
+.podio__vai {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  border-radius: var(--r-full);
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  box-shadow: var(--sh-1);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.podio__vai .freccia {
+  transition: transform 0.25s var(--ease);
+}
+
+.podio__gradino:hover .podio__vai {
+  transform: translateY(-2px);
+  box-shadow: var(--sh-2);
+}
+
+.podio__gradino:hover .podio__vai .freccia {
+  transform: translateX(3px);
+}
+
+/* ---------- Classifica completa ---------- */
+.classifica-lista {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.classifica-riga {
+  display: grid;
+  /* km e percentuale erano "auto": larghe quanto il loro stesso
+     testo, riga per riga. "67 km"/"3,05 %" e "3 %"/"66 km" (un
+     numero tondo, senza virgola) non pesano uguale: la colonna nome
+     (1fr, subito prima) si allargava o stringeva di conseguenza, e
+     la barra a larghezza fissa che segue il nome partiva un po' più
+     a destra o più a sinistra da una riga all'altra. Con km e
+     percentuale a larghezza fissa quel testo non sposta più nulla:
+     la barra parte sempre nello stesso punto, riga dopo riga. */
+  grid-template-columns: 2.2rem 6.5rem 1fr 4.4rem 3.6rem;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-1);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.classifica-riga:hover {
+  transform: translateX(4px);
+  box-shadow: var(--sh-2);
+}
+
+.classifica-riga--podio {
+  border-color: color-mix(in srgb, var(--a1) 35%, var(--line));
+}
+
+.classifica-riga__posizione {
+  font-family: var(--font-head);
+  font-weight: 800;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+.classifica-riga__mese {
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.classifica-riga__sotto {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+}
+
+.classifica-riga__barra {
+  display: block;
+  height: 8px;
+  border-radius: var(--r-full);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.classifica-riga__barra > span {
+  display: block;
+  height: 100%;
+  width: var(--percentuale, 0%);
+  border-radius: var(--r-full);
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  transition: width 0.9s var(--ease);
+}
+
+.classifica-riga__km {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.classifica-riga__percentuale {
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}

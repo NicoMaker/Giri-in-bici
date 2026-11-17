@@ -1,0 +1,38 @@
+
+.grafico-tutti-mesi__scorri > canvas {
+  width: var(--larghezza-mesi, 100%) !important;
+  height: 100% !important;
+}
+
+/* Sfuma i bordi su schermi stretti, cosi' si capisce che si puo'
+   scorrere anche prima di provarci col dito. */
+@media (max-width: 900px) {
+  .grafico-tutti-mesi {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 14px,
+      black calc(100% - 14px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 14px,
+      black calc(100% - 14px),
+      transparent 100%
+    );
+  }
+}
+
+/* Messaggio di errore al posto di un riquadro bianco vuoto */
+.errore-grafico {
+  max-width: 940px;
+  margin: 0 auto 1.5rem;
+  padding: 1.2rem 1.4rem;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-lg);
+  text-align: center;
+}

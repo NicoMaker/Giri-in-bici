@@ -1,0 +1,25 @@
+
+/* Segno sempre visibile (non solo al passaggio del mouse, che su
+   telefono non esiste) per capire subito quali righe si aprono. */
+.risultato-riga--cliccabile::after {
+  content: "↗";
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--a1);
+  opacity: 0.8;
+}
+
+.risultato-riga__link:focus-visible {
+  outline: 2px solid var(--a1);
+  outline-offset: 2px;
+  border-radius: var(--r-md);
+}
+
+@media (max-width: 560px) {
+  .risultato-riga {
+    grid-template-columns: 1.6rem 1fr 4.6rem;
+  }
+}

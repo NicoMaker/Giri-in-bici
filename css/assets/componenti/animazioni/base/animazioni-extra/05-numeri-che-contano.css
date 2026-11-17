@@ -1,0 +1,90 @@
+
+/* ============================================================
+   6b. NUMERI CHE CONTANO — classe neutra per i numeri "extra"
+       (secondi numeri di una riga, celle di tabella, schede bici).
+       Non tocca posizione né peso: serve solo a tenere ferma la
+       larghezza delle cifre mentre il numero sale, senza sobbalzi.
+   ============================================================ */
+.num-anim {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Entrata elegante dei numeri: mentre salgono da 0, compaiono con
+   una comparsa morbida (ispirata allo stile pulito del riferimento).
+   Il transform non tocca l'impaginazione (niente a-capo o salti). */
+@keyframes fx-num-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.num,
+.num-anim {
+  animation: fx-num-in 0.55s var(--ease) both;
+}
+
+/* ============================================================
+   7. RISPETTO DELLE PREFERENZE — se l'utente riduce il movimento,
+      qui si spegne tutto quello aggiunto sopra.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo,
+  .hero .immagini_stagione,
+  .hero .immagineParticolare,
+  .immmaginejnrobot,
+  .hero .hero-sub,
+  .hero p,
+  .site-footer,
+  footer,
+  .bici-filtri,
+  #pagination,
+  .titolo-storico,
+  .titoli,
+  .Icons a,
+  .to-top.is-visible,
+  .scroll-progress,
+  .animazione-bici,
+  .Immaginebici,
+  thead,
+  tbody tr,
+  tfoot tr,
+  .num,
+  .num-anim {
+    animation: none !important;
+  }
+
+  .colore,
+  .contorno,
+  .bici,
+  .shot,
+  .km-link,
+  .Primaveracontorno,
+  .Estatecontorno,
+  .Autunno-Invernocontorno,
+  .Statistiche,
+  .bici-card,
+  .bici-card__media img {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .contorno::after,
+  .km-link::after {
+    display: none !important;
+  }
+
+  .Icons a:hover img,
+  .Icons a:focus-visible img,
+  .fvg-link:hover,
+  .login-btn:hover,
+  .Icona:hover .Immagineicona,
+  .Icona:hover img {
+    animation: none !important;
+  }
+}

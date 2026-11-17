@@ -1,0 +1,135 @@
+
+.filtro-multiplo__cerca {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.42rem 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  transition:
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.filtro-multiplo__cerca::placeholder {
+  color: var(--ink-3);
+}
+
+.filtro-multiplo__cerca:focus {
+  outline: none;
+  background: var(--surface);
+  border-color: var(--a1);
+  box-shadow: 0 0 0 3px var(--a-soft);
+}
+
+.filtro-multiplo__suggerimento {
+  margin: 0 0 0.4rem;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--ink-3);
+}
+
+/* Sotto i 16px iOS ingrandisce la pagina quando si tocca il campo. */
+@media (max-width: 700px) {
+  .filtro-multiplo__cerca {
+    font-size: 16px;
+  }
+}
+
+.filtro-multiplo__azioni {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.filtro-multiplo__azione {
+  font-family: var(--font-head);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--a2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.1rem 0.2rem;
+}
+
+.filtro-multiplo__azione:hover {
+  text-decoration: underline;
+}
+
+.filtro-multiplo__azione:disabled {
+  color: var(--ink-3);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.filtro-multiplo__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.filtro-multiplo__voce {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: var(--r-sm);
+  font-size: 0.88rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s var(--ease);
+}
+
+.filtro-multiplo__voce:hover {
+  background: var(--surface-2);
+}
+
+.filtro-multiplo__voce input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--a2);
+  cursor: pointer;
+  flex: none;
+}
+
+.filtro-multiplo__vuoto {
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ink-3);
+}
+
+.podio__km {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  background-image: linear-gradient(100deg, var(--a1), var(--a2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Percentuale sul totale, stessa informazione della colonna
+   .classifica-riga__percentuale nella lista qui sotto: qui in cima,
+   subito sotto ai km, cosi' il podio e la classifica completa
+   restano allineati a colpo d'occhio. */
+.podio__percentuale {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,128 @@
+
+/* "Tappe più lunghe" (pagine stagione-anno, es. Estate/2025.html): i
+   nomi dei percorsi sono spesso molto più lunghi di un nome di mese
+   ("San Mauro San Daniele Monte di Ragogna" contro "Settembre"), la
+   colonna fissa da 6.5rem li stringerebbe male. Qui il nome prende
+   lo spazio libero e la barra resta a larghezza fissa. */
+/* NOTA: prima era "#tappe-lista", un id che non esiste da nessuna
+   parte nell'HTML (la lista delle tappe ha id "classifica-tappe") —
+   la regola non scattava mai, e la colonna del nome restava quella
+   di default da 6.5rem fissi, con la barra (1fr) che si allargava a
+   dismisura. Corretto l'id: ora il nome prende lo spazio libero e la
+   barra resta stretta e fissa, come da commento sopra. */
+#classifica-tappe .classifica-riga {
+  grid-template-columns: 2.2rem 1fr 90px 4.4rem 3.6rem;
+}
+
+/* Su mobile la barra da 90px fissi resta comunque grande rispetto
+   allo schermo stretto, e nomi lunghi ("San Mauro San Daniele Monte
+   di Ragogna") vengono compressi. Qui si restringe ulteriormente la
+   barra e si toglie la colonna posizione più larga, lasciando il
+   nome il più leggibile possibile senza andare a capo in modo brutto. */
+@media (max-width: 560px) {
+  #classifica-tappe .classifica-riga {
+    grid-template-columns: 1.6rem 1fr 46px 4.2rem;
+  }
+}
+
+/* Riga del totale, in fondo a ogni elenco: sfondo pieno del tema e
+   testo in grassetto, cosi' si distingue subito dalle voci normali. */
+.classifica-riga--totale {
+  margin-top: 0.3rem;
+  border-color: transparent;
+  background: linear-gradient(120deg, var(--a1), var(--a2));
+  box-shadow: var(--sh-2);
+}
+
+.classifica-riga--totale:hover {
+  transform: none;
+}
+
+.classifica-riga--totale .classifica-riga__posizione,
+.classifica-riga--totale .classifica-riga__mese,
+.classifica-riga--totale .classifica-riga__km,
+.classifica-riga--totale .classifica-riga__percentuale {
+  color: #fff;
+}
+
+.classifica-riga--totale .classifica-riga__barra {
+  visibility: hidden;
+}
+
+@media (max-width: 560px) {
+  .podio {
+    grid-template-columns: 1fr;
+  }
+  .podio__gradino--1,
+  .podio__gradino--2,
+  .podio__gradino--3 {
+    order: 0;
+  }
+  .classifica-riga {
+    grid-template-columns: 1.6rem 4.2rem 1fr 4rem;
+  }
+  .classifica-riga__percentuale {
+    display: none;
+  }
+}
+
+/* ---------- Righe e gradini cliccabili (scheda "Anni") ---------- */
+/* .classifica-riga usa display:grid con gli <span> come figli diretti:
+   l'<a> che li avvolge deve restare "trasparente" alla griglia (display:
+   contents), altrimenti il layout a colonne si romperebbe. */
+.classifica-riga__link {
+  display: contents;
+  color: inherit;
+  text-decoration: none;
+}
+
+.classifica-riga--cliccabile {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Icona di link sempre visibile: senza, si capisce che una riga porta
+   a un percorso solo passandoci sopra col mouse — su telefono non
+   succede mai. Un piccolo segno in un angolo, sempre lì, basta a far
+   capire subito quali righe si possono aprire e quali no. */
+.classifica-riga--cliccabile::after {
+  content: "↗";
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--a1);
+  opacity: 0.8;
+}
+
+.classifica-riga__link:focus-visible {
+  outline: 2px solid var(--a1);
+  outline-offset: 2px;
+  border-radius: var(--r-md);
+}
+
+/* .podio__gradino è già un contenitore flex: qui basta togliere lo
+   stile di default del link, il resto arriva gratis dalle regole sopra. */
+a.podio__gradino {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.podio__gradino:focus-visible {
+  outline: 2px solid var(--a1);
+  outline-offset: 3px;
+}
+
+/* Stessa icona di link anche sul podio: solo sulla versione <a> (i
+   podii non cliccabili restano <div>, questa regola non li tocca). */
+a.podio__gradino::before {
+  content: "↗";
+  position: absolute;
+  top: 0.7rem;
+  right: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--a1);
+  opacity: 0.8;
+}

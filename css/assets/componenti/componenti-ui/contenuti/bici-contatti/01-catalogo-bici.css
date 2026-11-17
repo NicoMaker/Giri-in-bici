@@ -1,0 +1,134 @@
+/* ============================================================
+   Catalogo bici, contatti, blocchi della home
+   Parte del tema condiviso: assets/css/core.css
+   ============================================================ */
+
+/* ---------- 16. Bici, contatti, elementi home ---------- */
+.container_stagione {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.5rem);
+  align-items: start;
+  text-align: center;
+}
+
+.immmaginejnrobot {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-2);
+  background: var(--surface-2);
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.immmaginejnrobot:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-3);
+}
+
+/* Etichetta sotto la foto: prima erano solo immagini, senza dire
+   dove portassero — ora un testo con freccia, stesso linguaggio
+   delle altre card cliccabili del sito. */
+.foto-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--ink);
+}
+
+.foto-link__etichetta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition:
+    color 0.2s var(--ease),
+    gap 0.2s var(--ease);
+}
+
+.foto-link:hover .foto-link__etichetta {
+  color: var(--a1);
+  gap: 0.6rem;
+}
+
+.immagini_stagione2 {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin-inline: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-1);
+  background: var(--surface-2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contorno {
+  display: grid;
+  gap: 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  box-shadow: var(--sh-2);
+  margin: 0 0 1.4rem;
+  padding: clamp(1.1rem, 2.4vw, 1.6rem);
+  cursor: default;
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease),
+    background 0.3s var(--ease);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .contorno {
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    backdrop-filter: blur(14px) saturate(150%);
+  }
+}
+
+.contorno:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sh-3);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+.contorno p {
+  font-size: 0.98rem;
+  margin: 0;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+.contorno p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.immagine_bicisx,
+.immagine_bicidx {
+  float: none;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto 0.8rem;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}

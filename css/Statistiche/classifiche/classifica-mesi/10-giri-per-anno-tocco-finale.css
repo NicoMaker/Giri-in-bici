@@ -1,0 +1,96 @@
+
+/* ---------- Giri per anno: tocco finale moderno ---------- */
+.giri-anno {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.giri-anno::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+}
+
+.giri-anno:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sh-2, var(--sh-1));
+}
+
+.giri-anno__dati > div {
+  position: relative;
+  transition:
+    border-color 0.2s var(--ease),
+    background 0.2s var(--ease);
+}
+
+.giri-anno__dati > div:hover {
+  border-color: color-mix(in srgb, var(--a1) 45%, var(--line));
+  background: color-mix(in srgb, var(--a1) 11%, var(--surface));
+}
+
+.giri-anno__dati dd {
+  font-size: 1.25rem;
+}
+
+/* Barra di ripartizione dei km per stagione */
+.giri-anno__ripartizione {
+  display: flex;
+  gap: 3px;
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--r-full);
+  background: var(--line);
+}
+
+.giri-anno__ripartizione > span {
+  min-width: 6px;
+  background: var(--colore-stagione);
+  border-radius: var(--r-full);
+}
+
+.giri-anno__chip {
+  box-shadow: 0 1px 0
+    color-mix(in srgb, var(--colore-stagione) 20%, transparent);
+}
+
+.giri-anno__podio-titolo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.giri-anno__podio-titolo::before,
+.giri-anno__podio-titolo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+@media (max-width: 560px) {
+  .giri-anno {
+    padding: 0.9rem 0.8rem;
+    border-radius: var(--r-lg);
+  }
+  .giri-anno__titolo {
+    font-size: 1.8rem;
+  }
+  .giri-anno__dati {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .giri-anno,
+  .giri-anno__dati > div {
+    transition: none;
+  }
+  .giri-anno:hover {
+    transform: none;
+  }
+}

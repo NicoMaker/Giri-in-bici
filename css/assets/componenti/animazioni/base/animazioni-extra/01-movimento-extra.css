@@ -1,0 +1,132 @@
+/* ============================================================
+   Animazioni extra — movimento in più, stesso aspetto
+   Parte del tema condiviso: assets/css/core.css
+
+   Questo foglio AGGIUNGE solo movimento (entrate, micro-interazioni,
+   respiri, bagliori) agganciandosi alle classi già esistenti nel
+   markup. Non cambia colori, struttura o logica: la grafica resta
+   quella di prima, solo più viva. Tutto si spegne da solo se
+   l'utente ha attivato "riduci animazioni" (in fondo al file).
+   ============================================================ */
+
+/* ============================================================
+   1. FOTOGRAMMI — nuovi keyframes (nomi propri per non toccare
+      quelli già presenti in rifiniture.css)
+   ============================================================ */
+
+@keyframes fx-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes fx-float-soft {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+@keyframes fx-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes fx-glow {
+  0%,
+  100% {
+    box-shadow:
+      var(--sh-3),
+      0 0 0 0 transparent;
+  }
+  50% {
+    box-shadow:
+      var(--sh-3),
+      0 16px 44px -14px color-mix(in srgb, var(--a1) 50%, transparent);
+  }
+}
+
+@keyframes fx-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(10px);
+  }
+  60% {
+    transform: scale(1.04) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fx-fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(-26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fx-fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fx-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fx-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+@keyframes fx-wiggle {
+  0%,
+  100% {
+    transform: translateY(-2px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-4px) rotate(-8deg);
+  }
+  75% {
+    transform: translateY(-4px) rotate(8deg);
+  }
+}
