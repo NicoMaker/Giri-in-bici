@@ -12,7 +12,10 @@ export function collegaApertura(pannello, pulsante) {
     pannello.classList.toggle("showMenu", aperto);
     pulsante.classList.toggle("closeIcon", aperto);
     pulsante.setAttribute("aria-expanded", aperto ? "true" : "false");
-    pulsante.setAttribute("aria-label", aperto ? "Chiudi il menu" : "Apri il menu");
+    pulsante.setAttribute(
+      "aria-label",
+      aperto ? "Chiudi il menu" : "Apri il menu",
+    );
   }
 
   function chiudi() {
