@@ -23,7 +23,9 @@ export class GibControlliClassifica extends HTMLElement {
     this.style.display = "contents";
 
     const scheda = this.getAttribute("scheda") || "";
-    const extra = (this.getAttribute("ordini") || "").split(/\s+/).filter(Boolean);
+    const extra = (this.getAttribute("ordini") || "")
+      .split(/\s+/)
+      .filter(Boolean);
 
     this.innerHTML = `<div class="classifica-controlli" id="controlli-${escapeHtml(scheda)}">
             ${ricerca(scheda, this.getAttribute("ricerca-etichetta") || "Cerca")}

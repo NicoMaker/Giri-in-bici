@@ -1,4 +1,3 @@
-
 /* Segno sempre visibile (non solo al passaggio del mouse, che su
    telefono non esiste) per capire subito quali righe si aprono. */
 .risultato-riga--cliccabile::after {

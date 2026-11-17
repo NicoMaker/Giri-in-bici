@@ -7,7 +7,12 @@ export const VOCI_BARRA = [
   ["/Estate.html", "Estate", "estate.png", false],
   ["/Autunno_Inverno.html", "Autunno e Inverno", "inverno.png", false],
   ["/Statistiche.html", "Statistiche", "Statistiche.png", false],
-  ["/Statistiche/History/ClassificaMesi.html", "Classifica", "classifica.svg", true],
+  [
+    "/Statistiche/History/ClassificaMesi.html",
+    "Classifica",
+    "classifica.svg",
+    true,
+  ],
   ["/CercaData.html", "Cerca per data", "calendario.png", false],
   ["/Bici/Bici.html", "Le nostre bici", "bici.png", false],
   ["/About_US/About_us.html", "Informazioni", "informazioni.png", false],
