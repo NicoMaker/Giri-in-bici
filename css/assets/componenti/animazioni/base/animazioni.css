@@ -1,3 +1,3 @@
 /* animazioni.css — indice: i file sono in animazioni/ (uno per funzionalità, in ordine di cascata). */
-@import url("animazioni/01-sequenza-apertura.css");
-@import url("animazioni/02-comparsa-allo-scroll.css");
+@import url("animazioni/sequenza-apertura.css");
+@import url("animazioni/comparsa-allo-scroll.css");

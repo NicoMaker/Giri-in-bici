@@ -45,7 +45,6 @@
   #pagination,
   .titolo-storico,
   .titoli,
-  .Icons a,
   .to-top.is-visible,
   .scroll-progress,
   .animazione-bici,
@@ -78,8 +77,6 @@
     display: none !important;
   }
 
-  .Icons a:hover img,
-  .Icons a:focus-visible img,
   .fvg-link:hover,
   .login-btn:hover,
   .Icona:hover .Immagineicona,

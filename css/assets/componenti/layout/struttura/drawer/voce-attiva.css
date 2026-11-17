@@ -1,0 +1,66 @@
+/* ============================================================
+   Menu a tendina: la pagina in cui ci si trova
+   La voce attiva la segna JS/componenti/menu/pagina-attiva.js
+   con aria-current="page" (come faceva prima la barra a icone).
+   ============================================================ */
+
+.menu li a[aria-current="page"] {
+  color: var(--a1);
+  background: var(--a-soft);
+  border-color: color-mix(in srgb, var(--a1) 45%, transparent);
+}
+
+.menu li a[aria-current="page"] .ico-tile {
+  color: var(--a1);
+  background: color-mix(in srgb, var(--a1) 14%, var(--surface));
+  border-color: color-mix(in srgb, var(--a1) 32%, transparent);
+}
+
+/* Piccola etichetta "Sei qui" a destra della voce attiva */
+.menu li a[aria-current="page"]::after {
+  content: "Sei qui";
+  margin-left: auto;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--a1);
+  border: 1px solid color-mix(in srgb, var(--a1) 40%, transparent);
+  border-radius: var(--r-full);
+}
+
+/* "Torna a ..." in cima al menu, nelle pagine di dettaglio */
+.menu .menu-torna {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  margin: 1rem 0 0.2rem;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  transition:
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.menu .menu-torna:hover,
+.menu .menu-torna:focus-visible {
+  color: var(--a1);
+  background: var(--a-soft);
+  border-color: color-mix(in srgb, var(--a1) 28%, transparent);
+}
+
+.menu .menu-torna:hover .ico-tile,
+.menu .menu-torna:focus-visible .ico-tile {
+  color: var(--a1);
+  background: color-mix(in srgb, var(--a1) 14%, var(--surface));
+  border-color: color-mix(in srgb, var(--a1) 32%, transparent);
+}

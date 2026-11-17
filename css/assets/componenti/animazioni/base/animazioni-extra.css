@@ -1,6 +1,6 @@
 /* animazioni-extra.css — indice: i file sono in animazioni-extra/ (uno per funzionalità, in ordine di cascata). */
-@import url("animazioni-extra/01-movimento-extra.css");
-@import url("animazioni-extra/02-movimenti-ambientali.css");
-@import url("animazioni-extra/03-entrate.css");
-@import url("animazioni-extra/04-luce-che-passa.css");
-@import url("animazioni-extra/05-numeri-che-contano.css");
+@import url("animazioni-extra/movimento-extra.css");
+@import url("animazioni-extra/movimenti-ambientali.css");
+@import url("animazioni-extra/entrate.css");
+@import url("animazioni-extra/luce-che-passa.css");
+@import url("animazioni-extra/numeri-che-contano.css");

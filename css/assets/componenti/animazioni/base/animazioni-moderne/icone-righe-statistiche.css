@@ -1,0 +1,12 @@
+/* ---------- Icone delle righe statistiche: pastiglia colorata ---------- */
+/* Da icona nuda a piccolo badge circolare tinto — lo stesso
+   trattamento delle righe di attivita' nelle app da ciclismo/sport,
+   dove ogni dato ha la sua iconcina dentro un cerchietto colorato
+   invece di stare "nuda" sulla riga. */
+.misuracolore img {
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--a-soft);
+}

@@ -41,23 +41,12 @@
     <script src="js/core/lettura-json.js"></script>
     <script src="js/core/formattazione-numeri.js"></script>
     <script src="js/assets/icone.js" defer></script>
-    <script src="js/Menu/voci.js" defer></script>
-    <script src="js/Menu/ricerca.js" defer></script>
-    <script src="js/layout/menu-avvio.js" defer></script>
-    <script src="js/layout/menu-interruttore.js" defer></script>
+    <script src="js/assets/ui/contatti.js" defer></script>
     <script src="js/calcoli/km-totali.js" defer></script>
     <script src="js/assets/ui/piede-pagina/anno-corrente.js" defer></script>
     <script src="js/assets/ui/piede-pagina/data-odierna.js" defer></script>
     <script
       src="js/assets/ui/effetti-scroll/comparsa-al-scroll.js"
-      defer
-    ></script>
-    <script
-      src="js/assets/ui/navigazione-barra/chiusura-con-esc.js"
-      defer
-    ></script>
-    <script
-      src="js/assets/ui/navigazione-barra/icone-pagina-attiva.js"
       defer
     ></script>
     <script
@@ -91,8 +80,8 @@
     ></script>
   </head>
 
-  <body class="con-hamburger">
-    <gib-barra stagioni menu="menu" menu-etichetta="Apri il menu"></gib-barra>
+  <body>
+    <gib-barra stagioni></gib-barra>
 
     <main class="wrap stack">
       <section class="hero">
@@ -321,26 +310,5 @@
 
     <gib-piede></gib-piede>
 
-    <!-- Menu laterale con X fissa -->
-    <nav class="menu" aria-label="Menu del sito">
-      <div class="menu-header">
-        <button class="menu-close" type="button" aria-label="Chiudi il menu">
-          <span data-icona="chiudi"></span>
-        </button>
-      </div>
-      <div class="menu-content">
-        <h1>Vai a</h1>
-        <input
-          id="menuSearch"
-          type="search"
-          placeholder="Cerca nel menu&hellip;"
-          aria-label="Cerca nel menu"
-        />
-        <p class="no-results" id="menuNoResults" style="display: none">
-          Nessun elemento trovato
-        </p>
-        <ul id="menuList"></ul>
-      </div>
-    </nav>
   </body>
 </html>

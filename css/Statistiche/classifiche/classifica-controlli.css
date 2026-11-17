@@ -1,6 +1,6 @@
 /* classifica-controlli.css — indice: i file sono in classifica-controlli/ (uno per funzionalità, in ordine di cascata). */
-@import url("classifica-controlli/01-controlli-condivisi-della-pagina-classifica.css");
-@import url("classifica-controlli/02-campo-ricerca.css");
-@import url("classifica-controlli/03-ordine.css");
-@import url("classifica-controlli/04-intervallo-km.css");
-@import url("classifica-controlli/05-reset.css");
+@import url("classifica-controlli/controlli-condivisi.css");
+@import url("classifica-controlli/campo-ricerca.css");
+@import url("classifica-controlli/ordine.css");
+@import url("classifica-controlli/intervallo-km.css");
+@import url("classifica-controlli/reset.css");

@@ -1,4 +1,4 @@
 /* cerca-data.css — indice: i file sono in cerca-data/ (uno per funzionalità, in ordine di cascata). */
-@import url("cerca-data/01-form-ricerca.css");
-@import url("cerca-data/02-ordinamento.css");
-@import url("cerca-data/03-risultato-riga.css");
+@import url("cerca-data/form-ricerca.css");
+@import url("cerca-data/ordinamento.css");
+@import url("cerca-data/risultato-riga.css");

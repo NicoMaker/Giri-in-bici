@@ -39,22 +39,6 @@
 }
 
 @media (max-width: 640px) {
-  .Icons a,
-  .Icons .colore_apertura {
-    width: 38px;
-    height: 38px;
-  }
-
-  .Icons img {
-    width: 21px;
-    height: 21px;
-  }
-
-  .Icons .ico {
-    width: 21px;
-    height: 21px;
-  }
-
   th,
   td {
     padding: 0.65rem 0.7rem;

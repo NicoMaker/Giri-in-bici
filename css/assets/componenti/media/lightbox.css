@@ -1,3 +1,3 @@
 /* lightbox.css — indice: i file sono in lightbox/ (uno per funzionalità, in ordine di cascata). */
-@import url("lightbox/01-apertura-foto.css");
-@import url("lightbox/02-lightbox-scarica.css");
+@import url("lightbox/apertura-foto.css");
+@import url("lightbox/lightbox-scarica.css");

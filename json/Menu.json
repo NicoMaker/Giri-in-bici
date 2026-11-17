@@ -19,6 +19,24 @@
       "link": "Statistiche/History/ClassificaMesi.html"
     },
     {
+      "name": "Statistiche Totali",
+      "icona": "statistiche",
+      "icon": "/img/Icons/Statistiche.png",
+      "link": "Statistiche/History/Statistiche_Totali.html"
+    },
+    {
+      "name": "Totali per mese",
+      "icona": "calendario",
+      "icon": "/img/Icons/calendario.png",
+      "link": "Statistiche/History/Statistiche_Mensili.html"
+    },
+    {
+      "name": "Storico mensile",
+      "icona": "statistiche",
+      "icon": "/img/Icons/Statistiche.png",
+      "link": "Statistiche/History/StoricoMensile.html"
+    },
+    {
       "name": "Cerca per data",
       "icona": "calendario",
       "icon": "/img/Icons/Statistiche.png",

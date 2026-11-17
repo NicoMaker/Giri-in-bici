@@ -1,4 +1,4 @@
 /* micro-interazioni.css — indice: i file sono in micro-interazioni/ (uno per funzionalità, in ordine di cascata). */
-@import url("micro-interazioni/01-hover.css");
-@import url("micro-interazioni/02-pulsante-classifica.css");
-@import url("micro-interazioni/03-etichetta-vai-a.css");
+@import url("micro-interazioni/hover.css");
+@import url("micro-interazioni/pulsante-classifica.css");
+@import url("micro-interazioni/etichetta-vai-a.css");

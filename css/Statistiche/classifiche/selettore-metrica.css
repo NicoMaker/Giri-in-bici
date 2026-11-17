@@ -1,3 +1,3 @@
 /* selettore-metrica.css — indice: i file sono in selettore-metrica/ (uno per funzionalità, in ordine di cascata). */
-@import url("selettore-metrica/01-selettore-pillole.css");
-@import url("selettore-metrica/02-selettore-mobile.css");
+@import url("selettore-metrica/selettore-pillole.css");
+@import url("selettore-metrica/selettore-mobile.css");

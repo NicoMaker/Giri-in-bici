@@ -26,29 +26,6 @@ footer {
   animation: fx-fade-up 0.6s var(--ease) both;
 }
 
-/* Icone di navigazione: cadono dall'alto una dopo l'altra */
-.Icons a {
-  animation: fx-drop-in 0.5s var(--ease) both;
-}
-.Icons a:nth-child(1) {
-  animation-delay: 0.05s;
-}
-.Icons a:nth-child(2) {
-  animation-delay: 0.11s;
-}
-.Icons a:nth-child(3) {
-  animation-delay: 0.17s;
-}
-.Icons a:nth-child(4) {
-  animation-delay: 0.23s;
-}
-.Icons a:nth-child(5) {
-  animation-delay: 0.29s;
-}
-.Icons a:nth-child(n + 6) {
-  animation-delay: 0.35s;
-}
-
 /* ============================================================
    4. HOVER PIÙ RICCHI — stessa direzione di prima (sollevamento),
       con in più bagliore colorato del tema e un filo di scala.
@@ -92,12 +69,6 @@ footer {
 }
 .bici-card:hover .bici-card__media img {
   transform: scale(1.06);
-}
-
-/* Icone della barra: piccolo saltello giocoso al passaggio */
-.Icons a:hover img,
-.Icons a:focus-visible img {
-  animation: fx-wiggle 0.55s var(--ease);
 }
 
 /* Pulsante "torna su": batte piano quando è visibile, e si gonfia

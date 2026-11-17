@@ -1,3 +1,3 @@
 /* stagioni.css — indice: i file sono in stagioni/ (uno per funzionalità, in ordine di cascata). */
-@import url("stagioni/01-schede-stagioni.css");
-@import url("stagioni/02-immagini-stagioni.css");
+@import url("stagioni/schede-stagioni.css");
+@import url("stagioni/immagini-stagioni.css");

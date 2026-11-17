@@ -1,12 +1,12 @@
 /* classifica-mesi.css — indice: i file sono in classifica-mesi/ (uno per funzionalità, in ordine di cascata). */
-@import url("classifica-mesi/01-podio-e-classifica-dei-mesi.css");
-@import url("classifica-mesi/02-filtro-multiplo.css");
-@import url("classifica-mesi/03-filtro-multiplo-ricerca.css");
-@import url("classifica-mesi/04-classifica-completa.css");
-@import url("classifica-mesi/05-righe-cliccabili.css");
-@import url("classifica-mesi/06-link-come-bottone.css");
-@import url("classifica-mesi/07-righe-colorate-per-stagione.css");
-@import url("classifica-mesi/08-vista-giri-per-anno.css");
-@import url("classifica-mesi/09-giri-per-anno-filtri.css");
-@import url("classifica-mesi/10-giri-per-anno-tocco-finale.css");
-@import url("classifica-mesi/11-contorno-medaglie.css");
+@import url("classifica-mesi/podio-e-classifica-dei-mesi.css");
+@import url("classifica-mesi/filtro-multiplo.css");
+@import url("classifica-mesi/filtro-multiplo-ricerca.css");
+@import url("classifica-mesi/classifica-completa.css");
+@import url("classifica-mesi/righe-cliccabili.css");
+@import url("classifica-mesi/link-come-bottone.css");
+@import url("classifica-mesi/righe-colorate-per-stagione.css");
+@import url("classifica-mesi/vista-giri-per-anno.css");
+@import url("classifica-mesi/giri-per-anno-filtri.css");
+@import url("classifica-mesi/giri-per-anno-tocco-finale.css");
+@import url("classifica-mesi/contorno-medaglie.css");

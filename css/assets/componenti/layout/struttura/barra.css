@@ -1,4 +1,4 @@
 /* barra.css — indice: i file sono in barra/ (uno per funzionalità, in ordine di cascata). */
-@import url("barra/01-barra-di-navigazione-in-alto.css");
-@import url("barra/02-striscia-tricolore.css");
-@import url("barra/03-graficostagioni.css");
+@import url("barra/barra-di-navigazione-in-alto.css");
+@import url("barra/striscia-tricolore.css");
+@import url("barra/graficostagioni.css");

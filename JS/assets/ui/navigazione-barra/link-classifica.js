@@ -1,7 +1,7 @@
 // ============================================================
-// link-classifica.js — L'icona "Classifica" della barra in alto.
+// link-classifica.js — La voce "Classifica" del menu a tendina.
 //
-// L'icona è sempre la stessa in ogni pagina (<a data-classifica>), ma
+// La voce è sempre la stessa in ogni pagina (<a data-classifica>), ma
 // NON porta sempre alla stessa scheda: apre la Classifica già sulla
 // scheda che c'entra con la pagina in cui ci si trova. Nessun
 // "?vista=" scritto a mano nell'HTML: l'indirizzo si costruisce qui.
@@ -18,7 +18,7 @@
 //                                              (si aggiorna da sola a ogni
 //                                              cambio, vedi stato-url.js)
 //
-// Dipende da: nulla. Va dopo icone-pagina-attiva.js (non è obbligatorio).
+// Dipende da: js/componenti/index.js (è lui a creare le voci del menu).
 // ============================================================
 
 (function () {

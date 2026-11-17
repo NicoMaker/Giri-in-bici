@@ -1,8 +1,5 @@
-// hamburger.js — Il pulsante del menu a tendina (pagine Home e Bici).
+// hamburger.js — Il pulsante hamburger che apre il menu a tendina (su tutte le pagine).
 
-import { escapeHtml } from "../comune/escape-html.js";
-
-export function hamburger(icona, etichetta) {
-  if (!icona) return "";
-  return `<button class="hamburger" type="button" aria-label="${escapeHtml(etichetta || "Apri il menu")}"><i class="MenuIcon"><span data-icona="${escapeHtml(icona)}"></span></i><i class="CloseIcon"><span data-icona="chiudi"></span></i></button>`;
+export function hamburger() {
+  return `<button class="hamburger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="menu-sito"><i class="MenuIcon"><span data-icona="menu"></span></i><i class="CloseIcon"><span data-icona="chiudi"></span></i></button>`;
 }

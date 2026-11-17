@@ -3,14 +3,15 @@
 //   <script type="module" src="/js/componenti/index.js"></script>
 //
 // Metterlo come PRIMO script dell'<head>: i moduli partono in ordine insieme
-// agli script "defer", così la barra esiste prima di icone-pagina-attiva.js,
-// link-classifica.js e del menu. (I moduli richiedono un server: su Netlify
+// agli script "defer", così la barra e il menu esistono prima di
+// link-classifica.js e delle icone. (I moduli richiedono un server: su Netlify
 // vanno; aprendo il file direttamente con file:// no.)
 //
 //   componenti/
 //     comune/   escape-html.js, registra.js
-//     barra/    barra.js + logo, icone-navigazione, freccia-indietro,
-//               link-stagioni, hamburger, posizione, voci
+//     barra/    barra.js + logo, link-stagioni, hamburger, posizione
+//     menu/     pannello.js (il menu a tendina di tutte le pagine) + voci-menu
+//               (legge json/Menu.json), pagina-attiva, ricerca-menu, apertura
 //     piede/    piede.js + copyright, tricolore, collegamenti, link-piede
 //     classifica/ controlli-classifica.js + ricerca, ordine, intervallo-km,
 //               azzera, opzioni-ordine, selettore-vista + pulsanti-vista,

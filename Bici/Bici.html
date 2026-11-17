@@ -40,19 +40,10 @@
     <script src="../js/Bici/visualizzazione/vista.js" defer></script>
     <script src="../js/Bici/nucleo/filtri.js" defer></script>
     <script src="../js/Bici/nucleo/controller.js" defer></script>
-    <script src="../js/layout/menu-interruttore.js" defer></script>
     <script src="../js/assets/ui/piede-pagina/anno-corrente.js" defer></script>
     <script src="../js/assets/ui/piede-pagina/data-odierna.js" defer></script>
     <script
       src="../js/assets/ui/effetti-scroll/comparsa-al-scroll.js"
-      defer
-    ></script>
-    <script
-      src="../js/assets/ui/navigazione-barra/chiusura-con-esc.js"
-      defer
-    ></script>
-    <script
-      src="../js/assets/ui/navigazione-barra/icone-pagina-attiva.js"
       defer
     ></script>
     <script
@@ -92,19 +83,15 @@
     ></script>
   </head>
 
-  <body class="con-hamburger">
-    <gib-barra
-      stagioni
-      menu="bici"
-      menu-etichetta="Apri le categorie"
-    ></gib-barra>
+  <body>
+    <gib-barra stagioni></gib-barra>
 
     <main class="wrap stack">
       <section class="hero">
         <p class="eyebrow">Il garage</p>
         <h1 class="Titolo">Le nostre bici</h1>
         <p class="hero-sub">
-          Filtra per categoria qui sotto, oppure apri il menu in alto a destra.
+          Scegli la categoria con i pulsanti qui sotto.
         </p>
       </section>
 
@@ -135,46 +122,5 @@
 
     <gib-piede></gib-piede>
 
-    <!-- Menu laterale con X fissa -->
-    <nav class="menu" aria-label="Categorie di biciclette">
-      <div class="menu-header">
-        <button
-          class="menu-close"
-          type="button"
-          aria-label="Chiudi le categorie"
-        >
-          <span data-icona="chiudi"></span>
-        </button>
-      </div>
-      <div class="menu-content">
-        <h1>Categorie</h1>
-        <ul>
-          <li>
-            <button class="bicimenu" type="button" onclick="CalcolaTutte()">
-              <span class="ico-tile" data-icona="tutte"></span>
-              <span>Tutte le bici</span>
-            </button>
-          </li>
-          <li>
-            <button class="bicimenu" type="button" onclick="CalcolaMTB()">
-              <span class="ico-tile" data-icona="montagna"></span>
-              <span>Mountain bike</span>
-            </button>
-          </li>
-          <li>
-            <button class="bicimenu" type="button" onclick="CalcolaCorsa()">
-              <span class="ico-tile" data-icona="velocita"></span>
-              <span>Bici da corsa</span>
-            </button>
-          </li>
-          <li>
-            <button class="bicimenu" type="button" onclick="Home()">
-              <span class="ico-tile" data-icona="santuario"></span>
-              <span>Madonnina in Bici</span>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </nav>
   </body>
 </html>
