@@ -75,6 +75,16 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
 
   var contatoreId = 0;
 
+  // Registro dei filtri creati, per contenitore: serve a chi deve solo
+  // LEGGERE cosa è scelto senza averne creato il filtro (es. la pagina
+  // Classifica, che scrive le scelte nell'indirizzo: stato-url.js).
+  //   FiltroMultiplo.istanza(document.getElementById("..."))
+  //     -> lo stesso oggetto restituito da crea(), oppure null.
+  var istanze = typeof WeakMap === "function" ? new WeakMap() : null;
+  FM.istanza = function (contenitore) {
+    return (istanze && contenitore && istanze.get(contenitore)) || null;
+  };
+
   // Toglie accenti e maiuscole e trasforma ogni sequenza di caratteri
   // che non sono lettere/numeri in uno spazio: "Autunno·Inverno",
   // "autunno inverno" e "AUTUNNO-INVERNO" diventano tutti uguali.
@@ -116,6 +126,9 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
         imposta: function () {},
         selezionati: function () {
           return [];
+        },
+        totale: function () {
+          return 0;
         },
         azzera: function () {},
         selezionaTutte: function () {},
@@ -450,7 +463,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
     aggiornaTesto();
     disegnaLista();
 
-    return {
+    var api = {
       // Sostituisce l'elenco di opzioni disponibili. "opzioni.mantieni"
       // (bool) tiene selezionati i valori di prima che esistono ancora
       // nella nuova lista; "opzioni.preselezionati" (array di value)
@@ -476,6 +489,11 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
         disegnaLista();
       },
       selezionati: selezionati,
+      // Quante opzioni ci sono in tutto (selezionate o no): serve a
+      // capire se "tutte selezionate" equivale a nessun filtro.
+      totale: function () {
+        return voci.length;
+      },
       // Seleziona tutte le voci, una per una (lo stato iniziale delle
       // schede Km mensili, Periodi e Giri). Non richiama onCambia.
       selezionaTutte: function () {
@@ -496,5 +514,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
         disegnaLista();
       },
     };
+    if (istanze) istanze.set(contenitore, api);
+    return api;
   };
 })(window.FiltroMultiplo);

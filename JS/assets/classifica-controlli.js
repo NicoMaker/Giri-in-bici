@@ -113,7 +113,11 @@ window.ClassificaControlli = window.ClassificaControlli || {};
     var bottoniReset = contenitore.querySelectorAll('[data-azione^="reset"]');
     var inputRicerca = contenitore.querySelector("[data-ricerca]");
 
-    var ordineAttuale = "desc";
+    // L'ordine di partenza è quello segnato "attivo" nel markup (di
+    // solito "desc"): la pagina Classifica può averlo già impostato
+    // leggendolo dall'indirizzo (?ordine=asc, vedi stato-url.js).
+    var ordineIniziale = contenitore.querySelector("[data-ordine].attivo");
+    var ordineAttuale = ordineIniziale ? ordineIniziale.dataset.ordine : "desc";
     var limiti = { min: 0, max: 0 };
 
     function numeroOVuoto(campo) {

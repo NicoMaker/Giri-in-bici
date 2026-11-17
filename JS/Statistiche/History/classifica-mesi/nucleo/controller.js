@@ -17,7 +17,10 @@
 // un pulsante "Ordine" (dal più al meno pedalato o inverso) e un
 // filtro "da...a" in chilometri con le scorciatoie "Min"/"Max".
 //
-// Dipendenze: JS/json.js, JS/utils.js, History/comune/config-mesi.js,
+// L'indirizzo si aggiorna da solo con scheda, modo (Giri) e filtri:
+// vedi stato-url.js.
+//
+// Dipendenze: History/classifica-mesi/nucleo/stato-url.js, JS/json.js, JS/utils.js, History/comune/config-mesi.js,
 //             History/classifica-mesi/calcoli.js,
 //             History/classifica-mesi/stagioni.js,
 //             History/classifica-mesi/podio/*.js,
@@ -32,9 +35,17 @@
 const CM = window.ClassificaMesi;
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // Prima dei disegni: ordine, km e testo della scheda di apertura
+  // letti dall'indirizzo (?ordine=, ?min=, ?max=, ?q=).
+  CM.statoUrl.applicaIniziale();
   CM.avviaSelettoreVista();
-  await CM.avviaVistaMesi();
-  await CM.avviaVistaStagioni();
-  await CM.avviaVistaPeriodi();
-  await CM.avviaVistaGiri();
+  try {
+    await CM.avviaVistaMesi();
+    await CM.avviaVistaStagioni();
+    await CM.avviaVistaPeriodi();
+    await CM.avviaVistaGiri();
+  } finally {
+    // Da qui l'indirizzo segue pulsanti e filtri (vedi stato-url.js).
+    CM.statoUrl.avvia();
+  }
 });

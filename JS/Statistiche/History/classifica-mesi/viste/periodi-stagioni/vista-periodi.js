@@ -127,7 +127,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // sola stagione scritta come prima.
         // Senza "?stagione=" nell'indirizzo si parte con TUTTE le
         // stagioni già selezionate automaticamente.
-        const parametriUrlPeriodi = new URLSearchParams(window.location.search);
+        const parametriUrlPeriodi = CM.statoUrl.parametri("periodi");
         const stagioneUrlGrezzaPeriodi = parametriUrlPeriodi.get("stagione");
         // "Autunno - Inverno", "Autunno · Inverno" e "Autunno-Inverno"
         // sono la stessa stagione: vedi CM.stagioniDaParametro.

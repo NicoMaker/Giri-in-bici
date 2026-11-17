@@ -9,8 +9,9 @@
 // del sito che porta qui sceglie già la scheda giusta (es. dalla
 // pagina di una stagione arriva "?vista=stagioni"). Senza il
 // parametro, o con un valore che non esiste, si parte da "mesi".
+// Poi è l'indirizzo a seguire la scheda scelta (vedi stato-url.js).
 //
-// Nessuna dipendenza.
+// Dipende da: nucleo/stato-url.js (da caricare prima).
 // Richiamato da Statistiche/History/classifica-mesi.js
 // ============================================================
 
@@ -18,15 +19,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
 (function (CM) {
   "use strict";
-
-  const VISTE_VALIDE = [
-    "mesi",
-    "record",
-    "anni",
-    "stagioni",
-    "periodi",
-    "tappe",
-  ];
 
   // Scorre fino all'inizio della PAGINA (non solo del contenuto della
   // scheda): toccando una pillola mentre si è più in basso — magari in
@@ -73,10 +65,23 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       }
     }
 
-    const vistaIniziale = new URLSearchParams(window.location.search).get(
-      "vista",
-    );
-    attivaVista(VISTE_VALIDE.includes(vistaIniziale) ? vistaIniziale : "mesi");
+    // Scheda di apertura: "?vista=" se valido, altrimenti "mesi" (la
+    // decide stato-url.js, che poi tiene l'indirizzo allineato).
+    attivaVista(CM.statoUrl.vistaIniziale());
+
+    // Il browser (indietro/avanti, ricarica, tocco su un link alla stessa
+    // pagina) puo' rimettere nel select mobile l'ultima scelta fatta,
+    // per esempio "Anni", dopo che la pagina e' gia' partita: la scheda
+    // mostrata resta quella giusta ma il menu dice un'altra cosa. Si
+    // riallinea al caricamento completo e quando la pagina torna visibile.
+    function riallinea() {
+      const vista = CM.statoUrl.vistaAttiva();
+      if (selettoreMobile && selettoreMobile.value !== vista) {
+        selettoreMobile.value = vista;
+      }
+    }
+    window.addEventListener("load", riallinea);
+    window.addEventListener("pageshow", riallinea);
 
     // Chi arriva da un link con "?vista=" (es. da una pagina-stagione)
     // vede già la scheda giusta selezionata in cima, ma la pagina resta

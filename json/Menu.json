@@ -13,6 +13,12 @@
       "link": "Statistiche.html"
     },
     {
+      "name": "Classifica",
+      "icona": "classifica",
+      "icon": "/img/Icons/classifica.svg",
+      "link": "Statistiche/History/ClassificaMesi.html"
+    },
+    {
       "name": "Cerca per data",
       "icona": "calendario",
       "icon": "/img/Icons/Statistiche.png",

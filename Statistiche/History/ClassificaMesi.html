@@ -74,6 +74,10 @@
     <script src="../../js/assets/classifica-controlli.js" defer></script>
     <script src="../../js/assets/ui/filtro-multiplo.js" defer></script>
     <script
+      src="../../js/Statistiche/History/classifica-mesi/nucleo/stato-url.js"
+      defer
+    ></script>
+    <script
       src="../../js/Statistiche/History/classifica-mesi/nucleo/selettore-vista.js"
       defer
     ></script>
@@ -115,6 +119,10 @@
     ></script>
     <script
       src="../../js/assets/ui/navigazione-barra/icone-pagina-attiva.js"
+      defer
+    ></script>
+    <script
+      src="../../js/assets/ui/navigazione-barra/link-classifica.js"
       defer
     ></script>
     <script
@@ -189,6 +197,13 @@
           title="Statistiche"
           aria-label="Statistiche"
           ><img src="/img/Icons/Statistiche.png" alt=""
+        /></a>
+        <a
+          href="../../Statistiche/History/ClassificaMesi.html"
+          data-classifica
+          title="Classifica"
+          aria-label="Classifica"
+          ><img src="/img/Icons/classifica.svg" alt=""
         /></a>
         <a
           href="../../CercaData.html"
@@ -296,6 +311,7 @@
         <div class="selettore-vista-mobile-wrap">
           <select
             id="selettore-vista-mobile"
+            autocomplete="off"
             class="selettore-vista-mobile"
             aria-label="Scegli cosa vedere"
           >

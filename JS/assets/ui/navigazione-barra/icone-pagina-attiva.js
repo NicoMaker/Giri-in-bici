@@ -47,6 +47,8 @@
     "qr_code.png": "qr",
     "github.png": "codice",
     "calendario.png": "calendario",
+    "classifica.svg": "classifica",
+    "classifica.png": "classifica",
   };
 
   function icoDisegnate() {

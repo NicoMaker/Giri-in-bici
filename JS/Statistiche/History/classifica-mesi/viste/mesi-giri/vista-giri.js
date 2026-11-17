@@ -182,10 +182,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
     // Modo di visualizzazione: "classifica" (podio + elenco) o "anni".
     // Non è un filtro: il reset dei pulsanti non lo cambia.
-    let modo =
-      new URLSearchParams(window.location.search).get("modo") === "anni"
-        ? "anni"
-        : "classifica";
+    const parametriUrl = CM.statoUrl.parametri("tappe");
+    let modo = parametriUrl.get("modo") === "anni" ? "anni" : "classifica";
     const pulsantiModo = document.querySelectorAll("#tappe-vista [data-modo]");
     pulsantiModo.forEach((p) => {
       p.addEventListener("click", () => {
@@ -457,7 +455,6 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       // con un valore solo scritto come prima.
       // Senza uno dei due parametri nell'indirizzo si parte con TUTTE
       // le opzioni di quel filtro già selezionate automaticamente.
-      const parametriUrl = new URLSearchParams(window.location.search);
       const stagioneUrlGrezza = parametriUrl.get("stagione");
       // ?anno=2025,2026 (o il vecchio ?anni=...): anni solari, oppure
       // periodi scritti 2025-2026 / 2025/2026 per Autunno · Inverno.
@@ -516,10 +513,19 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         preselezionati: anniDaUrlGrezzi,
       });
 
-      alCambioModo = () =>
+      alCambioModo = () => {
+        // Se prima era scelto "tutto", resta "tutto" anche con il nuovo
+        // elenco (nei Giri per anno non ci sono i periodi 2025/2026):
+        // niente filtro finto che sporcherebbe anche l'indirizzo.
+        const eraTutto =
+          !!filtroAnno &&
+          filtroAnno.totale() > 0 &&
+          filtroAnno.selezionati().length === filtroAnno.totale();
         popolaAnni(filtroStagione ? filtroStagione.selezionati() : [], {
           mantieni: true,
         });
+        if (eraTutto) filtroAnno.selezionaTutte();
+      };
 
       // "Azzera pulsanti": tutte le stagioni e tutti gli anni.
       ripristinaFiltriGiri = () => {

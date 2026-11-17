@@ -241,9 +241,10 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         ConfigMesi.elenco,
       );
 
-      const annoFiltro = new URLSearchParams(window.location.search).get(
-        "anno",
-      );
+      // Parametri dell'indirizzo validi solo se la pagina si è aperta
+      // proprio su questa scheda (vedi nucleo/stato-url.js).
+      const parametriRecord = CM.statoUrl.parametri("record");
+      const annoFiltro = parametriRecord.get("anno");
 
       controlliMesi.aggiornaLimiti(righeMesi.map((r) => r.km));
       disegnaMesi();
@@ -358,9 +359,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // Filtro MESI: Gennaio, Febbraio... (nomi, non numeri).
         // Si può anche preselezionare da URL: "?mese=Gennaio,Febbraio".
         if (contenitoreRecordMeseEl) {
-          const mesiDaUrl = (
-            new URLSearchParams(window.location.search).get("mese") || ""
-          )
+          const mesiDaUrl = (parametriRecord.get("mese") || "")
             .split(",")
             .map((m) => m.trim())
             .filter((m) => ConfigMesi.elenco.includes(m));
