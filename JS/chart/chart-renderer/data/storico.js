@@ -6,9 +6,7 @@
 // in chart-renderer/nucleo.js, che va caricato prima di questo file.
 // ============================================================
 
-UniversalChartRenderer.prototype.processTotalHistoryData = async function (
-  data,
-) {
+UniversalChartRenderer.prototype.processTotalHistoryData = async (data) => {
   const { labels, values, percentuali } = data;
   return {
     labels: labels.map((mese, index) => `${mese} (${data.anni[index]})`),
@@ -26,9 +24,7 @@ UniversalChartRenderer.prototype.processTotalHistoryData = async function (
   };
 };
 
-UniversalChartRenderer.prototype.processMonthlyHistoryData = async function (
-  data,
-) {
+UniversalChartRenderer.prototype.processMonthlyHistoryData = async (data) => {
   const { labels, values, colors, percentuali, chartType } = data;
 
   if (chartType === "line") {

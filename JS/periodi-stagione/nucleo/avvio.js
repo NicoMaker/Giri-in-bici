@@ -12,7 +12,7 @@
 //             JS/chart/chart-renderer.js
 // ============================================================
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async () => {
   if (!window.chartRenderer || !window.ChartConfigs) {
     console.error(
       "Chart system non inizializzato. Includere chart-configs.js e chart-renderer.js",

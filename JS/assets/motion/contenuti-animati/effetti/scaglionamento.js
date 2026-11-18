@@ -11,10 +11,10 @@
 
 window.ContenutiAnimati = window.ContenutiAnimati || {};
 
-(function (CA) {
+((CA) => {
   "use strict";
 
-  var motoRidotto = window.matchMedia(
+  const motoRidotto = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
 
@@ -43,10 +43,10 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
     "#classifica-mensili",
   ];
 
-  CA.scaglionaFigli = function (contenitore) {
-    var griglia = contenitore.querySelector(".container") || contenitore;
-    var figli = griglia.children;
-    for (var i = 0; i < figli.length; i++) {
+  CA.scaglionaFigli = (contenitore) => {
+    const griglia = contenitore.querySelector(".container") || contenitore;
+    const figli = griglia.children;
+    for (let i = 0; i < figli.length; i++) {
       if (figli[i].dataset.entrato) continue;
       figli[i].dataset.entrato = "1";
       figli[i].style.setProperty("--ritardo", i * 70 + "ms");
@@ -54,20 +54,20 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
     }
   };
 
-  CA.osservaContenuti = function () {
+  CA.osservaContenuti = () => {
     if (!("MutationObserver" in window)) return;
 
-    var osservatore = new MutationObserver(function (mutazioni) {
-      mutazioni.forEach(function (m) {
+    const osservatore = new MutationObserver((mutazioni) => {
+      mutazioni.forEach((m) => {
         if (!m.addedNodes.length) return;
-        var bersaglio = m.target;
+        const bersaglio = m.target;
         if (!motoRidotto) CA.scaglionaFigli(bersaglio);
         CA.preparaNumeri(bersaglio);
       });
     });
 
-    CA.CONTENITORI.forEach(function (selettore) {
-      document.querySelectorAll(selettore).forEach(function (el) {
+    CA.CONTENITORI.forEach((selettore) => {
+      document.querySelectorAll(selettore).forEach((el) => {
         osservatore.observe(el, { childList: true, subtree: true });
       });
     });

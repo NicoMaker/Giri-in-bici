@@ -4,7 +4,7 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
 
   // Stesso principio già usato per Giri, Mesi, Record e Anni: il testo
@@ -23,7 +23,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "corse-asc": "dal periodo con meno corse a quello con più",
   };
 
-  CM.avviaVistaPeriodi = async function () {
+  CM.avviaVistaPeriodi = async () => {
     const CC = window.ClassificaControlli;
 
     const listaPeriodiEl = document.getElementById("classifica-periodi");
@@ -60,7 +60,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     try {
       const { righe: righePeriodiComplete } = await CM.calcolaPeriodi();
 
-      mostraPeriodi = function (stagioniScelte) {
+      mostraPeriodi = (stagioniScelte) => {
         stagioniScelte = stagioniScelte || [];
         let righePerStagione = righePeriodiComplete;
 

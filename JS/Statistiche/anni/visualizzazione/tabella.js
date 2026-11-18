@@ -3,7 +3,7 @@
 // Richiamato da Statistiche/Js/anni.js
 // ============================================================
 
-function renderDataTable(mesi, chilometri, percentuali) {
+const renderDataTable = (mesi, chilometri, percentuali) => {
   document.getElementById("mesi").innerHTML = `
     <tr class="grassetto">
       <th>Mese</th>
@@ -21,4 +21,4 @@ function renderDataTable(mesi, chilometri, percentuali) {
       )
       .join("")}
   `;
-}
+};

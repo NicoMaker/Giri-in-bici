@@ -6,7 +6,7 @@
 
 window.StoricoMensile = window.StoricoMensile || {};
 
-(function (SM) {
+((SM) => {
   "use strict";
 
   SM.createConfig = (type, datasets) => ({
@@ -36,7 +36,7 @@ window.StoricoMensile = window.StoricoMensile || {};
     },
   });
 
-  SM.renderCharts = function (datasets, yearLabels) {
+  SM.renderCharts = (datasets, yearLabels) => {
     const graficiDiv = document.getElementById("Grafici");
     graficiDiv.innerHTML = "";
 

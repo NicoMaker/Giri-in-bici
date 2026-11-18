@@ -3,7 +3,7 @@
 // Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
-function initRippleEffect() {
+const initRippleEffect = () => {
   const buttons = document.querySelectorAll(
     ".login-btn, #accept-cookies, .revoke-button",
   );
@@ -45,4 +45,4 @@ function initRippleEffect() {
       ripple.style.animation = "ripple 0.6s linear";
     });
   });
-}
+};

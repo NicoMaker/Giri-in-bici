@@ -8,11 +8,11 @@
 
 window.Bici = window.Bici || {};
 
-(function (B) {
+((B) => {
   "use strict";
 
   // Mostra solo l'intestazione Home (schermata di benvenuto)
-  B.mostraHome = function () {
+  B.mostraHome = () => {
     B.contenitore.innerHTML = `
           <img class="immagini_stagione" src="${B.dati.intestazioni.home}" alt="" />
           <p class="bici-home-frase">
@@ -23,7 +23,7 @@ window.Bici = window.Bici || {};
   };
 
   // Mostra le bici filtrate per tipo ("mtb", "corsa" o "tutte")
-  B.mostraBiciFiltrate = function (tipo) {
+  B.mostraBiciFiltrate = (tipo) => {
     const biciFiltrate =
       tipo === "tutte"
         ? B.dati.bici

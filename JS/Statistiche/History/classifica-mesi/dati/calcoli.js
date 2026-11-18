@@ -7,13 +7,13 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
 
   // Una riga per mese: { mese, km, occorrenze, kmMedi, percentuale }
   // occorrenze = in quanti anni diversi si è pedalato in quel mese.
   // kmMedi = km medi nelle sole volte in cui quel mese è stato pedalato.
-  CM.calcolaClassifica = function (allData, mesiElenco) {
+  CM.calcolaClassifica = (allData, mesiElenco) => {
     const chilometri = new Array(mesiElenco.length).fill(0);
     const occorrenze = new Array(mesiElenco.length).fill(0);
 
@@ -46,7 +46,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // mese: "Settembre 2024", "Ottobre 2025", ecc. Così si vede quale
   // singolo mese, in quale anno preciso, ha totalizzato più
   // chilometri di tutti — un vero e proprio record per record.
-  CM.calcolaRecordMesi = function (allData, mesiElenco) {
+  CM.calcolaRecordMesi = (allData, mesiElenco) => {
     const righe = [];
 
     allData.forEach((json) => {
@@ -80,7 +80,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // corse = numberOfRaces dell'anno (json/Statistiche/anni/<anno>.json).
   // kmMedi = km medi per singola corsa in quell'anno (km / corse).
   // kmMediMese = km medi per mese, sui soli mesi pedalati quell'anno.
-  CM.calcolaAnni = function (allData) {
+  CM.calcolaAnni = (allData) => {
     const righe = allData
       .filter((json) => json && json.data)
       .map((json) => {

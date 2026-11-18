@@ -14,20 +14,20 @@
 
 window.Variazioni = window.Variazioni || {};
 
-(function (V) {
+((V) => {
   "use strict";
 
   // calcVariazione — percentuale fra valoreAttuale e valorePrecedente.
   // Torna null se manca un valore precedente su cui confrontarsi
   // (dato assente o zero): in quel caso il distintivo mostra "—".
-  V.calcVariazione = function (valoreAttuale, valorePrecedente) {
+  V.calcVariazione = (valoreAttuale, valorePrecedente) => {
     if (!valorePrecedente) return null;
     return ((valoreAttuale - valorePrecedente) / valorePrecedente) * 100;
   };
 
   // badgeVariazione — HTML del distintivo. "etichetta" e' il testo
   // facoltativo aggiunto in coda (es. "vs periodo prec.").
-  V.badgeVariazione = function (perc, etichetta) {
+  V.badgeVariazione = (perc, etichetta) => {
     const suffisso = etichetta ? ` ${etichetta}` : "";
     if (perc === null) {
       return `<span class="badge badge-neutro">—${suffisso}</span>`;
@@ -43,8 +43,7 @@ window.Variazioni = window.Variazioni || {};
   // legenda — la stessa fascia di legenda usata nello storico
   // mensile, cosi' il significato dei colori e' chiaro ovunque
   // compaiano i distintivi. "nota" e' il testo fra parentesi.
-  V.legenda = function (nota) {
-    return `
+  V.legenda = (nota) => `
       <div class="legenda-variazioni">
         <span class="badge badge-su">▲ aumento</span>
         <span class="badge badge-giu">▼ calo</span>
@@ -52,5 +51,4 @@ window.Variazioni = window.Variazioni || {};
         <span class="badge badge-neutro">— nessun dato precedente</span>
         <span class="legenda-nota">${nota}</span>
       </div>`;
-  };
 })(window.Variazioni);

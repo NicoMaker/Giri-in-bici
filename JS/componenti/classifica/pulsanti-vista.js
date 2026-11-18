@@ -3,7 +3,7 @@
 import { escapeHtml } from "../comune/escape-html.js";
 import { VISTE_CLASSIFICA } from "./viste-classifica.js";
 
-export function pulsantiVista(etichetta) {
+export const pulsantiVista = (etichetta) => {
   const pulsanti = VISTE_CLASSIFICA.map(
     ([codice, testo]) =>
       `<button type="button" class="selettore-metrica__pulsante" data-vista="${codice}">${testo}</button>`,
@@ -11,4 +11,4 @@ export function pulsantiVista(etichetta) {
   return `<div class="selettore-metrica" id="selettore-vista" role="tablist" aria-label="${escapeHtml(etichetta)}">
           ${pulsanti}
         </div>`;
-}
+};

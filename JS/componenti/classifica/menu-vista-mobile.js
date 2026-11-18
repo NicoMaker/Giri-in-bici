@@ -5,7 +5,7 @@
 import { escapeHtml } from "../comune/escape-html.js";
 import { VISTE_CLASSIFICA } from "./viste-classifica.js";
 
-export function menuVistaMobile(etichetta) {
+export const menuVistaMobile = (etichetta) => {
   const opzioni = VISTE_CLASSIFICA.map(
     ([codice, testo]) => `<option value="${codice}">${testo}</option>`,
   ).join("\n            ");
@@ -14,4 +14,4 @@ export function menuVistaMobile(etichetta) {
             ${opzioni}
           </select>
         </div>`;
-}
+};

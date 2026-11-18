@@ -12,9 +12,8 @@
 
 window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
 
-(function (GTM) {
+((GTM) => {
   "use strict";
-
   const MEDAGLIE = ["🥇", "🥈", "🥉"];
 
   const ETICHETTE_METRICA = {
@@ -23,7 +22,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
     kmMedio: "km medi mensili",
   };
 
-  function formattaValore(metrica, riga) {
+  const formattaValore = (metrica, riga) => {
     if (metrica === "mesiPercorsi") {
       return `${formatItalianNumber(riga.mesiPercorsi)} ${pluralizza(riga.mesiPercorsi, "anno", "anni")}`;
     }
@@ -31,16 +30,15 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
       return `${formatItalianNumber(riga.kmMedio, true)} km`;
     }
     return `${formatItalianNumber(riga.km)} km`;
-  }
+  };
 
   // Una copia ordinata: non tocca mai l'array originale, cosi' si puo'
   // sempre ripartire dallo stesso elenco cambiando metrica.
-  GTM.ordinaPer = function (righe, metrica) {
-    return [...righe].sort((a, b) => (b[metrica] || 0) - (a[metrica] || 0));
-  };
+  GTM.ordinaPer = (righe, metrica) =>
+    [...righe].sort((a, b) => (b[metrica] || 0) - (a[metrica] || 0));
 
-  GTM.creaPodio = function (righeOrdinate, metrica) {
-    return righeOrdinate
+  GTM.creaPodio = (righeOrdinate, metrica) =>
+    righeOrdinate
       .slice(0, 3)
       .map(
         (r, i) => `
@@ -56,14 +54,13 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
       </div>`,
       )
       .join("");
-  };
 
   // La lista sotto al podio non aveva ne' "anni pedalati" ne' "media":
   // il podio qui sopra li mostra gia' per i primi tre, qui in fondo
   // mancavano per tutti gli altri nove mesi. Stessa dicitura del
   // podio, cosi' si vede per tutti e 12, qualunque metrica sia scelta
   // per ordinare (km totali, anni pedalati o media).
-  GTM.creaClassifica = function (righeOrdinate, metrica) {
+  GTM.creaClassifica = (righeOrdinate, metrica) => {
     const massimo = righeOrdinate.length ? righeOrdinate[0][metrica] || 0 : 0;
     return righeOrdinate
       .map((r, i) => {
@@ -85,7 +82,7 @@ window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
       .join("");
   };
 
-  GTM.creaTitoloPodio = function (righeOrdinate, metrica) {
+  GTM.creaTitoloPodio = (righeOrdinate, metrica) => {
     if (!righeOrdinate.length || (righeOrdinate[0][metrica] || 0) <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }

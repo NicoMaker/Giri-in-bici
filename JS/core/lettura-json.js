@@ -36,9 +36,8 @@
 
 window.Json = window.Json || {};
 
-(function (J) {
+((J) => {
   "use strict";
-
   // document.currentScript e' valido solo durante l'esecuzione
   // sincrona di questo file, quindi il valore va catturato subito qui
   // in cima e non dentro le funzioni async piu' sotto.
@@ -47,7 +46,7 @@ window.Json = window.Json || {};
     ? percorsoScript.replace(/js\/core\/lettura-json\.js(?:[?#].*)?$/, "")
     : "";
 
-  function risolvi(percorso) {
+  const risolvi = (percorso) => {
     // Lascia stare i percorsi gia' assoluti (http://, https://, //, /...)
     if (
       /^([a-z][a-z0-9+.-]*:)?\/\//i.test(percorso) ||
@@ -56,9 +55,9 @@ window.Json = window.Json || {};
       return percorso;
     }
     return RADICE_SITO ? RADICE_SITO + percorso : percorso;
-  }
+  };
 
-  J.leggi = async function (percorso) {
+  J.leggi = async (percorso) => {
     const url = risolvi(percorso);
     const risposta = await fetch(url);
     if (!risposta.ok) {
@@ -67,7 +66,7 @@ window.Json = window.Json || {};
     return risposta.json();
   };
 
-  J.leggiOppureNull = async function (percorso) {
+  J.leggiOppureNull = async (percorso) => {
     try {
       return await J.leggi(percorso);
     } catch (errore) {
@@ -76,9 +75,7 @@ window.Json = window.Json || {};
     }
   };
 
-  J.leggiTutti = function (percorsi) {
-    return Promise.all(percorsi.map((p) => J.leggi(p)));
-  };
+  J.leggiTutti = (percorsi) => Promise.all(percorsi.map((p) => J.leggi(p)));
 
   // Il nome vecchio resta valido: era usato in mezzo sito e continua
   // a funzionare senza cambiare le chiamate una per una.

@@ -7,32 +7,31 @@
 // Stili corrispondenti: css/assets/componenti/layout/struttura/barra.css
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
-
-  function avvia() {
-    var barra = document.querySelector(".site-bar");
+  const avvia = () => {
+    const barra = document.querySelector(".site-bar");
     if (!barra) return;
 
-    var inCorso = false;
+    let inCorso = false;
 
-    function aggiorna() {
+    const aggiorna = () => {
       barra.classList.toggle("is-scrolled", window.scrollY > 12);
       inCorso = false;
-    }
+    };
 
     aggiorna();
 
     window.addEventListener(
       "scroll",
-      function () {
+      () => {
         if (inCorso) return;
         inCorso = true;
         window.requestAnimationFrame(aggiorna);
       },
       { passive: true },
     );
-  }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", avvia);

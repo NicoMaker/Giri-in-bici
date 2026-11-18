@@ -9,15 +9,15 @@ import { percorsoNormalizzato, indirizzoAttivo } from "./pagina-attiva.js";
 import { collegaRicerca } from "./ricerca-menu.js";
 import { collegaApertura } from "./apertura.js";
 
-function iconaVoce(voce) {
+const iconaVoce = (voce) => {
   if (voce.icona) {
     return `<span class="ico-tile" data-icona="${escapeHtml(voce.icona)}"></span>`;
   }
   const classe = voce.nome === "Apertura Account GitHub" ? ' class="logo"' : "";
   return `<span class="ico-tile"><img src="${escapeHtml(voce.immagine)}"${classe} alt="" /></span>`;
-}
+};
 
-function htmlVoce(voce, attivo) {
+const htmlVoce = (voce, attivo) => {
   const nome = escapeHtml(voce.nome);
   const marcaPagina = attivo ? ' aria-current="page" class="is-attivo"' : "";
 
@@ -29,19 +29,19 @@ function htmlVoce(voce, attivo) {
   const apertura = voce.fuori ? ' target="_blank" rel="noopener"' : "";
   const classifica = voce.classifica ? " data-classifica" : "";
   return `<li data-nome="${nome}"><a href="${escapeHtml(voce.link)}"${apertura}${classifica}${marcaPagina}>${iconaVoce(voce)}<span>${nome}</span></a></li>`;
-}
+};
 
 // "Torna a Estate": la freccia indietro che le pagine di dettaglio avevano nella barra.
-function htmlTornaIndietro(indirizzo, titolo) {
+const htmlTornaIndietro = (indirizzo, titolo) => {
   if (!indirizzo) return "";
   const testo = escapeHtml(titolo || "Indietro");
   return `<a class="menu-torna" href="${escapeHtml(indirizzo)}">
           <span class="ico-tile" data-icona="indietro"></span><span>${testo}</span>
         </a>`;
-}
+};
 
 // Disegna le voci nell'elenco (in ordine alfabetico, come nella home) e accende quella attuale.
-function mostraVoci(pannello, vociMenu) {
+const mostraVoci = (pannello, vociMenu) => {
   const voci = [...vociMenu].sort((a, b) => a.nome.localeCompare(b.nome));
   const indirizziVoci = voci
     .filter((v) => !v.indietro && !v.fuori)
@@ -60,9 +60,9 @@ function mostraVoci(pannello, vociMenu) {
   // Icone disegnate e indirizzo della Classifica (che dipende dalla pagina)
   if (window.Icone) window.Icone.riempi(pannello);
   window.dispatchEvent(new Event("classifica:url"));
-}
+};
 
-export function creaPannello({ indietro, indietroTitolo }) {
+export const creaPannello = ({ indietro, indietroTitolo }) => {
   const pannello = document.createElement("nav");
   pannello.className = "menu";
   pannello.id = "menu-sito";
@@ -91,8 +91,8 @@ export function creaPannello({ indietro, indietroTitolo }) {
   caricaVoci().then((voci) => mostraVoci(pannello, voci));
 
   return pannello;
-}
+};
 
-export function collegaPannello(pannello, pulsante) {
+export const collegaPannello = (pannello, pulsante) => {
   collegaApertura(pannello, pulsante);
-}
+};

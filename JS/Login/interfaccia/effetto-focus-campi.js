@@ -3,7 +3,7 @@
 // Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
-function initInputFocusEffects() {
+const initInputFocusEffects = () => {
   const inputs = document.querySelectorAll(
     'input[type="text"], input[type="password"]',
   );
@@ -17,9 +17,9 @@ function initInputFocusEffects() {
       if (icon) icon.style.color = "var(--ink-3)";
     });
   });
-}
+};
 
-function initPasswordToggle() {
+const initPasswordToggle = () => {
   const togglePassword = document.getElementById("togglePassword");
   const passwordInput = document.getElementById("password");
 
@@ -43,4 +43,4 @@ function initPasswordToggle() {
       }, 300);
     });
   }
-}
+};

@@ -3,7 +3,7 @@
 // Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
-function initLoginSystem() {
+const initLoginSystem = () => {
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", handleLoginSubmit);
@@ -19,9 +19,9 @@ function initLoginSystem() {
 
   initPasswordToggle();
   initInputFocusEffects();
-}
+};
 
-async function handleLoginSubmit(event) {
+const handleLoginSubmit = async (event) => {
   event.preventDefault();
 
   if (!hasAcceptedCookies()) {
@@ -119,27 +119,27 @@ async function handleLoginSubmit(event) {
     if (arrow) arrow.style.display = "inline-block";
     loginBtn.disabled = false;
   }
-}
+};
 
 // Chiave del giorno di oggi in formato AAAA-MM-GG (es. "2026-08-08"),
 // usata per capire se la sessione salvata appartiene ancora a oggi.
-function chiaveGiornoOggi() {
+const chiaveGiornoOggi = () => {
   const oggi = new Date(),
     anno = oggi.getFullYear(),
     mese = String(oggi.getMonth() + 1).padStart(2, "0"),
     giorno = String(oggi.getDate()).padStart(2, "0");
   return `${anno}-${mese}-${giorno}`;
-}
+};
 
 // La password valida cambia ogni giorno. Viene calcolata al momento
 // dell'invio del form, quindi a cavallo della mezzanotte (23:59 -> 00:00)
 // usa sempre l'orario reale del dispositivo: prima di mezzanotte serve
 // ancora la password del giorno che sta finendo, da mezzanotte in poi
 // serve quella nuova, senza bisogno di ricaricare la pagina.
-function generatePassword() {
+const generatePassword = () => {
   const date = new Date(),
     day = String(date.getDate()).padStart(2, "0"),
     month = String(date.getMonth() + 1).padStart(2, "0"),
     year = date.getFullYear();
   return `Giri ${day}/${month}/${year}`;
-}
+};

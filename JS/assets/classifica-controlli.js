@@ -67,20 +67,18 @@
 
 window.ClassificaControlli = window.ClassificaControlli || {};
 
-(function (C) {
+((C) => {
   "use strict";
-
   // Toglie accenti e maiuscole prima di confrontare: chi scrive
   // "citta" deve trovare anche "città", "PRIMAVERA" deve trovare
   // "Primavera". Usata sia per leggere il campo "Cerca" sia per
   // preparare il testo di ogni riga (vedi C.cerca più sotto).
-  function normalizzaTesto(testo) {
-    return String(testo == null ? "" : testo)
+  const normalizzaTesto = (testo) =>
+    String(testo == null ? "" : testo)
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .trim();
-  }
 
   // Collega i pulsanti/campi già presenti dentro "contenitore" (il
   // markup vive in Statistiche/History/ClassificaMesi.html, sempre
@@ -90,43 +88,46 @@ window.ClassificaControlli = window.ClassificaControlli || {};
   // (scheda senza questi controlli) restituisce uno stato neutro di
   // default, così chi chiama non deve controllare ogni volta se i
   // controlli ci sono davvero.
-  C.crea = function (contenitore, opzioni) {
+  C.crea = (contenitore, opzioni) => {
     opzioni = opzioni || {};
 
     if (!contenitore) {
       return {
-        aggiornaLimiti: function () {},
-        stato: function () {
-          return { ordine: "desc", min: null, max: null, testo: "" };
-        },
-        azzeraPulsanti: function () {},
-        azzeraRicerca: function () {},
-        azzeraTutto: function () {},
+        aggiornaLimiti: () => {},
+        stato: () => ({
+          ordine: "desc",
+          min: null,
+          max: null,
+          testo: "",
+        }),
+        azzeraPulsanti: () => {},
+        azzeraRicerca: () => {},
+        azzeraTutto: () => {},
       };
     }
 
-    var bottoniOrdine = contenitore.querySelectorAll("[data-ordine]");
-    var inputMin = contenitore.querySelector('[data-range="min"]');
-    var inputMax = contenitore.querySelector('[data-range="max"]');
-    var bottoneMin = contenitore.querySelector('[data-azione="min"]');
-    var bottoneMax = contenitore.querySelector('[data-azione="max"]');
-    var bottoniReset = contenitore.querySelectorAll('[data-azione^="reset"]');
-    var inputRicerca = contenitore.querySelector("[data-ricerca]");
+    const bottoniOrdine = contenitore.querySelectorAll("[data-ordine]");
+    const inputMin = contenitore.querySelector('[data-range="min"]');
+    const inputMax = contenitore.querySelector('[data-range="max"]');
+    const bottoneMin = contenitore.querySelector('[data-azione="min"]');
+    const bottoneMax = contenitore.querySelector('[data-azione="max"]');
+    const bottoniReset = contenitore.querySelectorAll('[data-azione^="reset"]');
+    const inputRicerca = contenitore.querySelector("[data-ricerca]");
 
     // L'ordine di partenza è quello segnato "attivo" nel markup (di
     // solito "desc"): la pagina Classifica può averlo già impostato
     // leggendolo dall'indirizzo (?ordine=asc, vedi stato-url.js).
-    var ordineIniziale = contenitore.querySelector("[data-ordine].attivo");
-    var ordineAttuale = ordineIniziale ? ordineIniziale.dataset.ordine : "desc";
-    var limiti = { min: 0, max: 0 };
+    const ordineIniziale = contenitore.querySelector("[data-ordine].attivo");
+    let ordineAttuale = ordineIniziale ? ordineIniziale.dataset.ordine : "desc";
+    let limiti = { min: 0, max: 0 };
 
-    function numeroOVuoto(campo) {
+    const numeroOVuoto = (campo) => {
       if (!campo || campo.value === "") return null;
-      var numero = Number(campo.value);
+      const numero = Number(campo.value);
       return Number.isNaN(numero) ? null : numero;
-    }
+    };
 
-    function leggiStato() {
+    const leggiStato = () => {
       return {
         ordine: ordineAttuale,
         min: numeroOVuoto(inputMin),
@@ -135,24 +136,24 @@ window.ClassificaControlli = window.ClassificaControlli || {};
         // riceve lo stato non deve rifarlo ogni volta da capo.
         testo: normalizzaTesto(inputRicerca ? inputRicerca.value : ""),
       };
-    }
+    };
 
-    function notifica() {
+    const notifica = () => {
       if (typeof opzioni.onCambia === "function") {
         // Tiene ferma la pagina mentre si ridisegna (nessun salto).
-        var prima = contenitore.getBoundingClientRect().top;
+        const prima = contenitore.getBoundingClientRect().top;
         opzioni.onCambia(leggiStato());
-        var differenza = contenitore.getBoundingClientRect().top - prima;
+        const differenza = contenitore.getBoundingClientRect().top - prima;
         if (differenza) window.scrollBy(0, differenza);
       }
-    }
+    };
 
-    Array.prototype.forEach.call(bottoniOrdine, function (bottone) {
-      bottone.addEventListener("click", function () {
+    Array.prototype.forEach.call(bottoniOrdine, (bottone) => {
+      bottone.addEventListener("click", () => {
         if (bottone.dataset.ordine === ordineAttuale) return;
         ordineAttuale = bottone.dataset.ordine;
-        Array.prototype.forEach.call(bottoniOrdine, function (b) {
-          var attivo = b === bottone;
+        Array.prototype.forEach.call(bottoniOrdine, (b) => {
+          const attivo = b === bottone;
           b.classList.toggle("attivo", attivo);
           b.setAttribute("aria-pressed", attivo ? "true" : "false");
         });
@@ -171,22 +172,23 @@ window.ClassificaControlli = window.ClassificaControlli || {};
     // davvero presente nei dati, riempie il campo con quel valore
     // vero (arrotondato) invece di lasciarlo indovinare a occhio.
     if (bottoneMin) {
-      bottoneMin.addEventListener("click", function () {
+      bottoneMin.addEventListener("click", () => {
         if (inputMin) inputMin.value = String(Math.floor(limiti.min));
         notifica();
       });
     }
     if (bottoneMax) {
-      bottoneMax.addEventListener("click", function () {
+      bottoneMax.addEventListener("click", () => {
         if (inputMax) inputMax.value = String(Math.ceil(limiti.max));
         notifica();
       });
     }
+
     // --- Reset a tre vie (vedi l'intestazione del file) ---
-    function azzeraPulsanti() {
+    const azzeraPulsanti = () => {
       ordineAttuale = "desc";
-      Array.prototype.forEach.call(bottoniOrdine, function (b) {
-        var attivo = b.dataset.ordine === "desc";
+      Array.prototype.forEach.call(bottoniOrdine, (b) => {
+        const attivo = b.dataset.ordine === "desc";
         b.classList.toggle("attivo", attivo);
         b.setAttribute("aria-pressed", attivo ? "true" : "false");
       });
@@ -195,18 +197,18 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       if (typeof opzioni.ripristinaFiltri === "function") {
         opzioni.ripristinaFiltri();
       }
-    }
+    };
 
-    function azzeraRicerca() {
+    const azzeraRicerca = () => {
       if (inputRicerca) inputRicerca.value = "";
       if (typeof opzioni.ripristinaRicerca === "function") {
         opzioni.ripristinaRicerca();
       }
-    }
+    };
 
-    Array.prototype.forEach.call(bottoniReset, function (bottone) {
-      bottone.addEventListener("click", function () {
-        var azione = bottone.dataset.azione;
+    Array.prototype.forEach.call(bottoniReset, (bottone) => {
+      bottone.addEventListener("click", () => {
+        const azione = bottone.dataset.azione;
         if (azione === "reset-filtri" || azione === "reset-pulsanti") {
           azzeraPulsanti();
         } else if (azione === "reset-ricerca") {
@@ -231,7 +233,7 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       // filtro già esistente di "Km mensili"): aggiorna solo cosa i
       // pulsanti "Min"/"Max" scriveranno al prossimo click e il
       // segnaposto dei campi vuoti, non ridisegna nulla da sola.
-      aggiornaLimiti: function (valori) {
+      aggiornaLimiti: (valori) => {
         if (!valori || !valori.length) {
           limiti = { min: 0, max: 0 };
         } else {
@@ -249,15 +251,15 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       stato: leggiStato,
       // Gli stessi tre reset dei pulsanti, richiamabili da codice
       // (ridisegnano da soli, come un click sul pulsante).
-      azzeraPulsanti: function () {
+      azzeraPulsanti: () => {
         azzeraPulsanti();
         notifica();
       },
-      azzeraRicerca: function () {
+      azzeraRicerca: () => {
         azzeraRicerca();
         notifica();
       },
-      azzeraTutto: function () {
+      azzeraTutto: () => {
         azzeraPulsanti();
         azzeraRicerca();
         notifica();
@@ -271,23 +273,22 @@ window.ClassificaControlli = window.ClassificaControlli || {};
   // Confronto senza maiuscole/minuscole né accenti (vedi
   // normalizzaTesto): "primavera" trova "Primavera", "citta" trova
   // "Città". Come C.filtra, non cambia l'ordine delle righe.
-  C.cerca = function (righe, testo, testoDi) {
-    var cercato = normalizzaTesto(testo);
+  C.cerca = (righe, testo, testoDi) => {
+    const cercato = normalizzaTesto(testo);
     if (!cercato) return righe;
-    return righe.filter(function (r) {
-      return normalizzaTesto(testoDi(r)).indexOf(cercato) !== -1;
-    });
+    return righe.filter(
+      (r) => normalizzaTesto(testoDi(r)).indexOf(cercato) !== -1,
+    );
   };
 
   // Solo il filtro per km (min/max): non cambia l'ordine delle righe.
-  C.filtra = function (righe, stato, valoreDi) {
-    return righe.filter(function (r) {
-      var v = valoreDi(r);
+  C.filtra = (righe, stato, valoreDi) =>
+    righe.filter((r) => {
+      const v = valoreDi(r);
       if (stato.min != null && v < stato.min) return false;
       if (stato.max != null && v > stato.max) return false;
       return true;
     });
-  };
 
   // Solo l'ordinamento: restituisce sempre una copia nuova, non
   // tocca mai l'array originale (che altre parti della pagina
@@ -319,12 +320,12 @@ window.ClassificaControlli = window.ClassificaControlli || {};
   //     un numero comparabile riga per riga (timestamp, aaaammgg,
   //     anno, o un qualunque indice crescente nel tempo). Se manca,
   //     si ricade su valoreDi.
-  C.ordina = function (righe, ordine, valoreDi, extra) {
-    var opzioni =
+  C.ordina = (righe, ordine, valoreDi, extra) => {
+    const opzioni =
       typeof extra === "function" ? { spareggio: extra } : extra || {};
-    var valoreSpareggio = opzioni.spareggio;
-    var nomeDi = opzioni.nome;
-    var dataDi = opzioni.data || valoreDi;
+    const valoreSpareggio = opzioni.spareggio;
+    const nomeDi = opzioni.nome;
+    const dataDi = opzioni.data || valoreDi;
 
     // --- Nuovo: ordinamento per media ---
     if (
@@ -336,9 +337,9 @@ window.ClassificaControlli = window.ClassificaControlli || {};
       // valoreDi restituisce già il valore giusto (media km/corsa o
       // numero di corse, deciso da chi chiama). A parità di valore
       // decide lo spareggio, se presente.
-      return righe.slice().sort(function (a, b) {
-        var valA = valoreDi(a);
-        var valB = valoreDi(b);
+      return righe.slice().sort((a, b) => {
+        const valA = valoreDi(a);
+        const valB = valoreDi(b);
         if (valA === valB && valoreSpareggio) {
           return valoreSpareggio(a) - valoreSpareggio(b);
         }
@@ -352,13 +353,9 @@ window.ClassificaControlli = window.ClassificaControlli || {};
 
     // --- Ordinamento alfabetico ---
     if (ordine === "alfabetico" || ordine === "alfabetico-desc") {
-      var estraiNome =
-        nomeDi ||
-        function () {
-          return "";
-        };
-      return righe.slice().sort(function (a, b) {
-        var risultato = String(estraiNome(a)).localeCompare(
+      const estraiNome = nomeDi || (() => "");
+      return righe.slice().sort((a, b) => {
+        const risultato = String(estraiNome(a)).localeCompare(
           String(estraiNome(b)),
           "it",
           { sensitivity: "base", numeric: true },
@@ -369,16 +366,18 @@ window.ClassificaControlli = window.ClassificaControlli || {};
 
     // --- Ordinamento per data ---
     if (ordine === "data-recente" || ordine === "data-vecchio") {
-      return righe.slice().sort(function (a, b) {
-        return ordine === "data-recente"
-          ? dataDi(b) - dataDi(a)
-          : dataDi(a) - dataDi(b);
-      });
+      return righe
+        .slice()
+        .sort((a, b) =>
+          ordine === "data-recente"
+            ? dataDi(b) - dataDi(a)
+            : dataDi(a) - dataDi(b),
+        );
     }
 
     // --- Ordinamento per km (desc/asc) con spareggio ---
-    return righe.slice().sort(function (a, b) {
-      var perValore =
+    return righe.slice().sort((a, b) => {
+      const perValore =
         ordine === "asc"
           ? valoreDi(a) - valoreDi(b)
           : valoreDi(b) - valoreDi(a);

@@ -18,32 +18,31 @@
 // li' su .graficostagioni/.cta-classifica, non ne aggiunge una qui).
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
-
-  var motoRidotto = window.matchMedia(
+  const motoRidotto = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
-  var puntatoreFine = window.matchMedia(
+  const puntatoreFine = window.matchMedia(
     "(hover: hover) and (pointer: fine)",
   ).matches;
   if (motoRidotto || !puntatoreFine) return;
 
-  var RAGGIO_MASSIMO = 8; // px, spostamento massimo in ogni direzione
+  const RAGGIO_MASSIMO = 8; // px, spostamento massimo in ogni direzione
 
-  function avvia() {
-    var pulsanti = document.querySelectorAll(
+  const avvia = () => {
+    const pulsanti = document.querySelectorAll(
       ".graficostagioni, .cta-classifica",
     );
     if (!pulsanti.length) return;
 
-    pulsanti.forEach(function (pulsante) {
+    pulsanti.forEach((pulsante) => {
       pulsante.addEventListener(
         "pointermove",
-        function (e) {
-          var rect = pulsante.getBoundingClientRect();
-          var relX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
-          var relY = (e.clientY - rect.top) / rect.height - 0.5;
+        (e) => {
+          const rect = pulsante.getBoundingClientRect();
+          const relX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+          const relY = (e.clientY - rect.top) / rect.height - 0.5;
           pulsante.style.transform =
             "translate(" +
             (relX * RAGGIO_MASSIMO * 2).toFixed(1) +
@@ -54,13 +53,13 @@
         { passive: true },
       );
 
-      pulsante.addEventListener("pointerleave", function () {
+      pulsante.addEventListener("pointerleave", () => {
         // Vuoto: la transizione con --ease-spring (definita nel CSS)
         // riporta da sola il pulsante al posto suo, con il rimbalzo.
         pulsante.style.transform = "";
       });
     });
-  }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", avvia);

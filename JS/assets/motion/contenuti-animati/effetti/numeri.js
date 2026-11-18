@@ -31,10 +31,9 @@
 
 window.ContenutiAnimati = window.ContenutiAnimati || {};
 
-(function (CA) {
+((CA) => {
   "use strict";
-
-  var motoRidotto = window.matchMedia(
+  const motoRidotto = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
 
@@ -43,11 +42,11 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
   // italiana non raggruppa i numeri a 4 cifre (1234 restava "1234" mentre
   // 12345 diventava "12.345"): l'animazione sovrascriveva cosi' la
   // formattazione corretta prodotta da JS/utils.js.
-  function formattaNumero(valore, decimali, minInteri) {
-    var negativo = valore < 0;
-    var fisso = Math.abs(valore).toFixed(decimali);
-    var pezzi = fisso.split(".");
-    var intero = pezzi[0];
+  const formattaNumero = (valore, decimali, minInteri) => {
+    const negativo = valore < 0;
+    const fisso = Math.abs(valore).toFixed(decimali);
+    const pezzi = fisso.split(".");
+    let intero = pezzi[0];
 
     // Zero iniziale: se la sorgente aveva piu' cifre (es. "08"), si mantiene
     // la larghezza paddizzando con zeri prima di raggruppare le migliaia.
@@ -56,8 +55,8 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
     }
 
     if (intero.length > 3) {
-      var gruppi = [];
-      var i = intero.length;
+      const gruppi = [];
+      let i = intero.length;
       while (i > 0) {
         gruppi.unshift(intero.substring(Math.max(0, i - 3), i));
         i -= 3;
@@ -66,16 +65,16 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
     }
 
     return (negativo ? "-" : "") + intero + (pezzi[1] ? "," + pezzi[1] : "");
-  }
+  };
 
-  function conta(elemento, obiettivo, decimali, minInteri) {
-    var durata = 1100;
-    var avvio = null;
+  const conta = (elemento, obiettivo, decimali, minInteri) => {
+    const durata = 1100;
+    let avvio = null;
 
-    function passo(ora) {
+    const passo = (ora) => {
       if (avvio === null) avvio = ora;
-      var t = Math.min((ora - avvio) / durata, 1);
-      var eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const t = Math.min((ora - avvio) / durata, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
       elemento.textContent = formattaNumero(
         obiettivo * eased,
         decimali,
@@ -84,10 +83,10 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
       if (t < 1) window.requestAnimationFrame(passo);
       else
         elemento.textContent = formattaNumero(obiettivo, decimali, minInteri);
-    }
+    };
 
     window.requestAnimationFrame(passo);
-  }
+  };
 
   // ------------------------------------------------------------
   // costruisciNumeri — SEMPRE sincrono: individua i numeri nel
@@ -109,42 +108,42 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
   // trovati, cosi' animaConteggio puo' farli ripartire da 0 in seguito
   // senza dover rileggere/ricostruire il DOM.
   // ------------------------------------------------------------
-  function costruisciNumeri(elemento) {
+  const costruisciNumeri = (elemento) => {
     if (elemento.dataset.costruito) return [];
     elemento.dataset.costruito = "1";
 
-    var vuoleValore =
+    const vuoleValore =
       elemento.classList &&
       (elemento.classList.contains("misuracolore") ||
         elemento.classList.contains("anima-numero"));
 
     // Raccoglie i nodi di testo in ordine e il testo unito, con gli offset.
-    var walker = document.createTreeWalker(
+    const walker = document.createTreeWalker(
       elemento,
       NodeFilter.SHOW_TEXT,
       null,
     );
-    var nodi = [];
-    var inizi = [];
-    var unito = "";
+    const nodi = [];
+    const inizi = [];
+    let unito = "";
     while (walker.nextNode()) {
       inizi.push(unito.length);
       nodi.push(walker.currentNode);
       unito += walker.currentNode.nodeValue;
     }
 
-    var numero = /(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/g;
+    const numero = /(\d{1,3}(?:\.\d{3})+|\d+)(,\d+)?/g;
 
     // Trova a quale nodo di testo appartiene una posizione assoluta in
     // "unito" (per sapere in che elemento vive quel numero).
-    function nodoDiPosizione(posizioneAssoluta) {
-      var idx = 0;
-      for (var k = 0; k < inizi.length; k++) {
+    const nodoDiPosizione = (posizioneAssoluta) => {
+      let idx = 0;
+      for (let k = 0; k < inizi.length; k++) {
         if (inizi[k] <= posizioneAssoluta) idx = k;
         else break;
       }
       return nodi[idx];
-    }
+    };
 
     // Un numero dentro un distintivo (.badge, es. "▼ - 12,3% vs...") non e'
     // MAI il valore principale della riga: e' un dettaglio a corredo. Se lo
@@ -154,49 +153,49 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
     // l'intera riga resterebbe appiccicata a sinistra (proprio il difetto
     // "stessa scheda, grafica diversa" quando compare un distintivo con
     // percentuale reale invece del semplice "—").
-    function dentroBadge(posizioneAssoluta) {
-      var nodo = nodoDiPosizione(posizioneAssoluta);
-      var el = nodo && nodo.parentNode;
+    const dentroBadge = (posizioneAssoluta) => {
+      const nodo = nodoDiPosizione(posizioneAssoluta);
+      const el = nodo && nodo.parentNode;
       return !!(el && el.closest && el.closest(".badge"));
-    }
+    };
 
     // Posizione (assoluta) del valore da mettere a destra: l'ultimo numero
     // fuori dalle parentesi e fuori da un badge; se non ce ne sono, l'ultimo
     // fuori da un badge in assoluto.
-    var posValore = -1;
+    let posValore = -1;
     if (vuoleValore) {
-      var mm;
-      var ultimoQualsiasi = -1;
+      let mm;
+      let ultimoQualsiasi = -1;
       numero.lastIndex = 0;
       while ((mm = numero.exec(unito)) !== null) {
         if (dentroBadge(mm.index)) continue;
         ultimoQualsiasi = mm.index;
-        var testa = unito.slice(0, mm.index);
-        var aperte = (testa.match(/\(/g) || []).length;
-        var chiuse = (testa.match(/\)/g) || []).length;
+        const testa = unito.slice(0, mm.index);
+        const aperte = (testa.match(/\(/g) || []).length;
+        const chiuse = (testa.match(/\)/g) || []).length;
         if (aperte <= chiuse) posValore = mm.index; // fuori dalle parentesi
       }
       if (posValore === -1) posValore = ultimoQualsiasi;
     }
 
-    var trovati = [];
+    const trovati = [];
 
-    for (var i = 0; i < nodi.length; i++) {
-      var nodo = nodi[i];
-      var testo = nodo.nodeValue;
+    for (let i = 0; i < nodi.length; i++) {
+      const nodo = nodi[i];
+      const testo = nodo.nodeValue;
       numero.lastIndex = 0;
       if (!numero.test(testo)) continue;
       numero.lastIndex = 0;
 
-      var frammento = document.createDocumentFragment();
-      var ultimo = 0;
-      var m;
+      const frammento = document.createDocumentFragment();
+      let ultimo = 0;
+      let m;
 
       while ((m = numero.exec(testo)) !== null) {
-        var grezzo = m[0];
-        var idx = m.index;
-        var assoluto = inizi[i] + idx;
-        var valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
+        const grezzo = m[0];
+        const idx = m.index;
+        const assoluto = inizi[i] + idx;
+        const valore = parseFloat(grezzo.replace(/\./g, "").replace(",", "."));
 
         if (idx > ultimo) {
           frammento.appendChild(
@@ -207,11 +206,11 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
         if (!isFinite(valore) || valore <= 0) {
           frammento.appendChild(document.createTextNode(grezzo));
         } else {
-          var decimali = m[2] ? m[2].length - 1 : 0;
+          const decimali = m[2] ? m[2].length - 1 : 0;
           // Cifre intere presenti nella sorgente (senza i punti delle
           // migliaia): cosi' "08" -> 2, per rimettere lo zero iniziale.
-          var cifreIntere = m[1].replace(/\./g, "").length;
-          var span = document.createElement("span");
+          const cifreIntere = m[1].replace(/\./g, "").length;
+          const span = document.createElement("span");
           span.className =
             vuoleValore && assoluto === posValore ? "num" : "num-anim";
           // Testo FINALE subito: il layout non deve dipendere da
@@ -237,7 +236,7 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
     }
 
     return trovati;
-  }
+  };
 
   // ------------------------------------------------------------
   // animaConteggio — passaggio puramente estetico: fa ripartire da
@@ -245,17 +244,17 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
   // risalire. Se qualcosa va storto o non viene mai chiamata, gli
   // span restano comunque al valore finale corretto.
   // ------------------------------------------------------------
-  function animaConteggio(voci) {
-    for (var j = 0; j < voci.length; j++) {
-      var v = voci[j];
+  const animaConteggio = (voci) => {
+    for (let j = 0; j < voci.length; j++) {
+      const v = voci[j];
       v.span.textContent = formattaNumero(0, v.decimali, v.minInteri);
       conta(v.span, v.valore, v.decimali, v.minInteri);
     }
-  }
+  };
 
   // Conta solo quando la card entra davvero nello schermo
-  var osservatoreNumeri = null;
-  var vociPerElemento = typeof WeakMap === "function" ? new WeakMap() : null;
+  let osservatoreNumeri = null;
+  const vociPerElemento = typeof WeakMap === "function" ? new WeakMap() : null;
 
   // .misuracolore sono le righe delle card; .anima-numero e' l'aggancio
   // per i numeri fuori da quelle righe. In piu' si animano anche i
@@ -266,22 +265,22 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
   // "Anno" della tabella mese per mese (td.td-anno, Statistiche
   // Totali) restano esclusi: sono un anno, non una quantita', e non
   // vanno scritti con il punto delle migliaia (es. 2020, mai 2.020).
-  CA.preparaNumeri = function (radice) {
-    var selettore =
+  CA.preparaNumeri = (radice) => {
+    const selettore =
       ".misuracolore:not([data-costruito])," +
       ".anima-numero:not([data-costruito])," +
       "td:not(.td-anno):not([data-costruito])," +
       ".bici-card__spec-value:not(.bici-card__spec-value--anno):not([data-costruito])";
-    var elementi = (radice || document).querySelectorAll(selettore);
+    const elementi = (radice || document).querySelectorAll(selettore);
     if (!elementi.length) return;
 
     // Passaggio 1 — SEMPRE, subito: costruisce il markup finale.
     // Da qui in poi la card ha gia' il suo aspetto definitivo,
     // indipendentemente da scroll, IntersectionObserver o
     // preferenze di movimento.
-    var daOsservare = [];
-    elementi.forEach(function (el) {
-      var voci = costruisciNumeri(el);
+    const daOsservare = [];
+    elementi.forEach((el) => {
+      const voci = costruisciNumeri(el);
       if (!voci.length) return;
       if (vociPerElemento) vociPerElemento.set(el, voci);
       daOsservare.push(el);
@@ -295,10 +294,10 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
 
     if (!osservatoreNumeri) {
       osservatoreNumeri = new IntersectionObserver(
-        function (voci) {
-          voci.forEach(function (voce) {
+        (voci) => {
+          voci.forEach((voce) => {
             if (!voce.isIntersecting) return;
-            var elencoNumeri = vociPerElemento.get(voce.target);
+            const elencoNumeri = vociPerElemento.get(voce.target);
             if (elencoNumeri) animaConteggio(elencoNumeri);
             osservatoreNumeri.unobserve(voce.target);
           });
@@ -307,7 +306,7 @@ window.ContenutiAnimati = window.ContenutiAnimati || {};
       );
     }
 
-    daOsservare.forEach(function (el) {
+    daOsservare.forEach((el) => {
       osservatoreNumeri.observe(el);
     });
   };

@@ -7,7 +7,7 @@ import {
   TESTI_LUNGHEZZA,
 } from "./opzioni-ordine.js";
 
-export function ordine(etichetta, gruppiExtra, perLunghezza) {
+export const ordine = (etichetta, gruppiExtra, perLunghezza) => {
   const voci = [...ORDINE_BASE];
   gruppiExtra.forEach((g) => voci.push(...(ORDINE_EXTRA[g] || [])));
 
@@ -25,4 +25,4 @@ export function ordine(etichetta, gruppiExtra, perLunghezza) {
   return `<div class="classifica-ordine" role="group" aria-label="${escapeHtml(etichetta)}">
               ${pulsanti}
             </div>`;
-}
+};

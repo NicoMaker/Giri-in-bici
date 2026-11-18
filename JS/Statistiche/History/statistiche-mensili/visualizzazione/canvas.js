@@ -4,7 +4,7 @@
 // ============================================================
 
 // Crea i canvas solo se non esistono già nell'HTML della pagina
-(function () {
+(() => {
   const contenitore = document.getElementById("grafici");
   if (!contenitore) return;
   if (

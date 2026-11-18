@@ -6,10 +6,10 @@
 
 window.StoricoMensile = window.StoricoMensile || {};
 
-(function (SM) {
+((SM) => {
   "use strict";
 
-  SM.createDataset = function (yearData, yearLabel, yearColor) {
+  SM.createDataset = (yearData, yearLabel, yearColor) => {
     const data = new Array(12).fill(0);
     for (const [month, value] of Object.entries(yearData.data)) {
       const monthIndex = ConfigMesi.elenco.indexOf(month);

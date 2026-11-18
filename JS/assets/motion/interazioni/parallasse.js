@@ -13,46 +13,43 @@
 // non fa nulla, gli elementi restano fermi come sempre).
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
-
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var elementi = document.querySelectorAll("[data-parallasse]");
+  const elementi = document.querySelectorAll("[data-parallasse]");
   if (!elementi.length) return;
 
-  var lista = Array.prototype.map.call(elementi, function (el) {
-    return {
-      elemento: el,
-      velocita: parseFloat(el.dataset.parallasse) || 0.15,
-    };
-  });
+  const lista = Array.prototype.map.call(elementi, (el) => ({
+    elemento: el,
+    velocita: parseFloat(el.dataset.parallasse) || 0.15,
+  }));
 
-  var aggiornamentoRichiesto = false;
+  let aggiornamentoRichiesto = false;
 
-  function aggiorna() {
+  const aggiorna = () => {
     aggiornamentoRichiesto = false;
-    var vh = window.innerHeight;
+    const vh = window.innerHeight;
 
-    lista.forEach(function (voce) {
-      var rect = voce.elemento.getBoundingClientRect();
+    lista.forEach((voce) => {
+      const rect = voce.elemento.getBoundingClientRect();
       // Solo se e' (almeno un po') visibile: risparmia calcoli inutili
       // quando la pagina e' scrollata molto piu' in basso o in alto.
       if (rect.bottom < -200 || rect.top > vh + 200) return;
 
-      var centro = rect.top + rect.height / 2;
-      var distanzaDalCentro = centro - vh / 2;
-      var scostamento = -distanzaDalCentro * voce.velocita;
+      const centro = rect.top + rect.height / 2;
+      const distanzaDalCentro = centro - vh / 2;
+      const scostamento = -distanzaDalCentro * voce.velocita;
       voce.elemento.style.transform =
         "translateY(" + scostamento.toFixed(1) + "px)";
     });
-  }
+  };
 
-  function richiediAggiornamento() {
+  const richiediAggiornamento = () => {
     if (aggiornamentoRichiesto) return;
     aggiornamentoRichiesto = true;
     window.requestAnimationFrame(aggiorna);
-  }
+  };
 
   window.addEventListener("scroll", richiediAggiornamento, { passive: true });
   window.addEventListener("resize", richiediAggiornamento);

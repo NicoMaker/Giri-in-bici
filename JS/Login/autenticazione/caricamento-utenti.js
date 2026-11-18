@@ -7,7 +7,7 @@
 let appData = null;
 
 // Carica i dati utente
-async function loadAppData() {
+const loadAppData = async () => {
   try {
     appData = await Json.leggi("json/About_US/Users.json");
     return appData;
@@ -15,4 +15,4 @@ async function loadAppData() {
     console.error("Errore nel caricamento dei dati:", error);
     throw error;
   }
-}
+};

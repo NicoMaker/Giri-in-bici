@@ -3,7 +3,7 @@
 // Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
-function initParticlesJS() {
+const initParticlesJS = () => {
   if (window.particlesJS) {
     particlesJS("particles-js", {
       particles: {
@@ -42,4 +42,4 @@ function initParticlesJS() {
       retina_detect: true,
     });
   }
-}
+};

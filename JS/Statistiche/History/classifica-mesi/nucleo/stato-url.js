@@ -41,9 +41,8 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
-
   const VISTE = ["mesi", "record", "anni", "stagioni", "periodi", "tappe"];
 
   // Filtri a scelta multipla di ogni scheda: [id del contenitore, parametro].
@@ -66,27 +65,26 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   let pronto = false;
   let timer = null;
 
-  function gruppoDi(vista) {
-    return document.querySelector('[data-vista-gruppo="' + vista + '"]');
-  }
+  const gruppoDi = (vista) =>
+    document.querySelector('[data-vista-gruppo="' + vista + '"]');
 
-  function controlliDi(vista) {
+  const controlliDi = (vista) => {
     const gruppo = gruppoDi(vista);
     return gruppo ? gruppo.querySelector(".classifica-controlli") : null;
-  }
+  };
 
-  function vistaAttiva() {
+  const vistaAttiva = () => {
     const attivo = document.querySelector(
       "#selettore-vista .selettore-metrica__pulsante.attivo",
     );
     const vista = attivo ? attivo.dataset.vista : null;
     return VISTE.includes(vista) ? vista : vistaIniziale;
-  }
+  };
 
   const numero = (t) => /^\d+(\.\d+)?$/.test(String(t || "").trim());
 
   // ---------- Lettura: cosa c'è sullo schermo -> coppie nome/valore ----------
-  function leggi(vista) {
+  const leggi = (vista) => {
     const coppie = [["vista", vista]];
     const gruppo = gruppoDi(vista);
     if (!gruppo) return coppie;
@@ -126,16 +124,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       }
     }
     return coppie;
-  }
+  };
 
-  function costruisci(coppie) {
-    return coppie
+  const costruisci = (coppie) =>
+    coppie
       .map(
         ([nome, valore]) =>
           nome + "=" + encodeURIComponent(valore).replace(/%2C/gi, ","),
       )
       .join("&");
-  }
 
   const S = (CM.statoUrl = {});
 
@@ -153,7 +150,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // Prima che le schede si disegnino: porta nei campi comuni della
   // scheda di apertura ordine, km e testo letti dall'indirizzo.
   // (I filtri a scelta multipla li legge ogni scheda da sé.)
-  S.applicaIniziale = function () {
+  S.applicaIniziale = () => {
     const controlli = controlliDi(vistaIniziale);
     if (!controlli) return;
     const p = parametriIniziali;
@@ -180,7 +177,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   };
 
   // Riscrive l'indirizzo con lo stato di adesso.
-  S.sincronizza = function () {
+  S.sincronizza = () => {
     if (!pronto) return;
     const nuovo =
       window.location.pathname +
@@ -201,7 +198,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
   // Da chiamare a fine caricamento: da qui in poi ogni pulsante,
   // filtro o campo riscrive l'indirizzo.
-  S.avvia = function () {
+  S.avvia = () => {
     if (pronto) return;
     pronto = true;
     // Un piccolo ritardo lascia finire prima i gestori della pagina

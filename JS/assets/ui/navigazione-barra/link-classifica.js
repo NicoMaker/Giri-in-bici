@@ -21,17 +21,16 @@
 // Dipende da: js/componenti/index.js (è lui a creare le voci del menu).
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
-
-  var STAGIONI = {
+  const STAGIONI = {
     primavera: "Primavera",
     estate: "Estate",
     autunno_inverno: "Autunno - Inverno",
   };
 
-  function percorso() {
-    var p = window.location.pathname;
+  const percorso = () => {
+    let p = window.location.pathname;
     try {
       p = decodeURIComponent(p);
     } catch (e) {
@@ -44,26 +43,19 @@
     if (p.length > 1 && p.charAt(p.length - 1) === "/") p = p.slice(0, -1);
     if (!/\.[a-z0-9]+$/.test(p)) p += ".html";
     return p;
-  }
+  };
 
-  function codifica(v) {
-    return encodeURIComponent(v).replace(/%2C/gi, ",");
-  }
+  const codifica = (v) => encodeURIComponent(v).replace(/%2C/gi, ",");
 
-  function query(coppie) {
-    return coppie
-      .map(function (c) {
-        return c[0] + "=" + codifica(c[1]);
-      })
-      .join("&");
-  }
+  const query = (coppie) =>
+    coppie.map((c) => c[0] + "=" + codifica(c[1])).join("&");
 
   // Cosa mostrare nella Classifica, a partire dalla pagina attuale.
   // Restituisce la query string (senza "?"), oppure null se siamo già
   // nella Classifica (in quel caso l'indirizzo vero è quello in barra).
-  function queryPerPaginaAttuale() {
-    var p = percorso();
-    var m;
+  const queryPerPaginaAttuale = () => {
+    const p = percorso();
+    let m;
 
     if (/\/classificamesi\.html$/.test(p)) return null;
 
@@ -109,27 +101,27 @@
       ]);
 
     return query([["vista", "mesi"]]);
-  }
+  };
 
-  function aggiorna() {
-    var link = document.querySelectorAll("a[data-classifica]");
+  const aggiorna = () => {
+    const link = document.querySelectorAll("a[data-classifica]");
     if (!link.length) return;
-    var q = queryPerPaginaAttuale();
+    const q = queryPerPaginaAttuale();
 
-    link.forEach(function (a) {
-      var base = (a.getAttribute("href") || "").split("?")[0];
+    link.forEach((a) => {
+      const base = (a.getAttribute("href") || "").split("?")[0];
       // Nella Classifica stessa: l'indirizzo è quello attuale.
-      var coda = q === null ? window.location.search.replace(/^\?/, "") : q;
+      const coda = q === null ? window.location.search.replace(/^\?/, "") : q;
       a.setAttribute("href", coda ? base + "?" + coda : base);
     });
-  }
+  };
 
-  function avvia() {
+  const avvia = () => {
     aggiorna();
     // La pagina Classifica riscrive il proprio indirizzo a ogni
     // pulsante/filtro: l'icona lo segue (evento lanciato da stato-url.js).
     window.addEventListener("classifica:url", aggiorna);
-  }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", avvia);

@@ -13,7 +13,7 @@
 // vuoi, rimuovi il blocco "e' locale?" qui sotto.
 // ============================================================
 
-(function () {
+(() => {
   const DOMINIO_UFFICIALE = "https://giri-in-bici.netlify.app";
 
   const origineAttuale = window.location.origin;

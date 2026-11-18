@@ -3,7 +3,7 @@
 // Richiamato da Statistiche/Js/anni.js
 // ============================================================
 
-function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
+const renderSummary = (totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) => {
   const mesiCount =
     document.getElementById("mesi")?.querySelectorAll("tr").length - 1 || 0;
 
@@ -21,4 +21,4 @@ function renderSummary(totale, kmMediPerCorsa, kmMediPerMese, totaleCorse) {
       <p class="misuracolore">Medie corse per mese ${mediaCorsePerMese}</p>
     </div>
   `;
-}
+};

@@ -30,9 +30,8 @@
 
 window.DatiGiri = window.DatiGiri || {};
 
-(function (D) {
+((D) => {
   "use strict";
-
   D.MESI = [
     "Gennaio",
     "Febbraio",
@@ -51,43 +50,39 @@ window.DatiGiri = window.DatiGiri || {};
   // Nei file Autunno-Inverno (es. "2024-2025.json") i mesi
   // Gennaio-Aprile appartengono al secondo anno della coppia, gli
   // altri (Ottobre-Dicembre) al primo.
-  var MESI_SECONDO_ANNO = ["Gennaio", "Febbraio", "Marzo", "Aprile"];
+  const MESI_SECONDO_ANNO = ["Gennaio", "Febbraio", "Marzo", "Aprile"];
 
   // Primo anno coperto dal diario. Serve per calcolare gli anni
   // "reali" del diario in aggiunta a quelli dichiarati in
   // Storico.json (rete di sicurezza: se Storico.json resta
   // indietro, i file nuovi vengono letti lo stesso).
-  var PRIMO_ANNO = 2020;
+  const PRIMO_ANNO = 2020;
 
-  D.primavera = function (anno) {
-    return {
-      stagione: "Primavera",
-      url: "json/Primavera/Periodi/" + anno + ".json",
-    };
-  };
+  D.primavera = (anno) => ({
+    stagione: "Primavera",
+    url: "json/Primavera/Periodi/" + anno + ".json",
+  });
 
-  D.estate = function (anno) {
-    return {
-      stagione: "Estate",
-      url: "json/Estate/Periodi/" + anno + ".json",
-    };
-  };
+  D.estate = (anno) => ({
+    stagione: "Estate",
+    url: "json/Estate/Periodi/" + anno + ".json",
+  });
 
-  D.autunnoInverno = function (annoInizio, annoFine) {
-    return {
-      stagione: "Autunno - Inverno",
-      url:
-        "json/Autunno_Inverno/Periodi/" + annoInizio + "-" + annoFine + ".json",
-      annoInizio: annoInizio,
-      annoFine: annoFine,
-    };
-  };
+  D.autunnoInverno = (annoInizio, annoFine) => ({
+    stagione: "Autunno - Inverno",
+
+    url:
+      "json/Autunno_Inverno/Periodi/" + annoInizio + "-" + annoFine + ".json",
+
+    annoInizio: annoInizio,
+    annoFine: annoFine,
+  });
 
   // Candidati per una data precisa: i confini fra una stagione e
   // l'altra si spostano di anno in anno nei dati reali (l'Estate puo'
   // iniziare a fine Maggio, l'Autunno-Inverno arrivare fino a inizio
   // Aprile), quindi nei mesi di confine si controlla piu' di un file.
-  D.candidatiPerData = function (meseIndice, anno) {
+  D.candidatiPerData = (meseIndice, anno) => {
     switch (meseIndice) {
       case 0: // Gennaio
       case 1: // Febbraio
@@ -116,46 +111,44 @@ window.DatiGiri = window.DatiGiri || {};
   // quello che dice Storico.json: dal primo anno del sito fino
   // all'anno corrente piu' uno (perche' l'Autunno-Inverno di
   // quest'anno vive nel file "anno-(anno+1).json").
-  function anniDalDiario() {
-    var annoCorrente = new Date().getFullYear();
-    var anni = [];
-    for (var a = PRIMO_ANNO; a <= annoCorrente + 1; a++) {
+  const anniDalDiario = () => {
+    const annoCorrente = new Date().getFullYear();
+    const anni = [];
+    for (let a = PRIMO_ANNO; a <= annoCorrente + 1; a++) {
       anni.push(a);
     }
     return anni;
-  }
+  };
 
   // Tutti i file di periodo del sito: serve alla ricerca per posto,
   // che non e' legata a una data e deve guardare ovunque. Unisce
   // gli anni dichiarati in Storico.json con quelli calcolati dal
   // diario: se Storico.json e' indietro (o non si carica), i file
   // nuovi vengono letti lo stesso.
-  D.tuttiICandidati = async function () {
-    var storico = await window.Json.leggiOppureNull(
+  D.tuttiICandidati = async () => {
+    const storico = await window.Json.leggiOppureNull(
       "json/Statistiche/History/Storico.json",
     );
 
-    var insiemeAnni = {};
+    const insiemeAnni = {};
 
     if (storico && storico.anni) {
-      Object.keys(storico.anni).forEach(function (chiave) {
-        var anno = Number(chiave);
+      Object.keys(storico.anni).forEach((chiave) => {
+        const anno = Number(chiave);
         if (!Number.isNaN(anno) && anno > 0) insiemeAnni[anno] = true;
       });
     }
 
-    anniDalDiario().forEach(function (anno) {
+    anniDalDiario().forEach((anno) => {
       insiemeAnni[anno] = true;
     });
 
-    var anni = Object.keys(insiemeAnni)
+    const anni = Object.keys(insiemeAnni)
       .map(Number)
-      .sort(function (a, b) {
-        return a - b;
-      });
+      .sort((a, b) => a - b);
 
-    var candidati = [];
-    anni.forEach(function (anno) {
+    const candidati = [];
+    anni.forEach((anno) => {
       candidati.push(D.primavera(anno));
       candidati.push(D.estate(anno));
       candidati.push(D.autunnoInverno(anno, anno + 1));
@@ -163,10 +156,10 @@ window.DatiGiri = window.DatiGiri || {};
     return candidati;
   };
 
-  function annoDaUrl(url) {
-    var trovato = url.match(/(\d{4})\.json$/);
+  const annoDaUrl = (url) => {
+    const trovato = url.match(/(\d{4})\.json$/);
     return trovato ? parseInt(trovato[1], 10) : 0;
-  }
+  };
 
   // Etichetta di stagione con l'anno (o gli anni) giusti.
   //   Primavera 2025
@@ -176,19 +169,19 @@ window.DatiGiri = window.DatiGiri || {};
   // altrimenti "Autunno-Inverno" da solo non dice a quale inverno
   // si riferisce (il file ne copre due: Ott-Dic del primo, Gen-Apr
   // del secondo).
-  function etichettaStagione(candidato) {
+  const etichettaStagione = (candidato) => {
     if (candidato.stagione === "Autunno - Inverno") {
       return (
         "Autunno-Inverno " + candidato.annoInizio + "-" + candidato.annoFine
       );
     }
     return candidato.stagione + " " + annoDaUrl(candidato.url);
-  }
+  };
 
   // Estrae solo il testo da un campo "place", che puo' contenere un
   // link <a>, per confronti e ordinamenti.
-  D.testoPosto = function (html) {
-    var contenitore = document.createElement("div");
+  D.testoPosto = (html) => {
+    const contenitore = document.createElement("div");
     contenitore.innerHTML = html;
     return (contenitore.textContent || contenitore.innerText || "").trim();
   };
@@ -196,24 +189,22 @@ window.DatiGiri = window.DatiGiri || {};
   // Legge una lista di candidati e restituisce tutte le uscite
   // trovate, ciascuna arricchita con stagione, anno vero, chiave
   // numerica per ordinare per data e testo semplice del posto.
-  D.leggiUscite = async function (candidati) {
-    var risposte = await Promise.all(
-      candidati.map(function (c) {
-        return window.Json.leggiOppureNull(c.url);
-      }),
+  D.leggiUscite = async (candidati) => {
+    const risposte = await Promise.all(
+      candidati.map((c) => window.Json.leggiOppureNull(c.url)),
     );
 
-    var uscite = [];
-    risposte.forEach(function (dati, indice) {
+    const uscite = [];
+    risposte.forEach((dati, indice) => {
       if (!dati) return;
-      var candidato = candidati[indice];
+      const candidato = candidati[indice];
 
-      dati.forEach(function (giro) {
-        var parti = giro.date.split(" ");
-        var giorno = parseInt(parti[0], 10);
-        var mese = parti[1];
-        var meseIndice = D.MESI.indexOf(mese);
-        var anno =
+      dati.forEach((giro) => {
+        const parti = giro.date.split(" ");
+        const giorno = parseInt(parti[0], 10);
+        const mese = parti[1];
+        const meseIndice = D.MESI.indexOf(mese);
+        const anno =
           candidato.stagione === "Autunno - Inverno"
             ? MESI_SECONDO_ANNO.indexOf(mese) !== -1
               ? candidato.annoFine
@@ -237,63 +228,47 @@ window.DatiGiri = window.DatiGiri || {};
     return uscite;
   };
 
-  function perData(a, b) {
-    return a.chiaveData - b.chiaveData;
-  }
+  const perData = (a, b) => a.chiaveData - b.chiaveData;
 
-  function perAlfabeto(a, b) {
-    return a.postoTesto.localeCompare(b.postoTesto, "it", {
+  const perAlfabeto = (a, b) =>
+    a.postoTesto.localeCompare(b.postoTesto, "it", {
       sensitivity: "base",
     });
-  }
 
   // Confronto senza badare ad accenti/maiuscole, cosi' "citta" trova
   // anche "Città". Condivisa fra il filtro testo della ricerca per
   // data e la ricerca per posto.
-  D.normalizza = function (testo) {
-    return testo
+  D.normalizza = (testo) =>
+    testo
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLocaleLowerCase("it");
-  };
 
   // Ordina un elenco di uscite secondo uno dei 6 criteri dei bottoni
   // "Ordina per" (condiviso fra ricerca per data e ricerca per
   // posto). A parita' di km o di posto, decide sempre la data.
-  D.ordina = function (uscite, criterio) {
-    var copia = uscite.slice();
+  D.ordina = (uscite, criterio) => {
+    const copia = uscite.slice();
 
     switch (criterio) {
       case "data-vecchio":
-        copia.sort(function (a, b) {
-          return perData(a, b) || perAlfabeto(a, b);
-        });
+        copia.sort((a, b) => perData(a, b) || perAlfabeto(a, b));
         break;
       case "data-recente":
-        copia.sort(function (a, b) {
-          return perData(b, a) || perAlfabeto(a, b);
-        });
+        copia.sort((a, b) => perData(b, a) || perAlfabeto(a, b));
         break;
       case "distanza-lungo":
-        copia.sort(function (a, b) {
-          return b.distanza - a.distanza || perData(a, b);
-        });
+        copia.sort((a, b) => b.distanza - a.distanza || perData(a, b));
         break;
       case "distanza-corto":
-        copia.sort(function (a, b) {
-          return a.distanza - b.distanza || perData(a, b);
-        });
+        copia.sort((a, b) => a.distanza - b.distanza || perData(a, b));
         break;
       case "alfabetico-desc":
-        copia.sort(function (a, b) {
-          return perAlfabeto(b, a) || perData(a, b);
-        });
+        copia.sort((a, b) => perAlfabeto(b, a) || perData(a, b));
         break;
       case "alfabetico":
       default:
-        copia.sort(function (a, b) {
-          return perAlfabeto(a, b) || perData(a, b);
-        });
+        copia.sort((a, b) => perAlfabeto(a, b) || perData(a, b));
         break;
     }
 
@@ -304,24 +279,22 @@ window.DatiGiri = window.DatiGiri || {};
   // "attivo" alla volta) e richiama "alCambio" col nuovo criterio a
   // ogni click. Restituisce un oggetto con "leggi()" per sapere in
   // ogni momento il criterio attualmente scelto.
-  D.inizializzaBottoniOrdine = function (idGruppo, alCambio) {
-    var gruppo = document.getElementById(idGruppo);
+  D.inizializzaBottoniOrdine = (idGruppo, alCambio) => {
+    const gruppo = document.getElementById(idGruppo);
     if (!gruppo)
       return {
-        leggi: function () {
-          return "alfabetico";
-        },
+        leggi: () => "alfabetico",
       };
 
-    var bottoni = gruppo.querySelectorAll(".criterio-ordine__pulsante");
-    var criterioAttuale = "alfabetico";
+    const bottoni = gruppo.querySelectorAll(".criterio-ordine__pulsante");
+    let criterioAttuale = "alfabetico";
 
-    bottoni.forEach(function (bottone) {
+    bottoni.forEach((bottone) => {
       if (bottone.classList.contains("attivo")) {
         criterioAttuale = bottone.getAttribute("data-criterio") || "alfabetico";
       }
-      bottone.addEventListener("click", function () {
-        bottoni.forEach(function (b) {
+      bottone.addEventListener("click", () => {
+        bottoni.forEach((b) => {
           b.classList.remove("attivo");
           b.setAttribute("aria-pressed", "false");
         });
@@ -333,9 +306,7 @@ window.DatiGiri = window.DatiGiri || {};
     });
 
     return {
-      leggi: function () {
-        return criterioAttuale;
-      },
+      leggi: () => criterioAttuale,
     };
   };
 
@@ -347,15 +318,13 @@ window.DatiGiri = window.DatiGiri || {};
   // riconoscere il link dentro "place" (compreso il caso andata/
   // ritorno con due link separati) — se quello script non e' in
   // pagina, il posto resta comunque leggibile ma non cliccabile.
-  D.elencoRisultati = function (uscite) {
-    var T = window.TappePiuLunghe;
-    var totaleKm = uscite.reduce(function (somma, u) {
-      return somma + u.distanza;
-    }, 0);
+  D.elencoRisultati = (uscite) => {
+    const T = window.TappePiuLunghe;
+    const totaleKm = uscite.reduce((somma, u) => somma + u.distanza, 0);
 
-    var righe = uscite
-      .map(function (u, indice) {
-        var info = T
+    const righe = uscite
+      .map((u, indice) => {
+        const info = T
           ? T.analizzaLuogo(u.postoHtml)
           : {
               nome: u.postoHtml,
@@ -363,15 +332,15 @@ window.DatiGiri = window.DatiGiri || {};
               href: null,
               linkMultipli: null,
             };
-        var linkMultipli =
+        const linkMultipli =
           T && info.linkMultipli ? T.creaLinkMultipli(info.linkMultipli) : "";
 
         // Sotto il nome del posto: data + anno, poi la stagione
         // completa dell'anno giusto ("Primavera 2025",
         // "Autunno-Inverno 2024-2025").
-        var stagioneMostrata = u.stagioneCompleta || u.stagione;
+        const stagioneMostrata = u.stagioneCompleta || u.stagione;
 
-        var dentro =
+        const dentro =
           '<span class="risultato-riga__posizione">' +
           (indice + 1) +
           "</span>" +
@@ -388,16 +357,16 @@ window.DatiGiri = window.DatiGiri || {};
           window.formatNumber(u.distanza) +
           " km</span>";
 
-        var classi =
+        const classi =
           "risultato-riga" + (info.href ? " risultato-riga--cliccabile" : "");
         // Tipo di stagione per colorare la riga (verde/arancione/blu).
-        var tipo =
+        const tipo =
           u.stagione === "Primavera"
             ? "primavera"
             : u.stagione === "Estate"
               ? "estate"
               : "autunno-inverno";
-        var attrTipo = ' data-stagione="' + tipo + '"';
+        const attrTipo = ' data-stagione="' + tipo + '"';
 
         return info.href
           ? '<li class="' +
@@ -417,7 +386,7 @@ window.DatiGiri = window.DatiGiri || {};
       })
       .join("");
 
-    var riepilogo =
+    const riepilogo =
       uscite.length > 1
         ? '<p class="hero-sub">' +
           uscite.length +

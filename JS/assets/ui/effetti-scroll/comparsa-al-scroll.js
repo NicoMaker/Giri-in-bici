@@ -5,24 +5,23 @@
 // Nessuna dipendenza.
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
-
-  function rivelaAlloScroll() {
-    var blocchi = document.querySelectorAll(".reveal");
+  const rivelaAlloScroll = () => {
+    const blocchi = document.querySelectorAll(".reveal");
     if (!blocchi.length) return;
 
-    var motoRidotto = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motoRidotto = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (motoRidotto.matches || !("IntersectionObserver" in window)) {
-      blocchi.forEach(function (el) {
+      blocchi.forEach((el) => {
         el.classList.add("is-visible");
       });
       return;
     }
 
-    var osservatore = new IntersectionObserver(
-      function (voci) {
-        voci.forEach(function (voce) {
+    const osservatore = new IntersectionObserver(
+      (voci) => {
+        voci.forEach((voce) => {
           if (voce.isIntersecting) {
             voce.target.classList.add("is-visible");
             osservatore.unobserve(voce.target);
@@ -32,17 +31,17 @@
       { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
 
-    blocchi.forEach(function (el) {
+    blocchi.forEach((el) => {
       osservatore.observe(el);
     });
 
     // Rete di sicurezza: nulla resta invisibile se qualcosa va storto
-    setTimeout(function () {
-      blocchi.forEach(function (el) {
+    setTimeout(() => {
+      blocchi.forEach((el) => {
         el.classList.add("is-visible");
       });
     }, 3000);
-  }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", rivelaAlloScroll);

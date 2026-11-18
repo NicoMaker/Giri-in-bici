@@ -4,7 +4,7 @@
 // ============================================================
 
 // Cookie banner
-function initCookieBanner() {
+const initCookieBanner = () => {
   const cookieBanner = document.getElementById("cookie-banner"),
     acceptButton = document.getElementById("accept-cookies"),
     revokeButton = document.getElementById("revoke-cookies");
@@ -16,12 +16,12 @@ function initCookieBanner() {
 
   acceptButton.addEventListener("click", acceptCookies);
   revokeButton.addEventListener("click", revokeCookies);
-}
+};
 
 const hasAcceptedCookies = () =>
   localStorage.getItem("cookieAccepted") === "true";
 
-function acceptCookies() {
+const acceptCookies = () => {
   localStorage.setItem("cookieAccepted", "true");
   const cookieBanner = document.getElementById("cookie-banner");
   cookieBanner.style.animation = "slideOut 0.5s forwards";
@@ -29,9 +29,9 @@ function acceptCookies() {
     hideElement(cookieBanner);
     showElement(document.getElementById("revoke-cookies"));
   }, 500);
-}
+};
 
-function revokeCookies() {
+const revokeCookies = () => {
   localStorage.removeItem("cookieAccepted");
   showElement(document.getElementById("cookie-banner"));
   hideElement(document.getElementById("revoke-cookies"));
@@ -39,7 +39,7 @@ function revokeCookies() {
   cookieBanner.style.animation = "none";
   void cookieBanner.offsetWidth;
   cookieBanner.style.animation = "slideIn 0.5s forwards";
-}
+};
 
 document.head.insertAdjacentHTML(
   "beforeend",

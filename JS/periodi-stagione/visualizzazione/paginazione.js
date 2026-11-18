@@ -3,7 +3,7 @@
 // Richiamato da JS/periodi_stagione.js
 // ============================================================
 
-function renderDataListPaginated(
+const renderDataListPaginated = (
   labels,
   data,
   path,
@@ -11,13 +11,13 @@ function renderDataListPaginated(
   season,
   cssclass,
   avgValues,
-) {
+) => {
   const itemsPerPage = 1;
   const storageKey = `page_${season}`;
   let currentPage = parseInt(localStorage.getItem(storageKey)) || 1;
   const totalPages = Math.ceil(labels.length / itemsPerPage);
 
-  function updatePage() {
+  const updatePage = () => {
     localStorage.setItem(storageKey, currentPage);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -67,14 +67,14 @@ function renderDataListPaginated(
         updatePage();
       });
     }
-  }
+  };
 
   if (currentPage > totalPages) {
     currentPage = 1;
     localStorage.setItem(storageKey, currentPage);
   }
   updatePage();
-}
+};
 
 const renderDataList = (
   labels,

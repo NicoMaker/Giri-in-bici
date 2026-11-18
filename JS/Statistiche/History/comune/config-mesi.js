@@ -13,7 +13,7 @@
 
 window.ConfigMesi = window.ConfigMesi || {};
 
-(function (C) {
+((C) => {
   "use strict";
 
   // Usato se il file di configurazione non si carica
@@ -36,7 +36,7 @@ window.ConfigMesi = window.ConfigMesi || {};
   C.elenco = [];
   C.coloriMesi = {};
 
-  C.carica = async function () {
+  C.carica = async () => {
     try {
       const config = await Json.leggi(
         "json/Statistiche/History/config-mesi.json",

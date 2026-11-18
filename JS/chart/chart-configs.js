@@ -21,7 +21,7 @@ const ChartConfigs = {
         },
         tooltip: {
           callbacks: {
-            label: function (context) {
+            label: (context) => {
               const label = context.label || "";
               const value = context.raw || 0;
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
@@ -49,7 +49,7 @@ const ChartConfigs = {
       plugins: {
         tooltip: {
           callbacks: {
-            label: function (context) {
+            label: (context) => {
               const km = formatItalianNumber(context.raw);
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
               const pct =
@@ -79,7 +79,7 @@ const ChartConfigs = {
       plugins: {
         tooltip: {
           callbacks: {
-            label: function (context) {
+            label: (context) => {
               const km = formatItalianNumber(context.raw);
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
               const pct =

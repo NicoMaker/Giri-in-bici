@@ -16,59 +16,58 @@
 // formatNumber): vanno inclusi prima di questo file.
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
+  let ultimiRisultati = null;
+  let bottoniOrdine = null;
 
-  var ultimiRisultati = null;
-  var bottoniOrdine = null;
-
-  function nuovaRigaPosto() {
-    var riga = document.createElement("div");
+  const nuovaRigaPosto = () => {
+    const riga = document.createElement("div");
     riga.className = "riga-data-input";
 
-    var input = document.createElement("input");
+    const input = document.createElement("input");
     input.type = "text";
     input.setAttribute("aria-label", "Posto aggiuntivo");
     input.placeholder = "Es. Gemona, Lignano\u2026";
 
-    var rimuovi = document.createElement("button");
+    const rimuovi = document.createElement("button");
     rimuovi.type = "button";
     rimuovi.className = "rimuovi-data";
     rimuovi.setAttribute("aria-label", "Rimuovi questo posto");
     rimuovi.textContent = "×";
-    rimuovi.addEventListener("click", function () {
+    rimuovi.addEventListener("click", () => {
       riga.remove();
     });
 
     riga.appendChild(input);
     riga.appendChild(rimuovi);
     return riga;
-  }
+  };
 
-  function raccogliPosti() {
-    var input = document.querySelectorAll(
+  const raccogliPosti = () => {
+    const input = document.querySelectorAll(
       '#contenitorePosti input[type="text"]',
     );
-    var valori = [];
-    input.forEach(function (el) {
-      var v = el.value.trim();
+    const valori = [];
+    input.forEach((el) => {
+      const v = el.value.trim();
       if (v) valori.push(v);
     });
     return valori;
-  }
+  };
 
-  function mostraOrdinati() {
-    var contenitore = document.getElementById("risultatiCercaPosto");
+  const mostraOrdinati = () => {
+    const contenitore = document.getElementById("risultatiCercaPosto");
     if (!contenitore || !ultimiRisultati) return;
-    var criterio = bottoniOrdine ? bottoniOrdine.leggi() : "alfabetico";
+    const criterio = bottoniOrdine ? bottoniOrdine.leggi() : "alfabetico";
     contenitore.innerHTML = window.DatiGiri.elencoRisultati(
       window.DatiGiri.ordina(ultimiRisultati, criterio),
     );
-  }
+  };
 
-  async function cercaPosto(valori) {
-    var contenitore = document.getElementById("risultatiCercaPosto");
-    var messaggio = document.getElementById("messaggioCercaPosto");
+  const cercaPosto = async (valori) => {
+    const contenitore = document.getElementById("risultatiCercaPosto");
+    const messaggio = document.getElementById("messaggioCercaPosto");
     if (!contenitore || !messaggio) return;
 
     contenitore.innerHTML = "";
@@ -83,18 +82,14 @@
     messaggio.textContent = "Ricerca in corso...";
     messaggio.hidden = false;
 
-    var candidati = await window.DatiGiri.tuttiICandidati();
-    var tutteLeUscite = await window.DatiGiri.leggiUscite(candidati);
+    const candidati = await window.DatiGiri.tuttiICandidati();
+    const tutteLeUscite = await window.DatiGiri.leggiUscite(candidati);
 
-    var queryNormalizzate = valori.map(function (v) {
-      return window.DatiGiri.normalizza(v);
-    });
+    const queryNormalizzate = valori.map((v) => window.DatiGiri.normalizza(v));
 
-    var risultati = tutteLeUscite.filter(function (u) {
-      var postoNormalizzato = window.DatiGiri.normalizza(u.postoTesto);
-      return queryNormalizzate.some(function (q) {
-        return postoNormalizzato.indexOf(q) !== -1;
-      });
+    const risultati = tutteLeUscite.filter((u) => {
+      const postoNormalizzato = window.DatiGiri.normalizza(u.postoTesto);
+      return queryNormalizzate.some((q) => postoNormalizzato.indexOf(q) !== -1);
     });
 
     if (risultati.length === 0) {
@@ -109,17 +104,17 @@
     messaggio.hidden = true;
     ultimiRisultati = risultati;
     mostraOrdinati();
-  }
+  };
 
-  function inizializza() {
-    var form = document.getElementById("formCercaPosto");
-    var input = document.getElementById("postoGiro");
-    var contenitorePosti = document.getElementById("contenitorePosti");
-    var bottoneAggiungi = document.getElementById("aggiungiPosto");
+  const inizializza = () => {
+    const form = document.getElementById("formCercaPosto");
+    const input = document.getElementById("postoGiro");
+    const contenitorePosti = document.getElementById("contenitorePosti");
+    const bottoneAggiungi = document.getElementById("aggiungiPosto");
     if (!form || !input) return;
 
     if (bottoneAggiungi && contenitorePosti) {
-      bottoneAggiungi.addEventListener("click", function () {
+      bottoneAggiungi.addEventListener("click", () => {
         contenitorePosti.appendChild(nuovaRigaPosto());
       });
     }
@@ -129,11 +124,11 @@
       mostraOrdinati,
     );
 
-    form.addEventListener("submit", function (evento) {
+    form.addEventListener("submit", (evento) => {
       evento.preventDefault();
       cercaPosto(raccogliPosti());
     });
-  }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", inizializza);

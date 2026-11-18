@@ -2,6 +2,5 @@
 
 const SOSTITUZIONI = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
 
-export function escapeHtml(testo) {
-  return String(testo).replace(/[&<>"]/g, (c) => SOSTITUZIONI[c]);
-}
+export const escapeHtml = (testo) =>
+  String(testo).replace(/[&<>"]/g, (c) => SOSTITUZIONI[c]);

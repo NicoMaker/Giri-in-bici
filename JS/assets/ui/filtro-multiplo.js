@@ -70,52 +70,47 @@
 
 window.FiltroMultiplo = window.FiltroMultiplo || {};
 
-(function (FM) {
+((FM) => {
   "use strict";
-
-  var contatoreId = 0;
+  let contatoreId = 0;
 
   // Registro dei filtri creati, per contenitore: serve a chi deve solo
   // LEGGERE cosa è scelto senza averne creato il filtro (es. la pagina
   // Classifica, che scrive le scelte nell'indirizzo: stato-url.js).
   //   FiltroMultiplo.istanza(document.getElementById("..."))
   //     -> lo stesso oggetto restituito da crea(), oppure null.
-  var istanze = typeof WeakMap === "function" ? new WeakMap() : null;
-  FM.istanza = function (contenitore) {
-    return (istanze && contenitore && istanze.get(contenitore)) || null;
-  };
+  const istanze = typeof WeakMap === "function" ? new WeakMap() : null;
+  FM.istanza = (contenitore) =>
+    (istanze && contenitore && istanze.get(contenitore)) || null;
 
   // Toglie accenti e maiuscole e trasforma ogni sequenza di caratteri
   // che non sono lettere/numeri in uno spazio: "Autunno·Inverno",
   // "autunno inverno" e "AUTUNNO-INVERNO" diventano tutti uguali.
-  function normalizza(testo) {
-    return String(testo == null ? "" : testo)
+  const normalizza = (testo) =>
+    String(testo == null ? "" : testo)
       .normalize("NFD")
       .replace(/[̀-ͯ]/g, "")
       .toLowerCase()
       .replace(/[^\p{L}\p{N}]+/gu, " ")
       .trim();
-  }
 
-  function escapeHtml(testo) {
-    return String(testo)
+  const escapeHtml = (testo) =>
+    String(testo)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
-  }
 
   // Su telefono/tablet NON si porta subito il cursore nel campo di
   // ricerca all'apertura: farebbe saltare fuori la tastiera e
   // coprirebbe la lista. Su computer sì, si scrive subito.
-  function puntatorePreciso() {
-    return !!(
+  const puntatorePreciso = () =>
+    !!(
       window.matchMedia &&
       window.matchMedia("(hover: hover) and (pointer: fine)").matches
     );
-  }
 
-  FM.crea = function (contenitore, opzioni) {
+  FM.crea = (contenitore, opzioni) => {
     opzioni = opzioni || {};
 
     if (!contenitore) {
@@ -123,29 +118,23 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       // del sito (vedi ClassificaControlli.crea): chi chiama non deve
       // controllare ogni volta se il contenitore esiste davvero.
       return {
-        imposta: function () {},
-        selezionati: function () {
-          return [];
-        },
-        totale: function () {
-          return 0;
-        },
-        azzera: function () {},
-        selezionaTutte: function () {},
+        imposta: () => {},
+        selezionati: () => [],
+        totale: () => 0,
+        azzera: () => {},
+        selezionaTutte: () => {},
       };
     }
 
-    var etichetta = opzioni.etichetta || "";
-    var testoVuoto = opzioni.tutte || "Tutte";
-    var onCambia =
-      typeof opzioni.onCambia === "function"
-        ? opzioni.onCambia
-        : function () {};
+    const etichetta = opzioni.etichetta || "";
+    const testoVuoto = opzioni.tutte || "Tutte";
+    const onCambia =
+      typeof opzioni.onCambia === "function" ? opzioni.onCambia : () => {};
 
-    var idPannello = "filtro-multiplo-pannello-" + ++contatoreId;
-    var voci = []; // [{ value, label, checked }]
-    var testoRicerca = "";
-    var aperto = false;
+    const idPannello = "filtro-multiplo-pannello-" + ++contatoreId;
+    let voci = []; // [{ value, label, checked }]
+    let testoRicerca = "";
+    let aperto = false;
 
     contenitore.classList.add("filtro-multiplo");
     contenitore.innerHTML =
@@ -180,84 +169,74 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       '<ul class="filtro-multiplo__lista"></ul>' +
       "</div>";
 
-    var bottone = contenitore.querySelector(".filtro-multiplo__pulsante");
-    var valoreEl = contenitore.querySelector(".filtro-multiplo__valore");
-    var pannello = contenitore.querySelector(".filtro-multiplo__pannello");
-    var campoCerca = contenitore.querySelector(".filtro-multiplo__cerca");
-    var bottoneTutte = contenitore.querySelector('[data-azione="tutte"]');
-    var bottoneNessuna = contenitore.querySelector('[data-azione="nessuna"]');
-    var suggerimentoEl = contenitore.querySelector(
+    const bottone = contenitore.querySelector(".filtro-multiplo__pulsante");
+    const valoreEl = contenitore.querySelector(".filtro-multiplo__valore");
+    const pannello = contenitore.querySelector(".filtro-multiplo__pannello");
+    const campoCerca = contenitore.querySelector(".filtro-multiplo__cerca");
+    const bottoneTutte = contenitore.querySelector('[data-azione="tutte"]');
+    const bottoneNessuna = contenitore.querySelector('[data-azione="nessuna"]');
+    const suggerimentoEl = contenitore.querySelector(
       ".filtro-multiplo__suggerimento",
     );
-    var listaEl = contenitore.querySelector(".filtro-multiplo__lista");
+    const listaEl = contenitore.querySelector(".filtro-multiplo__lista");
 
     // Chiama onCambia tenendo ferma la pagina: se podio/classifica
     // cambiano altezza, il filtro resta nello stesso punto dello
     // schermo (nessun salto). Vale per OGNI menu a tendina del sito.
-    function notificaCambio() {
-      var prima = contenitore.getBoundingClientRect().top;
+    const notificaCambio = () => {
+      const prima = contenitore.getBoundingClientRect().top;
       onCambia(selezionati());
-      var differenza = contenitore.getBoundingClientRect().top - prima;
+      const differenza = contenitore.getBoundingClientRect().top - prima;
       if (differenza) window.scrollBy(0, differenza);
-    }
+    };
 
     function selezionati() {
-      return voci
-        .filter(function (v) {
-          return v.checked;
-        })
-        .map(function (v) {
-          return v.value;
-        });
+      return voci.filter((v) => v.checked).map((v) => v.value);
     }
 
-    function ricercaAttiva() {
-      return normalizza(testoRicerca) !== "";
-    }
+    const ricercaAttiva = () => normalizza(testoRicerca) !== "";
 
     // Indici (dentro "voci") delle voci che corrispondono alla ricerca:
     // tutte se il campo è vuoto. Ogni parola scritta deve comparire
     // nella voce, in qualunque ordine.
-    function indiciVisibili() {
-      var parole = normalizza(testoRicerca).split(" ").filter(Boolean);
-      var risultato = [];
-      voci.forEach(function (v, i) {
+    const indiciVisibili = () => {
+      const parole = normalizza(testoRicerca).split(" ").filter(Boolean);
+      const risultato = [];
+      voci.forEach((v, i) => {
         if (!parole.length) {
           risultato.push(i);
           return;
         }
-        var testoVoce = normalizza(v.label);
-        var tutteTrovate = parole.every(function (parola) {
-          return testoVoce.indexOf(parola) !== -1;
-        });
+        const testoVoce = normalizza(v.label);
+        const tutteTrovate = parole.every(
+          (parola) => testoVoce.indexOf(parola) !== -1,
+        );
         if (tutteTrovate) risultato.push(i);
       });
       return risultato;
-    }
+    };
 
     // Lascia selezionate SOLO le voci indicate. Restituisce true se
     // la selezione è davvero cambiata (per non ridisegnare la pagina
     // a vuoto a ogni lettera digitata).
-    function selezionaSoloQueste(indici) {
-      var scelti = {};
-      indici.forEach(function (i) {
+    const selezionaSoloQueste = (indici) => {
+      const scelti = {};
+      indici.forEach((i) => {
         scelti[i] = true;
       });
-      var cambiato = false;
-      voci.forEach(function (v, i) {
-        var nuovo = !!scelti[i];
+      let cambiato = false;
+      voci.forEach((v, i) => {
+        const nuovo = !!scelti[i];
         if (v.checked !== nuovo) {
           v.checked = nuovo;
           cambiato = true;
         }
       });
       return cambiato;
-    }
+    };
 
-    function aggiornaTesto() {
-      var attivi = voci.filter(function (v) {
-        return v.checked;
-      });
+    const aggiornaTesto = () => {
+      const attivi = voci.filter((v) => v.checked);
       if (!attivi.length) {
         valoreEl.textContent = testoVuoto;
       } else if (attivi.length === 1) {
@@ -270,36 +249,31 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
         attivi.length > 0,
       );
       bottone.disabled = voci.length === 0;
-    }
+    };
 
     // "Seleziona tutte"/"Deseleziona tutto" si accendono e si
     // spengono da soli in base a ciò che si vede in lista.
-    function aggiornaAzioni() {
-      var visibili = indiciVisibili();
-      var tuttiSelezionati =
-        visibili.length > 0 &&
-        visibili.every(function (i) {
-          return voci[i].checked;
-        });
-      var qualcunoSelezionato = visibili.some(function (i) {
-        return voci[i].checked;
-      });
+    const aggiornaAzioni = () => {
+      const visibili = indiciVisibili();
+      const tuttiSelezionati =
+        visibili.length > 0 && visibili.every((i) => voci[i].checked);
+      const qualcunoSelezionato = visibili.some((i) => voci[i].checked);
       bottoneTutte.disabled = visibili.length === 0 || tuttiSelezionati;
       bottoneNessuna.disabled = !qualcunoSelezionato;
 
-      var mostraSuggerimento = ricercaAttiva() && visibili.length > 1;
+      const mostraSuggerimento = ricercaAttiva() && visibili.length > 1;
       suggerimentoEl.hidden = !mostraSuggerimento;
       if (mostraSuggerimento) {
         suggerimentoEl.textContent = puntatorePreciso()
           ? "Clic su una voce = solo quella · Ctrl/⌘ + clic per aggiungerne altre."
           : "Tocca una voce per sceglierne solo quella.";
       }
-    }
+    };
 
     // Ridisegna SOLO l'elenco (il campo di ricerca sta fuori e non si
     // tocca, così non perde il cursore mentre si scrive).
-    function disegnaLista() {
-      var visibili = indiciVisibili();
+    const disegnaLista = () => {
+      const visibili = indiciVisibili();
       if (!visibili.length) {
         listaEl.innerHTML =
           '<li class="filtro-multiplo__vuoto">' +
@@ -309,8 +283,8 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
           "</li>";
       } else {
         listaEl.innerHTML = visibili
-          .map(function (i) {
-            var v = voci[i];
+          .map((i) => {
+            const v = voci[i];
             return (
               '<li><label class="filtro-multiplo__voce">' +
               '<input type="checkbox" data-indice="' +
@@ -327,32 +301,32 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
           .join("");
       }
       aggiornaAzioni();
-    }
+    };
 
     // Riallinea le caselle già in lista a "voci" senza ridisegnare
     // (mantiene scorrimento e focus della lista).
-    function sincronizzaCaselle() {
+    const sincronizzaCaselle = () => {
       Array.prototype.forEach.call(
         listaEl.querySelectorAll('input[type="checkbox"]'),
-        function (input) {
+        (input) => {
           input.checked = voci[Number(input.dataset.indice)].checked;
         },
       );
-    }
+    };
 
-    function dopoCambioSelezione() {
+    const dopoCambioSelezione = () => {
       sincronizzaCaselle();
       aggiornaTesto();
       aggiornaAzioni();
       notificaCambio();
-    }
+    };
 
-    function svuotaRicerca() {
+    const svuotaRicerca = () => {
       testoRicerca = "";
       campoCerca.value = "";
-    }
+    };
 
-    function apri() {
+    const apri = () => {
       if (bottone.disabled) return;
       aperto = true;
       disegnaLista();
@@ -360,9 +334,9 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       bottone.setAttribute("aria-expanded", "true");
       contenitore.classList.add("filtro-multiplo--aperto");
       if (puntatorePreciso()) campoCerca.focus({ preventScroll: true });
-    }
+    };
 
-    function chiudi() {
+    const chiudi = () => {
       aperto = false;
       pannello.hidden = true;
       bottone.setAttribute("aria-expanded", "false");
@@ -371,20 +345,20 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       // rivede la lista intera, con le scelte già fatte.
       svuotaRicerca();
       disegnaLista();
-    }
+    };
 
-    bottone.addEventListener("click", function (evento) {
+    bottone.addEventListener("click", (evento) => {
       evento.stopPropagation();
       if (aperto) chiudi();
       else apri();
     });
 
     // --- Ricerca: la selezione segue i risultati ---
-    campoCerca.addEventListener("input", function () {
+    campoCerca.addEventListener("input", () => {
       testoRicerca = campoCerca.value;
-      var cambiato = false;
+      let cambiato = false;
       if (ricercaAttiva()) {
-        var visibili = indiciVisibili();
+        const visibili = indiciVisibili();
         // Nessun risultato: la selezione resta com'è (un elenco
         // vuoto significherebbe "tutte", cioè l'opposto di ciò che
         // si sta cercando).
@@ -395,7 +369,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       if (cambiato) notificaCambio();
     });
 
-    campoCerca.addEventListener("keydown", function (evento) {
+    campoCerca.addEventListener("keydown", (evento) => {
       if (evento.key === "Escape" && campoCerca.value) {
         // Primo Esc: svuota la ricerca. Il secondo (campo già vuoto)
         // arriva al gestore globale e chiude la tendina.
@@ -411,18 +385,18 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
     });
 
     // --- Click su una voce ---
-    listaEl.addEventListener("click", function (evento) {
-      var input = evento.target;
+    listaEl.addEventListener("click", (evento) => {
+      const input = evento.target;
       if (!input || input.type !== "checkbox") return;
-      var indice = Number(input.dataset.indice);
-      var voce = voci[indice];
+      const indice = Number(input.dataset.indice);
+      const voce = voci[indice];
       if (!voce) return;
-      var aggiungi = evento.ctrlKey || evento.metaKey || evento.shiftKey;
+      const aggiungi = evento.ctrlKey || evento.metaKey || evento.shiftKey;
 
       if (ricercaAttiva() && !aggiungi) {
         // Con la ricerca attiva un clic sceglie SOLO quella voce; se
         // era già l'unica selezionata, torna a "nessun filtro".
-        var eraSoltanto = voce.checked && selezionati().length === 1;
+        const eraSoltanto = voce.checked && selezionati().length === 1;
         selezionaSoloQueste(eraSoltanto ? [] : [indice]);
       } else {
         voce.checked = input.checked;
@@ -431,16 +405,16 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
     });
 
     // --- Seleziona tutte / Deseleziona tutto: solo sul visibile ---
-    bottoneTutte.addEventListener("click", function (evento) {
+    bottoneTutte.addEventListener("click", (evento) => {
       evento.stopPropagation();
-      indiciVisibili().forEach(function (i) {
+      indiciVisibili().forEach((i) => {
         voci[i].checked = true;
       });
       dopoCambioSelezione();
     });
-    bottoneNessuna.addEventListener("click", function (evento) {
+    bottoneNessuna.addEventListener("click", (evento) => {
       evento.stopPropagation();
-      indiciVisibili().forEach(function (i) {
+      indiciVisibili().forEach((i) => {
         voci[i].checked = false;
       });
       dopoCambioSelezione();
@@ -450,10 +424,10 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
     // atteso di qualunque tendina — un solo listener condiviso su
     // "document" per istanza, coerente con come il resto del sito
     // gestisce menu/tendine (vedi assets/ui/navigazione-barra).
-    document.addEventListener("click", function (evento) {
+    document.addEventListener("click", (evento) => {
       if (aperto && !contenitore.contains(evento.target)) chiudi();
     });
-    document.addEventListener("keydown", function (evento) {
+    document.addEventListener("keydown", (evento) => {
       if (aperto && evento.key === "Escape") {
         chiudi();
         bottone.focus();
@@ -463,7 +437,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
     aggiornaTesto();
     disegnaLista();
 
-    var api = {
+    const api = {
       // Sostituisce l'elenco di opzioni disponibili. "opzioni.mantieni"
       // (bool) tiene selezionati i valori di prima che esistono ancora
       // nella nuova lista; "opzioni.preselezionati" (array di value)
@@ -472,18 +446,16 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       // lista parte senza nulla selezionato (equivale a "tutte").
       // La ricerca si svuota: l'elenco è cambiato, un testo scritto
       // sulla lista precedente non avrebbe più senso.
-      imposta: function (nuoveVoci, opzioniImposta) {
+      imposta: (nuoveVoci, opzioniImposta) => {
         opzioniImposta = opzioniImposta || {};
-        var daTenere = opzioniImposta.mantieni
+        const daTenere = opzioniImposta.mantieni
           ? selezionati()
           : opzioniImposta.preselezionati || [];
-        voci = (nuoveVoci || []).map(function (v) {
-          return {
-            value: v.value,
-            label: v.label,
-            checked: daTenere.indexOf(v.value) !== -1,
-          };
-        });
+        voci = (nuoveVoci || []).map((v) => ({
+          value: v.value,
+          label: v.label,
+          checked: daTenere.indexOf(v.value) !== -1,
+        }));
         svuotaRicerca();
         aggiornaTesto();
         disegnaLista();
@@ -491,13 +463,11 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       selezionati: selezionati,
       // Quante opzioni ci sono in tutto (selezionate o no): serve a
       // capire se "tutte selezionate" equivale a nessun filtro.
-      totale: function () {
-        return voci.length;
-      },
+      totale: () => voci.length,
       // Seleziona tutte le voci, una per una (lo stato iniziale delle
       // schede Km mensili, Periodi e Giri). Non richiama onCambia.
-      selezionaTutte: function () {
-        voci.forEach(function (v) {
+      selezionaTutte: () => {
+        voci.forEach((v) => {
           v.checked = true;
         });
         svuotaRicerca();
@@ -505,8 +475,8 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
         disegnaLista();
       },
       // Svuota la selezione (equivale a "tutte / nessun filtro").
-      azzera: function () {
-        voci.forEach(function (v) {
+      azzera: () => {
+        voci.forEach((v) => {
           v.checked = false;
         });
         svuotaRicerca();

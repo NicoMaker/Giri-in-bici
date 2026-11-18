@@ -4,7 +4,7 @@
 // ============================================================
 
 // 🔁 Rileva ritorno tramite tasto "Indietro" e forza un reload completo
-window.addEventListener("pageshow", function (event) {
+window.addEventListener("pageshow", (event) => {
   if (
     event.persisted ||
     performance.getEntriesByType("navigation")[0].type === "back_forward"

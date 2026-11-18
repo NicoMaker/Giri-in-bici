@@ -3,10 +3,10 @@
 // Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
-function initBackgroundAnimation() {
+const initBackgroundAnimation = () => {
   setAbstractBackground();
   setInterval(setAbstractBackground, 7000);
-}
+};
 
 // Gradienti del marchio: niente colori casuali, solo la palette del sito
 const GRADIENTI = [
@@ -18,9 +18,9 @@ const GRADIENTI = [
 
 let indiceGradiente = 0;
 
-function setAbstractBackground() {
+const setAbstractBackground = () => {
   const container = document.getElementById("container");
   if (!container) return;
   container.style.backgroundImage = GRADIENTI[indiceGradiente];
   indiceGradiente = (indiceGradiente + 1) % GRADIENTI.length;
-}
+};

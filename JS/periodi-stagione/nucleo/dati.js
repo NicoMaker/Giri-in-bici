@@ -3,7 +3,7 @@
 // Richiamato da JS/periodi_stagione.js
 // ============================================================
 
-async function fetchSubPeriods(subPeriods) {
+const fetchSubPeriods = async (subPeriods) => {
   const promises = Object.entries(subPeriods).map(([period, file]) =>
     fetchJSON(file).then((data) => {
       const totalDistance = data.reduce((acc, e) => acc + e.distance, 0);
@@ -12,4 +12,4 @@ async function fetchSubPeriods(subPeriods) {
   );
   const results = await Promise.all(promises);
   return results.reduce((acc, curr) => Object.assign(acc, curr), {});
-}
+};

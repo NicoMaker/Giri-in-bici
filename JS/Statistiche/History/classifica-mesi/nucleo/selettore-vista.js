@@ -17,23 +17,22 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
-
   // Scorre fino all'inizio della PAGINA (non solo del contenuto della
   // scheda): toccando una pillola mentre si è più in basso — magari in
   // fondo alla classifica completa di un'altra scheda — deve sempre
   // riportare all'inizio della pagina, come un arrivo da capo.
-  function scorriAllInizioPagina() {
+  const scorriAllInizioPagina = () => {
     const motoRidotto = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: motoRidotto ? "auto" : "smooth" });
     });
-  }
+  };
 
-  CM.avviaSelettoreVista = function () {
+  CM.avviaSelettoreVista = () => {
     const gruppiVista = document.querySelectorAll("[data-vista-gruppo]");
     const pulsantiVista = document.querySelectorAll(
       "#selettore-vista .selettore-metrica__pulsante",
@@ -43,7 +42,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     // scelta, resa come menu a tendina invece che come fila di pulsanti.
     const selettoreMobile = document.getElementById("selettore-vista-mobile");
 
-    function attivaVista(vista) {
+    const attivaVista = (vista) => {
       pulsantiVista.forEach((p) =>
         p.classList.toggle("attivo", p.dataset.vista === vista),
       );
@@ -65,7 +64,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const posizione = document.getElementById("posizione-vista");
         if (posizione) posizione.textContent = nome;
       }
-    }
+    };
 
     // Scheda di apertura: "?vista=" se valido, altrimenti "mesi" (la
     // decide stato-url.js, che poi tiene l'indirizzo allineato).
@@ -76,12 +75,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     // per esempio "Anni", dopo che la pagina e' gia' partita: la scheda
     // mostrata resta quella giusta ma il menu dice un'altra cosa. Si
     // riallinea al caricamento completo e quando la pagina torna visibile.
-    function riallinea() {
+    const riallinea = () => {
       const vista = CM.statoUrl.vistaAttiva();
       if (selettoreMobile && selettoreMobile.value !== vista) {
         selettoreMobile.value = vista;
       }
-    }
+    };
+
     window.addEventListener("load", riallinea);
     window.addEventListener("pageshow", riallinea);
 

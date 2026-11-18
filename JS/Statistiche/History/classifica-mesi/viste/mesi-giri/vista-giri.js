@@ -39,9 +39,8 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
-
   // Il titolo della sezione "Classifica completa" descrive la direzione
   // dell'ordinamento scelto: non può restare fisso su "dal più lungo al
   // più corto" quando l'utente sceglie un altro ordine (es. "Dal meno al
@@ -70,19 +69,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // Anni, ricerca, ordine e km usano gli stessi filtri della Classifica.
 
   // Nome della stagione (come in generale.json) -> chiave dei colori.
-  function classeStagione(nome) {
+  const classeStagione = (nome) => {
     const n = String(nome || "").toLowerCase();
     if (n.includes("primavera")) return "primavera";
     if (n.includes("estate")) return "estate";
     return "autunno-inverno";
-  }
+  };
 
-  function piuLungo(righe) {
-    return righe.reduce(
-      (m, r) => (!m || r.distance > m.distance ? r : m),
-      null,
-    );
-  }
+  const piuLungo = (righe) =>
+    righe.reduce((m, r) => (!m || r.distance > m.distance ? r : m), null);
 
   const num = (n) => formatItalianNumber(Math.round(n * 10) / 10);
 
@@ -90,7 +85,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // L'anno più recente per primo, tranne con "Meno recente" (data-vecchio).
   // Ogni giro tiene il colore e l'etichetta della sua stagione, come
   // nella Classifica, ma i giri NON sono raggruppati per stagione.
-  function creaGiriPerAnno(righe, ordine) {
+  const creaGiriPerAnno = (righe, ordine) => {
     if (!righe.length) {
       return '<p class="errore-grafico">Nessun giro corrisponde ai filtri scelti.</p>';
     }
@@ -155,9 +150,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       `${righe.length} ${pluralizza(righe.length, "giro", "giri")} in ${anni.length} ${pluralizza(anni.length, "anno", "anni")} · media ${num(mediaGiro)} km a giro, ${num(mediaAnno)} km all'anno`,
     )}</ol>`;
     return blocchi.join("") + totale;
-  }
+  };
 
-  CM.avviaVistaGiri = async function () {
+  CM.avviaVistaGiri = async () => {
     const CC = window.ClassificaControlli;
 
     const titoloSezioneEl = document.getElementById(
@@ -337,7 +332,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         });
       }
 
-      aggiornaVistaTappe = function () {
+      aggiornaVistaTappe = () => {
         const inAnni = modo === "anni";
         const stagioniScelte = filtroStagione
           ? filtroStagione.selezionati()

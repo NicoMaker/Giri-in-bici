@@ -9,7 +9,7 @@
 
 window.Stagioni = window.Stagioni || {};
 
-(function (S) {
+((S) => {
   "use strict";
 
   // Riempite da caricaConfigurazione(), lette da schede.js e grafici.js
@@ -20,7 +20,7 @@ window.Stagioni = window.Stagioni || {};
   // arriva si va avanti con gli altri.
   S.loadJSON = Json.leggiOppureNull;
 
-  S.initializeConfiguration = async function (jsonFilePath) {
+  S.initializeConfiguration = async (jsonFilePath) => {
     const config = await S.loadJSON(jsonFilePath);
     if (config) {
       S.SEASONS_CONFIG = config.seasons;
@@ -35,12 +35,12 @@ window.Stagioni = window.Stagioni || {};
 
   S.countRaces = (data) => (Array.isArray(data) ? data.length : 0);
 
-  S.calculateData = function (
+  S.calculateData = (
     primaveraData,
     estateData,
     autunnoInvernoData,
     numPeriodi,
-  ) {
+  ) => {
     const primavera = S.sumData(primaveraData);
     const estate = S.sumData(estateData);
     const autunno_inverno = S.sumData(autunnoInvernoData);

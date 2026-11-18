@@ -9,11 +9,10 @@
    ============================================================ */
 window.ChartResponsive = window.ChartResponsive || {};
 
-(function (CR) {
+((CR) => {
   "use strict";
-
   /* ---------------- Fasce, in base alla larghezza del canvas -------------- */
-  var TIERS = [
+  const TIERS = [
     {
       name: "xs",
       max: 380,
@@ -88,33 +87,33 @@ window.ChartResponsive = window.ChartResponsive || {};
     },
   ];
 
-  CR.tierFor = function (width) {
-    var w = width || window.innerWidth || 1024;
-    for (var i = 0; i < TIERS.length; i++) {
+  CR.tierFor = (width) => {
+    const w = width || window.innerWidth || 1024;
+    for (let i = 0; i < TIERS.length; i++) {
       if (w <= TIERS[i].max) return TIERS[i];
     }
     return TIERS[TIERS.length - 1];
   };
 
   /* --------- Accorcia le etichette lunghe: "Gennaio (2024)" -> "Gen 24" ---- */
-  function shorten(value) {
+  const shorten = (value) => {
     if (typeof value !== "string" || value.length <= 5) return value;
-    var m = value.match(/^([^\s(]+)\s*\(\d{0,2}(\d{2})\)$/);
+    const m = value.match(/^([^\s(]+)\s*\(\d{0,2}(\d{2})\)$/);
     if (m) return m[1].slice(0, 3) + " " + m[2];
     return value.slice(0, 3) + ".";
-  }
+  };
 
-  function obj(parent, key) {
+  const obj = (parent, key) => {
     if (!parent[key] || typeof parent[key] !== "object") parent[key] = {};
     return parent[key];
-  }
+  };
 
   /* ------------------------- Applica una fascia --------------------------- */
-  CR.applyTier = function (chart, t) {
-    var cfg = chart.config;
-    var opts = cfg.options || (cfg.options = {});
-    var type = cfg.type || (cfg._config && cfg._config.type);
-    var isPie = type === "doughnut" || type === "pie" || type === "polarArea";
+  CR.applyTier = (chart, t) => {
+    const cfg = chart.config;
+    const opts = cfg.options || (cfg.options = {});
+    const type = cfg.type || (cfg._config && cfg._config.type);
+    const isPie = type === "doughnut" || type === "pie" || type === "polarArea";
 
     opts.responsive = true;
     opts.maintainAspectRatio = false; // l'altezza la decide il CSS
@@ -123,17 +122,17 @@ window.ChartResponsive = window.ChartResponsive || {};
     obj(opts, "layout").padding = t.pad;
 
     /* --- Legenda --- */
-    var legend = obj(obj(opts, "plugins"), "legend");
+    const legend = obj(obj(opts, "plugins"), "legend");
     legend.display = legend.display !== false;
     legend.position = t.legendPos;
-    var lbl = obj(legend, "labels");
+    const lbl = obj(legend, "labels");
     lbl.boxWidth = t.legendBox;
     lbl.padding = t.legendPad;
     obj(lbl, "font").size = t.font;
     lbl.font.weight = "bold";
 
     /* --- Tooltip: leggibile e comodo da toccare col dito --- */
-    var tip = obj(obj(opts, "plugins"), "tooltip");
+    const tip = obj(obj(opts, "plugins"), "tooltip");
     obj(tip, "titleFont").size = t.font + 1;
     obj(tip, "bodyFont").size = t.font + 1;
     tip.padding = t.name === "lg" ? 10 : 8;
@@ -144,21 +143,21 @@ window.ChartResponsive = window.ChartResponsive || {};
       // "nearest" invece di "index": tocchi un punto e vedi SOLO quel
       // punto (es. solo "2024: 386"), non tutte le linee sovrapposte
       // alla stessa posizione (es. tutti gli anni di quel mese insieme).
-      var it = obj(opts, "interaction");
+      const it = obj(opts, "interaction");
       it.mode = "nearest";
       it.intersect = false;
     }
 
     /* --- Punti e linee --- */
-    var el = obj(opts, "elements");
+    const el = obj(opts, "elements");
     obj(el, "point").radius = t.point;
     el.point.hoverRadius = t.pointHover;
     el.point.hitRadius = 14;
     obj(el, "line").borderWidth = t.lineWidth;
 
     // le opzioni del dataset battono elements.point: le riallineo
-    var ds = (chart.data && chart.data.datasets) || [];
-    ds.forEach(function (d) {
+    const ds = (chart.data && chart.data.datasets) || [];
+    ds.forEach((d) => {
       if (d.pointRadius !== undefined) {
         if (d.__origPointRadius === undefined)
           d.__origPointRadius = d.pointRadius;
@@ -179,16 +178,16 @@ window.ChartResponsive = window.ChartResponsive || {};
     /* --- Assi --- */
     if (isPie) return;
 
-    var scales = obj(opts, "scales");
+    const scales = obj(opts, "scales");
     obj(scales, "x");
     obj(scales, "y");
 
-    Object.keys(scales).forEach(function (key) {
-      var sc = scales[key];
+    Object.keys(scales).forEach((key) => {
+      const sc = scales[key];
       if (!sc || typeof sc !== "object") return;
-      var isX = key.charAt(0) === "x" || sc.axis === "x";
+      const isX = key.charAt(0) === "x" || sc.axis === "x";
 
-      var ticks = obj(sc, "ticks");
+      const ticks = obj(sc, "ticks");
       obj(ticks, "font").size = t.font;
       ticks.autoSkip = true;
       ticks.autoSkipPadding = 6;
@@ -202,14 +201,14 @@ window.ChartResponsive = window.ChartResponsive || {};
         obj(sc.title, "font").size = t.font;
       }
 
-      var grid = obj(sc, "grid");
+      const grid = obj(sc, "grid");
       grid.tickLength = t.name === "lg" ? 8 : 4;
 
       // Grafici dentro .grafico-tutti-mesi (es. Statistiche Totali):
       // il contenitore scorre in orizzontale apposta per non dover mai
       // nascondere un'etichetta. Qui si spegne autoSkip e si scrive in
       // verticale, così anche col mouse fermo si legge ogni mese.
-      var tuttiIMesi =
+      const tuttiIMesi =
         isX &&
         chart.canvas &&
         chart.canvas.closest &&
@@ -224,9 +223,9 @@ window.ChartResponsive = window.ChartResponsive || {};
 
         if (ticks.__origCallback === undefined)
           ticks.__origCallback = ticks.callback || null;
-        var origTM = ticks.__origCallback;
+        const origTM = ticks.__origCallback;
         ticks.callback = function (value, index, all) {
-          var out = origTM
+          const out = origTM
             ? origTM.call(this, value, index, all)
             : this.getLabelForValue
               ? this.getLabelForValue(value)
@@ -250,10 +249,10 @@ window.ChartResponsive = window.ChartResponsive || {};
         // conservo l'eventuale callback originale e accorcio il risultato
         if (ticks.__origCallback === undefined)
           ticks.__origCallback = ticks.callback || null;
-        var orig = ticks.__origCallback;
-        var doShort = t.shortLabels;
+        const orig = ticks.__origCallback;
+        const doShort = t.shortLabels;
         ticks.callback = function (value, index, all) {
-          var out = orig
+          const out = orig
             ? orig.call(this, value, index, all)
             : this.getLabelForValue
               ? this.getLabelForValue(value)

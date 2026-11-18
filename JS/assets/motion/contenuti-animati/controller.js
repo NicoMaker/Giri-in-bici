@@ -13,10 +13,9 @@
 // Nessuna dipendenza esterna. Incluso in tutte le pagine con defer.
 // ============================================================
 
-(function (CA) {
+((CA) => {
   "use strict";
-
-  function avvia() {
+  const avvia = () => {
     document.documentElement.classList.add("motion-ready");
     CA.osservaContenuti();
     CA.preparaNumeri(document);
@@ -25,18 +24,18 @@
     // Rete di sicurezza: se qualcosa arriva tardi (tabelle, card...), lo
     // anima comunque. Si ripassa anche tutto il documento, così i numeri
     // delle tabelle finite in contenitori non osservati non restano fermi.
-    setTimeout(function () {
-      var motoRidotto = window.matchMedia(
+    setTimeout(() => {
+      const motoRidotto = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
-      CA.CONTENITORI.forEach(function (selettore) {
-        document.querySelectorAll(selettore).forEach(function (el) {
+      CA.CONTENITORI.forEach((selettore) => {
+        document.querySelectorAll(selettore).forEach((el) => {
           if (!motoRidotto) CA.scaglionaFigli(el);
         });
       });
       CA.preparaNumeri(document);
     }, 1500);
-  }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", avvia);

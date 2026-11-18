@@ -18,22 +18,22 @@
 // solo nelle pagine che richiedono l'accesso gia' effettuato.
 // ============================================================
 
-(function () {
+(() => {
   const PAGINA_LOGIN = "/index.html";
 
-  function chiaveGiornoOggi() {
+  const chiaveGiornoOggi = () => {
     const oggi = new Date();
     const anno = oggi.getFullYear();
     const mese = String(oggi.getMonth() + 1).padStart(2, "0");
     const giorno = String(oggi.getDate()).padStart(2, "0");
     return `${anno}-${mese}-${giorno}`;
-  }
+  };
 
-  function vaiAlLogin() {
+  const vaiAlLogin = () => {
     sessionStorage.removeItem("currentUser");
     sessionStorage.removeItem("giornoAccesso");
     window.location.replace(PAGINA_LOGIN);
-  }
+  };
 
   const utente = sessionStorage.getItem("currentUser");
   const giornoSalvato = sessionStorage.getItem("giornoAccesso");

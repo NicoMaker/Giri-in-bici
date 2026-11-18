@@ -7,7 +7,7 @@
 
 window.Bici = window.Bici || {};
 
-(function (B) {
+((B) => {
   "use strict";
 
   B.ETICHETTE_TIPO = { mtb: "Mountain bike", corsa: "Bici da corsa" };
@@ -15,7 +15,7 @@ window.Bici = window.Bici || {};
   // Riga di intestazioni AI per la categoria selezionata (3 per riga).
   // Con "tutte" uniamo le gallerie di mtb e corsa cosi' si vedono tutte
   // le immagini celebrative, non solo quelle di una categoria.
-  B.renderIntestazioni = function (tipo) {
+  B.renderIntestazioni = (tipo) => {
     const data = B.dati;
     const immagini =
       tipo === "tutte"
@@ -29,7 +29,7 @@ window.Bici = window.Bici || {};
   };
 
   // Una singola card scheda tecnica
-  B.renderCard = function (bici) {
+  B.renderCard = (bici) => {
     const rapportoTotale = bici.avanti * bici.dietro;
     return `
           <article class="bici-card">

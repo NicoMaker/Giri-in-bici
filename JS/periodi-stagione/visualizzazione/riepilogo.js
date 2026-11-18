@@ -3,7 +3,7 @@
 // Richiamato da JS/periodi_stagione.js
 // ============================================================
 
-function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
+const renderSeasonSummary = (season, totale, totalePeriodi, totalRaces) => {
   const avgseason = formatNumber(totale / totalePeriodi);
   const avgcorsa = formatNumber(totale / totalRaces);
   const formattedTotalRaces = formatItalianNumber(totalRaces);
@@ -19,4 +19,4 @@ function renderSeasonSummary(season, totale, totalePeriodi, totalRaces) {
       <p class="misuracolore">Totale periodi: ${formatItalianNumber(totalePeriodi)}</p>
     </div>
   `;
-}
+};

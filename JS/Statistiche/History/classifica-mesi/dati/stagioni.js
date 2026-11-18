@@ -20,13 +20,12 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
-
-  function sommaDistanze(corse) {
+  const sommaDistanze = (corse) => {
     if (!Array.isArray(corse)) return 0;
     return corse.reduce((tot, corsa) => tot + (corsa.distance || 0), 0);
-  }
+  };
 
   // Ordine di calendario delle stagioni (Primavera → Estate →
   // Autunno/Inverno), usato solo per l'ordinamento "Più recente"/
@@ -41,7 +40,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
   // Una riga per stagione: { stagione, km, periodi, kmMedi, percentuale }
   // periodi = in quanti anni diversi è stata pedalata quella stagione.
-  CM.calcolaStagioni = async function () {
+  CM.calcolaStagioni = async () => {
     const stagioniJson = await Json.leggiOppureNull(
       "json/Statistiche/anni/stagioni/stagioni.json",
     );
@@ -113,16 +112,16 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // cioè l'Autunno/Inverno a cavallo fra due anni viene dopo l'Estate
   // dell'anno in cui inizia e prima della Primavera dell'anno in cui
   // finisce, esattamente come nel calendario vero.
-  function ordineCronologicoPeriodo(nomeGrezzoStagione, etichettaPeriodo) {
+  const ordineCronologicoPeriodo = (nomeGrezzoStagione, etichettaPeriodo) => {
     const indiceStagione = ORDINE_CALENDARIO_STAGIONI[nomeGrezzoStagione] ?? 0;
     const annoInizio = parseInt(etichettaPeriodo, 10) || 0;
     return annoInizio * 10 + indiceStagione;
-  }
+  };
 
   // Una riga per OGNI periodo, non per stagione: "Estate 2020",
   // "Autunno · Inverno 2020-2021", ecc. Così si può confrontare un
   // singolo periodo completo con un altro, anche di stagioni diverse.
-  CM.calcolaPeriodi = async function () {
+  CM.calcolaPeriodi = async () => {
     const stagioniJson = await Json.leggiOppureNull(
       "json/Statistiche/anni/stagioni/stagioni.json",
     );

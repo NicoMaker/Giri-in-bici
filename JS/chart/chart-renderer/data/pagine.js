@@ -7,10 +7,10 @@
 // in chart-renderer/nucleo.js, che va caricato prima di questo file.
 // ============================================================
 
-UniversalChartRenderer.prototype.processSeasonData = async function (
+UniversalChartRenderer.prototype.processSeasonData = async (
   data,
   chartType,
-) {
+) => {
   const { season, image, path, cssclass, colors, subPeriodData } = data;
   const labels = Object.keys(subPeriodData);
   const values = labels.map((label) => subPeriodData[label].totalDistance);
@@ -53,10 +53,10 @@ UniversalChartRenderer.prototype.processSeasonData = async function (
   };
 };
 
-UniversalChartRenderer.prototype.processGeneralStatsData = async function (
+UniversalChartRenderer.prototype.processGeneralStatsData = async (
   data,
   chartType,
-) {
+) => {
   const { statistics, colors } = data;
   const labels = statistics.map((entry) => entry.year);
   const values = statistics.map((entry) => entry.km);
@@ -97,10 +97,7 @@ UniversalChartRenderer.prototype.processGeneralStatsData = async function (
   };
 };
 
-UniversalChartRenderer.prototype.processYearData = async function (
-  data,
-  chartType,
-) {
+UniversalChartRenderer.prototype.processYearData = async (data, chartType) => {
   const { year, data: monthlyData, colors } = data;
   const labels = Object.keys(monthlyData);
   const values = Object.values(monthlyData);

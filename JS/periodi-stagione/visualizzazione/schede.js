@@ -60,8 +60,8 @@ const createStampa = (
     (document.getElementById("stampa").innerHTML =
       `${Variazioni.legenda("(% calcolata rispetto al periodo precedente)")}<div class="container">${stampa}</div>`);
 
-function adjustContainerLayout(cssclass) {
+const adjustContainerLayout = (cssclass) => {
   const container = document.querySelector(".container");
   const items = document.querySelectorAll(`.${cssclass}contorno`);
   if (items.length % 2 !== 0) container.classList.add("odd-items");
-}
+};

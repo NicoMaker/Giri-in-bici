@@ -15,7 +15,7 @@
 //   ritorno-indietro.js ricarica se si torna col tasto Indietro
 // ============================================================
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   initCookieBanner();
   initLoginSystem();
   initBackgroundAnimation();

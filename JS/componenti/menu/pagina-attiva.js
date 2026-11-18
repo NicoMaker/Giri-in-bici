@@ -5,7 +5,7 @@
 
 // Riduce qualsiasi indirizzo alla stessa forma, così il confronto funziona con
 // maiuscole diverse, "/" finale e indirizzi puliti senza estensione (/Giri).
-export function percorsoNormalizzato(indirizzo) {
+export const percorsoNormalizzato = (indirizzo) => {
   let percorso;
   try {
     percorso = new URL(indirizzo, window.location.href).pathname;
@@ -21,7 +21,7 @@ export function percorsoNormalizzato(indirizzo) {
   if (percorso.endsWith("/")) percorso += "index.html";
   if (!/\.[a-z0-9]+$/.test(percorso)) percorso += ".html";
   return percorso;
-}
+};
 
 // Pagine che non hanno una voce tutta loro: appartengono a una sezione.
 // [come inizia l'indirizzo, voce da accendere]
@@ -34,7 +34,7 @@ const SEZIONI = [
 ];
 
 // Restituisce l'indirizzo (normalizzato) della voce da accendere, o "" se nessuna.
-export function indirizzoAttivo(indirizziVoci) {
+export const indirizzoAttivo = (indirizziVoci) => {
   const corrente = percorsoNormalizzato(window.location.href);
 
   if (indirizziVoci.includes(corrente)) return corrente;
@@ -45,4 +45,4 @@ export function indirizzoAttivo(indirizziVoci) {
     }
   }
   return "";
-}
+};

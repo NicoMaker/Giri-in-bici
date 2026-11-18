@@ -8,7 +8,7 @@
 //   filtri.js  barra delle categorie
 // ============================================================
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const B = window.Bici;
 
   Json.leggi("json/Bici/bici.json")

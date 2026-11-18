@@ -4,9 +4,8 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
-
   // Stesso principio già usato per i Giri: il testo sotto al titolo di
   // ogni "Classifica completa" descrive la direzione dell'ordinamento
   // scelto in quel momento, non un ordine fisso deciso una volta per
@@ -43,15 +42,15 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // ridisegnano podio e classifica (cambiando l'altezza del contenuto)
   // il punto che si sta guardando resta nella stessa posizione sullo
   // schermo, senza salti verso l'alto o verso il basso.
-  function conPosizione(ancora, ridisegna) {
+  const conPosizione = (ancora, ridisegna) => {
     const el = ancora || document.body;
     const prima = el.getBoundingClientRect().top;
     ridisegna();
     const differenza = el.getBoundingClientRect().top - prima;
     if (differenza) window.scrollBy(0, differenza);
-  }
+  };
 
-  CM.avviaVistaMesi = async function () {
+  CM.avviaVistaMesi = async () => {
     const CC = window.ClassificaControlli;
 
     const podioEl = document.getElementById("podio");
@@ -85,7 +84,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     let totaleAnniGlobale = 0;
     let mostraRecord = () => {};
 
-    function disegnaMesi() {
+    const disegnaMesi = () => {
       const stato = controlliMesi.stato();
       const cercate = CC.cerca(righeMesi, stato.testo, (r) => r.mese);
       // Il filtro per km si applica sempre sui km totali (non sulla media)
@@ -131,9 +130,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       if (heroMesiEl) {
         heroMesiEl.textContent = `La classifica intera dei dodici mesi, uno sotto l'altro, ${TESTO_ORDINE_MESI[stato.ordine] || TESTO_ORDINE_MESI.desc}.`;
       }
-    }
+    };
 
-    function disegnaAnni() {
+    const disegnaAnni = () => {
       const stato = controlliAnni.stato();
       const cercate = CC.cerca(righeAnniComplete, stato.testo, (r) => r.nome);
       const filtrate = CC.filtra(cercate, stato, (r) => r.km);
@@ -195,7 +194,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             `${filtrate.length} ${pluralizza(filtrate.length, "anno", "anni")}`,
           );
       }
-    }
+    };
 
     const controlliMesi = CC.crea(document.getElementById("controlli-mesi"), {
       onCambia: () =>
@@ -249,7 +248,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       controlliMesi.aggiornaLimiti(righeMesi.map((r) => r.km));
       disegnaMesi();
 
-      mostraRecord = function (anniSelezionati, mesiSelezionati) {
+      mostraRecord = (anniSelezionati, mesiSelezionati) => {
         anniSelezionati = anniSelezionati || [];
         mesiSelezionati = mesiSelezionati || [];
         let righeAnnoScelto = righeRecordTutti;

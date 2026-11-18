@@ -3,7 +3,7 @@
 // Richiamato da js/Login/scriptLogin.js
 // ============================================================
 
-function showNotification(message, type) {
+const showNotification = (message, type) => {
   const existingNotification = document.querySelector(".notification");
   if (existingNotification) existingNotification.remove();
 
@@ -56,4 +56,4 @@ function showNotification(message, type) {
   setTimeout(() => {
     if (notification.parentNode) notification.remove();
   }, 3500);
-}
+};

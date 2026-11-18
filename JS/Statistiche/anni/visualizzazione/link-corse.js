@@ -16,46 +16,45 @@
 // Dipende da: niente (usa solo il DOM). Va incluso con "defer".
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
-
-  function annoDellaPagina() {
-    var json = document.getElementById("json");
-    var sorgente =
+  const annoDellaPagina = () => {
+    const json = document.getElementById("json");
+    const sorgente =
       (json && json.getAttribute("link")) || window.location.pathname;
-    var trovato = String(sorgente).match(
+    const trovato = String(sorgente).match(
       /(\d{4})(?:\.json|\.html)?(?:[?#].*)?$/,
     );
     return trovato ? trovato[1] : null;
-  }
+  };
 
-  function crea() {
-    var main = document.querySelector("main");
-    var anno = annoDellaPagina();
+  const crea = () => {
+    const main = document.querySelector("main");
+    const anno = annoDellaPagina();
     if (!main || !anno || document.getElementById("linkCorseAnno")) return;
 
-    var sezione = document.createElement("section");
+    const sezione = document.createElement("section");
     sezione.className = "section";
     sezione.id = "linkCorseAnno";
 
-    var eyebrow = document.createElement("p");
+    const eyebrow = document.createElement("p");
     eyebrow.className = "eyebrow";
     eyebrow.textContent = "Diario";
 
-    var titolo = document.createElement("h2");
+    const titolo = document.createElement("h2");
     titolo.textContent = "Le corse del " + anno;
 
-    var testo = document.createElement("p");
+    const testo = document.createElement("p");
     testo.className = "hero-sub";
     testo.textContent =
       "Tutte le uscite del " +
       anno +
       ", da Gennaio a Dicembre, con podio, ricerca per posto, intervalli di date e di km e colori per stagione.";
 
-    var wrap = document.createElement("div");
+    const wrap = document.createElement("div");
     wrap.className = "cta-classifica-wrap";
 
-    var link = document.createElement("a");
+    const link = document.createElement("a");
     link.className = "cta-classifica";
     link.href =
       "../History/ClassificaMesi.html?vista=tappe&modo=anni&anni=" + anno;
@@ -67,7 +66,7 @@
     sezione.appendChild(testo);
     sezione.appendChild(wrap);
     main.appendChild(sezione);
-  }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", crea);

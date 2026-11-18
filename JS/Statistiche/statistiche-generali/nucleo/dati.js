@@ -9,10 +9,10 @@
 
 window.StatGenerali = window.StatGenerali || {};
 
-(function (SG) {
+((SG) => {
   "use strict";
 
-  SG.fetchData = async function () {
+  SG.fetchData = async () => {
     const storico = await fetchJSON("json/Statistiche/History/Storico.json");
     if (!storico || !storico.anni) {
       console.error("Storico.json non disponibile o campo anni mancante");
@@ -39,7 +39,7 @@ window.StatGenerali = window.StatGenerali || {};
     };
   };
 
-  SG.calculateAverages = function (statistics) {
+  SG.calculateAverages = (statistics) => {
     const totalekm = statistics.reduce((acc, cur) => acc + cur.km, 0);
     const totaleCorse = statistics.reduce(
       (acc, cur) => acc + cur.numberOfRaces,

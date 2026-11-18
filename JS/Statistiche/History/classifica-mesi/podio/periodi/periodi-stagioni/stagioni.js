@@ -4,11 +4,11 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
 
-  CM.creaPodioStagioni = function (righe) {
-    return righe
+  CM.creaPodioStagioni = (righe) =>
+    righe
       .map(
         (r, i) => `
       <a
@@ -38,9 +38,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       </a>`,
       )
       .join("");
-  };
 
-  CM.creaTitoloStagioni = function (righe, ordine) {
+  CM.creaTitoloStagioni = (righe, ordine) => {
     if (!righe.length || righe[0].km <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }
@@ -76,7 +75,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       in totale.`;
   };
 
-  CM.creaClassificaStagioni = function (righe) {
+  CM.creaClassificaStagioni = (righe) => {
     const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {

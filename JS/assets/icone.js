@@ -11,10 +11,9 @@
 //   <span data-icona="bici"></span>  -> riempito da solo al caricamento
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
-
-  var TRATTI = {
+  const TRATTI = {
     casa:
       '<path d="M3.2 10.6 12 3.4l8.8 7.2"/>' +
       '<path d="M5.6 9.6V20.2h12.8V9.6"/>' +
@@ -129,10 +128,10 @@
     chiudi: '<path d="m6.4 6.4 11.2 11.2"/><path d="M17.6 6.4 6.4 17.6"/>',
   };
 
-  function svg(nome, dimensione) {
-    var tratti = TRATTI[nome];
+  const svg = (nome, dimensione) => {
+    const tratti = TRATTI[nome];
     if (!tratti) return "";
-    var lato = dimensione || 24;
+    const lato = dimensione || 24;
     return (
       '<svg class="ico" width="' +
       lato +
@@ -144,21 +143,21 @@
       tratti +
       "</svg>"
     );
-  }
+  };
 
   // Riempie ogni <span data-icona="nome"> presente nella pagina
-  function riempi(radice) {
-    var dove = radice || document;
-    dove.querySelectorAll("[data-icona]").forEach(function (el) {
-      var markup = svg(el.getAttribute("data-icona"));
+  const riempi = (radice) => {
+    const dove = radice || document;
+    dove.querySelectorAll("[data-icona]").forEach((el) => {
+      const markup = svg(el.getAttribute("data-icona"));
       if (markup) el.innerHTML = markup;
     });
-  }
+  };
 
   window.Icone = { svg: svg, riempi: riempi, nomi: Object.keys(TRATTI) };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", () => {
       riempi();
     });
   } else {

@@ -1,6 +1,6 @@
 // avvolgi-link.js — Mette i link del componente dentro .cta-classifica-wrap.
 
-export function avvolgiLink(elemento, gruppo) {
+export const avvolgiLink = (elemento, gruppo) => {
   const link = Array.from(elemento.querySelectorAll("a"));
   link.forEach((a) => a.classList.add("cta-classifica"));
 
@@ -9,4 +9,4 @@ export function avvolgiLink(elemento, gruppo) {
     "cta-classifica-wrap" + (gruppo ? " cta-classifica-wrap--gruppo" : "");
   contenitore.append(...link);
   elemento.replaceChildren(contenitore);
-}
+};

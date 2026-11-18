@@ -12,10 +12,10 @@
 // lo script non si avvia proprio.
 // ============================================================
 
-(function () {
+(() => {
   "use strict";
 
-  var motoRidotto = window.matchMedia(
+  const motoRidotto = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
   if (motoRidotto) return;
@@ -23,15 +23,15 @@
   // Pulsanti e pillole già esistenti nel sito: pillole del
   // selettore vista, pulsanti "vai a...", torna su, link-bottone,
   // paginazione, e qualunque <button> generico.
-  var SELETTORE =
+  const SELETTORE =
     "button, .selettore-metrica__pulsante, .cta-classifica, " +
     ".colore__vai-a, .to-top, .link-bottone";
 
   document.addEventListener(
     "pointerdown",
-    function (e) {
+    (e) => {
       if (e.button !== undefined && e.button !== 0) return; // solo tasto sinistro / tocco
-      var bersaglio = e.target.closest && e.target.closest(SELETTORE);
+      const bersaglio = e.target.closest && e.target.closest(SELETTORE);
       if (!bersaglio || bersaglio.disabled) return;
 
       // Serve un contenitore posizionato per piazzare il cerchio dentro
@@ -44,9 +44,9 @@
         bersaglio.style.overflow = "hidden";
       }
 
-      var rect = bersaglio.getBoundingClientRect();
-      var lato = Math.max(rect.width, rect.height) * 1.6;
-      var cerchio = document.createElement("span");
+      const rect = bersaglio.getBoundingClientRect();
+      const lato = Math.max(rect.width, rect.height) * 1.6;
+      const cerchio = document.createElement("span");
       cerchio.className = "tocco-cerchio";
       cerchio.style.width = lato + "px";
       cerchio.style.height = lato + "px";
@@ -54,12 +54,12 @@
       cerchio.style.top = e.clientY - rect.top - lato / 2 + "px";
       bersaglio.appendChild(cerchio);
 
-      cerchio.addEventListener("animationend", function () {
+      cerchio.addEventListener("animationend", () => {
         cerchio.remove();
       });
       // Rete di sicurezza: se per qualche motivo "animationend" non
       // arriva (tab in background, ecc.), il cerchio non resta lì.
-      setTimeout(function () {
+      setTimeout(() => {
         if (cerchio.parentNode) cerchio.remove();
       }, 900);
     },

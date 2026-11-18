@@ -3,10 +3,10 @@
 // Usato dalla home e dalla pagina Informazioni.
 // ============================================================
 
-function contactEmail(indirizzo, oggettoSito) {
+const contactEmail = (indirizzo, oggettoSito) => {
   const soggetto = `info sul sito ${oggettoSito}`;
   window.location.href = `mailto:${indirizzo}?subject=${encodeURIComponent(soggetto)}`;
-}
+};
 
 const contactell = () => (window.location.href = "tel:+393337024320");
 

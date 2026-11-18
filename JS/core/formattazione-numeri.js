@@ -12,7 +12,7 @@
  * @param {boolean} forceDecimals - se true mostra sempre 2 decimali
  * @returns {string}
  */
-function formatItalianNumber(num, forceDecimals = false) {
+const formatItalianNumber = (num, forceDecimals = false) => {
   if (typeof num === "string") num = parseFloat(num);
   if (isNaN(num)) return "0";
 
@@ -45,7 +45,7 @@ function formatItalianNumber(num, forceDecimals = false) {
   }
 
   return sign + integerPart + decimalString;
-}
+};
 
 /**
  * Formatta un numero mostrando i decimali solo se sono diversi da ,00.
@@ -60,9 +60,7 @@ const formatNumber = (value) => formatItalianNumber(value, false);
  * @param {number|string} value
  * @returns {string}
  */
-function formatPercentage(value) {
-  return formatItalianNumber(value, false);
-}
+const formatPercentage = (value) => formatItalianNumber(value, false);
 
 /**
  * Sceglie la forma singolare o plurale in base al numero, cosi'
@@ -73,9 +71,8 @@ function formatPercentage(value) {
  * @param {string} plurale
  * @returns {string}
  */
-function pluralizza(count, singolare, plurale) {
-  return Math.abs(Number(count)) === 1 ? singolare : plurale;
-}
+const pluralizza = (count, singolare, plurale) =>
+  Math.abs(Number(count)) === 1 ? singolare : plurale;
 
 // Espone le funzioni globalmente
 window.formatItalianNumber = formatItalianNumber;

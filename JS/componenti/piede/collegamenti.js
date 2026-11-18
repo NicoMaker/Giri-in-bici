@@ -2,7 +2,7 @@
 
 import { LINK_PIEDE, LINK_GITHUB } from "./link-piede.js";
 
-export function collegamenti() {
+export const collegamenti = () => {
   const link = LINK_PIEDE.map(
     ([href, nome]) => `<a href="${href}">${nome}</a>`,
   ).join("\n      ");
@@ -10,4 +10,4 @@ export function collegamenti() {
       ${link}
       <a href="${LINK_GITHUB}" target="_blank" rel="noopener">GitHub</a>
     </nav>`;
-}
+};

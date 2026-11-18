@@ -4,7 +4,7 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
 
   // Stesso principio delle altre schede: il testo sotto il titolo
@@ -25,7 +25,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     "corse-asc": "dalla stagione con meno corse a quella con più",
   };
 
-  CM.avviaVistaStagioni = async function () {
+  CM.avviaVistaStagioni = async () => {
     const CC = window.ClassificaControlli;
 
     const podioStagioniEl = document.getElementById("podio-stagioni");
@@ -39,7 +39,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
     let righeStagioniComplete = [];
 
-    function disegnaStagioni() {
+    const disegnaStagioni = () => {
       const stato = controlliStagioni.stato();
       // Copie, così percentuale e filtri non sporcano i dati originali.
       const cercate = CC.cerca(
@@ -81,7 +81,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         listaStagioniEl.innerHTML =
           CM.creaClassificaStagioni(perPodio) +
           CM.creaRigaTotale(totaleFiltrato, etichettaTotale);
-    }
+    };
 
     const controlliStagioni = CC.crea(
       document.getElementById("controlli-stagioni"),

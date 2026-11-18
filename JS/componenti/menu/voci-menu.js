@@ -7,7 +7,7 @@
 // Se il file non si legge, la navigazione non deve sparire: resta almeno la home.
 const DI_RISERVA = [{ nome: "Home", link: "/Giri.html", icona: "casa" }];
 
-function normalizza(voce) {
+const normalizza = (voce) => {
   const link = voce.link || "#";
   const esterno = /^https?:\/\//i.test(link);
   const icona = voce.icona || "";
@@ -22,9 +22,9 @@ function normalizza(voce) {
     indietro: voce.name.trim() === "Pagina Precedente" && link === "#",
     classifica: /classificamesi\.html/i.test(link),
   };
-}
+};
 
-export async function caricaVoci() {
+export const caricaVoci = async () => {
   try {
     const risposta = await fetch("/json/Menu.json");
     if (!risposta.ok) throw new Error(`HTTP ${risposta.status}`);
@@ -34,4 +34,4 @@ export async function caricaVoci() {
     console.error("Errore nel caricamento del menu:", errore);
     return DI_RISERVA;
   }
-}
+};

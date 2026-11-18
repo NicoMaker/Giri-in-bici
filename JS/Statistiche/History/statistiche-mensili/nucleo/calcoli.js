@@ -6,7 +6,7 @@
 
 window.GraficoTotaleMensile = window.GraficoTotaleMensile || {};
 
-(function (GTM) {
+((GTM) => {
   "use strict";
 
   GTM.getTotale = (chilometri) =>

@@ -13,7 +13,7 @@
 
    Caricare SUBITO DOPO chart.js e PRIMA di ogni altro script.
    ============================================================ */
-(function (CR) {
+((CR) => {
   "use strict";
 
   if (typeof Chart === "undefined") {
@@ -21,11 +21,11 @@
     return;
   }
 
-  var plugin = {
+  const plugin = {
     id: "giriResponsive",
 
-    beforeInit: function (chart) {
-      var t = CR.tierFor(
+    beforeInit: (chart) => {
+      const t = CR.tierFor(
         (chart.canvas && chart.canvas.parentNode
           ? chart.canvas.parentNode.clientWidth
           : 0) ||
@@ -36,15 +36,15 @@
       CR.applyTier(chart, t);
     },
 
-    afterResize: function (chart, size) {
-      var t = CR.tierFor(size && size.width ? size.width : chart.width);
+    afterResize: (chart, size) => {
+      const t = CR.tierFor(size && size.width ? size.width : chart.width);
       if (chart.$giriTier === t.name) return;
       chart.$giriTier = t.name;
       CR.applyTier(chart, t);
       // fuori dal ciclo corrente, per non innescare un resize ricorsivo
       if (chart.$giriPending) return;
       chart.$giriPending = true;
-      requestAnimationFrame(function () {
+      requestAnimationFrame(() => {
         chart.$giriPending = false;
         try {
           chart.update("none");
@@ -58,12 +58,12 @@
   Chart.register(plugin);
 
   /* ------- Ricalcolo al cambio di orientamento (iOS non fa resize) -------- */
-  var timer = null;
-  window.addEventListener("orientationchange", function () {
+  let timer = null;
+  window.addEventListener("orientationchange", () => {
     clearTimeout(timer);
-    timer = setTimeout(function () {
-      document.querySelectorAll("canvas").forEach(function (c) {
-        var ch = Chart.getChart ? Chart.getChart(c) : null;
+    timer = setTimeout(() => {
+      document.querySelectorAll("canvas").forEach((c) => {
+        const ch = Chart.getChart ? Chart.getChart(c) : null;
         if (!ch) return;
         try {
           ch.resize();

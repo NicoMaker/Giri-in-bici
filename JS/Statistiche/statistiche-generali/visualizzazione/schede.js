@@ -6,7 +6,7 @@
 
 window.StatGenerali = window.StatGenerali || {};
 
-(function (SG) {
+((SG) => {
   "use strict";
 
   SG.renderStampa = (statistics, avgValues, itemsPerPage, currentPage) => {

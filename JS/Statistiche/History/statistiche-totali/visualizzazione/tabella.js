@@ -6,11 +6,10 @@
 
 window.GraficoTotale = window.GraficoTotale || {};
 
-(function (GT) {
+((GT) => {
   "use strict";
 
-  GT.createTable = function (mesi, chilometri, percentuali, anni) {
-    return `
+  GT.createTable = (mesi, chilometri, percentuali, anni) => `
       <tr class="grassetto">
         <th>Mese</th>
         <th>Distanza (km) <img src="/img/Icons/traguardo.png"></th>
@@ -18,5 +17,4 @@ window.GraficoTotale = window.GraficoTotale || {};
        </tr>
       ${mesi.map((mese, index) => `<tr><td class="td-anno">${mese ? `${mese} ${anni[index] || ""}`.trim() : "N/D"}</td><td>${formatNumber(chilometri[index] || 0)}</td><td>${percentuali[index] || "0,00"} %</td></tr>`).join("")}
     `;
-  };
 })(window.GraficoTotale);

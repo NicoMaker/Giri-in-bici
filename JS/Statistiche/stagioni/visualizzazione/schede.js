@@ -26,20 +26,19 @@
 
 window.Stagioni = window.Stagioni || {};
 
-(function (S) {
+((S) => {
   "use strict";
-
   // ------------------------------------------------------------
   // renderSeasonDiv — genera l'HTML di una singola scheda stagione
   // (usato per la sezione "Le tre stagioni" in alto)
   // ------------------------------------------------------------
-  S.renderSeasonDiv = function (
+  S.renderSeasonDiv = (
     season,
     data,
     numPeriods,
     prevSeason,
     prevNumPeriods,
-  ) {
+  ) => {
     const totalKm = data[season.dataKey] || 0;
     const currentSeasonRaces = data[season.raceKey] || 0;
     const totalYearRaces = data.corseTotale || 0;
@@ -127,19 +126,18 @@ window.Stagioni = window.Stagioni || {};
   // Primavera → Estate → Autunno-Inverno (la prima non ha un
   // "precedente" e non mostra il distintivo).
   // ------------------------------------------------------------
-  function numPeriodiStagione(season, numPeriodsPerSeason) {
-    return season.name === "Primavera"
+  const numPeriodiStagione = (season, numPeriodsPerSeason) =>
+    season.name === "Primavera"
       ? numPeriodsPerSeason.primavera
       : season.name === "Estate"
         ? numPeriodsPerSeason.estate
         : numPeriodsPerSeason.autunno_inverno;
-  }
 
-  S.renderStampa = function (data, numPeriodsPerSeason) {
-    return S.SEASONS_CONFIG.map(function (season, index) {
-      var numPeriods = numPeriodiStagione(season, numPeriodsPerSeason);
-      var prevSeason = index > 0 ? S.SEASONS_CONFIG[index - 1] : null;
-      var prevNumPeriods = prevSeason
+  S.renderStampa = (data, numPeriodsPerSeason) =>
+    S.SEASONS_CONFIG.map((season, index) => {
+      const numPeriods = numPeriodiStagione(season, numPeriodsPerSeason);
+      const prevSeason = index > 0 ? S.SEASONS_CONFIG[index - 1] : null;
+      const prevNumPeriods = prevSeason
         ? numPeriodiStagione(prevSeason, numPeriodsPerSeason)
         : 0;
       return S.renderSeasonDiv(
@@ -150,18 +148,14 @@ window.Stagioni = window.Stagioni || {};
         prevNumPeriods,
       );
     }).join("");
-  };
 
   // ------------------------------------------------------------
   // renderLegenda — legenda dei distintivi di variazione, va messa
   // FUORI da #dati (che e' gia' la griglia delle tre schede: un
   // quarto elemento al suo interno romperebbe le tre colonne).
   // ------------------------------------------------------------
-  S.renderLegenda = function () {
-    return Variazioni.legenda(
-      "(% calcolata rispetto alla stagione precedente)",
-    );
-  };
+  S.renderLegenda = () =>
+    Variazioni.legenda("(% calcolata rispetto alla stagione precedente)");
 
   // ------------------------------------------------------------
   // rigaStagione — le tre righe di dettaglio di una stagione
@@ -169,8 +163,8 @@ window.Stagioni = window.Stagioni || {};
   // Stessa identità visiva delle altre righe: <p class="misuracolore">,
   // niente più card "glass" a sé stanti.
   // ------------------------------------------------------------
-  var rigaStagione = function (emoji, nome, periodi, corse, totaleCorse) {
-    var percentuale = totaleCorse > 0 ? (corse / totaleCorse) * 100 : 0;
+  const rigaStagione = (emoji, nome, periodi, corse, totaleCorse) => {
+    const percentuale = totaleCorse > 0 ? (corse / totaleCorse) * 100 : 0;
     return `
         <p class="misuracolore"><strong>${emoji} ${nome}</strong></p>
         <p class="misuracolore">Periodi ${formatItalianNumber(periodi)}</p>
@@ -188,14 +182,14 @@ window.Stagioni = window.Stagioni || {};
   // destra, niente più hero/griglia/quota in stile "glass".
   // I dati restano identici, cambia solo il markup.
   // ------------------------------------------------------------
-  S.createStampat = function (data, numPeriodsPerSeason) {
-    var totalePeriodi =
+  S.createStampat = (data, numPeriodsPerSeason) => {
+    const totalePeriodi =
       numPeriodsPerSeason.primavera +
       numPeriodsPerSeason.estate +
       numPeriodsPerSeason.autunno_inverno;
 
     // Calcolo media km per corsa (evitiamo divisione per zero)
-    var mediaKmPerCorsa =
+    const mediaKmPerCorsa =
       data.corseTotale > 0 ? data.totale / data.corseTotale : 0;
 
     return `

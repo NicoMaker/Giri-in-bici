@@ -6,10 +6,10 @@
 
 window.GraficoTotale = window.GraficoTotale || {};
 
-(function (GT) {
+((GT) => {
   "use strict";
 
-  GT.createSummary = function (
+  GT.createSummary = (
     totale,
     kmMediPerCorsa,
     kmMediPerMese,
@@ -17,8 +17,7 @@ window.GraficoTotale = window.GraficoTotale || {};
     racesPerYear,
     racesPerMonth,
     mesi,
-  ) {
-    return `
+  ) => `
       <a href="Statistiche_Mensili.html">
         <div class="colore">
           <p class="misuracolore">Totale km ${formatItalianNumber(totale)} <img src="/img/Icons/traguardo.png"></p>
@@ -31,5 +30,4 @@ window.GraficoTotale = window.GraficoTotale || {};
           <span class="colore__vai-a">Vai ai totali per mese <span class="freccia" aria-hidden="true">→</span></span>
         </div>
       </a>`;
-  };
 })(window.GraficoTotale);

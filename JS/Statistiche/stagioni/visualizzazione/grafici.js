@@ -12,11 +12,11 @@
 
 window.Stagioni = window.Stagioni || {};
 
-(function (S) {
+((S) => {
   "use strict";
 
   // Grafico a linea
-  S.disegnaGraficoLinea = function (labels, chartData) {
+  S.disegnaGraficoLinea = (labels, chartData) => {
     const lineCanvas = document.getElementById("line-chart");
     if (!lineCanvas) return;
 
@@ -60,7 +60,7 @@ window.Stagioni = window.Stagioni || {};
           },
           tooltip: {
             callbacks: {
-              label: function (context) {
+              label: (context) => {
                 const km = formatNumber(context.raw);
                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                 const pct = formatItalianNumber(
@@ -77,7 +77,7 @@ window.Stagioni = window.Stagioni || {};
   };
 
   // Grafico a ciambella
-  S.disegnaGraficoCiambella = function (canvas, labels, chartData) {
+  S.disegnaGraficoCiambella = (canvas, labels, chartData) => {
     window.myChart = new Chart(canvas.getContext("2d"), {
       type: "doughnut",
       data: {
@@ -106,7 +106,7 @@ window.Stagioni = window.Stagioni || {};
           },
           tooltip: {
             callbacks: {
-              label: function (context) {
+              label: (context) => {
                 const value = context.raw || 0;
                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                 const pct = formatItalianNumber((value / total) * 100, true);

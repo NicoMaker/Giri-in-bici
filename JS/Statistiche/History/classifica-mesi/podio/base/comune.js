@@ -4,7 +4,7 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
 
   CM.MEDAGLIE = ["🥇", "🥈", "🥉"];
@@ -13,7 +13,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // "Autunno · Inverno", "Autunno-Inverno", "Autunno_Inverno", "autunno%20inverno"...
   // Serve perché gli indirizzi (?stagione=...) e i file JSON non scrivono
   // sempre il nome allo stesso modo.
-  CM.chiaveStagione = function (testo) {
+  CM.chiaveStagione = (testo) => {
     const t = String(testo || "")
       .toLowerCase()
       .normalize("NFD")
@@ -29,7 +29,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
   // solo quelle citate nel parametro ?stagione= (anche più, separate da
   // virgola). Se il parametro manca o non cita nessuna stagione valida,
   // restituisce tutte le stagioni.
-  CM.stagioniDaParametro = function (parametro, stagioniDisponibili) {
+  CM.stagioniDaParametro = (parametro, stagioniDisponibili) => {
     if (!parametro) return stagioniDisponibili.slice();
     const chiavi = parametro
       .split(",")
@@ -41,8 +41,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
     return scelte.length ? scelte : stagioniDisponibili.slice();
   };
 
-  CM.creaRigaTotale = function (totaleKm, etichetta) {
-    return `
+  CM.creaRigaTotale = (totaleKm, etichetta) => `
       <li class="classifica-riga classifica-riga--totale">
         <span class="classifica-riga__posizione" aria-hidden="true">&sum;</span>
         <span class="classifica-riga__mese">Totale ${etichetta}</span>
@@ -50,5 +49,4 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         <span class="classifica-riga__km">${formatItalianNumber(totaleKm)} km</span>
         <span class="classifica-riga__percentuale">100 %</span>
       </li>`;
-  };
 })(window.ClassificaMesi);

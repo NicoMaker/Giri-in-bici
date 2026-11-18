@@ -6,10 +6,10 @@
 
 window.StoricoMensile = window.StoricoMensile || {};
 
-(function (SM) {
+((SM) => {
   "use strict";
 
-  SM.renderTable = function (datasets, yearLabels) {
+  SM.renderTable = (datasets, yearLabels) => {
     const wrapper = document.createElement("div");
     wrapper.className = "storico-tabella-wrapper";
 

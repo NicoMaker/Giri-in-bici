@@ -7,18 +7,18 @@
 
 window.Bici = window.Bici || {};
 
-(function (B) {
+((B) => {
   "use strict";
 
   // Evidenzia il filtro attivo sia nella barra pillole sia nel menu a comparsa
-  B.impostaFiltroAttivo = function (tipo) {
+  B.impostaFiltroAttivo = (tipo) => {
     document.querySelectorAll(".bici-filtro").forEach((btn) => {
       btn.classList.toggle("attivo", btn.dataset.filtro === tipo);
     });
   };
 
   // Collega la barra dei filtri, se presente in pagina
-  B.collegaBarra = function () {
+  B.collegaBarra = () => {
     document.querySelectorAll(".bici-filtro").forEach((btn) => {
       btn.addEventListener("click", () => {
         const tipo = btn.dataset.filtro;

@@ -25,10 +25,9 @@
 
 window.TappePiuLunghe = window.TappePiuLunghe || {};
 
-(function (T) {
+((T) => {
   "use strict";
-
-  var MEDAGLIE = ["🥇", "🥈", "🥉"];
+  const MEDAGLIE = ["🥇", "🥈", "🥉"];
 
   // "place" nel JSON è già HTML, in quattro forme possibili:
   //   1. solo testo                       "Cisterna"
@@ -51,40 +50,32 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   // <div> di appoggio non viene mai inserito nella pagina, serve solo
   // a farsi leggere il contenuto dal browser senza un'espressione
   // regolare.
-  T.analizzaLuogo = function (luogoHtml) {
-    var appoggio = document.createElement("div");
+  T.analizzaLuogo = (luogoHtml) => {
+    const appoggio = document.createElement("div");
     appoggio.innerHTML = luogoHtml;
-    var link = appoggio.querySelectorAll("a[href]");
+    const link = appoggio.querySelectorAll("a[href]");
 
     if (link.length >= 2) {
-      var senzaLink = appoggio.cloneNode(true);
-      Array.prototype.forEach.call(
-        senzaLink.querySelectorAll("a"),
-        function (a) {
-          a.remove();
-        },
-      );
-      Array.prototype.forEach.call(
-        senzaLink.querySelectorAll("br"),
-        function (br) {
-          br.remove();
-        },
-      );
-      var nomePostoTesto = (senzaLink.textContent || "").trim();
+      const senzaLink = appoggio.cloneNode(true);
+      Array.prototype.forEach.call(senzaLink.querySelectorAll("a"), (a) => {
+        a.remove();
+      });
+      Array.prototype.forEach.call(senzaLink.querySelectorAll("br"), (br) => {
+        br.remove();
+      });
+      const nomePostoTesto = (senzaLink.textContent || "").trim();
       return {
         nome: senzaLink.innerHTML.trim() || nomePostoTesto,
         nomeTesto: nomePostoTesto,
         href: null,
-        linkMultipli: Array.prototype.map.call(link, function (a) {
-          return {
-            testo: (a.textContent || "").trim(),
-            href: a.getAttribute("href"),
-          };
-        }),
+        linkMultipli: Array.prototype.map.call(link, (a) => ({
+          testo: (a.textContent || "").trim(),
+          href: a.getAttribute("href"),
+        })),
       };
     }
 
-    var contenitoreNome = link[0] || appoggio;
+    const contenitoreNome = link[0] || appoggio;
     return {
       nome: contenitoreNome.innerHTML,
       nomeTesto: (contenitoreNome.textContent || "").trim(),
@@ -95,49 +86,49 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
 
   // Il gruppo di link "andata / ritorno" (o simili), sempre nella
   // stessa riga/scheda del nome del posto, mai come righe separate.
-  function creaLinkMultipli(linkMultipli) {
+  const creaLinkMultipli = (linkMultipli) => {
     if (!linkMultipli || !linkMultipli.length) return "";
     return (
       '<span class="tappa-link-multipli">' +
       linkMultipli
-        .map(function (l) {
-          return (
+        .map(
+          (l) =>
             '<a href="' +
             l.href +
             '" target="_blank" rel="noopener">' +
             l.testo +
-            "</a>"
-          );
-        })
+            "</a>",
+        )
         .join("") +
       "</span>"
     );
-  }
+  };
+
   // Esposta pubblicamente: la riusa anche calcolo_km_media_periodi.js
   // per dare la stessa veste a pillola ai link "andata/ritorno" nella
   // tabella cronologica di ogni periodo (prima erano due <a> di testo
   // semplice, uno sotto l'altro, senza stile).
   T.creaLinkMultipli = creaLinkMultipli;
 
-  T.creaPodio = function (righe, totaleKm) {
+  T.creaPodio = (righe, totaleKm) => {
     return righe
       .slice(0, 3)
-      .map(function (r, i) {
+      .map((r, i) => {
         // Bottone "Vai alla tappa" in fondo alla card, stesso stile
         // (.podio__vai, gia' condiviso via CSS) del "Vai alla stagione"
         // e "Vai al periodo" degli altri due podi. Ha senso solo se la
         // card e' un unico link cliccabile: col gruppo andata/ritorno
         // non c'e' un singolo href a cui puntare, e le due pillole
         // stesse fanno gia' da invito al click.
-        var vaiATappa = r.href
+        const vaiATappa = r.href
           ? '<span class="podio__vai">Vai alla tappa <span class="freccia" aria-hidden="true">→</span></span>'
           : "";
         // Stessa percentuale sul totale mostrata nella riga corrispondente
         // della classifica completa qui sotto (classifica-riga__percentuale),
         // cosi' il podio in cima e la lista restano coerenti a colpo d'occhio.
-        var percentualeTotale =
+        const percentualeTotale =
           totaleKm > 0 ? formatNumber((r.distance / totaleKm) * 100) : "0";
-        var dentro =
+        const dentro =
           '<span class="podio__medaglia" aria-hidden="true">' +
           MEDAGLIE[i] +
           '</span><span class="podio__mese">' +
@@ -152,7 +143,7 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
           r.etichetta +
           "</span>" +
           vaiATappa;
-        var attrStagione = r.stagioneClasse
+        const attrStagione = r.stagioneClasse
           ? ' data-stagione="' + r.stagioneClasse + '"'
           : "";
         return r.href
@@ -189,23 +180,24 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   //                 "primi 3 / dal 4º in poi" (solo se ce ne sono altre).
   // Senza "opzioni" la lista è identica a prima (pagine di stagione e
   // di periodo comprese).
-  T.creaLista = function (righe, totaleKm, limite, opzioni) {
+  T.creaLista = (righe, totaleKm, limite, opzioni) => {
     opzioni = opzioni || {};
     // "massimo" scala la barra di ogni riga: va preso col vero valore
     // più alto (Math.max), non il primo elemento. Con il pulsante
     // "Ordine" la lista può arrivare qui ordinata dal più corto al
     // più lungo, dove il primo elemento è il più BASSO.
-    var massimo = righe.reduce(function (m, r) {
-      return r.distance > m ? r.distance : m;
-    }, 0);
-    var righeMostrate = limite ? righe.slice(0, limite) : righe;
+    const massimo = righe.reduce(
+      (m, r) => (r.distance > m ? r.distance : m),
+      0,
+    );
+    const righeMostrate = limite ? righe.slice(0, limite) : righe;
     return righeMostrate
-      .map(function (r, i) {
-        var quota = massimo > 0 ? (r.distance / massimo) * 100 : 0;
-        var percentualeTotale =
+      .map((r, i) => {
+        const quota = massimo > 0 ? (r.distance / massimo) * 100 : 0;
+        const percentualeTotale =
           totaleKm > 0 ? formatNumber((r.distance / totaleKm) * 100) : "0";
         // Posto sul podio (0, 1, 2) o null: decide medaglia e stile.
-        var posPodio = null;
+        let posPodio = null;
         if (opzioni.segnaPodio) {
           if (r.posPodio != null) posPodio = r.posPodio;
           else if (opzioni.perPosizione && i < 3) posPodio = i;
@@ -215,7 +207,7 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
         // medaglie restano solo nel podio sopra l'elenco.
         // Con "medaglie" (vista "Giri per anno") i primi 3 mostrano
         // anche la medaglia, come nel podio sopra la tabella.
-        var posizioneHtml =
+        const posizioneHtml =
           posPodio != null && opzioni.medaglie
             ? '<span class="classifica-riga__posizione classifica-riga__posizione--medaglia" aria-label="' +
               (posPodio + 1) +
@@ -225,7 +217,7 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
             : '<span class="classifica-riga__posizione">' +
               (posPodio != null ? posPodio + 1 : i + 1) +
               "&ordm;</span>";
-        var dentro =
+        const dentro =
           posizioneHtml +
           '<span class="classifica-riga__mese">' +
           r.nome +
@@ -243,18 +235,18 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
         // Con "segnaPodio" il bordo/riquadro da podio spetta solo a chi
         // è davvero sul podio; altrimenti vale come sempre per le
         // prime tre righe.
-        var sulPodio = opzioni.segnaPodio ? posPodio != null : i < 3;
-        var classi =
+        const sulPodio = opzioni.segnaPodio ? posPodio != null : i < 3;
+        const classi =
           "classifica-riga" +
           (sulPodio ? " classifica-riga--podio" : "") +
           (opzioni.segnaPodio && posPodio != null
             ? " classifica-riga--podio-" + (posPodio + 1)
             : "") +
           (r.href ? " classifica-riga--cliccabile" : "");
-        var attrRiga = r.stagioneClasse
+        const attrRiga = r.stagioneClasse
           ? ' data-stagione="' + r.stagioneClasse + '"'
           : "";
-        var riga = r.href
+        const riga = r.href
           ? '<li class="' +
             classi +
             '"' +
@@ -279,15 +271,15 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   // "data-vecchio" per data). Restituisce sempre una copia nuova.
   // Estratta da "mostra" per poterla riusare anche dalla vista "Giri
   // per anno" della pagina Classifica, che ordina ogni anno a parte.
-  T.ordina = function (righe, ordine) {
-    var righeOrdinate;
+  T.ordina = (righe, ordine) => {
+    let righeOrdinate;
 
     if (ordine === "alfabetico" || ordine === "alfabetico-desc") {
       // Alfabetico per nome del posto (testo semplice, senza gli
       // eventuali link/bandierine di "nome"): stesso confronto
       // "italiano" usato da ClassificaControlli.ordina.
-      righeOrdinate = righe.slice().sort(function (a, b) {
-        var risultato = String(a.nomeTesto || a.nome || "").localeCompare(
+      righeOrdinate = righe.slice().sort((a, b) => {
+        const risultato = String(a.nomeTesto || a.nome || "").localeCompare(
           String(b.nomeTesto || b.nome || ""),
           "it",
           { sensitivity: "base", numeric: true },
@@ -297,15 +289,17 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
     } else if (ordine === "data-recente" || ordine === "data-vecchio") {
       // Per data della tappa (dataOrdine, tipo aaaammgg): dal piu'
       // recente al meno recente o viceversa.
-      righeOrdinate = righe.slice().sort(function (a, b) {
-        return ordine === "data-recente"
-          ? (b.dataOrdine || 0) - (a.dataOrdine || 0)
-          : (a.dataOrdine || 0) - (b.dataOrdine || 0);
-      });
+      righeOrdinate = righe
+        .slice()
+        .sort((a, b) =>
+          ordine === "data-recente"
+            ? (b.dataOrdine || 0) - (a.dataOrdine || 0)
+            : (a.dataOrdine || 0) - (b.dataOrdine || 0),
+        );
     } else {
-      var ordineEffettivo = ordine === "asc" ? "asc" : "desc";
-      righeOrdinate = righe.slice().sort(function (a, b) {
-        var perDistanza =
+      const ordineEffettivo = ordine === "asc" ? "asc" : "desc";
+      righeOrdinate = righe.slice().sort((a, b) => {
+        const perDistanza =
           ordineEffettivo === "asc"
             ? a.distance - b.distance
             : b.distance - a.distance;
@@ -346,15 +340,13 @@ window.TappePiuLunghe = window.TappePiuLunghe || {};
   // tappa, campo "dataOrdine").
   // "opzioniLista" (facoltativo) passa a creaLista le scelte per
   // segnare i primi 3 (medaglie e riga di separazione).
-  T.mostra = function (idPodio, idLista, righe, limite, ordine, opzioniLista) {
-    var contenitorePodio = document.getElementById(idPodio);
-    var contenitoreLista = document.getElementById(idLista);
+  T.mostra = (idPodio, idLista, righe, limite, ordine, opzioniLista) => {
+    const contenitorePodio = document.getElementById(idPodio);
+    const contenitoreLista = document.getElementById(idLista);
     if (!contenitorePodio || !contenitoreLista) return;
 
-    var righeOrdinate = T.ordina(righe, ordine);
-    var totaleKm = righe.reduce(function (tot, r) {
-      return tot + r.distance;
-    }, 0);
+    const righeOrdinate = T.ordina(righe, ordine);
+    const totaleKm = righe.reduce((tot, r) => tot + r.distance, 0);
 
     contenitorePodio.innerHTML = T.creaPodio(righeOrdinate, totaleKm);
     contenitoreLista.innerHTML = T.creaLista(

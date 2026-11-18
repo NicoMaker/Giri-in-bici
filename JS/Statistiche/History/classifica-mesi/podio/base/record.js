@@ -4,11 +4,11 @@
 
 window.ClassificaMesi = window.ClassificaMesi || {};
 
-(function (CM) {
+((CM) => {
   "use strict";
 
-  CM.creaPodioSemplice = function (righe) {
-    return righe
+  CM.creaPodioSemplice = (righe) =>
+    righe
       .slice(0, 3)
       .map(
         (r, i) => `
@@ -20,9 +20,8 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       </div>`,
       )
       .join("");
-  };
 
-  CM.creaRecordMesi = function (righe) {
+  CM.creaRecordMesi = (righe) => {
     const massimo = righe.reduce((m, r) => (r.km > m ? r.km : m), 0);
     return righe
       .map((r, i) => {
@@ -44,7 +43,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
       .join("");
   };
 
-  CM.creaTitoloRecordMesi = function (righe, ordine) {
+  CM.creaTitoloRecordMesi = (righe, ordine) => {
     if (!righe.length || righe[0].km <= 0) {
       return "Non ci sono ancora dati a sufficienza per una classifica.";
     }

@@ -3,12 +3,12 @@
 // Si apre col pulsante hamburger. Si chiude con la X, con Esc, con un clic
 // fuori dal pannello o scegliendo una voce.
 
-export function collegaApertura(pannello, pulsante) {
+export const collegaApertura = (pannello, pulsante) => {
   if (!pannello || !pulsante) return;
 
   const chiudiPannello = pannello.querySelector(".menu-close");
 
-  function imposta(aperto) {
+  const imposta = (aperto) => {
     pannello.classList.toggle("showMenu", aperto);
     pulsante.classList.toggle("closeIcon", aperto);
     pulsante.setAttribute("aria-expanded", aperto ? "true" : "false");
@@ -16,9 +16,9 @@ export function collegaApertura(pannello, pulsante) {
       "aria-label",
       aperto ? "Chiudi il menu" : "Apri il menu",
     );
-  }
+  };
 
-  function chiudi() {
+  const chiudi = () => {
     if (!pannello.classList.contains("showMenu")) return;
     imposta(false);
 
@@ -27,7 +27,7 @@ export function collegaApertura(pannello, pulsante) {
     const campo = pannello.querySelector("input");
     if (campo && document.activeElement === campo) campo.blur();
     pulsante.focus();
-  }
+  };
 
   pulsante.setAttribute("aria-expanded", "false");
   pulsante.addEventListener("click", () => {
@@ -53,4 +53,4 @@ export function collegaApertura(pannello, pulsante) {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") chiudi();
   });
-}
+};

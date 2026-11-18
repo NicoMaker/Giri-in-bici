@@ -15,25 +15,26 @@
 
 window.ContenutiAnimati = window.ContenutiAnimati || {};
 
-(function (CA) {
+((CA) => {
   "use strict";
 
-  var motoRidotto = window.matchMedia(
+  const motoRidotto = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
 
-  var TILT_MASSIMO = 6; // gradi: sottile, non un effetto da luna park
+  const TILT_MASSIMO = 6; // gradi: sottile, non un effetto da luna park
 
-  CA.seguiCursoreSuCard = function () {
+  CA.seguiCursoreSuCard = () => {
     if (motoRidotto) return;
     document.addEventListener(
       "pointermove",
-      function (e) {
-        var card = e.target.closest && e.target.closest(".colore, .bici-card");
+      (e) => {
+        const card =
+          e.target.closest && e.target.closest(".colore, .bici-card");
         if (!card) return;
-        var rect = card.getBoundingClientRect();
-        var xRapporto = (e.clientX - rect.left) / rect.width;
-        var yRapporto = (e.clientY - rect.top) / rect.height;
+        const rect = card.getBoundingClientRect();
+        const xRapporto = (e.clientX - rect.left) / rect.width;
+        const yRapporto = (e.clientY - rect.top) / rect.height;
         card.style.setProperty("--mx", xRapporto * 100 + "%");
         card.style.setProperty("--my", yRapporto * 100 + "%");
         card.style.setProperty(

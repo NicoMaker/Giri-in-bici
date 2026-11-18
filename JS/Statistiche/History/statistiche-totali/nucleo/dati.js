@@ -6,18 +6,18 @@
 
 window.GraficoTotale = window.GraficoTotale || {};
 
-(function (GT) {
+((GT) => {
   "use strict";
 
   // Un anno che non si carica non deve far sparire tutti gli altri.
-  GT.fetchYearData = async function (url, year) {
+  GT.fetchYearData = async (url, year) => {
     const data = await Json.leggiOppureNull(url);
     if (!data || typeof data !== "object") return null;
     if (!data.year && year) data.year = year;
     return data;
   };
 
-  GT.calculateTotals = function (yearlyData) {
+  GT.calculateTotals = (yearlyData) => {
     const combinedData = [];
     yearlyData.forEach((item) => {
       if (!item || !item.data) return;
