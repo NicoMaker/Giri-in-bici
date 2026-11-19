@@ -28,8 +28,12 @@ const seguiScroll = (sezioni) => {
   const annuncia = () => {
     const attive = sezioni.filter((s) => visibili.get(s.el));
     const scelta = attive[0] || null;
-    window.GibSezioneAttiva = scelta ? { id: scelta.id, titolo: scelta.titolo } : null;
-    window.dispatchEvent(new CustomEvent("sito:sezione", { detail: window.GibSezioneAttiva }));
+    window.GibSezioneAttiva = scelta
+      ? { id: scelta.id, titolo: scelta.titolo }
+      : null;
+    window.dispatchEvent(
+      new CustomEvent("sito:sezione", { detail: window.GibSezioneAttiva }),
+    );
   };
   const osservatore = new IntersectionObserver(
     (voci) => {
@@ -47,18 +51,27 @@ const avvia = () => {
     if (!s.el.id) s.el.id = s.id;
     else s.id = s.el.id;
   });
-  window.GibSezioni = sezioni.map(({ id, titolo, vista }) => ({ id, titolo, vista }));
-  window.dispatchEvent(new CustomEvent("sito:sezioni", { detail: window.GibSezioni }));
+  window.GibSezioni = sezioni.map(({ id, titolo, vista }) => ({
+    id,
+    titolo,
+    vista,
+  }));
+  window.dispatchEvent(
+    new CustomEvent("sito:sezioni", { detail: window.GibSezioni }),
+  );
 
   const apri = () => vaiA(window.location.hash.slice(1));
   // Dopo il caricamento completo: tabelle e grafici hanno già preso la loro altezza
   if (window.location.hash) {
     apri();
-    window.addEventListener("load", () => setTimeout(apri, 250), { once: true });
+    window.addEventListener("load", () => setTimeout(apri, 250), {
+      once: true,
+    });
   }
   window.addEventListener("hashchange", apri);
   seguiScroll(sezioni);
 };
 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", avvia);
+if (document.readyState === "loading")
+  document.addEventListener("DOMContentLoaded", avvia);
 else avvia();

@@ -31,11 +31,18 @@ export const creaMappa = () => {
     <div class="mappa-vista"><div class="mappa-ruota"><div class="mappa-tela"><p class="mappa-attesa">Sto leggendo le pagine del sito…</p></div></div></div>`;
 
   // Su telefono la legenda parte chiusa: resta visibile solo "Sei in ..."
-  if (matchMedia("(max-width: 700px)").matches) dialogo.querySelector(".mappa-leg").open = false;
+  if (matchMedia("(max-width: 700px)").matches)
+    dialogo.querySelector(".mappa-leg").open = false;
   const vista = dialogo.querySelector(".mappa-vista");
   const ruota = dialogo.querySelector(".mappa-ruota");
   const tela = dialogo.querySelector(".mappa-tela");
-  let stato = { indice: null, modello: null, zoom: 1, scelta: null, pinnata: null };
+  let stato = {
+    indice: null,
+    modello: null,
+    zoom: 1,
+    scelta: null,
+    pinnata: null,
+  };
 
   const applicaZoom = (z) => {
     stato.zoom = Math.min(ZOOM.max, Math.max(ZOOM.min, z));
@@ -43,16 +50,35 @@ export const creaMappa = () => {
     ruota.style.width = `${tela.offsetWidth * stato.zoom}px`;
     ruota.style.height = `${tela.offsetHeight * stato.zoom}px`;
   };
-  const adatta = () => applicaZoom(Math.min(1, Math.max(ZOOM.min, (vista.clientWidth - 24) / tela.offsetWidth)));
+  const adatta = () =>
+    applicaZoom(
+      Math.min(
+        1,
+        Math.max(ZOOM.min, (vista.clientWidth - 24) / tela.offsetWidth),
+      ),
+    );
 
-  const fili = () => disegnaFili(tela, stato.modello, stato.indice.collegamenti || [], stato.scelta);
+  const fili = () =>
+    disegnaFili(
+      tela,
+      stato.modello,
+      stato.indice.collegamenti || [],
+      stato.scelta,
+    );
 
   const vaiAQui = () => {
     const k = chiave(window.location.href);
-    const scheda = [...tela.querySelectorAll(".mappa-scheda")].find((s) => s.dataset.k === k);
+    const scheda = [...tela.querySelectorAll(".mappa-scheda")].find(
+      (s) => s.dataset.k === k,
+    );
     if (!scheda) return;
-    const r = scheda.getBoundingClientRect(), v = vista.getBoundingClientRect();
-    vista.scrollBy({ left: r.left - v.left - v.width / 2 + r.width / 2, top: r.top - v.top - v.height / 2 + r.height / 2, behavior: "smooth" });
+    const r = scheda.getBoundingClientRect(),
+      v = vista.getBoundingClientRect();
+    vista.scrollBy({
+      left: r.left - v.left - v.width / 2 + r.width / 2,
+      top: r.top - v.top - v.height / 2 + r.height / 2,
+      behavior: "smooth",
+    });
   };
 
   const disegna = (indice, primaVolta) => {
@@ -62,7 +88,8 @@ export const creaMappa = () => {
     tela.innerHTML = htmlTela(stato.modello, chiave(window.location.href));
     if (window.Icone) window.Icone.riempi(tela);
     if (!primaVolta) applicaZoom(stato.zoom);
-    else if (matchMedia("(max-width: 700px)").matches) applicaZoom(0.6); // telefono: leggibile, poi si scorre
+    else if (matchMedia("(max-width: 700px)").matches)
+      applicaZoom(0.6); // telefono: leggibile, poi si scorre
     else adatta();
     aggiornaDove(dialogo, indice);
     fili();
@@ -88,7 +115,14 @@ export const creaMappa = () => {
     if (pulsante) {
       const k = pulsante.closest(".mappa-scheda").dataset.k;
       stato.pinnata = stato.pinnata === k ? null : k;
-      tela.querySelectorAll(".mappa-coll").forEach((b) => b.setAttribute("aria-pressed", String(b === pulsante && stato.pinnata === k)));
+      tela
+        .querySelectorAll(".mappa-coll")
+        .forEach((b) =>
+          b.setAttribute(
+            "aria-pressed",
+            String(b === pulsante && stato.pinnata === k),
+          ),
+        );
       scegli(stato.pinnata);
       return;
     }
@@ -96,7 +130,8 @@ export const creaMappa = () => {
   });
 
   dialogo.addEventListener("click", (ev) => {
-    if (ev.target === dialogo || ev.target.closest("[data-chiudi]")) return dialogo.close();
+    if (ev.target === dialogo || ev.target.closest("[data-chiudi]"))
+      return dialogo.close();
     const z = ev.target.closest("[data-zoom]");
     if (z) {
       const m = z.dataset.zoom;
@@ -107,8 +142,14 @@ export const creaMappa = () => {
     if (ev.target.closest("[data-qui]")) vaiAQui();
   });
 
-  window.addEventListener("sito:sezione", () => dialogo.open && stato.indice && aggiornaDove(dialogo, stato.indice));
-  window.addEventListener("sito:indice", (ev) => dialogo.open && disegna(ev.detail, false));
+  window.addEventListener(
+    "sito:sezione",
+    () => dialogo.open && stato.indice && aggiornaDove(dialogo, stato.indice),
+  );
+  window.addEventListener(
+    "sito:indice",
+    (ev) => dialogo.open && disegna(ev.detail, false),
+  );
 
   const apri = () => {
     if (!dialogo.open) dialogo.showModal();

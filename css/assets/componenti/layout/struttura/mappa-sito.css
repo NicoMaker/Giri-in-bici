@@ -25,7 +25,9 @@
   box-shadow: var(--sh-2);
   backdrop-filter: blur(12px);
   cursor: pointer;
-  transition: transform 0.25s var(--ease), color 0.2s var(--ease);
+  transition:
+    transform 0.25s var(--ease),
+    color 0.2s var(--ease);
 }
 .btn-mappa:hover,
 .btn-mappa:focus-visible {
@@ -155,7 +157,8 @@
 .mappa-vista {
   flex: 1;
   overflow: auto;
-  background: radial-gradient(circle, var(--line) 1px, transparent 1px) 0 0 / 22px 22px;
+  background: radial-gradient(circle, var(--line) 1px, transparent 1px) 0 0 /
+    22px 22px;
 }
 .mappa-ruota {
   position: relative;
@@ -242,7 +245,9 @@
   border-left: 5px solid var(--c);
   border-radius: 14px;
   box-shadow: var(--sh-1);
-  transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+  transition:
+    box-shadow 0.2s var(--ease),
+    transform 0.2s var(--ease);
 }
 .mappa-scheda--piccola {
   width: 190px;
@@ -324,7 +329,9 @@
 }
 .mappa-scheda.is-qui {
   outline: 2px solid var(--a1);
-  box-shadow: 0 0 0 6px var(--a-soft), var(--sh-2);
+  box-shadow:
+    0 0 0 6px var(--a-soft),
+    var(--sh-2);
 }
 .mappa-scheda.is-scelta {
   box-shadow: var(--sh-3);

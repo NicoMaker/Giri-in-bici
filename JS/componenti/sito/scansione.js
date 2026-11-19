@@ -14,9 +14,13 @@ const PARALLELE = 6;
 // Tutti i modi in cui una pagina ne indica un'altra: <a>, onclick="location.href=...", "indietro"
 const indirizziDa = (doc) => {
   const lista = [];
-  doc.querySelectorAll("a[href]").forEach((a) => lista.push(a.getAttribute("href")));
+  doc
+    .querySelectorAll("a[href]")
+    .forEach((a) => lista.push(a.getAttribute("href")));
   doc.querySelectorAll("[onclick]").forEach((el) => {
-    const m = /location\.href\s*=\s*['"]([^'"]+)['"]/.exec(el.getAttribute("onclick"));
+    const m = /location\.href\s*=\s*['"]([^'"]+)['"]/.exec(
+      el.getAttribute("onclick"),
+    );
     if (m) lista.push(m[1]);
   });
   const barra = doc.querySelector("gib-barra[indietro]");
@@ -27,7 +31,9 @@ const indirizziDa = (doc) => {
 const eUnaPagina = (percorso) => /\.html?$/i.test(percorso);
 
 const padreDi = (percorso) => {
-  const f = FAMIGLIE.find((x) => percorso.toLowerCase().startsWith(x.cartella.toLowerCase()));
+  const f = FAMIGLIE.find((x) =>
+    percorso.toLowerCase().startsWith(x.cartella.toLowerCase()),
+  );
   return f ? f.padre : "";
 };
 
@@ -49,20 +55,36 @@ export const scansiona = async (iniziali) => {
   const lavora = async (pagina) => {
     const doc = await leggiPagina(pagina);
     if (!doc) return;
-    pagina.sezioni = trovaSezioni(doc).map(({ id, titolo, vista }) => ({ id, titolo, vista }));
+    pagina.sezioni = trovaSezioni(doc).map(({ id, titolo, vista }) => ({
+      id,
+      titolo,
+      vista,
+    }));
     const h1 = doc.querySelector("h1");
-    if (!pagina.titolo) pagina.titolo = (h1 ? h1.textContent : doc.title).trim().replace(/\s+/g, " ");
+    if (!pagina.titolo)
+      pagina.titolo = (h1 ? h1.textContent : doc.title)
+        .trim()
+        .replace(/\s+/g, " ");
     const da = chiave(pagina.url);
 
     indirizziDa(doc).forEach((href) => {
-      if (!href || href.startsWith("#") || !stessoSito(href, `${location.origin}${pagina.url}`)) return;
+      if (
+        !href ||
+        href.startsWith("#") ||
+        !stessoSito(href, `${location.origin}${pagina.url}`)
+      )
+        return;
       const percorso = daRadice(href, `${location.origin}${pagina.url}`);
       const a = chiave(percorso);
       if (!eUnaPagina(a) || a === da) return;
       if (!mappa.has(a) && mappa.size < MAX_PAGINE) {
         const nuova = {
-          url: percorso, titolo: "", gruppo: gruppoDaPercorso(percorso),
-          padre: padreDi(percorso), sezioni: [], scoperta: true,
+          url: percorso,
+          titolo: "",
+          gruppo: gruppoDaPercorso(percorso),
+          padre: padreDi(percorso),
+          sezioni: [],
+          scoperta: true,
         };
         mappa.set(a, nuova);
         coda.push(nuova);
@@ -77,5 +99,8 @@ export const scansiona = async (iniziali) => {
   };
   await Promise.all(Array.from({ length: PARALLELE }, operaio));
 
-  return { pagine: [...mappa.values()], collegamenti: [...collegamenti.values()] };
+  return {
+    pagine: [...mappa.values()],
+    collegamenti: [...collegamenti.values()],
+  };
 };

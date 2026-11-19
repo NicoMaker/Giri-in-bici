@@ -30,10 +30,19 @@ const AZIONI = `<div class="menu-azioni">
 // Ridisegna i gruppi senza perdere ciò che la persona aveva aperto
 const disegna = (pannello, indice) => {
   const lista = pannello.querySelector("#menuList");
-  const apertiGruppi = new Set([...lista.querySelectorAll("details[open]")].map((d) => d.dataset.gruppo));
-  const apertePagine = new Set([...lista.querySelectorAll(".menu-espandi[aria-expanded=true]")].map((b) => b.closest("li").dataset.nome));
+  const apertiGruppi = new Set(
+    [...lista.querySelectorAll("details[open]")].map((d) => d.dataset.gruppo),
+  );
+  const apertePagine = new Set(
+    [...lista.querySelectorAll(".menu-espandi[aria-expanded=true]")].map(
+      (b) => b.closest("li").dataset.nome,
+    ),
+  );
 
-  const html = htmlMenu(indice, { corrente: chiave(window.location.href), live: window.GibSezioni || [] });
+  const html = htmlMenu(indice, {
+    corrente: chiave(window.location.href),
+    live: window.GibSezioni || [],
+  });
   lista.innerHTML = html;
 
   apertiGruppi.forEach((g) => {
@@ -42,7 +51,10 @@ const disegna = (pannello, indice) => {
   });
   lista.querySelectorAll(".menu-pagina").forEach((li) => {
     if (!apertePagine.has(li.dataset.nome)) return;
-    li.querySelector(":scope > .menu-riga .menu-espandi")?.setAttribute("aria-expanded", "true");
+    li.querySelector(":scope > .menu-riga .menu-espandi")?.setAttribute(
+      "aria-expanded",
+      "true",
+    );
     li.querySelector(":scope > .menu-sotto")?.removeAttribute("hidden");
   });
 
@@ -53,11 +65,17 @@ const disegna = (pannello, indice) => {
 
 // Accende nel menu la sezione che stai leggendo
 const segnaSezione = (pannello, attiva) => {
-  pannello.querySelectorAll(".menu-sezione.sezione-attiva").forEach((a) => a.classList.remove("sezione-attiva"));
+  pannello
+    .querySelectorAll(".menu-sezione.sezione-attiva")
+    .forEach((a) => a.classList.remove("sezione-attiva"));
   if (!attiva) return;
   const qui = pannello.querySelector(".is-attivo");
   const li = qui && qui.closest(".menu-pagina");
-  const link = li && li.querySelector(`:scope > .menu-sotto > li > .menu-sezione[data-sezione="${attiva.id}"]`);
+  const link =
+    li &&
+    li.querySelector(
+      `:scope > .menu-sotto > li > .menu-sezione[data-sezione="${attiva.id}"]`,
+    );
   if (link) link.classList.add("sezione-attiva");
 };
 
@@ -83,7 +101,11 @@ export const creaPannello = ({ indietro, indietroTitolo }) => {
     </div>`;
 
   const lista = pannello.querySelector("#menuList");
-  collegaRicerca(pannello.querySelector("#menuSearch"), lista, pannello.querySelector("#menuNoResults"));
+  collegaRicerca(
+    pannello.querySelector("#menuSearch"),
+    lista,
+    pannello.querySelector("#menuNoResults"),
+  );
 
   // Freccia: apre e chiude l'elenco di una pagina
   lista.addEventListener("click", (ev) => {
@@ -102,7 +124,9 @@ export const creaPannello = ({ indietro, indietroTitolo }) => {
   const lettura = () => completaIndice().then((i) => disegna(pannello, i));
   (window.requestIdleCallback || setTimeout)(lettura);
   window.addEventListener("sito:sezioni", ridisegna);
-  window.addEventListener("sito:sezione", (ev) => segnaSezione(pannello, ev.detail));
+  window.addEventListener("sito:sezione", (ev) =>
+    segnaSezione(pannello, ev.detail),
+  );
 
   return pannello;
 };

@@ -27,7 +27,12 @@ export const trovaSezioni = (radice) => {
     const base = id;
     for (let n = 2; usati.has(id); n++) id = `${base}-${n}`;
     usati.add(id);
-    lista.push({ el, id, titolo: h2.textContent.trim().replace(/\s+/g, " "), vista });
+    lista.push({
+      el,
+      id,
+      titolo: h2.textContent.trim().replace(/\s+/g, " "),
+      vista,
+    });
   });
   return lista;
 };

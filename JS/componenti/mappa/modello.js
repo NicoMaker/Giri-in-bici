@@ -21,7 +21,8 @@ export const costruisciModello = (indice) => {
       return;
     }
     const padre = p.padre ? chiave(p.padre) : "";
-    if (padre && padre !== CHIAVE_HOME && note.has(padre)) figli.set(padre, [...(figli.get(padre) || []), p]);
+    if (padre && padre !== CHIAVE_HOME && note.has(padre))
+      figli.set(padre, [...(figli.get(padre) || []), p]);
     else radici.push(p);
   });
 
@@ -42,7 +43,8 @@ export const archiStruttura = (modello) => {
   modello.corsie.forEach((c) =>
     c.righe.forEach(({ hub, figli }) => {
       if (modello.home) archi.push([CHIAVE_HOME, chiave(hub.url)]);
-      if (figli.length) archi.push([chiave(hub.url), `figli:${chiave(hub.url)}`]);
+      if (figli.length)
+        archi.push([chiave(hub.url), `figli:${chiave(hub.url)}`]);
     }),
   );
   return archi;

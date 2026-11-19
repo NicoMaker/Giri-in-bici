@@ -15,11 +15,15 @@ main section[id] {
 @keyframes sezione-lampo {
   0%,
   35% {
-    box-shadow: 0 0 0 3px var(--a1), 0 0 0 12px var(--a-soft);
+    box-shadow:
+      0 0 0 3px var(--a1),
+      0 0 0 12px var(--a-soft);
     border-radius: var(--r-md);
   }
   100% {
-    box-shadow: 0 0 0 0 transparent, 0 0 0 0 transparent;
+    box-shadow:
+      0 0 0 0 transparent,
+      0 0 0 0 transparent;
   }
 }
 

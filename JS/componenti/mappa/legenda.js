@@ -26,7 +26,9 @@ export const aggiornaDove = (radice, indice) => {
   if (!pagina) {
     dove.textContent = document.title || "questa pagina";
   } else {
-    const padre = pagina.padre ? indice.pagine.find((p) => chiave(p.url) === chiave(pagina.padre)) : null;
+    const padre = pagina.padre
+      ? indice.pagine.find((p) => chiave(p.url) === chiave(pagina.padre))
+      : null;
     dove.textContent = (padre ? `${padre.titolo} › ` : "") + pagina.titolo;
   }
   const attiva = window.GibSezioneAttiva;

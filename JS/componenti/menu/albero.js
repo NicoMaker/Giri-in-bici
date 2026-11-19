@@ -9,15 +9,20 @@ import { chiave } from "../sito/percorsi.js";
 import { linkSezione } from "../sito/slug.js";
 
 const icona = (p) => {
-  if (p.immagine && !p.icona) return `<span class="ico-tile"><img src="${e(p.immagine)}" alt="" /></span>`;
-  if (p.icona && p.icona.endsWith(".svg")) return `<span class="ico-tile"><img src="${e(p.icona)}" alt="" /></span>`;
+  if (p.immagine && !p.icona)
+    return `<span class="ico-tile"><img src="${e(p.immagine)}" alt="" /></span>`;
+  if (p.icona && p.icona.endsWith(".svg"))
+    return `<span class="ico-tile"><img src="${e(p.icona)}" alt="" /></span>`;
   return `<span class="ico-tile" data-icona="${e(p.icona || "calendario")}"></span>`;
 };
 
 const htmlSezioni = (p, sezioni) => {
   if (sezioni.length < 2) return "";
   const voci = sezioni
-    .map((s) => `<li data-nome="${e(s.titolo)}"><a class="menu-sezione" data-sezione="${e(s.id)}" href="${e(linkSezione(p.url, s))}"><span class="menu-flag" aria-hidden="true"></span><span>${e(s.titolo)}</span></a></li>`)
+    .map(
+      (s) =>
+        `<li data-nome="${e(s.titolo)}"><a class="menu-sezione" data-sezione="${e(s.id)}" href="${e(linkSezione(p.url, s))}"><span class="menu-flag" aria-hidden="true"></span><span>${e(s.titolo)}</span></a></li>`,
+    )
     .join("");
   return `<li class="menu-sotto-titolo" aria-hidden="true">In questa pagina</li>${voci}`;
 };
@@ -27,13 +32,17 @@ const htmlPagina = (p, ctx) => {
   const sezioni = p.sezioni && p.sezioni.length ? p.sezioni : [];
   const qui = chiave(p.url) === ctx.corrente;
   const dentro = qui || ctx.antenati.has(chiave(p.url));
-  const interno = figli.map((f) => htmlPagina(f, ctx)).join("") + htmlSezioni(p, qui && ctx.live.length ? ctx.live : sezioni);
+  const interno =
+    figli.map((f) => htmlPagina(f, ctx)).join("") +
+    htmlSezioni(p, qui && ctx.live.length ? ctx.live : sezioni);
   const attr = qui ? ' aria-current="page" class="is-attivo"' : "";
   const classifica = p.classifica ? " data-classifica" : "";
   const freccia = interno
     ? `<button type="button" class="menu-espandi" aria-expanded="${dentro}" aria-label="Mostra o nascondi: ${e(p.titolo)}"><span class="menu-freccia" aria-hidden="true"></span></button>`
     : "";
-  const sotto = interno ? `<ul class="menu-sotto"${dentro ? "" : " hidden"}>${interno}</ul>` : "";
+  const sotto = interno
+    ? `<ul class="menu-sotto"${dentro ? "" : " hidden"}>${interno}</ul>`
+    : "";
   return `<li class="menu-pagina" data-nome="${e(p.titolo)}"><div class="menu-riga"><a href="${e(p.url)}"${classifica}${attr}>${icona(p)}<span>${e(p.titolo)}</span></a>${freccia}</div>${sotto}</li>`;
 };
 
@@ -52,7 +61,8 @@ export const htmlMenu = (indice, ctx) => {
   });
   const antenati = new Set();
   indice.pagine.forEach((p) => {
-    if (chiave(p.url) === ctx.corrente && p.padre) antenati.add(chiave(p.padre));
+    if (chiave(p.url) === ctx.corrente && p.padre)
+      antenati.add(chiave(p.padre));
   });
   const piano = { ...ctx, figli, antenati };
 
@@ -60,7 +70,15 @@ export const htmlMenu = (indice, ctx) => {
     const pagine = radici.filter((p) => (p.gruppo || "altro") === g.id);
     const esterni = g.id === "altro" ? indice.esterni || [] : [];
     if (!pagine.length && !esterni.length) return "";
-    const aperto = g.id === "principale" || pagine.some((p) => chiave(p.url) === ctx.corrente || (figli.get(chiave(p.url)) || []).some((f) => chiave(f.url) === ctx.corrente));
+    const aperto =
+      g.id === "principale" ||
+      pagine.some(
+        (p) =>
+          chiave(p.url) === ctx.corrente ||
+          (figli.get(chiave(p.url)) || []).some(
+            (f) => chiave(f.url) === ctx.corrente,
+          ),
+      );
     return `<details class="menu-gruppo" data-gruppo="${g.id}"${aperto ? " open" : ""}><summary><span class="menu-gruppo-pallino" style="background:${g.colore}"></span>${e(g.titolo)}</summary><ul>${pagine.map((p) => htmlPagina(p, piano)).join("")}${esterni.map(htmlEsterno).join("")}</ul></details>`;
   }).join("");
 };

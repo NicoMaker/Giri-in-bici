@@ -30,8 +30,14 @@ const esiste = async (url) => {
 };
 
 const paginaFissa = (voce) => ({
-  url: daRadice(voce.link), titolo: voce.nome, gruppo: voce.gruppo, padre: voce.padre,
-  icona: voce.icona, immagine: voce.immagine, classifica: voce.classifica, sezioni: [],
+  url: daRadice(voce.link),
+  titolo: voce.nome,
+  gruppo: voce.gruppo,
+  padre: voce.padre,
+  icona: voce.icona,
+  immagine: voce.immagine,
+  classifica: voce.classifica,
+  sezioni: [],
 });
 
 // Le chiavi dei periodi di una famiglia (es. "2020", "2021"...), dal JSON + prova in avanti
@@ -43,7 +49,9 @@ const chiaviFamiglia = async (f) => {
   const prove = [];
   for (let a = ultimo + 1; a <= limite; a++) prove.push(f.chiave(a));
   const trovate = await Promise.all(
-    prove.map(async (k) => ((await esiste(`${f.cartella}${k}.html`)) ? k : null)),
+    prove.map(async (k) =>
+      (await esiste(`${f.cartella}${k}.html`)) ? k : null,
+    ),
   );
   return [...note, ...trovate.filter(Boolean)];
 };
@@ -55,7 +63,13 @@ export const scopriPagine = async () => {
 
   voci.forEach((v) => {
     if (v.indietro) return;
-    if (v.fuori) esterni.push({ titolo: v.nome, url: v.link, icona: v.icona, immagine: v.immagine });
+    if (v.fuori)
+      esterni.push({
+        titolo: v.nome,
+        url: v.link,
+        icona: v.icona,
+        immagine: v.immagine,
+      });
     else pagine.set(chiave(v.link), paginaFissa(v));
   });
 
@@ -65,8 +79,13 @@ export const scopriPagine = async () => {
       const url = `${f.cartella}${k}.html`;
       if (pagine.has(chiave(url))) return;
       pagine.set(chiave(url), {
-        url, titolo: f.etichetta(k), gruppo: f.gruppo, padre: f.padre,
-        icona: f.icona, sezioni: [], figlia: true,
+        url,
+        titolo: f.etichetta(k),
+        gruppo: f.gruppo,
+        padre: f.padre,
+        icona: f.icona,
+        sezioni: [],
+        figlia: true,
       });
     });
   });

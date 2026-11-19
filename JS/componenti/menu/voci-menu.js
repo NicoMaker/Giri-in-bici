@@ -8,7 +8,13 @@
 
 // Se il file non si legge, la navigazione non deve sparire: resta almeno la home.
 const DI_RISERVA = [
-  { nome: "Home", link: "/Giri.html", icona: "casa", gruppo: "principale", padre: "" },
+  {
+    nome: "Home",
+    link: "/Giri.html",
+    icona: "casa",
+    gruppo: "principale",
+    padre: "",
+  },
 ];
 
 const normalizza = (voce) => {
@@ -27,7 +33,11 @@ const normalizza = (voce) => {
     classifica: /classificamesi\.html/i.test(link),
     // Dove sta nel menu e sotto quale pagina (vedi "sezione" e "padre" in json/Menu.json)
     gruppo: voce.sezione || "altro",
-    padre: voce.padre ? (voce.padre.startsWith("/") ? voce.padre : "/" + voce.padre) : "",
+    padre: voce.padre
+      ? voce.padre.startsWith("/")
+        ? voce.padre
+        : "/" + voce.padre
+      : "",
   };
 };
 

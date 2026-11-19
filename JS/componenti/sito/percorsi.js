@@ -29,7 +29,10 @@ export const daRadice = (indirizzo, base) => {
 
 export const stessoSito = (indirizzo, base) => {
   try {
-    return new URL(indirizzo, base || window.location.href).origin === window.location.origin;
+    return (
+      new URL(indirizzo, base || window.location.href).origin ===
+      window.location.origin
+    );
   } catch (e) {
     return false;
   }

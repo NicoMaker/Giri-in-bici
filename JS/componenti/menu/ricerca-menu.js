@@ -13,15 +13,21 @@ export const collegaRicerca = (campo, radice, messaggioVuoto) => {
 
     if (!testo) {
       voci.forEach((v) => (v.hidden = false));
-      radice.querySelectorAll(".menu-gruppo").forEach((g) => (g.hidden = false));
+      radice
+        .querySelectorAll(".menu-gruppo")
+        .forEach((g) => (g.hidden = false));
       if (messaggioVuoto) messaggioVuoto.hidden = true;
       return;
     }
 
-    const trovata = new Map(voci.map((v) => [v, v.dataset.nome.toLowerCase().includes(testo)]));
+    const trovata = new Map(
+      voci.map((v) => [v, v.dataset.nome.toLowerCase().includes(testo)]),
+    );
     let visibili = 0;
     voci.forEach((v) => {
-      const dentro = [...v.querySelectorAll("li[data-nome]")].some((x) => trovata.get(x));
+      const dentro = [...v.querySelectorAll("li[data-nome]")].some((x) =>
+        trovata.get(x),
+      );
       v.hidden = !(trovata.get(v) || dentro);
       if (trovata.get(v)) visibili++;
     });
