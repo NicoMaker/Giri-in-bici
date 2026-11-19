@@ -81,3 +81,8 @@
   gap: 0.5rem;
   margin: 0 0 1rem;
 }
+
+/* Le due sezioni della scheda Giri (elenco / "Giri per anno"): se ne vede una sola */
+[data-vista-gruppo] section[data-modo][hidden] {
+  display: none !important;
+}

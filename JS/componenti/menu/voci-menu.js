@@ -2,9 +2,10 @@
 //
 // Aggiungere o togliere una pagina dal menu si fa in json/Menu.json, in un posto solo.
 // Ogni voce ha: name, link, icona (nome dell'icona in js/assets/icone.js)
-// e/o icon (immagine di riserva). "Pagina Precedente" ha link "#".
+// e/o icon (immagine di riserva).
 // sezione: principale | stagioni | statistiche | altro (in quale gruppo del menu).
 // padre: (facoltativo) la pagina sotto cui annidarla, es. "Statistiche.html".
+// categoria: (facoltativo) il sotto-gruppo sotto il padre, es. "History".
 
 // Se il file non si legge, la navigazione non deve sparire: resta almeno la home.
 const DI_RISERVA = [
@@ -29,10 +30,10 @@ const normalizza = (voce) => {
     icona: eSvg ? "" : icona,
     immagine: eSvg ? icona : voce.icon || "",
     fuori: esterno,
-    indietro: voce.name.trim() === "Pagina Precedente" && link === "#",
     classifica: /classificamesi\.html/i.test(link),
     // Dove sta nel menu e sotto quale pagina (vedi "sezione" e "padre" in json/Menu.json)
     gruppo: voce.sezione || "altro",
+    categoria: voce.categoria || "",
     padre: voce.padre
       ? voce.padre.startsWith("/")
         ? voce.padre

@@ -376,13 +376,20 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         if (podioEl) podioEl.hidden = inAnni;
         if (listaEl) listaEl.hidden = inAnni;
         if (annoEl) annoEl.hidden = !inAnni;
+        // Le due sezioni di questa scheda (elenco e "Giri per anno") hanno
+        // un titolo ciascuna per il menu e la mappa del sito: se ne vede una.
+        document
+          .querySelectorAll('[data-vista-gruppo="tappe"] section[data-modo]')
+          .forEach((sezione) => {
+            sezione.hidden = sezione.dataset.modo !== modo;
+          });
         const testi = {
-          eyebrow: inAnni ? "Anno per anno" : "Podio",
+          eyebrow: inAnni ? "Filtri" : "Podio",
           titolo: inAnni
-            ? "Tutti i giri, anno per anno"
+            ? "Scegli gli anni da vedere"
             : TITOLI_PODIO_GIRI[stato.ordine] || TITOLI_PODIO_GIRI.desc,
           sotto: inAnni
-            ? "Ogni anno ha il suo blocco: giri fatti, km totali, media, podio e tutti i giri."
+            ? "Scegli anni, stagioni e ricerca: qui sotto trovi un blocco per ogni anno."
             : "Ogni singola uscita, di ogni stagione e di ogni anno, messe a confronto una per una: non un periodo intero, il giro singolo.",
         };
         [

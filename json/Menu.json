@@ -20,7 +20,8 @@
       "icon": "/img/Icons/classifica.svg",
       "link": "Statistiche/History/ClassificaMesi.html",
       "sezione": "statistiche",
-      "padre": "Statistiche.html"
+      "padre": "Statistiche.html",
+      "categoria": "History"
     },
     {
       "name": "Statistiche Totali",
@@ -28,7 +29,8 @@
       "icon": "/img/Icons/Statistiche.png",
       "link": "Statistiche/History/Statistiche_Totali.html",
       "sezione": "statistiche",
-      "padre": "Statistiche.html"
+      "padre": "Statistiche.html",
+      "categoria": "History"
     },
     {
       "name": "Totali per mese",
@@ -36,7 +38,8 @@
       "icon": "/img/Icons/calendario.png",
       "link": "Statistiche/History/Statistiche_Mensili.html",
       "sezione": "statistiche",
-      "padre": "Statistiche.html"
+      "padre": "Statistiche.html",
+      "categoria": "History"
     },
     {
       "name": "Storico mensile",
@@ -44,7 +47,8 @@
       "icon": "/img/Icons/Statistiche.png",
       "link": "Statistiche/History/StoricoMensile.html",
       "sezione": "statistiche",
-      "padre": "Statistiche.html"
+      "padre": "Statistiche.html",
+      "categoria": "History"
     },
     {
       "name": "Cerca per data",
@@ -80,13 +84,6 @@
       "icon": "/img/Icons/inverno.png",
       "link": "Autunno_Inverno.html",
       "sezione": "stagioni"
-    },
-    {
-      "name": "Pagina Precedente",
-      "icona": "indietro",
-      "icon": "/img/Icons/freccia.png",
-      "link": "#",
-      "sezione": "principale"
     },
     {
       "name": "Login",
@@ -127,7 +124,8 @@
       "icona": "/img/assets/stagioni.svg",
       "link": "Statistiche/stagioni.html",
       "sezione": "statistiche",
-      "padre": "Statistiche.html"
+      "padre": "Statistiche.html",
+      "categoria": "Stagioni"
     }
   ]
 }

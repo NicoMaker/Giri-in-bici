@@ -11,7 +11,7 @@ import { scopriPagine } from "./scopri.js";
 import { scansiona } from "./scansione.js";
 import { chiave } from "./percorsi.js";
 
-const CACHE = "gib-indice-v1";
+const CACHE = "gib-indice-v2";
 const DURATA = 10 * 60 * 1000;
 let base = null;
 let completo = null;
@@ -45,8 +45,15 @@ export const completaIndice = () => {
   if (!completo) {
     completo = ottieniIndice().then(async (indice) => {
       if (indice.collegamenti) return indice;
-      const { pagine, collegamenti } = await scansiona(indice.pagine);
-      const pronto = { pagine, esterni: indice.esterni, collegamenti };
+      const { pagine, collegamenti, collegamentiSezioni } = await scansiona(
+        indice.pagine,
+      );
+      const pronto = {
+        pagine,
+        esterni: indice.esterni,
+        collegamenti,
+        collegamentiSezioni,
+      };
       inCache(pronto);
       window.dispatchEvent(new CustomEvent("sito:indice", { detail: pronto }));
       return pronto;

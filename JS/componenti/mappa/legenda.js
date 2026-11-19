@@ -14,7 +14,7 @@ export const htmlLegenda = () => `
     <li><span class="mappa-linea mappa-linea--link"></span>link nel contenuto</li>
     <li><span class="mappa-conta">5 sezioni</span>sezioni della pagina: toccale per saltarci</li>
   </ul>
-  <p class="mappa-aiuto">Tocca il titolo per aprire la pagina, una sezione per andarci direttamente, <b>⇄</b> per vedere i collegamenti.</p></details>`;
+  <p class="mappa-aiuto">Tocca il titolo per aprire la pagina, una sezione per andarci direttamente. <b>⇄</b> accanto a una pagina mostra i suoi fili; <b>⇄</b> accanto a una sezione apre il pannello <b>Collegamenti</b>: da quali sezioni ci arrivi e dove porta.</p></details>`;
 
 // "Estate › Estate 2022" + la sezione che stai leggendo
 export const aggiornaDove = (radice, indice) => {

@@ -51,10 +51,11 @@ const avvia = () => {
     if (!s.el.id) s.el.id = s.id;
     else s.id = s.el.id;
   });
-  window.GibSezioni = sezioni.map(({ id, titolo, vista }) => ({
+  window.GibSezioni = sezioni.map(({ id, titolo, vista, modo }) => ({
     id,
     titolo,
     vista,
+    modo,
   }));
   window.dispatchEvent(
     new CustomEvent("sito:sezioni", { detail: window.GibSezioni }),

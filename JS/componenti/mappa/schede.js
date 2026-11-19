@@ -3,6 +3,9 @@
 import { escapeHtml as e } from "../comune/escape-html.js";
 import { chiave } from "../sito/percorsi.js";
 import { linkSezione } from "../sito/slug.js";
+import { VISTE_CLASSIFICA } from "../classifica/viste-classifica.js";
+
+const NOMI_VISTE = Object.fromEntries(VISTE_CLASSIFICA);
 
 const sezioniDi = (p, corrente) => {
   const live =
@@ -10,15 +13,28 @@ const sezioniDi = (p, corrente) => {
   return live ? window.GibSezioni : p.sezioni || [];
 };
 
+const voceSezione = (p, s) =>
+  `<li class="mappa-sez"><a href="${e(linkSezione(p.url, s))}" data-sezione="${e(s.id)}"><span class="menu-flag" aria-hidden="true"></span>${e(s.titolo)}</a><button type="button" class="mappa-sez-coll" data-pagina="${e(chiave(p.url))}" data-sezione-id="${e(s.id)}" aria-label="Mostra come è collegata la sezione ${e(s.titolo)}" title="Collegamenti di questa sezione">⇄</button></li>`;
+
+// Nella Classifica le sezioni sono divise per scheda, con un titoletto ciascuna
 const htmlSezioni = (p, corrente) => {
   const sezioni = sezioniDi(p, corrente);
-  if (sezioni.length < 2) return "";
-  const voci = sezioni
-    .map(
-      (s) =>
-        `<li><a href="${e(linkSezione(p.url, s))}" data-sezione="${e(s.id)}"><span class="menu-flag" aria-hidden="true"></span>${e(s.titolo)}</a></li>`,
-    )
-    .join("");
+  if (!sezioni.length) return "";
+  let voci;
+  if (sezioni.some((s) => s.vista)) {
+    const schede = [...new Set(sezioni.map((s) => s.vista))];
+    voci = schede
+      .map(
+        (v) =>
+          `<li class="mappa-sezioni-titolo">${e(NOMI_VISTE[v] || "Sezioni")}</li>${sezioni
+            .filter((s) => s.vista === v)
+            .map((s) => voceSezione(p, s))
+            .join("")}`,
+      )
+      .join("");
+  } else {
+    voci = sezioni.map((s) => voceSezione(p, s)).join("");
+  }
   return `<ul class="mappa-sezioni" aria-label="Sezioni di ${e(p.titolo)}">${voci}</ul>`;
 };
 
@@ -26,7 +42,7 @@ export const htmlScheda = (p, { corrente, colori, piccola }) => {
   const k = chiave(p.url);
   const qui = k === corrente;
   const n = sezioniDi(p, corrente).length;
-  const badge = n > 1 ? `<span class="mappa-conta">${n} sezioni</span>` : "";
+  const badge = n > 0 ? `<span class="mappa-conta">${n} ${n === 1 ? "sezione" : "sezioni"}</span>` : "";
   const pin = qui
     ? '<span class="mappa-qui" title="Sei qui">Sei qui</span>'
     : "";
@@ -39,6 +55,22 @@ export const htmlScheda = (p, { corrente, colori, piccola }) => {
   </article>`;
 };
 
+// Le pagine figlie, divise per categoria ("History", "Anni", "Stagioni", ...)
+const htmlFigli = (figli, ctx) => {
+  const categorie = [...new Set(figli.map((f) => f.categoria || ""))];
+  return categorie
+    .map((c) => {
+      const schede = figli
+        .filter((f) => (f.categoria || "") === c)
+        .map((f) => htmlScheda(f, { ...ctx, piccola: true }))
+        .join("");
+      return c
+        ? `<div class="mappa-categoria"><h4>${e(c)}</h4><div class="mappa-categoria-schede">${schede}</div></div>`
+        : schede;
+    })
+    .join("");
+};
+
 export const htmlTela = (modello, corrente) => {
   const ctx = { corrente, colori: modello.colori };
   const home = modello.home
@@ -49,7 +81,7 @@ export const htmlTela = (modello, corrente) => {
       const html = righe
         .map(
           ({ hub, figli }) =>
-            `<div class="mappa-riga">${htmlScheda(hub, ctx)}<div class="mappa-figli" data-k="figli:${e(chiave(hub.url))}">${figli.map((f) => htmlScheda(f, { ...ctx, piccola: true })).join("")}</div></div>`,
+            `<div class="mappa-riga">${htmlScheda(hub, ctx)}<div class="mappa-figli" data-k="figli:${e(chiave(hub.url))}">${htmlFigli(figli, ctx)}</div></div>`,
         )
         .join("");
       return `<section class="mappa-corsia" style="--c:${gruppo.colore}"><h3>${e(gruppo.titolo)}</h3>${html}</section>`;

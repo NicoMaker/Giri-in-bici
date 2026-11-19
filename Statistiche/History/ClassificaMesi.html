@@ -152,11 +152,7 @@
   </head>
 
   <body>
-    <gib-barra
-      indietro="/Statistiche/History/Statistiche_Totali.html"
-      indietro-titolo="Torna alle statistiche totali"
-      stagioni
-    ></gib-barra>
+    <gib-barra stagioni></gib-barra>
 
     <main class="wrap stack">
       <section class="hero">
@@ -384,7 +380,7 @@
           <div id="podio-tappe" class="podio"></div>
         </section>
 
-        <section class="section">
+        <section class="section" data-modo="classifica">
           <p class="eyebrow" id="classifica-tappe-eyebrow">
             Classifica completa
           </p>
@@ -395,6 +391,18 @@
             Ogni singola uscita, di ogni stagione e di ogni anno, una per una.
           </p>
           <ol id="classifica-tappe" class="classifica-lista"></ol>
+        </section>
+
+        <!-- Sezione della modalità "Giri per anno" (?vista=tappe&modo=anni):
+             ha un titolo suo, così menu e mappa del sito la trovano e portano
+             direttamente qui. Si vede solo in quella modalità (vedi vista-giri.js). -->
+        <section class="section" data-modo="anni" hidden>
+          <p class="eyebrow">Anno per anno</p>
+          <h2>Giri per anno</h2>
+          <p class="hero-sub">
+            Un blocco per ogni anno solare: giri fatti, chilometri totali,
+            media, podio e tutti i giri con data, posto e stagione.
+          </p>
           <div id="giri-per-anno" class="giri-per-anno" hidden></div>
         </section>
       </div>

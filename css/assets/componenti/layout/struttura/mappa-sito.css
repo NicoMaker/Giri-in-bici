@@ -356,3 +356,143 @@
     max-height: 30%;
   }
 }
+
+/* Pagine figlie divise per categoria (History, Anni, Stagioni, ...) */
+.mappa-figli {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 14px;
+}
+.mappa-categoria h4 {
+  margin: 0 0 0.45rem;
+  padding-left: 0.5rem;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-left: 3px solid var(--c, var(--line-strong));
+}
+.mappa-categoria-schede {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.mappa-sezioni-titolo {
+  margin: 0.45rem 0 0.1rem;
+  padding-left: 0.35rem;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Bottone ⇄ accanto a ogni sezione di una scheda */
+.mappa-sez {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.mappa-sez > a {
+  flex: 1;
+  min-width: 0;
+}
+.mappa-sez-coll {
+  flex: 0 0 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 0.8rem;
+  line-height: 1;
+  color: var(--ink-3);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.mappa-sez-coll:hover,
+.mappa-sez-coll:focus-visible,
+.mappa-sez-coll.is-attivo {
+  color: #fff;
+  background: var(--a1);
+  border-color: var(--a1);
+}
+
+/* Pannello "Collegamenti" della sezione scelta */
+.mappa-collegamenti {
+  max-height: 30vh;
+  overflow: auto;
+  margin: 0 0.8rem 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-left: 5px solid var(--a1);
+  border-radius: 14px;
+  box-shadow: var(--sh-2);
+}
+.mappa-collegamenti[hidden] {
+  display: none;
+}
+.mappa-collegamenti header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem 0.3rem;
+}
+.mappa-coll-et {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.mappa-coll-chiudi {
+  flex: 0 0 28px;
+  height: 28px;
+  color: var(--ink-3);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.mappa-coll-corpo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.4rem 1rem;
+  padding: 0 0.8rem 0.7rem;
+}
+.mappa-coll-blocco h4 {
+  margin: 0.4rem 0 0.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--a1);
+}
+.mappa-coll-blocco ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mappa-coll-blocco li {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.mappa-coll-blocco li a {
+  flex: 1;
+  padding: 0.18rem 0.3rem;
+  font-size: 0.84rem;
+  color: var(--ink-2);
+  border-radius: 8px;
+}
+.mappa-coll-blocco li a:hover,
+.mappa-coll-blocco li a:focus-visible {
+  color: var(--a1);
+  background: var(--a-soft);
+}
+.mappa-coll-vuoto {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+}

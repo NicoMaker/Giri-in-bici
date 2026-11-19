@@ -32,13 +32,18 @@ export const trovaSezioni = (radice) => {
       id,
       titolo: h2.textContent.trim().replace(/\s+/g, " "),
       vista,
+      // Giri: la sezione "Giri per anno" si vede solo con ?modo=anni
+      modo: el.dataset.modo === "anni" ? "anni" : "",
     });
   });
   return lista;
 };
 
 // Indirizzo di una sezione: nella Classifica serve anche la scheda giusta (?vista=)
+// e, per "Giri per anno", il modo giusto (&modo=anni)
 export const linkSezione = (url, sezione) => {
-  const query = sezione.vista ? `?vista=${sezione.vista}` : "";
-  return `${url}${query}#${sezione.id}`;
+  const coppie = [];
+  if (sezione.vista) coppie.push(`vista=${sezione.vista}`);
+  if (sezione.modo) coppie.push(`modo=${sezione.modo}`);
+  return `${url}${coppie.length ? "?" + coppie.join("&") : ""}#${sezione.id}`;
 };

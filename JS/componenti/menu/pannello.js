@@ -7,24 +7,14 @@
 // Il markup mantiene le classi storiche (.menu, .menu-header, .menu-content):
 // il CSS del drawer in css/assets/componenti/layout/struttura/drawer/ lo stila già.
 
-import { escapeHtml } from "../comune/escape-html.js";
 import { ottieniIndice, completaIndice } from "../sito/indice.js";
 import { chiave } from "../sito/percorsi.js";
 import { htmlMenu } from "./albero.js";
 import { collegaRicerca } from "./ricerca-menu.js";
 import { collegaApertura } from "./apertura.js";
 
-// "Torna a Estate": la freccia indietro che le pagine di dettaglio avevano nella barra.
-const htmlTornaIndietro = (indirizzo, titolo) => {
-  if (!indirizzo) return "";
-  return `<a class="menu-torna" href="${escapeHtml(indirizzo)}">
-          <span class="ico-tile" data-icona="indietro"></span><span>${escapeHtml(titolo || "Indietro")}</span>
-        </a>`;
-};
-
 const AZIONI = `<div class="menu-azioni">
   <button class="menu-mappa" type="button" data-apri-mappa><span class="ico-tile" data-icona="mappa"></span><span>Mappa del sito</span></button>
-  <a class="menu-back" href="javascript:history.back()"><span class="ico-tile" data-icona="indietro"></span><span>Pagina precedente</span></a>
 </div>`;
 
 // Ridisegna i gruppi senza perdere ciò che la persona aveva aperto
@@ -79,7 +69,7 @@ const segnaSezione = (pannello, attiva) => {
   if (link) link.classList.add("sezione-attiva");
 };
 
-export const creaPannello = ({ indietro, indietroTitolo }) => {
+export const creaPannello = () => {
   const pannello = document.createElement("nav");
   pannello.className = "menu";
   pannello.id = "menu-sito";
@@ -92,7 +82,6 @@ export const creaPannello = ({ indietro, indietroTitolo }) => {
       </button>
     </div>
     <div class="menu-content">
-      ${htmlTornaIndietro(indietro, indietroTitolo)}
       ${AZIONI}
       <h1>Vai a</h1>
       <input id="menuSearch" type="search" placeholder="Cerca pagine e sezioni&hellip;" aria-label="Cerca nel menu" />

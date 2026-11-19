@@ -9,6 +9,7 @@ import { costruisciModello } from "./modello.js";
 import { htmlTela } from "./schede.js";
 import { disegnaFili } from "./fili.js";
 import { htmlLegenda, aggiornaDove } from "./legenda.js";
+import { pannelloCollegamenti, chiudiCollegamenti } from "./collegamenti.js";
 
 const ZOOM = { min: 0.35, max: 1.6, passo: 0.15 };
 
@@ -28,6 +29,7 @@ export const creaMappa = () => {
       </div>
     </div>
     <div class="mappa-legenda">${htmlLegenda()}</div>
+    <aside class="mappa-collegamenti" aria-live="polite" hidden></aside>
     <div class="mappa-vista"><div class="mappa-ruota"><div class="mappa-tela"><p class="mappa-attesa">Sto leggendo le pagine del sito…</p></div></div></div>`;
 
   // Su telefono la legenda parte chiusa: resta visibile solo "Sei in ..."
@@ -110,7 +112,48 @@ export const creaMappa = () => {
     const s = ev.target.closest(".mappa-scheda");
     if (s && !stato.pinnata) scegli(s.dataset.k);
   });
+  // ⇄ accanto a una sezione: da dove ci si arriva e dove porta
+  const mostraSezione = (k, idSezione) => {
+    if (!stato.indice) return;
+    const coinvolte = pannelloCollegamenti(dialogo, stato.indice, k, idSezione);
+    stato.pinnata = k;
+    tela.querySelectorAll(".mappa-coll").forEach((b) =>
+      b.setAttribute("aria-pressed", "false"),
+    );
+    tela.querySelectorAll(".mappa-sez-coll").forEach((b) =>
+      b.classList.toggle(
+        "is-attivo",
+        b.dataset.pagina === k && b.dataset.sezioneId === idSezione,
+      ),
+    );
+    stato.scelta = k;
+    fili();
+    // evidenzia tutte le pagine coinvolte (oltre a quella scelta)
+    tela.querySelectorAll(".mappa-scheda").forEach((s) => {
+      if (s.dataset.k !== k)
+        s.classList.toggle("is-collegata", coinvolte.has(s.dataset.k));
+    });
+  };
+
+  dialogo.addEventListener("click", (ev) => {
+    const sez = ev.target.closest(".mappa-sez-coll");
+    if (sez) {
+      ev.preventDefault();
+      mostraSezione(sez.dataset.pagina, sez.dataset.sezioneId);
+      return;
+    }
+    if (ev.target.closest("[data-chiudi-coll]")) {
+      chiudiCollegamenti(dialogo);
+      stato.pinnata = null;
+      scegli(null);
+      tela
+        .querySelectorAll(".mappa-sez-coll.is-attivo")
+        .forEach((b) => b.classList.remove("is-attivo"));
+    }
+  });
+
   tela.addEventListener("click", (ev) => {
+    if (ev.target.closest(".mappa-sez-coll")) return; // gestito sopra
     const pulsante = ev.target.closest(".mappa-coll");
     if (pulsante) {
       const k = pulsante.closest(".mappa-scheda").dataset.k;
@@ -127,6 +170,9 @@ export const creaMappa = () => {
       return;
     }
     if (ev.target.closest("a")) dialogo.close(); // si va alla pagina (o alla sezione) scelta
+  });
+  dialogo.querySelector(".mappa-collegamenti").addEventListener("click", (ev) => {
+    if (ev.target.closest("a")) dialogo.close();
   });
 
   dialogo.addEventListener("click", (ev) => {

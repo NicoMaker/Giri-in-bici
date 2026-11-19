@@ -34,6 +34,7 @@ const paginaFissa = (voce) => ({
   titolo: voce.nome,
   gruppo: voce.gruppo,
   padre: voce.padre,
+  categoria: voce.categoria,
   icona: voce.icona,
   immagine: voce.immagine,
   classifica: voce.classifica,
@@ -62,7 +63,6 @@ export const scopriPagine = async () => {
   const esterni = [];
 
   voci.forEach((v) => {
-    if (v.indietro) return;
     if (v.fuori)
       esterni.push({
         titolo: v.nome,
@@ -83,6 +83,7 @@ export const scopriPagine = async () => {
         titolo: f.etichetta(k),
         gruppo: f.gruppo,
         padre: f.padre,
+        categoria: f.categoria,
         icona: f.icona,
         sezioni: [],
         figlia: true,

@@ -3,8 +3,7 @@
 // Contiene il logo, il pulsante della mappa del sito e il pulsante hamburger.
 // La navigazione del sito sta tutta nel menu a tendina (vedi ../menu/pannello.js).
 //
-// Attributi: posizione, indietro, indietro-titolo.
-//   indietro / indietro-titolo  -> "Torna a ..." in cima al menu (pagine di dettaglio)
+// Attributo facoltativo: posizione.
 //
 // Il markup è quello di prima (niente Shadow DOM): CSS e script esistenti
 // (.site-bar, .hamburger, .menu, data-classifica) continuano a funzionare.
@@ -27,10 +26,7 @@ export class GibBarra extends HTMLElement {
 
     // Il pannello sta accanto all'<header>, non dentro: la barra ha un filtro
     // di sfocatura e così il pannello resterebbe agganciato a lei invece che alla finestra.
-    const pannello = creaPannello({
-      indietro: this.getAttribute("indietro"),
-      indietroTitolo: this.getAttribute("indietro-titolo"),
-    });
+    const pannello = creaPannello();
     this.appendChild(pannello);
     this.appendChild(creaMappa()); // il modale "Mappa del sito"
 

@@ -34,6 +34,19 @@ window.ClassificaMesi = window.ClassificaMesi || {};
 
   CM.avviaSelettoreVista = () => {
     const gruppiVista = document.querySelectorAll("[data-vista-gruppo]");
+
+    // Giri: "?modo=anni" mostra la sezione "Giri per anno" invece dell'elenco.
+    // Va deciso subito (prima che arrivino i dati) perché le ancore del menu
+    // e della mappa, es. #tappe-giri-per-anno, trovino la sezione già visibile.
+    const modoIniziale =
+      new URLSearchParams(window.location.search).get("modo") === "anni"
+        ? "anni"
+        : "classifica";
+    document
+      .querySelectorAll('[data-vista-gruppo="tappe"] section[data-modo]')
+      .forEach((sezione) => {
+        sezione.hidden = sezione.dataset.modo !== modoIniziale;
+      });
     const pulsantiVista = document.querySelectorAll(
       "#selettore-vista .selettore-metrica__pulsante",
     );

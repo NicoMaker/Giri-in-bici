@@ -14,6 +14,8 @@ export const GRUPPI = [
 
 const anno = (k) => parseInt(k, 10);
 
+// categoria: come si chiama il sotto-gruppo in cui stanno le pagine figlie
+//            nel menu e nella mappa ("Anni", "Periodi", ...)
 // padre: pagina "capofila" · json/chiavi: dove sta l'elenco · cartella: dove stanno i file
 // chiave(a): da un anno di partenza alla chiave del periodo · etichetta(k): nome mostrato
 export const FAMIGLIE = [
@@ -21,6 +23,7 @@ export const FAMIGLIE = [
     padre: "/Primavera.html",
     gruppo: "stagioni",
     icona: "primavera",
+    categoria: "Anni",
     cartella: "/Primavera/",
     json: "/json/Primavera/generale.json",
     chiavi: "subPeriods",
@@ -32,6 +35,7 @@ export const FAMIGLIE = [
     padre: "/Estate.html",
     gruppo: "stagioni",
     icona: "estate",
+    categoria: "Anni",
     cartella: "/Estate/",
     json: "/json/Estate/generale.json",
     chiavi: "subPeriods",
@@ -43,6 +47,7 @@ export const FAMIGLIE = [
     padre: "/Autunno_Inverno.html",
     gruppo: "stagioni",
     icona: "inverno",
+    categoria: "Periodi",
     cartella: "/Autunno_Inverno/",
     json: "/json/Autunno_Inverno/generale.json",
     chiavi: "subPeriods",
@@ -54,6 +59,7 @@ export const FAMIGLIE = [
     padre: "/Statistiche.html",
     gruppo: "statistiche",
     icona: "calendario",
+    categoria: "Anni",
     cartella: "/Statistiche/Anni/",
     json: "/json/Statistiche/History/Storico.json",
     chiavi: "anni",
