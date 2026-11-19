@@ -40,7 +40,8 @@ export const collegaApertura = (pannello, pulsante) => {
   // Un clic su una voce (link o pulsante) richiude il menu
   pannello.addEventListener("click", (e) => {
     const voce = e.target.closest("a, button");
-    if (voce && voce !== chiudiPannello) chiudi();
+    const resta = voce && voce.closest(".menu-espandi");
+    if (voce && voce !== chiudiPannello && !resta) chiudi();
   });
 
   // Un clic fuori dal pannello lo richiude

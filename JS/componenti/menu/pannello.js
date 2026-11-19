@@ -1,65 +1,64 @@
-// pannello.js — Il pannello laterale del menu: titolo, ricerca e elenco delle voci.
+// pannello.js — Il pannello laterale del menu: ricerca, mappa e pagine divise per gruppi.
 //
-// Il markup è quello storico (.menu, .menu-header, .menu-content, #menuList):
+// Le pagine arrivano dall'indice del sito (../sito/indice.js): una pagina nuova
+// compare da sola nel gruppo giusto. Prima si vede l'elenco, poi (a lettura finita)
+// anche le sezioni di ogni pagina, che portano a pagina#ancora.
+//
+// Il markup mantiene le classi storiche (.menu, .menu-header, .menu-content):
 // il CSS del drawer in css/assets/componenti/layout/struttura/drawer/ lo stila già.
 
 import { escapeHtml } from "../comune/escape-html.js";
-import { caricaVoci } from "./voci-menu.js";
-import { percorsoNormalizzato, indirizzoAttivo } from "./pagina-attiva.js";
+import { ottieniIndice, completaIndice } from "../sito/indice.js";
+import { chiave } from "../sito/percorsi.js";
+import { htmlMenu } from "./albero.js";
 import { collegaRicerca } from "./ricerca-menu.js";
 import { collegaApertura } from "./apertura.js";
-
-const iconaVoce = (voce) => {
-  if (voce.icona) {
-    return `<span class="ico-tile" data-icona="${escapeHtml(voce.icona)}"></span>`;
-  }
-  const classe = voce.nome === "Apertura Account GitHub" ? ' class="logo"' : "";
-  return `<span class="ico-tile"><img src="${escapeHtml(voce.immagine)}"${classe} alt="" /></span>`;
-};
-
-const htmlVoce = (voce, attivo) => {
-  const nome = escapeHtml(voce.nome);
-  const marcaPagina = attivo ? ' aria-current="page" class="is-attivo"' : "";
-
-  // "Pagina Precedente" riporta alla pagina vista prima
-  if (voce.indietro) {
-    return `<li data-nome="${nome}"><a href="javascript:history.back()" class="menu-back">${iconaVoce(voce)}<span>${nome}</span></a></li>`;
-  }
-
-  const apertura = voce.fuori ? ' target="_blank" rel="noopener"' : "";
-  const classifica = voce.classifica ? " data-classifica" : "";
-  return `<li data-nome="${nome}"><a href="${escapeHtml(voce.link)}"${apertura}${classifica}${marcaPagina}>${iconaVoce(voce)}<span>${nome}</span></a></li>`;
-};
 
 // "Torna a Estate": la freccia indietro che le pagine di dettaglio avevano nella barra.
 const htmlTornaIndietro = (indirizzo, titolo) => {
   if (!indirizzo) return "";
-  const testo = escapeHtml(titolo || "Indietro");
   return `<a class="menu-torna" href="${escapeHtml(indirizzo)}">
-          <span class="ico-tile" data-icona="indietro"></span><span>${testo}</span>
+          <span class="ico-tile" data-icona="indietro"></span><span>${escapeHtml(titolo || "Indietro")}</span>
         </a>`;
 };
 
-// Disegna le voci nell'elenco (in ordine alfabetico, come nella home) e accende quella attuale.
-const mostraVoci = (pannello, vociMenu) => {
-  const voci = [...vociMenu].sort((a, b) => a.nome.localeCompare(b.nome));
-  const indirizziVoci = voci
-    .filter((v) => !v.indietro && !v.fuori)
-    .map((v) => percorsoNormalizzato(v.link));
-  const attiva = indirizzoAttivo(indirizziVoci);
+const AZIONI = `<div class="menu-azioni">
+  <button class="menu-mappa" type="button" data-apri-mappa><span class="ico-tile" data-icona="mappa"></span><span>Mappa del sito</span></button>
+  <a class="menu-back" href="javascript:history.back()"><span class="ico-tile" data-icona="indietro"></span><span>Pagina precedente</span></a>
+</div>`;
 
-  pannello.querySelector("#menuList").innerHTML = voci
-    .map((v) =>
-      htmlVoce(
-        v,
-        !v.indietro && !v.fuori && percorsoNormalizzato(v.link) === attiva,
-      ),
-    )
-    .join("");
+// Ridisegna i gruppi senza perdere ciò che la persona aveva aperto
+const disegna = (pannello, indice) => {
+  const lista = pannello.querySelector("#menuList");
+  const apertiGruppi = new Set([...lista.querySelectorAll("details[open]")].map((d) => d.dataset.gruppo));
+  const apertePagine = new Set([...lista.querySelectorAll(".menu-espandi[aria-expanded=true]")].map((b) => b.closest("li").dataset.nome));
 
-  // Icone disegnate e indirizzo della Classifica (che dipende dalla pagina)
+  const html = htmlMenu(indice, { corrente: chiave(window.location.href), live: window.GibSezioni || [] });
+  lista.innerHTML = html;
+
+  apertiGruppi.forEach((g) => {
+    const d = lista.querySelector(`details[data-gruppo="${g}"]`);
+    if (d) d.open = true;
+  });
+  lista.querySelectorAll(".menu-pagina").forEach((li) => {
+    if (!apertePagine.has(li.dataset.nome)) return;
+    li.querySelector(":scope > .menu-riga .menu-espandi")?.setAttribute("aria-expanded", "true");
+    li.querySelector(":scope > .menu-sotto")?.removeAttribute("hidden");
+  });
+
   if (window.Icone) window.Icone.riempi(pannello);
   window.dispatchEvent(new Event("classifica:url"));
+  segnaSezione(pannello, window.GibSezioneAttiva);
+};
+
+// Accende nel menu la sezione che stai leggendo
+const segnaSezione = (pannello, attiva) => {
+  pannello.querySelectorAll(".menu-sezione.sezione-attiva").forEach((a) => a.classList.remove("sezione-attiva"));
+  if (!attiva) return;
+  const qui = pannello.querySelector(".is-attivo");
+  const li = qui && qui.closest(".menu-pagina");
+  const link = li && li.querySelector(`:scope > .menu-sotto > li > .menu-sezione[data-sezione="${attiva.id}"]`);
+  if (link) link.classList.add("sezione-attiva");
 };
 
 export const creaPannello = ({ indietro, indietroTitolo }) => {
@@ -76,19 +75,34 @@ export const creaPannello = ({ indietro, indietroTitolo }) => {
     </div>
     <div class="menu-content">
       ${htmlTornaIndietro(indietro, indietroTitolo)}
+      ${AZIONI}
       <h1>Vai a</h1>
-      <input id="menuSearch" type="search" placeholder="Cerca nel menu&hellip;" aria-label="Cerca nel menu" />
+      <input id="menuSearch" type="search" placeholder="Cerca pagine e sezioni&hellip;" aria-label="Cerca nel menu" />
       <p class="no-results" id="menuNoResults" hidden>Nessun elemento trovato</p>
-      <ul id="menuList"></ul>
+      <div id="menuList"></div>
     </div>`;
 
-  collegaRicerca(
-    pannello.querySelector("#menuSearch"),
-    pannello.querySelector("#menuList"),
-    pannello.querySelector("#menuNoResults"),
-  );
+  const lista = pannello.querySelector("#menuList");
+  collegaRicerca(pannello.querySelector("#menuSearch"), lista, pannello.querySelector("#menuNoResults"));
 
-  caricaVoci().then((voci) => mostraVoci(pannello, voci));
+  // Freccia: apre e chiude l'elenco di una pagina
+  lista.addEventListener("click", (ev) => {
+    const freccia = ev.target.closest(".menu-espandi");
+    if (!freccia) return;
+    const aperto = freccia.getAttribute("aria-expanded") === "true";
+    freccia.setAttribute("aria-expanded", String(!aperto));
+    freccia.closest("li").querySelector(":scope > .menu-sotto").hidden = aperto;
+  });
+
+  if (window.Icone) window.Icone.riempi(pannello);
+
+  const ridisegna = () => ottieniIndice().then((i) => disegna(pannello, i));
+  ridisegna();
+  // Quando le pagine sono state lette arrivano anche le sezioni: si aggiorna da solo
+  const lettura = () => completaIndice().then((i) => disegna(pannello, i));
+  (window.requestIdleCallback || setTimeout)(lettura);
+  window.addEventListener("sito:sezioni", ridisegna);
+  window.addEventListener("sito:sezione", (ev) => segnaSezione(pannello, ev.detail));
 
   return pannello;
 };

@@ -27,6 +27,9 @@
 @import url("componenti/tabelle-grafici/grafici.css"); /* Riquadri dei grafici Chart.js */
 @import url("componenti/media/galleria.css"); /* Galleria fotografica dei periodi */
 @import url("componenti/layout/struttura/drawer.css"); /* Menu laterale e pulsante hamburger */
+@import url("componenti/layout/struttura/menu-sezioni.css"); /* Menu a gruppi con pagine e sezioni */
+@import url("componenti/layout/struttura/mappa-sito.css"); /* Mappa del sito: pulsante e modale */
+@import url("componenti/layout/struttura/ancore.css"); /* Ancore alle sezioni e lampo di arrivo */
 @import url("componenti/componenti-ui/navigazione/icone.css"); /* Icone a tratto disegnate da icone.js */
 @import url("componenti/componenti-ui/contenuti/stagioni.css"); /* Scorciatoie e schede delle stagioni */
 @import url("componenti/componenti-ui/contenuti/bici-contatti.css"); /* Catalogo bici, contatti, blocchi della home */

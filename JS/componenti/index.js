@@ -16,8 +16,12 @@
 //     classifica/ controlli-classifica.js + ricerca, ordine, intervallo-km,
 //               azzera, opzioni-ordine, selettore-vista + pulsanti-vista,
 //               menu-vista-mobile, viste-classifica
+//     sito/     indice delle pagine (menu e mappa): gruppi, scopri, scansione, indice
+//     ancore/   ancore.js: un id a ogni sezione + scroll alla #ancora
+//     mappa/    il modale "Mappa del sito" (modello, schede, fili, legenda)
 //     cta/      cta-classifica.js + avvolgi-link
 
+import "./ancore/ancore.js"; // ancore alle sezioni di ogni pagina
 import { registra } from "./comune/registra.js";
 import { GibBarra } from "./barra/barra.js";
 import { GibPiede } from "./piede/piede.js";

@@ -4,107 +4,130 @@
       "name": "Home",
       "icona": "casa",
       "icon": "/img/Icons/home.png",
-      "link": "Giri.html"
+      "link": "Giri.html",
+      "sezione": "principale"
     },
     {
       "name": "Statistiche",
       "icona": "statistiche",
       "icon": "/img/Icons/Statistiche.png",
-      "link": "Statistiche.html"
+      "link": "Statistiche.html",
+      "sezione": "statistiche"
     },
     {
       "name": "Classifica",
       "icona": "classifica",
       "icon": "/img/Icons/classifica.svg",
-      "link": "Statistiche/History/ClassificaMesi.html"
+      "link": "Statistiche/History/ClassificaMesi.html",
+      "sezione": "statistiche",
+      "padre": "Statistiche.html"
     },
     {
       "name": "Statistiche Totali",
       "icona": "statistiche",
       "icon": "/img/Icons/Statistiche.png",
-      "link": "Statistiche/History/Statistiche_Totali.html"
+      "link": "Statistiche/History/Statistiche_Totali.html",
+      "sezione": "statistiche",
+      "padre": "Statistiche.html"
     },
     {
       "name": "Totali per mese",
       "icona": "calendario",
       "icon": "/img/Icons/calendario.png",
-      "link": "Statistiche/History/Statistiche_Mensili.html"
+      "link": "Statistiche/History/Statistiche_Mensili.html",
+      "sezione": "statistiche",
+      "padre": "Statistiche.html"
     },
     {
       "name": "Storico mensile",
       "icona": "statistiche",
       "icon": "/img/Icons/Statistiche.png",
-      "link": "Statistiche/History/StoricoMensile.html"
+      "link": "Statistiche/History/StoricoMensile.html",
+      "sezione": "statistiche",
+      "padre": "Statistiche.html"
     },
     {
       "name": "Cerca per data",
       "icona": "calendario",
       "icon": "/img/Icons/Statistiche.png",
-      "link": "CercaData.html"
+      "link": "CercaData.html",
+      "sezione": "principale"
     },
     {
       "name": "Bici",
       "icona": "bici",
       "icon": "/img/Icons/bici.png",
-      "link": "Bici/Bici.html"
+      "link": "Bici/Bici.html",
+      "sezione": "principale"
     },
     {
       "name": "Primavera",
       "icona": "primavera",
       "icon": "/img/Icons/primavera.png",
-      "link": "Primavera.html"
+      "link": "Primavera.html",
+      "sezione": "stagioni"
     },
     {
       "name": "Estate",
       "icona": "estate",
       "icon": "/img/Icons/estate.png",
-      "link": "Estate.html"
+      "link": "Estate.html",
+      "sezione": "stagioni"
     },
     {
       "name": "Autunno - Inverno",
       "icona": "inverno",
       "icon": "/img/Icons/inverno.png",
-      "link": "Autunno_Inverno.html"
+      "link": "Autunno_Inverno.html",
+      "sezione": "stagioni"
     },
     {
       "name": "Pagina Precedente",
       "icona": "indietro",
       "icon": "/img/Icons/freccia.png",
-      "link": "#"
+      "link": "#",
+      "sezione": "principale"
     },
     {
       "name": "Login",
       "icona": "accesso",
       "icon": "/img/Icons/login.png",
-      "link": "index.html"
+      "link": "index.html",
+      "sezione": "altro"
     },
     {
       "name": "Informazioni",
       "icona": "informazioni",
       "icon": "/img/Icons/informazioni.png",
-      "link": "About_US/About_us.html"
+      "link": "About_US/About_us.html",
+      "sezione": "altro"
     },
     {
       "name": "Apertura Repository Git",
       "icona": "codice",
       "icon": "/img/Icons/GitHub.png",
-      "link": "https://github.com/NicoMaker/Giri-in-bici"
+      "link": "https://github.com/NicoMaker/Giri-in-bici",
+      "sezione": "altro"
     },
     {
       "name": "Apertura Account GitHub",
       "icon": "/img/Icons/Logo Scuro.jpg",
-      "link": "https://github.com/NicoMaker"
+      "link": "https://github.com/NicoMaker",
+      "sezione": "altro"
     },
     {
       "name": "QR CODE",
       "icona": "qr",
       "icon": "/img/Icons/qr_code.png",
-      "link": "QR_CODE/Logo.html"
+      "link": "QR_CODE/Logo.html",
+      "sezione": "altro"
     },
     {
       "name": "Stagioni",
       "icona": "/img/assets/stagioni.svg",
-      "link": "Statistiche/stagioni.html"
+      "link": "Statistiche/stagioni.html",
+      "sezione": "statistiche",
+      "padre": "Statistiche.html"
     }
   ]
 }

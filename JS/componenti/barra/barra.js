@@ -1,6 +1,6 @@
 // barra.js — <gib-barra>: la barra in alto, assemblata dai pezzi qui accanto.
 //
-// Contiene il logo e il pulsante hamburger.
+// Contiene il logo, il pulsante della mappa del sito e il pulsante hamburger.
 // La navigazione del sito sta tutta nel menu a tendina (vedi ../menu/pannello.js).
 //
 // Attributi: posizione, indietro, indietro-titolo.
@@ -10,9 +10,10 @@
 // (.site-bar, .hamburger, .menu, data-classifica) continuano a funzionare.
 
 import { logo } from "./logo.js";
-import { hamburger } from "./hamburger.js";
+import { hamburger, pulsanteMappa } from "./hamburger.js";
 import { posizione } from "./posizione.js";
 import { creaPannello, collegaPannello } from "../menu/pannello.js";
+import { creaMappa } from "../mappa/mappa.js";
 
 export class GibBarra extends HTMLElement {
   connectedCallback() {
@@ -21,7 +22,7 @@ export class GibBarra extends HTMLElement {
     this.style.display = "contents"; // conta solo il <header> interno
 
     this.innerHTML = `<header class="site-bar">
-  ${logo()}${hamburger()}${posizione(this.getAttribute("posizione"))}
+  ${logo()}${pulsanteMappa()}${hamburger()}${posizione(this.getAttribute("posizione"))}
 </header>`;
 
     // Il pannello sta accanto all'<header>, non dentro: la barra ha un filtro
@@ -31,6 +32,7 @@ export class GibBarra extends HTMLElement {
       indietroTitolo: this.getAttribute("indietro-titolo"),
     });
     this.appendChild(pannello);
+    this.appendChild(creaMappa()); // il modale "Mappa del sito"
 
     // La barra lascia il posto all'hamburger (vedi css .con-hamburger)
     document.body.classList.add("con-hamburger");

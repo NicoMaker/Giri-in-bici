@@ -123,6 +123,12 @@
       '<path d="M8 13.4h.01"/><path d="M12 13.4h.01"/><path d="M16 13.4h.01"/>' +
       '<path d="M8 17h.01"/><path d="M12 17h.01"/>',
 
+    mappa:
+      '<rect x="3.4" y="3.8" width="6.4" height="5" rx="1.4"/>' +
+      '<rect x="14.2" y="3.8" width="6.4" height="5" rx="1.4"/>' +
+      '<rect x="8.8" y="15.2" width="6.4" height="5" rx="1.4"/>' +
+      '<path d="M6.6 8.8v2.6h10.8V8.8"/><path d="M12 11.4v3.8"/>',
+
     menu: '<path d="M4 7.2h16"/><path d="M4 12h16"/><path d="M4 16.8h16"/>',
 
     chiudi: '<path d="m6.4 6.4 11.2 11.2"/><path d="M17.6 6.4 6.4 17.6"/>',

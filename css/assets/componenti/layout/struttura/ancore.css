@@ -1,0 +1,32 @@
+/* ============================================================
+   Ancore alle sezioni (JS/componenti/ancore/ancore.js)
+   Ogni sezione ha un id: i link pagina#sezione arrivano qui
+   e la sezione raggiunta si accende un attimo.
+   ============================================================ */
+
+main section[id] {
+  scroll-margin-top: calc(var(--bar-h, 68px) + 16px);
+}
+
+.sezione-evidenziata {
+  animation: sezione-lampo 2.2s var(--ease) 1;
+}
+
+@keyframes sezione-lampo {
+  0%,
+  35% {
+    box-shadow: 0 0 0 3px var(--a1), 0 0 0 12px var(--a-soft);
+    border-radius: var(--r-md);
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent, 0 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sezione-evidenziata {
+    animation: none;
+    outline: 3px solid var(--a1);
+    outline-offset: 6px;
+  }
+}

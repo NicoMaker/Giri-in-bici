@@ -1,0 +1,170 @@
+/* ============================================================
+   Menu a tendina diviso per gruppi, con pagine e sezioni
+   Markup: JS/componenti/menu/albero.js
+   ============================================================ */
+
+.menu [hidden] {
+  display: none !important;
+}
+.menu .in-ricerca .menu-sotto[hidden] {
+  display: block !important;
+}
+
+/* Azioni in cima: mappa del sito e pagina precedente */
+.menu .menu-azioni {
+  display: grid;
+  gap: 0.4rem;
+  margin: 1rem 0 0.4rem;
+}
+.menu .menu-azioni a,
+.menu .menu-azioni button {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.menu .menu-azioni .menu-mappa {
+  color: var(--a1);
+  background: var(--a-soft);
+  border-color: color-mix(in srgb, var(--a1) 35%, transparent);
+}
+
+/* Gruppi (Principale, Stagioni, Statistiche, ...) */
+.menu-gruppo {
+  margin: 0.6rem 0;
+  border-top: 1px solid var(--line);
+  padding-top: 0.4rem;
+}
+.menu-gruppo > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.3rem;
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  cursor: pointer;
+  list-style: none;
+}
+.menu-gruppo > summary::-webkit-details-marker {
+  display: none;
+}
+.menu-gruppo > summary::after {
+  content: "";
+  margin-left: auto;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.25s var(--ease);
+}
+.menu-gruppo[open] > summary::after {
+  transform: rotate(-135deg);
+}
+.menu-gruppo-pallino {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Riga di una pagina: link + freccia */
+.menu .menu-riga {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.menu .menu-riga > a {
+  flex: 1;
+  min-width: 0;
+}
+.menu .menu-espandi {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  justify-content: center;
+  border-radius: var(--r-md);
+  cursor: pointer;
+}
+.menu-freccia {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.25s var(--ease);
+}
+.menu-espandi[aria-expanded="true"] .menu-freccia {
+  transform: rotate(-135deg);
+}
+
+/* Elenco annidato: anni e periodi, poi le sezioni della pagina */
+.menu .menu-sotto {
+  margin: 0.2rem 0 0.5rem 1.1rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--line);
+}
+.menu .menu-sotto li {
+  margin-bottom: 0.2rem;
+}
+.menu .menu-sotto .menu-riga > a {
+  padding: 0.5rem 0.7rem;
+  font-size: 0.92rem;
+}
+.menu .menu-sotto .ico-tile {
+  width: 30px;
+  height: 30px;
+}
+.menu .menu-sotto-titolo {
+  margin: 0.5rem 0 0.2rem 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Sezione di una pagina, con la sua bandierina */
+.menu li a.menu-sezione {
+  gap: 0.6rem;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.menu-flag {
+  flex: 0 0 auto;
+  width: 11px;
+  height: 13px;
+  background: currentColor;
+  opacity: 0.55;
+  clip-path: polygon(0 0, 100% 25%, 0 50%, 0 100%, 0 100%, 0 50%);
+}
+.menu li a.menu-sezione.sezione-attiva {
+  color: var(--a1);
+  font-weight: 700;
+  background: var(--a-soft);
+}
+.menu li a.menu-sezione.sezione-attiva .menu-flag {
+  opacity: 1;
+}
+
+/* L'etichetta "Sei qui" non va mai a capo */
+.menu li a[aria-current="page"]::after {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
