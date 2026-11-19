@@ -27,7 +27,9 @@ const voce = (pagina, idSezione, k) => {
 
 const elenco = (titolo, righe, vuoto) =>
   `<section class="mappa-coll-blocco"><h4>${e(titolo)}</h4>${
-    righe.length ? `<ul>${righe.join("")}</ul>` : `<p class="mappa-coll-vuoto">${e(vuoto)}</p>`
+    righe.length
+      ? `<ul>${righe.join("")}</ul>`
+      : `<p class="mappa-coll-vuoto">${e(vuoto)}</p>`
   }</section>`;
 
 // Disegna il pannello per (pagina, sezione). Restituisce l'insieme delle schede coinvolte.
@@ -39,7 +41,8 @@ export const pannelloCollegamenti = (radice, indice, k, idSezione) => {
 
   // Verso la sezione scelta (o, se la pagina ha un solo blocco, verso la pagina)
   const arrivi = tutti.filter(
-    (c) => c.a === k && (c.aSezione === idSezione || (!c.aSezione && !idSezione)),
+    (c) =>
+      c.a === k && (c.aSezione === idSezione || (!c.aSezione && !idSezione)),
   );
   // Dalla sezione scelta verso altrove
   const uscite = tutti.filter((c) => c.da === k && c.daSezione === idSezione);

@@ -42,7 +42,10 @@ export const htmlScheda = (p, { corrente, colori, piccola }) => {
   const k = chiave(p.url);
   const qui = k === corrente;
   const n = sezioniDi(p, corrente).length;
-  const badge = n > 0 ? `<span class="mappa-conta">${n} ${n === 1 ? "sezione" : "sezioni"}</span>` : "";
+  const badge =
+    n > 0
+      ? `<span class="mappa-conta">${n} ${n === 1 ? "sezione" : "sezioni"}</span>`
+      : "";
   const pin = qui
     ? '<span class="mappa-qui" title="Sei qui">Sei qui</span>'
     : "";

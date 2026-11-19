@@ -49,8 +49,7 @@ const sezioneVerso = (href, pagina) => {
   if (vista) {
     const modo = u.searchParams.get("modo") === "anni" ? "anni" : "";
     const trovate = sezioni.filter((x) => x.vista === vista);
-    const giusta =
-      trovate.find((x) => (x.modo || "") === modo) || trovate[0];
+    const giusta = trovate.find((x) => (x.modo || "") === modo) || trovate[0];
     if (giusta) return giusta.id;
   }
   return "";

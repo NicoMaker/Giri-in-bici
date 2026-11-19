@@ -117,15 +117,17 @@ export const creaMappa = () => {
     if (!stato.indice) return;
     const coinvolte = pannelloCollegamenti(dialogo, stato.indice, k, idSezione);
     stato.pinnata = k;
-    tela.querySelectorAll(".mappa-coll").forEach((b) =>
-      b.setAttribute("aria-pressed", "false"),
-    );
-    tela.querySelectorAll(".mappa-sez-coll").forEach((b) =>
-      b.classList.toggle(
-        "is-attivo",
-        b.dataset.pagina === k && b.dataset.sezioneId === idSezione,
-      ),
-    );
+    tela
+      .querySelectorAll(".mappa-coll")
+      .forEach((b) => b.setAttribute("aria-pressed", "false"));
+    tela
+      .querySelectorAll(".mappa-sez-coll")
+      .forEach((b) =>
+        b.classList.toggle(
+          "is-attivo",
+          b.dataset.pagina === k && b.dataset.sezioneId === idSezione,
+        ),
+      );
     stato.scelta = k;
     fili();
     // evidenzia tutte le pagine coinvolte (oltre a quella scelta)
@@ -171,9 +173,11 @@ export const creaMappa = () => {
     }
     if (ev.target.closest("a")) dialogo.close(); // si va alla pagina (o alla sezione) scelta
   });
-  dialogo.querySelector(".mappa-collegamenti").addEventListener("click", (ev) => {
-    if (ev.target.closest("a")) dialogo.close();
-  });
+  dialogo
+    .querySelector(".mappa-collegamenti")
+    .addEventListener("click", (ev) => {
+      if (ev.target.closest("a")) dialogo.close();
+    });
 
   dialogo.addEventListener("click", (ev) => {
     if (ev.target === dialogo || ev.target.closest("[data-chiudi]"))
