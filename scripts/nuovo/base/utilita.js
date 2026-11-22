@@ -5,7 +5,8 @@
 const { COLORI_CSS, MESI } = require("./impostazioni");
 const { chiediSiNo, chiediValido, grigio, scegli } = require("./terminale");
 
-const ordinaPeriodi = (a, b) => parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b);
+const ordinaPeriodi = (a, b) =>
+  parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b);
 
 const leggiJson = (piano, rel) => JSON.parse(piano.leggi(rel));
 
@@ -20,7 +21,8 @@ const validaPeriodo = (formato, esistenti) => (v) => {
   } else {
     const m = v.match(/^(\d{4})-(\d{4})$/);
     if (!m) return "Scrivi il periodo come 2027-2028.";
-    if (parseInt(m[2], 10) !== parseInt(m[1], 10) + 1) return "Il secondo anno deve seguire il primo (es. 2027-2028).";
+    if (parseInt(m[2], 10) !== parseInt(m[1], 10) + 1)
+      return "Il secondo anno deve seguire il primo (es. 2027-2028).";
   }
   if (esistenti.includes(v)) return `${v} esiste già.`;
   return null;
@@ -28,7 +30,8 @@ const validaPeriodo = (formato, esistenti) => (v) => {
 
 // Un colore è valido se è un nome CSS noto (gold, tomato...) o un esadecimale.
 const validaColore = (v) => {
-  if (!v) return "Il colore lo scegli tu: scrivi un nome CSS (es. gold) oppure un esadecimale (es. #ff0060).";
+  if (!v)
+    return "Il colore lo scegli tu: scrivi un nome CSS (es. gold) oppure un esadecimale (es. #ff0060).";
   if (/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(v)) return null;
   if (COLORI_CSS[v.toLowerCase()]) return null;
   return `"${v}" non è un colore valido: usa un nome CSS inglese (es. gold, tomato, teal) oppure un esadecimale (es. #ff0060).`;
@@ -36,12 +39,22 @@ const validaColore = (v) => {
 
 // Chiede il colore SENZA suggerirne nessuno: lo scrivi tu nel terminale.
 const chiediColore = async (domanda, usati = []) => {
-  if (usati.length) console.log(grigio(`  Colori già usati: ${usati.join(", ")}`));
+  if (usati.length)
+    console.log(grigio(`  Colori già usati: ${usati.join(", ")}`));
   for (;;) {
     let colore = await chiediValido(domanda, "", validaColore);
     if (COLORI_CSS[colore.toLowerCase()]) colore = colore.toLowerCase();
-    const doppio = usati.some((u) => String(u).toLowerCase() === colore.toLowerCase());
-    if (!doppio || (await chiediSiNo(`  ${colore} è già usato da un altro: lo vuoi usare lo stesso?`, false))) return colore;
+    const doppio = usati.some(
+      (u) => String(u).toLowerCase() === colore.toLowerCase(),
+    );
+    if (
+      !doppio ||
+      (await chiediSiNo(
+        `  ${colore} è già usato da un altro: lo vuoi usare lo stesso?`,
+        false,
+      ))
+    )
+      return colore;
   }
 };
 
@@ -61,4 +74,13 @@ const normalizzaData = (v) => {
   return `${String(giorno).padStart(2, "0")} ${mese}`;
 };
 
-module.exports = { ordinaPeriodi, leggiJson, periodoSuccessivo, validaPeriodo, validaColore, chiediColore, coloreInRgb, normalizzaData };
+module.exports = {
+  ordinaPeriodi,
+  leggiJson,
+  periodoSuccessivo,
+  validaPeriodo,
+  validaColore,
+  chiediColore,
+  coloreInRgb,
+  normalizzaData,
+};

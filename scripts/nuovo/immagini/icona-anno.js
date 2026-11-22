@@ -73,7 +73,12 @@ const creaIconaAnno = (anno, colore) => {
         const cx0 = tx + c * (larg + spazio);
         if (x < cx0 || x >= cx0 + larg) continue;
         const cifra = CIFRE[righeTesto[riga][c]];
-        if (cifra && cifra[Math.floor((y - ty) / scala)][Math.floor((x - cx0) / scala)] === "1") return true;
+        if (
+          cifra &&
+          cifra[Math.floor((y - ty) / scala)][Math.floor((x - cx0) / scala)] ===
+            "1"
+        )
+          return true;
       }
     }
     return false;
@@ -82,7 +87,9 @@ const creaIconaAnno = (anno, colore) => {
     for (let x = 0; x < L; x++) {
       // 3x3 campioni per i bordi arrotondati più morbidi
       let cop = 0;
-      for (let sy = 0; sy < 3; sy++) for (let sx = 0; sx < 3; sx++) if (dentro(x + (sx + 0.5) / 3 - 0.5, y + (sy + 0.5) / 3 - 0.5)) cop++;
+      for (let sy = 0; sy < 3; sy++)
+        for (let sx = 0; sx < 3; sx++)
+          if (dentro(x + (sx + 0.5) / 3 - 0.5, y + (sy + 0.5) / 3 - 0.5)) cop++;
       const o = (y * L + x) * 4;
       const [pr, pg, pb] = acceso(x, y) ? testo : [r, g, b];
       pixel[o] = pr;
@@ -92,7 +99,8 @@ const creaIconaAnno = (anno, colore) => {
     }
   }
   const righeRaw = Buffer.alloc(L * (L * 4 + 1));
-  for (let y = 0; y < L; y++) pixel.copy(righeRaw, y * (L * 4 + 1) + 1, y * L * 4, (y + 1) * L * 4);
+  for (let y = 0; y < L; y++)
+    pixel.copy(righeRaw, y * (L * 4 + 1) + 1, y * L * 4, (y + 1) * L * 4);
   const ihdr = Buffer.alloc(13);
   ihdr.writeUInt32BE(L, 0);
   ihdr.writeUInt32BE(L, 4);

@@ -8,7 +8,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 Quando fai un giro basta dire: **data, stagione, luogo, link al percorso e km**, ad esempio:
 
-> *Il 22 Novembre 2026, Autunno-Inverno, ho fatto un giro di 95 km a Pinzano, link: https://www.komoot.com/...*
+> _Il 22 Novembre 2026, Autunno-Inverno, ho fatto un giro di 95 km a Pinzano, link: https://www.komoot.com/..._
 
 Da terminale (scegli la voce **Aggiungere un GIRO** e rispondi alle domande):
 

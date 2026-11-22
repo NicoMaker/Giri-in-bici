@@ -38,7 +38,8 @@ class Piano {
   }
 
   crea(rel, testo) {
-    if (this.esiste(rel)) throw new Error(`Esiste già, non lo sovrascrivo: ${rel}`);
+    if (this.esiste(rel))
+      throw new Error(`Esiste già, non lo sovrascrivo: ${rel}`);
     this.contenuti.set(rel, testo);
     this.creati.add(rel);
   }

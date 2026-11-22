@@ -72,16 +72,36 @@ const chiediValido = async (domanda, predefinito, valida) => {
 };
 
 const chiediSiNo = async (domanda, predefinito = true) => {
-  const r = (await chiedi(`${domanda} (s/n)`, predefinito ? "s" : "n")).toLowerCase();
+  const r = (
+    await chiedi(`${domanda} (s/n)`, predefinito ? "s" : "n")
+  ).toLowerCase();
   return ["s", "si", "sì", "y", "yes"].includes(r);
 };
 
 const scegli = async (titolo, opzioni) => {
   console.log(`\n${grassetto(titolo)}`);
-  opzioni.forEach((o, i) => console.log(`  ${grassetto(String(o.tasto ?? i + 1))}) ${o.testo}`));
+  opzioni.forEach((o, i) =>
+    console.log(`  ${grassetto(String(o.tasto ?? i + 1))}) ${o.testo}`),
+  );
   const tasti = opzioni.map((o, i) => String(o.tasto ?? i + 1));
-  const r = await chiediValido("Scelta", "", (v) => (tasti.includes(v) ? null : "Scelta non valida."));
+  const r = await chiediValido("Scelta", "", (v) =>
+    tasti.includes(v) ? null : "Scelta non valida.",
+  );
   return opzioni[tasti.indexOf(r)];
 };
 
-module.exports = { grassetto, verde, giallo, rosso, grigio, ciano, rl, Uscita, chiedi, chiediValido, chiediSiNo, scegli, rl };
+module.exports = {
+  grassetto,
+  verde,
+  giallo,
+  rosso,
+  grigio,
+  ciano,
+  rl,
+  Uscita,
+  chiedi,
+  chiediValido,
+  chiediSiNo,
+  scegli,
+  rl,
+};

@@ -24,12 +24,25 @@ const accoda = (testo, inizio, fine, voce) => {
     const ultima = contenuto.slice(contenuto.lastIndexOf("\n") + 1);
     separatore = `\n${ultima.match(/^[ \t]*/)[0]}`;
   }
-  return testo.slice(0, inizio) + contenuto + "," + separatore + voce + coda + testo.slice(fine);
+  return (
+    testo.slice(0, inizio) +
+    contenuto +
+    "," +
+    separatore +
+    voce +
+    coda +
+    testo.slice(fine)
+  );
 };
 
 const aggiungiAOggetto = (testo, chiave, k, v, da = 0) => {
   const { inizio, fine } = trovaBlocco(testo, chiave, "{", "}", da);
-  return accoda(testo, inizio, fine, `${JSON.stringify(k)}: ${JSON.stringify(v)}`);
+  return accoda(
+    testo,
+    inizio,
+    fine,
+    `${JSON.stringify(k)}: ${JSON.stringify(v)}`,
+  );
 };
 
 const aggiungiAArray = (testo, chiave, valore, da = 0) => {
