@@ -57,6 +57,17 @@ Il menu offre: **giro**, **mese**, **nuova stagione** 🌸🌞🍁❄️, **nuov
 - **Anno**: crea la pagina, il JSON dell'anno e aggiorna `Storico.json` (`anni` e `coloriAnni`). Puoi inserire subito il primo mese (anche non Gennaio).
 - **Icona (favicon) dell'anno**: se indichi un'immagine `.jpg` la copia in `Img/Statistiche/Anni/<anno>.jpg`; altrimenti **la crea lo script** (`<anno>.png`: l'anno scritto sul colore scelto) e il link `rel="icon"` della pagina punta già al file giusto. Se poi preferisci una tua foto: salvala come `<anno>.jpg` nella stessa cartella e nella pagina cambia `.png` in `.jpg` nel link dell'icona.
 
+Il codice dello script è diviso in componenti, in cartelle per argomento, dentro [`scripts/nuovo/`](scripts/nuovo/):
+
+- `base/`: `impostazioni`, `terminale`, `piano`, `utilita`
+- `json/`: `json-chirurgico`
+- `immagini/`: `foto`, `icona-anno`
+- `calcoli/`: `giri-e-statistiche`
+- `azioni/`: `stagione`, `anno`, `giro`, `mese`, `foto-stagione`
+- `programma/`: `riepilogo`, `menu`
+
+`scripts/nuovo.js` serve solo ad avviarli.
+
 Prima di scrivere mostra un riepilogo e chiede conferma; se un file esiste già o un JSON non è valido si ferma senza toccare niente. Nei JSON esistenti viene aggiunta solo la riga nuova, il resto non viene riformattato.
 
 ---
