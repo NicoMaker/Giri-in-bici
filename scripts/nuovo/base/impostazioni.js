@@ -221,6 +221,7 @@ const PERCORSO_STAGIONI_JSON = "json/Statistiche/anni/stagioni/stagioni.json";
 const PERCORSO_STORICO_JSON = "json/Statistiche/History/Storico.json";
 
 module.exports = {
+  argomenti,
   PROVA,
   SI,
   MODO_GIRO,

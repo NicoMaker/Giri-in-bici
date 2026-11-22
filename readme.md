@@ -4,6 +4,45 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 
 ---
 
+## 🌐 Interfaccia Web (il modo più comodo)
+
+Puoi fare **tutto da browser**, con un'interfaccia moderna (tema chiaro/scuro automatico, adatta anche al telefono). Serve solo [Node.js](https://nodejs.org) 18 o più recente, nessuna libreria da installare:
+
+```bash
+node scripts/server.js          # oppure: npm start
+```
+
+Si apre da solo <http://localhost:3000>. Per fermare il server premi `Ctrl+C`.
+
+```bash
+node scripts/server.js --porta=4000      # un'altra porta (se la 3000 è occupata ne prova la successiva da sola)
+node scripts/server.js --prova           # fa vedere le anteprime ma NON scrive nessun file
+node scripts/server.js --senza-browser   # non apre il browser da solo
+```
+
+Dal menu a sinistra scegli cosa fare:
+
+| Voce | Cosa fa |
+| --- | --- |
+| 🚴 **Aggiungi un giro** | data, stagione, luogo, link e km → aggiorna il giro, i km del mese e le corse |
+| 📆 **Aggiungi o correggi un mese** | somma o sostituisce i km di un mese (lo crea se non c'è) |
+| 📷 **Aggiungi foto** | trascini i `.jpg`: numerazione continua e galleria aggiornata |
+| 🌸 **Nuova stagione** | pagina, JSON, colore, foto e (se vuoi) il primo giro |
+| 📅 **Nuovo anno di Statistiche** | pagina, JSON, colore e icona dell'anno |
+| 🗓️ **Nuovo anno completo** | Statistiche + Primavera + Estate + Autunno-Inverno insieme |
+| 📋 **Elenco** | sola lettura: anni con grafico dei mesi, km e corse, e tutti i giri di ogni stagione |
+
+Come funziona, in ogni voce:
+
+1. compili il modulo e premi **Anteprima**: vedi la frase di riepilogo, i km prima → dopo, gli **avvisi** (data nel futuro, giro già presente, km che non tornano…) e l'elenco dei file che verrebbero creati o aggiornati;
+2. se va bene premi **Conferma e scrivi i file**; se qualcosa non torna (JSON non valido, file già esistente…) non viene scritto **niente**.
+
+Le regole sono **identiche a quelle del terminale** (stesso codice): stessi controlli, stesso modo di modificare i JSON riga per riga senza riformattarli, stessi colori scelti da te (nome CSS o `#esadecimale`, con anteprima del colore e l'elenco di quelli già usati).
+
+> 🔒 Il server ascolta **solo su questo computer** (`127.0.0.1`) e rifiuta richieste da altri indirizzi o da altri siti. Le foto caricate passano da una cartella temporanea che viene svuotata dopo la conferma.
+
+---
+
 ## 🚴 Aggiungere un Giro (il caso più frequente)
 
 Quando fai un giro basta dire: **data, stagione, luogo, link al percorso e km**, ad esempio:
@@ -48,7 +87,9 @@ node scripts/nuovo.js            # menu guidato
 node scripts/nuovo.js --prova    # mostra cosa farebbe, senza scrivere nulla
 ```
 
-Il menu offre: **giro**, **mese**, **nuova stagione** 🌸🌞🍁❄️, **nuovo anno di Statistiche** 📅, **nuovo anno completo** (Statistiche + Primavera + Estate + Autunno-Inverno insieme).
+Il menu offre: **giro**, **mese**, **foto**, **nuova stagione** 🌸🌞🍁❄️, **nuovo anno di Statistiche** 📅, **nuovo anno completo** (Statistiche + Primavera + Estate + Autunno-Inverno insieme) ed **elenco** 📋 (sola lettura: anni con mesi/km/corse e giri di ogni stagione).
+
+> Terminale e interfaccia web fanno le stesse cose: scegli quello che preferisci. L'elenco di **tutti i casi** è in un unico JSON, [`scripts/nuovo/programma/casi.json`](scripts/nuovo/programma/casi.json), letto da entrambi (testo del menu, icona, titolo, descrizione).
 
 - **Il colore lo scegli sempre tu**: lo script non ne suggerisce nessuno. Ti mostra i colori già usati e tu scrivi un nome CSS (es. `gold`, `teal`) oppure un esadecimale (es. `#ff0060`). Un colore non valido o già usato viene segnalato.
 - **Stagione**: crea la pagina HTML (copia dell'ultimo periodo con il nuovo anno), il JSON del periodo con un solo giro d'esempio (o il primo giro che inserisci tu), aggiorna `generale.json` (`subPeriods` e `colors`) e `stagioni.json`.
@@ -64,9 +105,11 @@ Il codice dello script è diviso in componenti, in cartelle per argomento, dentr
 - `immagini/`: `foto`, `icona-anno`
 - `calcoli/`: `giri-e-statistiche`
 - `azioni/`: `stagione`, `anno`, `giro`, `mese`, `foto-stagione`
-- `programma/`: `riepilogo`, `menu`
+- `programma/`: `riepilogo`, `menu`, `elenco`, `casi.json`
+- `server/`: `server` (HTTP locale, senza librerie) e `api` (anteprima, conferma, caricamento foto: usa le stesse funzioni `applica…` del terminale)
+- `web/`: `index.html`, `stile.css`, `app.js` (l'interfaccia del browser)
 
-`scripts/nuovo.js` serve solo ad avviarli.
+`scripts/nuovo.js` avvia il terminale, `scripts/server.js` avvia l'interfaccia web.
 
 Prima di scrivere mostra un riepilogo e chiede conferma; se un file esiste già o un JSON non è valido si ferma senza toccare niente. Nei JSON esistenti viene aggiunta solo la riga nuova, il resto non viene riformattato.
 

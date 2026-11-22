@@ -28,7 +28,9 @@ const {
   scegli,
 } = require("../base/terminale");
 const { leggiJson, ordinaPeriodi, validaPeriodo } = require("../base/utilita");
+const { mostraElenco } = require("./elenco");
 const { conferma } = require("./riepilogo");
+const { casi } = require("./casi.json");
 
 const principale = async () => {
   if (
@@ -44,47 +46,27 @@ const principale = async () => {
   );
 
   const azione = MODO_GIRO
-    ? { tasto: 1 }
+    ? casi.find((c) => c.id === "giro")
     : await scegli("Cosa vuoi fare?", [
-        {
-          tasto: 1,
-          testo:
-            "Aggiungere un GIRO (data, stagione, luogo, link, km → aggiorna giri, km del mese e corse)",
-        },
-        {
-          tasto: 2,
-          testo:
-            "Aggiungere o correggere un MESE di un anno (lo crea se non c'è)",
-        },
-        {
-          tasto: 3,
-          testo:
-            "Aggiungere FOTO a una stagione già esistente (indichi la cartella)",
-        },
-        {
-          tasto: 4,
-          testo:
-            "Creare una nuova STAGIONE (Primavera, Estate o Autunno-Inverno)",
-        },
-        { tasto: 5, testo: "Creare un nuovo ANNO di Statistiche" },
-        {
-          tasto: 6,
-          testo:
-            "Creare un nuovo anno COMPLETO (Statistiche + Primavera + Estate + Autunno-Inverno)",
-        },
-        { tasto: 0, testo: "Esci" },
+        ...casi.map(({ id, tasto, testo }) => ({ id, tasto, testo })),
+        { id: "esci", tasto: 0, testo: "Esci" },
       ]);
-  if (azione.tasto === 0) return;
+  if (azione.id === "esci") return;
+
+  if (azione.id === "elenco") {
+    await mostraElenco(new Piano());
+    return;
+  }
 
   const piano = new Piano();
 
-  if (azione.tasto === 1) {
+  if (azione.id === "giro") {
     await applicaGiro(piano, await raccogliGiro(piano));
-  } else if (azione.tasto === 3) {
+  } else if (azione.id === "foto") {
     applicaFoto(piano, await raccogliFoto(piano));
-  } else if (azione.tasto === 2) {
+  } else if (azione.id === "mese") {
     applicaMese(piano, await raccogliMese(piano));
-  } else if (azione.tasto === 4) {
+  } else if (azione.id === "stagione") {
     const s = await scegli(
       "Quale stagione?",
       Object.entries(STAGIONI).map(([chiave, v]) => ({
@@ -93,7 +75,7 @@ const principale = async () => {
       })),
     );
     applicaStagione(piano, await raccogliStagione(piano, s.chiave));
-  } else if (azione.tasto === 5) {
+  } else if (azione.id === "anno") {
     applicaAnno(piano, await raccogliAnno(piano));
   } else {
     const storico = leggiJson(piano, PERCORSO_STORICO_JSON);

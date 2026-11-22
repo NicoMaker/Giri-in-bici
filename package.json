@@ -1,0 +1,16 @@
+{
+  "name": "giri-in-bici",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Giri in Bici: sito statico + strumenti per aggiornarlo da terminale o da interfaccia web (nessuna dipendenza).",
+  "scripts": {
+    "start": "node scripts/server.js",
+    "server": "node scripts/server.js",
+    "nuovo": "node scripts/nuovo.js",
+    "prova": "node scripts/server.js --prova"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
