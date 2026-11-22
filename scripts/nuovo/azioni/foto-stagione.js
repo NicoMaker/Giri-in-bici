@@ -1,60 +1,70 @@
 "use strict";
 
 // FOTO: aggiungere immagini a un periodo di stagione gia esistente.
+// CLI: node scripts/nuovo.js --foto --stagione=Primavera --periodo=2026 --cartella=/percorso/foto
 
 const fs = require("fs");
-const { STAGIONI } = require("../base/impostazioni");
-const {
-  chiedi,
-  chiediValido,
-  giallo,
-  grassetto,
-  rosso,
-  scegli,
-} = require("../base/terminale");
+const { STAGIONI, opzione, flag } = require("../base/impostazioni");
+const { chiedi, chiediValido, giallo, grassetto, rosso, scegli } = require("../base/terminale");
 const { leggiJson, ordinaPeriodi } = require("../base/utilita");
-const {
-  cartellaImg,
-  elencaFoto,
-  pulisciPercorso,
-} = require("../immagini/foto");
+const { cartellaImg, elencaFoto, pulisciPercorso } = require("../immagini/foto");
+
+const ALIAS_STAGIONI = {
+  primavera: "Primavera",
+  estate: "Estate",
+  autunno: "Autunno_Inverno",
+  inverno: "Autunno_Inverno",
+  autunno_inverno: "Autunno_Inverno",
+  "autunno-inverno": "Autunno_Inverno",
+  "autunno - inverno": "Autunno_Inverno",
+  "autunno inverno": "Autunno_Inverno",
+};
+
+const trovaStagione = (testo) =>
+  ALIAS_STAGIONI[String(testo || "").trim().toLowerCase().replace(/[_·]/g, "-")] || null;
 
 const raccogliFoto = async (piano) => {
-  const chiave = (
-    await scegli(
-      "A quale stagione vuoi aggiungere le foto?",
-      Object.entries(STAGIONI).map(([k, v]) => ({
-        chiave: k,
-        testo: v.etichetta,
-      })),
-    )
-  ).chiave;
+  let chiave = opzione("stagione") ? trovaStagione(opzione("stagione")) : null;
+  if (opzione("stagione") && !chiave) {
+    throw new Error(`Stagione "${opzione("stagione")}" non riconosciuta.`);
+  }
+  if (!chiave) {
+    chiave = (
+      await scegli(
+        "A quale stagione vuoi aggiungere le foto?",
+        Object.entries(STAGIONI).map(([k, v]) => ({ chiave: k, testo: v.etichetta })),
+      )
+    ).chiave;
+  }
   const s = STAGIONI[chiave];
   const periodi = Object.keys(
     leggiJson(piano, `json/${s.cartella}/generale.json`).subPeriods,
   ).sort(ordinaPeriodi);
-  const periodo = await chiediValido(
-    `Periodo (${periodi.join(", ")})`,
-    periodi[periodi.length - 1],
-    (v) => (periodi.includes(v) ? null : `Scegli tra: ${periodi.join(", ")}.`),
-  );
+
+  let periodo = opzione("periodo");
+  if (periodo === undefined) {
+    periodo = await chiediValido(
+      `Periodo (${periodi.join(", ")})`,
+      periodi[periodi.length - 1],
+      (v) => (periodi.includes(v) ? null : `Scegli tra: ${periodi.join(", ")}.`),
+    );
+  } else if (!periodi.includes(periodo)) {
+    throw new Error(`Periodo "${periodo}" non esiste in ${s.testo}. Disponibili: ${periodi.join(", ")}.`);
+  }
 
   let foto = [];
-  let percorso = await chiedi(
-    "Cartella con le foto (.jpg) — trascinala qui",
-    "",
-  );
+  let percorso = opzione("cartella");
+  if (percorso === undefined) {
+    percorso = await chiedi("Cartella con le foto (.jpg) — trascinala qui", "");
+  }
   for (;;) {
     if (!percorso) throw new Error("Nessuna cartella indicata.");
     const dir = pulisciPercorso(percorso);
     if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
       const r = elencaFoto(dir);
-      if (r.ignorati.length)
-        console.log(
-          giallo(
-            `  ⚠ Ignoro ${r.ignorati.length} file non .jpg: ${r.ignorati.slice(0, 5).join(", ")}`,
-          ),
-        );
+      if (r.ignorati.length) {
+        console.log(giallo(`  ⚠ Ignoro ${r.ignorati.length} file non .jpg: ${r.ignorati.slice(0, 5).join(", ")}`));
+      }
       if (r.foto.length) {
         foto = r.foto;
         break;
@@ -63,6 +73,7 @@ const raccogliFoto = async (piano) => {
     } else {
       console.log(rosso("  ✖ Cartella non trovata."));
     }
+    if (flag("si")) throw new Error("Cartella foto non valida.");
     percorso = await chiedi("Prova con un'altra cartella", "");
   }
   return { chiave, s, periodo, foto };
@@ -75,7 +86,6 @@ const applicaFoto = (piano, d) => {
   const gal = html.match(/(<div class="gallery">)([\s\S]*?)(\n[ \t]*<\/div>)/);
   if (!gal) throw new Error(`In ${fileHtml} non trovo <div class="gallery">.`);
 
-  // le nuove foto continuano la numerazione: non sovrascrivo mai quelle che ci sono
   const img = cartellaImg();
   const cartellaFoto = `${img}/${s.cartella}/${periodo}`;
   const nelHtml = (gal[2].match(/class="shot"/g) || []).length;
@@ -88,10 +98,7 @@ const applicaFoto = (piano, d) => {
   }
   const primo = Math.max(nelHtml, nelleCartella) + 1;
 
-  const rientroDiv = html.slice(
-    html.lastIndexOf("\n", gal.index) + 1,
-    gal.index,
-  );
+  const rientroDiv = html.slice(html.lastIndexOf("\n", gal.index) + 1, gal.index);
   const r1 = `${rientroDiv}  `;
   const r2 = `${r1}  `;
   const r3 = `${r2}  `;
@@ -117,16 +124,10 @@ const applicaFoto = (piano, d) => {
     ].join("\n");
   });
 
-  // tolgo il commento segnaposto della galleria vuota, se c'è
   const dentro = gal[2].replace(/\n[ \t]*<!-- Foto:[\s\S]*?-->/, "");
   html =
-    html.slice(0, gal.index) +
-    gal[1] +
-    dentro +
-    "\n" +
-    blocchi.join("\n") +
-    gal[3] +
-    html.slice(gal.index + gal[0].length);
+    html.slice(0, gal.index) + gal[1] + dentro + "\n" + blocchi.join("\n") +
+    gal[3] + html.slice(gal.index + gal[0].length);
   piano.modifica(fileHtml, html);
 
   piano.note.push(

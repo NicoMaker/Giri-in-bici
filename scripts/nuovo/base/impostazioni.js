@@ -8,9 +8,20 @@ const argomenti = process.argv.slice(2);
 
 const PROVA = argomenti.includes("--prova");
 
-const SI = argomenti.includes("--si"); // salta la domanda finale "Confermi?"
+const SI = argomenti.includes("--si"); // salta la conferma finale
 
-const MODO_GIRO = argomenti.includes("--giro");
+// Comandi espliciti (alternativi al menu)
+const COMANDO = (() => {
+  if (argomenti.includes("--giro")) return "giro";
+  if (argomenti.includes("--mese")) return "mese";
+  if (argomenti.includes("--foto")) return "foto";
+  if (argomenti.includes("--stagione-nuova")) return "stagione";
+  if (argomenti.includes("--anno-nuovo")) return "anno";
+  if (argomenti.includes("--anno-completo")) return "anno-completo";
+  return null;
+})();
+
+const MODO_GIRO = COMANDO === "giro";
 
 const argRadice = argomenti.find((a) => a.startsWith("--radice="));
 
@@ -23,6 +34,8 @@ const opzione = (nome) => {
   const a = argomenti.find((x) => x.startsWith(`--${nome}=`));
   return a === undefined ? undefined : a.slice(nome.length + 3);
 };
+
+const flag = (nome) => argomenti.includes(`--${nome}`);
 
 const STAGIONI = {
   Primavera: {
@@ -63,8 +76,6 @@ const MESI = [
   "Dicembre",
 ];
 
-// Nomi colore CSS validi (servono a controllare quello che scrivi e a disegnare
-// l'icona dell'anno). Gli esadecimali (#ff0060) sono accettati sempre.
 const COLORI_CSS = {
   aliceblue: "#F0F8FF",
   antiquewhite: "#FAEBD7",
@@ -217,15 +228,16 @@ const COLORI_CSS = {
 };
 
 const PERCORSO_STAGIONI_JSON = "json/Statistiche/anni/stagioni/stagioni.json";
-
 const PERCORSO_STORICO_JSON = "json/Statistiche/History/Storico.json";
 
 module.exports = {
   PROVA,
   SI,
+  COMANDO,
   MODO_GIRO,
   RADICE,
   opzione,
+  flag,
   STAGIONI,
   MESI,
   COLORI_CSS,
