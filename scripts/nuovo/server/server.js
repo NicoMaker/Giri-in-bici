@@ -8,7 +8,6 @@ process.env.NO_COLOR = "1"; // niente codici colore del terminale nei testi invi
 const fs = require("fs");
 const http = require("http");
 const path = require("path");
-const { exec } = require("child_process");
 const { RADICE, argomenti, opzione } = require("../base/impostazioni");
 const api = require("./api");
 
@@ -54,7 +53,9 @@ const richiestaLocale = (req) => {
   const origine = req.headers.origin;
   if (!origine) return true;
   try {
-    return ["localhost", "127.0.0.1", "[::1]"].includes(new URL(origine).hostname);
+    return ["localhost", "127.0.0.1", "[::1]"].includes(
+      new URL(origine).hostname,
+    );
   } catch {
     return false;
   }
@@ -99,7 +100,9 @@ const gestisci = async (req, res) => {
       req.method === "POST" &&
       ["/api/anteprima", "/api/conferma"].includes(url.pathname)
     ) {
-      const richiesta = JSON.parse((await leggiCorpo(req, 1024 * 1024)).toString("utf8") || "{}");
+      const richiesta = JSON.parse(
+        (await leggiCorpo(req, 1024 * 1024)).toString("utf8") || "{}",
+      );
       const risposta =
         url.pathname === "/api/anteprima"
           ? await api.anteprima(richiesta.azione, richiesta.dati)
@@ -110,7 +113,11 @@ const gestisci = async (req, res) => {
     return inviaJson(res, 404, { ok: false, errore: "Percorso non trovato." });
   } catch (e) {
     // Errori di compilazione del modulo: messaggio chiaro, 400. Imprevisti: 500.
-    const previsto = e instanceof api.ErroreDati || /Esiste già|Non esiste|non trovato|non valido|Non trovo|rimasto/i.test(e.message);
+    const previsto =
+      e instanceof api.ErroreDati ||
+      /Esiste già|Non esiste|non trovato|non valido|Non trovo|rimasto/i.test(
+        e.message,
+      );
     // nel browser non si usa il terminale: il suggerimento rimanda al menu a sinistra
     const errore = e.message.replace(
       /Crealo prima con: node scripts\/nuovo\.js → "([^"]*)"\./,
@@ -120,18 +127,10 @@ const gestisci = async (req, res) => {
   }
 };
 
-const apri = (url) => {
-  const comando =
-    process.platform === "win32"
-      ? `start "" "${url}"`
-      : process.platform === "darwin"
-        ? `open "${url}"`
-        : `xdg-open "${url}"`;
-  exec(comando, () => {});
-};
-
 const avvia = () => {
-  if (!fs.existsSync(path.join(RADICE, "json/Statistiche/History/Storico.json"))) {
+  if (
+    !fs.existsSync(path.join(RADICE, "json/Statistiche/History/Storico.json"))
+  ) {
     console.error(`Non sembra la cartella di Giri in Bici: ${RADICE}`);
     process.exit(1);
   }
@@ -159,10 +158,12 @@ const avvia = () => {
   server.on("listening", () => {
     const url = `http://localhost:${porta}`;
     console.log("\n🚴 Giri in Bici — interfaccia web");
-    console.log(`   Cartella: ${RADICE}${argomenti.includes("--prova") ? "  (modalità --prova)" : ""}`);
+    console.log(
+      `   Cartella: ${RADICE}${argomenti.includes("--prova") ? "  (modalità --prova)" : ""}`,
+    );
     console.log(`   Apri:     ${url}`);
     console.log("   Per fermare il server: Ctrl+C\n");
-    if (!argomenti.includes("--senza-browser")) apri(url);
+    // apertura automatica del browser rimossa: apri manualmente l'URL indicato sopra
   });
 
   server.listen(porta, "127.0.0.1");
