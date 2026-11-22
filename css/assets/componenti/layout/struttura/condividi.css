@@ -92,7 +92,10 @@
 }
 /* Con "Condividi" visibile i pulsanti sono quattro: l'ultimo prende la riga intera
    invece di restare solo a metà */
-.menu .condividi-azioni button[data-azione="condividi"]:not([hidden]) ~ button[data-azione="json"] {
+.menu
+  .condividi-azioni
+  button[data-azione="condividi"]:not([hidden])
+  ~ button[data-azione="json"] {
   grid-column: 1 / -1;
 }
 /* Il pulsante Condividi è quello principale */

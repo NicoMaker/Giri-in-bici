@@ -67,17 +67,15 @@ const elenchi = () => {
   };
 
   // Classifiche (liste ordinate)
-  document
-    .querySelectorAll("main ol.classifica-lista")
-    .forEach((ol) => {
-      if (!visibile(ol)) return;
-      aggiungi(
-        ol,
-        [...ol.querySelectorAll(":scope > li")]
-          .map((li) => ({ testo: testo(li), link: linkDi(li) }))
-          .filter((v) => v.testo),
-      );
-    });
+  document.querySelectorAll("main ol.classifica-lista").forEach((ol) => {
+    if (!visibile(ol)) return;
+    aggiungi(
+      ol,
+      [...ol.querySelectorAll(":scope > li")]
+        .map((li) => ({ testo: testo(li), link: linkDi(li) }))
+        .filter((v) => v.testo),
+    );
+  });
 
   // Podi
   document.querySelectorAll("main .podio").forEach((podio) => {
@@ -118,7 +116,9 @@ const riepilogo = () => {
   const voci = [];
   document.querySelectorAll("main .colore").forEach((riquadro) => {
     if (!visibile(riquadro)) return;
-    const righe = [...riquadro.querySelectorAll("p")].map(testo).filter(Boolean);
+    const righe = [...riquadro.querySelectorAll("p")]
+      .map(testo)
+      .filter(Boolean);
     const tutte = righe.length ? righe : [testo(riquadro)].filter(Boolean);
     tutte.forEach((r) => voci.push(r));
   });
@@ -169,9 +169,9 @@ export const estraiPagina = () => {
 export const haDati = (dati) =>
   Boolean(
     dati.riepilogo.length ||
-      dati.tabelle.length ||
-      dati.elenchi.length ||
-      dati.grafici.length,
+    dati.tabelle.length ||
+    dati.elenchi.length ||
+    dati.grafici.length,
   );
 
 // Il file JSON "grezzo" da cui la pagina legge (es. json/Estate/Periodi/2026.json),

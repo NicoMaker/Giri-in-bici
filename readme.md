@@ -22,14 +22,14 @@ node scripts/server.js --senza-browser   # non apre il browser da solo
 
 Dal menu a sinistra scegli cosa fare:
 
-| Voce                               | Cosa fa                                                                              |
-| ---------------------------------- | ------------------------------------------------------------------------------------ |
-| 🚴 **Aggiungi un giro**            | data, stagione, luogo, link e km → aggiorna il giro, i km del mese e le corse        |
-| 📆 **Aggiungi o correggi un mese** | somma o sostituisce i km di un mese (lo crea se non c'è)                             |
-| 📷 **Aggiungi foto**               | trascini i `.jpg`: numerazione continua e galleria aggiornata                        |
-| 🌸 **Nuova stagione**              | pagina, JSON, colore, foto e (se vuoi) il primo giro                                 |
-| 📅 **Nuovo anno di Statistiche**   | pagina, JSON, colore e icona dell'anno                                               |
-| 🗓️ **Nuovo anno completo**         | Statistiche + Primavera + Estate + Autunno-Inverno insieme                           |
+| Voce                               | Cosa fa                                                                       |
+| ---------------------------------- | ----------------------------------------------------------------------------- |
+| 🚴 **Aggiungi un giro**            | data, stagione, luogo, link e km → aggiorna il giro, i km del mese e le corse |
+| 📆 **Aggiungi o correggi un mese** | somma o sostituisce i km di un mese (lo crea se non c'è)                      |
+| 📷 **Aggiungi foto**               | trascini i `.jpg`: numerazione continua e galleria aggiornata                 |
+| 🌸 **Nuova stagione**              | pagina, JSON, colore, foto e (se vuoi) il primo giro                          |
+| 📅 **Nuovo anno di Statistiche**   | pagina, JSON, colore e icona dell'anno                                        |
+| 🗓️ **Nuovo anno completo**         | Statistiche + Primavera + Estate + Autunno-Inverno insieme                    |
 
 Come funziona, in ogni voce:
 

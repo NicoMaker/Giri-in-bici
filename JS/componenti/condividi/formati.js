@@ -54,7 +54,10 @@ export const comeTesto = (dati, conLink) => {
     righe.push("");
   });
 
-  return righe.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+  return righe
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 };
 
 // ---------- CSV (Excel italiano: separatore ";" e BOM per gli accenti) ----------
@@ -91,10 +94,14 @@ export const comeCsv = (dati, conLink) => {
   dati.elenchi.forEach((e) => {
     const righe = [];
     if (e.titolo) righe.push(rigaCsv([e.titolo]));
-    righe.push(rigaCsv(conLink ? ["Posizione", "Voce", "Link"] : ["Posizione", "Voce"]));
+    righe.push(
+      rigaCsv(conLink ? ["Posizione", "Voce", "Link"] : ["Posizione", "Voce"]),
+    );
     e.voci.forEach((v, i) =>
       righe.push(
-        rigaCsv(conLink ? [i + 1, v.testo, v.link.join(" ")] : [i + 1, v.testo]),
+        rigaCsv(
+          conLink ? [i + 1, v.testo, v.link.join(" ")] : [i + 1, v.testo],
+        ),
       ),
     );
     blocchi.push(righe.join("\n"));
@@ -158,7 +165,10 @@ export const comeJson = (dati, originale, conLink) => {
           : conLink
             ? v
             : senzaTag(v);
-    uscita.datiOriginali = { file: originale.file, dati: pulisciValori(originale.dati) };
+    uscita.datiOriginali = {
+      file: originale.file,
+      dati: pulisciValori(originale.dati),
+    };
   }
 
   return JSON.stringify(uscita, null, 2) + "\n";
