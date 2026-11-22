@@ -40,7 +40,8 @@ const api = async (url, corpo) => {
   } catch {
     return {
       ok: false,
-      errore: "Il server non risponde. Controlla che `node scripts/server.js` sia ancora acceso.",
+      errore:
+        "Il server non risponde. Controlla che `node scripts/server.js` sia ancora acceso.",
     };
   }
 };
@@ -103,7 +104,11 @@ const segmentato = (opzioni, valore, onCambio) => {
 
 const campioneColore = (colore) => {
   const ok = colore && CSS.supports("color", colore);
-  return el("span", { class: "campione" }, el("i", { style: ok ? `background:${colore}` : "" }));
+  return el(
+    "span",
+    { class: "campione" },
+    el("i", { style: ok ? `background:${colore}` : "" }),
+  );
 };
 
 const campoColore = (etichetta, usati) => {
@@ -113,10 +118,13 @@ const campoColore = (etichetta, usati) => {
   const nota = el("small", { class: "aiuto" });
   const aggiorna = () => {
     const v = testo.value.trim();
-    campione.firstChild.style.background = v && CSS.supports("color", v) ? v : "transparent";
+    campione.firstChild.style.background =
+      v && CSS.supports("color", v) ? v : "transparent";
     const doppio = v && usati.some((u) => u.toLowerCase() === v.toLowerCase());
     nota.className = doppio ? "aiuto avv" : "aiuto";
-    nota.textContent = doppio ? "⚠ Questo colore è già usato da un altro periodo." : "";
+    nota.textContent = doppio
+      ? "⚠ Questo colore è già usato da un altro periodo."
+      : "";
   };
   testo.addEventListener("input", aggiorna);
   scelta.addEventListener("input", () => {
@@ -128,7 +136,14 @@ const campoColore = (etichetta, usati) => {
         "div",
         { class: "usati" },
         el("span", { class: "aiuto", text: "Già usati:" }),
-        usati.map((u) => el("span", { class: "chip", title: u }, el("i", { style: `background:${u}` }), u)),
+        usati.map((u) =>
+          el(
+            "span",
+            { class: "chip", title: u },
+            el("i", { style: `background:${u}` }),
+            u,
+          ),
+        ),
       )
     : null;
   const box = el(
@@ -163,10 +178,18 @@ const zonaFile = ({ multiplo, titolo, sotto }) => {
       ...mostrate.map((f, i) => {
         const u = URL.createObjectURL(f);
         urls.push(u);
-        return el("div", { class: "mini", title: f.name }, el("img", { src: u, alt: f.name }), multiplo ? el("span", { text: String(i + 1) }) : null);
+        return el(
+          "div",
+          { class: "mini", title: f.name },
+          el("img", { src: u, alt: f.name }),
+          multiplo ? el("span", { text: String(i + 1) }) : null,
+        );
       }),
       files.length > mostrate.length
-        ? el("div", { class: "mini altro", text: `+${files.length - mostrate.length}` })
+        ? el("div", {
+            class: "mini altro",
+            text: `+${files.length - mostrate.length}`,
+          })
         : null,
     );
     info.textContent = files.length
@@ -174,7 +197,9 @@ const zonaFile = ({ multiplo, titolo, sotto }) => {
       : "";
   };
   const imposta = (lista) => {
-    const jpg = [...lista].filter((f) => /\.jpe?g$/i.test(f.name)).sort(ordineNaturale);
+    const jpg = [...lista]
+      .filter((f) => /\.jpe?g$/i.test(f.name))
+      .sort(ordineNaturale);
     const scartati = lista.length - jpg.length;
     files = multiplo ? jpg : jpg.slice(0, 1);
     disegna();
@@ -223,9 +248,15 @@ const carica = async (files, cartella) => {
     const nome = `${String(i).padStart(4, "0")}-${files[i].name}`;
     const r = await fetch(
       `/api/upload?sid=${sid}&cartella=${cartella}&nome=${encodeURIComponent(nome)}`,
-      { method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: files[i] },
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/octet-stream" },
+        body: files[i],
+      },
     );
-    const j = await r.json().catch(() => ({ ok: false, errore: "Caricamento non riuscito." }));
+    const j = await r
+      .json()
+      .catch(() => ({ ok: false, errore: "Caricamento non riuscito." }));
     if (!j.ok) throw new Error(j.errore || "Caricamento non riuscito.");
   }
   return sid;
@@ -234,16 +265,29 @@ const carica = async (files, cartella) => {
 const opzionale = (titolo, contenuto, aperto = false) => {
   const dentro = el("div", { class: "dentro" }, contenuto);
   dentro.hidden = !aperto;
-  const check = el("input", { type: "checkbox", checked: aperto, onchange: () => (dentro.hidden = !check.checked) });
+  const check = el("input", {
+    type: "checkbox",
+    checked: aperto,
+    onchange: () => (dentro.hidden = !check.checked),
+  });
   return {
-    el: el("div", { class: "opzionale pieno" }, el("label", { class: "interruttore" }, check, titolo), dentro),
+    el: el(
+      "div",
+      { class: "opzionale pieno" },
+      el("label", { class: "interruttore" }, check, titolo),
+      dentro,
+    ),
     attivo: () => check.checked,
   };
 };
 
 const stagioneDaMese = (iso) => {
   const m = parseInt(iso.slice(5, 7), 10);
-  return m >= 3 && m <= 5 ? "Primavera" : m >= 6 && m <= 8 ? "Estate" : "Autunno_Inverno";
+  return m >= 3 && m <= 5
+    ? "Primavera"
+    : m >= 6 && m <= 8
+      ? "Estate"
+      : "Autunno_Inverno";
 };
 
 // ---------- stato globale ----------
@@ -252,7 +296,10 @@ let stato = null;
 let elenco = null;
 
 const opzioniStagioni = () =>
-  Object.entries(stato.stagioni).map(([k, s]) => ({ valore: k, testo: s.etichetta }));
+  Object.entries(stato.stagioni).map(([k, s]) => ({
+    valore: k,
+    testo: s.etichetta,
+  }));
 
 const ricarica = async () => {
   const [s, e] = await Promise.all([api("/api/stato"), api("/api/elenco")]);
@@ -269,16 +316,38 @@ moduli.giro = () => {
   const st = segmentato(opzioniStagioni(), stagioneDaMese(stato.oggi));
   const data = casella("date", stato.oggi);
   const luogo = casella("text", "", { placeholder: "es. Pinzano" });
-  const km = casella("number", "", { min: "1", step: "1", inputmode: "numeric", placeholder: "es. 95" });
+  const km = casella("number", "", {
+    min: "1",
+    step: "1",
+    inputmode: "numeric",
+    placeholder: "es. 95",
+  });
   const link = casella("url", "", { placeholder: "https://www.komoot.com/…" });
   const nodo = el(
     "div",
     { class: "griglia" },
-    el("div", { class: "campo pieno" }, el("span", { class: "etichetta", text: "Stagione" }), st.el),
+    el(
+      "div",
+      { class: "campo pieno" },
+      el("span", { class: "etichetta", text: "Stagione" }),
+      st.el,
+    ),
     campo("Data del giro", data),
     campo("Distanza (km)", km),
-    el("div", { class: "pieno" }, campo("Luogo (come comparirà nella tabella)", luogo)),
-    el("div", { class: "pieno" }, campo("Link al percorso (facoltativo)", link, "Komoot o altro: se lo lasci vuoto il luogo resta senza link.")),
+    el(
+      "div",
+      { class: "pieno" },
+      campo("Luogo (come comparirà nella tabella)", luogo),
+    ),
+    el(
+      "div",
+      { class: "pieno" },
+      campo(
+        "Link al percorso (facoltativo)",
+        link,
+        "Komoot o altro: se lo lasci vuoto il luogo resta senza link.",
+      ),
+    ),
   );
   return {
     nodo,
@@ -293,10 +362,25 @@ moduli.giro = () => {
 };
 
 moduli.mese = () => {
-  const anno = menuATendina(stato.anni.map((a) => ({ valore: a, testo: a })), stato.ultimoAnno);
-  const mese = menuATendina(stato.mesi.map((m) => ({ valore: m, testo: m })), stato.mesi[new Date().getMonth()]);
-  const km = casella("number", "", { min: "0", step: "1", inputmode: "numeric", placeholder: "es. 420" });
-  const corse = casella("number", "0", { min: "0", step: "1", inputmode: "numeric" });
+  const anno = menuATendina(
+    stato.anni.map((a) => ({ valore: a, testo: a })),
+    stato.ultimoAnno,
+  );
+  const mese = menuATendina(
+    stato.mesi.map((m) => ({ valore: m, testo: m })),
+    stato.mesi[new Date().getMonth()],
+  );
+  const km = casella("number", "", {
+    min: "0",
+    step: "1",
+    inputmode: "numeric",
+    placeholder: "es. 420",
+  });
+  const corse = casella("number", "0", {
+    min: "0",
+    step: "1",
+    inputmode: "numeric",
+  });
   const presenti = el("div", { class: "usati" });
   const modoBox = el("div", { class: "campo pieno" });
   const modo = segmentato(
@@ -306,14 +390,19 @@ moduli.mese = () => {
     ],
     "somma",
   );
-  modoBox.append(el("span", { class: "etichetta", text: "Il mese c'è già: cosa faccio?" }), modo.el);
+  modoBox.append(
+    el("span", { class: "etichetta", text: "Il mese c'è già: cosa faccio?" }),
+    modo.el,
+  );
   const aggiorna = () => {
     const a = elenco && elenco.anni.find((x) => x.anno === anno.value);
     const mesi = a ? a.mesi : [];
     presenti.replaceChildren(
       el("span", { class: "aiuto", text: `Mesi presenti nel ${anno.value}:` }),
       mesi.length
-        ? mesi.map((m) => el("span", { class: "chip testo", text: `${m.mese} ${m.km} km` }))
+        ? mesi.map((m) =>
+            el("span", { class: "chip testo", text: `${m.mese} ${m.km} km` }),
+          )
         : el("span", { class: "chip testo", text: "nessuno" }),
     );
     modoBox.hidden = !mesi.some((m) => m.mese === mese.value);
@@ -329,7 +418,11 @@ moduli.mese = () => {
     el("div", { class: "pieno" }, presenti),
     modoBox,
     campo("Km", km),
-    campo("Corse da aggiungere all'anno", corse, "0 = non cambiare il numero di corse."),
+    campo(
+      "Corse da aggiungere all'anno",
+      corse,
+      "0 = non cambiare il numero di corse.",
+    ),
   );
   return {
     nodo,
@@ -347,7 +440,9 @@ moduli.foto = () => {
   const periodo = menuATendina([]);
   const aggiornaPeriodi = (chiave) => {
     const s = stato.stagioni[chiave];
-    periodo.replaceChildren(...s.periodi.map((p) => el("option", { value: p, text: p })));
+    periodo.replaceChildren(
+      ...s.periodi.map((p) => el("option", { value: p, text: p })),
+    );
     periodo.value = s.ultimo;
   };
   const st = segmentato(opzioniStagioni(), "Autunno_Inverno", aggiornaPeriodi);
@@ -355,12 +450,18 @@ moduli.foto = () => {
   const zona = zonaFile({
     multiplo: true,
     titolo: "Trascina qui le foto .jpg o clicca per sceglierle",
-    sotto: "Continuano la numerazione: le foto già presenti non vengono mai sovrascritte.",
+    sotto:
+      "Continuano la numerazione: le foto già presenti non vengono mai sovrascritte.",
   });
   const nodo = el(
     "div",
     { class: "griglia" },
-    el("div", { class: "campo pieno" }, el("span", { class: "etichetta", text: "Stagione" }), st.el),
+    el(
+      "div",
+      { class: "campo pieno" },
+      el("span", { class: "etichetta", text: "Stagione" }),
+      st.el,
+    ),
     campo("Periodo", periodo),
     el("div", { class: "pieno" }, zona.el),
   );
@@ -377,7 +478,9 @@ moduli.foto = () => {
 // Sezione "primo giro" riusata da nuova stagione.
 const sezionePrimoGiro = (chiave) => {
   const s = stato.stagioni[chiave];
-  const data = casella("text", `01 ${s.meseIniziale}`, { placeholder: "es. 05 Giugno" });
+  const data = casella("text", `01 ${s.meseIniziale}`, {
+    placeholder: "es. 05 Giugno",
+  });
   const luogo = casella("text", "", { placeholder: "Luogo" });
   const link = casella("url", "", { placeholder: "https://www.komoot.com/…" });
   const km = casella("number", "", { min: "0", step: "1", placeholder: "km" });
@@ -394,7 +497,15 @@ const sezionePrimoGiro = (chiave) => {
   );
   return {
     el: sez.el,
-    leggi: () => (sez.attivo() ? { data: data.value, luogo: luogo.value, link: link.value, km: km.value } : null),
+    leggi: () =>
+      sez.attivo()
+        ? {
+            data: data.value,
+            luogo: luogo.value,
+            link: link.value,
+            km: km.value,
+          }
+        : null,
   };
 };
 
@@ -403,24 +514,45 @@ moduli.stagione = () => {
   let primoGiro = null;
   const contenitore = el("div", { class: "griglia" });
   const periodo = casella("text", "");
-  const nFoto = casella("number", "0", { min: "0", step: "1", inputmode: "numeric" });
+  const nFoto = casella("number", "0", {
+    min: "0",
+    step: "1",
+    inputmode: "numeric",
+  });
   const zona = zonaFile({
     multiplo: true,
     titolo: "Foto della stagione (.jpg): trascinale qui o clicca",
-    sotto: "Verranno copiate come 1.jpg, 2.jpg… e la galleria della pagina verrà costruita da sola. Puoi anche saltare.",
+    sotto:
+      "Verranno copiate come 1.jpg, 2.jpg… e la galleria della pagina verrà costruita da sola. Puoi anche saltare.",
   });
   const st = segmentato(opzioniStagioni(), "Primavera", (k) => costruisci(k));
   const costruisci = (chiave) => {
     const s = stato.stagioni[chiave];
     periodo.value = s.prossimo;
-    colore = campoColore(`Colore di ${s.testo} (nome CSS o #esadecimale)`, s.colori);
+    colore = campoColore(
+      `Colore di ${s.testo} (nome CSS o #esadecimale)`,
+      s.colori,
+    );
     primoGiro = sezionePrimoGiro(chiave);
     contenitore.replaceChildren(
-      el("div", { class: "campo pieno" }, el("span", { class: "etichetta", text: "Stagione" }), st.el),
-      campo(s.formato === "anno" ? "Anno" : "Periodo (es. 2027-2028)", periodo, `Ultimo presente: ${s.ultimo}`),
+      el(
+        "div",
+        { class: "campo pieno" },
+        el("span", { class: "etichetta", text: "Stagione" }),
+        st.el,
+      ),
+      campo(
+        s.formato === "anno" ? "Anno" : "Periodo (es. 2027-2028)",
+        periodo,
+        `Ultimo presente: ${s.ultimo}`,
+      ),
       colore.el,
       el("div", { class: "pieno" }, zona.el),
-      campo("Se non carichi foto: quante ne avrà la pagina?", nFoto, "0 = galleria vuota, le aggiungi dopo."),
+      campo(
+        "Se non carichi foto: quante ne avrà la pagina?",
+        nFoto,
+        "0 = galleria vuota, le aggiungi dopo.",
+      ),
       primoGiro.el,
     );
   };
@@ -440,26 +572,42 @@ moduli.stagione = () => {
 
 // Sezione "primo mese" riusata da anno e anno completo.
 const sezionePrimoMese = () => {
-  const mese = menuATendina(stato.mesi.map((m) => ({ valore: m, testo: m })), "Gennaio");
+  const mese = menuATendina(
+    stato.mesi.map((m) => ({ valore: m, testo: m })),
+    "Gennaio",
+  );
   const km = casella("number", "0", { min: "0", step: "1" });
   const corse = casella("number", "0", { min: "0", step: "1" });
   const sez = opzionale(
     "Inserisci subito il primo mese (altrimenti metto Gennaio a 0 km da sostituire)",
-    el("div", { class: "griglia" }, campo("Mese", mese), campo("Km del mese", km), campo("Corse dell'anno finora", corse)),
+    el(
+      "div",
+      { class: "griglia" },
+      campo("Mese", mese),
+      campo("Km del mese", km),
+      campo("Corse dell'anno finora", corse),
+    ),
   );
   return {
     el: sez.el,
-    leggi: () => (sez.attivo() ? { mese: mese.value, km: km.value, corse: corse.value } : null),
+    leggi: () =>
+      sez.attivo()
+        ? { mese: mese.value, km: km.value, corse: corse.value }
+        : null,
   };
 };
 
 moduli.anno = () => {
   const anno = casella("text", stato.prossimoAnno);
-  const colore = campoColore("Colore dell'anno (nome CSS o #esadecimale)", stato.coloriAnni);
+  const colore = campoColore(
+    "Colore dell'anno (nome CSS o #esadecimale)",
+    stato.coloriAnni,
+  );
   const icona = zonaFile({
     multiplo: false,
     titolo: "Icona dell'anno (.jpg): trascinala qui o clicca",
-    sotto: "Facoltativa: se la salti la creo io, con l'anno scritto sul colore scelto.",
+    sotto:
+      "Facoltativa: se la salti la creo io, con l'anno scritto sul colore scelto.",
   });
   const mese = sezionePrimoMese();
   const nodo = el(
@@ -483,7 +631,10 @@ moduli.anno = () => {
 
 moduli["anno-completo"] = () => {
   const anno = casella("text", stato.prossimoAnno);
-  const colore = campoColore("Colore dell'anno (Statistiche)", stato.coloriAnni);
+  const colore = campoColore(
+    "Colore dell'anno (Statistiche)",
+    stato.coloriAnni,
+  );
   const icona = zonaFile({
     multiplo: false,
     titolo: "Icona dell'anno (.jpg): trascinala qui o clicca",
@@ -494,16 +645,24 @@ moduli["anno-completo"] = () => {
     chiave,
     s,
     colore: campoColore(`Colore di ${s.testo}`, s.colori),
-    nFoto: casella("number", "0", { min: "0", step: "1", inputmode: "numeric" }),
+    nFoto: casella("number", "0", {
+      min: "0",
+      step: "1",
+      inputmode: "numeric",
+    }),
     titolo: el("h3", { text: s.etichetta }),
   }));
   const periodoDi = (chiave) => {
     const n = parseInt(anno.value, 10);
     if (!n) return "";
-    return stato.stagioni[chiave].formato === "anno" ? String(n) : `${n}-${n + 1}`;
+    return stato.stagioni[chiave].formato === "anno"
+      ? String(n)
+      : `${n}-${n + 1}`;
   };
   const aggiornaTitoli = () =>
-    stagioni.forEach((x) => (x.titolo.textContent = `${x.s.etichetta} ${periodoDi(x.chiave)}`));
+    stagioni.forEach(
+      (x) => (x.titolo.textContent = `${x.s.etichetta} ${periodoDi(x.chiave)}`),
+    );
   anno.addEventListener("input", aggiornaTitoli);
   aggiornaTitoli();
   const nodo = el(
@@ -518,7 +677,12 @@ moduli["anno-completo"] = () => {
         "div",
         { class: "gruppo pieno" },
         x.titolo,
-        el("div", { class: "griglia" }, x.colore.el, campo("Quante foto avrà la pagina?", x.nFoto, "0 = galleria vuota.")),
+        el(
+          "div",
+          { class: "griglia" },
+          x.colore.el,
+          campo("Quante foto avrà la pagina?", x.nFoto, "0 = galleria vuota."),
+        ),
       ),
     ),
   );
@@ -529,7 +693,12 @@ moduli["anno-completo"] = () => {
       colore: colore.get(),
       iconaSid: await carica(icona.files(), "icona"),
       primoMese: mese.leggi(),
-      stagioni: Object.fromEntries(stagioni.map((x) => [x.chiave, { colore: x.colore.get(), nFoto: x.nFoto.value }])),
+      stagioni: Object.fromEntries(
+        stagioni.map((x) => [
+          x.chiave,
+          { colore: x.colore.get(), nFoto: x.nFoto.value },
+        ]),
+      ),
     }),
   };
 };
@@ -539,7 +708,9 @@ moduli["anno-completo"] = () => {
 const vistaElenco = () => {
   const radice = el("div");
   if (!elenco) {
-    radice.append(el("p", { class: "aiuto", text: "Impossibile leggere i dati." }));
+    radice.append(
+      el("p", { class: "aiuto", text: "Impossibile leggere i dati." }),
+    );
     return radice;
   }
   const mostra = el("div");
@@ -552,10 +723,26 @@ const vistaElenco = () => {
     () => disegna(),
   );
 
-  const MESI_BREVI = ["G", "F", "M", "A", "M", "G", "L", "A", "S", "O", "N", "D"];
+  const MESI_BREVI = [
+    "G",
+    "F",
+    "M",
+    "A",
+    "M",
+    "G",
+    "L",
+    "A",
+    "S",
+    "O",
+    "N",
+    "D",
+  ];
 
   const disegnaAnni = () => {
-    const massimo = Math.max(1, ...elenco.anni.flatMap((a) => a.mesi.map((m) => m.km)));
+    const massimo = Math.max(
+      1,
+      ...elenco.anni.flatMap((a) => a.mesi.map((m) => m.km)),
+    );
     return el(
       "div",
       { class: "schede" },
@@ -566,8 +753,19 @@ const vistaElenco = () => {
           el(
             "header",
             {},
-            el("h3", {}, el("i", { style: a.colore ? `background:${a.colore}` : "" }), a.anno),
-            el("div", { class: "numeri" }, `${a.km} km`, el("br"), `${a.corse} corse`),
+            el(
+              "h3",
+              {},
+              el("i", { style: a.colore ? `background:${a.colore}` : "" }),
+              a.anno,
+            ),
+            el(
+              "div",
+              { class: "numeri" },
+              `${a.km} km`,
+              el("br"),
+              `${a.corse} corse`,
+            ),
           ),
           el(
             "div",
@@ -581,7 +779,11 @@ const vistaElenco = () => {
               });
             }),
           ),
-          el("div", { class: "barre-etichette" }, MESI_BREVI.map((x) => el("span", { text: x }))),
+          el(
+            "div",
+            { class: "barre-etichette" },
+            MESI_BREVI.map((x) => el("span", { text: x })),
+          ),
         ),
       ),
     );
@@ -598,22 +800,42 @@ const vistaElenco = () => {
     const riempi = () => {
       const s = elenco.stagioni.find((x) => x.chiave === st.get());
       const attuale = periodo.value;
-      periodo.replaceChildren(...s.periodi.map((p) => el("option", { value: p.periodo, text: p.periodo })));
-      periodo.value = s.periodi.some((p) => p.periodo === attuale) ? attuale : s.periodi[s.periodi.length - 1].periodo;
+      periodo.replaceChildren(
+        ...s.periodi.map((p) =>
+          el("option", { value: p.periodo, text: p.periodo }),
+        ),
+      );
+      periodo.value = s.periodi.some((p) => p.periodo === attuale)
+        ? attuale
+        : s.periodi[s.periodi.length - 1].periodo;
       scrivi();
     };
     const scrivi = () => {
       const s = elenco.stagioni.find((x) => x.chiave === st.get());
       const p = s.periodi.find((x) => x.periodo === periodo.value);
       tabella.replaceChildren(
-        el("p", { class: "frase", text: `${s.testo} ${p.periodo}: ${p.giri.length} giri · ${p.km} km` }),
+        el("p", {
+          class: "frase",
+          text: `${s.testo} ${p.periodo}: ${p.giri.length} giri · ${p.km} km`,
+        }),
         el(
           "div",
           { class: "tabella-box" },
           el(
             "table",
             {},
-            el("thead", {}, el("tr", {}, el("th", { class: "num", text: "#" }), el("th", { text: "Data" }), el("th", { text: "Luogo" }), el("th", { class: "num", text: "Km" }))),
+            el(
+              "thead",
+              {},
+              el(
+                "tr",
+                {},
+                el("th", { class: "num", text: "#" }),
+                el("th", { text: "Data" }),
+                el("th", { text: "Luogo" }),
+                el("th", { class: "num", text: "Km" }),
+              ),
+            ),
             el(
               "tbody",
               {},
@@ -623,7 +845,18 @@ const vistaElenco = () => {
                   {},
                   el("td", { class: "num", text: String(i + 1) }),
                   el("td", { text: g.data }),
-                  el("td", {}, g.link ? el("a", { href: g.link, target: "_blank", rel: "noopener", text: g.luogo }) : g.luogo),
+                  el(
+                    "td",
+                    {},
+                    g.link
+                      ? el("a", {
+                          href: g.link,
+                          target: "_blank",
+                          rel: "noopener",
+                          text: g.luogo,
+                        })
+                      : g.luogo,
+                  ),
                   el("td", { class: "num", text: String(g.km) }),
                 ),
               ),
@@ -643,8 +876,14 @@ const vistaElenco = () => {
     );
   };
 
-  const disegna = () => mostra.replaceChildren(tab.get() === "anni" ? disegnaAnni() : disegnaGiri());
-  radice.append(el("div", { class: "campo", style: "margin-bottom:18px" }, tab.el), mostra);
+  const disegna = () =>
+    mostra.replaceChildren(
+      tab.get() === "anni" ? disegnaAnni() : disegnaGiri(),
+    );
+  radice.append(
+    el("div", { class: "campo", style: "margin-bottom:18px" }, tab.el),
+    mostra,
+  );
   disegna();
   return radice;
 };
@@ -653,22 +892,49 @@ const vistaElenco = () => {
 
 const mostraErrore = (testo) => {
   $("#risultato").replaceChildren(
-    el("div", { class: "esito errore", role: "alert" }, el("h3", { text: "Non posso procedere" }), el("p", { text: testo })),
+    el(
+      "div",
+      { class: "esito errore", role: "alert" },
+      el("h3", { text: "Non posso procedere" }),
+      el("p", { text: testo }),
+    ),
   );
   $("#risultato").scrollIntoView({ behavior: "smooth", block: "nearest" });
 };
 
 const corpoRiepilogo = (r) => [
   r.note.map((n, i) => (i === 0 ? el("p", { class: "frase", text: n }) : null)),
-  r.note.length > 1 ? el("ul", { class: "elenco-note" }, r.note.slice(1).map((n) => el("li", { text: n.replace(/^•\s*/, "") }))) : null,
-  r.avvisi.map((a) => el("div", { class: "avviso", text: `⚠ ${a}` })),
-  r.creati.map((f) => el("div", { class: "file crea" }, el("b", { text: "+ crea" }), f)),
-  r.cartelle.map((f) => el("div", { class: "file crea" }, el("b", { text: "+ cartella" }), `${f}/`)),
-  r.modificati.map((f) => el("div", { class: "file modifica" }, el("b", { text: "~ aggiorna" }), f)),
-  r.promemoria.length
-    ? el("div", { class: "promemoria" }, el("strong", { text: "Da fare a mano" }), r.promemoria.map((p) => el("div", { text: `• ${p}` })))
+  r.note.length > 1
+    ? el(
+        "ul",
+        { class: "elenco-note" },
+        r.note.slice(1).map((n) => el("li", { text: n.replace(/^•\s*/, "") })),
+      )
     : null,
-  r.esempio ? el("div", { class: "promemoria", text: "Sostituisci il giro/mese d'esempio con i dati veri quando li hai." }) : null,
+  r.avvisi.map((a) => el("div", { class: "avviso", text: `⚠ ${a}` })),
+  r.creati.map((f) =>
+    el("div", { class: "file crea" }, el("b", { text: "+ crea" }), f),
+  ),
+  r.cartelle.map((f) =>
+    el("div", { class: "file crea" }, el("b", { text: "+ cartella" }), `${f}/`),
+  ),
+  r.modificati.map((f) =>
+    el("div", { class: "file modifica" }, el("b", { text: "~ aggiorna" }), f),
+  ),
+  r.promemoria.length
+    ? el(
+        "div",
+        { class: "promemoria" },
+        el("strong", { text: "Da fare a mano" }),
+        r.promemoria.map((p) => el("div", { text: `• ${p}` })),
+      )
+    : null,
+  r.esempio
+    ? el("div", {
+        class: "promemoria",
+        text: "Sostituisci il giro/mese d'esempio con i dati veri quando li hai.",
+      })
+    : null,
 ];
 
 const mostraAnteprima = (r, onConferma, onAnnulla) => {
@@ -685,8 +951,23 @@ const mostraAnteprima = (r, onConferma, onAnnulla) => {
       { class: "esito" },
       el("h3", { text: "Riepilogo: controlla prima di scrivere" }),
       corpoRiepilogo(r),
-      r.prova ? el("div", { class: "avviso", text: "Modalità --prova: l'anteprima è corretta ma non viene scritto nessun file." }) : null,
-      el("div", { class: "azioni" }, conferma, el("button", { class: "btn", type: "button", text: "Annulla", onclick: onAnnulla })),
+      r.prova
+        ? el("div", {
+            class: "avviso",
+            text: "Modalità --prova: l'anteprima è corretta ma non viene scritto nessun file.",
+          })
+        : null,
+      el(
+        "div",
+        { class: "azioni" },
+        conferma,
+        el("button", {
+          class: "btn",
+          type: "button",
+          text: "Annulla",
+          onclick: onAnnulla,
+        }),
+      ),
     ),
   );
   $("#risultato").scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -712,11 +993,16 @@ const apriCaso = (id) => {
   const caso = stato.casi.find((c) => c.id === id) || stato.casi[0];
   casoAttuale = caso;
   history.replaceState(null, "", `#${caso.id}`);
-  document.querySelectorAll(".voce").forEach((v) => v.classList.toggle("attiva", v.dataset.id === caso.id));
+  document
+    .querySelectorAll(".voce")
+    .forEach((v) => v.classList.toggle("attiva", v.dataset.id === caso.id));
   $("#risultato").replaceChildren();
 
   const vista = $("#vista");
-  vista.replaceChildren(el("h2", { text: `${caso.icona} ${caso.titolo}` }), el("p", { class: "sotto", text: caso.descrizione }));
+  vista.replaceChildren(
+    el("h2", { text: `${caso.icona} ${caso.titolo}` }),
+    el("p", { class: "sotto", text: caso.descrizione }),
+  );
 
   if (!caso.scrive) {
     vista.append(vistaElenco());
@@ -724,7 +1010,11 @@ const apriCaso = (id) => {
   }
 
   const modulo = moduli[caso.id]();
-  const bottone = el("button", { class: "btn primario", type: "button", text: "Anteprima" });
+  const bottone = el("button", {
+    class: "btn primario",
+    type: "button",
+    text: "Anteprima",
+  });
   vista.append(modulo.nodo, el("div", { class: "azioni" }, bottone));
 
   bottone.addEventListener("click", async () => {
@@ -767,9 +1057,19 @@ const disegnaMenu = () => {
     ...stato.casi.map((c) =>
       el(
         "button",
-        { class: "voce", type: "button", "data-id": c.id, onclick: () => apriCaso(c.id) },
+        {
+          class: "voce",
+          type: "button",
+          "data-id": c.id,
+          onclick: () => apriCaso(c.id),
+        },
         el("span", { class: "ico", text: c.icona }),
-        el("span", {}, el("strong", { text: c.titolo }), el("small", { text: c.descrizione })),
+        el(
+          "span",
+          {},
+          el("strong", { text: c.titolo }),
+          el("small", { text: c.descrizione }),
+        ),
       ),
     ),
   );
@@ -779,7 +1079,10 @@ const disegnaMenu = () => {
   try {
     await ricarica();
   } catch (e) {
-    $("#vista").replaceChildren(el("h2", { text: "Non riesco a leggere i dati" }), el("p", { text: e.message }));
+    $("#vista").replaceChildren(
+      el("h2", { text: "Non riesco a leggere i dati" }),
+      el("p", { text: e.message }),
+    );
     return;
   }
   $("#radice").textContent = stato.radice;

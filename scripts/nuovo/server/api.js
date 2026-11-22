@@ -66,7 +66,8 @@ const oggiIso = () => {
 // ---------- caricamenti (foto e icona) ----------
 
 const dirCaricamento = (sid, cartella) => {
-  if (!validaSid(sid)) throw new ErroreDati("Identificativo di caricamento non valido.");
+  if (!validaSid(sid))
+    throw new ErroreDati("Identificativo di caricamento non valido.");
   if (!["foto", "icona"].includes(cartella))
     throw new ErroreDati("Cartella di caricamento non valida.");
   return path.join(CARTELLA_CARICAMENTI, sid, cartella);
@@ -156,7 +157,9 @@ const controllaColore = (piano, colore, usati, nome) => {
   if (errore) throw new ErroreDati(errore);
   const c = normalizzaColore(colore);
   if (usati.some((u) => String(u).toLowerCase() === c.toLowerCase()))
-    piano.avvisi.push(`${nome}: il colore ${c} è già usato da un altro periodo.`);
+    piano.avvisi.push(
+      `${nome}: il colore ${c} è già usato da un altro periodo.`,
+    );
   return c;
 };
 
@@ -176,14 +179,24 @@ const datiGiro = (d) => {
     );
   const km = String(d.km ?? "").trim();
   if (!/^\d+$/.test(km) || Number(km) <= 0)
-    throw new ErroreDati("Scrivi i km come numero intero maggiore di 0 (es. 95).");
-  return { chiave, s: STAGIONI[chiave], data, luogo, link, km: parseInt(km, 10) };
+    throw new ErroreDati(
+      "Scrivi i km come numero intero maggiore di 0 (es. 95).",
+    );
+  return {
+    chiave,
+    s: STAGIONI[chiave],
+    data,
+    luogo,
+    link,
+    km: parseInt(km, 10),
+  };
 };
 
 const datiMese = (piano, d) => {
   const storico = leggiJson(piano, PERCORSO_STORICO_JSON);
   const anno = String(d.anno || "");
-  if (!storico.anni[anno]) throw new ErroreDati(`L'anno ${anno || "?"} non esiste.`);
+  if (!storico.anni[anno])
+    throw new ErroreDati(`L'anno ${anno || "?"} non esiste.`);
   const mese = MESI.findIndex(
     (m) => m.toLowerCase() === String(d.mese || "").toLowerCase(),
   );
@@ -204,7 +217,9 @@ const datiFoto = (piano, d) => {
     leggiJson(piano, `json/${s.cartella}/generale.json`).subPeriods,
   );
   if (!periodi.includes(d.periodo))
-    throw new ErroreDati(`Periodo non valido: scegli tra ${periodi.join(", ")}.`);
+    throw new ErroreDati(
+      `Periodo non valido: scegli tra ${periodi.join(", ")}.`,
+    );
   const foto = fotoCaricate(d.sid, "foto");
   if (!foto.length) throw new ErroreDati("Carica almeno una foto .jpg.");
   return { chiave: d.stagione, s, periodo: d.periodo, foto };
@@ -220,7 +235,9 @@ const datiPrimoGiro = (s, g) => {
     throw new ErroreDati("Primo giro: il luogo non può contenere < o >.");
   const link = String(g.link || "").trim();
   if (link && !/^https?:\/\/[^\s"<>]+$/i.test(link))
-    throw new ErroreDati("Primo giro: il link deve iniziare con http:// o https://");
+    throw new ErroreDati(
+      "Primo giro: il link deve iniziare con http:// o https://",
+    );
   const km = interoNonNegativo(g.km, "Primo giro, km");
   return {
     date: normalizzaData(`${data.giorno} ${MESI[data.mese]}`),
@@ -245,7 +262,8 @@ const datiStagione = (piano, chiave, d, periodoForzato) => {
     `${s.testo} ${periodo}`,
   );
   const fotoDaCopiare = fotoCaricate(d.sid, "foto");
-  const nFoto = fotoDaCopiare.length || interoNonNegativo(d.nFoto ?? 0, "Numero di foto");
+  const nFoto =
+    fotoDaCopiare.length || interoNonNegativo(d.nFoto ?? 0, "Numero di foto");
   if (nFoto > 300) throw new ErroreDati("Troppe foto (massimo 300).");
   return {
     chiave,
@@ -320,7 +338,12 @@ const costruisciPiano = async (azione, d) => {
         Autunno_Inverno: `${n}-${n + 1}`,
       };
       const stagioni = Object.keys(periodi).map((chiave) =>
-        datiStagione(piano, chiave, (d.stagioni || {})[chiave] || {}, periodi[chiave]),
+        datiStagione(
+          piano,
+          chiave,
+          (d.stagioni || {})[chiave] || {},
+          periodi[chiave],
+        ),
       );
       applicaAnno(piano, dati);
       stagioni.forEach((x) => applicaStagione(piano, x));
@@ -354,7 +377,8 @@ let coda = Promise.resolve();
 
 const conferma = (azione, dati) => {
   const lavoro = coda.then(async () => {
-    if (PROVA) throw new ErroreDati("Modalità --prova: non scrivo nessun file.");
+    if (PROVA)
+      throw new ErroreDati("Modalità --prova: non scrivo nessun file.");
     const piano = await costruisciPiano(azione, dati);
     piano.scrivi();
     pulisciCaricamenti(dati && dati.sid, dati && dati.iconaSid);

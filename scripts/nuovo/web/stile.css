@@ -51,8 +51,14 @@ body {
   background: var(--sfondo);
   color: var(--testo);
   font-family:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -60,8 +66,16 @@ body {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(900px 400px at 85% -10%, color-mix(in srgb, var(--accento) 18%, transparent), transparent 60%),
-    radial-gradient(700px 360px at -10% 0%, color-mix(in srgb, var(--accento-2) 16%, transparent), transparent 60%),
+    radial-gradient(
+      900px 400px at 85% -10%,
+      color-mix(in srgb, var(--accento) 18%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 360px at -10% 0%,
+      color-mix(in srgb, var(--accento-2) 16%, transparent),
+      transparent 60%
+    ),
     var(--sfondo);
 }
 
@@ -148,7 +162,10 @@ h1 {
   color: inherit;
   font: inherit;
   cursor: pointer;
-  transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+  transition:
+    transform 0.12s ease,
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
 }
 .voce:hover {
   transform: translateY(-1px);
@@ -164,8 +181,14 @@ select:focus-visible,
 }
 .voce.attiva {
   border-color: var(--accento);
-  box-shadow: 0 0 0 1px var(--accento) inset, var(--ombra);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accento) 12%, var(--carta)), var(--carta));
+  box-shadow:
+    0 0 0 1px var(--accento) inset,
+    var(--ombra);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accento) 12%, var(--carta)),
+    var(--carta)
+  );
 }
 .voce .ico {
   display: grid;
@@ -250,7 +273,9 @@ select {
   background: var(--carta-2);
   color: var(--testo);
   font: inherit;
-  transition: border-color 0.12s ease, background 0.12s ease;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease;
 }
 input:hover,
 select:hover {
@@ -281,10 +306,25 @@ input[type="color"] {
   height: 44px;
   border-radius: 12px;
   border: 1px solid var(--bordo);
-  background-image: linear-gradient(45deg, var(--bordo) 25%, transparent 25%, transparent 75%, var(--bordo) 75%),
-    linear-gradient(45deg, var(--bordo) 25%, transparent 25%, transparent 75%, var(--bordo) 75%);
+  background-image:
+    linear-gradient(
+      45deg,
+      var(--bordo) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--bordo) 75%
+    ),
+    linear-gradient(
+      45deg,
+      var(--bordo) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--bordo) 75%
+    );
   background-size: 12px 12px;
-  background-position: 0 0, 6px 6px;
+  background-position:
+    0 0,
+    6px 6px;
   position: relative;
   overflow: hidden;
 }
@@ -348,7 +388,9 @@ input[type="color"] {
 .segmento.attivo {
   background: var(--carta);
   color: var(--testo);
-  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.18), 0 0 0 1px var(--accento) inset;
+  box-shadow:
+    0 1px 3px rgba(16, 24, 40, 0.18),
+    0 0 0 1px var(--accento) inset;
 }
 
 /* ---------- sezioni a comparsa ---------- */
@@ -394,7 +436,9 @@ input[type="color"] {
   background: var(--carta-2);
   color: var(--testo-2);
   cursor: pointer;
-  transition: border-color 0.12s ease, background 0.12s ease;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease;
 }
 .zona:hover,
 .zona.sopra {
@@ -458,7 +502,9 @@ input[type="color"] {
   font: inherit;
   font-weight: 650;
   cursor: pointer;
-  transition: transform 0.1s ease, filter 0.1s ease;
+  transition:
+    transform 0.1s ease,
+    filter 0.1s ease;
 }
 .btn:hover {
   filter: brightness(1.05);

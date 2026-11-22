@@ -22,15 +22,15 @@ node scripts/server.js --senza-browser   # non apre il browser da solo
 
 Dal menu a sinistra scegli cosa fare:
 
-| Voce | Cosa fa |
-| --- | --- |
-| 🚴 **Aggiungi un giro** | data, stagione, luogo, link e km → aggiorna il giro, i km del mese e le corse |
-| 📆 **Aggiungi o correggi un mese** | somma o sostituisce i km di un mese (lo crea se non c'è) |
-| 📷 **Aggiungi foto** | trascini i `.jpg`: numerazione continua e galleria aggiornata |
-| 🌸 **Nuova stagione** | pagina, JSON, colore, foto e (se vuoi) il primo giro |
-| 📅 **Nuovo anno di Statistiche** | pagina, JSON, colore e icona dell'anno |
-| 🗓️ **Nuovo anno completo** | Statistiche + Primavera + Estate + Autunno-Inverno insieme |
-| 📋 **Elenco** | sola lettura: anni con grafico dei mesi, km e corse, e tutti i giri di ogni stagione |
+| Voce                               | Cosa fa                                                                              |
+| ---------------------------------- | ------------------------------------------------------------------------------------ |
+| 🚴 **Aggiungi un giro**            | data, stagione, luogo, link e km → aggiorna il giro, i km del mese e le corse        |
+| 📆 **Aggiungi o correggi un mese** | somma o sostituisce i km di un mese (lo crea se non c'è)                             |
+| 📷 **Aggiungi foto**               | trascini i `.jpg`: numerazione continua e galleria aggiornata                        |
+| 🌸 **Nuova stagione**              | pagina, JSON, colore, foto e (se vuoi) il primo giro                                 |
+| 📅 **Nuovo anno di Statistiche**   | pagina, JSON, colore e icona dell'anno                                               |
+| 🗓️ **Nuovo anno completo**         | Statistiche + Primavera + Estate + Autunno-Inverno insieme                           |
+| 📋 **Elenco**                      | sola lettura: anni con grafico dei mesi, km e corse, e tutti i giri di ogni stagione |
 
 Come funziona, in ogni voce:
 
@@ -128,7 +128,7 @@ Prima di scrivere mostra un riepilogo e chiede conferma; se un file esiste già 
 1. **Aggiorna il file JSON per le statistiche per il 2026**
    - **Percorso:** [`json/Statistiche/anni/2026.json`](json/Statistiche/anni/2026.json)
    - Modifica i chilometri (km) di Novembre e aggiorna il numero totale di corse dell'anno.
-   
+
 ## 🗓 Inizio di una Nuova Stagione
 
 ### Creazione della Nuova Stagione
