@@ -304,7 +304,12 @@ const opzioniStagioni = () =>
 const ricarica = async () => {
   const [s, e] = await Promise.all([api("/api/stato"), api("/api/elenco")]);
   if (!s.ok) throw new Error(s.errore);
-  stato = s;
+  // "Elenco" è solo da terminale: qui restano i casi che scrivono.
+  // "anno-completo" è stato dismesso e non va mostrato.
+  stato = {
+    ...s,
+    casi: s.casi.filter((c) => c.scrive && c.id !== "anno-completo"),
+  };
   elenco = e.ok ? e : null;
 };
 
@@ -570,7 +575,7 @@ moduli.stagione = () => {
   };
 };
 
-// Sezione "primo mese" riusata da anno e anno completo.
+// Sezione "primo mese" riusata da anno.
 const sezionePrimoMese = () => {
   const mese = menuATendina(
     stato.mesi.map((m) => ({ valore: m, testo: m })),
@@ -627,265 +632,6 @@ moduli.anno = () => {
       primoMese: mese.leggi(),
     }),
   };
-};
-
-moduli["anno-completo"] = () => {
-  const anno = casella("text", stato.prossimoAnno);
-  const colore = campoColore(
-    "Colore dell'anno (Statistiche)",
-    stato.coloriAnni,
-  );
-  const icona = zonaFile({
-    multiplo: false,
-    titolo: "Icona dell'anno (.jpg): trascinala qui o clicca",
-    sotto: "Facoltativa: se la salti la creo io.",
-  });
-  const mese = sezionePrimoMese();
-  const stagioni = Object.entries(stato.stagioni).map(([chiave, s]) => ({
-    chiave,
-    s,
-    colore: campoColore(`Colore di ${s.testo}`, s.colori),
-    nFoto: casella("number", "0", {
-      min: "0",
-      step: "1",
-      inputmode: "numeric",
-    }),
-    titolo: el("h3", { text: s.etichetta }),
-  }));
-  const periodoDi = (chiave) => {
-    const n = parseInt(anno.value, 10);
-    if (!n) return "";
-    return stato.stagioni[chiave].formato === "anno"
-      ? String(n)
-      : `${n}-${n + 1}`;
-  };
-  const aggiornaTitoli = () =>
-    stagioni.forEach(
-      (x) => (x.titolo.textContent = `${x.s.etichetta} ${periodoDi(x.chiave)}`),
-    );
-  anno.addEventListener("input", aggiornaTitoli);
-  aggiornaTitoli();
-  const nodo = el(
-    "div",
-    { class: "griglia" },
-    campo("Nuovo anno", anno, `Ultimo presente: ${stato.ultimoAnno}`),
-    colore.el,
-    el("div", { class: "pieno" }, icona.el),
-    mese.el,
-    stagioni.map((x) =>
-      el(
-        "div",
-        { class: "gruppo pieno" },
-        x.titolo,
-        el(
-          "div",
-          { class: "griglia" },
-          x.colore.el,
-          campo("Quante foto avrà la pagina?", x.nFoto, "0 = galleria vuota."),
-        ),
-      ),
-    ),
-  );
-  return {
-    nodo,
-    raccogli: async () => ({
-      anno: anno.value,
-      colore: colore.get(),
-      iconaSid: await carica(icona.files(), "icona"),
-      primoMese: mese.leggi(),
-      stagioni: Object.fromEntries(
-        stagioni.map((x) => [
-          x.chiave,
-          { colore: x.colore.get(), nFoto: x.nFoto.value },
-        ]),
-      ),
-    }),
-  };
-};
-
-// ---------- elenco (sola lettura) ----------
-
-const vistaElenco = () => {
-  const radice = el("div");
-  if (!elenco) {
-    radice.append(
-      el("p", { class: "aiuto", text: "Impossibile leggere i dati." }),
-    );
-    return radice;
-  }
-  const mostra = el("div");
-  const tab = segmentato(
-    [
-      { valore: "anni", testo: "📅 Anni" },
-      { valore: "giri", testo: "🚴 Giri per stagione" },
-    ],
-    "anni",
-    () => disegna(),
-  );
-
-  const MESI_BREVI = [
-    "G",
-    "F",
-    "M",
-    "A",
-    "M",
-    "G",
-    "L",
-    "A",
-    "S",
-    "O",
-    "N",
-    "D",
-  ];
-
-  const disegnaAnni = () => {
-    const massimo = Math.max(
-      1,
-      ...elenco.anni.flatMap((a) => a.mesi.map((m) => m.km)),
-    );
-    return el(
-      "div",
-      { class: "schede" },
-      [...elenco.anni].reverse().map((a) =>
-        el(
-          "article",
-          { class: "anno" },
-          el(
-            "header",
-            {},
-            el(
-              "h3",
-              {},
-              el("i", { style: a.colore ? `background:${a.colore}` : "" }),
-              a.anno,
-            ),
-            el(
-              "div",
-              { class: "numeri" },
-              `${a.km} km`,
-              el("br"),
-              `${a.corse} corse`,
-            ),
-          ),
-          el(
-            "div",
-            { class: "barre" },
-            stato.mesi.map((nome) => {
-              const m = a.mesi.find((x) => x.mese === nome);
-              return el("div", {
-                class: m ? "" : "vuoto",
-                style: `height:${m ? Math.max(4, (m.km / massimo) * 100) : 4}%`,
-                title: m ? `${nome}: ${m.km} km` : `${nome}: —`,
-              });
-            }),
-          ),
-          el(
-            "div",
-            { class: "barre-etichette" },
-            MESI_BREVI.map((x) => el("span", { text: x })),
-          ),
-        ),
-      ),
-    );
-  };
-
-  const disegnaGiri = () => {
-    const st = segmentato(
-      elenco.stagioni.map((s) => ({ valore: s.chiave, testo: s.etichetta })),
-      "Autunno_Inverno",
-      () => riempi(),
-    );
-    const periodo = menuATendina([]);
-    const tabella = el("div");
-    const riempi = () => {
-      const s = elenco.stagioni.find((x) => x.chiave === st.get());
-      const attuale = periodo.value;
-      periodo.replaceChildren(
-        ...s.periodi.map((p) =>
-          el("option", { value: p.periodo, text: p.periodo }),
-        ),
-      );
-      periodo.value = s.periodi.some((p) => p.periodo === attuale)
-        ? attuale
-        : s.periodi[s.periodi.length - 1].periodo;
-      scrivi();
-    };
-    const scrivi = () => {
-      const s = elenco.stagioni.find((x) => x.chiave === st.get());
-      const p = s.periodi.find((x) => x.periodo === periodo.value);
-      tabella.replaceChildren(
-        el("p", {
-          class: "frase",
-          text: `${s.testo} ${p.periodo}: ${p.giri.length} giri · ${p.km} km`,
-        }),
-        el(
-          "div",
-          { class: "tabella-box" },
-          el(
-            "table",
-            {},
-            el(
-              "thead",
-              {},
-              el(
-                "tr",
-                {},
-                el("th", { class: "num", text: "#" }),
-                el("th", { text: "Data" }),
-                el("th", { text: "Luogo" }),
-                el("th", { class: "num", text: "Km" }),
-              ),
-            ),
-            el(
-              "tbody",
-              {},
-              p.giri.map((g, i) =>
-                el(
-                  "tr",
-                  {},
-                  el("td", { class: "num", text: String(i + 1) }),
-                  el("td", { text: g.data }),
-                  el(
-                    "td",
-                    {},
-                    g.link
-                      ? el("a", {
-                          href: g.link,
-                          target: "_blank",
-                          rel: "noopener",
-                          text: g.luogo,
-                        })
-                      : g.luogo,
-                  ),
-                  el("td", { class: "num", text: String(g.km) }),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    };
-    periodo.addEventListener("change", scrivi);
-    riempi();
-    return el(
-      "div",
-      { class: "griglia" },
-      el("div", { class: "campo pieno" }, st.el),
-      campo("Periodo", periodo),
-      el("div", { class: "pieno" }, tabella),
-    );
-  };
-
-  const disegna = () =>
-    mostra.replaceChildren(
-      tab.get() === "anni" ? disegnaAnni() : disegnaGiri(),
-    );
-  radice.append(
-    el("div", { class: "campo", style: "margin-bottom:18px" }, tab.el),
-    mostra,
-  );
-  disegna();
-  return radice;
 };
 
 // ---------- risultato (anteprima / esito) ----------
@@ -1003,11 +749,6 @@ const apriCaso = (id) => {
     el("h2", { text: `${caso.icona} ${caso.titolo}` }),
     el("p", { class: "sotto", text: caso.descrizione }),
   );
-
-  if (!caso.scrive) {
-    vista.append(vistaElenco());
-    return;
-  }
 
   const modulo = moduli[caso.id]();
   const bottone = el("button", {

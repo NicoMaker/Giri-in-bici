@@ -129,6 +129,20 @@
       '<rect x="8.8" y="15.2" width="6.4" height="5" rx="1.4"/>' +
       '<path d="M6.6 8.8v2.6h10.8V8.8"/><path d="M12 11.4v3.8"/>',
 
+    condividi:
+      '<circle cx="18" cy="5.6" r="2.6"/>' +
+      '<circle cx="6" cy="12" r="2.6"/>' +
+      '<circle cx="18" cy="18.4" r="2.6"/>' +
+      '<path d="m8.3 10.7 7.4-3.8"/><path d="m8.3 13.3 7.4 3.8"/>',
+
+    copia:
+      '<rect x="8.6" y="8.6" width="11" height="11" rx="2.2"/>' +
+      '<path d="M15.4 8.6V6.4a2 2 0 0 0-2-2H6.2a2 2 0 0 0-2 2v7.2a2 2 0 0 0 2 2h2.4"/>',
+
+    scarica:
+      '<path d="M12 3.6v11.2"/><path d="m7.4 10.4 4.6 4.6 4.6-4.6"/>' +
+      '<path d="M4.6 19.6h14.8"/>',
+
     menu: '<path d="M4 7.2h16"/><path d="M4 12h16"/><path d="M4 16.8h16"/>',
 
     chiudi: '<path d="m6.4 6.4 11.2 11.2"/><path d="M17.6 6.4 6.4 17.6"/>',

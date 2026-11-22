@@ -45,24 +45,6 @@
       "testo": "Creare un nuovo ANNO di Statistiche",
       "descrizione": "Crea la pagina dell'anno, il suo JSON, il colore e l'icona.",
       "scrive": true
-    },
-    {
-      "id": "anno-completo",
-      "tasto": 6,
-      "icona": "🗓️",
-      "titolo": "Nuovo anno completo",
-      "testo": "Creare un nuovo anno COMPLETO (Statistiche + Primavera + Estate + Autunno-Inverno)",
-      "descrizione": "Statistiche + Primavera + Estate + Autunno-Inverno in un colpo solo.",
-      "scrive": true
-    },
-    {
-      "id": "elenco",
-      "tasto": 7,
-      "icona": "📋",
-      "titolo": "Elenco",
-      "testo": "ELENCO di anni (mesi, km, corse) e giri di ogni stagione (sola lettura)",
-      "descrizione": "Guarda anni, mesi, km, corse e tutti i giri salvati. Non scrive niente.",
-      "scrive": false
     }
   ]
 }

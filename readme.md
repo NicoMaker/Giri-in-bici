@@ -30,7 +30,6 @@ Dal menu a sinistra scegli cosa fare:
 | 🌸 **Nuova stagione**              | pagina, JSON, colore, foto e (se vuoi) il primo giro                                 |
 | 📅 **Nuovo anno di Statistiche**   | pagina, JSON, colore e icona dell'anno                                               |
 | 🗓️ **Nuovo anno completo**         | Statistiche + Primavera + Estate + Autunno-Inverno insieme                           |
-| 📋 **Elenco**                      | sola lettura: anni con grafico dei mesi, km e corse, e tutti i giri di ogni stagione |
 
 Come funziona, in ogni voce:
 
@@ -87,7 +86,7 @@ node scripts/nuovo.js            # menu guidato
 node scripts/nuovo.js --prova    # mostra cosa farebbe, senza scrivere nulla
 ```
 
-Il menu offre: **giro**, **mese**, **foto**, **nuova stagione** 🌸🌞🍁❄️, **nuovo anno di Statistiche** 📅, **nuovo anno completo** (Statistiche + Primavera + Estate + Autunno-Inverno insieme) ed **elenco** 📋 (sola lettura: anni con mesi/km/corse e giri di ogni stagione).
+Il menu offre: **giro**, **mese**, **foto**, **nuova stagione** 🌸🌞🍁❄️, **nuovo anno di Statistiche** 📅
 
 > Terminale e interfaccia web fanno le stesse cose: scegli quello che preferisci. L'elenco di **tutti i casi** è in un unico JSON, [`scripts/nuovo/programma/casi.json`](scripts/nuovo/programma/casi.json), letto da entrambi (testo del menu, icona, titolo, descrizione).
 

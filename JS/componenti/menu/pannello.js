@@ -12,6 +12,7 @@ import { chiave } from "../sito/percorsi.js";
 import { htmlMenu } from "./albero.js";
 import { collegaRicerca } from "./ricerca-menu.js";
 import { collegaApertura } from "./apertura.js";
+import { creaCondividi } from "../condividi/condividi.js";
 
 const AZIONI = `<div class="menu-azioni">
   <button class="menu-mappa" type="button" data-apri-mappa><span class="ico-tile" data-icona="mappa"></span><span>Mappa del sito</span></button>
@@ -88,6 +89,9 @@ export const creaPannello = () => {
       <p class="no-results" id="menuNoResults" hidden>Nessun elemento trovato</p>
       <div id="menuList"></div>
     </div>`;
+
+  // Subito sotto "Mappa del sito": condividere i dati della pagina
+  pannello.querySelector(".menu-azioni").after(creaCondividi());
 
   const lista = pannello.querySelector("#menuList");
   collegaRicerca(
