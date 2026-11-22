@@ -72,6 +72,20 @@ Prima di scrivere mostra un riepilogo e chiede conferma; se un file esiste già 
 
 ---
 
+## 📂 Aggiornare i Dati JSON
+
+### Stagione
+
+1. **Aggiorna il file JSON per la stagione Autunno-Inverno 2026-2027**
+   - **Percorso:** [`json/Autunno_Inverno/Periodi/2026-2027.json`](json/Autunno_Inverno/Periodi/2026-2027.json)
+   - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.
+
+### Statistiche
+
+1. **Aggiorna il file JSON per le statistiche per il 2026**
+   - **Percorso:** [`json/Statistiche/anni/2026.json`](json/Statistiche/anni/2026.json)
+   - Modifica i chilometri (km) di Novembre e aggiorna il numero totale di corse dell'anno.
+   
 ## 🗓 Inizio di una Nuova Stagione
 
 ### Creazione della Nuova Stagione
