@@ -35,7 +35,19 @@ const leggiJsonRichiesta = async (req, max = 256 * 1024) => JSON.parse((await le
 const gestisci = async (req, res) => {
   if (!richiestaAutorizzata(req)) { res.writeHead(403); return res.end("Accesso consentito solo da localhost o dalla rete locale."); }
   const url = new URL(req.url, "http://localhost");
-  if (req.method === "GET" && FILE_STATICI[url.pathname]) { const [nome, tipo] = FILE_STATICI[url.pathname]; res.writeHead(200, { "Content-Type": tipo, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" }); return res.end(fs.readFileSync(path.join(WEB, nome))); }
+  if (req.method === "GET" && FILE_STATICI[url.pathname]) {
+    const [nome, tipo] = FILE_STATICI[url.pathname];
+    let contenuto = fs.readFileSync(path.join(WEB, nome));
+    // Compatibilità con una copia di app.js che dichiara due volte il selettore $.
+    // Togliamo solo la seconda dichiarazione prima di inviarla al browser.
+    if (url.pathname === "/app.js") {
+      const sorgente = contenuto.toString("utf8");
+      const corretto = sorgente.replace(/\nconst \$ = \(s\) => document\.querySelector\(s\);\n\nconst api =/, "\nconst api =");
+      contenuto = Buffer.from(corretto, "utf8");
+    }
+    res.writeHead(200, { "Content-Type": tipo, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
+    return res.end(contenuto);
+  }
   if (!url.pathname.startsWith("/api/")) { res.writeHead(404); return res.end("Non trovato"); }
   try {
     if (req.method === "GET" && url.pathname === "/api/stato") return inviaJson(res, 200, { ok: true, ...api.stato() });
