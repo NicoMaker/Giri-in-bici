@@ -3,24 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Giri in Bici — Aggiornamento</title>
+    <title>Giri in Bici — Gestione completa</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚴%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="/stile.css" />
     <style>
-      .gestione-inline{max-width:1240px;margin:0 auto 48px;padding:0 clamp(16px,4vw,40px)}.ride{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px;border:1px solid var(--bordo);border-radius:12px;background:var(--carta-2)}.lista-giri,.periodi-grid{display:grid;gap:10px}.periodi-grid,.colori-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}.ride p{margin:4px 0 0;color:var(--testo-2)}.lista-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}.lista-head .campo{width:min(100%,300px)}.danger{color:var(--errore)}.conferma{padding:10px 12px;border-radius:10px;color:var(--ok);background:var(--ok-sfondo)}.link-gestione{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.link-gestione .btn{text-decoration:none}.periodo-gruppo{margin-top:20px}.periodo-gruppo h3{margin:0 0 10px}.periodo-card,.colore-stat-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--bordo);border-radius:12px;background:var(--carta-2)}.periodo-chip{display:inline-flex;align-items:center;gap:8px;font-weight:700}.periodo-chip::before{content:"";width:15px;height:15px;border-radius:50%;background:var(--periodo-colore);box-shadow:0 0 0 3px color-mix(in srgb,var(--periodo-colore) 20%,transparent)}.barra-ricerca{display:flex;gap:8px;align-items:end;flex-wrap:wrap}.barra-ricerca .campo{flex:1;min-width:220px}.sort-controls{display:flex;gap:6px;flex-wrap:wrap}.sort-controls .btn[aria-pressed=true]{border-color:var(--accento);background:color-mix(in srgb,var(--accento) 12%,var(--carta))}.colore-stat-card input[type=color]{flex:none}.sezione-colori{margin-top:14px}.sezione-colori h3{margin:18px 0 8px}@media(max-width:600px){.ride,.lista-head,.periodo-card,.colore-stat-card{align-items:stretch;flex-direction:column}.ride .azioni{margin-top:0}}
+      .gestione-inline{max-width:1240px;margin:0 auto 64px;padding:0 clamp(16px,4vw,40px)}
+      .gestione-inline .scheda{margin-top:20px}.ride{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px;border:1px solid var(--bordo);border-radius:12px;background:var(--carta-2)}
+      .lista-giri,.periodi-grid,.colori-grid{display:grid;gap:10px}.periodi-grid,.colori-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}.ride p{margin:4px 0 0;color:var(--testo-2)}
+      .lista-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}.lista-head .campo{width:min(100%,360px)}.danger{color:var(--errore)}
+      .conferma{padding:10px 12px;border-radius:10px;color:var(--ok);background:var(--ok-sfondo)}.periodo-gruppo{margin-top:18px;padding-top:12px;border-top:1px solid var(--bordo)}
+      .periodo-card,.colore-stat-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--bordo);border-radius:12px;background:var(--carta-2)}
+      .periodo-chip{display:inline-flex;align-items:center;gap:8px;font-weight:700}.periodo-chip::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--periodo-colore);box-shadow:0 0 0 3px color-mix(in srgb,var(--periodo-colore) 20%,transparent)}
+      .barra-ricerca{display:flex;gap:8px;align-items:end;flex-wrap:wrap}.barra-ricerca .campo{flex:1;min-width:220px}.sort-controls{display:flex;gap:6px}.sort-controls .btn[aria-pressed=true]{border-color:var(--accento);background:color-mix(in srgb,var(--accento) 12%,var(--carta))}
+      .sezione-colori h3{margin:18px 0 8px}.link-gestione{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.link-gestione .btn{text-decoration:none}
+      @media(max-width:700px){.gestione-inline{padding-inline:12px}.ride,.lista-head,.periodo-card,.colore-stat-card{align-items:stretch;flex-direction:column}.periodi-grid,.colori-grid{grid-template-columns:1fr}}
     </style>
   </head>
   <body>
-    <header class="testata"><div class="marchio"><span class="logo">🚴</span><div><h1>Giri in Bici</h1><p id="radice" class="radice">Aggiornamento guidato</p></div></div><nav class="link-gestione" aria-label="Strumenti"><a class="btn" href="#gestione-giri">Gestisci e correggi i giri</a><span id="badge-prova" class="badge badge-prova" hidden>Modalità prova · non scrive nulla</span></nav></header>
-    <div class="layout"><nav id="menu" class="menu" aria-label="Cosa vuoi fare?"></nav><main class="contenuto"><section id="vista" class="scheda"></section><section id="risultato" aria-live="polite"></section></main></div>
+    <header class="testata">
+      <div class="marchio"><span class="logo">🚴</span><div><h1>Giri in Bici</h1><p id="radice" class="radice">Gestione guidata</p></div></div>
+      <nav class="link-gestione" aria-label="Strumenti"><a class="btn" href="#gestione-giri">Gestione completa</a><span id="badge-prova" class="badge badge-prova" hidden>Modalità prova</span></nav>
+    </header>
+    <div class="layout">
+      <nav id="menu" class="menu" aria-label="Cosa vuoi fare?"></nav>
+      <main class="contenuto"><section id="vista" class="scheda"></section><section id="risultato" aria-live="polite"></section></main>
+    </div>
     <section id="gestione-giri" class="gestione-inline contenuto" aria-labelledby="gestione-titolo">
-      <section class="scheda"><h2 id="gestione-titolo">Gestisci i giri</h2><p class="sotto">Modifica o elimina i giri: data, stagione, luogo, link e km. Le statistiche mensili collegate vengono aggiornate insieme ai JSON.</p><div id="msg" aria-live="polite"></div>
-        <form id="form-giro"><input id="id" type="hidden"><div class="griglia"><label class="campo"><span class="etichetta">Stagione</span><select id="f-stagione" required></select></label><label class="campo"><span class="etichetta">Data</span><input id="f-data" type="date" required></label><label class="campo"><span class="etichetta">Luogo</span><input id="f-luogo" type="text" required maxlength="160" placeholder="es. Pinzano"></label><label class="campo"><span class="etichetta">Distanza (km)</span><input id="f-km" type="number" min="1" step="1" required></label><label class="campo pieno"><span class="etichetta">Link percorso (facoltativo)</span><input id="f-link" type="url" placeholder="https://…"></label></div><div class="azioni"><button class="btn primario" type="submit">Salva giro</button><button class="btn" id="annulla" type="button">Annulla / nuovo giro</button></div></form>
+      <section class="scheda">
+        <h2 id="gestione-titolo">Gestisci i giri</h2>
+        <p class="sotto">Aggiungi, modifica o elimina giri. Data, stagione, luogo, link e km aggiornano i JSON e le statistiche.</p>
+        <div id="msg" aria-live="polite"></div>
+        <form id="form-giro"><input id="id" type="hidden"><div class="griglia">
+          <label class="campo"><span class="etichetta">Stagione</span><select id="f-stagione" required></select></label>
+          <label class="campo"><span class="etichetta">Data</span><input id="f-data" type="date" required></label>
+          <label class="campo"><span class="etichetta">Luogo</span><input id="f-luogo" type="text" required maxlength="160" placeholder="es. Pinzano"></label>
+          <label class="campo"><span class="etichetta">Distanza (km)</span><input id="f-km" type="number" min="1" step="1" required></label>
+          <label class="campo pieno"><span class="etichetta">Link percorso (facoltativo)</span><input id="f-link" type="url" placeholder="https://…"></label>
+        </div><div class="azioni"><button class="btn primario" type="submit">Salva giro</button><button class="btn" id="annulla" type="button">Annulla / nuovo giro</button></div></form>
       </section>
-      <section class="scheda"><h2>Colori delle stagioni</h2><p class="sotto">Imposta il colore del singolo periodo, per esempio Estate → 2022.</p><form id="form-colore"><div class="griglia"><label class="campo"><span class="etichetta">Stagione</span><select id="col-stagione" required></select></label><label class="campo"><span class="etichetta">Periodo</span><select id="col-periodo" required></select></label><label class="campo"><span class="etichetta">Colore</span><input id="colore" type="color" value="#2dd4bf" required></label></div><div class="azioni"><button class="btn primario" type="submit">Aggiorna colore</button></div></form></section>
-      <section class="scheda"><h2>Colori delle statistiche</h2><p class="sotto">Personalizza i colori degli anni nei grafici e il colore assegnato a ciascun mese. Le modifiche aggiornano i JSON di configurazione usati dal sito.</p><div class="sezione-colori"><h3>Colore per anno</h3><div id="colori-anni" class="periodi-grid colori-grid"></div><h3>Colore per mese</h3><div id="colori-mesi" class="periodi-grid colori-grid"></div></div></section>
-      <section class="scheda"><h2>Gestisci periodi</h2><p class="sotto">L'eliminazione rimuove HTML, JSON, foto e statistiche dei giri del periodo. L'ultimo periodo di una stagione è protetto.</p><div id="lista-periodi"></div></section>
-      <section class="scheda"><div class="lista-head"><div><h2>Elenco giri</h2><p class="sotto" id="conteggio"></p></div><div class="barra-ricerca"><label class="campo"><span class="etichetta">Ricerca per data italiana, luogo, stagione o link</span><input id="filtro" type="search" placeholder="es. 23/11/2026, Pinzano, Estate…" autocomplete="off"></label><div class="sort-controls" aria-label="Ordina per"><button class="btn" type="button" data-ordina="data" aria-pressed="true">Data</button><button class="btn" type="button" data-ordina="luogo" aria-pressed="false">Luogo</button><button class="btn" type="button" data-ordina="km" aria-pressed="false">Km</button></div></div></div><div id="lista" class="lista-giri"></div></section>
+      <section class="scheda"><h2>Colori delle stagioni e dei periodi</h2><p class="sotto">Per esempio Estate → 2020 oppure Estate → 2022.</p><form id="form-colore"><div class="griglia">
+        <label class="campo"><span class="etichetta">Stagione</span><select id="col-stagione" required></select></label>
+        <label class="campo"><span class="etichetta">Periodo</span><select id="col-periodo" required></select></label>
+        <label class="campo"><span class="etichetta">Colore</span><input id="colore" type="color" value="#2dd4bf" required></label>
+      </div><div class="azioni"><button class="btn primario" type="submit">Aggiorna colore</button></div></form></section>
+      <section class="scheda"><h2>Colori delle statistiche</h2><p class="sotto">Colore per anno e per mese nelle pagine delle statistiche.</p><div class="sezione-colori"><h3>Colore per anno</h3><div id="colori-anni" class="periodi-grid colori-grid"></div><h3>Colore per mese</h3><div id="colori-mesi" class="periodi-grid colori-grid"></div></div></section>
+      <section class="scheda"><h2>Gestisci periodi</h2><p class="sotto">Elimina un periodo completo con pagina, JSON, foto e giri; le statistiche vengono ridotte. L'ultimo periodo rimasto è protetto.</p><div id="lista-periodi"></div></section>
+      <section class="scheda"><div class="lista-head"><div><h2>Elenco giri</h2><p class="sotto" id="conteggio"></p></div><div class="barra-ricerca"><label class="campo"><span class="etichetta">Ricerca italiana</span><input id="filtro" type="search" placeholder="23/11/2026, Pinzano, Estate, link…" autocomplete="off"></label><div class="sort-controls"><button class="btn" type="button" data-ordina="data" aria-pressed="true">Data</button><button class="btn" type="button" data-ordina="luogo" aria-pressed="false">Luogo</button><button class="btn" type="button" data-ordina="km" aria-pressed="false">Km</button></div></div></div><div id="lista" class="lista-giri"></div></section>
     </section>
     <div id="occupato" class="occupato" hidden><div class="rotella"></div><p id="occupato-testo">Un attimo…</p></div>
     <script src="/app.js"></script>
