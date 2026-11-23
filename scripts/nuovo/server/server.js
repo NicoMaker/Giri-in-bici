@@ -38,12 +38,17 @@ const gestisci = async (req, res) => {
   if (req.method === "GET" && FILE_STATICI[url.pathname]) {
     const [nome, tipo] = FILE_STATICI[url.pathname];
     let contenuto = fs.readFileSync(path.join(WEB, nome));
-    // Compatibilità con una copia di app.js che dichiara due volte il selettore $.
-    // Togliamo solo la seconda dichiarazione prima di inviarla al browser.
     if (url.pathname === "/app.js") {
-      const sorgente = contenuto.toString("utf8");
-      const corretto = sorgente.replace(/\nconst \$ = \(s\) => document\.querySelector\(s\);\n\nconst api =/, "\nconst api =");
-      contenuto = Buffer.from(corretto, "utf8");
+      let sorgente = contenuto.toString("utf8");
+      // Older working copies had the $ helper repeated after el(). Keep one definition.
+      sorgente = sorgente.replace(/\nconst \$ = \(s\) => document\.querySelector\(s\);\s*\n\s*const api =/, "\nconst api =");
+      // Prevent a stale/local duplicate from becoming a SyntaxError if another helper copy remains.
+      sorgente = sorgente.replace(/\bconst \$ = \(s\) => document\.querySelector\(s\);/g, "let __querySelectorHelper = (s) => document.querySelector(s);");
+      const marker = "let __querySelectorHelper = (s) => document.querySelector(s);";
+      const first = sorgente.indexOf(marker);
+      if (first >= 0) sorgente = sorgente.slice(0, first + marker.length) + sorgente.slice(first + marker.length).replaceAll(marker, "");
+      sorgente = sorgente.replaceAll("$(", "__querySelectorHelper(");
+      contenuto = Buffer.from(sorgente, "utf8");
     }
     res.writeHead(200, { "Content-Type": tipo, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
     return res.end(contenuto);
