@@ -1,6 +1,6 @@
 "use strict";
 
-// CRUD dell'interfaccia locale: aggiorna i JSON dei giri e le statistiche correlate.
+// Strumenti CRUD locali: le statistiche vengono aggiornate insieme ai JSON dei giri.
 const fs = require("fs");
 const path = require("path");
 const { RADICE, STAGIONI, MESI, PERCORSO_STORICO_JSON, PERCORSO_STAGIONI_JSON } = require("../base/impostazioni");
@@ -20,6 +20,14 @@ const annoPeriodo = (chiave, periodo, mese) => {
   const [inizio, fine] = periodo.split("-").map(Number);
   return mese >= 8 ? inizio : fine;
 };
+const estraiLuogoLink = (place) => {
+  let luogo = String(place || "");
+  let link = "";
+  const a = luogo.match(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
+  if (a) { link = a[1]; luogo = a[2]; }
+  luogo = luogo.replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim();
+  return { luogo, link };
+};
 const elencoGiri = () => {
   const out = [];
   for (const [chiave, s] of Object.entries(STAGIONI)) {
@@ -28,11 +36,7 @@ const elencoGiri = () => {
       leggi(file).forEach((g, index) => {
         const d = dataSalvata(g);
         if (!d) return;
-        let luogo = String(g.place || "");
-        let link = "";
-        const a = luogo.match(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
-        if (a) { link = a[1]; luogo = a[2].replace(/<[^>]*>/g, " "); }
-        luogo = luogo.replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim();
+        const { luogo, link } = estraiLuogoLink(g.place);
         const anno = annoPeriodo(chiave, periodo, d.mese);
         out.push({ id: `${encodeURIComponent(chiave)}|${encodeURIComponent(periodo)}|${index}`, stagione: chiave, etichetta: s.testo, periodo, data: `${anno}-${String(d.mese + 1).padStart(2, "0")}-${String(d.giorno).padStart(2, "0")}`, luogo, link, km: Number(g.distance) || 0 });
       });
@@ -94,16 +98,9 @@ const garantisciPeriodo = (map, chiave, periodo) => {
     map.set(file, formattaJson(generale));
     map.set(PERCORSO_STAGIONI_JSON, formattaJson(statistiche));
     map.set(periodFile, "[]\n");
-    const html = path.join(RADICE, s.cartella, `${periodo}.html`);
-    // La pagina stagione legge le sotto-pagine dai metadati; non si genera HTML arbitrario.
-    if (!fs.existsSync(html)) map.set(path.relative(RADICE, html).split(path.sep).join("/"), `<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=../${s.cartella}.html">\n`);
+    const pagina = `${s.cartella}/${periodo}.html`;
+    if (!fs.existsSync(assoluto(pagina))) map.set(pagina, `<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=../${s.cartella}.html">\n`);
   }
-};
-const stagionePerData = (d) => d.mese >= 2 && d.mese <= 4 ? "Primavera" : d.mese >= 5 && d.mese <= 7 ? "Estate" : "Autunno_Inverno";
-const regolaStagione = (scelta, d) => {
-  if (!STAGIONI[scelta]) throw new Error("Scegli una stagione valida.");
-  const attesa = stagionePerData(d);
-  if (scelta !== attesa) return; // stagioni personalizzabili per scelta: non imporre il calendario.
 };
 const aggiornaStatistica = (map, anno, mese, deltaKm, deltaGiri) => {
   const storico = jsonInModifiche(map, PERCORSO_STORICO_JSON);
@@ -121,25 +118,23 @@ const aggiornaStatistica = (map, anno, mese, deltaKm, deltaGiri) => {
   }
   const meseNome = MESI[mese];
   const nuovoKm = (Number(dati.data[meseNome]) || 0) + deltaKm;
-  if (novoNonNegativo(nuovoKm)) dati.data[meseNome] = nuovoKm;
-  else throw new Error(`La modifica produrrebbe km negativi in ${meseNome} ${anno}.`);
+  if (!Number.isFinite(nuovoKm) || nuovoKm < 0) throw new Error(`La modifica produrrebbe km negativi in ${meseNome} ${anno}.`);
+  dati.data[meseNome] = nuovoKm;
   dati.numberOfRaces = (Number(dati.numberOfRaces) || 0) + deltaGiri;
   if (dati.numberOfRaces < 0) throw new Error(`Il totale delle corse di ${anno} non può diventare negativo.`);
   map.set(file, formattaJson(dati));
 };
-const novoNonNegativo = (n) => Number.isFinite(n) && n >= 0;
 const normalize = (data) => {
   const d = parseData(data.data);
   const stagione = String(data.stagione || "");
-  regolaStagione(stagione, d);
+  if (!STAGIONI[stagione]) throw new Error("Scegli una stagione valida.");
   const luogo = String(data.luogo || "").trim();
   if (!luogo || /[<>]/.test(luogo)) throw new Error("Inserisci un luogo senza tag HTML.");
   const link = String(data.link || "").trim();
   if (link && !/^https?:\/\/[^\s"<>]+$/i.test(link)) throw new Error("Il link deve iniziare con http:// o https://.");
   const km = Number(data.km);
   if (!Number.isInteger(km) || km <= 0) throw new Error("I km devono essere un numero intero maggiore di zero.");
-  const periodo = periodoGiro(stagione, d);
-  return { d, stagione, periodo, luogo, link, km };
+  return { d, stagione, periodo: periodoGiro(stagione, d), luogo, link, km };
 };
 const salvaGiro = (body) => {
   const changes = new Map();
@@ -151,8 +146,7 @@ const salvaGiro = (body) => {
     if (!list[ref.index]) throw new Error("Il giro da modificare non esiste più.");
     const oldDate = dataSalvata(list[ref.index]);
     if (!oldDate) throw new Error("La data del giro esistente non è leggibile.");
-    const oldYear = annoPeriodo(ref.chiave, ref.periodo, oldDate.mese);
-    old = { ref, oldFile, list, ride: list[ref.index], date: { ...oldDate, anno: oldYear } };
+    old = { ref, oldFile, list, ride: list[ref.index], date: { ...oldDate, anno: annoPeriodo(ref.chiave, ref.periodo, oldDate.mese) } };
   }
   const n = normalize(body);
   const targetFile = nomeFileGiri(n.stagione, n.periodo);
@@ -160,7 +154,6 @@ const salvaGiro = (body) => {
   if (old) {
     if (old.oldFile === targetFile) {
       const list = changes.has(targetFile) ? JSON.parse(changes.get(targetFile)) : old.list;
-      // Periodo appena creato non può essere il vecchio file dello stesso giro.
       list.splice(old.ref.index, 1);
       changes.set(targetFile, formattaJson(list));
     } else {
@@ -175,8 +168,8 @@ const salvaGiro = (body) => {
   list.sort((a, b) => {
     const da = dataSalvata(a), db = dataSalvata(b);
     if (!da || !db) return 0;
-    const idx = (x) => STAGIONI[n.stagione].formato === "biennio" ? (x.mese >= 8 ? x.mese - 8 : x.mese + 4) : x.mese;
-    return idx(da) - idx(db) || da.giorno - db.giorno;
+    const ordine = (x) => STAGIONI[n.stagione].formato === "biennio" ? (x.mese >= 8 ? x.mese - 8 : x.mese + 4) : x.mese;
+    return ordine(da) - ordine(db) || da.giorno - db.giorno;
   });
   changes.set(targetFile, formattaJson(list));
   if (old) {
@@ -194,16 +187,16 @@ const eliminaGiro = ({ id }) => {
   if (!ride) throw new Error("Il giro da eliminare non esiste più.");
   const d = dataSalvata(ride);
   if (!d) throw new Error("La data del giro non è leggibile.");
-  const anno = annoPeriodo(ref.chiave, ref.periodo, d.mese);
   list.splice(ref.index, 1);
   const changes = new Map([[file, formattaJson(list)]]);
-  aggiornaStatistica(changes, anno, d.mese, -Number(ride.distance || 0), -1);
+  aggiornaStatistica(changes, annoPeriodo(ref.chiave, ref.periodo, d.mese), d.mese, -Number(ride.distance || 0), -1);
   scriviTransazione(changes);
   return { ok: true, messaggio: "Giro eliminato e statistiche aggiornate." };
 };
 const listaStagioni = () => Object.entries(STAGIONI).flatMap(([chiave, s]) => {
-  const g = leggi(`json/${s.cartella}/generale.json`);
-  return Object.keys(g.subPeriods).sort().map((periodo) => ({ chiave, etichetta: s.testo, periodo, colore: (g.colors || [])[Object.keys(g.subPeriods).sort().indexOf(periodo)] || "#2dd4bf" }));
+  const generale = leggi(`json/${s.cartella}/generale.json`);
+  const periodi = Object.keys(generale.subPeriods);
+  return periodi.map((periodo, i) => ({ chiave, etichetta: s.testo, periodo, colore: (generale.colors || [])[i] || "#2dd4bf" }));
 });
 const salvaColore = ({ stagione, periodo, colore }) => {
   const s = STAGIONI[stagione];
@@ -213,13 +206,71 @@ const salvaColore = ({ stagione, periodo, colore }) => {
   const changes = new Map();
   const { file, generale, statistiche, voce } = stagioneConfig(changes, stagione);
   if (!generale.subPeriods[periodo]) throw new Error("Periodo non trovato.");
-  const periodi = Object.keys(generale.subPeriods).sort();
+  const index = Object.keys(generale.subPeriods).indexOf(periodo);
   generale.colors = generale.colors || [];
-  generale.colors[periodi.indexOf(periodo)] = String(colore).trim();
+  generale.colors[index] = String(colore).trim();
   voce.subPeriods = generale.subPeriods;
   changes.set(file, formattaJson(generale));
   changes.set(PERCORSO_STAGIONI_JSON, formattaJson(statistiche));
   scriviTransazione(changes);
   return { ok: true, messaggio: `Colore aggiornato per ${s.testo} ${periodo}.` };
 };
-module.exports = { elencoGiri, listaStagioni, salvaGiro, eliminaGiro, salvaColore };
+const listaPeriodiGestibili = () => listaStagioni();
+const eliminaPeriodo = ({ stagione, periodo }) => {
+  const s = STAGIONI[String(stagione || "")];
+  if (!s || !/^\d{4}(?:-\d{4})?$/.test(String(periodo || ""))) throw new Error("Stagione o periodo non valido.");
+  const changes = new Map();
+  const config = stagioneConfig(changes, stagione);
+  const { generale, statistiche, voce } = config;
+  const giroFile = generale.subPeriods[periodo];
+  if (!giroFile || !fs.existsSync(assoluto(giroFile))) throw new Error("Periodo non trovato.");
+  const periodi = Object.keys(generale.subPeriods);
+  if (periodi.length <= 1) throw new Error("Non puoi eliminare l'ultimo periodo: crea prima un altro periodo per mantenere la stagione utilizzabile.");
+  const giri = leggi(giroFile);
+  for (const giro of giri) {
+    const d = dataSalvata(giro);
+    if (!d) throw new Error(`Non posso aggiornare le statistiche: data non valida nel file ${giroFile}.`);
+    aggiornaStatistica(changes, annoPeriodo(stagione, periodo, d.mese), d.mese, -Number(giro.distance || 0), -1);
+  }
+  const indiceColore = periodi.indexOf(periodo);
+  delete generale.subPeriods[periodo];
+  generale.colors = generale.colors || [];
+  generale.colors.splice(indiceColore, 1);
+  delete voce.subPeriods[periodo];
+  changes.set(config.file, formattaJson(generale));
+  changes.set(PERCORSO_STAGIONI_JSON, formattaJson(statistiche));
+
+  const pagina = `${s.cartella}/${periodo}.html`;
+  const cartellaImmagini = path.join(path.basename(fs.existsSync(assoluto("img")) ? assoluto("img") : assoluto("Img")), s.cartella, periodo);
+  const immaginiAssoluto = assoluto(cartellaImmagini);
+  const backup = new Map();
+  const raccogliBackup = (p) => {
+    if (!fs.existsSync(p)) return;
+    const stat = fs.lstatSync(p);
+    if (stat.isSymbolicLink()) throw new Error("Eliminazione bloccata: la destinazione contiene un collegamento simbolico.");
+    if (stat.isDirectory()) {
+      for (const nome of fs.readdirSync(p)) raccogliBackup(path.join(p, nome));
+      backup.set(p, null);
+    } else backup.set(p, fs.readFileSync(p));
+  };
+  const destinazioni = [assoluto(giroFile), assoluto(pagina), immaginiAssoluto];
+  destinazioni.forEach(raccogliBackup);
+  const fileOriginali = new Map([...changes.keys()].map((rel) => [rel, fs.existsSync(assoluto(rel)) ? fs.readFileSync(assoluto(rel)) : null]));
+  try {
+    scriviTransazione(changes);
+    for (const destinazione of destinazioni) fs.rmSync(destinazione, { recursive: true, force: true });
+  } catch (e) {
+    for (const [rel, bytes] of fileOriginali) {
+      const file = assoluto(rel);
+      if (bytes === null) fs.rmSync(file, { force: true });
+      else { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, bytes); }
+    }
+    for (const [destinazione, bytes] of backup) {
+      if (bytes === null) fs.mkdirSync(destinazione, { recursive: true });
+      else { fs.mkdirSync(path.dirname(destinazione), { recursive: true }); fs.writeFileSync(destinazione, bytes); }
+    }
+    throw e;
+  }
+  return { ok: true, messaggio: `${s.testo} ${periodo} eliminato: rimossi pagina, JSON, foto e statistiche aggiornate (${giri.length} giri).` };
+};
+module.exports = { elencoGiri, listaStagioni, listaPeriodiGestibili, salvaGiro, eliminaGiro, salvaColore, eliminaPeriodo };

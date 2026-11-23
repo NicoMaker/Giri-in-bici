@@ -9,7 +9,12 @@ const el = (tag, props = {}, ...children) => {
     else if (chiave === "selected") nodo.selected = Boolean(valore);
     else nodo.setAttribute(chiave, valore);
   }
-  children.flat().filter((figlio) => figlio != null).forEach((figlio) => nodo.append(figlio.nodeType ? figlio : document.createTextNode(String(figlio))));
+  const aggiungi = (figlio) => {
+    if (figlio == null || figlio === false) return;
+    if (Array.isArray(figlio)) return figlio.forEach(aggiungi);
+    nodo.append(figlio instanceof Node ? figlio : document.createTextNode(String(figlio)));
+  };
+  children.forEach(aggiungi);
   return nodo;
 };
 const richiesta = async (url, body) => {
@@ -47,9 +52,8 @@ const render = () => {
   colorStagione.onchange = aggiornaPeriodi;
   colorPeriodo.onchange = aggiornaPeriodi;
   aggiornaPeriodi();
-
-  const query = $("#filtro").value.trim().toLocaleLowerCase("it");
-  const filtrati = giri.filter((g) => `${g.data} ${g.etichetta} ${g.periodo} ${g.luogo}`.toLocaleLowerCase("it").includes(query));
+  const filtro = $("#filtro").value.trim().toLocaleLowerCase("it");
+  const filtrati = giri.filter((g) => `${g.data} ${g.etichetta} ${g.periodo} ${g.luogo}`.toLocaleLowerCase("it").includes(filtro));
   $("#lista").replaceChildren(...filtrati.map((g) => el("article", { class: "ride" },
     el("div", {}, el("strong", { text: `${g.data} · ${g.luogo}` }), el("p", { text: `${g.etichetta} ${g.periodo} · ${g.km} km${g.link ? " · link presente" : ""}` })),
     el("div", { class: "azioni" },
@@ -62,6 +66,26 @@ const render = () => {
     ),
   )));
   $("#conteggio").textContent = `${filtrati.length} giri`;
+  renderPeriodi();
+};
+const renderPeriodi = () => {
+  const lista = $("#lista-periodi");
+  if (!lista) return;
+  const gruppi = chiaviStagioni().map(([chiave, etichetta]) => el("section", { class: "periodo-gruppo" },
+    el("h3", { text: etichetta }),
+    el("div", { class: "periodi-grid" }, stagioni.filter((s) => s.chiave === chiave).map((s) =>
+      el("article", { class: "periodo-card" },
+        el("span", { class: "periodo-chip", style: `--periodo-colore:${s.colore}` }, s.periodo),
+        el("button", { class: "btn danger", type: "button", text: "Elimina periodo", onclick: async () => {
+          const count = giri.filter((g) => g.stagione === chiave && g.periodo === s.periodo).length;
+          if (!confirm(`Eliminare ${etichetta} ${s.periodo}, il relativo HTML, JSON, le foto e ${count} giri? Le statistiche verranno ricalcolate.`)) return;
+          try { const result = await richiesta("/api/gestione/stagioni/elimina-periodo", { stagione: chiave, periodo: s.periodo }); messaggio(result.messaggio); await carica(); }
+          catch (e) { messaggio(e.message, true); }
+        } }),
+      ),
+    )),
+  ));
+  lista.replaceChildren(...gruppi);
 };
 const compila = (giro) => {
   $("#id").value = giro.id;
@@ -75,14 +99,7 @@ const compila = (giro) => {
 $("#form-giro").addEventListener("submit", async (evento) => {
   evento.preventDefault();
   try {
-    const result = await richiesta("/api/gestione/giri/salva", {
-      id: $("#id").value || undefined,
-      stagione: $("#f-stagione").value,
-      data: $("#f-data").value,
-      luogo: $("#f-luogo").value,
-      link: $("#f-link").value,
-      km: $("#f-km").value,
-    });
+    const result = await richiesta("/api/gestione/giri/salva", { id: $("#id").value || undefined, stagione: $("#f-stagione").value, data: $("#f-data").value, luogo: $("#f-luogo").value, link: $("#f-link").value, km: $("#f-km").value });
     messaggio(result.messaggio);
     evento.currentTarget.reset();
     $("#id").value = "";
@@ -90,19 +107,11 @@ $("#form-giro").addEventListener("submit", async (evento) => {
     await carica();
   } catch (e) { messaggio(e.message, true); }
 });
-$("#annulla").addEventListener("click", () => {
-  $("#form-giro").reset();
-  $("#id").value = "";
-  $("#f-data").value = new Date().toISOString().slice(0, 10);
-});
+$("#annulla").addEventListener("click", () => { $("#form-giro").reset(); $("#id").value = ""; $("#f-data").value = new Date().toISOString().slice(0, 10); });
 $("#form-colore").addEventListener("submit", async (evento) => {
   evento.preventDefault();
   try {
-    const result = await richiesta("/api/gestione/stagioni/colore", {
-      stagione: $("#col-stagione").value,
-      periodo: $("#col-periodo").value,
-      colore: $("#colore").value,
-    });
+    const result = await richiesta("/api/gestione/stagioni/colore", { stagione: $("#col-stagione").value, periodo: $("#col-periodo").value, colore: $("#colore").value });
     messaggio(result.messaggio);
     await carica();
   } catch (e) { messaggio(e.message, true); }

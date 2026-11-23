@@ -1,0 +1,8 @@
+/* Aggiunte gestione inline */
+.gestione-inline { animation: entra .24s ease; }
+.periodo-gruppo { padding-top: 12px; border-top: 1px solid var(--bordo); }
+.periodo-card { transition: transform .14s ease, box-shadow .14s ease; }
+.periodo-card:hover { transform: translateY(-2px); box-shadow: var(--ombra); }
+.btn.danger { border-color: color-mix(in srgb, var(--errore) 28%, var(--bordo)); }
+.btn.danger:hover { background: var(--errore-sfondo); }
+@media (max-width: 700px) { .gestione-inline { padding-inline: 12px; } .periodi-grid { grid-template-columns: 1fr; } }
