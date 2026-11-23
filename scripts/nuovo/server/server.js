@@ -11,7 +11,7 @@ const WEB = path.join(__dirname, "..", "web");
 const FILE_STATICI = {
   "/": ["index.html", "text/html; charset=utf-8"], "/index.html": ["index.html", "text/html; charset=utf-8"],
   "/stile.css": ["stile.css", "text/css; charset=utf-8"], "/app.js": ["app.js", "text/javascript; charset=utf-8"],
-  "/gestione.html": ["gestione.html", "text/html; charset=utf-8"], "/gestione.js": ["gestione.js", "text/javascript; charset=utf-8"],
+  "/gestione.js": ["gestione.js", "text/javascript; charset=utf-8"],
 };
 const inviaJson = (res, codice, corpo) => { res.writeHead(codice, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" }); res.end(JSON.stringify(corpo)); };
 const leggiCorpo = (req, massimo) => new Promise((ok, no) => {
@@ -33,20 +33,15 @@ const richiestaAutorizzata = (req) => {
 };
 const leggiJsonRichiesta = async (req, max = 256 * 1024) => JSON.parse((await leggiCorpo(req, max)).toString("utf8") || "{}");
 const normalizzaAppJs = (sorgente) => {
-  // Ripara eventuali copie della vecchia trasformazione: mai lasciare riferimenti
-  // a __querySelectorHelper senza la relativa definizione.
-  sorgente = sorgente.replace(/\b(?:const|let|var)\s+__querySelectorHelper\s*=\s*\(([^)]*)\)\s*=>\s*document\.querySelector\(([^)]*)\);?/g,
-    "const $ = ($1) => document.querySelector($2);");
+  sorgente = sorgente.replace(/\b(?:const|let|var)\s+__querySelectorHelper\s*=\s*\(([^)]*)\)\s*=>\s*document\.querySelector\(([^)]*)\);?/g, "const $ = ($1) => document.querySelector($2);");
   sorgente = sorgente.replaceAll("__querySelectorHelper(", "$(");
-  // L'app ha accidentalmente due dichiarazioni del selettore: conservarne una sola.
   const dichiarazione = /\b(?:const|let|var)\s+\$\s*=\s*\(([^)]*)\)\s*=>\s*document\.querySelector\(([^)]*)\);?/g;
   let prima = true;
-  sorgente = sorgente.replace(dichiarazione, (_match, argomento) => {
+  return sorgente.replace(dichiarazione, (_match, argomento) => {
     if (!prima) return "";
     prima = false;
     return `const $ = (${argomento}) => document.querySelector(${argomento});`;
   });
-  return sorgente;
 };
 const gestisci = async (req, res) => {
   if (!richiestaAutorizzata(req)) { res.writeHead(403); return res.end("Accesso consentito solo da localhost o dalla rete locale."); }
