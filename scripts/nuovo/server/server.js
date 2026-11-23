@@ -1,5 +1,4 @@
 "use strict";
-
 const fs = require("fs");
 const http = require("http");
 const os = require("os");
@@ -7,6 +6,7 @@ const path = require("path");
 const { RADICE, argomenti, opzione } = require("../base/impostazioni");
 const api = require("./api");
 const gestione = require("./gestione");
+const statistiche = require("./statistiche");
 const WEB = path.join(__dirname, "..", "web");
 const FILE_STATICI = {
   "/": ["index.html", "text/html; charset=utf-8"], "/index.html": ["index.html", "text/html; charset=utf-8"],
@@ -42,6 +42,9 @@ const gestisci = async (req, res) => {
     if (req.method === "GET" && url.pathname === "/api/elenco") return inviaJson(res, 200, { ok: true, ...api.elenco() });
     if (req.method === "GET" && url.pathname === "/api/gestione/giri") return inviaJson(res, 200, { ok: true, giri: gestione.elencoGiri() });
     if (req.method === "GET" && url.pathname === "/api/gestione/stagioni") return inviaJson(res, 200, { ok: true, stagioni: gestione.listaStagioni() });
+    if (req.method === "GET" && url.pathname === "/api/gestione/statistiche-colori") return inviaJson(res, 200, statistiche.leggiColoriStatistiche());
+    if (req.method === "POST" && url.pathname === "/api/gestione/statistiche/colore-anno") return inviaJson(res, 200, statistiche.salvaColoreAnno(await leggiJsonRichiesta(req, 64 * 1024)));
+    if (req.method === "POST" && url.pathname === "/api/gestione/statistiche/colore-mese") return inviaJson(res, 200, statistiche.salvaColoreMese(await leggiJsonRichiesta(req, 64 * 1024)));
     if (req.method === "POST" && url.pathname === "/api/gestione/giri/salva") return inviaJson(res, 200, gestione.salvaGiro(await leggiJsonRichiesta(req)));
     if (req.method === "POST" && url.pathname === "/api/gestione/giri/elimina") return inviaJson(res, 200, gestione.eliminaGiro(await leggiJsonRichiesta(req, 64 * 1024)));
     if (req.method === "POST" && url.pathname === "/api/gestione/stagioni/colore") return inviaJson(res, 200, gestione.salvaColore(await leggiJsonRichiesta(req, 64 * 1024)));
@@ -50,7 +53,7 @@ const gestisci = async (req, res) => {
     if (req.method === "POST" && ["/api/anteprima", "/api/conferma"].includes(url.pathname)) { const richiesta = await leggiJsonRichiesta(req, 1024 * 1024); const risposta = url.pathname === "/api/anteprima" ? await api.anteprima(richiesta.azione, richiesta.dati) : await api.conferma(richiesta.azione, richiesta.dati); return inviaJson(res, 200, risposta); }
     return inviaJson(res, 404, { ok: false, errore: "Percorso non trovato." });
   } catch (e) {
-    const previsto = e instanceof api.ErroreDati || /non esiste|non valido|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi/i.test(e.message);
+    const previsto = e instanceof api.ErroreDati || /non esiste|non valido|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non/i.test(e.message);
     return inviaJson(res, previsto ? 400 : 500, { ok: false, errore: e.message });
   }
 };
