@@ -1,9 +1,51 @@
 <!doctype html>
-<html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Gestione giri — Giri in Bici</title><link rel="stylesheet" href="/stile.css"></head>
-<body><header class="testata"><div class="marchio"><span class="logo">🚴</span><div><h1>Gestione giri in bici</h1><p class="radice">Aggiungi, correggi ed elimina giri e aggiorna i colori delle stagioni.</p></div></div><a class="btn" href="/">← Menu aggiornamento</a></header>
-<main class="layout singola"><div class="contenuto">
-<section class="scheda"><h2 id="titolo-form">Aggiungi o modifica un giro</h2><p class="sotto">Le statistiche mensili e il numero di corse vengono aggiornati insieme al giro. Se il periodo non esiste, viene creato automaticamente.</p><div id="msg" aria-live="polite"></div>
-<form id="form-giro"><input id="id" type="hidden"><div class="griglia"><label class="campo"><span class="etichetta">Stagione</span><select id="f-stagione" required></select></label><label class="campo"><span class="etichetta">Data</span><input id="f-data" type="date" required></label><label class="campo"><span class="etichetta">Luogo</span><input id="f-luogo" type="text" required maxlength="160" placeholder="es. Pinzano"></label><label class="campo"><span class="etichetta">Distanza (km)</span><input id="f-km" type="number" min="1" step="1" required></label><label class="campo pieno"><span class="etichetta">Link percorso (facoltativo)</span><input id="f-link" type="url" placeholder="https://…"></label></div><div class="azioni"><button class="btn primario" type="submit">Salva giro</button><button class="btn" id="annulla" type="button">Annulla / nuovo giro</button></div></form></section>
-<section class="scheda"><h2>Colore di una stagione e periodo</h2><p class="sotto">Seleziona, per esempio, Estate → 2022.</p><form id="form-colore"><div class="griglia"><label class="campo"><span class="etichetta">Stagione</span><select id="col-stagione"></select></label><label class="campo"><span class="etichetta">Periodo</span><select id="col-periodo"></select></label><label class="campo"><span class="etichetta">Colore</span><input id="colore" type="color" value="#2dd4bf"></label></div><div class="azioni"><button class="btn primario" type="submit">Aggiorna colore</button></div></form></section>
-<section class="scheda"><div class="lista-head"><div><h2>Giri esistenti</h2><p class="sotto" id="conteggio"></p></div><label class="campo"><span class="etichetta">Cerca</span><input id="filtro" type="search" placeholder="Data, stagione o luogo"></label></div><div id="lista" class="lista-giri"></div></section>
-</div></main><script src="/gestione.js" defer></script></body></html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f9d8a" />
+    <title>Gestione giri — Giri in Bici</title>
+    <link rel="stylesheet" href="/stile.css" />
+    <style>
+      .gestione { max-width: 1050px; margin: auto; }
+      .ride { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px; border:1px solid var(--bordo); border-radius:12px; background:var(--carta-2); }
+      .lista-giri { display:grid; gap:10px; }
+      .ride p { margin:4px 0 0; color:var(--testo-2); }
+      .lista-head { display:flex; justify-content:space-between; align-items:end; gap:16px; margin-bottom:16px; }
+      .lista-head .campo { width:min(100%, 300px); }
+      .danger { color:var(--errore); }
+      .conferma { padding:10px 12px; border-radius:10px; color:var(--ok); background:var(--ok-sfondo); }
+      .barra-strumenti { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+      .barra-strumenti .btn { text-decoration:none; }
+      @media(max-width:600px) { .ride,.lista-head { align-items:stretch; flex-direction:column; } .ride .azioni { margin-top:0; } }
+    </style>
+  </head>
+  <body>
+    <header class="testata">
+      <div class="marchio"><span class="logo">🚴</span><div><h1>Gestione giri in bici</h1><p class="radice">Aggiungi, correggi ed elimina giri; aggiorna anche date, link, km e colori.</p></div></div>
+      <a class="btn" href="/">← Altri aggiornamenti</a>
+    </header>
+    <main class="gestione layout singola"><div class="contenuto">
+      <div class="barra-strumenti"><a class="btn" href="/#stagione">🌸 Crea un periodo/stagione</a><a class="btn" href="/#mese">📆 Correggi statistiche mensili</a><a class="btn" href="/#anno">📅 Gestisci anni e statistiche</a></div>
+      <section class="scheda">
+        <h2>Aggiungi o modifica un giro</h2>
+        <p class="sotto">Modificare data, stagione, luogo, link o km aggiorna i file JSON e le statistiche mensili collegate. Se il periodo non esiste, viene creato automaticamente.</p>
+        <div id="msg" aria-live="polite"></div>
+        <form id="form-giro"><input id="id" type="hidden"><div class="griglia">
+          <label class="campo"><span class="etichetta">Stagione</span><select id="f-stagione" required></select></label>
+          <label class="campo"><span class="etichetta">Data</span><input id="f-data" type="date" required></label>
+          <label class="campo"><span class="etichetta">Luogo</span><input id="f-luogo" type="text" required maxlength="160" placeholder="es. Pinzano"></label>
+          <label class="campo"><span class="etichetta">Distanza (km)</span><input id="f-km" type="number" min="1" step="1" required></label>
+          <label class="campo pieno"><span class="etichetta">Link percorso (facoltativo)</span><input id="f-link" type="url" placeholder="https://…"></label>
+        </div><div class="azioni"><button class="btn primario" type="submit">Salva giro</button><button class="btn" id="annulla" type="button">Annulla / nuovo giro</button></div></form>
+      </section>
+      <section class="scheda"><h2>Colore di una stagione e periodo</h2><p class="sotto">Scegli una stagione e uno specifico periodo: per esempio Estate → 2022.</p><form id="form-colore"><div class="griglia">
+        <label class="campo"><span class="etichetta">Stagione</span><select id="col-stagione" required></select></label>
+        <label class="campo"><span class="etichetta">Periodo</span><select id="col-periodo" required></select></label>
+        <label class="campo"><span class="etichetta">Colore</span><input id="colore" type="color" value="#2dd4bf" required></label>
+      </div><div class="azioni"><button class="btn primario" type="submit">Aggiorna colore</button></div></form></section>
+      <section class="scheda"><div class="lista-head"><div><h2>Giri esistenti</h2><p class="sotto" id="conteggio"></p></div><label class="campo"><span class="etichetta">Cerca</span><input id="filtro" type="search" placeholder="Data, stagione o luogo"></label></div><div id="lista" class="lista-giri"></div></section>
+    </div></main>
+    <script src="/gestione.js" defer></script>
+  </body>
+</html>

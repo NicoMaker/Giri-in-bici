@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Giri in Bici — Aggiornamento</title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚴%3C/text%3E%3C/svg%3E"
-    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚴%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="/stile.css" />
   </head>
   <body>
@@ -19,11 +16,11 @@
           <p id="radice" class="radice">Aggiornamento guidato</p>
         </div>
       </div>
-      <span id="badge-prova" class="badge badge-prova" hidden
-        >Modalità prova · non scrive nulla</span
-      >
+      <nav class="link-gestione" aria-label="Strumenti">
+        <a class="btn" href="/gestione.html">Gestisci e correggi i giri</a>
+        <span id="badge-prova" class="badge badge-prova" hidden>Modalità prova · non scrive nulla</span>
+      </nav>
     </header>
-
     <div class="layout">
       <nav id="menu" class="menu" aria-label="Cosa vuoi fare?"></nav>
       <main class="contenuto">
@@ -31,12 +28,10 @@
         <section id="risultato" aria-live="polite"></section>
       </main>
     </div>
-
     <div id="occupato" class="occupato" hidden>
       <div class="rotella"></div>
       <p id="occupato-testo">Un attimo…</p>
     </div>
-
     <script src="/app.js"></script>
   </body>
 </html>
