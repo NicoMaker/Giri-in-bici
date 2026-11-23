@@ -32,24 +32,29 @@ const richiestaAutorizzata = (req) => {
   try { const origine = new URL(origin); return origine.hostname === host && ["http:", "https:"].includes(origine.protocol); } catch { return false; }
 };
 const leggiJsonRichiesta = async (req, max = 256 * 1024) => JSON.parse((await leggiCorpo(req, max)).toString("utf8") || "{}");
+const normalizzaAppJs = (sorgente) => {
+  // Ripara eventuali copie della vecchia trasformazione: mai lasciare riferimenti
+  // a __querySelectorHelper senza la relativa definizione.
+  sorgente = sorgente.replace(/\b(?:const|let|var)\s+__querySelectorHelper\s*=\s*\(([^)]*)\)\s*=>\s*document\.querySelector\(([^)]*)\);?/g,
+    "const $ = ($1) => document.querySelector($2);");
+  sorgente = sorgente.replaceAll("__querySelectorHelper(", "$(");
+  // L'app ha accidentalmente due dichiarazioni del selettore: conservarne una sola.
+  const dichiarazione = /\b(?:const|let|var)\s+\$\s*=\s*\(([^)]*)\)\s*=>\s*document\.querySelector\(([^)]*)\);?/g;
+  let prima = true;
+  sorgente = sorgente.replace(dichiarazione, (_match, argomento) => {
+    if (!prima) return "";
+    prima = false;
+    return `const $ = (${argomento}) => document.querySelector(${argomento});`;
+  });
+  return sorgente;
+};
 const gestisci = async (req, res) => {
   if (!richiestaAutorizzata(req)) { res.writeHead(403); return res.end("Accesso consentito solo da localhost o dalla rete locale."); }
   const url = new URL(req.url, "http://localhost");
   if (req.method === "GET" && FILE_STATICI[url.pathname]) {
     const [nome, tipo] = FILE_STATICI[url.pathname];
     let contenuto = fs.readFileSync(path.join(WEB, nome));
-    if (url.pathname === "/app.js") {
-      let sorgente = contenuto.toString("utf8");
-      // Older working copies had the $ helper repeated after el(). Keep one definition.
-      sorgente = sorgente.replace(/\nconst \$ = \(s\) => document\.querySelector\(s\);\s*\n\s*const api =/, "\nconst api =");
-      // Prevent a stale/local duplicate from becoming a SyntaxError if another helper copy remains.
-      sorgente = sorgente.replace(/\bconst \$ = \(s\) => document\.querySelector\(s\);/g, "let __querySelectorHelper = (s) => document.querySelector(s);");
-      const marker = "let __querySelectorHelper = (s) => document.querySelector(s);";
-      const first = sorgente.indexOf(marker);
-      if (first >= 0) sorgente = sorgente.slice(0, first + marker.length) + sorgente.slice(first + marker.length).replaceAll(marker, "");
-      sorgente = sorgente.replaceAll("$(", "__querySelectorHelper(");
-      contenuto = Buffer.from(sorgente, "utf8");
-    }
+    if (url.pathname === "/app.js") contenuto = Buffer.from(normalizzaAppJs(contenuto.toString("utf8")), "utf8");
     res.writeHead(200, { "Content-Type": tipo, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
     return res.end(contenuto);
   }
