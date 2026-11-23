@@ -6,6 +6,19 @@
     <title>Giri in Bici — Aggiornamento</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚴%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="/stile.css" />
+    <style>
+      .gestione-inline { max-width: 1240px; margin: 0 auto 48px; padding: 0 clamp(16px, 4vw, 40px); }
+      .ride { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px; border:1px solid var(--bordo); border-radius:12px; background:var(--carta-2); }
+      .lista-giri { display:grid; gap:10px; }
+      .ride p { margin:4px 0 0; color:var(--testo-2); }
+      .lista-head { display:flex; justify-content:space-between; align-items:end; gap:16px; margin-bottom:16px; }
+      .lista-head .campo { width:min(100%, 300px); }
+      .danger { color:var(--errore); }
+      .conferma { padding:10px 12px; border-radius:10px; color:var(--ok); background:var(--ok-sfondo); }
+      .link-gestione { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+      .link-gestione .btn { text-decoration:none; }
+      @media(max-width:600px) { .ride,.lista-head { align-items:stretch; flex-direction:column; } .ride .azioni { margin-top:0; } }
+    </style>
   </head>
   <body>
     <header class="testata">
@@ -17,7 +30,7 @@
         </div>
       </div>
       <nav class="link-gestione" aria-label="Strumenti">
-        <a class="btn" href="/gestione.html">Gestisci e correggi i giri</a>
+        <a class="btn" href="#gestione-giri">Gestisci e correggi i giri</a>
         <span id="badge-prova" class="badge badge-prova" hidden>Modalità prova · non scrive nulla</span>
       </nav>
     </header>
@@ -28,10 +41,33 @@
         <section id="risultato" aria-live="polite"></section>
       </main>
     </div>
+
+    <section id="gestione-giri" class="gestione-inline contenuto" aria-labelledby="gestione-titolo">
+      <section class="scheda">
+        <h2 id="gestione-titolo">Gestisci i giri esistenti</h2>
+        <p class="sotto">Modifica o elimina i giri, aggiorna data, stagione, luogo, link e km. Le statistiche mensili collegate vengono aggiornate insieme ai file JSON.</p>
+        <div id="msg" aria-live="polite"></div>
+        <form id="form-giro"><input id="id" type="hidden"><div class="griglia">
+          <label class="campo"><span class="etichetta">Stagione</span><select id="f-stagione" required></select></label>
+          <label class="campo"><span class="etichetta">Data</span><input id="f-data" type="date" required></label>
+          <label class="campo"><span class="etichetta">Luogo</span><input id="f-luogo" type="text" required maxlength="160" placeholder="es. Pinzano"></label>
+          <label class="campo"><span class="etichetta">Distanza (km)</span><input id="f-km" type="number" min="1" step="1" required></label>
+          <label class="campo pieno"><span class="etichetta">Link percorso (facoltativo)</span><input id="f-link" type="url" placeholder="https://…"></label>
+        </div><div class="azioni"><button class="btn primario" type="submit">Salva giro</button><button class="btn" id="annulla" type="button">Annulla / nuovo giro</button></div></form>
+      </section>
+      <section class="scheda"><h2>Colore di una stagione e periodo</h2><p class="sotto">Scegli una stagione e uno specifico periodo: per esempio Estate → 2022.</p><form id="form-colore"><div class="griglia">
+        <label class="campo"><span class="etichetta">Stagione</span><select id="col-stagione" required></select></label>
+        <label class="campo"><span class="etichetta">Periodo</span><select id="col-periodo" required></select></label>
+        <label class="campo"><span class="etichetta">Colore</span><input id="colore" type="color" value="#2dd4bf" required></label>
+      </div><div class="azioni"><button class="btn primario" type="submit">Aggiorna colore</button></div></form></section>
+      <section class="scheda"><div class="lista-head"><div><h2>Elenco giri</h2><p class="sotto" id="conteggio"></p></div><label class="campo"><span class="etichetta">Cerca</span><input id="filtro" type="search" placeholder="Data, stagione o luogo"></label></div><div id="lista" class="lista-giri"></div></section>
+    </section>
+
     <div id="occupato" class="occupato" hidden>
       <div class="rotella"></div>
       <p id="occupato-testo">Un attimo…</p>
     </div>
     <script src="/app.js"></script>
+    <script src="/gestione.js" defer></script>
   </body>
 </html>
