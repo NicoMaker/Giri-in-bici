@@ -100,24 +100,16 @@ const leggiBandierePersonalizzate = () => {
 };
 const paesePersonalizzato = (codice) =>
   leggiBandierePersonalizzate().find((b) => b.codice === codice);
-// Una bandiera standard è "disponibile" nel menu solo se l'immagine esiste davvero
-// in Img/Icons (oggi Austria e Slovenia). Le altre restano valide nei giri già salvati.
-const bandieraPresente = (p) =>
-  [".png", ".svg"].some((est) =>
-    fs.existsSync(path.join(RADICE, "Img", "Icons", nomeFile(p.nome) + est)),
-  );
 const elencoPaesi = () => [
   ...PAESI.map((p) => ({
     ...p,
     src: `/img/Bandiere/${p.codice.toLowerCase()}.svg`,
-    disponibile: bandieraPresente(p),
   })),
   ...leggiBandierePersonalizzate().map((p) => ({
     ...p,
     bandiera: "🏳️",
     src: immagineBandiera(p.codice).url,
     personalizzata: true,
-    disponibile: true,
   })),
 ];
 const nomePaese = (codice) =>

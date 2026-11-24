@@ -97,9 +97,7 @@ const bandierePicker = (input) => {
   let fileSelezionato = null;
   let urlLocale = null;
   const ricarica = () => {
-    const standard = paesi.filter(
-      (p) => !p.personalizzata && p.disponibile,
-    );
+    const standard = paesi.filter((p) => !p.personalizzata);
     const personalizzate = paesi.filter((p) => p.personalizzata);
     sel.replaceChildren(
       el("option", { value: "", text: "Scegli una bandiera già disponibile…" }),

@@ -56,8 +56,6 @@ const PACCHETTI = {
       "modali-e-bandiere.css",
       "upload-bandiere-menu.css",
       "responsive-menu.css",
-      "moderno.css",
-      "ricerca-menu.css",
     ],
   },
 };
