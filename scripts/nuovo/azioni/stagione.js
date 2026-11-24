@@ -21,10 +21,7 @@ const {
   controllaCoerenza,
   leggiDataSalvata,
 } = require("../calcoli/giri-e-statistiche");
-const {
-  cartellaImg,
-  elencaFoto,
-} = require("../immagini/foto");
+const { cartellaImg, elencaFoto } = require("../immagini/foto");
 const { aggiungiAArray, aggiungiAOggetto } = require("../json/json-chirurgico");
 
 const costruisciGalleria = (html, vecchio, s, periodo, nFoto) => {

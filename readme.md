@@ -48,10 +48,10 @@ Quando fai un giro basta dire: **data, stagione, luogo, link al percorso e km**,
 
 > _Il 22 Novembre 2026, Autunno-Inverno, ho fatto un giro di 95 km a Pinzano, link: https://www.komoot.com/..._
 
-Dall'interfaccia web (`node scripts/server.js` → http://localhost:3000, voce **Aggiungi un giro** nel gruppo *Giri*) compili il modulo. Oltre ai campi base puoi aggiungere:
+Dall'interfaccia web (`node scripts/server.js` → http://localhost:3000, voce **Aggiungi un giro** nel gruppo _Giri_) compili il modulo. Oltre ai campi base puoi aggiungere:
 
-- **bandiere**: dal menu *Inserisci una bandiera* scegli il paese e la bandiera si inserisce nel testo del luogo, accanto al posto, come già nei giri esistenti (es. `Da Tarvisio a Bled {SI}`). L'immagine sta in `Img/Icons/` (Slovenia.png e Austria.png ci sono già); per gli altri paesi il programma crea il file, per esempio `Img/Icons/Croazia.svg`, e nel giro mette il link all'immagine;
-- **uno o più link**, ognuno con il suo titolo (es. *Andata*, *Ritorno*): utile quando un tour è stato registrato male e diviso in più tracce.
+- **bandiere**: dal menu _Inserisci una bandiera_ scegli il paese e la bandiera si inserisce nel testo del luogo, accanto al posto, come già nei giri esistenti (es. `Da Tarvisio a Bled {SI}`). L'immagine sta in `Img/Icons/` (Slovenia.png e Austria.png ci sono già); per gli altri paesi il programma crea il file, per esempio `Img/Icons/Croazia.svg`, e nel giro mette il link all'immagine;
+- **uno o più link**, ognuno con il suo titolo (es. _Andata_, _Ritorno_): utile quando un tour è stato registrato male e diviso in più tracce.
 
 Bandiere (immagini) e link vengono scritti nel campo `place` del JSON nello stesso formato che il sito legge già, quindi le pagine pubbliche non cambiano.
 

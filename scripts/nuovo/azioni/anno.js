@@ -4,11 +4,7 @@
 
 const fs = require("fs");
 const { MESI, PERCORSO_STORICO_JSON } = require("../base/impostazioni");
-const {
-  leggiJson,
-  ordinaPeriodi,
-  validaPeriodo,
-} = require("../base/utilita");
+const { leggiJson, ordinaPeriodi, validaPeriodo } = require("../base/utilita");
 const { cartellaImg } = require("../immagini/foto");
 const { creaIconaAnno } = require("../immagini/icona-anno");
 const { aggiungiAArray, aggiungiAOggetto } = require("../json/json-chirurgico");

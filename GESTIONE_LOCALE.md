@@ -6,7 +6,7 @@ La pagina è un unico file: `scripts/nuovo/www/index.html` (HTML, CSS e JavaScri
 
 Sezioni della pagina:
 
-- **Inserimento**: casi raggruppati per categoria — *Giri* (aggiungi giro con bandiere e più link con titolo), *Statistiche* (mese, anno), *Stagioni e foto*.
+- **Inserimento**: casi raggruppati per categoria — _Giri_ (aggiungi giro con bandiere e più link con titolo), _Statistiche_ (mese, anno), _Stagioni e foto_.
 - **Archivio giri**: modifica/elimina giri, con la stessa logica dei filtri del sito: select a scelta multipla con ricerca (Stagione, Anno, Paese), ricerca testo, 6 ordinamenti, intervallo km con MIN/MAX e reset (solo pulsanti, solo ricerca, entrambi).
 - **Utenti**: aggiungi, modifica, elimina gli utenti di `json/About_US/Users.json`, con ricerca.
 - **Colori e periodi**: colori di periodi, anni e mesi; eliminazione periodi, con ricerca.

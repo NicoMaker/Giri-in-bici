@@ -5,10 +5,7 @@
 const fs = require("fs");
 const { STAGIONI } = require("../base/impostazioni");
 const { leggiJson, ordinaPeriodi } = require("../base/utilita");
-const {
-  cartellaImg,
-  elencaFoto,
-} = require("../immagini/foto");
+const { cartellaImg, elencaFoto } = require("../immagini/foto");
 
 const applicaFoto = (piano, d) => {
   const { s, periodo, foto } = d;
