@@ -237,7 +237,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
 
     const aggiornaTesto = () => {
       const attivi = voci.filter((v) => v.checked);
-      if (!attivi.length) {
+      if (!attivi.length || attivi.length === voci.length) {
         valoreEl.textContent = testoVuoto;
       } else if (attivi.length === 1) {
         valoreEl.textContent = attivi[0].label;
@@ -246,7 +246,7 @@ window.FiltroMultiplo = window.FiltroMultiplo || {};
       }
       contenitore.classList.toggle(
         "filtro-multiplo--attivo",
-        attivi.length > 0,
+        attivi.length > 0 && attivi.length < voci.length,
       );
       bottone.disabled = voci.length === 0;
     };

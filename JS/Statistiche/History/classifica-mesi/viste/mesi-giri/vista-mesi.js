@@ -211,7 +211,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // all'apertura della scheda) e i mesi a "tutti i mesi".
         ripristinaFiltri: () => {
           if (filtroRecordAnno) filtroRecordAnno.selezionaTutte();
-          if (filtroRecordMese) filtroRecordMese.azzera();
+          if (filtroRecordMese) filtroRecordMese.selezionaTutte();
         },
       },
     );
@@ -335,11 +335,14 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // Senza "?anno=" nell'indirizzo si parte con TUTTI gli anni già
         // selezionati automaticamente (uno per uno, non "in blocco"),
         // così la scheda Record mostra subito i record anno per anno.
-        const anniDaUrl = annoFiltro
+        const anniIndicatiDaUrl = annoFiltro
           ? annoFiltro
               .split(",")
               .map((a) => a.trim())
               .filter((a) => anniRecordUnici.includes(a))
+          : [];
+        const anniDaUrl = anniIndicatiDaUrl.length
+          ? anniIndicatiDaUrl
           : anniRecordUnici;
 
         filtroRecordAnno = window.FiltroMultiplo.crea(contenitoreRecordAnnoEl, {
@@ -358,10 +361,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         // Filtro MESI: Gennaio, Febbraio... (nomi, non numeri).
         // Si può anche preselezionare da URL: "?mese=Gennaio,Febbraio".
         if (contenitoreRecordMeseEl) {
-          const mesiDaUrl = (parametriRecord.get("mese") || "")
+          const mesiIndicatiDaUrl = (parametriRecord.get("mese") || "")
             .split(",")
             .map((m) => m.trim())
             .filter((m) => ConfigMesi.elenco.includes(m));
+          const mesiDaUrl = mesiIndicatiDaUrl.length
+            ? mesiIndicatiDaUrl
+            : ConfigMesi.elenco;
 
           filtroRecordMese = window.FiltroMultiplo.crea(
             contenitoreRecordMeseEl,

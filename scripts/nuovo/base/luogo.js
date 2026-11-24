@@ -8,8 +8,8 @@ const { RADICE } = require("./impostazioni");
 //
 // Come nei giri già presenti nei JSON, la bandiera sta nel testo, subito dopo il posto a cui si riferisce:
 //   "Da Tarvisio a Bled {SI} e Lubiana {SI}"   →   <img src="/img/Icons/Slovenia.png" alt="Slovenia"> al posto di {SI}
-// {XX} è il codice del paese (SI, AT, HR…). L'immagine sta in Img/Icons/<Paese>.png|svg: se non c'è
-// (Slovenia.png e Austria.png ci sono già) il programma la CREA copiandola da scripts/nuovo/base/bandiere/.
+// {XX} usa il codice del paese (SI, AT, HR…); le bandiere personalizzate usano un codice automatico.
+// L'immagine sta in Img/Icons/<Paese>.png|svg: se manca, il programma la crea da scripts/nuovo/base/bandiere/.
 //
 // Il JSON dei giri continua a salvare tutto in `place` (HTML), il formato che il sito pubblico già legge:
 //   senza link          →  "Cividale + Dobrovo <img…>"
@@ -79,40 +79,94 @@ function bandiera(codice) {
 }
 
 const CODICI = new Set(PAESI.map((p) => p.codice));
+const FILE_BANDIERE_PERSONALIZZATE = path.join(
+  RADICE,
+  "json",
+  "Bandiere-personalizzate.json",
+);
+const leggiBandierePersonalizzate = () => {
+  if (!fs.existsSync(FILE_BANDIERE_PERSONALIZZATE)) return [];
+  const dati = JSON.parse(fs.readFileSync(FILE_BANDIERE_PERSONALIZZATE, "utf8"));
+  if (!Array.isArray(dati))
+    throw new Error("Il catalogo delle bandiere personalizzate non è valido.");
+  return dati.filter(
+    (b) =>
+      b &&
+      /^CUSTOM_[A-Z0-9_]+$/.test(b.codice) &&
+      typeof b.nome === "string" &&
+      typeof b.file === "string" &&
+      /^custom-[a-z0-9-]+\.(?:png|jpe?g|webp)$/i.test(b.file),
+  );
+};
+const paesePersonalizzato = (codice) =>
+  leggiBandierePersonalizzate().find((b) => b.codice === codice);
+const elencoPaesi = () => [
+  ...PAESI.map((p) => ({
+    ...p,
+    src: `/img/Bandiere/${p.codice.toLowerCase()}.svg`,
+  })),
+  ...leggiBandierePersonalizzate().map((p) => ({
+    ...p,
+    bandiera: "🏳️",
+    src: immagineBandiera(p.codice).url,
+    personalizzata: true,
+  })),
+];
+const nomePaese = (codice) =>
+  PAESI.find((p) => p.codice === codice)?.nome ||
+  paesePersonalizzato(codice)?.nome ||
+  codice;
 
-// I testi si scrivono come stanno (apostrofi e & compresi), come nei giri già presenti: < e > sono vietati a monte.
-const esc = (s) => String(s);
+// I testi finiscono in HTML già esistente: conserva apostrofi e & in modo sicuro.
+const esc = (s) =>
+  String(s).replace(/[&<>\"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+  );
 const unesc = (s) =>
   String(s)
     .replace(/<[^>]*>/g, " ")
+    .replace(/&quot;/g, '\"')
+    .replace(/&#39;/g, "'")
+    .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
+    .replace(/&amp;/g, "&")
     .replace(/\s+/g, " ")
     .trim();
 
 const validaLink = (url) => /^https?:\/\/[^\s"<>]+$/i.test(url);
 
-const NOME_PAESE = Object.fromEntries(PAESI.map((p) => [p.codice, p.nome]));
-const CODICE_DA_FILE = Object.fromEntries(
-  PAESI.map((p) => [nomeFile(p.nome), p.codice]),
-);
 function nomeFile(nome) {
   return nome.replace(/\s+/g, "_");
 }
-const RE_TOKEN = /\{([A-Z]{2})\}/g;
+const RE_TOKEN = /\{([A-Z][A-Z0-9_]{1,63})\}/g;
 const codiciNelLuogo = (luogo) => [
   ...new Set([...String(luogo).matchAll(RE_TOKEN)].map((m) => m[1])),
 ];
+const codiceDaFile = (base) =>
+  PAESI.find((p) => nomeFile(p.nome).toLowerCase() === base.toLowerCase())
+    ?.codice ||
+  leggiBandierePersonalizzate().find(
+    (p) => path.parse(p.file).name.toLowerCase() === base.toLowerCase(),
+  )?.codice;
 
-// Dove sta (o starà) l'immagine della bandiera: Img/Icons/<Paese>.png se esiste già, altrimenti .svg
+// Dove sta l'immagine: le bandiere create dall'app riusano il file caricato in Img/Icons.
 const immagineBandiera = (codice) => {
-  const base = nomeFile(NOME_PAESE[codice]);
+  const personalizzata = paesePersonalizzato(codice);
+  if (personalizzata) {
+    const rel = `Img/Icons/${personalizzata.file}`;
+    return { rel, url: "/" + rel };
+  }
+  const paese = PAESI.find((p) => p.codice === codice);
+  if (!paese) throw new Error(`Bandiera non riconosciuta: ${codice}.`);
+  const base = nomeFile(paese.nome);
   const png = `Img/Icons/${base}.png`;
   const rel = fs.existsSync(path.join(RADICE, png))
     ? png
     : `Img/Icons/${base}.svg`;
-  return { rel, url: "/" + rel.replace(/^Img\//, "img/") };
+  return { rel, url: "/" + rel };
 };
 const imgTag = (codice) =>
-  `<img src="${immagineBandiera(codice).url}" alt="${esc(NOME_PAESE[codice])}">`;
+  `<img src="${immagineBandiera(codice).url}" alt="${esc(nomePaese(codice))}">`;
 
 // I file bandiera che mancano nella cartella del sito: [{ rel, testo }], da creare insieme al giro.
 const bandiereMancanti = (luogo) =>
@@ -120,6 +174,8 @@ const bandiereMancanti = (luogo) =>
     .map((c) => ({ c, rel: immagineBandiera(c).rel }))
     .filter(({ rel }) => !fs.existsSync(path.join(RADICE, rel)))
     .map(({ c, rel }) => {
+      if (paesePersonalizzato(c))
+        throw new Error(`Manca il file della bandiera personalizzata ${c}.`);
       const origine = path.join(
         __dirname,
         "bandiere",
@@ -138,7 +194,11 @@ const normalizzaLuogo = ({ luogo, link, links }, prefisso = "") => {
   if (!nome) throw new Error(`${prefisso}Il luogo è obbligatorio.`);
   if (/[<>]/.test(nome))
     throw new Error(`${prefisso}Il luogo non può contenere i simboli < e >.`);
-  const ignoto = codiciNelLuogo(nome).find((c) => !CODICI.has(c));
+  const codiciValidi = new Set([
+    ...CODICI,
+    ...leggiBandierePersonalizzate().map((b) => b.codice),
+  ]);
+  const ignoto = codiciNelLuogo(nome).find((c) => !codiciValidi.has(c));
   if (ignoto)
     throw new Error(
       `${prefisso}Paese sconosciuto per la bandiera {${ignoto}}.`,
@@ -187,9 +247,9 @@ const costruisciPlace = ({ luogo, links = [] }) => {
 // Le immagini di bandiera tornano {XX}; ogni altra immagine o tag sparisce dal nome.
 const leggiPlace = (place) => {
   const testo = String(place || "").replace(
-    /<img\b[^>]*src=["']\/?img\/Icons\/([^"']+?)\.(?:png|svg)["'][^>]*>/gi,
+    /<img\b[^>]*src=["']\/?img\/Icons\/([^"']+?)\.(?:png|jpe?g|webp|svg)["'][^>]*>/gi,
     (m, nome) => {
-      const c = CODICE_DA_FILE[nomeFile(decodeURIComponent(nome))];
+      const c = codiceDaFile(nomeFile(decodeURIComponent(nome)));
       return c ? `{${c}}` : "";
     },
   );
@@ -210,6 +270,8 @@ const leggiPlace = (place) => {
 module.exports = {
   PAESI,
   bandiera,
+  elencoPaesi,
+  leggiBandierePersonalizzate,
   immagineBandiera,
   bandiereMancanti,
   codiciNelLuogo,

@@ -1,225 +1,59 @@
-# 📋 Aggiornamenti e Manutenzione
+# Giri in Bici
 
-Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per mantenere il sito sempre aggiornato.
+Guida pratica per aggiungere e correggere giri, stagioni, statistiche e bandiere senza modificare i file a mano.
 
----
+## Avviare il gestionale
 
-## 🌐 Interfaccia Web (il modo più comodo)
-
-Puoi fare **tutto da browser**, con un'interfaccia moderna (tema chiaro/scuro automatico, adatta anche al telefono). Serve solo [Node.js](https://nodejs.org) 18 o più recente, nessuna libreria da installare:
+Serve Node.js 18 o successivo. Dalla cartella principale del repository avvia:
 
 ```bash
 node scripts/server.js
 ```
 
-Si apre da solo <http://localhost:3000>. Per fermare il server premi `Ctrl+C`.
+Il gestionale si apre su <http://localhost:3000>. Per interromperlo, torna alla finestra del server e premi `Ctrl+C`.
+
+Opzioni utili:
 
 ```bash
-node scripts/server.js --porta=4000      # un'altra porta (se la 3000 è occupata ne prova la successiva da sola)
-node scripts/server.js --prova           # fa vedere le anteprime ma NON scrive nessun file
-node scripts/server.js --senza-browser   # non apre il browser da solo
+node scripts/server.js --porta=4000       # usa la porta 4000 (o la successiva libera)
+node scripts/server.js --prova            # prova le anteprime senza consentire modifiche ai dati
+node scripts/server.js --senza-browser    # avvia il server senza aprire automaticamente il browser
 ```
 
-Dal menu a sinistra scegli cosa fare:
+Per proteggere i dati, tieni il server sul computer o sulla rete locale: non pubblicarlo su Internet e non inoltrare la porta del gestionale.
 
-| Voce                               | Cosa fa                                                                       |
-| ---------------------------------- | ----------------------------------------------------------------------------- |
-| 🚴 **Aggiungi un giro**            | data, stagione, luogo, link e km → aggiorna il giro, i km del mese e le corse |
-| 📆 **Aggiungi o correggi un mese** | somma o sostituisce i km di un mese (lo crea se non c'è)                      |
-| 📷 **Aggiungi foto**               | trascini i `.jpg`: numerazione continua e galleria aggiornata                 |
-| 🌸 **Nuova stagione**              | pagina, JSON, colore, foto e (se vuoi) il primo giro                          |
-| 📅 **Nuovo anno di Statistiche**   | pagina, JSON, colore e icona dell'anno                                        |
-| 🗓️ **Nuovo anno completo**         | Statistiche + Primavera + Estate + Autunno-Inverno insieme                    |
+## Inserire o correggere un giro
 
-Come funziona, in ogni voce:
+1. Apri **Inserimento** per aggiungere una corsa oppure **Archivio giri** per correggere o rimuovere una corsa già presente.
+2. Compila i campi e controlla la bandiera, il luogo, il link e i chilometri.
+3. Nel modulo di inserimento guidato, usa **Anteprima** e controlla il riepilogo prima di confermare. Nell'archivio, dopo aver premuto **Crea giro** o **Salva modifiche**, controlla la finestra di conferma.
+4. I dati non vengono salvati mentre scrivi: vengono aggiornati solo dopo la conferma esplicita. Le eliminazioni chiedono una conferma separata.
 
-1. compili il modulo e premi **Anteprima**: vedi la frase di riepilogo, i km prima → dopo, gli **avvisi** (data nel futuro, giro già presente, km che non tornano…) e l'elenco dei file che verrebbero creati o aggiornati;
-2. se va bene premi **Conferma e scrivi i file**; se qualcosa non torna (JSON non valido, file già esistente…) non viene scritto **niente**.
+Quando il giro viene confermato, il gestionale aggiorna il periodo e le statistiche del mese e dell'anno corrispondenti. Se trova dati mancanti o incoerenti, mostra un avviso prima di procedere.
 
-Ogni inserimento passa dagli stessi controlli e modifica i JSON riga per riga senza riformattarli; i colori si scelgono dal selettore della pagina.
+## Scegliere o aggiungere una bandiera
 
-> 🔒 Il server ascolta **solo su questo computer** (`127.0.0.1`) e rifiuta richieste da altri indirizzi o da altri siti. Le foto caricate passano da una cartella temporanea che viene svuotata dopo la conferma.
+Nel campo **Luogo**, posiziona il cursore nel punto in cui vuoi aggiungere la bandiera:
 
----
+- scegli una bandiera già disponibile dal menu; il codice viene inserito nel luogo e la bandiera compare nell'anteprima;
+- per una nuova bandiera, apri **Crea una bandiera personalizzata**, scrivi il nome che vuoi mostrare, poi trascina un'immagine nell'area oppure selezionala dal dispositivo;
+- sono accettati file PNG, JPG/JPEG e WebP fino a 5 MB. Premi **Carica e usa bandiera** per salvarla e inserirla nel luogo.
 
-## 🚴 Aggiungere un Giro (il caso più frequente)
+L'immagine viene collocata in `Img/Icons/` con un nome file sicuro; il nome visibile e il collegamento al file vengono registrati in `json/Bandiere-personalizzate.json`. La bandiera sarà disponibile anche nelle corse successive. Se il nome è già usato, scegline uno diverso.
 
-Quando fai un giro basta dire: **data, stagione, luogo, link al percorso e km**, ad esempio:
+## Filtri e visualizzazione
 
-> _Il 22 Novembre 2026, Autunno-Inverno, ho fatto un giro di 95 km a Pinzano, link: https://www.komoot.com/..._
+Nelle pagine di classifica, i filtri partono con tutte le stagioni, gli anni e i mesi selezionati: così vengono mostrati tutti i dati. Puoi restringere i risultati deselezionando le voci che non ti interessano; **Seleziona tutte** e **Deseleziona tutto** agiscono sulle voci visibili nella ricerca del filtro.
 
-Dall'interfaccia web (`node scripts/server.js` → http://localhost:3000, voce **Aggiungi un giro** nel gruppo _Giri_) compili il modulo. Oltre ai campi base puoi aggiungere:
+## Altre operazioni
 
-- **bandiere**: dal menu _Inserisci una bandiera_ scegli il paese e la bandiera si inserisce nel testo del luogo, accanto al posto, come già nei giri esistenti (es. `Da Tarvisio a Bled {SI}`). L'immagine sta in `Img/Icons/` (Slovenia.png e Austria.png ci sono già); per gli altri paesi il programma crea il file, per esempio `Img/Icons/Croazia.svg`, e nel giro mette il link all'immagine;
-- **uno o più link**, ognuno con il suo titolo (es. _Andata_, _Ritorno_): utile quando un tour è stato registrato male e diviso in più tracce.
+Dal menu puoi anche aggiungere o correggere i chilometri di un mese, caricare foto, creare una nuova stagione o preparare un nuovo anno di statistiche. Per queste operazioni il gestionale mostra un riepilogo e chiede conferma prima di scrivere i file.
 
-Bandiere (immagini) e link vengono scritti nel campo `place` del JSON nello stesso formato che il sito legge già, quindi le pagine pubbliche non cambiano.
+## Dove vengono salvati i dati
 
-La riga di comando (`nuovo.js`) è stata rimossa: l'inserimento dati si fa solo dalla pagina web.
+- Dati di giri, periodi e statistiche: cartella `json/`.
+- Immagini delle bandiere personalizzate: cartella `Img/Icons/`.
+- Pagina del gestionale: `scripts/nuovo/www/index.html`.
+- Stili e interazioni del gestionale: `scripts/nuovo/www/styles.css`, `scripts/nuovo/www/app.js` e `scripts/nuovo/www/gestione.js`.
 
-L'inserimento fa **tutto insieme**, senza toccare il resto dei file:
-
-1. aggiunge il giro nel JSON del periodo giusto (es. [`json/Autunno_Inverno/Periodi/2026-2027.json`](json/Autunno_Inverno/Periodi/2026-2027.json)), **in ordine di data**, con il link al percorso;
-2. **somma i km** nel mese giusto dell'**anno giusto** ([`json/Statistiche/anni/2026.json`](json/Statistiche/anni/2026.json)); se quel mese non c'è ancora **lo crea** al posto giusto del calendario;
-3. **aumenta di 1 le corse** dell'anno (`numberOfRaces`).
-
-Come sceglie il periodo e l'anno: Primavera/Estate → l'anno della data; Autunno-Inverno → da Settembre a Dicembre è il primo anno del biennio, da Gennaio in poi il secondo (Gennaio 2027 → periodo `2026-2027`, statistiche del `2027`). Se il periodo o l'anno non esistono ancora si ferma senza scrivere nulla e ti dice cosa creare prima.
-
-Prima di scrivere mostra la frase di riepilogo ("Il giorno 22 Novembre 2026 hai fatto un giro di 95 km…"), i km del mese prima → dopo e le corse prima → dopo, e avvisa se la data è nel futuro, se esiste già un giro uguale o se i km del mese non coincidono con la somma dei giri.
-
-Per aggiungere o correggere **solo un mese** di un anno (anche se non c'è) usa la voce **Aggiungere o correggere un MESE**.
-
----
-
-## ⚡ Creazione Guidata da Terminale
-
-Tutti i passaggi qui sotto (nuova stagione e nuovo anno) si possono fare in automatico con uno script guidato. Serve solo [Node.js](https://nodejs.org), nessuna libreria:
-
-```bash
-node scripts/server.js                  # interfaccia web
-node scripts/server.js --prova       # mostra cosa farebbe, senza scrivere nulla
-```
-
-Il menu offre: **giro**, **mese**, **foto**, **nuova stagione** 🌸🌞🍁❄️, **nuovo anno di Statistiche** 📅
-
-> Terminale e interfaccia web fanno le stesse cose: scegli quello che preferisci. L'elenco di **tutti i casi** è in un unico JSON, [`scripts/nuovo/programma/casi.json`](scripts/nuovo/programma/casi.json), letto da entrambi (testo del menu, icona, titolo, descrizione).
-
-- **Il colore lo scegli sempre tu**: lo script non ne suggerisce nessuno. Ti mostra i colori già usati e tu scrivi un nome CSS (es. `gold`, `teal`) oppure un esadecimale (es. `#ff0060`). Un colore non valido o già usato viene segnalato.
-- **Stagione**: crea la pagina HTML (copia dell'ultimo periodo con il nuovo anno), il JSON del periodo con un solo giro d'esempio (o il primo giro che inserisci tu), aggiorna `generale.json` (`subPeriods` e `colors`) e `stagioni.json`.
-- **Foto della stagione**: se trascini la cartella con le foto `.jpg` le copia come `1.jpg`, `2.jpg`… in `Img/<Stagione>/<periodo>/` e costruisce nella pagina un blocco galleria per ognuna, con i percorsi e i testi `alt` giusti. Se salti, puoi indicare quante foto avrai (blocchi pronti) oppure lasciare la sezione vuota.
-- **Foto in una stagione già esistente**: voce **Aggiungere FOTO** del menu → scegli stagione e periodo, trascini la cartella con i `.jpg`: le copia in `Img/<Stagione>/<periodo>/` continuando la numerazione (non sovrascrive mai le foto già presenti) e aggiunge i blocchi alla galleria della pagina.
-- **Anno**: crea la pagina, il JSON dell'anno e aggiorna `Storico.json` (`anni` e `coloriAnni`). Puoi inserire subito il primo mese (anche non Gennaio).
-- **Icona (favicon) dell'anno**: se indichi un'immagine `.jpg` la copia in `Img/Statistiche/Anni/<anno>.jpg`; altrimenti **la crea lo script** (`<anno>.png`: l'anno scritto sul colore scelto) e il link `rel="icon"` della pagina punta già al file giusto. Se poi preferisci una tua foto: salvala come `<anno>.jpg` nella stessa cartella e nella pagina cambia `.png` in `.jpg` nel link dell'icona.
-
-Il codice dello script è diviso in componenti, in cartelle per argomento, dentro [`scripts/nuovo/`](scripts/nuovo/):
-
-- `base/`: `impostazioni`, `luogo` (bandiere e link), `piano`, `utilita`
-- `json/`: `json-chirurgico`
-- `immagini/`: `foto`, `icona-anno`
-- `calcoli/`: `giri-e-statistiche`
-- `azioni/`: `stagione`, `anno`, `giro`, `mese`, `foto-stagione`
-- `programma/`: `elenco`, `casi.json` (casi raggruppati per categoria)
-- `server/`: `server` (HTTP locale, senza librerie) e `api` (anteprima, conferma, caricamento foto: usa le funzioni `applica…`), più `gestione` (archivio giri, utenti, colori) e `statistiche`
-- `www/`: `index.html` (tutta la pagina: HTML, CSS e JavaScript)
-
-`scripts/server.js` avvia l'interfaccia web.
-
-Prima di scrivere mostra un riepilogo e chiede conferma; se un file esiste già o un JSON non è valido si ferma senza toccare niente. Nei JSON esistenti viene aggiunta solo la riga nuova, il resto non viene riformattato.
-
----
-
-## 📂 Aggiornare i Dati JSON
-
-### Stagione
-
-1. **Aggiorna il file JSON per la stagione Autunno-Inverno 2026-2027**
-   - **Percorso:** [`json/Autunno_Inverno/Periodi/2026-2027.json`](json/Autunno_Inverno/Periodi/2026-2027.json)
-   - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.
-
-### Statistiche
-
-1. **Aggiorna il file JSON per le statistiche per il 2026**
-   - **Percorso:** [`json/Statistiche/anni/2026.json`](json/Statistiche/anni/2026.json)
-   - Modifica i chilometri (km) di Novembre e aggiorna il numero totale di corse dell'anno.
-
-## 🗓 Inizio di una Nuova Stagione
-
-### Creazione della Nuova Stagione
-
-### Passaggi da Seguire
-
-1. **Struttura HTML**
-
-   Crea il file HTML per la stagione nelle cartelle di riferimento, seguendo il percorso indicato, e inserendo l'anno della stagione:
-   - **Primavera** 🌸: [`Primavera/`](Primavera/)
-   - **Estate** 🌞: [`Estate/`](Estate/)
-   - **Autunno Inverno** 🍁❄️: [`Autunno_Inverno/`](Autunno_Inverno/)
-
-2. **File JSON per la Nuova Stagione**
-
-   Crea un file JSON per la nuova stagione all'interno della cartella di riferimento con il nome dell'anno:
-   - **Primavera** 🌸: [`json/Primavera/Periodi/`](json/Primavera/Periodi/)
-   - **Estate** 🌞: [`json/Estate/Periodi/`](json/Estate/Periodi/)
-   - **Autunno Inverno** 🍁❄️: [`json/Autunno_Inverno/Periodi/`](json/Autunno_Inverno/Periodi/)
-
-3. **Aggiornamento del File Principale della Stagione 🌸🌞🍁❄️**
-
-   Aggiorna il file principale del nuovo periodo nella stagione in cui hai creato la nuova sottostagione, specificando il percorso del file con il nome e il colore del nuovo periodo come fatto per gli altri. Il percorso da inserire nel campo `subPeriods` deve puntare al file JSON reale sotto `json/`:
-   - **Primavera** 🌸: [`json/Primavera/generale.json`](json/Primavera/generale.json)
-   - **Estate** 🌞: [`json/Estate/generale.json`](json/Estate/generale.json)
-   - **Autunno Inverno** 🍁❄️: [`json/Autunno_Inverno/generale.json`](json/Autunno_Inverno/generale.json)
-
-4. **Sistemazione file Stagioni.json**
-   - **Stagione Generale** 🌸🌞🍁❄️: [`json/Statistiche/anni/stagioni/stagioni.json`](json/Statistiche/anni/stagioni/stagioni.json)
-     Aggiungi il percorso del nuovo anno nella stagione interessata all'interno dei vari sottoperiodi, usando il percorso reale `json/<Stagione>/Periodi/<anno>.json`.
-
----
-
-## 📅 Creazione di un Nuovo Anno
-
-### Passaggi da Seguire
-
-1. **Creare la Struttura HTML**
-   - Crea un nuovo file HTML per il nuovo anno nella cartella: [`Statistiche/Anni/`](Statistiche/Anni/) con il nome del nuovo anno.
-
-2. **Creare il File JSON**
-   - Crea un nuovo file JSON per l'anno nella cartella: [`json/Statistiche/anni/`](json/Statistiche/anni/) con il nome del nuovo anno.
-
-3. **Aggiornare le Immagini**
-   - Aggiungi l'icona (favicon) dell'anno in [`Img/Statistiche/Anni/`](img/Statistiche/Anni/) con il nome del nuovo anno (`<anno>.jpg`), e verifica che il link `rel="icon"` della pagina punti a quel file. Con lo script guidato lo fa in automatico.
-
-4. **Aggiornare il File di Storia Generale**
-   - Tutte le pagine di Statistiche (Statistiche, Statistiche Totali, Statistiche Mensili, Storico Mensile) leggono ora un unico file: [`json/Statistiche/History/Storico.json`](json/Statistiche/History/Storico.json).
-   - Aggiungi il nuovo anno in `anni` con il percorso (`json/Statistiche/anni/<anno>.json`).
-   - Aggiungi il colore del nuovo anno in fondo a `coloriAnni` (usato dalle pagine Statistiche e Storico Mensile).
-   - `coloriMesi` è la tavolozza usata solo per il grafico mensile a barre e di norma non va toccata quando si aggiunge un anno.
-
----
-
-## 🔐 Credenziali
-
-1. **Nome Utente**
-   - **Percorso:** [`json/About_US/Users.json`](json/About_US/Users.json)
-
-2. **Password Giornaliera**
-   - Formato della password: `Giri DD/MM/YYYY`
-   - `DD` è il giorno, `MM` il mese e `YYYY` l'anno.
-   - I numeri di giorno e mese devono essere preceduti da uno zero se minori di 10 (es. 09 per il 9).
-
----
-
-## 🌐 Logo e Apertura del Sito
-
-![Logo](Img/logo.jpg)
-
-- Link al sito: [Vai al sito](https://giri-in-bici.netlify.app/)
-
----
-
-## 👥 Avatar dei Partecipanti
-
-- [Avatar NM](https://www.komoot.com/it-it/user/1372754001803)
-
-  ![Avatar NM](Img/About_US/AvatarNM.jpg)
-
-- [Avatar JR](https://www.komoot.com/it-it/user/1381372752571)
-
-  ![Avatar JR](Img/About_US/AvatarJR.png)
-
----
-
-## 💻 Tecnologie Utilizzate
-
-Il sito è stato sviluppato utilizzando le seguenti tecnologie:
-
-<p align="left">
-  <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" width="36" height="36" alt="HTML5" />
-  </a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg" width="36" height="36" alt="CSS3" />
-  </a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="36" height="36" alt="JavaScript" />
-  </a>
-</p>
+Il progetto pubblico è disponibile su [giri-in-bici.netlify.app](https://giri-in-bici.netlify.app/).

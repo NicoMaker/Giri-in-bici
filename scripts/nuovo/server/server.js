@@ -11,7 +11,11 @@ const WEB = path.join(__dirname, "..", "www");
 const FILE_STATICI = {
   "/": ["index.html", "text/html; charset=utf-8"],
   "/index.html": ["index.html", "text/html; charset=utf-8"],
+  "/styles.css": ["styles.css", "text/css; charset=utf-8"],
+  "/app.js": ["app.js", "text/javascript; charset=utf-8"],
+  "/gestione.js": ["gestione.js", "text/javascript; charset=utf-8"],
 };
+const MAX_BANDIERA = 5 * 1024 * 1024;
 const inviaJson = (res, codice, corpo) => {
   res.writeHead(codice, {
     "Content-Type": "application/json; charset=utf-8",
@@ -97,11 +101,43 @@ const gestisci = async (req, res) => {
     });
     return res.end(fs.readFileSync(file));
   }
+  const icona = url.pathname.match(
+    /^\/(?:img|Img)\/Icons\/([a-z0-9_-]+\.(?:png|jpe?g|webp))$/i,
+  );
+  if (req.method === "GET" && icona) {
+    const file = path.join(RADICE, "Img", "Icons", icona[1]);
+    if (!fs.existsSync(file)) {
+      res.writeHead(404);
+      return res.end("Non trovato");
+    }
+    const estensione = path.extname(file).toLowerCase();
+    const tipo =
+      estensione === ".png"
+        ? "image/png"
+        : estensione === ".webp"
+          ? "image/webp"
+          : "image/jpeg";
+    res.writeHead(200, {
+      "Content-Type": tipo,
+      "Cache-Control": "no-store",
+      "X-Content-Type-Options": "nosniff",
+    });
+    return res.end(fs.readFileSync(file));
+  }
   if (!url.pathname.startsWith("/api/")) {
     res.writeHead(404);
     return res.end("Non trovato");
   }
   try {
+    if (
+      req.method === "POST" &&
+      api.stato().prova &&
+      !["/api/anteprima", "/api/conferma"].includes(url.pathname)
+    )
+      return inviaJson(res, 409, {
+        ok: false,
+        errore: "Modalità --prova attiva: disattivala per salvare modifiche.",
+      });
     if (req.method === "GET" && url.pathname === "/api/stato")
       return inviaJson(res, 200, { ok: true, ...api.stato() });
     if (req.method === "GET" && url.pathname === "/api/elenco")
@@ -110,6 +146,17 @@ const gestisci = async (req, res) => {
       return inviaJson(res, 200, { ok: true, giri: gestione.elencoGiri() });
     if (req.method === "GET" && url.pathname === "/api/gestione/paesi")
       return inviaJson(res, 200, { ok: true, paesi: gestione.elencoPaesi() });
+    if (req.method === "POST" && url.pathname === "/api/gestione/bandiere") {
+      const immagine = await leggiCorpo(req, MAX_BANDIERA);
+      return inviaJson(
+        res,
+        201,
+        gestione.salvaBandieraPersonalizzata(
+          url.searchParams.get("nome"),
+          immagine,
+        ),
+      );
+    }
     if (req.method === "GET" && url.pathname === "/api/gestione/utenti")
       return inviaJson(res, 200, { ok: true, utenti: gestione.elencoUtenti() });
     if (req.method === "POST" && url.pathname === "/api/gestione/utenti/salva")
@@ -210,7 +257,7 @@ const gestisci = async (req, res) => {
   } catch (e) {
     const previsto =
       e instanceof api.ErroreDati ||
-      /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non/i.test(
+      /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|bandiera|immagine|nome file|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non/i.test(
         e.message,
       );
     return inviaJson(res, previsto ? 400 : 500, {

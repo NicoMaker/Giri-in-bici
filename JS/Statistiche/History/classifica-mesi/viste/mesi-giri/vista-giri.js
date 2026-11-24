@@ -480,10 +480,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         (haPeriodiNellUrl && modo === "classifica"
           ? stagioniUniche.find((s) => CM.chiaveStagione(s) === CHIAVE_AI)
           : null);
-      const stagioniDaUrl = CM.stagioniDaParametro(
+      const stagioniIndicateDaUrl = CM.stagioniDaParametro(
         stagioneDaUrlEffettiva,
         stagioniUniche,
       );
+      const stagioniDaUrl = stagioniIndicateDaUrl.length
+        ? stagioniIndicateDaUrl
+        : stagioniUniche;
 
       if (contenitoreStagioneEl && window.FiltroMultiplo) {
         filtroStagione = window.FiltroMultiplo.crea(contenitoreStagioneEl, {

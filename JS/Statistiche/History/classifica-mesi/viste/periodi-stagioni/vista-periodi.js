@@ -131,10 +131,13 @@ window.ClassificaMesi = window.ClassificaMesi || {};
         const stagioneUrlGrezzaPeriodi = parametriUrlPeriodi.get("stagione");
         // "Autunno - Inverno", "Autunno · Inverno" e "Autunno-Inverno"
         // sono la stessa stagione: vedi CM.stagioniDaParametro.
-        const stagioniDaUrlPeriodi = CM.stagioniDaParametro(
+        const stagioniIndicateDaUrl = CM.stagioniDaParametro(
           stagioneUrlGrezzaPeriodi,
           stagioniPeriodiUniche,
         );
+        const stagioniDaUrlPeriodi = stagioniIndicateDaUrl.length
+          ? stagioniIndicateDaUrl
+          : stagioniPeriodiUniche;
 
         filtroPeriodiStagione = window.FiltroMultiplo.crea(
           contenitorePeriodiStagioneEl,
