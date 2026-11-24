@@ -75,6 +75,7 @@ const casella = (tipo, valore = "", extra = {}) =>
     type: tipo,
     value: valore,
     autocomplete: "off",
+    lang: tipo === "date" ? "it" : undefined,
     ...extra,
   });
 const menuATendina = (opzioni, valore) => {

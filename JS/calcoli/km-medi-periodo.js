@@ -1,6 +1,34 @@
 // calcolo_km_media_periodi.js
 // Dipendenze: JS/utils.js (caricato prima in HTML)
 
+const MESI_ITALIANI = [
+  "Gennaio",
+  "Febbraio",
+  "Marzo",
+  "Aprile",
+  "Maggio",
+  "Giugno",
+  "Luglio",
+  "Agosto",
+  "Settembre",
+  "Ottobre",
+  "Novembre",
+  "Dicembre",
+];
+
+// Il JSON scrive la data senza anno ("06 Marzo"): l'anno sta nel nome del
+// file ("2025.json", o "2024-2025.json" per Autunno-Inverno, dove
+// Ottobre-Dicembre sono del primo anno e Gennaio-Aprile del secondo).
+const dataConAnno = (dataTesto, urlJson) => {
+  const [giorno, mese] = String(dataTesto).split(" ");
+  const meseNumero = MESI_ITALIANI.indexOf(mese) + 1;
+  const anni = String(urlJson).match(/(\d{4})(?:-(\d{4}))?\.json$/);
+  if (!anni || meseNumero === 0) return dataTesto;
+  const [, primoAnno, secondoAnno] = anni;
+  const anno = secondoAnno && meseNumero < 10 ? secondoAnno : primoAnno;
+  return `${giorno.padStart(2, "0")}/${String(meseNumero).padStart(2, "0")}/${anno}`;
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   // Quando un'uscita ha piu' percorsi separati (tipicamente "andata" e
   // "ritorno" tracciati come due tour diversi su Komoot), il JSON li
@@ -23,12 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
-  const createTableRow = (row, index, totalkm) => {
+  const createTableRow = (row, index, totalkm, urlJson) => {
     const newRow = document.createElement("tr");
     const percentuale =
       totalkm > 0 ? formatPercentage((row.distance / totalkm) * 100) : "0";
     newRow.innerHTML = `
-      <td>${row.date}</td>
+      <td>${dataConAnno(row.date, urlJson)}</td>
       <td>${formatItalianNumber(index + 1)}</td>
       <td>${formattaLuogo(row.place)}</td>
       <td>${formatItalianNumber(row.distance)}</td>
@@ -53,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   };
 
-  const updateTableAndStats = (data) => {
+  const updateTableAndStats = (data, urlJson) => {
     const tableBody = document.querySelector("table tbody");
     const totalkm = data.reduce((total, row) => total + row.distance, 0);
     data.forEach((row, index) => {
-      tableBody.appendChild(createTableRow(row, index, totalkm));
+      tableBody.appendChild(createTableRow(row, index, totalkm, urlJson));
     });
     calculateAndDisplayStats(data, totalkm);
   };
@@ -65,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const jsonUrl = document.getElementById("json").getAttribute("link");
   fetchJSON(jsonUrl)
     .then((data) => {
-      if (data && Array.isArray(data)) updateTableAndStats(data);
+      if (data && Array.isArray(data)) updateTableAndStats(data, jsonUrl);
     })
     .catch((error) => console.error(`Error loading data: ${error}`));
 });

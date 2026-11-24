@@ -223,6 +223,7 @@ window.ClassificaMesi = window.ClassificaMesi || {};
             const giorno = parseInt(giornoTesto, 10) || 0;
             const meseNum = ConfigMesi.ordine[meseTesto] || 0;
             const anno = annoReale(etichettaPeriodo, meseNum) || 0;
+            const dataCompleta = `${String(giorno).padStart(2, "0")}/${String(meseNum).padStart(2, "0")}/${anno}`;
             // Periodo scritto come nei file e nelle pagine del sito:
             // "2026" (Primavera/Estate) oppure "2025-2026" (Autunno ·
             // Inverno, a cavallo di due anni).
@@ -239,9 +240,9 @@ window.ClassificaMesi = window.ClassificaMesi || {};
               // Elenco completo (classifica): data, stagione e periodo di
               // OGNI stagione, scritto per esteso: "Primavera 2026",
               // "Autunno - Inverno 2025-2026".
-              etichetta: `${r.date} · ${config.season} ${periodoLeggibile}`,
+              etichetta: `${dataCompleta} · ${config.season} ${periodoLeggibile}`,
               // Solo la data (usata come testo breve).
-              dataTesto: r.date,
+              dataTesto: dataCompleta,
               distance: r.distance,
               dataOrdine: anno * 10000 + meseNum * 100 + giorno,
             });

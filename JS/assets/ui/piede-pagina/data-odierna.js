@@ -1,27 +1,13 @@
 // ============================================================
 // data-attivita.js — Data di oggi nel piè di pagina
 // Riempie ogni elemento con [data-fine-periodo] con la data
-// odierna ("30 Maggio") e si riaggiorna da solo allo scoccare
-// della mezzanotte, come anno.js.
+// odierna ("30/05/2026", formato gg/mm/aaaa) e si riaggiorna da solo
+// allo scoccare della mezzanotte, come anno.js.
 // Nessuna dipendenza.
 // ============================================================
 
 (() => {
   "use strict";
-  const mesi = [
-    "Gennaio",
-    "Febbraio",
-    "Marzo",
-    "Aprile",
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Ottobre",
-    "Novembre",
-    "Dicembre",
-  ];
 
   const dataOdierna = () => {
     const elementi = document.querySelectorAll("[data-fine-periodo]");
@@ -31,9 +17,9 @@
     const impostaData = () => {
       const adesso = new Date();
       const giorno = String(adesso.getDate()).padStart(2, "0");
-      const mese = mesi[adesso.getMonth()];
+      const mese = String(adesso.getMonth() + 1).padStart(2, "0");
       const anno = adesso.getFullYear();
-      const testo = giorno + " " + mese + " " + anno;
+      const testo = giorno + "/" + mese + "/" + anno;
 
       elementi.forEach((el) => {
         el.textContent = testo;

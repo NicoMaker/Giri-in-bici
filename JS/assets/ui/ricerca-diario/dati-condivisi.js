@@ -58,6 +58,14 @@ window.DatiGiri = window.DatiGiri || {};
   // indietro, i file nuovi vengono letti lo stesso).
   const PRIMO_ANNO = 2020;
 
+  // Data completa nel formato italiano gg/mm/aaaa (es. 06/03/2025).
+  D.dataItaliana = (giorno, meseNumero, anno) =>
+    String(giorno).padStart(2, "0") +
+    "/" +
+    String(meseNumero).padStart(2, "0") +
+    "/" +
+    anno;
+
   D.primavera = (anno) => ({
     stagione: "Primavera",
     url: "json/Primavera/Periodi/" + anno + ".json",
@@ -216,7 +224,7 @@ window.DatiGiri = window.DatiGiri || {};
           stagioneCompleta: etichettaStagione(candidato), // NUOVO
           data: giro.date,
           anno: anno,
-          etichetta: giro.date + " " + anno,
+          etichetta: D.dataItaliana(giorno, meseIndice + 1, anno),
           postoHtml: giro.place,
           postoTesto: D.testoPosto(giro.place),
           distanza: Number(giro.distance) || 0,
