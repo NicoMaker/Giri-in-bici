@@ -2,6 +2,7 @@
 
 // Impostazioni: opzioni di avvio del server, cartella del progetto, stagioni, mesi e colori CSS.
 
+const fs = require("fs");
 const path = require("path");
 
 const argomenti = process.argv.slice(2);
@@ -10,8 +11,34 @@ const PROVA = argomenti.includes("--prova");
 
 const argRadice = argomenti.find((a) => a.startsWith("--radice="));
 
+const FILE_CHIAVE = path.join("json", "Statistiche", "History", "Storico.json");
+
+const èProgetto = (cartella) => fs.existsSync(path.join(cartella, FILE_CHIAVE));
+
+// Cerca la cartella del progetto: prima quella che contiene gli script,
+// poi quella da cui è stato lanciato il comando (anche una sottocartella).
+const trovaRadice = () => {
+  const partenze = [path.join(__dirname, "..", "..", ".."), process.cwd()];
+  for (const partenza of partenze) {
+    let cartella = path.resolve(partenza);
+    for (let i = 0; i < 6; i++) {
+      if (èProgetto(cartella)) return cartella;
+      const su = path.dirname(cartella);
+      if (su === cartella) break;
+      cartella = su;
+    }
+  }
+  try {
+    const figlia = fs
+      .readdirSync(process.cwd(), { withFileTypes: true })
+      .find((d) => d.isDirectory() && èProgetto(path.join(process.cwd(), d.name)));
+    if (figlia) return path.join(process.cwd(), figlia.name);
+  } catch {}
+  return path.resolve(partenze[0]);
+};
+
 const RADICE = path.resolve(
-  argRadice ? argRadice.split("=")[1] : path.join(__dirname, "..", "..", ".."),
+  argRadice ? argRadice.split("=")[1] : trovaRadice(),
 );
 
 // --nome=valore  ->  "valore" (oppure undefined se non c'è)

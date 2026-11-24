@@ -43,6 +43,56 @@ const disegnaMenu = () => {
     ]),
   );
 };
+const normalizza = (t) =>
+  String(t || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+const filtraMenu = (testo) => {
+  const parole = normalizza(testo).split(/\s+/).filter(Boolean);
+  let visibili = 0;
+  let gruppo = null;
+  const gruppi = new Map();
+  document.querySelectorAll("#menu > *").forEach((n) => {
+    if (n.classList.contains("gruppo-menu")) {
+      gruppo = n;
+      gruppi.set(n, 0);
+      return;
+    }
+    const ok = parole.every((p) => normalizza(n.textContent).includes(p));
+    n.hidden = !ok;
+    if (ok) {
+      visibili++;
+      if (gruppo) gruppi.set(gruppo, gruppi.get(gruppo) + 1);
+    }
+  });
+  gruppi.forEach((n, g) => {
+    g.hidden = n === 0;
+  });
+  $("#menu-vuoto").hidden = visibili > 0;
+};
+const avviaRicercaMenu = () => {
+  const campo = $("#cerca-menu");
+  campo.addEventListener("input", () => filtraMenu(campo.value));
+  campo.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      campo.value = "";
+      filtraMenu("");
+    }
+    if (e.key === "Enter") {
+      const prima = document.querySelector("#menu .voce:not([hidden])");
+      if (prima) prima.click();
+    }
+  });
+  document.addEventListener("keydown", (e) => {
+    const scrive = /^(input|textarea|select)$/i.test(e.target.tagName);
+    if (e.key === "/" && !scrive && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      mostraSezione("inserimento");
+      campo.focus();
+    }
+  });
+};
 const mostraSezione = (nome) => {
   document.querySelectorAll("[data-sezione]").forEach((s) => {
     s.hidden = s.dataset.sezione !== nome;
@@ -72,6 +122,7 @@ const mostraSezione = (nome) => {
   $("#radice").textContent = stato.radice;
   $("#badge-prova").hidden = !stato.prova;
   disegnaMenu();
+  avviaRicercaMenu();
   document
     .querySelectorAll("[data-vai]")
     .forEach((b) =>

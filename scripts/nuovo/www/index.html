@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f5f7f5" />
+    <meta name="theme-color" content="#0f9d8a" />
     <meta
       name="description"
       content="Gestisci giri, stagioni e bandiere di Giri in Bici con un'interfaccia semplice e responsive."
@@ -11,14 +11,15 @@
     <title>Gestione giri · Giri in Bici</title>
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚴%3C/text%3E%3C/svg%3E"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%230f9d8a'/%3E%3Cg fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='31' r='8'/%3E%3Ccircle cx='37' cy='31' r='8'/%3E%3Cpath d='M11 31l8-15h11l7 15M19 16l9 15M30 16l-2-5h6M19 16l-2-4h-5'/%3E%3C/g%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <header class="testata">
       <div class="marchio">
-        <span class="logo" aria-hidden="true"></span>
+        <span class="logo" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="31" r="8"/><circle cx="37" cy="31" r="8"/><path d="M11 31l8-15h11l7 15M19 16l9 15M30 16l-2-5h6M19 16l-2-4h-5"/></svg></span>
         <div>
           <h1>Giri in Bici</h1>
           <p id="radice" class="radice">Gestione dati</p>
@@ -26,14 +27,14 @@
       </div>
       <nav class="tabs" aria-label="Sezioni">
         <button class="btn" type="button" data-vai="inserimento">
-          ➕ Inserimento
+          <span class="ico-tab" aria-hidden="true">➕</span><span>Inserimento</span>
         </button>
         <button class="btn" type="button" data-vai="archivio">
-          🗂️ Archivio giri
+          <span class="ico-tab" aria-hidden="true">🗂️</span><span>Archivio giri</span>
         </button>
-        <button class="btn" type="button" data-vai="utenti">👥 Utenti</button>
+        <button class="btn" type="button" data-vai="utenti"><span class="ico-tab" aria-hidden="true">👥</span><span>Utenti</span></button>
         <button class="btn" type="button" data-vai="colori">
-          🎨 Colori e periodi
+          <span class="ico-tab" aria-hidden="true">🎨</span><span>Colori e periodi</span>
         </button>
         <span id="badge-prova" class="badge badge-prova" hidden
           >Modalità prova · non scrive nulla</span
@@ -41,7 +42,15 @@
       </nav>
     </header>
     <div class="layout" data-sezione="inserimento">
-      <nav id="menu" class="menu" aria-label="Cosa vuoi fare?" tabindex="0"></nav>
+      <aside class="menu-box">
+        <label class="ricerca-menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <input id="cerca-menu" type="search" placeholder="Cerca un'operazione…" autocomplete="off" aria-label="Cerca tra le operazioni di inserimento" aria-controls="menu" />
+          <kbd aria-hidden="true">/</kbd>
+        </label>
+        <p id="menu-vuoto" class="menu-vuoto" hidden>Nessuna operazione trovata.</p>
+        <nav id="menu" class="menu" aria-label="Cosa vuoi fare?"></nav>
+      </aside>
       <main class="contenuto">
         <section id="vista" class="scheda"></section>
         <section id="risultato" aria-live="polite"></section>

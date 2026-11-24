@@ -1,4 +1,11 @@
-    console.error(`Non sembra la cartella di Giri in Bici: ${RADICE}`);
+    console.error(`\n❌ Non sembra la cartella di Giri in Bici: ${RADICE}`);
+    console.error(
+      "   Manca json/Statistiche/History/Storico.json.\n" +
+        "   Avvia il server dalla cartella principale del progetto (quella con le cartelle json e scripts):\n" +
+        "       node scripts/server.js\n" +
+        "   oppure indica la cartella a mano:\n" +
+        "       node scripts/server.js --radice=/percorso/Giri-in-bici\n",
+    );
     process.exit(1);
   }
   api.spazzaCaricamenti();
@@ -23,7 +30,7 @@
     console.log(
       `\n🚴 Giri in Bici — interfaccia web${argomenti.includes("--prova") ? " (modalità prova)" : ""}`,
     );
-    console.log(`📊 Gestionale Bilanci avviato → http://localhost:${porta}`);
+    console.log(`📊 Gestionale Giri in Bici avviato → http://localhost:${porta}`);
     console.log(
       "🌐 IP Pubblico: non esposto (interfaccia limitata alla rete locale)",
     );
