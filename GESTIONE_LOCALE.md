@@ -1,5 +1,18 @@
-# Utilizzo strumenti di aggiornamento locale
+# Gestione dati in locale
 
-Dalla radice del progetto avvia l'interfaccia con `npm start` (oppure `npm run manage`). Si apre su `http://localhost:3000`;
+Dalla radice del progetto avvia l'interfaccia con `node scripts/server.js`. Si apre su `http://localhost:3000` (con `--prova` non scrive nulla).
 
-Per usare il telefono sulla stessa rete Wi-Fi, avvia il server sul computer e apri dal telefono l'indirizzo `http://IP-LOCALE:3000` stampato nel terminale. Il server accetta chiamate da localhost o dalla rete privata locale con origine corrispondente; non espone l'interfaccia su Internet. Mantieni il dispositivo su una rete fidata e interrompi il processo con Ctrl+C quando hai finito.
+La pagina è un unico file: `scripts/nuovo/www/index.html` (HTML, CSS e JavaScript insieme).
+
+Sezioni della pagina:
+
+- **Inserimento**: casi raggruppati per categoria — *Giri* (aggiungi giro con bandiere e più link con titolo), *Statistiche* (mese, anno), *Stagioni e foto*.
+- **Archivio giri**: modifica/elimina giri, con la stessa logica dei filtri del sito: select a scelta multipla con ricerca (Stagione, Anno, Paese), ricerca testo, 6 ordinamenti, intervallo km con MIN/MAX e reset (solo pulsanti, solo ricerca, entrambi).
+- **Utenti**: aggiungi, modifica, elimina gli utenti di `json/About_US/Users.json`, con ricerca.
+- **Colori e periodi**: colori di periodi, anni e mesi; eliminazione periodi, con ricerca.
+
+Dal telefono sulla stessa rete Wi-Fi apri `http://IP-LOCALE:3000` (indirizzo stampato nel terminale). Il server accetta solo localhost o rete privata; interrompilo con Ctrl+C.
+
+Tutte le select della pagina (stagione, anno, mese, periodo, paese, bandiere…) hanno la ricerca interna: apri la select e scrivi per filtrare le opzioni.
+
+Inserimento ed eliminazione si fanno in finestre modali (Nuovo giro, Nuovo utente, Cambia colore, conferma di eliminazione), così la pagina occupa meno spazio. Le bandiere stanno nel testo del luogo (`Bled {SI}`) e sono immagini in `Img/Icons/`: se manca il file, il programma lo crea.

@@ -2,8 +2,8 @@
 
 // Nuovo GIRO: "il giorno X ho fatto un giro di N km".
 
-const { MESI, SI, STAGIONI, opzione } = require("../base/impostazioni");
-const { chiediValido, grassetto, scegli } = require("../base/terminale");
+const { MESI } = require("../base/impostazioni");
+const { bandiereMancanti, costruisciPlace } = require("../base/luogo");
 const { leggiJson } = require("../base/utilita");
 const {
   aggiornaAnno,
@@ -13,17 +13,6 @@ const {
   periodoDelGiro,
 } = require("../calcoli/giri-e-statistiche");
 
-const ALIAS_STAGIONI = {
-  primavera: "Primavera",
-  estate: "Estate",
-  autunno: "Autunno_Inverno",
-  inverno: "Autunno_Inverno",
-  autunno_inverno: "Autunno_Inverno",
-  "autunno-inverno": "Autunno_Inverno",
-  "autunno - inverno": "Autunno_Inverno",
-  "autunno inverno": "Autunno_Inverno",
-};
-
 // Mesi (0 = Gennaio) in cui di solito cadono i giri di ogni stagione: fuori da qui avviso.
 const MESI_USUALI = {
   Primavera: [2, 3, 4, 5],
@@ -31,106 +20,8 @@ const MESI_USUALI = {
   Autunno_Inverno: [9, 10, 11, 0, 1, 2, 3],
 };
 
-const trovaStagione = (testo) =>
-  ALIAS_STAGIONI[
-    String(testo || "")
-      .trim()
-      .toLowerCase()
-      .replace(/[_·]/g, "-")
-  ] || null;
-
-const raccogliGiro = async (piano) => {
-  const oggi = new Date();
-  const annoOggi = oggi.getFullYear();
-
-  let chiave =
-    opzione("stagione") !== undefined
-      ? trovaStagione(opzione("stagione"))
-      : null;
-  if (opzione("stagione") !== undefined && !chiave) {
-    throw new Error(
-      `Stagione "${opzione("stagione")}" non riconosciuta (usa Primavera, Estate o Autunno_Inverno).`,
-    );
-  }
-  if (!chiave) {
-    chiave = (
-      await scegli(
-        "In quale stagione è il giro?",
-        Object.entries(STAGIONI).map(([k, v]) => ({
-          chiave: k,
-          testo: v.etichetta,
-        })),
-      )
-    ).chiave;
-  }
-  const s = STAGIONI[chiave];
-
-  const sceltaData = async () => {
-    const dataOpt = opzione("data");
-    if (dataOpt !== undefined) {
-      const r = leggiData(dataOpt, annoOggi);
-      if (typeof r === "string") throw new Error(r);
-      return r;
-    }
-    const oggiTesto = `${oggi.getDate()} ${MESI[oggi.getMonth()]} ${annoOggi}`;
-    const r = await chiediValido(
-      "Data del giro (es. 22 Novembre 2026)",
-      oggiTesto,
-      (v) => {
-        const x = leggiData(v, annoOggi);
-        return typeof x === "string" ? x : null;
-      },
-    );
-    return leggiData(r, annoOggi);
-  };
-  const data = await sceltaData();
-
-  const luogo =
-    opzione("luogo") ??
-    (await chiediValido("Luogo (come comparirà nella tabella)", "", (v) =>
-      v ? null : "Il luogo è obbligatorio.",
-    ));
-  if (!luogo.trim()) throw new Error("Il luogo è obbligatorio.");
-
-  const validaLink = (v) =>
-    !v
-      ? null
-      : /^https?:\/\/[^\s"<>]+$/i.test(v)
-        ? null
-        : "Il link deve iniziare con http:// o https:// e non avere spazi.";
-  let link = opzione("link");
-  if (link === undefined && SI) link = ""; // con --si non faccio domande
-  if (link === undefined)
-    link = await chiediValido(
-      "Link al percorso (Komoot, invio per non metterlo)",
-      "",
-      validaLink,
-    );
-  const erroreLink = validaLink(link);
-  if (erroreLink) throw new Error(erroreLink);
-
-  const validaKm = (v) =>
-    /^\d+$/.test(String(v)) && Number(v) > 0
-      ? null
-      : "Scrivi i km come numero intero maggiore di 0 (es. 95).";
-  let kmTesto = opzione("km");
-  if (kmTesto === undefined)
-    kmTesto = await chiediValido("Distanza in km", "", validaKm);
-  const erroreKm = validaKm(kmTesto);
-  if (erroreKm) throw new Error(erroreKm);
-
-  return {
-    chiave,
-    s,
-    data,
-    luogo: luogo.trim(),
-    link: link.trim(),
-    km: parseInt(kmTesto, 10),
-  };
-};
-
 const applicaGiro = async (piano, d) => {
-  const { chiave, s, data, luogo, link, km } = d;
+  const { chiave, s, data, luogo, links = [], km } = d;
   const periodo = periodoDelGiro(chiave, data);
   const fileGiri = `json/${s.cartella}/Periodi/${periodo}.json`;
   if (!piano.esiste(fileGiri)) {
@@ -160,7 +51,8 @@ const applicaGiro = async (piano, d) => {
   }
 
   // 1. il giro nel file del periodo, in ordine di data
-  const place = link ? `<a href="${link}" target="_blank">${luogo}</a>` : luogo;
+  const place = costruisciPlace({ luogo, links });
+  for (const f of bandiereMancanti(luogo)) piano.crea(f.rel, f.testo); // crea l'immagine mancante in Img/Icons
   const giro = { date: nomeData, place, distance: km };
   const { testo, posizione } = inserisciGiro(
     piano.leggi(fileGiri),
@@ -176,9 +68,7 @@ const applicaGiro = async (piano, d) => {
   controllaCoerenza(piano, data.anno, data.mese, ris.dopo);
 
   piano.note.push(
-    grassetto(
-      `Il giorno ${nomeData} ${data.anno} (${s.testo} ${periodo}) hai fatto un giro di ${km} km${link ? " con il link al percorso" : ""}: ${luogo}`,
-    ),
+    `Il giorno ${nomeData} ${data.anno} (${s.testo} ${periodo}) hai fatto un giro di ${km} km${links.length ? ` con ${links.length === 1 ? "il link" : links.length + " link"} al percorso` : ""}: ${luogo.replace(/\s*\{[A-Z]{2}\}/g, "").trim()}`,
     `• ${fileGiri}: aggiunto in posizione ${posizione + 1} di ${giriEsistenti.length + 1} (in ordine di data)`,
     ris.creato
       ? `• ${ris.file}: ${MESI[data.mese]} non c'era, lo creo con ${km} km`
@@ -187,10 +77,4 @@ const applicaGiro = async (piano, d) => {
   );
 };
 
-module.exports = {
-  ALIAS_STAGIONI,
-  MESI_USUALI,
-  trovaStagione,
-  raccogliGiro,
-  applicaGiro,
-};
+module.exports = { MESI_USUALI, applicaGiro };

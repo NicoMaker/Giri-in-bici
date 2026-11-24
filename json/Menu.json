@@ -100,6 +100,12 @@
       "sezione": "altro"
     },
     {
+      "name": "Scopri la nostra regione",
+      "icon": "/img/Bandiera FVG.jpg",
+      "link": "https://www.regione.fvg.it/rafvg/cms/RAFVG/",
+      "sezione": "altro"
+    },
+    {
       "name": "Apertura Repository Git",
       "icona": "codice",
       "icon": "/img/Icons/GitHub.png",

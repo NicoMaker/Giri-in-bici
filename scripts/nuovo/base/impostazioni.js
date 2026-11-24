@@ -1,16 +1,12 @@
 "use strict";
 
-// Impostazioni: argomenti del terminale, cartella del progetto, stagioni, mesi e colori CSS.
+// Impostazioni: opzioni di avvio del server, cartella del progetto, stagioni, mesi e colori CSS.
 
 const path = require("path");
 
 const argomenti = process.argv.slice(2);
 
 const PROVA = argomenti.includes("--prova");
-
-const SI = argomenti.includes("--si"); // salta la domanda finale "Confermi?"
-
-const MODO_GIRO = argomenti.includes("--giro");
 
 const argRadice = argomenti.find((a) => a.startsWith("--radice="));
 
@@ -223,8 +219,6 @@ const PERCORSO_STORICO_JSON = "json/Statistiche/History/Storico.json";
 module.exports = {
   argomenti,
   PROVA,
-  SI,
-  MODO_GIRO,
   RADICE,
   opzione,
   STAGIONI,

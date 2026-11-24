@@ -7,12 +7,8 @@ const { RADICE, argomenti, opzione } = require("../base/impostazioni");
 const api = require("./api");
 const gestione = require("./gestione");
 const statistiche = require("./statistiche");
-const WEB = path.join(__dirname, "..", "web");
-const FILE_STATICI = {
-  "/": ["index.html", "text/html; charset=utf-8"], "/index.html": ["index.html", "text/html; charset=utf-8"],
-  "/stile.css": ["stile.css", "text/css; charset=utf-8"], "/app.js": ["app.js", "text/javascript; charset=utf-8"],
-  "/gestione.js": ["gestione.js", "text/javascript; charset=utf-8"],
-};
+const WEB = path.join(__dirname, "..", "www");
+const FILE_STATICI = { "/": ["index.html", "text/html; charset=utf-8"], "/index.html": ["index.html", "text/html; charset=utf-8"] };
 const inviaJson = (res, codice, corpo) => { res.writeHead(codice, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" }); res.end(JSON.stringify(corpo)); };
 const leggiCorpo = (req, massimo) => new Promise((ok, no) => {
   const pezzi = []; let totale = 0;
@@ -32,32 +28,32 @@ const richiestaAutorizzata = (req) => {
   try { const origine = new URL(origin); return origine.hostname === host && ["http:", "https:"].includes(origine.protocol); } catch { return false; }
 };
 const leggiJsonRichiesta = async (req, max = 256 * 1024) => JSON.parse((await leggiCorpo(req, max)).toString("utf8") || "{}");
-const normalizzaAppJs = (sorgente) => {
-  sorgente = sorgente.replace(/\b(?:const|let|var)\s+__querySelectorHelper\s*=\s*\(([^)]*)\)\s*=>\s*document\.querySelector\(([^)]*)\);?/g, "const $ = ($1) => document.querySelector($2);");
-  sorgente = sorgente.replaceAll("__querySelectorHelper(", "$(");
-  const dichiarazione = /\b(?:const|let|var)\s+\$\s*=\s*\(([^)]*)\)\s*=>\s*document\.querySelector\(([^)]*)\);?/g;
-  let prima = true;
-  return sorgente.replace(dichiarazione, (_match, argomento) => {
-    if (!prima) return "";
-    prima = false;
-    return `const $ = (${argomento}) => document.querySelector(${argomento});`;
-  });
-};
 const gestisci = async (req, res) => {
   if (!richiestaAutorizzata(req)) { res.writeHead(403); return res.end("Accesso consentito solo da localhost o dalla rete locale."); }
   const url = new URL(req.url, "http://localhost");
   if (req.method === "GET" && FILE_STATICI[url.pathname]) {
     const [nome, tipo] = FILE_STATICI[url.pathname];
     let contenuto = fs.readFileSync(path.join(WEB, nome));
-    if (url.pathname === "/app.js") contenuto = Buffer.from(normalizzaAppJs(contenuto.toString("utf8")), "utf8");
     res.writeHead(200, { "Content-Type": tipo, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
     return res.end(contenuto);
+  }
+  const bandiera = url.pathname.match(/^\/img\/Bandiere\/([a-z]{2})\.svg$/i);
+  if (req.method === "GET" && bandiera) {
+    const nome = `${bandiera[1].toLowerCase()}.svg`;
+    const file = path.join(__dirname, "..", "base", "bandiere", nome); // anteprima nella pagina: copia inclusa col programma
+    if (!fs.existsSync(file)) { res.writeHead(404); return res.end("Non trovato"); }
+    res.writeHead(200, { "Content-Type": "image/svg+xml", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
+    return res.end(fs.readFileSync(file));
   }
   if (!url.pathname.startsWith("/api/")) { res.writeHead(404); return res.end("Non trovato"); }
   try {
     if (req.method === "GET" && url.pathname === "/api/stato") return inviaJson(res, 200, { ok: true, ...api.stato() });
     if (req.method === "GET" && url.pathname === "/api/elenco") return inviaJson(res, 200, { ok: true, ...api.elenco() });
     if (req.method === "GET" && url.pathname === "/api/gestione/giri") return inviaJson(res, 200, { ok: true, giri: gestione.elencoGiri() });
+    if (req.method === "GET" && url.pathname === "/api/gestione/paesi") return inviaJson(res, 200, { ok: true, paesi: gestione.elencoPaesi() });
+    if (req.method === "GET" && url.pathname === "/api/gestione/utenti") return inviaJson(res, 200, { ok: true, utenti: gestione.elencoUtenti() });
+    if (req.method === "POST" && url.pathname === "/api/gestione/utenti/salva") return inviaJson(res, 200, gestione.salvaUtente(await leggiJsonRichiesta(req, 64 * 1024)));
+    if (req.method === "POST" && url.pathname === "/api/gestione/utenti/elimina") return inviaJson(res, 200, gestione.eliminaUtente(await leggiJsonRichiesta(req, 64 * 1024)));
     if (req.method === "GET" && url.pathname === "/api/gestione/stagioni") return inviaJson(res, 200, { ok: true, stagioni: gestione.listaStagioni() });
     if (req.method === "GET" && url.pathname === "/api/gestione/statistiche-colori") return inviaJson(res, 200, statistiche.leggiColoriStatistiche());
     if (req.method === "POST" && url.pathname === "/api/gestione/statistiche/colore-anno") return inviaJson(res, 200, statistiche.salvaColoreAnno(await leggiJsonRichiesta(req, 64 * 1024)));
@@ -70,7 +66,7 @@ const gestisci = async (req, res) => {
     if (req.method === "POST" && ["/api/anteprima", "/api/conferma"].includes(url.pathname)) { const richiesta = await leggiJsonRichiesta(req, 1024 * 1024); const risposta = url.pathname === "/api/anteprima" ? await api.anteprima(richiesta.azione, richiesta.dati) : await api.conferma(richiesta.azione, richiesta.dati); return inviaJson(res, 200, risposta); }
     return inviaJson(res, 404, { ok: false, errore: "Percorso non trovato." });
   } catch (e) {
-    const previsto = e instanceof api.ErroreDati || /non esiste|non valido|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non/i.test(e.message);
+    const previsto = e instanceof api.ErroreDati || /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non/i.test(e.message);
     return inviaJson(res, previsto ? 400 : 500, { ok: false, errore: e.message });
   }
 };

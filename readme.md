@@ -9,7 +9,7 @@ Questa guida descrive come aggiornare i file e creare nuove stagioni e anni per 
 Puoi fare **tutto da browser**, con un'interfaccia moderna (tema chiaro/scuro automatico, adatta anche al telefono). Serve solo [Node.js](https://nodejs.org) 18 o più recente, nessuna libreria da installare:
 
 ```bash
-node scripts/server.js          # oppure: npm start
+node scripts/server.js
 ```
 
 Si apre da solo <http://localhost:3000>. Per fermare il server premi `Ctrl+C`.
@@ -36,7 +36,7 @@ Come funziona, in ogni voce:
 1. compili il modulo e premi **Anteprima**: vedi la frase di riepilogo, i km prima → dopo, gli **avvisi** (data nel futuro, giro già presente, km che non tornano…) e l'elenco dei file che verrebbero creati o aggiornati;
 2. se va bene premi **Conferma e scrivi i file**; se qualcosa non torna (JSON non valido, file già esistente…) non viene scritto **niente**.
 
-Le regole sono **identiche a quelle del terminale** (stesso codice): stessi controlli, stesso modo di modificare i JSON riga per riga senza riformattarli, stessi colori scelti da te (nome CSS o `#esadecimale`, con anteprima del colore e l'elenco di quelli già usati).
+Ogni inserimento passa dagli stessi controlli e modifica i JSON riga per riga senza riformattarli; i colori si scelgono dal selettore della pagina.
 
 > 🔒 Il server ascolta **solo su questo computer** (`127.0.0.1`) e rifiuta richieste da altri indirizzi o da altri siti. Le foto caricate passano da una cartella temporanea che viene svuotata dopo la conferma.
 
@@ -48,22 +48,16 @@ Quando fai un giro basta dire: **data, stagione, luogo, link al percorso e km**,
 
 > _Il 22 Novembre 2026, Autunno-Inverno, ho fatto un giro di 95 km a Pinzano, link: https://www.komoot.com/..._
 
-Da terminale (scegli la voce **Aggiungere un GIRO** e rispondi alle domande):
+Dall'interfaccia web (`node scripts/server.js` → http://localhost:3000, voce **Aggiungi un giro** nel gruppo *Giri*) compili il modulo. Oltre ai campi base puoi aggiungere:
 
-```bash
-node scripts/nuovo.js
-```
+- **bandiere**: dal menu *Inserisci una bandiera* scegli il paese e la bandiera si inserisce nel testo del luogo, accanto al posto, come già nei giri esistenti (es. `Da Tarvisio a Bled {SI}`). L'immagine sta in `Img/Icons/` (Slovenia.png e Austria.png ci sono già); per gli altri paesi il programma crea il file, per esempio `Img/Icons/Croazia.svg`, e nel giro mette il link all'immagine;
+- **uno o più link**, ognuno con il suo titolo (es. *Andata*, *Ritorno*): utile quando un tour è stato registrato male e diviso in più tracce.
 
-oppure in una riga sola:
+Bandiere (immagini) e link vengono scritti nel campo `place` del JSON nello stesso formato che il sito legge già, quindi le pagine pubbliche non cambiano.
 
-```bash
-node scripts/nuovo.js --giro --stagione=Autunno_Inverno --data="22 Novembre 2026" \
-     --km=95 --luogo="Pinzano" --link="https://www.komoot.com/..."
-```
+La riga di comando (`nuovo.js`) è stata rimossa: l'inserimento dati si fa solo dalla pagina web.
 
-(`--stagione` accetta `Primavera`, `Estate`, `Autunno_Inverno`; la data si può scrivere `22 Novembre`, `22 Novembre 2026` o `22/11/2026`; senza anno usa quello di oggi; `--si` salta la conferma finale, `--prova` mostra cosa farebbe senza scrivere.)
-
-Lo script fa **tutto insieme**, senza toccare il resto dei file:
+L'inserimento fa **tutto insieme**, senza toccare il resto dei file:
 
 1. aggiunge il giro nel JSON del periodo giusto (es. [`json/Autunno_Inverno/Periodi/2026-2027.json`](json/Autunno_Inverno/Periodi/2026-2027.json)), **in ordine di data**, con il link al percorso;
 2. **somma i km** nel mese giusto dell'**anno giusto** ([`json/Statistiche/anni/2026.json`](json/Statistiche/anni/2026.json)); se quel mese non c'è ancora **lo crea** al posto giusto del calendario;
@@ -82,8 +76,8 @@ Per aggiungere o correggere **solo un mese** di un anno (anche se non c'è) usa 
 Tutti i passaggi qui sotto (nuova stagione e nuovo anno) si possono fare in automatico con uno script guidato. Serve solo [Node.js](https://nodejs.org), nessuna libreria:
 
 ```bash
-node scripts/nuovo.js            # menu guidato
-node scripts/nuovo.js --prova    # mostra cosa farebbe, senza scrivere nulla
+node scripts/server.js                  # interfaccia web
+node scripts/server.js --prova       # mostra cosa farebbe, senza scrivere nulla
 ```
 
 Il menu offre: **giro**, **mese**, **foto**, **nuova stagione** 🌸🌞🍁❄️, **nuovo anno di Statistiche** 📅
@@ -99,16 +93,16 @@ Il menu offre: **giro**, **mese**, **foto**, **nuova stagione** 🌸🌞🍁❄�
 
 Il codice dello script è diviso in componenti, in cartelle per argomento, dentro [`scripts/nuovo/`](scripts/nuovo/):
 
-- `base/`: `impostazioni`, `terminale`, `piano`, `utilita`
+- `base/`: `impostazioni`, `luogo` (bandiere e link), `piano`, `utilita`
 - `json/`: `json-chirurgico`
 - `immagini/`: `foto`, `icona-anno`
 - `calcoli/`: `giri-e-statistiche`
 - `azioni/`: `stagione`, `anno`, `giro`, `mese`, `foto-stagione`
-- `programma/`: `riepilogo`, `menu`, `elenco`, `casi.json`
-- `server/`: `server` (HTTP locale, senza librerie) e `api` (anteprima, conferma, caricamento foto: usa le stesse funzioni `applica…` del terminale)
-- `web/`: `index.html`, `stile.css`, `app.js` (l'interfaccia del browser)
+- `programma/`: `elenco`, `casi.json` (casi raggruppati per categoria)
+- `server/`: `server` (HTTP locale, senza librerie) e `api` (anteprima, conferma, caricamento foto: usa le funzioni `applica…`), più `gestione` (archivio giri, utenti, colori) e `statistiche`
+- `www/`: `index.html` (tutta la pagina: HTML, CSS e JavaScript)
 
-`scripts/nuovo.js` avvia il terminale, `scripts/server.js` avvia l'interfaccia web.
+`scripts/server.js` avvia l'interfaccia web.
 
 Prima di scrivere mostra un riepilogo e chiede conferma; se un file esiste già o un JSON non è valido si ferma senza toccare niente. Nei JSON esistenti viene aggiunta solo la riga nuova, il resto non viene riformattato.
 

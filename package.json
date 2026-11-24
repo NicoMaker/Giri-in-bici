@@ -1,9 +1,5 @@
 {
   "name": "giri-in-bici-tools",
   "private": true,
-  "scripts": {
-    "start": "node scripts/server.js",
-    "manage": "node scripts/server.js",
-    "cli": "node scripts/nuovo.js"
-  }
+  "scripts": {}
 }

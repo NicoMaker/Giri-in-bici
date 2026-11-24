@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { RADICE, STAGIONI, MESI, PERCORSO_STORICO_JSON, PERCORSO_STAGIONI_JSON } = require("../base/impostazioni");
 const { validaColore } = require("../base/utilita");
+const { PAESI, bandiereMancanti, normalizzaLuogo, costruisciPlace, leggiPlace } = require("../base/luogo");
 
 const assoluto = (rel) => path.join(RADICE, rel);
 const leggi = (rel) => JSON.parse(fs.readFileSync(assoluto(rel), "utf8"));
@@ -36,9 +37,9 @@ const elencoGiri = () => {
       leggi(file).forEach((g, index) => {
         const d = dataSalvata(g);
         if (!d) return;
-        const { luogo, link } = estraiLuogoLink(g.place);
+        const { luogo, links, flags } = leggiPlace(g.place);
         const anno = annoPeriodo(chiave, periodo, d.mese);
-        out.push({ id: `${encodeURIComponent(chiave)}|${encodeURIComponent(periodo)}|${index}`, stagione: chiave, etichetta: s.testo, periodo, data: `${anno}-${String(d.mese + 1).padStart(2, "0")}-${String(d.giorno).padStart(2, "0")}`, luogo, link, km: Number(g.distance) || 0 });
+        out.push({ id: `${encodeURIComponent(chiave)}|${encodeURIComponent(periodo)}|${index}`, stagione: chiave, etichetta: s.testo, periodo, data: `${anno}-${String(d.mese + 1).padStart(2, "0")}-${String(d.giorno).padStart(2, "0")}`, luogo, links, flags, link: (links[0] || {}).url || "", km: Number(g.distance) || 0 });
       });
     }
   }
@@ -128,13 +129,10 @@ const normalize = (data) => {
   const d = parseData(data.data);
   const stagione = String(data.stagione || "");
   if (!STAGIONI[stagione]) throw new Error("Scegli una stagione valida.");
-  const luogo = String(data.luogo || "").trim();
-  if (!luogo || /[<>]/.test(luogo)) throw new Error("Inserisci un luogo senza tag HTML.");
-  const link = String(data.link || "").trim();
-  if (link && !/^https?:\/\/[^\s"<>]+$/i.test(link)) throw new Error("Il link deve iniziare con http:// o https://.");
+  const lg = normalizzaLuogo(data);
   const km = Number(data.km);
   if (!Number.isInteger(km) || km <= 0) throw new Error("I km devono essere un numero intero maggiore di zero.");
-  return { d, stagione, periodo: periodoGiro(stagione, d), luogo, link, km };
+  return { d, stagione, periodo: periodoGiro(stagione, d), ...lg, km };
 };
 const salvaGiro = (body) => {
   const changes = new Map();
@@ -163,7 +161,8 @@ const salvaGiro = (body) => {
   }
   const list = changes.has(targetFile) ? JSON.parse(changes.get(targetFile)) : leggi(targetFile);
   const nomeData = `${String(n.d.giorno).padStart(2, "0")} ${MESI[n.d.mese]}`;
-  const place = n.link ? `<a href="${escapeHtml(n.link)}" target="_blank" rel="noopener">${escapeHtml(n.luogo)}</a>` : escapeHtml(n.luogo);
+  const place = costruisciPlace(n);
+  for (const f of bandiereMancanti(n.luogo)) changes.set(f.rel, f.testo); // crea l'immagine mancante in Img/Icons
   list.push({ date: nomeData, place, distance: n.km });
   list.sort((a, b) => {
     const da = dataSalvata(a), db = dataSalvata(b);
@@ -273,4 +272,46 @@ const eliminaPeriodo = ({ stagione, periodo }) => {
   }
   return { ok: true, messaggio: `${s.testo} ${periodo} eliminato: rimossi pagina, JSON, foto e statistiche aggiornate (${giri.length} giri).` };
 };
-module.exports = { elencoGiri, listaStagioni, listaPeriodiGestibili, salvaGiro, eliminaGiro, salvaColore, eliminaPeriodo };
+
+// ---------- utenti (json/About_US/Users.json) ----------
+const FILE_UTENTI = "json/About_US/Users.json";
+const leggiUtenti = () => leggi(FILE_UTENTI).users || [];
+const elencoUtenti = () => leggiUtenti();
+const pulisciUtente = (u) => {
+  const t = (k) => String(u[k] ?? "").trim();
+  const username = t("username");
+  if (!/^[\w.\-]{2,40}$/.test(username)) throw new Error("Username non valido: 2-40 caratteri tra lettere, numeri, punto, trattino e underscore.");
+  if (/[<>]/.test(t("name") + t("description"))) throw new Error("Nome e descrizione non possono contenere < o >.");
+  const avatar = t("avatar");
+  if (avatar && !/^[\w.\- ]+\.(jpe?g|png|webp|gif|svg)$/i.test(avatar)) throw new Error("Avatar: scrivi solo il nome del file (es. AvatarNM.jpg).");
+  const komoot = t("komootUrl");
+  if (komoot && !/^https?:\/\/[^\s"<>]+$/i.test(komoot)) throw new Error("Il link Komoot deve iniziare con http:// o https://.");
+  const out = { name: t("name"), username, description: t("description"), avatar, komootUrl: komoot, visibleInTeam: !!u.visibleInTeam };
+  for (const k of ["name", "description", "avatar", "komootUrl"]) if (!out[k]) delete out[k];
+  return out;
+};
+const salvaUtente = (body) => {
+  const dati = leggi(FILE_UTENTI);
+  const lista = dati.users || [];
+  const nuovo = pulisciUtente(body);
+  const prima = body.originale ? lista.findIndex((x) => x.username === body.originale) : -1;
+  if (body.originale && prima < 0) throw new Error("L'utente da modificare non esiste più.");
+  if (lista.some((x, i) => i !== prima && x.username.toLowerCase() === nuovo.username.toLowerCase())) throw new Error("Esiste già un utente con questo username.");
+  if (prima >= 0) lista[prima] = nuovo; else lista.push(nuovo);
+  dati.users = lista;
+  scriviTransazione(new Map([[FILE_UTENTI, formattaJson(dati)]]));
+  return { ok: true, messaggio: prima >= 0 ? "Utente modificato." : "Utente aggiunto." };
+};
+const eliminaUtente = ({ username }) => {
+  const dati = leggi(FILE_UTENTI);
+  const lista = dati.users || [];
+  const i = lista.findIndex((x) => x.username === username);
+  if (i < 0) throw new Error("L'utente da eliminare non esiste più.");
+  if (lista.length <= 1) throw new Error("Non puoi eliminare l'ultimo utente.");
+  lista.splice(i, 1);
+  dati.users = lista;
+  scriviTransazione(new Map([[FILE_UTENTI, formattaJson(dati)]]));
+  return { ok: true, messaggio: "Utente eliminato." };
+};
+const elencoPaesi = () => PAESI;
+module.exports = { elencoUtenti, salvaUtente, eliminaUtente, elencoPaesi, elencoGiri, listaStagioni, listaPeriodiGestibili, salvaGiro, eliminaGiro, salvaColore, eliminaPeriodo };

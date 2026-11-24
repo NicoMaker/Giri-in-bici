@@ -9,17 +9,6 @@ const {
   STAGIONI,
 } = require("../base/impostazioni");
 const {
-  chiedi,
-  chiediSiNo,
-  chiediValido,
-  giallo,
-  grassetto,
-  grigio,
-  rosso,
-  verde,
-} = require("../base/terminale");
-const {
-  chiediColore,
   leggiJson,
   normalizzaData,
   ordinaPeriodi,
@@ -35,130 +24,8 @@ const {
 const {
   cartellaImg,
   elencaFoto,
-  pulisciPercorso,
 } = require("../immagini/foto");
 const { aggiungiAArray, aggiungiAOggetto } = require("../json/json-chirurgico");
-
-const raccogliStagione = async (piano, chiave, opzioni = {}) => {
-  const s = STAGIONI[chiave];
-  const fileGenerale = `json/${s.cartella}/generale.json`;
-  const generale = leggiJson(piano, fileGenerale);
-  const esistenti = Object.keys(generale.subPeriods).sort(ordinaPeriodi);
-  const ultimo = esistenti[esistenti.length - 1];
-
-  console.log(
-    `\n${grassetto(s.etichetta)} ${grigio(`(ultimo periodo presente: ${ultimo})`)}`,
-  );
-
-  const periodo =
-    opzioni.periodo ||
-    (await chiediValido(
-      s.formato === "anno"
-        ? "Anno della nuova stagione"
-        : "Periodo della nuova stagione",
-      periodoSuccessivo(s.formato, ultimo),
-      validaPeriodo(s.formato, esistenti),
-    ));
-  if (opzioni.periodo) {
-    const errore = validaPeriodo(s.formato, esistenti)(periodo);
-    if (errore) throw new Error(`${s.testo}: ${errore}`);
-  }
-
-  if ((generale.colors || []).length !== esistenti.length) {
-    console.log(
-      giallo(
-        `  ⚠ In ${fileGenerale} i colori (${(generale.colors || []).length}) non sono tanti quanti i periodi (${esistenti.length}): controlla l'ordine dopo la creazione.`,
-      ),
-    );
-  }
-  const colore = await chiediColore(
-    `Colore di ${s.testo} ${periodo}: scrivilo tu (nome CSS, es. gold, oppure #esadecimale)`,
-    generale.colors || [],
-  );
-
-  // Foto: indichi la cartella e le copio io come 1.jpg, 2.jpg... Se la salti, scegli quante
-  // foto metterai tu (0 = sezione vuota).
-  let fotoDaCopiare = [];
-  let nFoto = 0;
-  let cartellaFoto = await chiedi(
-    "Cartella con le foto della stagione (.jpg) — trascinala qui, oppure invio per saltare",
-    "",
-  );
-  while (cartellaFoto) {
-    const dir = pulisciPercorso(cartellaFoto);
-    if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
-      const { foto, ignorati } = elencaFoto(dir);
-      if (ignorati.length) {
-        console.log(
-          giallo(
-            `  ⚠ Ignoro ${ignorati.length} file non .jpg: ${ignorati.slice(0, 5).join(", ")}${ignorati.length > 5 ? "…" : ""}`,
-          ),
-        );
-      }
-      if (foto.length) {
-        fotoDaCopiare = foto;
-        nFoto = foto.length;
-        console.log(
-          verde(
-            `  ✔ Trovate ${nFoto} foto: le copio come 1.jpg … ${nFoto}.jpg (nell'ordine dei nomi).`,
-          ),
-        );
-        break;
-      }
-      console.log(rosso("  ✖ In quella cartella non ci sono file .jpg."));
-    } else {
-      console.log(rosso("  ✖ Cartella non trovata."));
-    }
-    cartellaFoto = await chiedi(
-      "Prova con un'altra cartella (invio per saltare)",
-      "",
-    );
-  }
-  if (!nFoto) {
-    nFoto = parseInt(
-      await chiediValido(
-        "Quante foto avrà la pagina? (0 = sezione vuota, le aggiungi tu)",
-        "0",
-        (v) => (/^\d{1,3}$/.test(v) ? null : "Scrivi un numero."),
-      ),
-      10,
-    );
-  }
-
-  let giro = null;
-  if (
-    await chiediSiNo(
-      "Vuoi inserire subito il primo giro? (altrimenti metto un giro d'esempio da sostituire)",
-      false,
-    )
-  ) {
-    const data = await chiediValido(
-      `Data (es. 05 ${s.meseIniziale})`,
-      `01 ${s.meseIniziale}`,
-      (v) =>
-        normalizzaData(v)
-          ? null
-          : "Formato: giorno e mese in italiano, es. 05 Giugno.",
-    );
-    const luogo = await chiediValido("Luogo", "", (v) =>
-      v ? null : "Il luogo è obbligatorio.",
-    );
-    const link = await chiedi(
-      "Link Komoot (invio per saltare)",
-      "https://www.komoot.com/it-it",
-    );
-    const km = await chiediValido("Distanza in km", "0", (v) =>
-      /^\d+$/.test(v) ? null : "Solo numeri interi.",
-    );
-    giro = {
-      date: normalizzaData(data),
-      place: `<a href="${link}" target="_blank">${luogo}</a>`,
-      distance: parseInt(km, 10),
-    };
-  }
-
-  return { chiave, periodo, colore, nFoto, fotoDaCopiare, giro, ultimo };
-};
 
 const costruisciGalleria = (html, vecchio, s, periodo, nFoto) => {
   const gal = html.match(/(<div class="gallery">)([\s\S]*?)(<\/div>)/);
@@ -296,7 +163,6 @@ const applicaStagione = (piano, d) => {
 };
 
 module.exports = {
-  raccogliStagione,
   costruisciGalleria,
   contaGiroInStatistiche,
   applicaStagione,

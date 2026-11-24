@@ -1,7 +1,7 @@
 "use strict";
 
 // API del server web: legge lo stato, riceve i file e costruisce il Piano per ogni caso.
-// Usa le stesse funzioni "applica" del terminale: cambia solo il modo di raccogliere i dati.
+// Raccoglie i dati dal modulo web e li passa alle funzioni "applica" di scripts/nuovo/azioni.
 
 const fs = require("fs");
 const os = require("os");
@@ -15,6 +15,7 @@ const {
   STAGIONI,
 } = require("../base/impostazioni");
 const { Piano } = require("../base/piano");
+const { normalizzaLuogo, costruisciPlace } = require("../base/luogo");
 const {
   leggiJson,
   normalizzaData,
@@ -168,15 +169,7 @@ const datiGiro = (d) => {
   if (!STAGIONI[chiave]) throw new ErroreDati("Scegli una stagione.");
   const data = leggiData(d.data, new Date().getFullYear());
   if (typeof data === "string") throw new ErroreDati(data);
-  const luogo = String(d.luogo || "").trim();
-  if (!luogo) throw new ErroreDati("Il luogo è obbligatorio.");
-  if (/[<>]/.test(luogo))
-    throw new ErroreDati("Il luogo non può contenere i simboli < e >.");
-  const link = String(d.link || "").trim();
-  if (link && !/^https?:\/\/[^\s"<>]+$/i.test(link))
-    throw new ErroreDati(
-      "Il link deve iniziare con http:// o https:// e non avere spazi.",
-    );
+  const lg = normalizzaLuogo(d);
   const km = String(d.km ?? "").trim();
   if (!/^\d+$/.test(km) || Number(km) <= 0)
     throw new ErroreDati(
@@ -186,8 +179,7 @@ const datiGiro = (d) => {
     chiave,
     s: STAGIONI[chiave],
     data,
-    luogo,
-    link,
+    ...lg,
     km: parseInt(km, 10),
   };
 };
@@ -229,19 +221,11 @@ const datiPrimoGiro = (s, g) => {
   if (!g) return null;
   const data = leggiData(String(g.data || ""), new Date().getFullYear());
   if (typeof data === "string") throw new ErroreDati(`Primo giro: ${data}`);
-  const luogo = String(g.luogo || "").trim();
-  if (!luogo) throw new ErroreDati("Primo giro: il luogo è obbligatorio.");
-  if (/[<>]/.test(luogo))
-    throw new ErroreDati("Primo giro: il luogo non può contenere < o >.");
-  const link = String(g.link || "").trim();
-  if (link && !/^https?:\/\/[^\s"<>]+$/i.test(link))
-    throw new ErroreDati(
-      "Primo giro: il link deve iniziare con http:// o https://",
-    );
+  const lg = normalizzaLuogo(g, "Primo giro: ");
   const km = interoNonNegativo(g.km, "Primo giro, km");
   return {
     date: normalizzaData(`${data.giorno} ${MESI[data.mese]}`),
-    place: link ? `<a href="${link}" target="_blank">${luogo}</a>` : luogo,
+    place: costruisciPlace(lg),
     distance: km,
   };
 };
