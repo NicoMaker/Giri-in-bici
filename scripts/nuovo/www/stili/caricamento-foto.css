@@ -1,0 +1,62 @@
+
+
+/* ---------- zona file ---------- */
+.zona {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+  text-align: center;
+  border: 2px dashed var(--bordo);
+  border-radius: 14px;
+  background: var(--carta-2);
+  color: var(--testo-2);
+  cursor: pointer;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease;
+}
+.zona:hover,
+.zona.sopra {
+  border-color: var(--accento);
+  background: color-mix(in srgb, var(--accento) 8%, var(--carta-2));
+}
+.zona strong {
+  color: var(--testo);
+}
+.miniature {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: 8px;
+  margin-top: 4px;
+}
+.mini {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--bordo);
+  background: var(--carta);
+}
+.mini img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.mini span {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.mini.altro {
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: var(--testo-2);
+}

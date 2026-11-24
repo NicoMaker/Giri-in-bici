@@ -1,0 +1,16 @@
+
+
+/* Gruppi del menu e sezioni (aggiunti con la pagina modernizzata) */
+.menu .gruppo-menu {
+  margin: 14px 6px 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--testo-2);
+}
+.menu .gruppo-menu:first-child {
+  margin-top: 2px;
+}
+[hidden] {
+  display: none !important;
+}

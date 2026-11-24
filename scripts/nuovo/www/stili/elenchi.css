@@ -1,0 +1,103 @@
+
+
+/* ---------- elenco ---------- */
+.schede {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.anno {
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: var(--carta-2);
+}
+.anno header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.anno h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.anno h3 i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--testo) 20%, transparent);
+}
+.numeri {
+  color: var(--testo-2);
+  font-size: 0.8rem;
+  text-align: right;
+}
+.barre {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: end;
+  gap: 4px;
+  height: 78px;
+}
+.barre div {
+  min-height: 3px;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, var(--accento), var(--accento-2));
+  opacity: 0.9;
+}
+.barre div.vuoto {
+  background: var(--bordo);
+  opacity: 0.6;
+}
+.barre-etichette {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 0.62rem;
+  color: var(--testo-2);
+  text-align: center;
+}
+.tabella-box {
+  overflow-x: auto;
+  margin-top: 16px;
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+th,
+td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--bordo);
+}
+th {
+  background: var(--carta-2);
+  color: var(--testo-2);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+tr:last-child td {
+  border-bottom: 0;
+}
+td.num,
+th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+td a {
+  color: var(--accento-2);
+  text-decoration: none;
+}
+td a:hover {
+  text-decoration: underline;
+}

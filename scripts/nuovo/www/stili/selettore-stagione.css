@@ -1,0 +1,35 @@
+
+
+/* ---------- segmenti ---------- */
+.segmenti {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 5px;
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  background: var(--carta-2);
+}
+.segmento {
+  flex: 1 1 auto;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--testo-2);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.segmento:hover {
+  color: var(--testo);
+}
+.segmento.attivo {
+  background: var(--carta);
+  color: var(--testo);
+  box-shadow:
+    0 1px 3px rgba(16, 24, 40, 0.18),
+    0 0 0 1px var(--accento) inset;
+}

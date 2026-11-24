@@ -1,0 +1,125 @@
+
+
+/* ---------- campi ---------- */
+.griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px 18px;
+}
+.pieno {
+  grid-column: 1 / -1;
+}
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.etichetta {
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--testo-2);
+  letter-spacing: 0.01em;
+}
+.aiuto {
+  color: var(--testo-2);
+  font-size: 0.78rem;
+}
+.aiuto.avv {
+  color: var(--avviso);
+  font-weight: 600;
+}
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="url"],
+select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--bordo);
+  border-radius: 12px;
+  background: var(--carta-2);
+  color: var(--testo);
+  font: inherit;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease;
+}
+input:hover,
+select:hover {
+  border-color: color-mix(in srgb, var(--accento) 45%, var(--bordo));
+}
+input:focus,
+select:focus {
+  border-color: var(--accento);
+  background: var(--carta);
+}
+input[type="color"] {
+  width: 46px;
+  height: 44px;
+  padding: 3px;
+  border: 1px solid var(--bordo);
+  border-radius: 12px;
+  background: var(--carta-2);
+  cursor: pointer;
+}
+.riga-colore {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.campione {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--bordo);
+  background-image:
+    linear-gradient(
+      45deg,
+      var(--bordo) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--bordo) 75%
+    ),
+    linear-gradient(
+      45deg,
+      var(--bordo) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--bordo) 75%
+    );
+  background-size: 12px 12px;
+  background-position:
+    0 0,
+    6px 6px;
+  position: relative;
+  overflow: hidden;
+}
+.campione i {
+  position: absolute;
+  inset: 0;
+}
+.usati {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 3px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--bordo);
+  background: var(--carta-2);
+  font-size: 0.76rem;
+  color: var(--testo-2);
+}
+.chip i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--testo) 18%, transparent);
+}

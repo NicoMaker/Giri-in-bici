@@ -1,0 +1,29 @@
+
+@media (max-width: 560px) {
+  .testata {
+    padding: 14px 16px;
+  }
+  .marchio {
+    gap: 10px;
+  }
+  .logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+  .marchio h1 {
+    font-size: 1.15rem;
+  }
+  .tabs .btn {
+    padding: 9px 8px;
+    font-size: 0.86rem;
+  }
+  .layout {
+    padding: 8px 14px 40px;
+    gap: 12px;
+  }
+  .menu .voce {
+    flex-basis: calc(100vw - 48px);
+    width: calc(100vw - 48px);
+  }
+}
