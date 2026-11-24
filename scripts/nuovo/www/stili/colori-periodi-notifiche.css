@@ -1,0 +1,122 @@
+
+.sort-controls .btn {
+  padding: 9px 12px;
+}
+.sort-controls .btn[aria-pressed="true"] {
+  border-color: var(--accento);
+  background: color-mix(in srgb, var(--accento) 12%, var(--carta));
+  box-shadow: 0 0 0 1px var(--accento) inset;
+}
+.periodo-gruppo {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--bordo);
+}
+.periodo-gruppo h3 {
+  margin: 0 0 10px;
+}
+.periodo-card,
+.colore-stat-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  background: var(--carta-2);
+}
+.periodo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 700;
+}
+.periodo-chip::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--periodo-colore);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--periodo-colore) 20%, transparent);
+}
+.sezione-colori h3 {
+  margin: 18px 0 10px;
+}
+.colore-stat-card {
+  font-weight: 650;
+}
+.colore-stat-card input[type="color"] {
+  flex: none;
+}
+.msg-box {
+  margin: 12px 0;
+}
+.msg-box:empty {
+  display: none;
+}
+.msg-box .conferma,
+.msg-box .avviso {
+  margin: 0;
+  padding: 12px 15px;
+  border-radius: 12px;
+  font-weight: 650;
+}
+.empty-state {
+  padding: 24px;
+  border: 1px dashed var(--bordo);
+  border-radius: 14px;
+  text-align: center;
+  color: var(--testo-2);
+  background: var(--carta-2);
+}
+.notifica {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 80;
+  max-width: min(440px, calc(100vw - 32px));
+  padding: 14px 18px;
+  border: 1px solid color-mix(in srgb, var(--ok) 35%, var(--bordo));
+  border-radius: 14px;
+  background: var(--ok-sfondo);
+  color: var(--ok);
+  font-weight: 700;
+  box-shadow: var(--ombra);
+  animation: entra 0.2s ease;
+}
+.notifica.errore {
+  border-color: color-mix(in srgb, var(--errore) 35%, var(--bordo));
+  background: var(--errore-sfondo);
+  color: var(--errore);
+}
+@media (max-width: 760px) {
+  .gestione-inline {
+    padding-inline: 12px;
+  }
+  .lista-head {
+    grid-template-columns: 1fr;
+  }
+  .ride,
+  .periodo-card,
+  .colore-stat-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .ride .azioni {
+    width: 100%;
+  }
+  .ride .azioni .btn {
+    flex: 1;
+  }
+  .periodi-grid,
+  .colori-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ride {
+    transition: none;
+  }
+}

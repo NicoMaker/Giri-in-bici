@@ -1,59 +1,69 @@
-# Giri in Bici
+# Giri in Bici — gestionale locale
 
-Guida pratica per aggiungere e correggere giri, stagioni, statistiche e bandiere senza modificare i file a mano.
+Guida per usare e modificare il gestionale di giri, stagioni, statistiche, utenti e bandiere. I dati restano nei file del repository: l'interfaccia li legge e li aggiorna tramite il server Node locale.
 
-## Avviare il gestionale
+## Avvio
 
-Serve Node.js 18 o successivo. Dalla cartella principale del repository avvia:
+Serve Node.js 18 o successivo. Dalla cartella principale del repository:
 
 ```bash
 node scripts/server.js
 ```
 
-Il gestionale si apre su <http://localhost:3000>. Per interromperlo, torna alla finestra del server e premi `Ctrl+C`.
+Apri l'indirizzo mostrato nel terminale, normalmente <http://localhost:3000>. Per fermare il gestionale, interrompi il processo con `Ctrl+C`.
 
-Opzioni utili:
+Opzioni disponibili:
 
 ```bash
-node scripts/server.js --porta=4000       # usa la porta 4000 (o la successiva libera)
-node scripts/server.js --prova            # prova le anteprime senza consentire modifiche ai dati
-node scripts/server.js --senza-browser    # avvia il server senza aprire automaticamente il browser
+node scripts/server.js --porta=4000       # usa la porta 4000; se occupata prova la successiva
+node scripts/server.js --prova            # abilita la modalità prova, che impedisce i salvataggi
+node scripts/server.js --senza-browser    # non apre automaticamente una finestra del browser
 ```
 
-Per proteggere i dati, tieni il server sul computer o sulla rete locale: non pubblicarlo su Internet e non inoltrare la porta del gestionale.
+Il servizio è pensato per il computer dell'utente e per la rete locale. Non pubblicarlo su Internet e non inoltrare la porta del gestionale.
 
-## Inserire o correggere un giro
+## Inserire, modificare ed eliminare giri
 
-1. Apri **Inserimento** per aggiungere una corsa oppure **Archivio giri** per correggere o rimuovere una corsa già presente.
-2. Compila i campi e controlla la bandiera, il luogo, il link e i chilometri.
-3. Nel modulo di inserimento guidato, usa **Anteprima** e controlla il riepilogo prima di confermare. Nell'archivio, dopo aver premuto **Crea giro** o **Salva modifiche**, controlla la finestra di conferma.
-4. I dati non vengono salvati mentre scrivi: vengono aggiornati solo dopo la conferma esplicita. Le eliminazioni chiedono una conferma separata.
+- **Inserimento** apre il flusso guidato per aggiungere giri, foto, stagioni o dati statistici.
+- **Archivio giri** permette di cercare, ordinare, filtrare, creare, modificare ed eliminare le corse già registrate.
+- Prima di una scrittura, controlla l'anteprima o il riepilogo e conferma esplicitamente. Le eliminazioni richiedono una conferma separata.
+- Scrivere nei campi non modifica subito i file. Il server salva soltanto dopo la conferma; quando un giro cambia, aggiorna insieme anche i chilometri e il numero di corse delle statistiche interessate.
+- I campi data dell'inserimento e dell'archivio usano il selettore nativo del browser. Le conferme e le date mostrate nell'archivio usano il formato italiano **gg/mm/aaaa** (per esempio `07/04/2026`); il server controlla che la data esista davvero. I JSON continuano a usare il formato storico già previsto dal sito pubblico, per esempio `07 Aprile` nel file del periodo.
 
-Quando il giro viene confermato, il gestionale aggiorna il periodo e le statistiche del mese e dell'anno corrispondenti. Se trova dati mancanti o incoerenti, mostra un avviso prima di procedere.
+## Bandiere: scegliere o crearne una
 
-## Scegliere o aggiungere una bandiera
+Nel campo **Luogo**, posiziona il cursore dove deve apparire la bandiera:
 
-Nel campo **Luogo**, posiziona il cursore nel punto in cui vuoi aggiungere la bandiera:
+1. Scegli dal menu una bandiera già disponibile: il catalogo comprende le bandiere standard e quelle personalizzate salvate in precedenza.
+2. Per aggiungerne una, apri **Crea una bandiera personalizzata**, inserisci il nome visibile e trascina un'immagine nell'area oppure selezionala dal dispositivo.
+3. Sono accettati PNG, JPG/JPEG e WebP fino a 5 MB. Premi **Carica e usa bandiera**: il server verifica il file, registra la bandiera e la inserisce nel punto del testo in cui si trova il cursore.
 
-- scegli una bandiera già disponibile dal menu; il codice viene inserito nel luogo e la bandiera compare nell'anteprima;
-- per una nuova bandiera, apri **Crea una bandiera personalizzata**, scrivi il nome che vuoi mostrare, poi trascina un'immagine nell'area oppure selezionala dal dispositivo;
-- sono accettati file PNG, JPG/JPEG e WebP fino a 5 MB. Premi **Carica e usa bandiera** per salvarla e inserirla nel luogo.
+Le immagini personalizzate vengono salvate in `Img/Icons/`; il catalogo con codice, nome e file è `json/Bandiere-personalizzate.json`. Le bandiere caricate restano selezionabili nelle corse successive. Il codice nel testo del luogo mantiene la compatibilità con i JSON e con il sito pubblico.
 
-L'immagine viene collocata in `Img/Icons/` con un nome file sicuro; il nome visibile e il collegamento al file vengono registrati in `json/Bandiere-personalizzate.json`. La bandiera sarà disponibile anche nelle corse successive. Se il nome è già usato, scegline uno diverso.
+## Filtri e altre sezioni
 
-## Filtri e visualizzazione
+I filtri di stagioni, anni e mesi partono con tutte le voci selezionate, così la pagina mostra tutti i dati. Puoi restringere i risultati con la ricerca e le selezioni; **Seleziona tutte** e **Deseleziona tutto** agiscono sulle voci disponibili nel filtro. Il menu include inoltre utenti, colori e periodi: ogni modifica mostra un esito e, quando serve, chiede conferma.
 
-Nelle pagine di classifica, i filtri partono con tutte le stagioni, gli anni e i mesi selezionati: così vengono mostrati tutti i dati. Puoi restringere i risultati deselezionando le voci che non ti interessano; **Seleziona tutte** e **Deseleziona tutto** agiscono sulle voci visibili nella ricerca del filtro.
+## Dove sono i dati
 
-## Altre operazioni
+- Giri, stagioni, statistiche e catalogo delle bandiere: `json/`.
+- Immagini del sito e bandiere personalizzate: `Img/` (le nuove bandiere sono in `Img/Icons/`).
+- Modelli e operazioni guidate: `scripts/nuovo/programma/` e `scripts/nuovo/azioni/`.
+- La struttura e i nomi dei JSON sono mantenuti per non interrompere il sito pubblico.
 
-Dal menu puoi anche aggiungere o correggere i chilometri di un mese, caricare foto, creare una nuova stagione o preparare un nuovo anno di statistiche. Per queste operazioni il gestionale mostra un riepilogo e chiede conferma prima di scrivere i file.
+Fai una copia di sicurezza dei JSON e delle immagini prima di interventi manuali. Per le modifiche normali usa il gestionale, non modificare i dati mentre il server è in funzione.
 
-## Dove vengono salvati i dati
+## Struttura dei sorgenti
 
-- Dati di giri, periodi e statistiche: cartella `json/`.
-- Immagini delle bandiere personalizzate: cartella `Img/Icons/`.
-- Pagina del gestionale: `scripts/nuovo/www/index.html`.
-- Stili e interazioni del gestionale: `scripts/nuovo/www/styles.css`, `scripts/nuovo/www/app.js` e `scripts/nuovo/www/gestione.js`.
+L'HTML di `scripts/nuovo/www/index.html` è il punto d'ingresso e resta separato dai fogli di stile e dagli script. I sorgenti JavaScript e CSS del gestionale sono organizzati in file funzionali sotto le 150 righe, con nomi descrittivi e senza prefissi numerici. I moduli server e gli asset del browser vengono assemblati tramite elenchi espliciti in `carica-modulo.js` e `server/risorse.js`, così l'ordine delle dipendenze non dipende dall'ordinamento alfabetico dei file. Per aggiungere un modulo, usa un nome che descriva la sua responsabilità e aggiungilo all'elenco appropriato.
+
+- `scripts/nuovo/www/app/`: flusso guidato, controlli condivisi, selettori ricercabili, bandiere e link.
+- `scripts/nuovo/www/gestione/`: archivio giri, filtri, utenti, colori, periodi e finestre di conferma.
+- `scripts/nuovo/www/stili/`: CSS per tema, testata, layout, campi, caricamenti, risultati, elenchi, gestione e responsive.
+- `scripts/nuovo/base/impostazioni/`, `base/luogo/`, `calcoli/giri-e-statistiche/` e `azioni/stagione/`: configurazione, luoghi e bandiere, date/statistiche e creazione stagioni.
+- `scripts/nuovo/server/api/`, `server/gestione/` e `server/server/`: richieste HTTP, validazione e operazioni sui dati, sicurezza della rete locale e avvio del server.
+- `scripts/nuovo/carica-modulo.js`: riunisce i frammenti server mantenendo i percorsi e le esportazioni dei moduli esistenti. `server/risorse.js` assembla gli asset del browser.
+
+Le modifiche a giri, utenti, periodi, statistiche e bandiere sono eseguite e validate dal server; il browser invia richieste API e mostra il risultato, ma non scrive i JSON direttamente. Per aggiungere una nuova operazione, collega l'interfaccia a un endpoint in `server/` e conserva validazione e scrittura sul server.
 
 Il progetto pubblico è disponibile su [giri-in-bici.netlify.app](https://giri-in-bici.netlify.app/).

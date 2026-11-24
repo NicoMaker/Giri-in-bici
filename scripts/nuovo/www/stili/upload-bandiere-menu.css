@@ -1,0 +1,122 @@
+
+.bandiera-drop {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px dashed var(--bordo);
+  border-radius: 12px;
+  background: var(--carta);
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+.bandiera-drop:hover,
+.bandiera-drop.in-trascinamento {
+  border-color: var(--accento);
+  background: color-mix(in srgb, var(--accento) 8%, var(--carta));
+}
+.bandiera-drop input[type="file"] {
+  width: 100%;
+  min-width: 0;
+  color: var(--testo);
+  font: inherit;
+}
+.bandiera-upload-preview {
+  width: min(160px, 100%);
+  height: 88px;
+  object-fit: contain;
+  padding: 6px;
+  border: 1px solid var(--bordo);
+  border-radius: 10px;
+  background: var(--carta);
+}
+.bandiera-upload-stato {
+  min-height: 1.4em;
+  margin: 0;
+  color: var(--testo);
+  overflow-wrap: anywhere;
+}
+.bandiera-custom .btn {
+  min-height: 44px;
+}
+@media (max-width: 560px) {
+  .bandiera-custom__contenuto {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  .bandiera-custom .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+#radice {
+  display: none;
+}
+
+.voce {
+  grid-template-columns: minmax(0, 1fr);
+}
+.voce .ico {
+  display: none;
+}
+#menu {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bordo) transparent;
+}
+#menu:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accento-2) 55%, transparent);
+  outline-offset: 3px;
+}
+@media (max-width: 860px) {
+  .testata {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .marchio {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+  .marchio h1 {
+    white-space: nowrap;
+  }
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex: 0 0 100%;
+    width: 100%;
+    gap: 8px;
+  }
+  .tabs .btn {
+    min-width: 0;
+    justify-content: center;
+  }
+  .tabs .badge-prova {
+    grid-column: 1 / -1;
+  }
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .menu {
+    min-width: 0;
+    margin: 0;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 1px 8px;
+  }
+  .menu .gruppo-menu {
+    display: none;
+  }
+  .menu .voce {
+    flex: 0 0 min(84vw, 340px);
+    width: min(84vw, 340px);
+    grid-template-columns: minmax(0, 1fr);
+    scroll-snap-align: start;
+  }
+  .menu .voce small {
+    display: block;
+  }
+  .contenuto {
+    min-width: 0;
+  }
+}
