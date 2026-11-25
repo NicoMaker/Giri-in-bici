@@ -15,6 +15,7 @@ const FILE_STATICI = {
   "/styles.css": ["styles.css", "text/css; charset=utf-8"],
   "/app.js": ["app.js", "text/javascript; charset=utf-8"],
   "/gestione.js": ["gestione.js", "text/javascript; charset=utf-8"],
+  "/icona.svg": ["icona.svg", "image/svg+xml"],
 };
 const MAX_BANDIERA = 5 * 1024 * 1024;
 const inviaJson = (res, codice, corpo) => {
@@ -89,23 +90,8 @@ const gestisci = async (req, res) => {
     });
     return res.end(contenuto);
   }
-  const bandiera = url.pathname.match(/^\/img\/Bandiere\/([a-z]{2})\.svg$/i);
-  if (req.method === "GET" && bandiera) {
-    const nome = `${bandiera[1].toLowerCase()}.svg`;
-    const file = path.join(__dirname, "..", "base", "bandiere", nome); // anteprima nella pagina: copia inclusa col programma
-    if (!fs.existsSync(file)) {
-      res.writeHead(404);
-      return res.end("Non trovato");
-    }
-    res.writeHead(200, {
-      "Content-Type": "image/svg+xml",
-      "Cache-Control": "no-store",
-      "X-Content-Type-Options": "nosniff",
-    });
-    return res.end(fs.readFileSync(file));
-  }
   const icona = url.pathname.match(
-    /^\/(?:img|Img)\/Icons\/([a-z0-9_-]+\.(?:png|jpe?g|webp))$/i,
+    /^\/(?:img|Img)\/Icons\/((?:Bandiere\/[A-Za-z0-9_-]+\/)?[A-Za-z0-9_-]+\.(?:png|jpe?g|webp))$/i,
   );
   if (req.method === "GET" && icona) {
     const file = path.join(RADICE, "Img", "Icons", icona[1]);

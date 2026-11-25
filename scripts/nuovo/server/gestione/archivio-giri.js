@@ -12,7 +12,9 @@ const {
 } = require("../base/impostazioni");
 const { validaColore } = require("../base/utilita");
 const {
-  bandiereMancanti,
+  verificaBandiere,
+  nomeCartella,
+  CARTELLA_BANDIERE,
   normalizzaLuogo,
   costruisciPlace,
   leggiPlace,

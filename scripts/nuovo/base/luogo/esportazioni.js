@@ -1,12 +1,14 @@
 module.exports = {
-  PAESI,
-  bandiera,
+  CARTELLA_BANDIERE,
+  nomeCartella,
   elencoPaesi,
   leggiBandierePersonalizzate,
+  paesePersonalizzato,
   immagineBandiera,
-  bandiereMancanti,
+  verificaBandiere,
   codiciNelLuogo,
   normalizzaLuogo,
   costruisciPlace,
   leggiPlace,
+  esc,
 };

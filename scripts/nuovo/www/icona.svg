@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Giri in Bici">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f9d8a"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="url(#g)"/>
+  <g fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="36" cy="80" r="19"/>
+    <circle cx="92" cy="80" r="19"/>
+    <path d="M36 80 L55 50 H81 L92 80 M55 50 L66 80 H36 M81 50 L75 40 H86 M55 50 L51 42 H61"/>
+  </g>
+  <path d="M96 22 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#fff" opacity=".9"/>
+</svg>

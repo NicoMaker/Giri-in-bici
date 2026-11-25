@@ -20,6 +20,10 @@ export const creaMappa = () => {
   dialogo.innerHTML = `
     <div class="mappa-testa">
       <h2>Mappa del sito</h2>
+      <div class="mappa-cerca" role="search">
+        <input type="search" class="mappa-cerca-input" placeholder="Cerca pagina o sezione…" aria-label="Cerca nella mappa" autocomplete="off" />
+        <span class="mappa-cerca-esito" aria-live="polite"></span>
+      </div>
       <div class="mappa-strumenti">
         <button type="button" data-zoom="-" aria-label="Riduci">−</button>
         <button type="button" data-zoom="0" aria-label="Adatta alla finestra">Adatta</button>
@@ -83,6 +87,89 @@ export const creaMappa = () => {
     });
   };
 
+  // ---------- ricerca: evidenzia le pagine/sezioni trovate e attenua le altre ----------
+  const campoRicerca = dialogo.querySelector(".mappa-cerca-input");
+  const esitoRicerca = dialogo.querySelector(".mappa-cerca-esito");
+  const norma = (t) =>
+    String(t || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  let trovate = [];
+  let posizione = -1;
+  const centra = (scheda) => {
+    const r = scheda.getBoundingClientRect(),
+      v = vista.getBoundingClientRect();
+    vista.scrollBy({
+      left: r.left - v.left - v.width / 2 + r.width / 2,
+      top: r.top - v.top - v.height / 2 + r.height / 2,
+      behavior: "smooth",
+    });
+  };
+  const applicaRicerca = (scorri = false) => {
+    const q = norma(campoRicerca.value.trim());
+    tela.classList.toggle("is-ricerca", Boolean(q));
+    trovate = [];
+    tela.querySelectorAll(".mappa-scheda").forEach((scheda) => {
+      const perTitolo =
+        Boolean(q) &&
+        norma(scheda.querySelector(".mappa-titolo")?.textContent).includes(q);
+      let perSezione = false;
+      scheda.querySelectorAll(".mappa-sezioni").forEach((lista) => {
+        let titoletto = null;
+        let visibili = 0;
+        const chiudiGruppo = () => {
+          if (titoletto) titoletto.hidden = Boolean(q) && !perTitolo && visibili === 0;
+        };
+        [...lista.children].forEach((voce) => {
+          if (voce.classList.contains("mappa-sezioni-titolo")) {
+            chiudiGruppo();
+            titoletto = voce;
+            visibili = 0;
+            return;
+          }
+          const ok = Boolean(q) && norma(voce.querySelector("a")?.textContent).includes(q);
+          voce.classList.toggle("is-trovata", ok);
+          voce.hidden = Boolean(q) && !perTitolo && !ok;
+          if (!voce.hidden) visibili++;
+          if (ok) perSezione = true;
+        });
+        chiudiGruppo();
+      });
+      const trovata = perTitolo || perSezione;
+      scheda.classList.toggle("is-trovata", trovata);
+      scheda.classList.toggle("is-nascosta", Boolean(q) && !trovata);
+      if (trovata) trovate.push(scheda);
+    });
+    esitoRicerca.textContent = !q
+      ? ""
+      : trovate.length
+        ? `${trovate.length} ${trovate.length === 1 ? "pagina" : "pagine"}`
+        : "Nessun risultato";
+    posizione = -1;
+    if (stato.modello) {
+      applicaZoom(stato.zoom);
+      fili();
+    }
+    if (scorri && trovate.length) {
+      posizione = 0;
+      centra(trovate[0]);
+    }
+  };
+  campoRicerca.addEventListener("input", () => applicaRicerca(true));
+  campoRicerca.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter" && trovate.length) {
+      ev.preventDefault();
+      posizione = (posizione + 1) % trovate.length;
+      centra(trovate[posizione]);
+    } else if (ev.key === "Escape" && campoRicerca.value) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      campoRicerca.value = "";
+      applicaRicerca();
+    }
+  });
+
   const disegna = (indice, primaVolta) => {
     stato.indice = indice;
     stato.modello = costruisciModello(indice);
@@ -95,7 +182,8 @@ export const creaMappa = () => {
     else adatta();
     aggiornaDove(dialogo, indice);
     fili();
-    if (primaVolta) vaiAQui();
+    if (campoRicerca.value.trim()) applicaRicerca();
+    else if (primaVolta) vaiAQui();
   };
 
   const scegli = (k) => {

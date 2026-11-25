@@ -54,7 +54,7 @@ const mostraSezione = (nome) => {
     );
   if (
     location.hash.slice(1) !== nome &&
-    ["archivio", "utenti", "colori"].includes(nome)
+    ["archivio", "utenti", "bandiere", "colori"].includes(nome)
   )
     history.replaceState(null, "", `#${nome}`);
   document.dispatchEvent(new CustomEvent("sezione", { detail: nome }));
@@ -78,7 +78,7 @@ const mostraSezione = (nome) => {
       b.addEventListener("click", () => mostraSezione(b.dataset.vai)),
     );
   const h = location.hash.slice(1);
-  if (["archivio", "utenti", "colori"].includes(h)) {
+  if (["archivio", "utenti", "bandiere", "colori"].includes(h)) {
     apriCaso("giro");
     mostraSezione(h);
   } else {

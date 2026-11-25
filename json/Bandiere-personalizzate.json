@@ -1,1 +1,4 @@
-[]
+[
+  { "codice": "CUSTOM_AUSTRIA", "nome": "Austria", "file": "Austria/Austria.png" },
+  { "codice": "CUSTOM_SLOVENIA", "nome": "Slovenia", "file": "Slovenia/Slovenia.png" }
+]

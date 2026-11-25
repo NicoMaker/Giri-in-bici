@@ -1,0 +1,87 @@
+/* =========================================================
+   Selettore lingua IT / EN (in basso a sinistra)
+   Il tasto "torna su" e il banner cookie restano a destra/al centro.
+   ========================================================= */
+.lang-switcher {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px;
+  background: var(--surface, #fff);
+  background: color-mix(in srgb, var(--surface, #fff) 90%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line, #d8dde6);
+  border-radius: 999px;
+  box-shadow: var(--sh-3, 0 12px 28px -8px rgba(0, 0, 0, 0.35));
+}
+.lang-switcher-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink, inherit);
+  font-family: var(--font-head, inherit);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.lang-switcher-btn:hover {
+  background: var(--a-soft, rgba(13, 148, 136, 0.12));
+  transform: translateY(-1px);
+}
+.lang-switcher-btn:focus-visible {
+  outline: 2px solid var(--a1, #0d9488);
+  outline-offset: 2px;
+}
+.lang-switcher-btn.is-active {
+  background: linear-gradient(120deg, var(--a1, #0d9488), var(--a2, #2563eb));
+  color: #fff;
+}
+.lang-flag {
+  display: block;
+  width: 20px;
+  height: 15px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+.lang-code {
+  font-size: 11px;
+}
+@media (max-width: 768px) {
+  .lang-switcher { bottom: 0.8rem; left: 0.8rem; padding: 4px; }
+  .lang-switcher-btn { padding: 7px 10px; font-size: 11px; }
+  .lang-flag { width: 18px; height: 13px; }
+}
+
+/* Pulizia dell'interfaccia standard di Google Website Translator:
+   il sito usa il widget solo come motore, il selettore visibile è quello sopra. */
+body { top: 0 !important; position: static !important; }
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-te-spinner-pos,
+#google_translate_element {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  box-shadow: none !important;
+}
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+iframe.skiptranslate { display: none !important; }

@@ -18,6 +18,7 @@ const PACCHETTI = {
       "moduli-anno-e-stagione.js",
       "anteprima-e-conferma.js",
       "interazioni-moduli.js",
+      "tema-colore.js",
     ],
   },
   "gestione.js": {
@@ -27,6 +28,9 @@ const PACCHETTI = {
       "filtri-e-ricerca.js",
       "ordinamento-archivio.js",
       "utenti.js",
+      "bandiere.js",
+      "riepilogo.js",
+      "esperienza.js",
       "colori-e-periodi.js",
       "azioni-gestione.js",
     ],
@@ -56,6 +60,9 @@ const PACCHETTI = {
       "modali-e-bandiere.css",
       "upload-bandiere-menu.css",
       "responsive-menu.css",
+      "moderno.css",
+      "bandiere-e-design.css",
+      "interfaccia-2026.css",
     ],
   },
 };

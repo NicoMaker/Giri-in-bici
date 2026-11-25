@@ -20,6 +20,18 @@
         ),
       );
     }
+    if (req.method === "POST" && url.pathname === "/api/gestione/bandiere/modifica") {
+      const immagine = await leggiCorpo(req, MAX_BANDIERA);
+      return inviaJson(
+        res,
+        200,
+        gestione.modificaBandieraPersonalizzata(
+          url.searchParams.get("codice"),
+          url.searchParams.get("nome"),
+          immagine,
+        ),
+      );
+    }
     if (req.method === "GET" && url.pathname === "/api/gestione/utenti")
       return inviaJson(res, 200, { ok: true, utenti: gestione.elencoUtenti() });
     if (req.method === "POST" && url.pathname === "/api/gestione/utenti/salva")
@@ -120,7 +132,7 @@
   } catch (e) {
     const previsto =
       e instanceof api.ErroreDati ||
-      /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|bandiera|immagine|nome file|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non/i.test(
+      /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|bandiera|cartella|immagine|catalogo|nessuna modifica|nome file|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non/i.test(
         e.message,
       );
     return inviaJson(res, previsto ? 400 : 500, {

@@ -5,51 +5,32 @@ const RE_TOKEN = /\{([A-Z][A-Z0-9_]{1,63})\}/g;
 const codiciNelLuogo = (luogo) => [
   ...new Set([...String(luogo).matchAll(RE_TOKEN)].map((m) => m[1])),
 ];
-const codiceDaFile = (base) =>
-  PAESI.find((p) => nomeFile(p.nome).toLowerCase() === base.toLowerCase())
-    ?.codice ||
-  leggiBandierePersonalizzate().find(
-    (p) => path.parse(p.file).name.toLowerCase() === base.toLowerCase(),
-  )?.codice;
-
-// Dove sta l'immagine: le bandiere create dall'app riusano il file caricato in Img/Icons.
-const immagineBandiera = (codice) => {
-  const personalizzata = paesePersonalizzato(codice);
-  if (personalizzata) {
-    const rel = `Img/Icons/${personalizzata.file}`;
-    return { rel, url: "/" + rel };
-  }
-  const paese = PAESI.find((p) => p.codice === codice);
-  if (!paese) throw new Error(`Bandiera non riconosciuta: ${codice}.`);
-  const base = nomeFile(paese.nome);
-  const png = `Img/Icons/${base}.png`;
-  const rel = fs.existsSync(path.join(RADICE, png))
-    ? png
-    : `Img/Icons/${base}.svg`;
-  return { rel, url: "/" + rel };
+// Da <img src="/img/Icons/..."> al codice: accetta il percorso nuovo (Bandiere/Austria/Austria)
+// e quello vecchio (Austria), così i giri già salvati continuano a funzionare.
+const codiceDaFile = (percorso) => {
+  const p = String(percorso).replace(/^Bandiere\//i, "").toLowerCase();
+  return leggiBandierePersonalizzate().find((b) => {
+    const senzaEstensione = b.file.replace(/\.[^.]+$/, "").toLowerCase();
+    return (
+      senzaEstensione === p ||
+      path.parse(b.file).name.toLowerCase() === nomeFile(p) ||
+      nomeFile(b.nome).toLowerCase() === nomeFile(p)
+    );
+  })?.codice;
 };
 const imgTag = (codice) =>
   `<img src="${immagineBandiera(codice).url}" alt="${esc(nomePaese(codice))}">`;
 
-// I file bandiera che mancano nella cartella del sito: [{ rel, testo }], da creare insieme al giro.
-const bandiereMancanti = (luogo) =>
-  codiciNelLuogo(luogo)
-    .map((c) => ({ c, rel: immagineBandiera(c).rel }))
-    .filter(({ rel }) => !fs.existsSync(path.join(RADICE, rel)))
-    .map(({ c, rel }) => {
-      if (paesePersonalizzato(c))
-        throw new Error(`Manca il file della bandiera personalizzata ${c}.`);
-      const origine = path.join(
-        __dirname,
-        "bandiere",
-        `${c.toLowerCase()}.svg`,
+// Ogni bandiera usata nel luogo deve avere la sua immagine nella cartella del sito.
+const verificaBandiere = (luogo) => {
+  for (const c of codiciNelLuogo(luogo)) {
+    const { rel } = immagineBandiera(c);
+    if (!fs.existsSync(path.join(RADICE, rel)))
+      throw new Error(
+        `Manca il file della bandiera ${nomePaese(c)} (${rel}). Ricaricalo dalla sezione Bandiere.`,
       );
-      if (!fs.existsSync(origine))
-        throw new Error(
-          `Manca l'immagine della bandiera ${c} in scripts/nuovo/base/bandiere.`,
-        );
-      return { rel, testo: fs.readFileSync(origine, "utf8") };
-    });
+  }
+};
 
 // Controlla e pulisce i dati arrivati dal browser.
 const normalizzaLuogo = ({ luogo, link, links }, prefisso = "") => {
@@ -57,18 +38,17 @@ const normalizzaLuogo = ({ luogo, link, links }, prefisso = "") => {
   if (!nome) throw new Error(`${prefisso}Il luogo è obbligatorio.`);
   if (/[<>]/.test(nome))
     throw new Error(`${prefisso}Il luogo non può contenere i simboli < e >.`);
-  const codiciValidi = new Set([
-    ...CODICI,
-    ...leggiBandierePersonalizzate().map((b) => b.codice),
-  ]);
+  const codiciValidi = new Set(
+    leggiBandierePersonalizzate().map((b) => b.codice),
+  );
   const ignoto = codiciNelLuogo(nome).find((c) => !codiciValidi.has(c));
   if (ignoto)
     throw new Error(
-      `${prefisso}Paese sconosciuto per la bandiera {${ignoto}}.`,
+      `${prefisso}Bandiera sconosciuta {${ignoto}}: creala nella sezione Bandiere.`,
     );
   if (/\{|\}/.test(nome.replace(RE_TOKEN, "")))
     throw new Error(
-      `${prefisso}Le graffe servono solo per le bandiere, come {SI}.`,
+      `${prefisso}Le graffe servono solo per le bandiere, come {CUSTOM_SLOVENIA}.`,
     );
   const grezzi = Array.isArray(links)
     ? links
@@ -112,7 +92,7 @@ const leggiPlace = (place) => {
   const testo = String(place || "").replace(
     /<img\b[^>]*src=["']\/?img\/Icons\/([^"']+?)\.(?:png|jpe?g|webp|svg)["'][^>]*>/gi,
     (m, nome) => {
-      const c = codiceDaFile(nomeFile(decodeURIComponent(nome)));
+      const c = codiceDaFile(decodeURIComponent(nome));
       return c ? `{${c}}` : "";
     },
   );

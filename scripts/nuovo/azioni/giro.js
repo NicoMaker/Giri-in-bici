@@ -3,7 +3,7 @@
 // Nuovo GIRO: "il giorno X ho fatto un giro di N km".
 
 const { MESI } = require("../base/impostazioni");
-const { bandiereMancanti, costruisciPlace } = require("../base/luogo");
+const { verificaBandiere, costruisciPlace } = require("../base/luogo");
 const { leggiJson } = require("../base/utilita");
 const {
   aggiornaAnno,
@@ -52,7 +52,7 @@ const applicaGiro = async (piano, d) => {
 
   // 1. il giro nel file del periodo, in ordine di data
   const place = costruisciPlace({ luogo, links });
-  for (const f of bandiereMancanti(luogo)) piano.crea(f.rel, f.testo); // crea l'immagine mancante in Img/Icons
+  verificaBandiere(luogo); // ogni bandiera usata deve esistere in Img/Icons/Bandiere/<Nome>/
   const giro = { date: nomeData, place, distance: km };
   const { testo, posizione } = inserisciGiro(
     piano.leggi(fileGiri),

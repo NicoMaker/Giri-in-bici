@@ -56,6 +56,9 @@
     box.textContent = testo;
     box.classList.toggle("errore", errore);
     box.hidden = false;
+    box.classList.remove("mostra");
+    void box.offsetWidth; // riavvia la barra del tempo
+    box.classList.add("mostra");
     clearTimeout(timer);
     timer = setTimeout(() => {
       box.hidden = true;

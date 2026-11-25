@@ -1,0 +1,132 @@
+/* ---------- icona dell'interfaccia ---------- */
+.logo {
+  padding: 0;
+  overflow: hidden;
+  background: none;
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accento-2) 70%, transparent);
+}
+.logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- sezione Bandiere ---------- */
+.barra-sezione code,
+.carta-bandiera code {
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: var(--carta-2);
+  font: 500 0.78rem ui-monospace, "SF Mono", Menlo, monospace;
+  overflow-wrap: anywhere;
+}
+.griglia-bandiere {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.carta-bandiera {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--bordo);
+  border-radius: 18px;
+  background: var(--carta);
+  box-shadow: var(--ombra);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+.carta-bandiera:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accento) 55%, var(--bordo));
+}
+.carta-bandiera__immagine {
+  display: grid;
+  place-items: center;
+  height: 120px;
+  border-radius: 12px;
+  background:
+    repeating-conic-gradient(var(--carta-2) 0% 25%, transparent 0% 50%) 50% / 16px 16px;
+}
+.carta-bandiera__immagine img {
+  max-width: 100%;
+  max-height: 104px;
+  object-fit: contain;
+  border-radius: 6px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+}
+.carta-bandiera__info {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+.carta-bandiera__info strong {
+  font-size: 1.05rem;
+}
+.bandiera-anteprima-riga {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+.bandiera-anteprima-riga .bandiera-upload-preview[hidden] {
+  display: none;
+}
+#dlg-bandiera .bandiera-drop {
+  min-height: 92px;
+  place-items: center;
+  text-align: center;
+}
+
+/* pulsante a link usato nel selettore di bandiere dei giri */
+.btn-link {
+  justify-self: start;
+  padding: 6px 2px;
+  border: 0;
+  background: none;
+  color: var(--accento-2);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- ritocchi grafici generali ---------- */
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accento-2) 55%, transparent);
+  outline-offset: 2px;
+}
+.scheda {
+  border: 1px solid var(--bordo);
+  box-shadow: var(--ombra);
+}
+.barra-sezione {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.tabs .btn[aria-current="true"] {
+  transform: none;
+}
+.ride {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.ride:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ombra);
+}
+.bandiera-img {
+  height: 1.1em;
+  width: auto;
+  vertical-align: -0.2em;
+  border-radius: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

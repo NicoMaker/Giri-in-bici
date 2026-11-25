@@ -83,6 +83,7 @@
   };
 
   const caricaTutto = async () => {
+    mostraScheletri();
     const [g, s, c, u] = await Promise.all([
       api("/api/gestione/giri"),
       api("/api/gestione/stagioni"),
@@ -124,6 +125,8 @@
     aggiornaPeriodoColore();
     disegnaGiri();
     disegnaUtenti();
+    disegnaBandiere();
+    disegnaRiepilogo();
     disegnaPeriodi();
   };
   // dopo un salvataggio o un'eliminazione: ricarica i dati, svuota i moduli e chiude le finestre
@@ -131,5 +134,6 @@
     await caricaTutto();
     azzeraGiro();
     azzeraUtente();
+    azzeraBandiera();
     document.querySelectorAll("dialog[open]").forEach((d) => d.close());
   };

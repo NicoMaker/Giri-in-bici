@@ -110,14 +110,6 @@ const segmentato = (opzioni, valore, onCambio) => {
   disegna();
   return { el: box, get: () => corrente };
 };
-const campioneColore = (colore) => {
-  const valido = colore && CSS.supports("color", colore);
-  return el(
-    "span",
-    { class: "campione" },
-    el("i", { style: valido ? `background:${colore}` : "" }),
-  );
-};
 const campoColore = (etichetta, usati) => {
   const testo = casella("text", "", {
     placeholder: "es. gold oppure #ff0060",

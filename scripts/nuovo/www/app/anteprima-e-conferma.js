@@ -63,10 +63,8 @@ const mostraAnteprima = (r, onConferma, onAnnulla) => {
   });
 };
 
-let casoAttuale = null;
 const apriCaso = (id) => {
   const caso = stato.casi.find((c) => c.id === id) || stato.casi[0];
-  casoAttuale = caso;
   history.replaceState(null, "", `#${caso.id}`);
   document
     .querySelectorAll(".voce")

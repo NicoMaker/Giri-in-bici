@@ -6,84 +6,35 @@ const { RADICE } = require("./impostazioni");
 
 // Luogo di un giro: nome + eventuali bandiere + uno o più link (ciascuno con il suo titolo).
 //
-// Come nei giri già presenti nei JSON, la bandiera sta nel testo, subito dopo il posto a cui si riferisce:
-//   "Da Tarvisio a Bled {SI} e Lubiana {SI}"   →   <img src="/img/Icons/Slovenia.png" alt="Slovenia"> al posto di {SI}
-// {XX} usa il codice del paese (SI, AT, HR…); le bandiere personalizzate usano un codice automatico.
-// L'immagine sta in Img/Icons/<Paese>.png|svg: se manca, il programma la crea da scripts/nuovo/base/bandiere/.
+// La bandiera sta nel testo, subito dopo il posto a cui si riferisce, come segnaposto {CODICE}:
+//   "Da Tarvisio a Bled {CUSTOM_SLOVENIA}"   →   <img src="/img/Icons/Bandiere/Slovenia/Slovenia.png" alt="Slovenia">
+// Esistono SOLO le bandiere create dall'utente (sezione "Bandiere" dell'interfaccia): ognuna ha
+// una sua sottocartella col nome scelto, Img/Icons/Bandiere/<Nome>/<Nome>.png|jpg|webp,
+// ed è registrata in json/Bandiere-personalizzate.json (codice, nome, file).
 //
 // Il JSON dei giri continua a salvare tutto in `place` (HTML), il formato che il sito pubblico già legge:
 //   senza link          →  "Cividale + Dobrovo <img…>"
 //   un link senza titolo →  "<a href=…>Dobrovo <img…></a>"
 //   uno o più link       →  "Udine <br><a href=…>Andata</a><br><a href=…>Ritorno</a>"
 
-const PAESI = [
-  ["IT", "Italia"],
-  ["SI", "Slovenia"],
-  ["AT", "Austria"],
-  ["HR", "Croazia"],
-  ["CH", "Svizzera"],
-  ["DE", "Germania"],
-  ["FR", "Francia"],
-  ["ES", "Spagna"],
-  ["PT", "Portogallo"],
-  ["SM", "San Marino"],
-  ["VA", "Vaticano"],
-  ["MC", "Monaco"],
-  ["LI", "Liechtenstein"],
-  ["LU", "Lussemburgo"],
-  ["BE", "Belgio"],
-  ["NL", "Paesi Bassi"],
-  ["DK", "Danimarca"],
-  ["SE", "Svezia"],
-  ["NO", "Norvegia"],
-  ["FI", "Finlandia"],
-  ["IS", "Islanda"],
-  ["IE", "Irlanda"],
-  ["GB", "Regno Unito"],
-  ["PL", "Polonia"],
-  ["CZ", "Cechia"],
-  ["SK", "Slovacchia"],
-  ["HU", "Ungheria"],
-  ["RO", "Romania"],
-  ["BG", "Bulgaria"],
-  ["RS", "Serbia"],
-  ["BA", "Bosnia ed Erzegovina"],
-  ["ME", "Montenegro"],
-  ["MK", "Macedonia del Nord"],
-  ["AL", "Albania"],
-  ["GR", "Grecia"],
-  ["MT", "Malta"],
-  ["CY", "Cipro"],
-  ["EE", "Estonia"],
-  ["LV", "Lettonia"],
-  ["LT", "Lituania"],
-  ["UA", "Ucraina"],
-  ["TR", "Turchia"],
-  ["US", "Stati Uniti"],
-  ["CA", "Canada"],
-  ["MX", "Messico"],
-  ["BR", "Brasile"],
-  ["AR", "Argentina"],
-  ["JP", "Giappone"],
-  ["CN", "Cina"],
-  ["AU", "Australia"],
-  ["NZ", "Nuova Zelanda"],
-  ["ZA", "Sudafrica"],
-  ["MA", "Marocco"],
-].map(([codice, nome]) => ({ codice, nome, bandiera: bandiera(codice) }));
-
-function bandiera(codice) {
-  return [...codice]
-    .map((c) => String.fromCodePoint(0x1f1e6 + c.charCodeAt(0) - 65))
-    .join("");
-}
-
-const CODICI = new Set(PAESI.map((p) => p.codice));
+const CARTELLA_BANDIERE = "Img/Icons/Bandiere";
 const FILE_BANDIERE_PERSONALIZZATE = path.join(
   RADICE,
   "json",
   "Bandiere-personalizzate.json",
 );
+const RE_FILE_BANDIERA = /^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+\.(?:png|jpe?g|webp)$/i;
+
+// "Friuli Venezia Giulia" → "Friuli_Venezia_Giulia" (nome di cartella e di file, senza accenti né simboli)
+const nomeCartella = (nome) =>
+  String(nome || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Za-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .slice(0, 48)
+    .replace(/_+$/g, "");
+
 const leggiBandierePersonalizzate = () => {
   if (!fs.existsSync(FILE_BANDIERE_PERSONALIZZATE)) return [];
   const dati = JSON.parse(fs.readFileSync(FILE_BANDIERE_PERSONALIZZATE, "utf8"));
@@ -95,27 +46,27 @@ const leggiBandierePersonalizzate = () => {
       /^CUSTOM_[A-Z0-9_]+$/.test(b.codice) &&
       typeof b.nome === "string" &&
       typeof b.file === "string" &&
-      /^custom-[a-z0-9-]+\.(?:png|jpe?g|webp)$/i.test(b.file),
+      RE_FILE_BANDIERA.test(b.file),
   );
 };
 const paesePersonalizzato = (codice) =>
   leggiBandierePersonalizzate().find((b) => b.codice === codice);
-const elencoPaesi = () => [
-  ...PAESI.map((p) => ({
-    ...p,
-    src: `/img/Bandiere/${p.codice.toLowerCase()}.svg`,
-  })),
-  ...leggiBandierePersonalizzate().map((p) => ({
+
+// Dove sta l'immagine: sempre Img/Icons/Bandiere/<Nome>/<file>.
+const immagineBandiera = (codice) => {
+  const bandiera = paesePersonalizzato(codice);
+  if (!bandiera) throw new Error(`Bandiera non riconosciuta: ${codice}.`);
+  const rel = `${CARTELLA_BANDIERE}/${bandiera.file}`;
+  return { rel, url: "/" + rel.replace(/^Img\//, "img/") };
+};
+const elencoPaesi = () =>
+  leggiBandierePersonalizzate().map((p) => ({
     ...p,
     bandiera: "🏳️",
     src: immagineBandiera(p.codice).url,
     personalizzata: true,
-  })),
-];
-const nomePaese = (codice) =>
-  PAESI.find((p) => p.codice === codice)?.nome ||
-  paesePersonalizzato(codice)?.nome ||
-  codice;
+  }));
+const nomePaese = (codice) => paesePersonalizzato(codice)?.nome || codice;
 
 // I testi finiscono in HTML già esistente: conserva apostrofi e & in modo sicuro.
 const esc = (s) =>

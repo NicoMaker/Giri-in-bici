@@ -120,7 +120,7 @@ const salvaGiro = (body) => {
     : leggi(targetFile);
   const nomeData = `${String(n.d.giorno).padStart(2, "0")} ${MESI[n.d.mese]}`;
   const place = costruisciPlace(n);
-  for (const f of bandiereMancanti(n.luogo)) changes.set(f.rel, f.testo); // crea l'immagine mancante in Img/Icons
+  verificaBandiere(n.luogo); // ogni bandiera usata deve esistere in Img/Icons/Bandiere/<Nome>/
   list.push({ date: nomeData, place, distance: n.km });
   list.sort((a, b) => {
     const da = dataSalvata(a),
