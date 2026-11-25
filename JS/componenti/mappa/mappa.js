@@ -119,7 +119,8 @@ export const creaMappa = () => {
         let titoletto = null;
         let visibili = 0;
         const chiudiGruppo = () => {
-          if (titoletto) titoletto.hidden = Boolean(q) && !perTitolo && visibili === 0;
+          if (titoletto)
+            titoletto.hidden = Boolean(q) && !perTitolo && visibili === 0;
         };
         [...lista.children].forEach((voce) => {
           if (voce.classList.contains("mappa-sezioni-titolo")) {
@@ -128,7 +129,9 @@ export const creaMappa = () => {
             visibili = 0;
             return;
           }
-          const ok = Boolean(q) && norma(voce.querySelector("a")?.textContent).includes(q);
+          const ok =
+            Boolean(q) &&
+            norma(voce.querySelector("a")?.textContent).includes(q);
           voce.classList.toggle("is-trovata", ok);
           voce.hidden = Boolean(q) && !perTitolo && !ok;
           if (!voce.hidden) visibili++;

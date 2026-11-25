@@ -13,9 +13,7 @@ const mostraErrore = (testo) => {
   });
 };
 const corpoRiepilogo = (r) => [
-  r.note.map((n, i) =>
-    i === 0 ? el("p", { class: "frase", text: n }) : null,
-  ),
+  r.note.map((n, i) => (i === 0 ? el("p", { class: "frase", text: n }) : null)),
   r.note.length > 1
     ? el(
         "ul",
@@ -68,9 +66,7 @@ const apriCaso = (id) => {
   history.replaceState(null, "", `#${caso.id}`);
   document
     .querySelectorAll(".voce")
-    .forEach((v) =>
-      v.classList.toggle("attiva", v.dataset.id === caso.id),
-    );
+    .forEach((v) => v.classList.toggle("attiva", v.dataset.id === caso.id));
   $("#risultato").replaceChildren();
   const vista = $("#vista");
   vista.replaceChildren(

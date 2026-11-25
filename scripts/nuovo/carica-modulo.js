@@ -10,7 +10,11 @@ const cache = new Map();
 const SORGENTI = {
   "azioni/stagione": ["crea-stagione.js", "copia-foto.js"],
   "base/impostazioni": ["opzioni-avvio.js", "palette-colori.js"],
-  "base/luogo": ["paesi-e-codici.js", "formattazione-luogo.js", "esportazioni.js"],
+  "base/luogo": [
+    "paesi-e-codici.js",
+    "formattazione-luogo.js",
+    "esportazioni.js",
+  ],
   "calcoli/giri-e-statistiche": [
     "date-e-periodi.js",
     "inserimento-ordinato.js",

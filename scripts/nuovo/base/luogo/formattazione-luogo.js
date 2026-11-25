@@ -8,7 +8,9 @@ const codiciNelLuogo = (luogo) => [
 // Da <img src="/img/Icons/..."> al codice: accetta il percorso nuovo (Bandiere/Austria/Austria)
 // e quello vecchio (Austria), così i giri già salvati continuano a funzionare.
 const codiceDaFile = (percorso) => {
-  const p = String(percorso).replace(/^Bandiere\//i, "").toLowerCase();
+  const p = String(percorso)
+    .replace(/^Bandiere\//i, "")
+    .toLowerCase();
   return leggiBandierePersonalizzate().find((b) => {
     const senzaEstensione = b.file.replace(/\.[^.]+$/, "").toLowerCase();
     return (

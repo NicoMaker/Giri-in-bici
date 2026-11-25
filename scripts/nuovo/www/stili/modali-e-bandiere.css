@@ -1,4 +1,3 @@
-
 .rs-op[aria-selected="true"] {
   background: color-mix(in srgb, var(--accento) 16%, var(--carta));
   font-weight: 700;

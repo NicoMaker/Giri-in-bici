@@ -35,7 +35,9 @@
   letter-spacing: 0.04em;
   line-height: 1;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 .lang-switcher-btn:hover {
   background: var(--a-soft, rgba(13, 148, 136, 0.12));
@@ -62,14 +64,27 @@
   font-size: 11px;
 }
 @media (max-width: 768px) {
-  .lang-switcher { bottom: 0.8rem; left: 0.8rem; padding: 4px; }
-  .lang-switcher-btn { padding: 7px 10px; font-size: 11px; }
-  .lang-flag { width: 18px; height: 13px; }
+  .lang-switcher {
+    bottom: 0.8rem;
+    left: 0.8rem;
+    padding: 4px;
+  }
+  .lang-switcher-btn {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+  .lang-flag {
+    width: 18px;
+    height: 13px;
+  }
 }
 
 /* Pulizia dell'interfaccia standard di Google Website Translator:
    il sito usa il widget solo come motore, il selettore visibile è quello sopra. */
-body { top: 0 !important; position: static !important; }
+body {
+  top: 0 !important;
+  position: static !important;
+}
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
 #goog-gt-tt,
@@ -83,5 +98,10 @@ body { top: 0 !important; position: static !important; }
   height: 0 !important;
   box-shadow: none !important;
 }
-.goog-text-highlight { background: none !important; box-shadow: none !important; }
-iframe.skiptranslate { display: none !important; }
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+iframe.skiptranslate {
+  display: none !important;
+}

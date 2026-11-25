@@ -14,9 +14,7 @@ moduli.stagione = () => {
     sotto:
       "Verranno copiate come 1.jpg, 2.jpg… e la galleria della pagina verrà costruita automaticamente.",
   });
-  const st = segmentato(opzioniStagioni(), "Primavera", (k) =>
-    costruisci(k),
-  );
+  const st = segmentato(opzioniStagioni(), "Primavera", (k) => costruisci(k));
   const costruisci = (chiave) => {
     const s = stato.stagioni[chiave];
     periodo.value = s.prossimo;
@@ -32,10 +30,7 @@ moduli.stagione = () => {
         el("span", { class: "etichetta", text: "Stagione" }),
         st.el,
       ),
-      campo(
-        s.formato === "anno" ? "Anno" : "Periodo (es. 2027-2028)",
-        periodo,
-      ),
+      campo(s.formato === "anno" ? "Anno" : "Periodo (es. 2027-2028)", periodo),
       colore.el,
       campo("Numero foto già pronte", nFoto),
       el("div", { class: "pieno" }, zona.el),

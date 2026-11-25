@@ -15,8 +15,10 @@ export function setGoogTransCookie(lang) {
   /* Rimuove eventuali cookie precedenti su tutte le varianti di path/dominio */
   document.cookie = "googtrans=; " + EXPIRED + " path=/;";
   if (host) {
-    document.cookie = "googtrans=; " + EXPIRED + " path=/; domain=" + host + ";";
-    document.cookie = "googtrans=; " + EXPIRED + " path=/; domain=." + host + ";";
+    document.cookie =
+      "googtrans=; " + EXPIRED + " path=/; domain=" + host + ";";
+    document.cookie =
+      "googtrans=; " + EXPIRED + " path=/; domain=." + host + ";";
   }
 
   if (!value) return;

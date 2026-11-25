@@ -86,18 +86,26 @@ const installa = (tabella) => {
       ? `${visibili} ${visibili === 1 ? "risultato" : "risultati"} su ${righe.length}`
       : `${righe.length} righe`;
     vuoto.hidden = !(parole.length && righe.length && visibili === 0);
-    if (!vuoto.hidden) vuoto.textContent = `Nessun risultato per “${campo.value.trim()}”.`;
+    if (!vuoto.hidden)
+      vuoto.textContent = `Nessun risultato per “${campo.value.trim()}”.`;
   };
 
   campo.addEventListener("input", applica);
   // se la tabella viene ridisegnata (nuovi dati, cambio vista) il filtro resta attivo
-  new MutationObserver(applica).observe(tabella, { childList: true, subtree: true });
+  new MutationObserver(applica).observe(tabella, {
+    childList: true,
+    subtree: true,
+  });
   applica();
 };
 
 const scansiona = () => {
   document.querySelectorAll("table:not([data-ricerca-pronta])").forEach((t) => {
-    if (t.closest("dialog, [data-senza-ricerca]") || t.hasAttribute("data-senza-ricerca")) return;
+    if (
+      t.closest("dialog, [data-senza-ricerca]") ||
+      t.hasAttribute("data-senza-ricerca")
+    )
+      return;
     if (righeDati(t).length < MIN_RIGHE) return; // ancora vuota o troppo piccola: riprova al prossimo cambio
     t.dataset.ricercaPronta = "1";
     installa(t);

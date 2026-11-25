@@ -23,7 +23,8 @@ const FILE_BANDIERE_PERSONALIZZATE = path.join(
   "json",
   "Bandiere-personalizzate.json",
 );
-const RE_FILE_BANDIERA = /^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+\.(?:png|jpe?g|webp)$/i;
+const RE_FILE_BANDIERA =
+  /^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+\.(?:png|jpe?g|webp)$/i;
 
 // "Friuli Venezia Giulia" → "Friuli_Venezia_Giulia" (nome di cartella e di file, senza accenti né simboli)
 const nomeCartella = (nome) =>
@@ -37,7 +38,9 @@ const nomeCartella = (nome) =>
 
 const leggiBandierePersonalizzate = () => {
   if (!fs.existsSync(FILE_BANDIERE_PERSONALIZZATE)) return [];
-  const dati = JSON.parse(fs.readFileSync(FILE_BANDIERE_PERSONALIZZATE, "utf8"));
+  const dati = JSON.parse(
+    fs.readFileSync(FILE_BANDIERE_PERSONALIZZATE, "utf8"),
+  );
   if (!Array.isArray(dati))
     throw new Error("Il catalogo delle bandiere personalizzate non è valido.");
   return dati.filter(
@@ -70,8 +73,12 @@ const nomePaese = (codice) => paesePersonalizzato(codice)?.nome || codice;
 
 // I testi finiscono in HTML già esistente: conserva apostrofi e & in modo sicuro.
 const esc = (s) =>
-  String(s).replace(/[&<>\"']/g, (c) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+  String(s).replace(
+    /[&<>\"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
   );
 const unesc = (s) =>
   String(s)

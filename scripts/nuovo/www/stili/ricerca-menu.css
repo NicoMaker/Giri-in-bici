@@ -23,7 +23,9 @@
   border-radius: 14px;
   background: var(--carta);
   box-shadow: var(--ombra);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 .ricerca-menu:focus-within {
   border-color: var(--accento);
@@ -54,7 +56,9 @@
   border-radius: 8px;
   background: var(--carta-2);
   color: var(--testo-2);
-  font: 600 0.75rem ui-monospace, monospace;
+  font:
+    600 0.75rem ui-monospace,
+    monospace;
 }
 .ricerca-menu:focus-within kbd {
   display: none;

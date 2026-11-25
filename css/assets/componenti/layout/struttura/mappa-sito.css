@@ -535,7 +535,9 @@
 }
 .mappa-scheda.is-trovata {
   outline: 2px solid var(--a1);
-  box-shadow: 0 0 0 6px var(--a-soft), var(--sh-2);
+  box-shadow:
+    0 0 0 6px var(--a-soft),
+    var(--sh-2);
 }
 .mappa-sez.is-trovata > a {
   color: var(--a1);

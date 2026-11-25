@@ -74,9 +74,7 @@ const leggiBundle = (nome) => {
   const sorgenti = pacchetto.file.map((file) => path.join(cartella, file));
   const mancante = sorgenti.find((sorgente) => !fs.existsSync(sorgente));
   if (mancante) throw new Error(`Sorgente mancante per ${nome}: ${mancante}.`);
-  return sorgenti
-    .map((percorso) => fs.readFileSync(percorso, "utf8"))
-    .join("");
+  return sorgenti.map((percorso) => fs.readFileSync(percorso, "utf8")).join("");
 };
 
 module.exports = { leggiBundle };
