@@ -7,9 +7,9 @@ const { RADICE } = require("./impostazioni");
 // Luogo di un giro: nome + eventuali bandiere + uno o più link (ciascuno con il suo titolo).
 //
 // La bandiera sta nel testo, subito dopo il posto a cui si riferisce, come segnaposto {CODICE}:
-//   "Da Tarvisio a Bled {CUSTOM_SLOVENIA}"   →   <img src="/img/Icons/Bandiere/Slovenia/Slovenia.png" alt="Slovenia">
+//   "Da Tarvisio a Bled {CUSTOM_SLOVENIA}"   →   <img src="/img/Icons/Bandiere/Slovenia.png" alt="Slovenia">
 // Esistono SOLO le bandiere create dall'utente (sezione "Bandiere" dell'interfaccia): ognuna ha
-// una sua sottocartella col nome scelto, Img/Icons/Bandiere/<Nome>/<Nome>.png|jpg|webp,
+// una sua sottocartella col nome scelto, Img/Icons/Bandiere/<Nome>.png|jpg|webp,
 // ed è registrata in json/Bandiere-personalizzate.json (codice, nome, file).
 //
 // Il JSON dei giri continua a salvare tutto in `place` (HTML), il formato che il sito pubblico già legge:
@@ -55,7 +55,7 @@ const leggiBandierePersonalizzate = () => {
 const paesePersonalizzato = (codice) =>
   leggiBandierePersonalizzate().find((b) => b.codice === codice);
 
-// Dove sta l'immagine: sempre Img/Icons/Bandiere/<Nome>/<file>.
+// Dove sta l'immagine: sempre Img/Icons/Bandiere/<file>.
 const immagineBandiera = (codice) => {
   const bandiera = paesePersonalizzato(codice);
   if (!bandiera) throw new Error(`Bandiera non riconosciuta: ${codice}.`);

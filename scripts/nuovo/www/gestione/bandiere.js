@@ -23,7 +23,7 @@ const percorsoBandiera = () => {
       tipo === "image/jpeg" ? "jpg" : tipo === "image/webp" ? "webp" : "png";
   }
   $("#b-percorso").textContent = cartella
-    ? `Verrà salvata in Img/Icons/Bandiere/${cartella}/${cartella}.${estensione}`
+    ? `Verrà salvata in Img/Icons/Bandiere.${estensione}`
     : "La cartella prende il nome che scrivi qui.";
 };
 const scegliFileBandiera = (file) => {
