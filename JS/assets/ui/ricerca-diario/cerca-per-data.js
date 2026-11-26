@@ -28,6 +28,7 @@
 
     const input = document.createElement("input");
     input.type = "date";
+    input.lang = "it";
     input.setAttribute("aria-label", "Data aggiuntiva");
     input.min = "2020-05-30";
     input.max = new Date().toISOString().slice(0, 10);
@@ -105,7 +106,11 @@
       anno: anno,
       meseIndice: meseIndice,
       etichettaGiorno: etichettaGiorno,
-      etichettaCompleta: etichettaGiorno + " " + anno,
+      etichettaCompleta: window.DatiGiri.dataItaliana(
+        giorno,
+        meseIndice + 1,
+        anno,
+      ),
     };
   };
 

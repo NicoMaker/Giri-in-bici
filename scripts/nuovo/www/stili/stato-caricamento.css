@@ -1,0 +1,30 @@
+/* ---------- attesa ---------- */
+.occupato {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  background: color-mix(in srgb, var(--sfondo) 78%, transparent);
+  backdrop-filter: blur(4px);
+  font-weight: 650;
+}
+.occupato[hidden],
+[hidden] {
+  display: none !important;
+}
+.rotella {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 4px solid var(--bordo);
+  border-top-color: var(--accento);
+  animation: gira 0.8s linear infinite;
+}
+@keyframes gira {
+  to {
+    transform: rotate(360deg);
+  }
+}

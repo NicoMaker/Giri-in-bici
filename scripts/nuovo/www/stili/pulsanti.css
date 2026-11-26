@@ -1,0 +1,40 @@
+/* ---------- bottoni ---------- */
+.azioni {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+.btn {
+  padding: 12px 20px;
+  border: 1px solid var(--bordo);
+  border-radius: 12px;
+  background: var(--carta-2);
+  color: var(--testo);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    transform 0.1s ease,
+    filter 0.1s ease;
+}
+.btn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn.primario {
+  border: 0;
+  background: linear-gradient(135deg, var(--accento), var(--accento-2));
+  color: var(--accento-testo);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accento) 35%, transparent);
+}
+@media (prefers-color-scheme: dark) {
+  .btn.primario {
+    color: #04131f;
+  }
+}

@@ -1,0 +1,120 @@
+.ordina .btn[aria-pressed="true"] {
+  background: linear-gradient(135deg, #6d4fd8, #b46fe0);
+  color: #fff;
+  border-color: transparent;
+}
+.range {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+}
+.range label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 700;
+}
+.range input {
+  width: 96px;
+  padding: 9px 12px;
+  border: 1px solid var(--bordo);
+  border-radius: 999px;
+  background: var(--carta);
+  color: inherit;
+  font: inherit;
+}
+.pill {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: color-mix(in srgb, var(--accento-2) 16%, var(--carta));
+  color: var(--accento-2);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.reset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+.reset .btn {
+  border-radius: 999px;
+}
+
+.rs {
+  position: relative;
+  width: 100%;
+}
+.rs-nativo {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.rs-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 13px;
+  border: 1px solid var(--bordo);
+  border-radius: 12px;
+  background: var(--carta-2);
+  color: var(--testo);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.rs-btn:hover,
+.rs-btn:focus-visible {
+  border-color: var(--accento);
+}
+.rs-testo {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rs-panel {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  max-width: min(380px, 88vw);
+  max-height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  background: var(--carta);
+  box-shadow: var(--ombra);
+}
+.rs-lista {
+  overflow: auto;
+  display: grid;
+  gap: 2px;
+}
+.rs-op {
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.rs-op:hover,
+.rs-op:focus-visible {
+  background: var(--carta-2);
+}

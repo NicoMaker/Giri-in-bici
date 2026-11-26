@@ -1,0 +1,16 @@
+module.exports = {
+  CARTELLA_BANDIERE,
+  nomeCartella,
+  cartellaBandiere,
+  sincronizzaBandiere,
+  elencoPaesi,
+  leggiBandierePersonalizzate,
+  paesePersonalizzato,
+  immagineBandiera,
+  verificaBandiere,
+  codiciNelLuogo,
+  normalizzaLuogo,
+  costruisciPlace,
+  leggiPlace,
+  esc,
+};

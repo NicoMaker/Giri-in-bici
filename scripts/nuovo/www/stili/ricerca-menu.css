@@ -1,0 +1,87 @@
+/* ---------- ricerca nel menu di inserimento ---------- */
+.menu-box {
+  position: sticky;
+  top: 84px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: calc(100vh - 100px);
+  min-width: 0;
+}
+.menu-box .menu {
+  position: static;
+  overflow-y: auto;
+  padding: 2px 4px 8px 2px;
+  scrollbar-width: thin;
+}
+.ricerca-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  background: var(--carta);
+  box-shadow: var(--ombra);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.ricerca-menu:focus-within {
+  border-color: var(--accento);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accento) 18%, transparent);
+}
+.ricerca-menu svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--testo-2);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+.ricerca-menu input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 0;
+  border: 0 !important;
+  background: transparent !important;
+  outline: 0 !important;
+  font: inherit;
+  color: var(--testo);
+}
+.ricerca-menu kbd {
+  padding: 2px 8px;
+  border: 1px solid var(--bordo);
+  border-radius: 8px;
+  background: var(--carta-2);
+  color: var(--testo-2);
+  font:
+    600 0.75rem ui-monospace,
+    monospace;
+}
+.ricerca-menu:focus-within kbd {
+  display: none;
+}
+.menu-vuoto {
+  margin: 0;
+  padding: 14px;
+  border: 1px dashed var(--bordo);
+  border-radius: 14px;
+  color: var(--testo-2);
+  text-align: center;
+  font-size: 0.9rem;
+}
+@media (max-width: 860px) {
+  .menu-box {
+    position: static;
+    max-height: none;
+  }
+  .menu-box .menu {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .ricerca-menu kbd {
+    display: none;
+  }
+}

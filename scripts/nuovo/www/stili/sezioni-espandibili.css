@@ -1,0 +1,31 @@
+/* ---------- sezioni a comparsa ---------- */
+.opzionale {
+  border: 1px dashed var(--bordo);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.opzionale > label.interruttore {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.opzionale input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accento);
+}
+.opzionale .dentro {
+  margin-top: 14px;
+}
+.gruppo {
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: color-mix(in srgb, var(--carta-2) 55%, var(--carta));
+}
+.gruppo h3 {
+  margin: 0 0 12px;
+  font-size: 0.98rem;
+}

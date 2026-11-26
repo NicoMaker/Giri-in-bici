@@ -1,0 +1,113 @@
+.rs-op[aria-selected="true"] {
+  background: color-mix(in srgb, var(--accento) 16%, var(--carta));
+  font-weight: 700;
+}
+.rs-vuoto {
+  margin: 6px;
+  color: var(--testo-2);
+}
+
+.barra-sezione {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+}
+.barra-sezione h2,
+.barra-sezione p {
+  margin: 0;
+}
+.barra-sezione .sotto {
+  margin-top: 4px;
+}
+dialog {
+  width: min(680px, 94vw);
+  max-height: 92vh;
+  overflow: auto;
+  padding: 22px;
+  border: 1px solid var(--bordo);
+  border-radius: 20px;
+  background: var(--carta);
+  color: var(--testo);
+  box-shadow: var(--ombra);
+}
+dialog::backdrop {
+  background: rgba(8, 10, 20, 0.55);
+  backdrop-filter: blur(3px);
+}
+.dlg-testa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.dlg-testa h2 {
+  margin: 0;
+}
+.err-dlg {
+  margin: 0 0 10px;
+  color: var(--errore);
+  font-weight: 700;
+}
+.err-dlg:empty {
+  display: none;
+}
+#dlg-conferma {
+  width: min(440px, 92vw);
+}
+#conf-testo {
+  margin: 4px 0 18px;
+  line-height: 1.5;
+}
+.anteprima-luogo {
+  margin-top: 6px;
+  padding: 8px 12px;
+  border: 1px dashed var(--bordo);
+  border-radius: 10px;
+}
+.bandiera-img {
+  height: 1.1em;
+  width: auto;
+  vertical-align: -0.15em;
+  border-radius: 2px;
+  margin-right: 6px;
+}
+.bandiera-custom {
+  margin-top: 12px;
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  background: var(--carta-2);
+  overflow: hidden;
+}
+.bandiera-custom summary {
+  padding: 13px 15px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.bandiera-custom summary:focus-visible,
+.bandiera-drop:focus-within {
+  outline: 3px solid color-mix(in srgb, var(--accento) 48%, transparent);
+  outline-offset: 2px;
+}
+.bandiera-custom__contenuto {
+  display: grid;
+  gap: 12px;
+  padding: 0 14px 14px;
+}
+.bandiera-custom__nome {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+.bandiera-custom__nome input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--bordo);
+  border-radius: 10px;
+  background: var(--carta);
+  color: var(--testo);
+  font: inherit;
+}

@@ -1,6 +1,6 @@
 "use strict";
 
-// Foto: cartella Img, percorsi trascinati nel terminale ed elenco delle foto .jpg.
+// Foto: cartella Img, elenco delle foto .jpg.
 
 const fs = require("fs");
 const path = require("path");
@@ -18,23 +18,6 @@ const cartellaImg = () => {
   }
 };
 
-// Pulisce un percorso trascinato/incollato nel terminale (virgolette, ~, spazi con "\").
-const pulisciPercorso = (v) => {
-  let t = v.trim().replace(/^file:\/\//, "");
-  if (
-    (t.startsWith('"') && t.endsWith('"')) ||
-    (t.startsWith("'") && t.endsWith("'"))
-  )
-    t = t.slice(1, -1);
-  t = t.replace(/\\ /g, " ");
-  if (t.startsWith("~"))
-    t = path.join(
-      process.env.HOME || process.env.USERPROFILE || "",
-      t.slice(1),
-    );
-  return path.resolve(t);
-};
-
 const ordineNaturale = (a, b) =>
   a.localeCompare(b, "it", { numeric: true, sensitivity: "base" });
 
@@ -48,4 +31,4 @@ const elencaFoto = (cartella) => {
   return { foto: foto.map((n) => path.join(cartella, n)), ignorati };
 };
 
-module.exports = { cartellaImg, pulisciPercorso, ordineNaturale, elencaFoto };
+module.exports = { cartellaImg, ordineNaturale, elencaFoto };

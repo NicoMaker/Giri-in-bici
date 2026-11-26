@@ -3,7 +3,6 @@
 // Utilita: ordinamento periodi, lettura JSON, validazione di periodi e colori.
 
 const { COLORI_CSS, MESI } = require("./impostazioni");
-const { chiediSiNo, chiediValido, grigio, scegli } = require("./terminale");
 
 const ordinaPeriodi = (a, b) =>
   parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b);
@@ -37,27 +36,6 @@ const validaColore = (v) => {
   return `"${v}" non è un colore valido: usa un nome CSS inglese (es. gold, tomato, teal) oppure un esadecimale (es. #ff0060).`;
 };
 
-// Chiede il colore SENZA suggerirne nessuno: lo scrivi tu nel terminale.
-const chiediColore = async (domanda, usati = []) => {
-  if (usati.length)
-    console.log(grigio(`  Colori già usati: ${usati.join(", ")}`));
-  for (;;) {
-    let colore = await chiediValido(domanda, "", validaColore);
-    if (COLORI_CSS[colore.toLowerCase()]) colore = colore.toLowerCase();
-    const doppio = usati.some(
-      (u) => String(u).toLowerCase() === colore.toLowerCase(),
-    );
-    if (
-      !doppio ||
-      (await chiediSiNo(
-        `  ${colore} è già usato da un altro: lo vuoi usare lo stesso?`,
-        false,
-      ))
-    )
-      return colore;
-  }
-};
-
 const coloreInRgb = (colore) => {
   let hex = colore.startsWith("#") ? colore : COLORI_CSS[colore.toLowerCase()];
   hex = hex.slice(1);
@@ -80,7 +58,6 @@ module.exports = {
   periodoSuccessivo,
   validaPeriodo,
   validaColore,
-  chiediColore,
   coloreInRgb,
   normalizzaData,
 };

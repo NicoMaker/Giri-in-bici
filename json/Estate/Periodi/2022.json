@@ -16,12 +16,12 @@
   },
   {
     "date": "16 Luglio",
-    "place": "<a href=\"https://www.komoot.it/tour/846079933?ref=avs&share_token=aCLjslCJwaRaZIWrk5Pem6aG8rnoCz5mLIv4bu5b8tFsYtjJTJ\" target=\"_blank\">Da Carnia a Laghi di Fusine + Bled <img src=\"/img/Icons/Slovenia.png\"></a>",
+    "place": "<a href=\"https://www.komoot.it/tour/846079933?ref=avs&share_token=aCLjslCJwaRaZIWrk5Pem6aG8rnoCz5mLIv4bu5b8tFsYtjJTJ\" target=\"_blank\">Da Carnia a Laghi di Fusine + Bled <img src=\"/img/icons/bandiere/slovenia.png\" alt=\"Slovenia\"></a>",
     "distance": 120
   },
   {
     "date": "17 Luglio",
-    "place": "<a href=\"https://www.komoot.it/tour/847800771?ref=avs&share_token=asA1BcoizKZ4gpwTeVCx3Z44onDzWNhdYxJeq3kSLons1J2AHf\" target=\"_blank\">Da Bled <img src=\"/img/Icons/Slovenia.png\"> a Carnia</a>",
+    "place": "<a href=\"https://www.komoot.it/tour/847800771?ref=avs&share_token=asA1BcoizKZ4gpwTeVCx3Z44onDzWNhdYxJeq3kSLons1J2AHf\" target=\"_blank\">Da Bled <img src=\"/img/icons/bandiere/slovenia.png\" alt=\"Slovenia\"> a Carnia</a>",
     "distance": 111
   },
   {
@@ -136,7 +136,7 @@
   },
   {
     "date": "22 Settembre",
-    "place": "Pordenone (corsa velocita')<br><a href='https://www.komoot.it/tour/933083892?share_token=aNoENmRYOIxlNkZjB4hlPtsSMs6RdFeqSqRCt7rCmg5nPQNXtH&ref=wtd' target='_blank'>andata</a><br><a href='https://www.komoot.it/tour/933084348?share_token=an0TRZYNGDzYirpD3JkRyPVNHwlFaKUyrXVhDr8hsUd4RAXlRs&ref=wtd' target='_blank'>ritorno</a>",
+    "place": "Pordenone (corsa velocita')<br><a href=\"https://www.komoot.it/tour/933083892?share_token=aNoENmRYOIxlNkZjB4hlPtsSMs6RdFeqSqRCt7rCmg5nPQNXtH&ref=wtd\" target=\"_blank\">andata</a><br><a href=\"https://www.komoot.it/tour/933084348?share_token=an0TRZYNGDzYirpD3JkRyPVNHwlFaKUyrXVhDr8hsUd4RAXlRs&ref=wtd\" target=\"_blank\">ritorno</a>",
     "distance": 56
   },
   {
@@ -151,7 +151,7 @@
   },
   {
     "date": "01 Ottobre",
-    "place": "<a href=\"https://www.komoot.it/tour/940890884?share_token=akWLeZfWE43AEjYtJpsp3YWbhHxPr9VG7hKlFyvMQ6PYojDPeJ&ref=wtd\" target=\"_blank\">Da Tarvisio a Villach <img src=\"/img/Icons/Austria.png\">- Velden <img src=\"/img/Icons/Austria.png\">e Klagenfurt <img src=\"/img/Icons/Austria.png\"></a>",
+    "place": "<a href=\"https://www.komoot.it/tour/940890884?share_token=akWLeZfWE43AEjYtJpsp3YWbhHxPr9VG7hKlFyvMQ6PYojDPeJ&ref=wtd\" target=\"_blank\">Da Tarvisio a Villach <img src=\"/img/icons/bandiere/austria.png\" alt=\"Austria\">- Velden <img src=\"/img/icons/bandiere/austria.png\" alt=\"Austria\">e Klagenfurt <img src=\"/img/icons/bandiere/austria.png\" alt=\"Austria\"></a>",
     "distance": 112
   },
   {

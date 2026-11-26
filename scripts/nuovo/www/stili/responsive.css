@@ -1,0 +1,33 @@
+/* ---------- mobile ---------- */
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .menu {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x proximity;
+  }
+  .voce {
+    flex: none;
+    width: auto;
+    grid-template-columns: 34px auto;
+    scroll-snap-align: start;
+  }
+  .voce small {
+    display: none;
+  }
+  .voce .ico {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

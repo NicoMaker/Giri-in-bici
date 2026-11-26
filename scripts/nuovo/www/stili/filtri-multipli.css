@@ -1,0 +1,119 @@
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 6px 0 14px;
+  font-weight: 700;
+}
+.legenda i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+.ms-riga {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.ms {
+  position: relative;
+}
+.ms-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--bordo);
+  border-radius: 999px;
+  background: var(--carta);
+  color: var(--testo);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.ms-btn b {
+  color: var(--accento-2);
+  font-weight: 700;
+}
+.ms-panel {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  width: min(320px, 86vw);
+  max-height: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  background: var(--carta);
+  box-shadow: var(--ombra);
+}
+.ms-panel input[type="search"] {
+  width: 100%;
+}
+.ms-azioni {
+  display: flex;
+  gap: 6px;
+}
+.ms-azioni .btn {
+  padding: 6px 10px;
+  font-size: 0.82rem;
+}
+.ms-lista {
+  overflow: auto;
+  display: grid;
+  gap: 2px;
+}
+.ms-lista label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 7px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.ms-lista label:hover {
+  background: var(--carta-2);
+}
+.box-filtri {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--bordo);
+  border-radius: 18px;
+  background: var(--carta-2);
+}
+.ricerca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border: 1px solid var(--bordo);
+  border-radius: 999px;
+  background: var(--carta);
+}
+.ricerca input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 12px 0;
+  outline: 0;
+  min-width: 0;
+}
+.ordina {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+}
+.ordina .btn {
+  border-radius: 999px;
+  justify-content: center;
+}

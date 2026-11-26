@@ -1,0 +1,116 @@
+.gruppo-menu {
+  margin: 14px 6px 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--testo-2);
+}
+.gruppo-menu:first-child {
+  margin-top: 2px;
+}
+.tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tabs .btn[aria-current="true"] {
+  border-color: var(--accento);
+  background: color-mix(in srgb, var(--accento) 14%, var(--carta));
+  box-shadow: 0 0 0 1px var(--accento) inset;
+}
+.sezione-pagina {
+  max-width: 1240px;
+  margin: 0 auto 64px;
+  padding: 0 clamp(16px, 4vw, 40px);
+}
+.sezione-pagina > .scheda {
+  margin-top: 22px;
+}
+.filtri {
+  display: grid;
+  grid-template-columns:
+    minmax(200px, 2fr) repeat(2, minmax(130px, 1fr))
+    auto;
+  gap: 10px;
+  align-items: end;
+  margin: 16px 0;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.chip {
+  border: 1px solid var(--bordo);
+  background: var(--carta-2);
+  color: var(--testo);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.chip:hover {
+  border-color: var(--errore);
+}
+.link-righe {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.link-riga {
+  display: grid;
+  grid-template-columns: minmax(90px, 1fr) minmax(140px, 2fr) auto;
+  gap: 8px;
+}
+.bandiere select {
+  max-width: 340px;
+}
+.flag {
+  font-size: 1.25em;
+  margin-right: 4px;
+}
+.ride-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.ride-links a {
+  padding: 3px 10px;
+  border: 1px solid var(--bordo);
+  border-radius: 999px;
+  color: var(--accento-2);
+  font-size: 0.8rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+.utente-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--carta);
+  border: 1px solid var(--bordo);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  flex: none;
+}
+.utente-riga {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  min-width: 0;
+}
+@media (max-width: 760px) {
+  .filtri {
+    grid-template-columns: 1fr;
+  }
+  .link-riga {
+    grid-template-columns: 1fr;
+  }
+  .sezione-pagina {
+    padding-inline: 12px;
+  }
+}

@@ -1,0 +1,75 @@
+/* ---------- risultato ---------- */
+.esito {
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  background: var(--carta);
+  box-shadow: var(--ombra);
+  padding: clamp(16px, 3vw, 26px);
+  animation: entra 0.2s ease;
+}
+@keyframes entra {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.esito h3 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+.esito.ok {
+  border-color: color-mix(in srgb, var(--ok) 45%, var(--bordo));
+}
+.esito.errore {
+  border-color: color-mix(in srgb, var(--errore) 45%, var(--bordo));
+  background: var(--errore-sfondo);
+  color: var(--errore);
+}
+.frase {
+  margin: 0 0 8px;
+  font-weight: 650;
+}
+.elenco-note {
+  margin: 0 0 14px;
+  padding-left: 18px;
+  color: var(--testo-2);
+}
+.avviso {
+  margin: 0 0 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--avviso-sfondo);
+  color: var(--avviso);
+  font-size: 0.9rem;
+}
+.file {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 5px 0;
+  font-size: 0.86rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  word-break: break-all;
+}
+.file b {
+  flex: none;
+  min-width: 78px;
+  font-family: inherit;
+}
+.file.crea b {
+  color: var(--ok);
+}
+.file.modifica b {
+  color: var(--avviso);
+}
+.promemoria {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--carta-2);
+  font-size: 0.9rem;
+}
+.promemoria strong {
+  display: block;
+  margin-bottom: 4px;
+}

@@ -1,50 +1,50 @@
 {
-  "_nota": "Elenco di TUTTI i casi che si possono fare. Lo leggono sia il menu del terminale (testo + tasto) sia l'interfaccia web (icona, titolo, descrizione). Per aggiungere un caso nuovo basta una voce qui e il suo codice in scripts/nuovo/server/api.js e programma/menu.js.",
+  "_nota": "Elenco dei casi dell'interfaccia web, raggruppati per 'gruppo'. Il codice di ogni caso è in scripts/nuovo/server/api.js.",
   "casi": [
     {
       "id": "giro",
-      "tasto": 1,
       "icona": "🚴",
       "titolo": "Aggiungi un giro",
       "testo": "Aggiungere un GIRO (data, stagione, luogo, link, km → aggiorna giri, km del mese e corse)",
-      "descrizione": "Data, stagione, luogo, link e km: aggiorna il giro, i km del mese e le corse dell'anno.",
-      "scrive": true
+      "descrizione": "Data, stagione, luogo, bandiere dei paesi, uno o più link con titolo e km: aggiorna giro, km del mese e corse.",
+      "scrive": true,
+      "gruppo": "Giri"
     },
     {
       "id": "mese",
-      "tasto": 2,
       "icona": "📆",
       "titolo": "Aggiungi o correggi un mese",
       "testo": "Aggiungere o correggere un MESE di un anno (lo crea se non c'è)",
       "descrizione": "Somma o sostituisci i km di un mese in un anno di Statistiche (lo crea se non c'è).",
-      "scrive": true
+      "scrive": true,
+      "gruppo": "Statistiche"
     },
     {
       "id": "foto",
-      "tasto": 3,
       "icona": "📷",
       "titolo": "Aggiungi foto",
       "testo": "Aggiungere FOTO a una stagione già esistente (indichi la cartella)",
       "descrizione": "Carica i .jpg in una stagione già esistente: numerazione continua e galleria aggiornata.",
-      "scrive": true
+      "scrive": true,
+      "gruppo": "Stagioni e foto"
     },
     {
       "id": "stagione",
-      "tasto": 4,
       "icona": "🌸",
       "titolo": "Nuova stagione",
       "testo": "Creare una nuova STAGIONE (Primavera, Estate o Autunno-Inverno)",
       "descrizione": "Crea pagina, JSON, colore e foto di Primavera, Estate o Autunno-Inverno.",
-      "scrive": true
+      "scrive": true,
+      "gruppo": "Stagioni e foto"
     },
     {
       "id": "anno",
-      "tasto": 5,
       "icona": "📅",
       "titolo": "Nuovo anno di Statistiche",
       "testo": "Creare un nuovo ANNO di Statistiche",
       "descrizione": "Crea la pagina dell'anno, il suo JSON, il colore e l'icona.",
-      "scrive": true
+      "scrive": true,
+      "gruppo": "Statistiche"
     }
   ]
 }
