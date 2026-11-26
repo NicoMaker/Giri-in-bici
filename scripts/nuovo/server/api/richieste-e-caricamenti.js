@@ -111,5 +111,3 @@ const spazzaCaricamenti = () => {
     }
   }
 };
-
-// ---------- stato (sola lettura) ----------

@@ -1,6 +1,8 @@
 module.exports = {
   CARTELLA_BANDIERE,
   nomeCartella,
+  cartellaBandiere,
+  sincronizzaBandiere,
   elencoPaesi,
   leggiBandierePersonalizzate,
   paesePersonalizzato,

@@ -1,32 +1,3 @@
-    aggiorna();
-  });
-  const chips = usati.length
-    ? el(
-        "div",
-        { class: "usati" },
-        el("span", { class: "aiuto", text: "Già usati:" }),
-        usati.map((u) =>
-          el(
-            "span",
-            { class: "chip", title: u },
-            el("i", { style: `background:${u}` }),
-          ),
-        ),
-      )
-    : null;
-  return {
-    el: el(
-      "div",
-      { class: "campo" },
-      el("span", { class: "etichetta", text: etichetta }),
-      el("div", { class: "riga-colore" }, campione, testo, scelta),
-      nota,
-      chips,
-    ),
-    get: () => testo.value.trim(),
-  };
-};
-
 const zonaFile = ({ multiplo, titolo, sotto }) => {
   let files = [];
   const input = el("input", {
@@ -71,8 +42,7 @@ const zonaFile = ({ multiplo, titolo, sotto }) => {
     const scartati = lista.length - jpg.length;
     files = multiplo ? jpg : jpg.slice(0, 1);
     disegna();
-    if (scartati)
-      info.textContent += ` · ignorati ${scartati} file non .jpg`;
+    if (scartati) info.textContent += ` · ignorati ${scartati} file non .jpg`;
   };
   const zona = el(
     "div",
@@ -138,3 +108,12 @@ const opzionale = (titolo, contenuto, aperto = false) => {
     },
   });
   return {
+    el: el(
+      "div",
+      { class: "opzionale pieno" },
+      el("label", { class: "interruttore" }, check, titolo),
+      dentro,
+    ),
+    attivo: () => check.checked,
+  };
+};

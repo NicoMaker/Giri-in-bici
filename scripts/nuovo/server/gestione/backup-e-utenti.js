@@ -1,3 +1,40 @@
+const eliminaPeriodo = ({ stagione, periodo }) => {
+  const s = STAGIONI[String(stagione || "")];
+  if (!s || !/^\d{4}(?:-\d{4})?$/.test(String(periodo || "")))
+    throw new Error("Stagione o periodo non valido.");
+  const changes = new Map();
+  const config = stagioneConfig(changes, stagione);
+  const { generale, statistiche, voce } = config;
+  const giroFile = generale.subPeriods[periodo];
+  if (!giroFile || !fs.existsSync(assoluto(giroFile)))
+    throw new Error("Periodo non trovato.");
+  const periodi = Object.keys(generale.subPeriods);
+  if (periodi.length <= 1)
+    throw new Error(
+      "Non puoi eliminare l'ultimo periodo: crea prima un altro periodo per mantenere la stagione utilizzabile.",
+    );
+  const giri = leggi(giroFile);
+  for (const giro of giri) {
+    const d = dataSalvata(giro);
+    if (!d)
+      throw new Error(
+        `Non posso aggiornare le statistiche: data non valida nel file ${giroFile}.`,
+      );
+    aggiornaStatistica(
+      changes,
+      annoPeriodo(stagione, periodo, d.mese),
+      d.mese,
+      -Number(giro.distance || 0),
+      -1,
+    );
+  }
+  const indiceColore = periodi.indexOf(periodo);
+  delete generale.subPeriods[periodo];
+  generale.colors = generale.colors || [];
+  generale.colors.splice(indiceColore, 1);
+  delete voce.subPeriods[periodo];
+  changes.set(config.file, formattaJson(generale));
+  changes.set(PERCORSO_STAGIONI_JSON, formattaJson(statistiche));
   const pagina = `${s.cartella}/${periodo}.html`;
   const cartellaImmagini = path.join(
     path.basename(
@@ -59,7 +96,22 @@
 // ---------- utenti (json/About_US/Users.json) ----------
 const FILE_UTENTI = "json/About_US/Users.json";
 const leggiUtenti = () => leggi(FILE_UTENTI).users || [];
-const elencoUtenti = () => leggiUtenti();
+// Per ogni utente indico se il file dell'avatar esiste davvero e da dove si vede (/img/About_US/...).
+const CARTELLA_AVATAR = "Img/About_US";
+const avatarUtente = (u) => {
+  const file = String(u.avatar || "");
+  if (!file || /[\\/]/.test(file))
+    return { avatarSrc: "", avatarMancante: !!file };
+  const completo = assoluto(`${CARTELLA_AVATAR}/${file}`);
+  if (!fs.existsSync(completo)) return { avatarSrc: "", avatarMancante: true };
+  const v = Math.round(fs.statSync(completo).mtimeMs);
+  return {
+    avatarSrc: `/img/About_US/${encodeURIComponent(file)}?v=${v}`,
+    avatarMancante: false,
+  };
+};
+const elencoUtenti = () =>
+  leggiUtenti().map((u) => ({ ...u, ...avatarUtente(u) }));
 const pulisciUtente = (u) => {
   const t = (k) => String(u[k] ?? "").trim();
   const username = t("username");
@@ -124,17 +176,32 @@ const eliminaUtente = ({ username }) => {
   scriviTransazione(new Map([[FILE_UTENTI, formattaJson(dati)]]));
   return { ok: true, messaggio: "Utente eliminato." };
 };
-const estensioneImmagineBandiera = (buffer) => {
-  if (!Buffer.isBuffer(buffer) || buffer.length < 12)
-    throw new Error("Il file della bandiera non è valido.");
-  if (buffer.length > 5 * 1024 * 1024)
-    throw new Error("L'immagine è troppo grande: il limite è 5 MB.");
-  if (
-    buffer.subarray(0, 8).equals(
-      Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
-    )
-  )
-    return "png";
-  if (buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff)
-    return "jpg";
-  if (
+// Elimina più utenti in una sola scrittura. Deve restarne almeno uno.
+const eliminaUtenti = ({ usernames }) => {
+  const richiesti = [
+    ...new Set((Array.isArray(usernames) ? usernames : []).map(String)),
+  ];
+  if (!richiesti.length)
+    throw new Error("Seleziona almeno un utente da eliminare.");
+  const dati = leggi(FILE_UTENTI);
+  const lista = dati.users || [];
+  const trovati = richiesti.filter((nome) =>
+    lista.some((x) => x.username === nome),
+  );
+  if (!trovati.length)
+    throw new Error("Gli utenti selezionati non esistono più.");
+  if (trovati.length >= lista.length)
+    throw new Error(
+      "Non puoi eliminare tutti gli utenti: ne deve restare almeno uno.",
+    );
+  dati.users = lista.filter((x) => !trovati.includes(x.username));
+  scriviTransazione(new Map([[FILE_UTENTI, formattaJson(dati)]]));
+  return {
+    ok: true,
+    eliminati: trovati.length,
+    messaggio:
+      trovati.length === 1
+        ? "Utente eliminato."
+        : `${trovati.length} utenti eliminati.`,
+  };
+};

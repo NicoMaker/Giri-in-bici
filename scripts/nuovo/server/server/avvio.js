@@ -1,3 +1,7 @@
+const avvia = () => {
+  if (
+    !fs.existsSync(path.join(RADICE, "json/Statistiche/History/Storico.json"))
+  ) {
     console.error(`\n❌ Non sembra la cartella di Giri in Bici: ${RADICE}`);
     console.error(
       "   Manca json/Statistiche/History/Storico.json.\n" +
@@ -9,6 +13,12 @@
     process.exit(1);
   }
   api.spazzaCaricamenti();
+  try {
+    gestione.sincronizzaBandiere();
+  } catch (e) {
+    console.error(`Catalogo bandiere non sincronizzato: ${e.message}`);
+  }
+  monitor.avvia(gestione.sincronizzaBandiere);
   const base = parseInt(opzione("porta") || process.env.PORT || "3000", 10);
   let porta = base;
   const server = http.createServer((req, res) =>
@@ -30,7 +40,9 @@
     console.log(
       `\n🚴 Giri in Bici — interfaccia web${argomenti.includes("--prova") ? " (modalità prova)" : ""}`,
     );
-    console.log(`📊 Gestionale Giri in Bici avviato → http://localhost:${porta}`);
+    console.log(
+      `📊 Gestionale Giri in Bici avviato → http://localhost:${porta}`,
+    );
     console.log(
       "🌐 IP Pubblico: non esposto (interfaccia limitata alla rete locale)",
     );

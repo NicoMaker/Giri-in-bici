@@ -1,3 +1,4 @@
+// ---------- stato (sola lettura) ----------
 const stato = () => {
   const piano = nuovoPiano();
   const storico = leggiJson(piano, PERCORSO_STORICO_JSON);

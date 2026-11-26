@@ -51,3 +51,5 @@ const editorLink = (iniziali = []) => {
         return { title: t.value.trim(), url: u.value.trim() };
       })
       .filter((l) => l.title || l.url);
+  return { nodo, get, set };
+};

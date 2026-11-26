@@ -1,0 +1,312 @@
+/* ========== icone, avatar utenti, selezione multipla, bandiere, indicatore live ========== */
+.ico {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  vertical-align: -0.2em;
+}
+.btn:has(> .ico),
+h2:has(> .ico),
+.ride-tag:has(> .ico) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+h2:has(> .ico) .ico {
+  width: 1.2em;
+  height: 1.2em;
+  color: var(--accento);
+}
+.ride-tag .ico {
+  width: 0.95em;
+  height: 0.95em;
+}
+.btn.danger .ico {
+  color: inherit;
+}
+.ico-grande {
+  width: 2.6rem;
+  height: 2.6rem;
+  opacity: 0.55;
+}
+.empty-state:has(> .ico-grande)::before {
+  display: none;
+}
+
+/* ---------- avatar degli utenti: foto se c'è, altrimenti icona ---------- */
+.utente-avatar--img {
+  display: block;
+  object-fit: cover;
+  background: var(--carta-2);
+  border: 1px solid var(--bordo);
+}
+.utente-avatar--icona {
+  background: var(--carta-2);
+  color: var(--testo-2);
+  border: 1px solid var(--bordo);
+}
+.utente-avatar--icona .ico {
+  width: 55%;
+  height: 55%;
+}
+.utente-avatar--grande {
+  width: 64px;
+  height: 64px;
+}
+.avatar-campo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avatar-campo input {
+  flex: 1;
+  min-width: 0;
+}
+.avatar-anteprima {
+  display: inline-grid;
+  flex: none;
+}
+
+/* ---------- selezione multipla degli utenti ---------- */
+.spunta {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  min-width: 28px;
+  min-height: 28px;
+  cursor: pointer;
+}
+.spunta input,
+.spunta-riga {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--accento);
+  cursor: pointer;
+}
+.barra-selezione {
+  position: sticky;
+  top: 8px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  background: var(--carta);
+  box-shadow: var(--ombra);
+  color: var(--testo-2);
+  font-weight: 650;
+}
+.barra-selezione > span {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.barra-selezione.attiva {
+  border-color: var(--accento);
+  color: var(--testo);
+  background: color-mix(in srgb, var(--accento) 10%, var(--carta));
+}
+.barra-selezione .btn[hidden] {
+  display: none;
+}
+.barra-selezione .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.utente-scheda.selezionata {
+  border-color: var(--accento);
+  background: color-mix(in srgb, var(--accento) 8%, var(--carta));
+}
+.tag-ok {
+  background: var(--ok-sfondo);
+  color: var(--ok);
+}
+.tag-spento {
+  background: var(--carta-2);
+  color: var(--testo-2);
+}
+.tag-avviso {
+  background: var(--avviso-sfondo);
+  color: var(--avviso);
+}
+
+/* ---------- bandiere ---------- */
+.carta-bandiera__azioni {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.carta-bandiera__azioni .btn {
+  flex: 1 1 110px;
+  justify-content: center;
+}
+.carta-bandiera--rotta {
+  border-style: dashed;
+  border-color: var(--avviso);
+}
+.carta-bandiera__vuota {
+  display: grid;
+  place-items: center;
+  color: var(--avviso);
+}
+.carta-bandiera__vuota .ico {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+/* ---------- indicatore "live" accanto a Online ---------- */
+.stato-server[data-live="on"]::after {
+  content: "live";
+  padding: 0 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ok) 18%, transparent);
+  color: var(--ok);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+}
+.stato-server[data-live="off"]::after {
+  content: "riconnessione…";
+  color: var(--avviso);
+  font-size: 0.62rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .stato-server i {
+    animation: none;
+  }
+}
+
+/* ========== selezione su giri e bandiere ========== */
+.ride > .spunta {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.ride:has(> .spunta) .ride-info {
+  flex: 1 1 240px;
+}
+.ride.selezionata {
+  border-color: var(--accento);
+  background: color-mix(in srgb, var(--accento) 8%, var(--carta));
+}
+.carta-bandiera {
+  position: relative;
+}
+.carta-bandiera__spunta {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  background: color-mix(in srgb, var(--carta) 88%, transparent);
+  border: 1px solid var(--bordo);
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+}
+.carta-bandiera.selezionata {
+  border-color: var(--accento);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accento) 22%, transparent),
+    var(--ombra);
+}
+
+/* ========== aspetto più moderno: testata, schede, pulsanti, campi ========== */
+:root {
+  --raggio-m: 14px;
+  --transizione: 0.18s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.testata {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--carta) 82%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid var(--bordo);
+}
+.scheda {
+  border-radius: var(--raggio);
+  border: 1px solid var(--bordo);
+  box-shadow: var(--ombra);
+}
+.btn {
+  border-radius: 12px;
+  font-weight: 650;
+  transition:
+    transform var(--transizione),
+    box-shadow var(--transizione),
+    background-color var(--transizione),
+    border-color var(--transizione),
+    color var(--transizione);
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.12);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.btn:focus-visible,
+.spunta input:focus-visible,
+.spunta-riga:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accento-2) 55%, transparent);
+  outline-offset: 2px;
+}
+.btn.primario {
+  background: linear-gradient(135deg, var(--accento), var(--accento-2));
+  color: var(--accento-testo);
+  border-color: transparent;
+}
+.btn.danger:hover:not(:disabled) {
+  background: var(--errore-sfondo);
+  border-color: var(--errore);
+}
+input:not([type="checkbox"]):not([type="color"]):not([type="file"]),
+select,
+textarea {
+  border-radius: 12px;
+  transition:
+    border-color var(--transizione),
+    box-shadow var(--transizione);
+}
+input:not([type="checkbox"]):not([type="color"]):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accento-2);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accento-2) 18%, transparent);
+  outline: none;
+}
+dialog {
+  border: 1px solid var(--bordo);
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(16, 24, 40, 0.28);
+}
+dialog::backdrop {
+  background: rgba(10, 16, 32, 0.5);
+  backdrop-filter: blur(4px);
+}
+.ride,
+.carta-bandiera,
+.riep-carta {
+  border-radius: var(--raggio-m);
+}
+@media (max-width: 640px) {
+  .barra-selezione {
+    top: 4px;
+  }
+  .barra-selezione .btn {
+    flex: 1 1 140px;
+    justify-content: center;
+  }
+  .carta-bandiera__azioni .btn {
+    flex-basis: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn:hover:not(:disabled) {
+    transition: none;
+    transform: none;
+  }
+}

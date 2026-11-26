@@ -219,7 +219,9 @@ document.addEventListener("sezione", (e) => {
 const impostaDensita = (compatta) => {
   $("#lista").classList.toggle("compatta", compatta);
   $("#densita").setAttribute("aria-pressed", String(compatta));
-  $("#densita").textContent = compatta ? "Vista comoda" : "Vista compatta";
+  $("#densita-testo").textContent = compatta
+    ? "Vista comoda"
+    : "Vista compatta";
   try {
     localStorage.setItem("giri-densita", compatta ? "compatta" : "comoda");
   } catch {}

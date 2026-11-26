@@ -1,12 +1,3 @@
-  } catch (e) {
-    for (const [rel, bytes] of [...prima].reverse()) {
-      const file = assoluto(rel);
-      if (bytes === null) fs.rmSync(file, { force: true });
-      else fs.writeFileSync(file, bytes);
-    }
-    throw e;
-  }
-};
 const jsonInModifiche = (map, rel) =>
   map.has(rel) ? JSON.parse(map.get(rel)) : leggi(rel);
 const stagioneConfig = (map, chiave) => {
@@ -138,3 +129,18 @@ const salvaGiro = (body) => {
   if (old) {
     aggiornaStatistica(
       changes,
+      old.date.anno,
+      old.date.mese,
+      -Number(old.ride.distance || 0),
+      0,
+    );
+    aggiornaStatistica(changes, n.d.anno, n.d.mese, n.km, 0);
+  } else aggiornaStatistica(changes, n.d.anno, n.d.mese, n.km, 1);
+  scriviTransazione(changes);
+  return {
+    ok: true,
+    messaggio: old
+      ? "Giro modificato e statistiche aggiornate."
+      : "Giro aggiunto e statistiche aggiornate.",
+  };
+};

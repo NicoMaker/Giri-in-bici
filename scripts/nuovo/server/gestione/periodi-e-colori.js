@@ -1,18 +1,3 @@
-      old.date.anno,
-      old.date.mese,
-      -Number(old.ride.distance || 0),
-      0,
-    );
-    aggiornaStatistica(changes, n.d.anno, n.d.mese, n.km, 0);
-  } else aggiornaStatistica(changes, n.d.anno, n.d.mese, n.km, 1);
-  scriviTransazione(changes);
-  return {
-    ok: true,
-    messaggio: old
-      ? "Giro modificato e statistiche aggiornate."
-      : "Giro aggiunto e statistiche aggiornate.",
-  };
-};
 const eliminaGiro = ({ id }) => {
   const ref = stagioneDaId(id);
   const file = nomeFileGiri(ref.chiave, ref.periodo);
@@ -32,6 +17,46 @@ const eliminaGiro = ({ id }) => {
   );
   scriviTransazione(changes);
   return { ok: true, messaggio: "Giro eliminato e statistiche aggiornate." };
+};
+// Elimina più giri in una sola scrittura: statistiche e file si aggiornano insieme, oppure niente.
+const eliminaGiri = ({ ids }) => {
+  const lista = [...new Set((Array.isArray(ids) ? ids : []).map(String))];
+  if (!lista.length) throw new Error("Seleziona almeno un giro da eliminare.");
+  if (lista.length > 500)
+    throw new Error("Puoi eliminare al massimo 500 giri alla volta.");
+  // indici dal più alto al più basso: togliendo un giro non si spostano quelli ancora da togliere
+  const riferimenti = lista
+    .map((id) => stagioneDaId(id))
+    .sort((a, b) => b.index - a.index);
+  const changes = new Map();
+  for (const ref of riferimenti) {
+    const file = nomeFileGiri(ref.chiave, ref.periodo);
+    const list = changes.has(file)
+      ? JSON.parse(changes.get(file))
+      : leggi(file);
+    const ride = list[ref.index];
+    if (!ride) throw new Error("Uno dei giri selezionati non esiste più.");
+    const d = dataSalvata(ride);
+    if (!d) throw new Error("La data di uno dei giri non è leggibile.");
+    list.splice(ref.index, 1);
+    changes.set(file, formattaJson(list));
+    aggiornaStatistica(
+      changes,
+      annoPeriodo(ref.chiave, ref.periodo, d.mese),
+      d.mese,
+      -Number(ride.distance || 0),
+      -1,
+    );
+  }
+  scriviTransazione(changes);
+  return {
+    ok: true,
+    eliminati: riferimenti.length,
+    messaggio:
+      riferimenti.length === 1
+        ? "Giro eliminato e statistiche aggiornate."
+        : `${riferimenti.length} giri eliminati e statistiche aggiornate.`,
+  };
 };
 const listaStagioni = () =>
   Object.entries(STAGIONI).flatMap(([chiave, s]) => {
@@ -68,40 +93,3 @@ const salvaColore = ({ stagione, periodo, colore }) => {
   };
 };
 const listaPeriodiGestibili = () => listaStagioni();
-const eliminaPeriodo = ({ stagione, periodo }) => {
-  const s = STAGIONI[String(stagione || "")];
-  if (!s || !/^\d{4}(?:-\d{4})?$/.test(String(periodo || "")))
-    throw new Error("Stagione o periodo non valido.");
-  const changes = new Map();
-  const config = stagioneConfig(changes, stagione);
-  const { generale, statistiche, voce } = config;
-  const giroFile = generale.subPeriods[periodo];
-  if (!giroFile || !fs.existsSync(assoluto(giroFile)))
-    throw new Error("Periodo non trovato.");
-  const periodi = Object.keys(generale.subPeriods);
-  if (periodi.length <= 1)
-    throw new Error(
-      "Non puoi eliminare l'ultimo periodo: crea prima un altro periodo per mantenere la stagione utilizzabile.",
-    );
-  const giri = leggi(giroFile);
-  for (const giro of giri) {
-    const d = dataSalvata(giro);
-    if (!d)
-      throw new Error(
-        `Non posso aggiornare le statistiche: data non valida nel file ${giroFile}.`,
-      );
-    aggiornaStatistica(
-      changes,
-      annoPeriodo(stagione, periodo, d.mese),
-      d.mese,
-      -Number(giro.distance || 0),
-      -1,
-    );
-  }
-  const indiceColore = periodi.indexOf(periodo);
-  delete generale.subPeriods[periodo];
-  generale.colors = generale.colors || [];
-  generale.colors.splice(indiceColore, 1);
-  delete voce.subPeriods[periodo];
-  changes.set(config.file, formattaJson(generale));
-  changes.set(PERCORSO_STAGIONI_JSON, formattaJson(statistiche));

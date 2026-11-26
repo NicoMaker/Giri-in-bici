@@ -1,4 +1,12 @@
 [
   {
+    "codice": "CUSTOM_AUSTRIA",
+    "nome": "Austria",
+    "file": "Austria.png"
+  },
+  {
+    "codice": "CUSTOM_SLOVENIA",
+    "nome": "Slovenia",
+    "file": "Slovenia.png"
   }
 ]

@@ -12,8 +12,7 @@ const el = (tag, props = {}, ...figli) => {
     else n.setAttribute(k, v === true ? "" : v);
   }
   const appendi = (figlio) => {
-    if (figlio === null || figlio === undefined || figlio === false)
-      return;
+    if (figlio === null || figlio === undefined || figlio === false) return;
     if (Array.isArray(figlio)) return figlio.forEach(appendi);
     n.append(
       figlio.nodeType ? figlio : document.createTextNode(String(figlio)),
@@ -121,8 +120,7 @@ const campoColore = (etichetta, usati) => {
     const v = testo.value.trim();
     campione.firstChild.style.background =
       v && CSS.supports("color", v) ? v : "transparent";
-    const doppio =
-      v && usati.some((u) => u.toLowerCase() === v.toLowerCase());
+    const doppio = v && usati.some((u) => u.toLowerCase() === v.toLowerCase());
     nota.className = doppio ? "aiuto avv" : "aiuto";
     nota.textContent = doppio
       ? "⚠ Questo colore è già usato da un altro periodo."
@@ -131,3 +129,31 @@ const campoColore = (etichetta, usati) => {
   testo.addEventListener("input", aggiorna);
   scelta.addEventListener("input", () => {
     testo.value = scelta.value;
+    aggiorna();
+  });
+  const chips = usati.length
+    ? el(
+        "div",
+        { class: "usati" },
+        el("span", { class: "aiuto", text: "Già usati:" }),
+        usati.map((u) =>
+          el(
+            "span",
+            { class: "chip", title: u },
+            el("i", { style: `background:${u}` }),
+          ),
+        ),
+      )
+    : null;
+  return {
+    el: el(
+      "div",
+      { class: "campo" },
+      el("span", { class: "etichetta", text: etichetta }),
+      el("div", { class: "riga-colore" }, campione, testo, scelta),
+      nota,
+      chips,
+    ),
+    get: () => testo.value.trim(),
+  };
+};

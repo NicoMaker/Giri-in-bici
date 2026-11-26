@@ -1,8 +1,3 @@
-    attributes: true,
-  });
-  select.addEventListener("change", aggiorna);
-  aggiorna();
-};
 const potenziaSelect = (radice = document) =>
   radice.querySelectorAll("select").forEach(rendiRicercabile);
 potenziaSelect();

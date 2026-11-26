@@ -232,17 +232,28 @@
     >
       <section class="scheda barra-sezione">
         <div>
-          <h2 id="t-archivio">Archivio giri</h2>
+          <h2 id="t-archivio" data-ico="folder">Archivio giri</h2>
           <p class="sotto">
             Aggiungi, correggi o elimina i giri. Le statistiche collegate si
             aggiornano insieme ai dati.
           </p>
         </div>
         <div class="azioni-barra">
-          <button class="btn" id="densita" type="button" aria-pressed="false">
-            Vista compatta
+          <button
+            class="btn"
+            id="densita"
+            type="button"
+            aria-pressed="false"
+            data-ico="eye"
+          >
+            <span id="densita-testo">Vista compatta</span>
           </button>
-          <button class="btn primario" id="nuovo-giro" type="button">
+          <button
+            class="btn primario"
+            id="nuovo-giro"
+            type="button"
+            data-ico="plus"
+          >
             ＋ Nuovo giro
           </button>
         </div>
@@ -255,7 +266,13 @@
       <dialog id="dlg-giro" aria-labelledby="t-giro">
         <div class="dlg-testa">
           <h2 id="t-giro">Nuovo giro</h2>
-          <button class="btn" type="button" data-chiudi aria-label="Chiudi">
+          <button
+            class="btn"
+            type="button"
+            data-chiudi
+            aria-label="Chiudi"
+            data-ico="close"
+          >
             ✕
           </button>
         </div>
@@ -302,15 +319,22 @@
             </div>
           </div>
           <div class="azioni">
-            <button class="btn primario" type="submit">Salva giro</button
-            ><button class="btn" id="annulla" type="button" data-chiudi>
+            <button class="btn primario" type="submit" data-ico="save">
+              Salva giro</button
+            ><button
+              class="btn"
+              id="annulla"
+              type="button"
+              data-chiudi
+              data-ico="close"
+            >
               Annulla
             </button>
           </div>
         </form>
       </dialog>
       <section class="scheda">
-        <h2>Ricerca giri</h2>
+        <h2 data-ico="search">Ricerca giri</h2>
         <p class="sotto" id="conteggio" aria-live="polite"></p>
         <div class="legenda" aria-hidden="true">
           <span><i style="background: #22a559"></i>Primavera</span
@@ -378,15 +402,31 @@
           </div>
           <div class="reset">
             <strong>RESET</strong
-            ><button class="btn" type="button" data-reset="pulsanti">
-              ↺ Solo pulsanti</button
-            ><button class="btn" type="button" data-reset="ricerca">
-              ↺ Solo ricerca</button
-            ><button class="btn" type="button" data-reset="tutto">
-              ↺ Entrambi
+            ><button
+              class="btn"
+              type="button"
+              data-reset="pulsanti"
+              data-ico="refresh"
+            >
+              Solo pulsanti</button
+            ><button
+              class="btn"
+              type="button"
+              data-reset="ricerca"
+              data-ico="refresh"
+            >
+              Solo ricerca</button
+            ><button
+              class="btn"
+              type="button"
+              data-reset="tutto"
+              data-ico="refresh"
+            >
+              Entrambi
             </button>
           </div>
         </div>
+        <div id="g-barra-box"></div>
         <div id="lista" class="lista-giri"></div>
       </section>
     </section>
@@ -399,19 +439,30 @@
     >
       <section class="scheda barra-sezione">
         <div>
-          <h2 id="t-utenti">Utenti</h2>
+          <h2 id="t-utenti" data-ico="users">Utenti</h2>
           <p class="sotto">
             Gestisci le persone mostrate nella pagina About us.
           </p>
         </div>
-        <button class="btn primario" id="nuovo-utente" type="button">
+        <button
+          class="btn primario"
+          id="nuovo-utente"
+          type="button"
+          data-ico="plus"
+        >
           ＋ Nuovo utente
         </button>
       </section>
       <dialog id="dlg-utente" aria-labelledby="t-utente">
         <div class="dlg-testa">
           <h2 id="t-utente">Nuovo utente</h2>
-          <button class="btn" type="button" data-chiudi aria-label="Chiudi">
+          <button
+            class="btn"
+            type="button"
+            data-chiudi
+            aria-label="Chiudi"
+            data-ico="close"
+          >
             ✕
           </button>
         </div>
@@ -436,9 +487,11 @@
               ><input id="u-description" maxlength="200"
             /></label>
             <label class="campo"
-              ><span class="etichetta">Avatar (nome file)</span
-              ><input id="u-avatar" placeholder="AvatarNM.jpg"
-            /></label>
+              ><span class="etichetta">Avatar (nome file in Img/About_US)</span
+              ><span class="avatar-campo"
+                ><span id="u-avatar-anteprima" class="avatar-anteprima"></span
+                ><input id="u-avatar" placeholder="AvatarNM.jpg" /></span
+            ></label>
             <label class="campo"
               ><span class="etichetta">Profilo Komoot</span
               ><input
@@ -455,15 +508,22 @@
             >
           </div>
           <div class="azioni">
-            <button class="btn primario" type="submit">Salva utente</button
-            ><button class="btn" id="u-annulla" type="button" data-chiudi>
+            <button class="btn primario" type="submit" data-ico="save">
+              Salva utente</button
+            ><button
+              class="btn"
+              id="u-annulla"
+              type="button"
+              data-chiudi
+              data-ico="close"
+            >
               Annulla
             </button>
           </div>
         </form>
       </dialog>
       <section class="scheda">
-        <h2>Elenco utenti</h2>
+        <h2 data-ico="users">Elenco utenti</h2>
         <div class="filtri" style="grid-template-columns: 1fr">
           <label class="campo"
             ><span class="etichetta"
@@ -472,6 +532,7 @@
           /></label>
         </div>
         <p class="sotto" id="u-conteggio"></p>
+        <div id="u-barra-box"></div>
         <div id="u-lista" class="lista-giri"></div>
       </section>
     </section>
@@ -484,21 +545,33 @@
     >
       <section class="scheda barra-sezione">
         <div>
-          <h2 id="t-bandiere">Bandiere</h2>
+          <h2 id="t-bandiere" data-ico="flag">Bandiere</h2>
           <p class="sotto">
-            L'unico posto dove creare e modificare le immagini delle bandiere.
-            Ogni bandiera ha una cartella col suo nome in
-            <code>Img/Icons/Bandiere/</code>.
+            Crea, sostituisci ed elimina le bandiere. Le immagini stanno in
+            <code>Img/Icons/Bandiere/</code>: se ne aggiungi una a mano compare
+            qui da sola, e le bandiere create finiscono anche nelle pagine Giri
+            e About us.
           </p>
         </div>
-        <button class="btn primario" id="nuova-bandiera" type="button">
+        <button
+          class="btn primario"
+          id="nuova-bandiera"
+          type="button"
+          data-ico="plus"
+        >
           ＋ Nuova bandiera
         </button>
       </section>
       <dialog id="dlg-bandiera" aria-labelledby="t-bandiera">
         <div class="dlg-testa">
           <h2 id="t-bandiera">Nuova bandiera</h2>
-          <button class="btn" type="button" data-chiudi aria-label="Chiudi">
+          <button
+            class="btn"
+            type="button"
+            data-chiudi
+            aria-label="Chiudi"
+            data-ico="close"
+          >
             ✕
           </button>
         </div>
@@ -544,16 +617,27 @@
             </div>
           </div>
           <div class="azioni">
-            <button class="btn primario" type="submit" id="b-salva">
-              Salva bandiera</button
-            ><button class="btn" id="b-annulla" type="button" data-chiudi>
+            <button
+              class="btn primario"
+              type="submit"
+              id="b-salva"
+              data-ico="save"
+            >
+              <span id="b-salva-testo">Salva bandiera</span></button
+            ><button
+              class="btn"
+              id="b-annulla"
+              type="button"
+              data-chiudi
+              data-ico="close"
+            >
               Annulla
             </button>
           </div>
         </form>
       </dialog>
       <section class="scheda">
-        <h2>Bandiere create</h2>
+        <h2 data-ico="flag">Bandiere create</h2>
         <div class="filtri" style="grid-template-columns: 1fr">
           <label class="campo"
             ><span class="etichetta">Cerca per nome</span
@@ -561,6 +645,7 @@
           /></label>
         </div>
         <p class="sotto" id="b-conteggio"></p>
+        <div id="b-barra-box"></div>
         <div id="b-lista" class="griglia-bandiere"></div>
       </section>
     </section>
@@ -573,19 +658,32 @@
     >
       <section class="scheda barra-sezione">
         <div>
-          <h2 id="t-colori">Colori delle stagioni e dei periodi</h2>
+          <h2 id="t-colori" data-ico="palette">
+            Colori delle stagioni e dei periodi
+          </h2>
           <p class="sotto">
             Scegli una stagione e un periodo, per esempio Estate → 2020.
           </p>
         </div>
-        <button class="btn primario" id="nuovo-colore" type="button">
+        <button
+          class="btn primario"
+          id="nuovo-colore"
+          type="button"
+          data-ico="palette"
+        >
           🎨 Cambia colore
         </button>
       </section>
       <dialog id="dlg-colore" aria-labelledby="t-colore-dlg">
         <div class="dlg-testa">
           <h2 id="t-colore-dlg">Colore di un periodo</h2>
-          <button class="btn" type="button" data-chiudi aria-label="Chiudi">
+          <button
+            class="btn"
+            type="button"
+            data-chiudi
+            aria-label="Chiudi"
+            data-ico="close"
+          >
             ✕
           </button>
         </div>
@@ -613,7 +711,7 @@
         </form>
       </dialog>
       <section class="scheda">
-        <h2>Colori delle statistiche</h2>
+        <h2 data-ico="palette">Colori delle statistiche</h2>
         <div class="sezione-colori">
           <h3>Colore per anno</h3>
           <div id="colori-anni" class="periodi-grid colori-grid"></div>
@@ -622,7 +720,7 @@
         </div>
       </section>
       <section class="scheda">
-        <h2>Gestione periodi</h2>
+        <h2 data-ico="calendar">Gestione periodi</h2>
         <p class="sotto">
           Eliminare un periodo rimuove pagina, JSON, foto e giri; le statistiche
           si aggiornano. L'ultimo periodo di una stagione è protetto.

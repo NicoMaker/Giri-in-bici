@@ -1,3 +1,47 @@
+const gestisci = async (req, res) => {
+  if (!richiestaAutorizzata(req)) {
+    res.writeHead(403);
+    return res.end("Accesso consentito solo da localhost o dalla rete locale.");
+  }
+  const url = new URL(req.url, "http://localhost");
+  if (req.method === "GET" && FILE_STATICI[url.pathname]) {
+    const [nome, tipo] = FILE_STATICI[url.pathname];
+    const contenuto = ["app.js", "gestione.js", "styles.css"].includes(nome)
+      ? risorse.leggiBundle(nome)
+      : fs.readFileSync(path.join(WEB, nome));
+    res.writeHead(200, {
+      "Content-Type": tipo,
+      "Cache-Control": "no-store",
+      "X-Content-Type-Options": "nosniff",
+    });
+    return res.end(contenuto);
+  }
+  if (req.method === "GET" && url.pathname.startsWith("/img/")) {
+    const file = percorsoImmagine(url.pathname);
+    if (!file) {
+      res.writeHead(404);
+      return res.end("Non trovato");
+    }
+    res.writeHead(200, {
+      "Content-Type": TIPI_IMMAGINE[path.extname(file).toLowerCase()],
+      "Cache-Control": "no-store",
+      "X-Content-Type-Options": "nosniff",
+    });
+    return res.end(fs.readFileSync(file));
+  }
+  if (req.method === "GET" && url.pathname === "/api/eventi")
+    return monitor.iscrivi(req, res);
+  if (!url.pathname.startsWith("/api/")) {
+    res.writeHead(404);
+    return res.end("Non trovato");
+  }
+  try {
+    if (
+      req.method === "POST" &&
+      api.stato().prova &&
+      !["/api/anteprima", "/api/conferma"].includes(url.pathname)
+    )
+      return inviaJson(res, 409, {
         ok: false,
         errore: "Modalità --prova attiva: disattivala per salvare modifiche.",
       });
@@ -20,7 +64,10 @@
         ),
       );
     }
-    if (req.method === "POST" && url.pathname === "/api/gestione/bandiere/modifica") {
+    if (
+      req.method === "POST" &&
+      url.pathname === "/api/gestione/bandiere/modifica"
+    ) {
       const immagine = await leggiCorpo(req, MAX_BANDIERA);
       return inviaJson(
         res,
@@ -32,6 +79,44 @@
         ),
       );
     }
+    if (
+      req.method === "POST" &&
+      url.pathname === "/api/gestione/bandiere/elimina"
+    )
+      return inviaJson(
+        res,
+        200,
+        gestione.eliminaBandieraPersonalizzata(
+          (await leggiJsonRichiesta(req, 64 * 1024)).codice,
+        ),
+      );
+    if (
+      req.method === "POST" &&
+      url.pathname === "/api/gestione/giri/elimina-multiplo"
+    )
+      return inviaJson(
+        res,
+        200,
+        gestione.eliminaGiri(await leggiJsonRichiesta(req, 256 * 1024)),
+      );
+    if (
+      req.method === "POST" &&
+      url.pathname === "/api/gestione/bandiere/elimina-multiplo"
+    )
+      return inviaJson(
+        res,
+        200,
+        gestione.eliminaBandiere(await leggiJsonRichiesta(req, 64 * 1024)),
+      );
+    if (
+      req.method === "POST" &&
+      url.pathname === "/api/gestione/utenti/elimina-multiplo"
+    )
+      return inviaJson(
+        res,
+        200,
+        gestione.eliminaUtenti(await leggiJsonRichiesta(req, 64 * 1024)),
+      );
     if (req.method === "GET" && url.pathname === "/api/gestione/utenti")
       return inviaJson(res, 200, { ok: true, utenti: gestione.elencoUtenti() });
     if (req.method === "POST" && url.pathname === "/api/gestione/utenti/salva")
@@ -132,7 +217,7 @@
   } catch (e) {
     const previsto =
       e instanceof api.ErroreDati ||
-      /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|bandiera|cartella|immagine|catalogo|nessuna modifica|nome file|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non/i.test(
+      /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|bandiera|cartella|immagine|catalogo|nessuna modifica|nome file|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non|seleziona almeno|non elimino|al massimo|non esistono|usata|usate/i.test(
         e.message,
       );
     return inviaJson(res, previsto ? 400 : 500, {
@@ -146,7 +231,3 @@ const ipv4Locali = () =>
     .flat()
     .filter((x) => x && x.family === "IPv4" && !x.internal)
     .map((x) => x.address);
-const avvia = () => {
-  if (
-    !fs.existsSync(path.join(RADICE, "json/Statistiche/History/Storico.json"))
-  ) {

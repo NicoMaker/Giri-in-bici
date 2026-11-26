@@ -20,6 +20,7 @@ const {
   leggiPlace,
   elencoPaesi: leggiElencoPaesi,
   leggiBandierePersonalizzate,
+  sincronizzaBandiere,
 } = require("../base/luogo");
 
 const { parseData } = require("./date");
@@ -124,3 +125,12 @@ const scriviTransazione = (modifiche) => {
       fs.writeFileSync(temp, contenuto);
       fs.renameSync(temp, file);
     }
+  } catch (e) {
+    for (const [rel, bytes] of [...prima].reverse()) {
+      const file = assoluto(rel);
+      if (bytes === null) fs.rmSync(file, { force: true });
+      else fs.writeFileSync(file, bytes);
+    }
+    throw e;
+  }
+};

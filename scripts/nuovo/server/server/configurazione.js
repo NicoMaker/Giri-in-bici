@@ -8,6 +8,7 @@ const api = require("./api");
 const gestione = require("./gestione");
 const statistiche = require("./statistiche");
 const risorse = require("./risorse");
+const monitor = require("./monitor");
 const WEB = path.join(__dirname, "..", "www");
 const FILE_STATICI = {
   "/": ["index.html", "text/html; charset=utf-8"],
@@ -18,6 +19,34 @@ const FILE_STATICI = {
   "/icona.svg": ["icona.svg", "image/svg+xml"],
 };
 const MAX_BANDIERA = 5 * 1024 * 1024;
+const TIPI_IMMAGINE = {
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
+  ".gif": "image/gif",
+  ".svg": "image/svg+xml",
+};
+// /img/Icons/Bandiere/Austria.png → <radice>/Img/Icons/Bandiere/Austria.png (senza uscire da Img)
+const percorsoImmagine = (pathname) => {
+  let rel;
+  try {
+    rel = decodeURIComponent(pathname.slice("/img/".length));
+  } catch {
+    return null;
+  }
+  if (!rel || rel.includes("\0") || rel.split(/[\\/]/).includes(".."))
+    return null;
+  const cartellaImg = path.join(RADICE, "Img");
+  const file = path.join(cartellaImg, rel);
+  if (!file.startsWith(cartellaImg + path.sep)) return null;
+  if (!TIPI_IMMAGINE[path.extname(file).toLowerCase()]) return null;
+  try {
+    return fs.statSync(file).isFile() ? file : null;
+  } catch {
+    return null;
+  }
+};
 const inviaJson = (res, codice, corpo) => {
   res.writeHead(codice, {
     "Content-Type": "application/json; charset=utf-8",
@@ -43,23 +72,27 @@ const leggiCorpo = (req, massimo) =>
   });
 const ipv4Privato = (ip) =>
   /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|127\.)/.test(ip);
+const NOMI_LOCALI = ["localhost", "127.0.0.1", "::1"];
 const richiestaAutorizzata = (req) => {
   const host = String(req.headers.host || "")
     .replace(/:\d+$/, "")
     .replace(/^\[|\]$/g, "");
   const origin = req.headers.origin;
-  if (["localhost", "127.0.0.1", "::1"].includes(host)) {
+  const lettura = ["GET", "HEAD"].includes(req.method);
+  if (NOMI_LOCALI.includes(host)) {
     if (!origin) return true;
     try {
-      return ["localhost", "127.0.0.1", "::1"].includes(
-        new URL(origin).hostname,
-      );
+      return NOMI_LOCALI.includes(new URL(origin).hostname);
     } catch {
       return false;
     }
   }
+  // Rete locale (telefono sullo stesso Wi-Fi): host = IP privato, chi chiama = IP privato.
   const remote = String(req.socket.remoteAddress || "").replace(/^::ffff:/, "");
-  if (!ipv4Privato(remote) || !origin) return false;
+  if (!ipv4Privato(remote) || !ipv4Privato(host)) return false;
+  // Un browser non manda Origin nelle letture della stessa pagina: va bene.
+  // Le scritture invece devono arrivare dalla pagina servita da questo stesso indirizzo.
+  if (!origin) return lettura;
   try {
     const origine = new URL(origin);
     return (
@@ -72,55 +105,3 @@ const richiestaAutorizzata = (req) => {
 };
 const leggiJsonRichiesta = async (req, max = 256 * 1024) =>
   JSON.parse((await leggiCorpo(req, max)).toString("utf8") || "{}");
-const gestisci = async (req, res) => {
-  if (!richiestaAutorizzata(req)) {
-    res.writeHead(403);
-    return res.end("Accesso consentito solo da localhost o dalla rete locale.");
-  }
-  const url = new URL(req.url, "http://localhost");
-  if (req.method === "GET" && FILE_STATICI[url.pathname]) {
-    const [nome, tipo] = FILE_STATICI[url.pathname];
-    const contenuto = ["app.js", "gestione.js", "styles.css"].includes(nome)
-      ? risorse.leggiBundle(nome)
-      : fs.readFileSync(path.join(WEB, nome));
-    res.writeHead(200, {
-      "Content-Type": tipo,
-      "Cache-Control": "no-store",
-      "X-Content-Type-Options": "nosniff",
-    });
-    return res.end(contenuto);
-  }
-  const icona = url.pathname.match(
-    /^\/(?:img|Img)\/Icons\/((?:Bandiere\/[A-Za-z0-9_-]+\/)?[A-Za-z0-9_-]+\.(?:png|jpe?g|webp))$/i,
-  );
-  if (req.method === "GET" && icona) {
-    const file = path.join(RADICE, "Img", "Icons", icona[1]);
-    if (!fs.existsSync(file)) {
-      res.writeHead(404);
-      return res.end("Non trovato");
-    }
-    const estensione = path.extname(file).toLowerCase();
-    const tipo =
-      estensione === ".png"
-        ? "image/png"
-        : estensione === ".webp"
-          ? "image/webp"
-          : "image/jpeg";
-    res.writeHead(200, {
-      "Content-Type": tipo,
-      "Cache-Control": "no-store",
-      "X-Content-Type-Options": "nosniff",
-    });
-    return res.end(fs.readFileSync(file));
-  }
-  if (!url.pathname.startsWith("/api/")) {
-    res.writeHead(404);
-    return res.end("Non trovato");
-  }
-  try {
-    if (
-      req.method === "POST" &&
-      api.stato().prova &&
-      !["/api/anteprima", "/api/conferma"].includes(url.pathname)
-    )
-      return inviaJson(res, 409, {

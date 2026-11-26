@@ -1,27 +1,3 @@
-  mese.addEventListener("change", aggiorna);
-  aggiorna();
-  const nodo = el(
-    "div",
-    { class: "griglia" },
-    campo("Anno", anno),
-    campo("Mese", mese),
-    el("div", { class: "pieno" }, presenti),
-    modoBox,
-    campo("Km", km),
-    campo("Corse da aggiungere all'anno", corse),
-  );
-  return {
-    nodo,
-    raccogli: async () => ({
-      anno: anno.value,
-      mese: mese.value,
-      km: km.value,
-      corse: corse.value,
-      sostituisci: !modoBox.hidden && modo.get() === "sostituisci",
-    }),
-  };
-};
-
 moduli.foto = () => {
   const periodo = menuATendina([]);
   const aggiornaPeriodi = (chiave) => {
@@ -31,11 +7,7 @@ moduli.foto = () => {
     );
     periodo.value = s.ultimo;
   };
-  const st = segmentato(
-    opzioniStagioni(),
-    "Autunno_Inverno",
-    aggiornaPeriodi,
-  );
+  const st = segmentato(opzioniStagioni(), "Autunno_Inverno", aggiornaPeriodi);
   aggiornaPeriodi(st.get());
   const zona = zonaFile({
     multiplo: true,

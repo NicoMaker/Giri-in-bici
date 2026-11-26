@@ -1,6 +1,3 @@
-  return { nodo, get, set };
-};
-
 let stato = null;
 let elenco = null;
 const opzioniStagioni = () =>
@@ -117,8 +114,7 @@ moduli.mese = () => {
   );
   const aggiorna = () => {
     const a =
-      elenco &&
-      elenco.anni.find((x) => String(x.anno) === String(anno.value));
+      elenco && elenco.anni.find((x) => String(x.anno) === String(anno.value));
     const mesi = a ? a.mesi : [];
     const chips = mesi.length
       ? mesi.map((m) =>
@@ -138,3 +134,26 @@ moduli.mese = () => {
     modoBox.hidden = !mesi.some((m) => m.mese === mese.value);
   };
   anno.addEventListener("change", aggiorna);
+  mese.addEventListener("change", aggiorna);
+  aggiorna();
+  const nodo = el(
+    "div",
+    { class: "griglia" },
+    campo("Anno", anno),
+    campo("Mese", mese),
+    el("div", { class: "pieno" }, presenti),
+    modoBox,
+    campo("Km", km),
+    campo("Corse da aggiungere all'anno", corse),
+  );
+  return {
+    nodo,
+    raccogli: async () => ({
+      anno: anno.value,
+      mese: mese.value,
+      km: km.value,
+      corse: corse.value,
+      sostituisci: !modoBox.hidden && modo.get() === "sostituisci",
+    }),
+  };
+};

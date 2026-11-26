@@ -5,20 +5,18 @@ const RE_TOKEN = /\{([A-Z][A-Z0-9_]{1,63})\}/g;
 const codiciNelLuogo = (luogo) => [
   ...new Set([...String(luogo).matchAll(RE_TOKEN)].map((m) => m[1])),
 ];
-// Da <img src="/img/Icons/..."> al codice: accetta il percorso nuovo (Bandiere/Austria/Austria)
-// e quello vecchio (Austria), così i giri già salvati continuano a funzionare.
+// Da <img src="/img/Icons/..."> al codice: accetta il percorso attuale (Bandiere/Austria.png)
+// e quelli vecchi (Bandiere/Austria/Austria.png, Austria), così i giri già salvati continuano a funzionare.
 const codiceDaFile = (percorso) => {
-  const p = String(percorso)
-    .replace(/^Bandiere\//i, "")
+  const p = path
+    .basename(String(percorso).split(/[?#]/)[0])
+    .replace(/\.[^.]+$/, "")
     .toLowerCase();
-  return leggiBandierePersonalizzate().find((b) => {
-    const senzaEstensione = b.file.replace(/\.[^.]+$/, "").toLowerCase();
-    return (
-      senzaEstensione === p ||
-      path.parse(b.file).name.toLowerCase() === nomeFile(p) ||
-      nomeFile(b.nome).toLowerCase() === nomeFile(p)
-    );
-  })?.codice;
+  return leggiBandierePersonalizzate().find(
+    (b) =>
+      path.parse(b.file).name.toLowerCase() === p ||
+      nomeFile(b.nome).toLowerCase() === nomeFile(p),
+  )?.codice;
 };
 const imgTag = (codice) =>
   `<img src="${immagineBandiera(codice).url}" alt="${esc(nomePaese(codice))}">`;

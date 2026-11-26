@@ -1,13 +1,3 @@
-    el: el(
-      "div",
-      { class: "opzionale pieno" },
-      el("label", { class: "interruttore" }, check, titolo),
-      dentro,
-    ),
-    attivo: () => check.checked,
-  };
-};
-
 const stagioneDaMese = (iso) => {
   const m = parseInt(iso.slice(5, 7), 10);
   return m >= 3 && m <= 5
@@ -49,12 +39,7 @@ const rendiRicercabile = (select) => {
     "aria-label": "Cerca nelle opzioni",
   });
   const lista = el("div", { class: "rs-lista", role: "listbox" });
-  const pannello = el(
-    "div",
-    { class: "rs-panel", hidden: true },
-    cerca,
-    lista,
-  );
+  const pannello = el("div", { class: "rs-panel", hidden: true }, cerca, lista);
   const wrap = el("div", { class: "rs" }, btn, pannello);
   select.before(wrap);
   const aggiorna = () => {
@@ -81,9 +66,7 @@ const rendiRicercabile = (select) => {
               text: o.textContent,
               onclick: () => {
                 select.value = o.value;
-                select.dispatchEvent(
-                  new Event("change", { bubbles: true }),
-                );
+                select.dispatchEvent(new Event("change", { bubbles: true }));
                 chiudiPannelli();
                 const f = document.activeElement;
                 if (!f || f === document.body || pannello.contains(f))
@@ -138,3 +121,8 @@ const rendiRicercabile = (select) => {
   new MutationObserver(aggiorna).observe(select, {
     childList: true,
     subtree: true,
+    attributes: true,
+  });
+  select.addEventListener("change", aggiorna);
+  aggiorna();
+};
