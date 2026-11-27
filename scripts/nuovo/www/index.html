@@ -59,7 +59,7 @@
             <circle cx="12" cy="12" r="9" />
             <path d="M12 8v8M8 12h8" />
           </svg>
-          Inserimento
+          <span class="tab-testo">Inserimento</span>
         </button>
         <button class="btn" type="button" data-vai="archivio">
           <svg
@@ -78,7 +78,9 @@
               d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
             />
           </svg>
-          Archivio giri
+          <span class="tab-testo"
+            >Archivio<span class="solo-desktop"> giri</span></span
+          >
         </button>
         <button class="btn" type="button" data-vai="utenti">
           <svg
@@ -98,7 +100,7 @@
               d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"
             />
           </svg>
-          Utenti
+          <span class="tab-testo">Utenti</span>
         </button>
         <button class="btn" type="button" data-vai="bandiere">
           <svg
@@ -115,7 +117,7 @@
           >
             <path d="M5 21V4M5 4h11l-2 4 2 4H5" />
           </svg>
-          Bandiere
+          <span class="tab-testo">Bandiere</span>
         </button>
         <button class="btn" type="button" data-vai="colori">
           <svg
@@ -137,8 +139,12 @@
             <circle cx="11" cy="7.5" r="1" />
             <circle cx="16" cy="8.5" r="1" />
           </svg>
-          Colori e periodi
+          <span class="tab-testo"
+            >Colori<span class="solo-desktop"> e periodi</span></span
+          >
         </button>
+      </nav>
+      <div class="strumenti">
         <button
           id="apri-palette"
           class="btn palette-bottone"
@@ -200,10 +206,10 @@
             />
           </svg>
         </button>
-        <span id="badge-prova" class="badge badge-prova" hidden
+        <span id="badge-prova" class="badge badge-prova" hidden data-ico="alert"
           >Modalità prova · non scrive nulla</span
         >
-      </nav>
+      </div>
     </header>
     <div class="layout" data-sezione="inserimento">
       <nav
@@ -265,6 +271,7 @@
       ></section>
       <dialog id="dlg-giro" aria-labelledby="t-giro">
         <div class="dlg-testa">
+          <span class="dlg-icona" data-ico="bike"></span>
           <h2 id="t-giro">Nuovo giro</h2>
           <button
             class="btn"
@@ -348,7 +355,11 @@
         </div>
         <div class="box-filtri">
           <label class="ricerca"
-            ><span aria-hidden="true">🔍</span
+            ><span
+              class="ricerca-ico"
+              data-ico="search"
+              aria-hidden="true"
+            ></span
             ><input
               id="filtro"
               type="search"
@@ -357,22 +368,52 @@
               aria-label="Cerca giri"
           /></label>
           <div class="ordina" id="ordina" role="group" aria-label="Ordina giri">
-            <button class="btn" type="button" data-ordina="km-desc">
+            <button
+              class="btn"
+              type="button"
+              data-ordina="km-desc"
+              data-ico="arrowdown"
+            >
               Dal più al meno lungo
             </button>
-            <button class="btn" type="button" data-ordina="km-asc">
+            <button
+              class="btn"
+              type="button"
+              data-ordina="km-asc"
+              data-ico="arrowup"
+            >
               Dal meno al più lungo
             </button>
-            <button class="btn" type="button" data-ordina="az">
+            <button
+              class="btn"
+              type="button"
+              data-ordina="az"
+              data-ico="textaz"
+            >
               Alfabetico (A-Z)
             </button>
-            <button class="btn" type="button" data-ordina="za">
+            <button
+              class="btn"
+              type="button"
+              data-ordina="za"
+              data-ico="textza"
+            >
               Alfabetico (Z-A)
             </button>
-            <button class="btn" type="button" data-ordina="recente">
+            <button
+              class="btn"
+              type="button"
+              data-ordina="recente"
+              data-ico="clock"
+            >
               Più recente
             </button>
-            <button class="btn" type="button" data-ordina="vecchio">
+            <button
+              class="btn"
+              type="button"
+              data-ordina="vecchio"
+              data-ico="history"
+            >
               Meno recente
             </button>
           </div>
@@ -455,6 +496,7 @@
       </section>
       <dialog id="dlg-utente" aria-labelledby="t-utente">
         <div class="dlg-testa">
+          <span class="dlg-icona" data-ico="user"></span>
           <h2 id="t-utente">Nuovo utente</h2>
           <button
             class="btn"
@@ -564,6 +606,7 @@
       </section>
       <dialog id="dlg-bandiera" aria-labelledby="t-bandiera">
         <div class="dlg-testa">
+          <span class="dlg-icona" data-ico="flag"></span>
           <h2 id="t-bandiera">Nuova bandiera</h2>
           <button
             class="btn"
@@ -676,6 +719,7 @@
       </section>
       <dialog id="dlg-colore" aria-labelledby="t-colore-dlg">
         <div class="dlg-testa">
+          <span class="dlg-icona" data-ico="palette"></span>
           <h2 id="t-colore-dlg">Colore di un periodo</h2>
           <button
             class="btn"
@@ -711,6 +755,14 @@
         </form>
       </dialog>
       <section class="scheda">
+        <h2 data-ico="leaf">Stagioni</h2>
+        <p class="sotto">
+          Cambia il nome mostrato e il colore generale di ogni stagione: le
+          pagine del sito si adeguano da sole.
+        </p>
+        <div id="stagioni-box" class="stagioni-grid"></div>
+      </section>
+      <section class="scheda">
         <h2 data-ico="palette">Colori delle statistiche</h2>
         <div class="sezione-colori">
           <h3>Colore per anno</h3>
@@ -733,11 +785,15 @@
             placeholder="es. Estate, 2023"
             autocomplete="off"
         /></label>
+        <div id="p-barra-box"></div>
         <div id="lista-periodi"></div>
       </section>
     </section>
     <dialog id="dlg-conferma" aria-labelledby="conf-titolo">
-      <div class="dlg-testa"><h2 id="conf-titolo">Conferma</h2></div>
+      <div class="dlg-testa">
+        <span class="dlg-icona dlg-icona--allerta" data-ico="alert"></span>
+        <h2 id="conf-titolo">Conferma</h2>
+      </div>
       <p id="conf-testo"></p>
       <div class="azioni">
         <button class="btn danger" id="conf-si" type="button">Elimina</button

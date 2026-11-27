@@ -123,7 +123,7 @@ const campoColore = (etichetta, usati) => {
     const doppio = v && usati.some((u) => u.toLowerCase() === v.toLowerCase());
     nota.className = doppio ? "aiuto avv" : "aiuto";
     nota.textContent = doppio
-      ? "⚠ Questo colore è già usato da un altro periodo."
+      ? "Questo colore è già usato da un altro periodo."
       : "";
   };
   testo.addEventListener("input", aggiorna);

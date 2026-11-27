@@ -8,33 +8,38 @@ const vaiA = (sezione, dopo) => {
   if (dopo) setTimeout(dopo, 30);
 };
 const azioniPalette = () => [
-  { t: "Inserimento", s: "Sezione", i: "➕", f: () => vaiA("inserimento") },
-  { t: "Archivio giri", s: "Sezione", i: "🗂️", f: () => vaiA("archivio") },
-  { t: "Utenti", s: "Sezione", i: "👥", f: () => vaiA("utenti") },
-  { t: "Bandiere", s: "Sezione", i: "🚩", f: () => vaiA("bandiere") },
-  { t: "Colori e periodi", s: "Sezione", i: "🎨", f: () => vaiA("colori") },
+  { t: "Inserimento", s: "Sezione", i: "plus", f: () => vaiA("inserimento") },
+  { t: "Archivio giri", s: "Sezione", i: "folder", f: () => vaiA("archivio") },
+  { t: "Utenti", s: "Sezione", i: "users", f: () => vaiA("utenti") },
+  { t: "Bandiere", s: "Sezione", i: "flag", f: () => vaiA("bandiere") },
+  {
+    t: "Colori e periodi",
+    s: "Sezione",
+    i: "palette",
+    f: () => vaiA("colori"),
+  },
   {
     t: "Nuovo giro",
     s: "Azione",
-    i: "＋",
+    i: "plus",
     f: () => vaiA("archivio", () => $("#nuovo-giro").click()),
   },
   {
     t: "Nuova bandiera",
     s: "Azione",
-    i: "＋",
+    i: "plus",
     f: () => vaiA("bandiere", () => $("#nuova-bandiera").click()),
   },
   {
     t: "Nuovo utente",
     s: "Azione",
-    i: "＋",
+    i: "plus",
     f: () => vaiA("utenti", () => $("#nuovo-utente").click()),
   },
   {
     t: "Cambia tema chiaro / scuro",
     s: "Aspetto",
-    i: "◐",
+    i: "eye",
     f: () => $("#tema-bottone").click(),
   },
 ];
@@ -49,10 +54,19 @@ const palette = el(
     "aria-label": "Cerca azioni e giri",
   }),
   el("ul", { id: "palette-lista", class: "palette-lista", role: "listbox" }),
-  el("p", {
-    class: "palette-aiuto",
-    text: "↑↓ scorri · Invio apri · Esc chiudi",
-  }),
+  el(
+    "p",
+    { class: "palette-aiuto" },
+    el(
+      "span",
+      {},
+      el("kbd", { text: "↑" }),
+      el("kbd", { text: "↓" }),
+      " scorri",
+    ),
+    el("span", {}, el("kbd", { text: "Invio" }), " apri"),
+    el("span", {}, el("kbd", { text: "Esc" }), " chiudi"),
+  ),
 );
 document.body.append(palette);
 let vociPalette = [];
@@ -70,7 +84,7 @@ const disegnaPalette = () => {
           .map((g) => ({
             t: senzaToken(g.luogo),
             s: `Giro · ${dataIt(g.data)} · ${g.km} km`,
-            i: "🚴",
+            i: "bike",
             f: () =>
               vaiA("archivio", () => {
                 const campo = $("#filtro");
@@ -92,7 +106,7 @@ const disegnaPalette = () => {
               "aria-selected": String(n === attiva),
               onclick: () => eseguiPalette(n),
             },
-            el("span", { class: "palette-icona", text: v.i }),
+            el("span", { class: "palette-icona" }, ico(v.i)),
             el("span", { class: "palette-titolo", text: v.t }),
             el("span", { class: "palette-tipo", text: v.s }),
           ),

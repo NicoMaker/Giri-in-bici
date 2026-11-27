@@ -317,4 +317,6 @@ module.exports = {
   eliminaGiri,
   salvaColore,
   eliminaPeriodo,
+  eliminaPeriodi,
+  salvaStagione,
 };

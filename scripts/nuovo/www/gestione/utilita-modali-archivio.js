@@ -50,7 +50,10 @@ document.querySelectorAll("dialog").forEach((d) => {
 });
 const avvisa = (testo, errore = false) => {
   const box = $("#notifica");
-  box.textContent = testo;
+  box.replaceChildren(
+    ico(errore ? "alert" : "check"),
+    el("span", { text: testo }),
+  );
   box.classList.toggle("errore", errore);
   box.hidden = false;
   box.classList.remove("mostra");
@@ -66,10 +69,12 @@ const avvisa = (testo, errore = false) => {
   if (dlg && errore) dlg.textContent = testo;
   const m = $("#msg");
   m.replaceChildren(
-    el("p", {
-      class: errore ? "avviso" : "conferma",
-      text: `${errore ? "Errore: " : "Fatto: "}${testo}`,
-    }),
+    el(
+      "p",
+      { class: errore ? "avviso" : "conferma" },
+      ico(errore ? "alert" : "check"),
+      el("span", { text: `${errore ? "Errore: " : "Fatto: "}${testo}` }),
+    ),
   );
 };
 const chiama = async (url, corpo, ok) => {

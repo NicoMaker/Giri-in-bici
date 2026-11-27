@@ -23,12 +23,11 @@ const corpoRiepilogo = (r) => [
     : null,
 ];
 const mostraAnteprima = (r, onConferma, onAnnulla) => {
-  const conferma = el("button", {
-    class: "btn primario",
-    type: "button",
-    text: "✔ Conferma e scrivi i file",
-    onclick: onConferma,
-  });
+  const conferma = el(
+    "button",
+    { class: "btn primario", type: "button", onclick: onConferma },
+    ...conIcona("check", "Conferma e scrivi i file"),
+  );
   if (r.prova) conferma.disabled = true;
   $("#risultato").replaceChildren(
     el(

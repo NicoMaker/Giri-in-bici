@@ -55,65 +55,107 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    const totaleAnni = yearlyData.length;
-    const { totale, chilometri, mesi, anni, percentuali } =
-      GT.calculateTotals(yearlyData);
-
-    const kmMediPerCorsa = formatNumber(
-      totaleCorse > 0 ? totale / totaleCorse : 0,
+    const {
+      chilometri: kmTutti,
+      mesi: mesiTutti,
+      anni: anniTutti,
+    } = GT.calculateTotals(yearlyData);
+    const corsePerAnno = {};
+    yearlyData.forEach(
+      (y) => (corsePerAnno[String(y.year)] = y.numberOfRaces || 0),
     );
-    const kmMediPerMese = formatNumber(
-      mesi.length > 0 ? totale / mesi.length : 0,
-    );
-    const racesPerYear = formatNumber(
-      totaleAnni > 0 ? totaleCorse / totaleAnni : 0,
-    );
-    const racesPerMonth = formatNumber(
-      mesi.length > 0 ? totaleCorse / mesi.length : 0,
-    );
-
-    // Larghezza del canvas in base al numero di mesi: cosi' ogni
-    // etichetta ha il suo spazio in verticale, senza sovrapporsi, e il
-    // riquadro scorre in orizzontale invece di comprimerle o saltarle.
-    const scorriEl = document.querySelector(".grafico-tutti-mesi__scorri");
-    if (scorriEl) {
-      const larghezzaMinima = scorriEl.parentElement
-        ? scorriEl.parentElement.clientWidth
-        : 0;
-      const larghezza = Math.max(mesi.length * 30, larghezzaMinima);
-      scorriEl.style.setProperty("--larghezza-mesi", larghezza + "px");
-    }
-
-    await window.chartRenderer.createChart(
-      "graficoTotale",
-      {
-        labels: mesi,
-        values: chilometri,
-        anni,
-        percentuali,
-      },
-      { scales: { x: { title: { text: "Mesi" } } } },
-    );
+    const anniUnici = [...new Set(anniTutti.map(String))];
+    const mesiUnici = ConfigMesi.elenco.filter((m) => mesiTutti.includes(m));
 
     const tableElement = document.getElementById("mesi");
     const summaryElement = document.getElementById("totale");
-    if (tableElement)
-      tableElement.innerHTML = GT.createTable(
-        mesi,
-        chilometri,
-        percentuali,
-        anni,
+    const scorriEl = document.querySelector(".grafico-tutti-mesi__scorri");
+
+    // Filtri: anni, mesi e km a scelta. Tabella, percentuali, totali e grafico
+    // si ricalcolano solo sulle righe che si vedono.
+    const ridisegna = async () => {
+      const righe = mesiTutti
+        .map((_, i) => i)
+        .filter(
+          (i) =>
+            filtri.stato.anni.has(String(anniTutti[i])) &&
+            filtri.stato.mesi.has(mesiUnici.indexOf(mesiTutti[i])) &&
+            filtri.passa(kmTutti[i]),
+        );
+      const chilometri = righe.map((i) => kmTutti[i]);
+      const mesi = righe.map((i) => mesiTutti[i]);
+      const anni = righe.map((i) => anniTutti[i]);
+      const totale = chilometri.reduce((a, b) => a + b, 0);
+      const percentuali = chilometri.map((km) =>
+        formatPercentage(totale > 0 ? (km / totale) * 100 : 0),
       );
-    if (summaryElement)
-      summaryElement.innerHTML = GT.createSummary(
-        totale,
-        kmMediPerCorsa,
-        kmMediPerMese,
-        totaleCorse,
-        racesPerYear,
-        racesPerMonth,
-        mesi,
+      const anniScelti = [...new Set(anni.map(String))];
+      // le corse si conoscono solo per anno intero: con mesi o km filtrati non si possono dividere
+      const completo =
+        filtri.stato.mesi.size === mesiUnici.length &&
+        !Number.isFinite(filtri.stato.min) &&
+        !Number.isFinite(filtri.stato.max);
+      const corse = [...filtri.stato.anni].reduce(
+        (a, y) => a + (corsePerAnno[y] || 0),
+        0,
       );
+      const corseNote = completo ? corse : null;
+      const mediaCorsa =
+        completo && corse > 0 ? formatNumber(totale / corse) : "n/d";
+      const mediaMese = formatNumber(mesi.length ? totale / mesi.length : 0);
+      const corseAnno =
+        completo && filtri.stato.anni.size
+          ? formatNumber(corse / filtri.stato.anni.size)
+          : null;
+      const corseMese =
+        completo && mesi.length ? formatNumber(corse / mesi.length) : null;
+
+      if (scorriEl) {
+        const larghezzaMinima = scorriEl.parentElement
+          ? scorriEl.parentElement.clientWidth
+          : 0;
+        scorriEl.style.setProperty(
+          "--larghezza-mesi",
+          Math.max(mesi.length * 30, larghezzaMinima) + "px",
+        );
+      }
+      await window.chartRenderer.createChart(
+        "graficoTotale",
+        { labels: mesi, values: chilometri, anni, percentuali },
+        { scales: { x: { title: { text: "Mesi" } } } },
+      );
+      if (tableElement)
+        tableElement.innerHTML = GT.createTable(
+          mesi,
+          chilometri,
+          percentuali,
+          anni,
+        );
+      if (summaryElement)
+        summaryElement.innerHTML = GT.createSummary(
+          totale,
+          mediaCorsa,
+          mediaMese,
+          corseNote,
+          corseAnno,
+          corseMese,
+          mesi,
+        );
+      const tuttiKm = kmTutti.reduce((a, b) => a + b, 0);
+      filtri.sintesi(
+        `<strong>${anniScelti.length}</strong> ${anniScelti.length === 1 ? "anno" : "anni"} · <strong>${mesi.length}</strong> ${mesi.length === 1 ? "mese" : "mesi"} · totale <strong>${formatNumber(totale)}</strong> km · <strong>${formatNumber(tuttiKm > 0 ? (totale / tuttiKm) * 100 : 0)}%</strong> di tutti i km`,
+      );
+    };
+
+    const filtri = FiltriStatistiche.crea({
+      anni: anniUnici,
+      mesi: mesiUnici,
+      onChange: ridisegna,
+    });
+    (tableElement.closest(".table-wrap") || tableElement).before(
+      filtri.elemento,
+    );
+    await ridisegna();
   } catch (error) {
     console.error(`Errore durante il fetch: ${error}`);
   }

@@ -35,15 +35,19 @@ const senzaBandiere = (t) =>
 const bandierePicker = (input) => {
   const sel = el("select", { "aria-label": "Inserisci una bandiera" });
   const anteprima = el("div", { class: "anteprima-luogo", hidden: true });
-  const gestisci = el("button", {
-    class: "btn-link",
-    type: "button",
-    text: "＋ Crea o modifica le bandiere",
-    onclick: () => {
-      document.querySelectorAll("dialog[open]").forEach((d) => d.close());
-      mostraSezione("bandiere");
+  const gestisci = el(
+    "button",
+    {
+      class: "btn-link",
+      type: "button",
+      onclick: () => {
+        document.querySelectorAll("dialog[open]").forEach((d) => d.close());
+        mostraSezione("bandiere");
+      },
     },
-  });
+    ico("flag"),
+    " Crea o modifica le bandiere",
+  );
   const ricarica = () =>
     sel.replaceChildren(
       el("option", {

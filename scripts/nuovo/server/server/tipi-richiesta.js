@@ -185,6 +185,24 @@ const gestisci = async (req, res) => {
       );
     if (
       req.method === "POST" &&
+      url.pathname === "/api/gestione/stagioni/salva"
+    )
+      return inviaJson(
+        res,
+        200,
+        gestione.salvaStagione(await leggiJsonRichiesta(req, 64 * 1024)),
+      );
+    if (
+      req.method === "POST" &&
+      url.pathname === "/api/gestione/stagioni/elimina-periodi"
+    )
+      return inviaJson(
+        res,
+        200,
+        gestione.eliminaPeriodi(await leggiJsonRichiesta(req, 64 * 1024)),
+      );
+    if (
+      req.method === "POST" &&
       url.pathname === "/api/gestione/stagioni/elimina-periodo"
     )
       return inviaJson(
@@ -217,7 +235,7 @@ const gestisci = async (req, res) => {
   } catch (e) {
     const previsto =
       e instanceof api.ErroreDati ||
-      /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|bandiera|cartella|immagine|catalogo|nessuna modifica|nome file|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non|seleziona almeno|non elimino|al massimo|non esistono|usata|usate/i.test(
+      /non esiste|non valido|username|esiste già|sconosciut|titolo|link|avatar|bandiera|cartella|immagine|catalogo|nessuna modifica|nome file|non trov|obbligatorio|inserisci|deve|km negativi|non può|non puoi|mese non|seleziona almeno|non elimino|al massimo|non esistono|usata|usate|stagione non valida|nessuna modifica|colore|stagione/i.test(
         e.message,
       );
     return inviaJson(res, previsto ? 400 : 500, {

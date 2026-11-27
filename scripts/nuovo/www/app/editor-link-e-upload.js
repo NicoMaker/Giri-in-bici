@@ -17,13 +17,17 @@ const editorLink = (iniziali = []) => {
         value: l.url || "",
         "aria-label": "Indirizzo del link",
       }),
-      el("button", {
-        class: "btn",
-        type: "button",
-        title: "Togli link",
-        text: "✕",
-        onclick: () => r.remove(),
-      }),
+      el(
+        "button",
+        {
+          class: "btn",
+          type: "button",
+          title: "Togli link",
+          "aria-label": "Togli link",
+          onclick: () => r.remove(),
+        },
+        ico("close"),
+      ),
     );
     return r;
   };
@@ -33,12 +37,11 @@ const editorLink = (iniziali = []) => {
     "div",
     { class: "link-editor" },
     righe,
-    el("button", {
-      class: "btn",
-      type: "button",
-      text: "＋ Aggiungi link",
-      onclick: () => righe.append(riga()),
-    }),
+    el(
+      "button",
+      { class: "btn", type: "button", onclick: () => righe.append(riga()) },
+      ...conIcona("plus", "Aggiungi link"),
+    ),
     el("small", {
       class: "aiuto",
       text: "Un giro registrato male in più tour? Aggiungi un link per ciascuno, ognuno col suo titolo. Con un solo link il titolo è facoltativo.",

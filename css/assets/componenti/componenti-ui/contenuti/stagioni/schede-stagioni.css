@@ -41,15 +41,30 @@
 }
 
 .primavera::before {
-  background: linear-gradient(90deg, #0ca678, #63e6be);
+  /* il colore si cambia dal gestionale (Stagioni): --s-primavera lo imposta colori-stagioni.js */
+  background: linear-gradient(
+    90deg,
+    var(--s-primavera, #0ca678),
+    color-mix(in srgb, var(--s-primavera, #0ca678) 55%, #fff)
+  );
 }
 
 .estate::before {
-  background: linear-gradient(90deg, #f76707, #ffd43b);
+  /* il colore si cambia dal gestionale (Stagioni): --s-estate lo imposta colori-stagioni.js */
+  background: linear-gradient(
+    90deg,
+    var(--s-estate, #f76707),
+    color-mix(in srgb, var(--s-estate, #f76707) 55%, #fff)
+  );
 }
 
 .autunno_inverno::before {
-  background: linear-gradient(90deg, #1971c2, #99e9f2);
+  /* il colore si cambia dal gestionale (Stagioni): --s-autunno_inverno lo imposta colori-stagioni.js */
+  background: linear-gradient(
+    90deg,
+    var(--s-autunno_inverno, #1971c2),
+    color-mix(in srgb, var(--s-autunno_inverno, #1971c2) 55%, #fff)
+  );
 }
 
 .contornostagionesx,
