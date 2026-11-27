@@ -9,7 +9,15 @@ window.StoricoMensile = window.StoricoMensile || {};
 ((SM) => {
   "use strict";
 
-  SM.renderTable = (datasets, yearLabels) => {
+  // opz (facoltativo, arriva dai filtri della pagina):
+  //   mesi  indici dei mesi da mostrare (default: tutti)
+  //   min / max  km minimi e massimi per mese (fuori intervallo il mese non conta)
+  // Totali e percentuali si calcolano solo su quello che si vede.
+  SM.renderTable = (datasets, yearLabels, opz = {}) => {
+    const mesiIdx = opz.mesi || ConfigMesi.elenco.map((_, i) => i);
+    const min = Number.isFinite(opz.min) ? opz.min : -Infinity;
+    const max = Number.isFinite(opz.max) ? opz.max : Infinity;
+    const inIntervallo = (v) => v >= min && v <= max;
     const wrapper = document.createElement("div");
     wrapper.className = "storico-tabella-wrapper";
 
@@ -21,7 +29,7 @@ window.StoricoMensile = window.StoricoMensile || {};
         <span class="badge badge-giu">▼ calo</span>
         <span class="badge badge-pari">● invariato</span>
         <span class="legenda-nota">
-          (% calcolata rispetto all'anno precedente per lo stesso mese; se
+          (% calcolata rispetto all'anno precedente mostrato per lo stesso mese; se
           l'anno prima quel mese era a 0 km, il riferimento è 0: da 0 a
           qualcosa +100%, da qualcosa a 0 -100%)
         </span>
@@ -31,6 +39,7 @@ window.StoricoMensile = window.StoricoMensile || {};
 
     const table = document.createElement("table");
     table.className = "storico-tabella";
+    table.setAttribute("data-senza-ricerca", ""); // i filtri della pagina sostituiscono il campo Cerca generico
 
     // ── Intestazione riga 1: anni ──────────────────────────────────────
     const thead = document.createElement("thead");
@@ -72,7 +81,8 @@ window.StoricoMensile = window.StoricoMensile || {};
     const tbody = document.createElement("tbody");
     const totals = new Array(datasets.length).fill(0);
 
-    ConfigMesi.elenco.forEach((mese, monthIndex) => {
+    mesiIdx.forEach((monthIndex) => {
+      const mese = ConfigMesi.elenco[monthIndex];
       const row = document.createElement("tr");
 
       const tdMese = document.createElement("td");
@@ -81,29 +91,45 @@ window.StoricoMensile = window.StoricoMensile || {};
       row.appendChild(tdMese);
 
       datasets.forEach((ds, yearIndex) => {
-        const value = ds.data[monthIndex] ?? 0;
-        totals[yearIndex] += value;
+        const raw = ds.data[monthIndex] ?? 0;
+        const visibile = inIntervallo(raw);
+        if (visibile) totals[yearIndex] += raw;
 
         const tdVal = document.createElement("td");
-        tdVal.textContent = value > 0 ? formatNumber(value) : "0";
-        tdVal.className = value === 0 ? "valore zero" : "valore";
+        tdVal.textContent = visibile
+          ? raw > 0
+            ? formatNumber(raw)
+            : "0"
+          : "—";
+        tdVal.className = visibile && raw !== 0 ? "valore" : "valore zero";
         row.appendChild(tdVal);
 
         if (yearIndex > 0) {
-          // Si confronta sempre con l'anno subito prima, anche se quel mese
-          // era a 0 km (non pedalato): lo 0 e' il riferimento, non si salta
-          // a un anno piu' vecchio. Es. 2025 a 0 contro 2024 con km = -100%.
-          const prevValue = datasets[yearIndex - 1].data[monthIndex] ?? 0;
-          const perc = SM.calcVariazione(value, prevValue);
+          // Si confronta sempre con l'anno mostrato subito prima, anche se quel
+          // mese era a 0 km: lo 0 e' il riferimento. Se uno dei due valori e'
+          // fuori dal filtro dei km non c'e' nulla da confrontare.
+          const prevRaw = datasets[yearIndex - 1].data[monthIndex] ?? 0;
           const tdVar = document.createElement("td");
           tdVar.className = "valore td-var";
-          tdVar.innerHTML = SM.badgeVariazione(perc);
+          tdVar.innerHTML =
+            visibile && inIntervallo(prevRaw)
+              ? SM.badgeVariazione(SM.calcVariazione(raw, prevRaw))
+              : '<span class="badge badge-pari">–</span>';
           row.appendChild(tdVar);
         }
       });
 
       tbody.appendChild(row);
     });
+    if (!mesiIdx.length) {
+      const vuota = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = Math.max(1, datasets.length * 2);
+      td.textContent = "Nessun mese selezionato.";
+      td.className = "valore zero";
+      vuota.appendChild(td);
+      tbody.appendChild(vuota);
+    }
     table.appendChild(tbody);
 
     // ── Piede totali ──────────────────────────────────────────────────
@@ -111,7 +137,10 @@ window.StoricoMensile = window.StoricoMensile || {};
     const footRow = document.createElement("tr");
 
     const tdLabel = document.createElement("td");
-    tdLabel.textContent = "Totale anno";
+    tdLabel.textContent =
+      mesiIdx.length === ConfigMesi.elenco.length
+        ? "Totale anno"
+        : "Totale mesi scelti";
     tdLabel.className = "mese-label totale-label";
     footRow.appendChild(tdLabel);
 

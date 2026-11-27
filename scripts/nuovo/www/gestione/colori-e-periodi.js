@@ -20,6 +20,112 @@ const cartaColore = (titolo, valore, url, campo) =>
         chiama(url, { [campo]: titolo, colore: e.target.value }, dopoModifica),
     }),
   );
+const COLORI_STAGIONE_PREDEFINITI = {
+  Primavera: "#0ca678",
+  Estate: "#f76707",
+  Autunno_Inverno: "#1971c2",
+};
+const aHex = (c) => {
+  // il selettore colore accetta solo #rrggbb: converto #abc e i nomi CSS (gold, teal…)
+  const v = String(c || "").trim();
+  if (/^#[0-9a-f]{6}$/i.test(v)) return v.toLowerCase();
+  if (/^#[0-9a-f]{3}$/i.test(v))
+    return `#${[...v.slice(1)].map((x) => x + x).join("")}`.toLowerCase();
+  const prova = document.createElement("canvas").getContext?.("2d");
+  if (prova) {
+    prova.fillStyle = "#000";
+    prova.fillStyle = v;
+    if (/^#[0-9a-f]{6}$/i.test(prova.fillStyle)) return prova.fillStyle;
+  }
+  return "#2dd4bf";
+};
+const disegnaStagioni = () => {
+  const box = $("#stagioni-box");
+  if (box.contains(document.activeElement)) return; // non cancello quello che stai scrivendo
+  const chiavi = [...new Set(stagioni.map((s) => s.chiave))];
+  box.replaceChildren(
+    ...chiavi.map((k) => {
+      const s = stagioni.find((x) => x.chiave === k);
+      const nome = el("input", {
+        type: "text",
+        value: s.etichetta,
+        maxlength: "40",
+        "aria-label": `Nome della stagione ${s.nomeOriginale}`,
+      });
+      const colore = el("input", {
+        type: "color",
+        value: aHex(
+          s.coloreStagione || COLORI_STAGIONE_PREDEFINITI[k] || "#2dd4bf",
+        ),
+        "aria-label": `Colore della stagione ${s.etichetta}`,
+      });
+      return el(
+        "div",
+        { class: "stagione-card", style: `--stagione-colore:${colore.value}` },
+        el(
+          "div",
+          { class: "stagione-card__testa" },
+          ico("leaf"),
+          el("strong", { text: s.nomeOriginale }),
+          el("span", {
+            class: "ride-tag",
+            text: `${stagioni.filter((x) => x.chiave === k).length} periodi`,
+          }),
+        ),
+        el(
+          "label",
+          { class: "campo" },
+          el("span", { class: "etichetta", text: "Nome mostrato" }),
+          nome,
+        ),
+        el(
+          "label",
+          { class: "campo" },
+          el("span", { class: "etichetta", text: "Colore della stagione" }),
+          el(
+            "span",
+            { class: "riga-colore" },
+            colore,
+            el("code", { text: colore.value }),
+          ),
+        ),
+        el(
+          "button",
+          {
+            class: "btn primario",
+            type: "button",
+            onclick: () =>
+              chiama(
+                "/api/gestione/stagioni/salva",
+                { stagione: k, nome: nome.value, colore: colore.value },
+                dopoModifica,
+              ),
+          },
+          ...conIcona("save", "Salva stagione"),
+        ),
+      );
+    }),
+  );
+  box.querySelectorAll('input[type="color"]').forEach((c) =>
+    c.addEventListener("input", () => {
+      c.closest(".stagione-card").style.setProperty(
+        "--stagione-colore",
+        c.value,
+      );
+      c.nextElementSibling.textContent = c.value;
+    }),
+  );
+};
+const selezionePeriodi = creaSelezione({
+  contenitore: $("#p-barra-box"),
+  singolare: "periodo",
+  plurale: "periodi",
+  endpoint: "/api/gestione/stagioni/elimina-periodi",
+  campo: "periodi",
+  descrivi: (chiavi) =>
+    `${chiavi.map((c) => c.replace("|", " ")).join(", ")}: verranno rimossi pagina, JSON, foto e giri. Le statistiche si aggiornano. L'ultimo periodo di una stagione è protetto.`,
+  ridisegna: () => disegnaPeriodi(),
+});
 const disegnaPeriodi = () => {
   const q = norm($("#p-filtro").value.trim());
   const gruppi = [...new Set(stagioni.map((s) => s.chiave))];
@@ -42,9 +148,17 @@ const disegnaPeriodi = () => {
                 el(
                   "div",
                   {
-                    class: "periodo-card",
+                    class: `periodo-card${selezionePeriodi.ha(`${s.chiave}|${s.periodo}`) ? " selezionata" : ""}`,
                     style: `--periodo-colore:${s.colore}`,
                   },
+                  el(
+                    "label",
+                    { class: "spunta" },
+                    selezionePeriodi.casella(
+                      `${s.chiave}|${s.periodo}`,
+                      `${s.etichetta} ${s.periodo}`,
+                    ),
+                  ),
                   el("span", {
                     class: "periodo-chip",
                     text: s.periodo,
@@ -76,6 +190,13 @@ const disegnaPeriodi = () => {
           )
         : null;
     }),
+  );
+  const chiaviTutte = stagioni.map((s) => `${s.chiave}|${s.periodo}`);
+  selezionePeriodi.aggiorna(
+    stagioni
+      .filter((s) => !q || norm(`${s.etichetta} ${s.periodo}`).includes(q))
+      .map((s) => `${s.chiave}|${s.periodo}`),
+    chiaviTutte,
   );
 };
 
@@ -144,6 +265,7 @@ const caricaTutto = async () => {
   disegnaUtenti();
   disegnaBandiere();
   disegnaRiepilogo();
+  disegnaStagioni();
   disegnaPeriodi();
   datiCaricati = true;
 };

@@ -30,6 +30,18 @@ const ICONE = {
   eyeoff:
     '<path d="M3 3l18 18M10.6 6a9.7 9.7 0 0 1 1.4-.1c6.4 0 10 6.1 10 6.1a17 17 0 0 1-3.2 3.9M6.6 7.6A17 17 0 0 0 2 12s3.6 6.5 10 6.5a9.6 9.6 0 0 0 4-.9"/>',
   alert: '<path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10v4.5M12 17.2v.1"/>',
+  leaf: '<path d="M5 19C5 9 11 4 20 4c0 9-5 15-15 15z"/><path d="M5 19c3-5 6-8 11-10"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
+  arrowdown: '<path d="M12 4v16M6 14l6 6 6-6"/>',
+  arrowup: '<path d="M12 20V4M6 10l6-6 6 6"/>',
+  textaz: '<path d="M4 17l3.5-9L11 17M5.3 14h4.4M14 8h6l-6 9h6"/>',
+  textza: '<path d="M4 8h6l-6 9h6M14 17l3.5-9L21 17M15.3 14h4.4"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  history:
+    '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>',
+  upload: '<path d="M12 16V4M7 9l5-5 5 5M4 20h16"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.1"/>',
+  sliders: '<path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"/>',
   live: '<circle cx="12" cy="12" r="2.2"/><path d="M7.5 7.5a6.4 6.4 0 0 0 0 9M16.5 7.5a6.4 6.4 0 0 1 0 9M4.6 4.6a10.5 10.5 0 0 0 0 14.8M19.4 4.6a10.5 10.5 0 0 1 0 14.8"/>',
 };
 const ico = (nome, extra = "") => {
@@ -57,7 +69,7 @@ const iconeStatiche = (radice = document) =>
     );
     testo.forEach(
       (t) =>
-        (t.textContent = t.textContent.replace(/^[\s＋+✕🎨]+/u, "").trim()),
+        (t.textContent = t.textContent.replace(/^[\s＋+✕🎨🔍]+/u, "").trim()),
     );
     n.prepend(ico(n.dataset.ico));
   });

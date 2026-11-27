@@ -5,17 +5,18 @@ const disegnaRiepilogo = () => {
   const km = giri.map((g) => Number(g.km) || 0);
   const totale = km.reduce((a, b) => a + b, 0);
   const piuLungo = giri.reduce((m, g) => (!m || g.km > m.km ? g : m), null);
-  const carta = (etichetta, valore, nota, accento) =>
+  const carta = (etichetta, valore, nota, accento, icona = "flag") =>
     el(
       "div",
       { class: `riep-carta${accento ? " riep-carta--accento" : ""}` },
+      ico(icona),
       el("span", { class: "riep-etichetta", text: etichetta }),
       el("strong", { class: "riep-valore", text: valore }),
       el("span", { class: "riep-nota", text: nota }),
     );
   $("#riepilogo-archivio").replaceChildren(
-    carta("Giri", numeroIt(giri.length), "registrati", true),
-    carta("Chilometri", `${numeroIt(totale, 1)} km`, "in totale"),
+    carta("Giri", numeroIt(giri.length), "registrati", true, "bike"),
+    carta("Chilometri", `${numeroIt(totale, 1)} km`, "in totale", false, "map"),
     carta(
       "Più lungo",
       piuLungo ? `${numeroIt(piuLungo.km, 1)} km` : "—",
@@ -24,6 +25,8 @@ const disegnaRiepilogo = () => {
             .replace(/\s*\{[A-Z][A-Z0-9_]{1,63}\}/g, "")
             .slice(0, 38)
         : "nessun giro",
+      false,
+      "chart",
     ),
     carta("Bandiere", numeroIt(paesi.length), "create"),
   );

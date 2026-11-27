@@ -36,63 +36,97 @@ document.addEventListener("DOMContentLoaded", async () => {
     const storico = await fetchJSON("json/Statistiche/History/Storico.json");
     const allData = await Json.leggiTutti(Object.values(storico.anni));
 
-    let chilometriTotali = new Array(12).fill(0);
-    let mesiPercorsi = new Array(12).fill(0);
     const coloriGlobali = ConfigMesi.elenco.map(
       (mese) => ConfigMesi.coloriMesi[mese] || "blue",
     );
+    const anniUnici = allData.map((j) => String(j.year));
+    const tableEl = document.getElementById("mesi");
+    const axisOptions = { scales: { x: { title: { text: "Mesi" } } } };
 
-    allData.forEach((json) => {
-      ConfigMesi.elenco.forEach((mese, index) => {
-        if (json.data[mese]) {
-          chilometriTotali[index] += json.data[mese];
-          mesiPercorsi[index] += 1;
-        }
+    // Filtri: anni, mesi e km a scelta. Tutto (tabella, percentuali, medie, totali, grafici)
+    // si ricalcola solo su quello che si vede.
+    const ridisegna = async () => {
+      const scelti = allData.filter((j) =>
+        filtri.stato.anni.has(String(j.year)),
+      );
+      const kmMese = new Array(12).fill(0);
+      const mesiCorsa = new Array(12).fill(0);
+      scelti.forEach((json) => {
+        ConfigMesi.elenco.forEach((mese, index) => {
+          if (json.data[mese]) {
+            kmMese[index] += json.data[mese];
+            mesiCorsa[index] += 1;
+          }
+        });
       });
-    });
+      const idx = ConfigMesi.elenco
+        .map((_, i) => i)
+        .filter((i) => filtri.stato.mesi.has(i) && filtri.passa(kmMese[i]));
+      const mesi = idx.map((i) => ConfigMesi.elenco[i]);
+      const chilometri = idx.map((i) => kmMese[i]);
+      const mesiPercorsi = idx.map((i) => mesiCorsa[i]);
+      const totale = GTM.getTotale(chilometri);
+      const percentuali = chilometri.map((km) =>
+        formatPercentage(totale > 0 ? (km / totale) * 100 : 0),
+      );
+      const kmPerMese = GTM.getkmPerMese(mesi, chilometri, mesiPercorsi);
+      const completo =
+        !filtri.filtrato() ||
+        (filtri.stato.mesi.size === 12 &&
+          !Number.isFinite(filtri.stato.min) &&
+          !Number.isFinite(filtri.stato.max));
+      const totaleCorse = scelti.reduce(
+        (a, j) => a + (j.numberOfRaces || 0),
+        0,
+      );
+      const media = formatNumber(mesi.length ? totale / mesi.length : 0);
+      const mediaCorse = completo ? GTM.getMediaPer12(totaleCorse) : "n/d";
 
-    const totaleChilometri = GTM.getTotale(chilometriTotali);
-    const percentuali = GTM.getPercentuali(chilometriTotali, totaleChilometri);
-    const kmPerMese = GTM.getkmPerMese(
-      ConfigMesi.elenco,
-      chilometriTotali,
-      mesiPercorsi,
-    );
-    const mediaComplessiva = GTM.getMediaPer12(totaleChilometri);
-    const totaleCorse = GTM.getTotaleCorse(allData);
-    const mediacorse = GTM.getMediaPer12(totaleCorse);
+      const chartData = {
+        labels: mesi,
+        values: chilometri,
+        colors: idx.map((i) => coloriGlobali[i]),
+        percentuali,
+      };
+      await window.chartRenderer.createChart(
+        "graficoTotaleMensile",
+        chartData,
+        axisOptions,
+      );
+      await window.chartRenderer.createChart(
+        "graficoTotaleMensileLine",
+        chartData,
+        axisOptions,
+      );
 
-    const chartData = {
-      labels: ConfigMesi.elenco,
-      values: chilometriTotali,
-      colors: coloriGlobali,
-      percentuali,
+      tableEl.innerHTML = GTM.createTableHTML(
+        kmPerMese,
+        chilometri,
+        percentuali,
+        mesiPercorsi,
+      );
+      document.getElementById("totale").innerHTML = GTM.createSummaryHTML(
+        totale,
+        media,
+        completo ? totaleCorse : null,
+        mediaCorse,
+      );
+      const tuttiKm = allData.reduce(
+        (a, j) => a + Object.values(j.data).reduce((x, y) => x + y, 0),
+        0,
+      );
+      filtri.sintesi(
+        `<strong>${scelti.length}</strong> ${scelti.length === 1 ? "anno" : "anni"} · <strong>${mesi.length}</strong> ${mesi.length === 1 ? "mese" : "mesi"} su 12 · totale <strong>${formatNumber(totale)}</strong> km · <strong>${formatNumber(tuttiKm > 0 ? (totale / tuttiKm) * 100 : 0)}%</strong> di tutti i km`,
+      );
     };
 
-    const axisOptions = { scales: { x: { title: { text: "Mesi" } } } };
-    await window.chartRenderer.createChart(
-      "graficoTotaleMensile",
-      chartData,
-      axisOptions,
-    );
-    await window.chartRenderer.createChart(
-      "graficoTotaleMensileLine",
-      chartData,
-      axisOptions,
-    );
-
-    document.getElementById("mesi").innerHTML = GTM.createTableHTML(
-      kmPerMese,
-      chilometriTotali,
-      percentuali,
-      mesiPercorsi,
-    );
-    document.getElementById("totale").innerHTML = GTM.createSummaryHTML(
-      totaleChilometri,
-      mediaComplessiva,
-      totaleCorse,
-      mediacorse,
-    );
+    const filtri = FiltriStatistiche.crea({
+      anni: anniUnici,
+      mesi: ConfigMesi.elenco,
+      onChange: ridisegna,
+    });
+    (tableEl.closest(".table-wrap") || tableEl).before(filtri.elemento);
+    await ridisegna();
   } catch (error) {
     console.error(`Errore nel caricamento: ${error}`);
     const box = document.getElementById("grafici");

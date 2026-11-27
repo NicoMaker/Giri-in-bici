@@ -3,7 +3,7 @@ const mostraFatto = (r) => {
     el(
       "div",
       { class: "esito ok" },
-      el("h3", { text: "✔ Fatto: file scritti" }),
+      el("h3", {}, ico("check"), "Fatto: file scritti"),
       corpoRiepilogo({ ...r, avvisi: [] }),
     ),
   );
@@ -31,7 +31,19 @@ const disegnaMenu = () => {
                 apriCaso(c.id);
               },
             },
-            el("span", { class: "ico", text: c.icona }),
+            el(
+              "span",
+              { class: "voce-ico" },
+              ico(
+                {
+                  giro: "bike",
+                  mese: "calendar",
+                  foto: "image",
+                  stagione: "leaf",
+                  anno: "chart",
+                }[c.id] || "flag",
+              ),
+            ),
             el(
               "span",
               {},

@@ -20,12 +20,11 @@
 //     ancore/   ancore.js: un id a ogni sezione + scroll alla #ancora
 //     mappa/    il modale "Mappa del sito" (modello, schede, fili, legenda)
 //     cta/      cta-classifica.js + avvolgi-link
-//     traduzione/ selettore IT/EN + Google Website Translator (marchio, contatti e codici esclusi)
 //     ricerca-tabelle/ il campo "Cerca" sopra ogni tabella di dati (stagioni e statistiche)
 
 import "./ancore/ancore.js"; // ancore alle sezioni di ogni pagina
 import "./ricerca-tabelle/ricerca-tabelle.js"; // campo "Cerca" sopra ogni tabella di dati
-import "./traduzione/traduzione.js"; // traduzione IT/EN (selettore in basso a sinistra)
+import "./colori-stagioni.js"; // colore delle stagioni scelto dal gestionale
 import { registra } from "./comune/registra.js";
 import { GibBarra } from "./barra/barra.js";
 import { GibPiede } from "./piede/piede.js";

@@ -36,23 +36,61 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { year, numberOfRaces: corse, data } = jsonData;
     const coloriMesi = configMesi.coloriMesi || {};
 
-    const mesi = Object.keys(data);
-    const chilometri = Object.values(data);
-    const colors = mesi.map((mese) => coloriMesi[mese] || "blue");
-    const totale = chilometri.reduce((acc, curr) => acc + curr, 0);
-
-    const percentuali = calculatePercentuali(chilometri, totale);
-    const kmMediPerCorsa = formatNumber(calculatekmMedi(totale, corse));
-    const kmMediPerMese = formatNumber(calculatekmMedi(totale, mesi.length));
-
-    const chartData = { year, data, colors };
-
+    const mesiTutti = Object.keys(data);
+    const kmTutti = Object.values(data);
     const axisOptions = { scales: { x: { title: { text: "Mesi" } } } };
-    await window.chartRenderer.createChart("anniLine", chartData, axisOptions);
-    await window.chartRenderer.createChart("anni", chartData, axisOptions);
+    const tabella = document.getElementById("mesi");
 
-    renderDataTable(mesi, chilometri, percentuali);
-    renderSummary(totale, kmMediPerCorsa, kmMediPerMese, corse);
+    // Filtri: mesi a scelta e intervallo di km. Tabella, percentuali, totali e grafici
+    // si ricalcolano solo sui mesi che si vedono.
+    const ridisegna = async () => {
+      const idx = mesiTutti
+        .map((_, i) => i)
+        .filter((i) => filtri.stato.mesi.has(i) && filtri.passa(kmTutti[i]));
+      const mesi = idx.map((i) => mesiTutti[i]);
+      const chilometri = idx.map((i) => kmTutti[i]);
+      const colors = mesi.map((mese) => coloriMesi[mese] || "blue");
+      const totale = chilometri.reduce((acc, curr) => acc + curr, 0);
+      const completo = !filtri.filtrato();
+
+      const percentuali =
+        totale > 0
+          ? calculatePercentuali(chilometri, totale)
+          : chilometri.map(() => "0");
+      const kmMediPerCorsa = completo
+        ? formatNumber(calculatekmMedi(totale, corse))
+        : "n/d";
+      const kmMediPerMese = formatNumber(
+        mesi.length ? calculatekmMedi(totale, mesi.length) : 0,
+      );
+      const dati = Object.fromEntries(mesi.map((m, i) => [m, chilometri[i]]));
+      const chartData = { year, data: dati, colors };
+
+      await window.chartRenderer.createChart(
+        "anniLine",
+        chartData,
+        axisOptions,
+      );
+      await window.chartRenderer.createChart("anni", chartData, axisOptions);
+      renderDataTable(mesi, chilometri, percentuali);
+      renderSummary(
+        totale,
+        kmMediPerCorsa,
+        kmMediPerMese,
+        completo ? corse : null,
+      );
+      const tuttiKm = kmTutti.reduce((a, b) => a + b, 0);
+      filtri.sintesi(
+        `<strong>${mesi.length}</strong> ${mesi.length === 1 ? "mese" : "mesi"} su ${mesiTutti.length} · totale <strong>${formatNumber(totale)}</strong> km · <strong>${formatNumber(tuttiKm > 0 ? (totale / tuttiKm) * 100 : 0)}%</strong> dei km dell'anno`,
+      );
+    };
+
+    const filtri = FiltriStatistiche.crea({
+      mesi: mesiTutti,
+      onChange: ridisegna,
+    });
+    (tabella.closest(".table-wrap") || tabella).before(filtri.elemento);
+    await ridisegna();
   } catch (error) {
     console.error(`Errore nel caricamento o elaborazione del JSON: ${error}`);
   }
