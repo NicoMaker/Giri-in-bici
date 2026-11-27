@@ -19,13 +19,13 @@ Un piccolo server locale permette di gestire tutto da una pagina web, senza modi
 
 ### Cosa si può fare
 
-| Sezione | Funzioni |
-| --- | --- |
-| **Inserimento** | Aggiungi giri, mesi, foto, stagioni e anni con una procedura guidata e anteprima prima di scrivere. |
-| **Archivio giri** | Cerca, filtra (stagione, anno, mese, km), ordina, modifica ed elimina uno o più giri insieme (casella a sinistra, Maiusc per un intervallo). |
-| **Utenti** | Elenco con avatar (o icona se manca), modifica ed eliminazione multipla. |
-| **Bandiere** | Crea, sostituisci, rinomina ed elimina bandiere. Si possono eliminare più bandiere insieme; quelle ancora usate nei giri vengono protette. |
-| **Colori e periodi** | Nome e colore generale di ogni stagione (es. Estate), colori dei periodi, eliminazione multipla dei periodi. |
+| Sezione              | Funzioni                                                                                                                                     |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Inserimento**      | Aggiungi giri, mesi, foto, stagioni e anni con una procedura guidata e anteprima prima di scrivere.                                          |
+| **Archivio giri**    | Cerca, filtra (stagione, anno, mese, km), ordina, modifica ed elimina uno o più giri insieme (casella a sinistra, Maiusc per un intervallo). |
+| **Utenti**           | Elenco con avatar (o icona se manca), modifica ed eliminazione multipla.                                                                     |
+| **Bandiere**         | Crea, sostituisci, rinomina ed elimina bandiere. Si possono eliminare più bandiere insieme; quelle ancora usate nei giri vengono protette.   |
+| **Colori e periodi** | Nome e colore generale di ogni stagione (es. Estate), colori dei periodi, eliminazione multipla dei periodi.                                 |
 
 Scorciatoia: `Ctrl + K` apre la ricerca comandi.
 
@@ -137,10 +137,12 @@ Le bandiere si inseriscono a mano così:
    - `codice`: `CUSTOM_` + nome del file in maiuscolo (solo lettere, numeri e `_`).
    - `nome`: come si legge nelle pagine.
    - `file`: nome esatto del file nella cartella (maiuscole comprese).
+
 3. **Usala in un giro** aggiungendo l'immagine nel campo `place` del giro, subito dopo il luogo:
 
    ```html
-   Da Tarvisio a Bled <img src="/img/Icons/Bandiere/Germania.png" alt="Germania">
+   Da Tarvisio a Bled
+   <img src="/img/Icons/Bandiere/Germania.png" alt="Germania" />
    ```
 
 4. Le pagine **Giri** e **About us** leggono `json/Bandiere-personalizzate.json` e mostrano da sole le bandiere registrate: la voce nel file di riferimento è quindi **obbligatoria** anche senza server.
