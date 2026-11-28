@@ -35,8 +35,8 @@ Il gestionale controlla le cartelle `Img` e `json`: se aggiungi o cambi un file 
 
 ### Bandiere con il server
 
-1. Apri la sezione **Bandiere** → **Nuova bandiera**, scrivi il nome (es. `Germania`) e scegli l'immagine PNG, JPG o WebP.
-2. Il server salva l'immagine in `Img/Icons/Bandiere/Germania.png` e la registra in [`json/Bandiere-personalizzate.json`](json/Bandiere-personalizzate.json).
+1. Apri la sezione **Bandiere** → **Nuova bandiera**, scrivi il nome (es. `Slovenia`) e scegli l'immagine PNG, JPG o WebP.
+2. Il server salva l'immagine in `Img/Icons/Bandiere/Slovenia.png` e la registra in [`json/Bandiere-personalizzate.json`](json/Bandiere-personalizzate.json).
 3. Nei giri la bandiera si sceglie dal campo "bandiera" del luogo. Le pagine **Giri** e **About us** mostrano da sole l'elenco dei paesi con le loro bandiere: non serve toccare l'HTML.
 
 Se metti un'immagine direttamente in `Img/Icons/Bandiere/` il server la registra da solo all'avvio e mentre è acceso.
@@ -123,14 +123,14 @@ Se preferisci non usare il server, tutto si può fare modificando direttamente i
 
 Le bandiere si inseriscono a mano così:
 
-1. **Metti l'immagine** (PNG, JPG o WebP, con un nome senza spazi né accenti, es. `Germania.png`) direttamente in [`Img/Icons/Bandiere/`](Img/Icons/Bandiere).
+1. **Metti l'immagine** (PNG, JPG o WebP, con un nome senza spazi né accenti, es. `Slovenia.png`) direttamente in [`Img/Icons/Bandiere/`](Img/Icons/Bandiere).
 2. **Registrala nel file di riferimento** [`json/Bandiere-personalizzate.json`](json/Bandiere-personalizzate.json) aggiungendo una voce:
 
    ```json
    {
-     "codice": "CUSTOM_GERMANIA",
-     "nome": "Germania",
-     "file": "Germania.png"
+     "codice": "CUSTOM_Slovenia",
+     "nome": "Slovenia",
+     "file": "Slovenia.png"
    }
    ```
 
@@ -142,7 +142,7 @@ Le bandiere si inseriscono a mano così:
 
    ```html
    Da Tarvisio a Bled
-   <img src="/img/Icons/Bandiere/Germania.png" alt="Germania" />
+   <img src="/img/Icons/Bandiere/Slovenia.png" alt="Slovenia" />
    ```
 
 4. Le pagine **Giri** e **About us** leggono `json/Bandiere-personalizzate.json` e mostrano da sole le bandiere registrate: la voce nel file di riferimento è quindi **obbligatoria** anche senza server.
