@@ -61,7 +61,6 @@ Se preferisci non usare il server, tutto si può fare modificando direttamente i
 1. **Aggiorna il file JSON per la stagione Autunno - Inverno 2026-2027**
    - **Percorso:** [`json/Autunno_Inverno/Periodi/2026-2027.json`](json/Autunno_Inverno/Periodi/2026-2027.json)
    - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.
-   - Novembre 2026: 4 giri salvati, 392 km.
 
 ### Statistiche
 

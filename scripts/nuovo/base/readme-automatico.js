@@ -18,8 +18,7 @@ const FINE = "<!-- AUTO:DATI-JSON:FINE -->";
 // Primo titolo che segue la sezione: serve solo la prima volta, per mettere i segnaposto.
 const TITOLO_SUCCESSIVO = "## 🗓 Inizio di una Nuova Stagione";
 
-const leggi = (rel) =>
-  JSON.parse(fs.readFileSync(path.join(RADICE, rel), "utf8"));
+const leggi = (rel) => JSON.parse(fs.readFileSync(path.join(RADICE, rel), "utf8"));
 const leggiOppure = (rel, predefinito) => {
   try {
     return leggi(rel);
@@ -67,16 +66,13 @@ const periodoInCorso = (periodi, oggi) => {
   for (const p of periodi) {
     if (!fs.existsSync(path.join(RADICE, p.file))) continue;
     const mesePartenza = MESI.indexOf(STAGIONI[p.chiave].meseIniziale);
-    const inizio =
-      annoInizio(p.periodo) * 12 + (mesePartenza < 0 ? 0 : mesePartenza);
+    const inizio = annoInizio(p.periodo) * 12 + (mesePartenza < 0 ? 0 : mesePartenza);
     if (inizio > adesso) continue; // non è ancora iniziato
     if (!migliore || inizio > migliore.inizio) migliore = { ...p, inizio };
   }
   if (migliore) return migliore;
   // Nessun periodo già iniziato (sito vuoto o data strana): prendi l'ultimo che c'è.
-  const esistenti = periodi.filter((p) =>
-    fs.existsSync(path.join(RADICE, p.file)),
-  );
+  const esistenti = periodi.filter((p) => fs.existsSync(path.join(RADICE, p.file)));
   esistenti.sort((a, b) => annoInizio(a.periodo) - annoInizio(b.periodo));
   return esistenti[esistenti.length - 1] || null;
 };
@@ -90,11 +86,7 @@ const sommaDaiGiri = (periodi, anno, mese) => {
     if (!Array.isArray(lista)) continue;
     for (const g of lista) {
       const d = leggiDataSalvata(g.date);
-      if (
-        d &&
-        d.mese === mese &&
-        annoDelGiro(p.chiave, p.periodo, d.mese) === anno
-      ) {
+      if (d && d.mese === mese && annoDelGiro(p.chiave, p.periodo, d.mese) === anno) {
         km += Number(g.distance) || 0;
         giri++;
       }
@@ -113,9 +105,7 @@ const raccogliDati = (oggi = new Date()) => {
   const statistiche = leggiOppure(fileAnno, null);
   const dai = sommaDaiGiri(periodi, anno, mese);
   const kmStat =
-    statistiche &&
-    statistiche.data &&
-    Object.hasOwn(statistiche.data, MESI[mese])
+    statistiche && statistiche.data && Object.hasOwn(statistiche.data, MESI[mese])
       ? Number(statistiche.data[MESI[mese]])
       : null;
   return {
@@ -140,7 +130,6 @@ const sezione = (d) => {
       `1. **Aggiorna il file JSON per la stagione ${d.nomeStagione} ${d.corrente.periodo}**`,
       `   - **Percorso:** [\`${d.corrente.file}\`](${d.corrente.file})`,
       "   - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.",
-      `   - ${d.nomeMese} ${d.anno}: ${d.giriMese} ${d.giriMese === 1 ? "giro salvato" : "giri salvati"}, ${d.kmMese} km.`,
     );
   } else {
     righe.push(
@@ -157,11 +146,6 @@ const sezione = (d) => {
     righe.push(
       `   - Modifica i chilometri (km) di ${d.nomeMese} e aggiorna il numero totale di corse dell'anno.`,
     );
-    if (d.kmMeseStatistiche !== d.kmMese) {
-      righe.push(
-        `   - ⚠️ I giri salvati di ${d.nomeMese} sommano ${d.kmMese} km: controlla la differenza.`,
-      );
-    }
   } else {
     righe.push(
       `   - Il file del ${d.anno} non esiste ancora: crealo dal gestionale ("Un nuovo ANNO di Statistiche").`,
@@ -179,8 +163,7 @@ const costruisciReadme = (testo, d) => {
   const nuovo = blocco(d);
   const i = testo.indexOf(INIZIO);
   const f = testo.indexOf(FINE);
-  if (i !== -1 && f > i)
-    return testo.slice(0, i) + nuovo + testo.slice(f + FINE.length);
+  if (i !== -1 && f > i) return testo.slice(0, i) + nuovo + testo.slice(f + FINE.length);
   const da = testo.indexOf("### Stagione");
   const a = testo.indexOf(TITOLO_SUCCESSIVO);
   if (da === -1 || a === -1 || a < da) {
@@ -201,10 +184,4 @@ const aggiornaReadme = ({ oggi = new Date(), soloControllo = false } = {}) => {
   return { cambiato: true, file };
 };
 
-module.exports = {
-  aggiornaReadme,
-  costruisciReadme,
-  raccogliDati,
-  sezione,
-  blocco,
-};
+module.exports = { aggiornaReadme, costruisciReadme, raccogliDati, sezione, blocco };
