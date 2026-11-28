@@ -13,6 +13,13 @@ const avvia = () => {
     process.exit(1);
   }
   api.spazzaCaricamenti();
+  if (!argomenti.includes("--prova")) {
+    try {
+      require("../base/readme-automatico").aggiornaReadme();
+    } catch (e) {
+      console.error(`Readme non aggiornato: ${e.message}`);
+    }
+  }
   try {
     gestione.sincronizzaBandiere();
   } catch (e) {

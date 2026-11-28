@@ -45,7 +45,7 @@ const PACCHETTI = {
   },
   "styles.css": {
     cartella: "stili",
-    file: ["interfaccia.css"],
+    file: ["interfaccia-parte1.css", "interfaccia-parte2.css"],
   },
 };
 

@@ -53,17 +53,23 @@ Se preferisci non usare il server, tutto si può fare modificando direttamente i
 
 ## 📂 Aggiornare i Dati JSON
 
+<!-- AUTO:DATI-JSON:INIZIO -->
+<!-- Sezione generata da scripts/aggiorna-readme.js: non modificarla a mano. -->
+
 ### Stagione
 
-1. **Aggiorna il file JSON per la stagione Autunno-Inverno 2026-2027**
+1. **Aggiorna il file JSON per la stagione Autunno - Inverno 2026-2027**
    - **Percorso:** [`json/Autunno_Inverno/Periodi/2026-2027.json`](json/Autunno_Inverno/Periodi/2026-2027.json)
    - Aggiungi i dettagli delle corse seguendo lo stesso schema delle altre corse.
+   - Novembre 2026: 4 giri salvati, 392 km.
 
 ### Statistiche
 
 1. **Aggiorna il file JSON per le statistiche per il 2026**
    - **Percorso:** [`json/Statistiche/anni/2026.json`](json/Statistiche/anni/2026.json)
    - Modifica i chilometri (km) di Novembre e aggiorna il numero totale di corse dell'anno.
+
+<!-- AUTO:DATI-JSON:FINE -->
 
 ## 🗓 Inizio di una Nuova Stagione
 
