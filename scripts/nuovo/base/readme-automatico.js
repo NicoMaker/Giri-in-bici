@@ -18,7 +18,8 @@ const FINE = "<!-- AUTO:DATI-JSON:FINE -->";
 // Primo titolo che segue la sezione: serve solo la prima volta, per mettere i segnaposto.
 const TITOLO_SUCCESSIVO = "## 🗓 Inizio di una Nuova Stagione";
 
-const leggi = (rel) => JSON.parse(fs.readFileSync(path.join(RADICE, rel), "utf8"));
+const leggi = (rel) =>
+  JSON.parse(fs.readFileSync(path.join(RADICE, rel), "utf8"));
 const leggiOppure = (rel, predefinito) => {
   try {
     return leggi(rel);
@@ -66,13 +67,16 @@ const periodoInCorso = (periodi, oggi) => {
   for (const p of periodi) {
     if (!fs.existsSync(path.join(RADICE, p.file))) continue;
     const mesePartenza = MESI.indexOf(STAGIONI[p.chiave].meseIniziale);
-    const inizio = annoInizio(p.periodo) * 12 + (mesePartenza < 0 ? 0 : mesePartenza);
+    const inizio =
+      annoInizio(p.periodo) * 12 + (mesePartenza < 0 ? 0 : mesePartenza);
     if (inizio > adesso) continue; // non è ancora iniziato
     if (!migliore || inizio > migliore.inizio) migliore = { ...p, inizio };
   }
   if (migliore) return migliore;
   // Nessun periodo già iniziato (sito vuoto o data strana): prendi l'ultimo che c'è.
-  const esistenti = periodi.filter((p) => fs.existsSync(path.join(RADICE, p.file)));
+  const esistenti = periodi.filter((p) =>
+    fs.existsSync(path.join(RADICE, p.file)),
+  );
   esistenti.sort((a, b) => annoInizio(a.periodo) - annoInizio(b.periodo));
   return esistenti[esistenti.length - 1] || null;
 };
@@ -86,7 +90,11 @@ const sommaDaiGiri = (periodi, anno, mese) => {
     if (!Array.isArray(lista)) continue;
     for (const g of lista) {
       const d = leggiDataSalvata(g.date);
-      if (d && d.mese === mese && annoDelGiro(p.chiave, p.periodo, d.mese) === anno) {
+      if (
+        d &&
+        d.mese === mese &&
+        annoDelGiro(p.chiave, p.periodo, d.mese) === anno
+      ) {
         km += Number(g.distance) || 0;
         giri++;
       }
@@ -105,7 +113,9 @@ const raccogliDati = (oggi = new Date()) => {
   const statistiche = leggiOppure(fileAnno, null);
   const dai = sommaDaiGiri(periodi, anno, mese);
   const kmStat =
-    statistiche && statistiche.data && Object.hasOwn(statistiche.data, MESI[mese])
+    statistiche &&
+    statistiche.data &&
+    Object.hasOwn(statistiche.data, MESI[mese])
       ? Number(statistiche.data[MESI[mese]])
       : null;
   return {
@@ -163,7 +173,8 @@ const costruisciReadme = (testo, d) => {
   const nuovo = blocco(d);
   const i = testo.indexOf(INIZIO);
   const f = testo.indexOf(FINE);
-  if (i !== -1 && f > i) return testo.slice(0, i) + nuovo + testo.slice(f + FINE.length);
+  if (i !== -1 && f > i)
+    return testo.slice(0, i) + nuovo + testo.slice(f + FINE.length);
   const da = testo.indexOf("### Stagione");
   const a = testo.indexOf(TITOLO_SUCCESSIVO);
   if (da === -1 || a === -1 || a < da) {
@@ -184,4 +195,10 @@ const aggiornaReadme = ({ oggi = new Date(), soloControllo = false } = {}) => {
   return { cambiato: true, file };
 };
 
-module.exports = { aggiornaReadme, costruisciReadme, raccogliDati, sezione, blocco };
+module.exports = {
+  aggiornaReadme,
+  costruisciReadme,
+  raccogliDati,
+  sezione,
+  blocco,
+};

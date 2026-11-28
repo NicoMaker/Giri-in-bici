@@ -13,7 +13,11 @@
  */
 "use strict";
 
-const { aggiornaReadme, raccogliDati, sezione } = require("./nuovo/base/readme-automatico");
+const {
+  aggiornaReadme,
+  raccogliDati,
+  sezione,
+} = require("./nuovo/base/readme-automatico");
 
 const argomenti = process.argv.slice(2);
 
@@ -24,10 +28,18 @@ try {
     const soloControllo = argomenti.includes("--controlla");
     const { cambiato } = aggiornaReadme({ soloControllo });
     if (soloControllo) {
-      console.log(cambiato ? "❌ Il readme è da aggiornare." : "✅ Il readme è già aggiornato.");
+      console.log(
+        cambiato
+          ? "❌ Il readme è da aggiornare."
+          : "✅ Il readme è già aggiornato.",
+      );
       process.exit(cambiato ? 1 : 0);
     }
-    console.log(cambiato ? "✅ readme.md aggiornato." : "✅ readme.md era già aggiornato.");
+    console.log(
+      cambiato
+        ? "✅ readme.md aggiornato."
+        : "✅ readme.md era già aggiornato.",
+    );
   }
 } catch (e) {
   console.error(`❌ ${e.message}`);
